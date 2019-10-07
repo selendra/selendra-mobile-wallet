@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>141259811523-p9s0e5pjafep6mpi1ih0o06ctjv9feqa.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.141259811523-p9s0e5pjafep6mpi1ih0o06ctjv9feqa</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>29358234009-rhsier944asqtq8m4k7kc5dl91sfadlh.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDKOPjKRNtRGpZo71JnSwudB0v9sFEoURw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>29358234009</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.god.googleSignUp</string>
+	<key>PROJECT_ID</key>
+	<string>signup-a2bb8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>signup-a2bb8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:29358234009:ios:a98278f5d2742cdd</string>
+	<key>DATABASE_URL</key>
+	<string>https://signup-a2bb8.firebaseio.com</string>
+</dict>
+</plist>
