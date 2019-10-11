@@ -49,12 +49,13 @@ class LoginState extends State<LoginWidget> {
 
   /* Check For Previous Login */
   checkLoginBefore() async {
-    /* Loading */
-    await Future.delayed(Duration(seconds: 2), () {
-      dialogLoading(context);
-    });
     var response = await fetchData('userToken');
     if (response != null){
+      /* Loading */
+      await Future.delayed(Duration(seconds: 2), () {
+        dialogLoading(context);
+      });
+      /* Pop Loading */
       await Future.delayed(Duration(milliseconds: 800), () {
         Navigator.pop(context);
       });
