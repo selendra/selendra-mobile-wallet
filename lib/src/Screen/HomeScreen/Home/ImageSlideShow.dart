@@ -10,7 +10,7 @@ Widget slideShow(){
     "https://zeetomic-doc.s3-ap-southeast-1.amazonaws.com/promo/003.jpg"
   ];
   return CarouselSlider(
-    // autoPlay: true,
+    autoPlay: true,
     enlargeCenterPage: true,
     items: imageList.map((i) {
       return Container(

@@ -1,6 +1,6 @@
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Profile/DialogPrivateKey/DialogPrivateKeyBody.dart';
 import 'package:flutter/material.dart';
-import 'package:clipboard_manager/clipboard_manager.dart';
+import 'package:flutter/services.dart';
 
 class DialogPrivateKeyWidget extends StatefulWidget{
 
@@ -31,7 +31,7 @@ class DialogPrivateKeyState extends State<DialogPrivateKeyWidget>{
   userCopyKey() {
     setState(() {
       isCopy = true;
-      ClipboardManager.copyToClipBoard(widget._privateKey);
+      Clipboard.setData(ClipboardData(text: widget._privateKey));
     });
   }
 

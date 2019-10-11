@@ -1,9 +1,6 @@
 /* Flutter package */
-import 'package:Wallet_Apps/src/Graphql_Service/Query_Document.dart';
-import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
 import 'package:Wallet_Apps/src/Provider/Reuse_Widget.dart';
 import 'package:Wallet_Apps/src/Screen/MainScreen/Login/LoginBodyWidget.dart';
-import 'package:Wallet_Apps/src/Services/Remove_All_Data.dart';
 import 'package:Wallet_Apps/src/Store_Small_Data/Data_Storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -27,8 +24,6 @@ class LoginState extends State<LoginWidget> {
   final String directory = "userID";
 
   bool isProgress = false, isLogedin = false;
-
-  final _formkey = GlobalKey<FormState>();
 
   String token;
 
@@ -54,19 +49,17 @@ class LoginState extends State<LoginWidget> {
 
   /* Check For Previous Login */
   checkLoginBefore() async {
+    /* Loading */
+    await Future.delayed(Duration(seconds: 2), () {
+      dialogLoading(context);
+    });
     var response = await fetchData('userToken');
     if (response != null){
-      await clearStorage();
-      // widget.setMyState();
-      // await Future.delayed(Duration(seconds: 1), () {
-      //   setState(() {isProgress = true;});
-      // });
-      // await Future.delayed(Duration(seconds: 1), () {
-      //   setState(() {
-      //     isProgress = false;
-      //   });
-      // });
-      // Navigator.pushReplacementNamed(context, '/homeScreen');
+      await Future.delayed(Duration(milliseconds: 800), () {
+        Navigator.pop(context);
+      });
+      widget.setMyState();
+      Navigator.pushReplacementNamed(context, '/homeScreen');
     }
   }
 
@@ -78,7 +71,6 @@ class LoginState extends State<LoginWidget> {
   /* Clear Text In Field */
   void clearAllInput() async {
     controlEmails.clear(); controlPasswords.clear();
-    await clearStorage();
   }
 
   /* Check Internet Before Validate And FInish Validate It */
@@ -100,25 +92,26 @@ class LoginState extends State<LoginWidget> {
 
   /* Validator User Login After Check Internet */
   void validatorLogin(Bloc bloc, BuildContext context, Function clearAllInput, Function disableLoginButton) async{
-    setState(() { isProgress = true; });
+    /* Show Loading */
+    dialogLoading(context);
+    /* Response Result */
     final submitResponse = await bloc.submitMethod(context).then((data) async {
       if (data == true) {
-        setState(() { isProgress = false; });
         /* ReSet Bearer Token In Main Widget */
         widget.setMyState();
         /* Wait And Push Replace To HomePage */
         await Future.delayed(Duration(milliseconds: 300), () async {
           Navigator.pushReplacementNamed(context, '/homeScreen');
         });
-      } else if (data == false) {
-        setState(() { isProgress = false; });
       }
       return data;
     }).catchError((onError){
+      Navigator.pop(context);
       setState(() => isProgress = false );
       return false;
     });
     if (submitResponse == false) {
+      Navigator.pop(context);
       clearAllInput(); 
       disableLoginButton(bloc);
     }
@@ -130,8 +123,6 @@ class LoginState extends State<LoginWidget> {
         children: <Widget>[
           /* Body Widget */
           bodyWidget(bloc, context, controlEmails, controlPasswords, firstNode, secondNode, clearAllInput, disableLoginButton, validatorLogin),
-          /* Loading Process */
-          isProgress == true ? loading() : Container(),
         ],
       )
     );

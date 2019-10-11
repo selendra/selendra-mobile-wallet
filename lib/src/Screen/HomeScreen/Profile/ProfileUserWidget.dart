@@ -2,9 +2,7 @@
 import 'package:Wallet_Apps/src/Graphql_Service/Query_Document.dart';
 import 'package:Wallet_Apps/src/Graphql_Service/ReQueryGraphQL.dart';
 import 'package:Wallet_Apps/src/Model/Model_Profile.dart';
-import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
 import 'package:Wallet_Apps/src/Provider/Provider_General.dart';
-import 'package:Wallet_Apps/src/Provider/Reuse_Widget.dart' as prefix0;
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Profile/DialogPrivateKey/DialogPrivateKeyWidget.dart';
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Profile/SetPinCode/SetConfirmPin.dart';
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Profile/SetPinCode/SetPin.dart';
@@ -128,10 +126,10 @@ class ProfileUserState extends State<ProfileUserWidget> {
   }
   /* Log Out Method */
   void logOut() async {
-    setState(() => isProgress = true );
+    /* Loading */
+    dialogLoading(context);
     Future.delayed(Duration(seconds: 2), () {
       clearStorage();
-      setState(() => isProgress = false );
       Navigator.pushReplacementNamed(context, '/');
     });
   }
@@ -149,12 +147,7 @@ class ProfileUserState extends State<ProfileUserWidget> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: appbarWidget(openMyDrawer, titleAppBar('Profiles'), snackBar),
-      drawer: Stack(
-        children: <Widget>[
-          drawerOnly(context, logOut),
-          isProgress == false ? Container() : loading()
-        ],
-      ),
+      drawer: drawerOnly(context, logOut),
       body: reQueryUserData == false 
       ? Stack(
         children: <Widget>[
@@ -175,11 +168,15 @@ class ProfileUserState extends State<ProfileUserWidget> {
         ],
       )
       /* ReQuery User Data With Graphql After Set PIN And Get Wallet */
-      :reQuery(
-        bodyWidget(context, userData, snackBar, dialogBox, isHaveWallet),
-        queryUser(userIds),
-        "Profile",
-        fetchUserData
+      : Stack(
+        children: <Widget>[
+          reQuery(
+            isFetch == false ? loading() : bodyWidget(context, userData, snackBar, dialogBox, isHaveWallet),
+            queryUser(userIds),
+            "Profile",
+            fetchUserData
+          )
+        ],
       ), 
     );
   }

@@ -1,6 +1,5 @@
 /* Flutter Package */
 import 'dart:io';
-import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -60,9 +59,9 @@ class AddProfileState extends State<AddProfileWidget>{
 
   /* Log Out Method */
   void logOut() {
-    setState(() => isProgress = true );
+    /* Loading */
+    dialogLoading(context);
     Future.delayed(Duration(seconds: 2), () {
-      setState(() => isProgress = false );
       Timer(Duration(milliseconds: 500), () => Navigator.pushReplacementNamed(context, '/'));
     });
   }
@@ -172,9 +171,8 @@ class AddProfileState extends State<AddProfileWidget>{
   }
 
   void clickNext(RunMutation runMutation) async {
-    setState(() {
-      isProgress = true;
-    });
+    /* Loading */
+    dialogLoading(context);
     runMutation({
       'emails': fetchEmail['email'],
       'first_names': model.firstName,
@@ -198,12 +196,7 @@ class AddProfileState extends State<AddProfileWidget>{
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,  
-      drawer: Stack(
-        children: <Widget>[
-          drawerOnly(context, logOut),
-          isProgress == false ? Container() : loading()
-        ],
-      ),
+      drawer: drawerOnly(context, logOut),
       appBar: appbarWidget(openDrawer, titleAppBar('Add User Info'), snackBar),
       body: Mutation(
         options: MutationOptions(document: addUser),
@@ -212,18 +205,16 @@ class AddProfileState extends State<AddProfileWidget>{
             children: <Widget>[
               /* Body verify user 1 */
               bodyWidget(runMutation, dropDownList, fetchEmail, model, file, triggerImage, isImage, isUploading, resetGender, validatorProfileUser, resetImage, textChanged, clickNext),
-              /* check if user fill all information and then progress work*/
-              isProgress == false ? Container() : loading()
             ],
           );
         },
         update: (Cache cache, QueryResult result) async {
-          await Future.delayed(Duration(milliseconds: 200), () => Navigator.pushNamed(context, '/addDocument') );
+          /* Pop Loading */
+          await Future.delayed(Duration(milliseconds: 800), () => Navigator.pop(context));
+          /* Push Add Document */ 
+          Navigator.pushNamed(context, '/addDocument');
         },
         onCompleted: (dynamic resultData){
-          setState(() {
-            isProgress = false;
-          });
         },
       )
     );

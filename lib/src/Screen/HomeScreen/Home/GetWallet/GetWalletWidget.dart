@@ -1,10 +1,8 @@
-import 'package:Wallet_Apps/src/Graphql_Service/Query_Document.dart';
 import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
-import 'package:Wallet_Apps/src/Provider/Provider_General.dart';
 import 'package:Wallet_Apps/src/Provider/Reuse_Widget.dart';
 import 'package:Wallet_Apps/src/Store_Small_Data/Data_Storage.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter/services.dart';
 
 class GetWalletWidget extends StatefulWidget{
   @override
@@ -16,6 +14,7 @@ class GetWalletWidget extends StatefulWidget{
 class GetWalletState extends State<GetWalletWidget>{
 
   double margin80 = 80.0;
+  final _globalKey = GlobalKey<ScaffoldState>();
 
   Map<String, dynamic> userData;
 
@@ -37,9 +36,18 @@ class GetWalletState extends State<GetWalletWidget>{
   void popScreen() {
     Navigator.pop(context);
   }
+
+  /* Trigger Snack Bar Function */
+  snackBar(String contents) {
+    final snackbar = SnackBar(
+      content: Text(contents),
+    );
+    _globalKey.currentState.showSnackBar(snackbar);
+  }
   
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _globalKey,
       body: Stack(
         children: <Widget>[
           Column(
@@ -50,13 +58,13 @@ class GetWalletState extends State<GetWalletWidget>{
                 child: appBar('Get wallet', popScreen, Colors.white),
               ),
               userData == null ? Expanded(child: loading(),)
-              : userData['wallet'] == null ? Expanded(child: textNotification("You do not have a wallet!Please verify your account to get wallet.!", context),)
+              : userData['wallet'] == null ? Expanded(child: textNotification("You do not have a wallet! Please verify your account to get wallet.!", context),)
               : Container(
                   padding: EdgeInsets.only(top: margin80),
                   margin: EdgeInsets.only(top: 72.0, left: margin4, right: margin4, bottom: margin4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(defaultBorderRadius),
-                    border: Border.all(width: defaultBorderWidth, color: Color(convertHexaColor(lightBlueSky))),
+                    border: Border.all(width: defaultBorderWidth, color: Color(convertHexaColor(borderColor))),
                     color: Color(convertHexaColor(highThenBackgroundColor)),
                   ),
                   child: Column(
@@ -76,7 +84,13 @@ class GetWalletState extends State<GetWalletWidget>{
                               margin: EdgeInsets.only(bottom: 10.0),
                               child: Text("Wallet", style: TextStyle(color: Colors.white, fontSize: 20.0),),
                             ),
-                            Text(userData['wallet'], style: TextStyle(color: Color(convertHexaColor(lightBlueSky))),)
+                            InkWell(
+                              child: Text(userData['wallet'], style: TextStyle(color: Color(convertHexaColor(lightBlueSky))),),
+                              onTap: () {
+                                Clipboard.setData(ClipboardData(text: userData['wallet']));
+                                snackBar('Copied');
+                              },
+                            )
                           ],
                         ),
                       )

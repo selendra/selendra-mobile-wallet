@@ -51,16 +51,16 @@ class SignUpState extends State<SignUpWidget> {
 
   /* Button Verify User Sign Up */
   validator(Bloc bloc) {
+    /* Loading */
+    dialogLoading(context);
     bloc.registerUser(context)
     .then((onValue){
       if (onValue == false) {
-        setState(() => isProgress = false );
       } else if (onValue == true){
         Navigator.pushReplacementNamed(context, '/');
       }
     })
     .catchError((onError){
-      setState(() => isProgress = false );
     });
   }
   
@@ -77,7 +77,6 @@ class SignUpState extends State<SignUpWidget> {
       body: Stack(
         children: <Widget>[
           bodyWidget(context, bloc, popScreen, submitValidator, emailNode, passwordNode, emailEditor, passwordEditor),
-          isProgress == true ? loading() : Container()
         ],
       ),
     );

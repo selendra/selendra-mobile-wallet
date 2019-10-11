@@ -57,6 +57,7 @@ class AppState extends State<App>{
             initialRoute: '/',
             title: 'Zeetomic',
             theme: ThemeData(
+              canvasColor: Color(convertHexaColor(highThenBackgroundColor)),
               scaffoldBackgroundColor: Color(convertHexaColor(backgroundColor)),
               cardColor: Color(convertHexaColor(highThenBackgroundColor)),
               // ("#302f34")),

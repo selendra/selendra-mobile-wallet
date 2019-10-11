@@ -2,7 +2,6 @@
 import 'package:Wallet_Apps/src/Bloc/Bloc.dart';
 import 'package:Wallet_Apps/src/Graphql_Service/Query_Document.dart';
 import 'package:Wallet_Apps/src/Graphql_Service/ReQueryGraphQL.dart';
-import 'package:Wallet_Apps/src/Provider/Reuse_Widget.dart' as prefix0;
 import 'package:Wallet_Apps/src/Rest_Api/Rest_Api.dart';
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Home/ScanPay/ScanPayWidget.dart';
 import 'package:Wallet_Apps/src/Services/Remove_All_Data.dart';
@@ -89,10 +88,10 @@ class HomeWidgetState extends State<HomeWidget> {
 
   /* Log Out Method */
   void logOut() async{
-    setState(() => isProgress = true );
+    /* Loading */
+    dialogLoading(context);
     await clearStorage();
     await Future.delayed(Duration(seconds: 1), () {
-      setState(() => isProgress = false);
       Navigator.pushReplacementNamed(context, '/');
     });
   }
@@ -154,7 +153,7 @@ class HomeWidgetState extends State<HomeWidget> {
     });
     return null;
   }
-
+  
   @override
   /* Widget builder */
   Widget build(BuildContext context) {
@@ -162,32 +161,24 @@ class HomeWidgetState extends State<HomeWidget> {
     return Scaffold(
       key: _scaffoldKey, 
       appBar: appbarWidget(openDrawer, zeetomicLogoTitle(), snackBar),
-      drawer: Stack(
-        children: <Widget>[
-          drawerOnly(context, logOut),
-          isProgress == false ? Container() : loading()
-        ],
-      ),
-      body: Container(
-        child: Center(
-          child: RefreshIndicator(
-            child: Stack(
-              children: <Widget>[
-                userData == null ? loading() 
-                : userData['queryUserById'] == null 
-                ? reQuery(bodyWidget(bloc, _chartKey, portfolioData), queryUser(userId), "Home", null) : bodyWidget(bloc, _chartKey, portfolioData),
-              ],
-            ),
-            onRefresh: _pullUpRefresh,
-          ),
+      drawer: drawerOnly(context, logOut),
+      body: RefreshIndicator(
+        color: Color(convertHexaColor(lightBlueSky)),
+        backgroundColor: Colors.white,
+        child: Stack(
+          children: <Widget>[
+            userData == null ? loading() 
+            : userData['queryUserById'] == null 
+            ? reQuery(bodyWidget(bloc, _chartKey, portfolioData), queryUser(userId), "Home", null) : bodyWidget(bloc, _chartKey, portfolioData),
+          ],
         ),
+        onRefresh: _pullUpRefresh,
       ),
       /* Bottom Navigation Bar */
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 10.0,
         onTap: (index) async {
-          if ( index == 0) 
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => ScanPayWidget('Hello')));
-          scan();
+          if ( index == 0) scan();
           else if ( index == 1) {
             Navigator.pushReplacementNamed(context, '/profileScreen');
           }
@@ -196,8 +187,6 @@ class HomeWidgetState extends State<HomeWidget> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white,
         currentIndex: _currentIndex,
-        elevation: 10.0,
-        backgroundColor: Color(convertHexaColor("#181E2E")),
         items: [
           BottomNavigationBarItem(
             icon: Icon(OMIcons.send),

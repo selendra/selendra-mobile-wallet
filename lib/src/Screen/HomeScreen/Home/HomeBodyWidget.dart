@@ -1,7 +1,6 @@
 /* Flutter Package */
 import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Home/ImageSlideShow.dart';
-import 'package:Wallet_Apps/src/Screen/HomeScreen/Home/SyncFusionChart/SyncFusionChart.dart';
 import 'package:flutter/material.dart';
 /* File Path */
 import 'package:Wallet_Apps/src/Provider/Reuse_Widget.dart';
@@ -380,7 +379,6 @@ Widget cardRealTimeChart() {
         border: Border.all(width: defaultBorderWidth, color: Color(convertHexaColor(borderColor))),
         borderRadius: BorderRadius.circular(defaultBorderRadius)
       ),
-      // decoration: borderAndBorderRadius(),
       child: Padding(
         padding: EdgeInsets.only(top: 25.0, bottom: 25.0, left: margin4, right: margin4),
         child: Column(
@@ -391,9 +389,6 @@ Widget cardRealTimeChart() {
             //   child: Text('ZEE Chart', style: TextStyle(foreground: Paint()..shader = linearGradient, fontSize: 25.0)),
             // ),
             slideShow()
-            // Expanded(
-            //   child: syncFusionChart(),
-            // )
           ],
         ),
       ),

@@ -128,9 +128,9 @@ Widget emailField(Bloc bloc, TextEditingController controlPasswords, FocusNode f
           /* Border side */
           border: errorOutline(),
           focusedErrorBorder: errorOutline(),
-          enabledBorder: outlineInput(Color(convertHexaColor(borderColor))),
           hintStyle: TextStyle(wordSpacing: 50.0),
-          focusedBorder: outlineInput(Color(convertHexaColor(borderColor))),
+          enabledBorder: outlineInput(Color(convertHexaColor(borderColor))),
+          focusedBorder: outlineInput(Color(convertHexaColor(lightBlueSky))),
         ),
         onSubmitted: (value) {
           firstNode.unfocus();
@@ -163,7 +163,7 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
           /* Border side */
           border: errorOutline(),
           enabledBorder: outlineInput(Color(convertHexaColor(borderColor))),
-          focusedBorder: outlineInput(Color(convertHexaColor(borderColor))),
+          focusedBorder: outlineInput(Color(convertHexaColor(lightBlueSky))),
           focusedErrorBorder: errorOutline(),
         ),
         onSubmitted: (value) {

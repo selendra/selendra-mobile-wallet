@@ -1,11 +1,11 @@
 import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
-import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:Wallet_Apps/src/Provider/Reuse_Widget.dart';
 /* QR Code Generate */
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 Widget bodyWidget(
   BuildContext context,
@@ -26,7 +26,7 @@ Widget bodyWidget(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
                 color: Color(convertHexaColor(highThenBackgroundColor)),
-                border: Border.all(width: defaultBorderWidth, color: Color(convertHexaColor(lightBlueSky))),
+                border: Border.all(width: defaultBorderWidth, color: Color(convertHexaColor(borderColor))),
               ),
               alignment: Alignment.bottomCenter,
               padding: EdgeInsets.only(top: 150.0),
@@ -52,7 +52,7 @@ Widget bodyWidget(
                         InkWell(
                           child: Text(userData['wallet'], style: TextStyle(color: Color(convertHexaColor(lightBlueSky))),),
                           onTap: () {
-                            ClipboardManager.copyToClipBoard(userData['wallet']);
+                            Clipboard.setData(ClipboardData(text: userData['wallet']));
                             snackBar('Copied');
                           },
                         )

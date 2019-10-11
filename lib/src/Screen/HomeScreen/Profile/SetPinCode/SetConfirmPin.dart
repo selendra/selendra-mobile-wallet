@@ -51,14 +51,14 @@ class SetConfirmPinState extends State<SetConfirmPinWidget> {
                   RaisedButton(
                     child: Text("Confirm"),
                     onPressed: () {
-                      setState(() {
-                        isProgress = true;
-                      });
+                      /* Loading */
+                      dialogLoading(context);
                       if (_confirmPin == widget._pin){
                         runMutation({
                           "pins": _confirmPin
                         });
                       } else if (_confirmPin != widget._pin){
+                        Navigator.pop(context);
                         popData = {
                           "widget": "confirmPin",
                           "compare": false
@@ -70,21 +70,23 @@ class SetConfirmPinState extends State<SetConfirmPinWidget> {
                 ],
               ),
             ),
-            isProgress == true ? AlertDialog(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  loading()
-                ],
-              )
-            ) : Container()
+
+            // isProgress == true ? AlertDialog(
+            //   elevation: 0,
+            //   backgroundColor: Colors.transparent,
+            //   content: Column(
+            //     mainAxisSize: MainAxisSize.min,
+            //     children: <Widget>[
+            //       loading()
+            //     ],
+            //   )
+            // ) : Container()
           ]
         );
       },
       update: (Cache cache, QueryResult result){
         if (result.data != null){
+          Navigator.pop(context);
           popData = {
             "widget": "confirmPin",
             "compare": true,

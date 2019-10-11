@@ -1,5 +1,4 @@
 /* Flutter Package */
-import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Setting/SettingBodyWidget.dart';
 import 'package:Wallet_Apps/src/Services/Remove_All_Data.dart';
 import 'package:Wallet_Apps/src/Store_Small_Data/Data_Storage.dart';
@@ -45,8 +44,9 @@ class SettingState extends State<SettingWidget>{
   void openDrawer() => _scaffoldKey.currentState.openDrawer();
 
   /* Log Out Function */
-  void signOut() async{
-    setState(() => isProgress = true );
+  void logOut() async{
+    /* Loading */
+    dialogLoading(context);
     await Future.delayed(Duration(seconds: 2), () {
       clearStorage();
       Navigator.pushReplacementNamed(context, '/');
@@ -65,12 +65,7 @@ class SettingState extends State<SettingWidget>{
     return Scaffold(
       key: _scaffoldKey,
       appBar: appbarWidget(openDrawer, titleAppBar('Settings'), snackBar),
-      drawer: Stack(
-        children: <Widget>[
-          drawerOnly(context, signOut),
-          isProgress == false ? Container() : loading()
-        ],
-      ),
+      drawer: drawerOnly(context, logOut),
       body: Stack(
         children: <Widget>[
           userData == null ? loading() : bodyWidget(context, userData, fullNameControl, emailControl, passwordControl)

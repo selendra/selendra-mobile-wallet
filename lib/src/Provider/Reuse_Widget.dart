@@ -62,7 +62,7 @@ TextField userTextField(TextEditingController inputEditor, FocusNode node, Funct
       labelStyle: TextStyle(color: Colors.white),
       /* Border side */
       border: errorOutline(),
-      enabledBorder: outlineInput(Color(convertHexaColor(lightBlueSky))),
+      enabledBorder: outlineInput(Color(convertHexaColor(borderColor))),
       focusedBorder: outlineInput(Color(convertHexaColor(lightBlueSky))),
       /* Error Handler */
       focusedErrorBorder: errorOutline(),
@@ -123,7 +123,6 @@ Widget lightBlueButton(AsyncSnapshot snapshot, Function method, String textButto
       onPressed: snapshot.data == null ? null : () {
         method(runMutation);
       }
-      // }
     ),
   );
 }
@@ -227,6 +226,32 @@ Widget loading() {
   );
 }
 
+/* Progress */
+Widget progress() {
+  return Material(
+    color: Colors.transparent,
+    child: Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        CircularProgressIndicator(
+          backgroundColor: Color(convertHexaColor(lightBlueSky)),
+          valueColor: AlwaysStoppedAnimation(Colors.white)
+        )
+      ],
+    ),
+  );
+}
+
+void dialogLoading(BuildContext context) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) {
+      return progress();
+    }
+  );
+}
+
 /* -----------------------------------App Bar--------------------------------------------------- */
 
 /* Appbar with menu and notification */
@@ -260,14 +285,14 @@ Widget appbarWidget(Function openMyDrawer, Widget title, Function snackBar) {
 
 /* Title App Bar */
 Widget titleAppBar(String title) {
-  return Text(title);
+  return Text(title, style: TextStyle(fontWeight: FontWeight.bold),);
 }
 
 /* Trasparent AppBar have only back arrow button */
 Widget appBar(String title, Function pop, Color color) {
   return AppBar(
     centerTitle: true,
-    title: Text(title, style: TextStyle(color: color),),
+    title: Text(title, style: TextStyle(color: color, fontWeight: FontWeight.bold),),
     backgroundColor: Colors.transparent,
     elevation: 0.0,
     iconTheme: IconThemeData(color: color),
@@ -321,7 +346,7 @@ Widget qrCodeGenerate(String _walletCode) {
         margin: EdgeInsets.only(bottom: 10.0),
         child: RepaintBoundary(
           child: new QrImage(
-          foregroundColor: Colors.white,
+          foregroundColor: Color(convertHexaColor("#5f707b")),
           embeddedImage: AssetImage('assets/zee_for_qr.png'),
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(50, 50),
@@ -391,7 +416,7 @@ Widget datePickerNDisplay(BuildContext context, String issueDate, String labelNa
             decoration: BoxDecoration(
               color: black38,
               border: Border.fromBorderSide(
-                BorderSide(color: Color(convertHexaColor(lightBlueSky)))
+                BorderSide(color: Color(convertHexaColor(borderColor)))
               ),
               borderRadius: BorderRadius.circular(defaultBorderRadius)
             ),

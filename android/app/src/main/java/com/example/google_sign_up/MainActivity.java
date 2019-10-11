@@ -1,4 +1,4 @@
-package com.example.google_sign_up;
+package com.example.zeetomic;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

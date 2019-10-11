@@ -138,9 +138,8 @@ class AddDocumentState extends State<AddDocumentWidget> {
   }
 
   void clickSubmit(RunMutation runMutation) async {
-    setState(() {
-      isProgress = true;
-    });
+    /* Loading */
+    dialogLoading(context);
     runMutation({
       'emails': fetchEmail['email'] != null ? fetchEmail['email'] : '',
       'document_noes': modelDocument.documentNo,
@@ -172,19 +171,17 @@ class AddDocumentState extends State<AddDocumentWidget> {
               return Stack(
                 children: <Widget>[
                   bodyWidget(context, fetchEmail, runMutation, queryData, modelDocument, setDocumentName, isPassportImage, defaultPassportImage , isSelfieImage , defaultSelfieImage, filePassport, fileSelfie, issueDate, expiredDate, triggerImage, validatorUser, pushReplace, popScreen, resetImage, resetDate, clickSubmit, textChanged),
-                  isProgress == false ? Container() : loading()
                 ],
               );
             },
             update: (Cache cache, QueryResult result) async {
-              setState(() {
-                isProgress = false;
-              });
+              /* Pop Loading */
+              await Future.delayed(Duration(milliseconds: 800), () => Navigator.pop(context));
+              /* Push Profile Screen */
               if (result.data['addDocuments']['id'] != null) {
                 await dialog(context, Text("You have successfully add document !"), Icon(Icons.done_outline));
                 Navigator.pushNamed(context, '/profileScreen');
               }
-              print(result.data);
             },
             onCompleted: (dynamic resultData) {
             },

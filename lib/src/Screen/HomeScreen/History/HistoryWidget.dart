@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:Wallet_Apps/src/Provider/Hexa_Color_Convert.dart';
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Drawer.dart';
 import 'package:Wallet_Apps/src/Screen/HomeScreen/History/HistoryBodyWidget.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +47,10 @@ class HistoryState extends State<HistroyWidget>{
 
   /* Log Out Method */
   void logOut() {
-    setState(() => isLogout = true );
+    /* Loading */
+    dialogLoading(context);
     Timer(Duration(seconds: 1), () {
       clearStorage();
-      setState(() => isLogout = false);
       Navigator.pushReplacementNamed(context, '/');
     });
   }
@@ -67,12 +66,7 @@ class HistoryState extends State<HistroyWidget>{
     final _height = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _globalKey,
-      drawer: Stack(
-        children: <Widget>[
-          drawerOnly(context, logOut),
-          isLogout == false ? Container() : loading()
-        ],
-      ),
+      drawer: drawerOnly(context, logOut),
       appBar: appbarWidget(openDrawer, titleAppBar("History"), openSnackBar),
       body: Stack(
         children: <Widget>[

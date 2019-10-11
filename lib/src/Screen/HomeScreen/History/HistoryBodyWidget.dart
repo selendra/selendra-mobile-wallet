@@ -52,7 +52,7 @@ Widget bodyWidget(
                         builder: (BuildContext context){
                           return AlertDialog(
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(width: defaultBorderWidth, color: Color(convertHexaColor(lightBlueSky))),
+                              side: BorderSide(width: defaultBorderWidth, color: Color(convertHexaColor(borderColor))),
                               borderRadius: BorderRadius.circular(defaultBorderRadius)
                             ),
                             title: Align(

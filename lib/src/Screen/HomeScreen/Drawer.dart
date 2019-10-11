@@ -92,7 +92,7 @@ Widget drawerOnly(BuildContext context, Function method) {
                             Container(
                               margin: EdgeInsets.only(right: 10.0),
                             ),
-                            Text('Profile', style: TextStyle(color: whiteColor, fontSize: fontSize))
+                            Text('Profile', style: TextStyle(color:  whiteColor, fontSize: fontSize))
                           ],
                         ),
                         onTap: () {
@@ -120,7 +120,7 @@ Widget drawerOnly(BuildContext context, Function method) {
                         Container(
                           margin: EdgeInsets.only(right: 10.0),
                         ),
-                        Text('History', style: TextStyle(color: whiteColor, fontSize: fontSize))
+                        Text('History', style: TextStyle(color:  whiteColor, fontSize: fontSize))
                       ],
                     ),
                     onTap: () {
@@ -137,7 +137,7 @@ Widget drawerOnly(BuildContext context, Function method) {
                         Container(
                           margin: EdgeInsets.only(right: 10.0),
                         ),
-                        Text('Setting', style: TextStyle(color: whiteColor, fontSize: fontSize))
+                        Text('Setting', style: TextStyle(color:  whiteColor, fontSize: fontSize))
                       ],
                     ),
                     onTap: () {
@@ -153,7 +153,7 @@ Widget drawerOnly(BuildContext context, Function method) {
                         Container(
                           margin: EdgeInsets.only(right: 10.0),
                         ),
-                        Text('Log out', style: TextStyle(color: whiteColor, fontSize: fontSize))
+                        Text('Log out', style: TextStyle(color:  whiteColor, fontSize: fontSize))
                       ],
                     ),
                     onTap: method
