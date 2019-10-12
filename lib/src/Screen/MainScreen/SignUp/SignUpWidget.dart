@@ -34,18 +34,15 @@ class SignUpState extends State<SignUpWidget> {
 
   /* Validate User Inpput */
   submitValidator(Bloc bloc) async {
-    setState(() {isProgress = true;} );
-    await Future.delayed(Duration(seconds: 1), (){
-      checkConnection(context).then((isConnect) async {
-        if ( isConnect == true ){
-          validator(bloc);
-        } else {
-          setState(() {
-            isProgress = false; 
-            noInternet(context);
-          });
-        }
-      });
+    checkConnection(context).then((isConnect) async {
+      if ( isConnect == true ){
+        validator(bloc);
+      } else {
+        setState(() {
+          isProgress = false; 
+          noInternet(context);
+        });
+      }
     });
   }
 

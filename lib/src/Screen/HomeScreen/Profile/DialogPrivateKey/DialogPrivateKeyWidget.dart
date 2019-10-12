@@ -1,6 +1,7 @@
 import 'package:Wallet_Apps/src/Screen/HomeScreen/Profile/DialogPrivateKey/DialogPrivateKeyBody.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:Wallet_Apps/src/Provider/Reuse_Widget.dart';
 
 class DialogPrivateKeyWidget extends StatefulWidget{
 
@@ -38,7 +39,7 @@ class DialogPrivateKeyState extends State<DialogPrivateKeyWidget>{
   Widget build(BuildContext context){
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-      title: Align(alignment: Alignment.center, child: Text("Private Key")),
+      title: Align(alignment: Alignment.center, child: titleAppBar("Private Key")),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[

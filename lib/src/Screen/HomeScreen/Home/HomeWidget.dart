@@ -146,11 +146,13 @@ class HomeWidgetState extends State<HomeWidget> {
     _scaffoldKey.currentState.showSnackBar(snackbar);
   }
   Future<Null> _pullUpRefresh() async {
-    await Future.delayed(const Duration(seconds: 1), (){
-      setState(() { 
-        userData['queryUserById'] = null;
-      });
-    });
+    fetchPortfolio();
+    setState(() { });
+    // await Future.delayed(const Duration(seconds: 1), (){
+    //   setState(() {
+    //     userData['queryUserById'] = null;
+    //   });
+    // });
     return null;
   }
   

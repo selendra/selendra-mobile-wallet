@@ -341,6 +341,10 @@ Widget qrCodeGenerate(String _walletCode) {
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          color: Colors.white,
+        ),
         width: 200.0,
         height: 200.0,
         margin: EdgeInsets.only(bottom: 10.0),

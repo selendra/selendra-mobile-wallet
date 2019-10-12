@@ -98,6 +98,7 @@ class LoginState extends State<LoginWidget> {
     /* Response Result */
     final submitResponse = await bloc.submitMethod(context).then((data) async {
       if (data == true) {
+        Navigator.pop(context);
         /* ReSet Bearer Token In Main Widget */
         widget.setMyState();
         /* Wait And Push Replace To HomePage */
