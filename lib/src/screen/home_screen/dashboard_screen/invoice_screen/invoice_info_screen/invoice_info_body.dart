@@ -2,7 +2,6 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:slider_button/slider_button.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 
 Widget receiptBodyWidget(

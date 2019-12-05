@@ -4,19 +4,16 @@ import 'package:wallet_apps/src/screen/forgot_password_screen/forgot_password.da
 import 'package:wallet_apps/src/screen/home_screen/add_document_screen/add_document.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_profile_screen/add_profile.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
-import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/phone_field_screen/phone_field.dart';
-import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sign_up.dart';
-import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 
 void main () {
@@ -40,7 +37,7 @@ class AppState extends State<App>{
     super.initState();
   }
 
-  _firstTreeState() async { /* ReSet Bearer Token In Main Widget */
+  firstTreeState() async { /* ReSet Bearer Token In Main Widget */
     token = await Provider.fetchToken();
     setState(() {}); 
   }
@@ -82,7 +79,7 @@ class AppState extends State<App>{
             routes: <String, WidgetBuilder>{
               /* Login Screen */
               '/': (context) => 
-              // WelcomeToZee(_firstTreeState),
+              // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
               // PhoneScreen(setMyState),

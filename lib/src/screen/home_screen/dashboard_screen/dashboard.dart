@@ -6,16 +6,12 @@ import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
-import 'package:http/http.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 /* Directory of file */
 import 'package:wallet_apps/src/graphql/services/query_document.dart';
 import 'package:wallet_apps/src/graphql/services/requery_graphql_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';

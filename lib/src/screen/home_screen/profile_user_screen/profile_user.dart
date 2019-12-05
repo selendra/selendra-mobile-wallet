@@ -1,5 +1,3 @@
-import 'package:wallet_apps/src/graphql/services/query_document.dart';
-import 'package:wallet_apps/src/graphql/services/requery_graphql_widget.dart';
 import 'package:wallet_apps/src/model/model_profile.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/private_key_dialog_screen/private_key_dialog.dart';
