@@ -6,5 +6,5 @@
              Flutter draws its first frame -->
         <item name="android:windowBackground">@drawable/launch_background</item>
     </style>
-    <color name="white">#131722</color>
+    <color name="darkBlue">#12151E</color>
 </resources>

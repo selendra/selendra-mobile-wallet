@@ -162,12 +162,11 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.0.0@aar" level="project" />
-    <orderEntry type="module" module-name="clipboard_manager" />
     <orderEntry type="module" module-name="shared_preferences" />
     <orderEntry type="module" module-name="barcode_scan" />
-    <orderEntry type="module" module-name="image_picker" />
-    <orderEntry type="module" module-name="connectivity" />
-    <orderEntry type="module" module-name="path_provider" />
+    <orderEntry type="module" module-name="android-image_picker" />
+    <orderEntry type="module" module-name="android-connectivity" />
+    <orderEntry type="module" module-name="android-path_provider" />
     <orderEntry type="module" module-name="flutter_webview_plugin" />
   </component>
 </module>
