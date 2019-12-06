@@ -5,6 +5,7 @@ import 'package:wallet_apps/src/screen/home_screen/add_document_screen/add_docum
 import 'package:wallet_apps/src/screen/home_screen/add_profile_screen/add_profile.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
@@ -84,8 +85,8 @@ class AppState extends State<App>{
               // HistroyWidget(),
               // PhoneScreen(setMyState),
               // HomeWidget(),
-              ReceiptVerify("HEllo"),
-              // GetWalletWidget(),
+              InvoiceSummary(),
+              // InvoiceInfo("Hello"),
               // ProfileUserWidget(),
               '/phoneScreen': (context) => PhoneScreen(),
               '/forgotPasswordScreen': (context) => ForgotPasswordWidget(),

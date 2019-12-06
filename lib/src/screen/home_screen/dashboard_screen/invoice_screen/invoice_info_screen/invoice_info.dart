@@ -1,5 +1,5 @@
 import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/model/model_receipt.dart';
+import 'package:wallet_apps/src/model/model_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +8,18 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';
 import './invoice_info_body.dart';
 
-class ReceiptVerify extends StatefulWidget{
+class InvoiceInfo extends StatefulWidget{
   final String uuid;
 
-  ReceiptVerify(this.uuid);
+  InvoiceInfo(this.uuid);
 
   @override
   State<StatefulWidget> createState() {
-    return ReceiptVerifyState();
+    return InvoiceInfoState();
   }
 }
 
-class ReceiptVerifyState extends State<ReceiptVerify> {
+class InvoiceInfoState extends State<InvoiceInfo> {
 
   Bloc bloc = Bloc();
 
@@ -37,11 +37,11 @@ class ReceiptVerifyState extends State<ReceiptVerify> {
 
   String shopName;
   
-  ModelReceipt modelReceipt = ModelReceipt();
+  ModelInvoice modelInvoice = ModelInvoice();
 
   @override
   initState(){
-    modelReceipt.uuid = widget.uuid;
+    modelInvoice.uuid = widget.uuid;
     requestListOfBranches();
     super.initState();
   }
@@ -56,8 +56,8 @@ class ReceiptVerifyState extends State<ReceiptVerify> {
 
   void textChanged(String label, String changed) {
     setState(() {
-      if (label == "Bills number") modelReceipt.receiptno = changed;
-      else if (label == "Amount")  modelReceipt.amount = changed;
+      if (label == "Bills number") modelInvoice.invoiceno = changed;
+      else if (label == "Amount")  modelInvoice.amount = changed;
     });
   }
 
@@ -70,19 +70,9 @@ class ReceiptVerifyState extends State<ReceiptVerify> {
     });
   }
 
-  void confirmReceipt(Bloc bloc, BuildContext context) async {
-    dialogLoading(context);
-    Map<String, dynamic> dataResponse = await submitConfirmReceipt(modelReceipt);
-    Navigator.pop(context);
-    if (dataResponse != null) {
-      await dialog(context, Text(dataResponse['message']), Icon(OMIcons.doneOutline, color: getHexaColor(highThenBackgroundColor),));
-      Navigator.pop(context);
-    }
-  }
-
   void getIdFromBranchName(String branchName) {
     int index = listOfBranches.indexOf(branchName);
-    modelReceipt.branchesid = listIdOfBranch[index];
+    modelInvoice.branchesid = listIdOfBranch[index];
   }
 
   void toSummaryInvoice() {
@@ -93,7 +83,7 @@ class ReceiptVerifyState extends State<ReceiptVerify> {
   
   Widget build(BuildContext context) {
     return Scaffold(
-      body: receiptBodyWidget(
+      body: invoiceBodyWidget(
         bloc, 
         context, 
         shopName, _controllerStore, _controllerBill, _controllerAmount, 

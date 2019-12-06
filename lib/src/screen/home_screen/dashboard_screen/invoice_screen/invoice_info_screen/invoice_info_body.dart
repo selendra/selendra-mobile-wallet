@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 
-Widget receiptBodyWidget(
+Widget invoiceBodyWidget(
   Bloc bloc,
   BuildContext context, 
   String shopName, 
@@ -59,7 +59,12 @@ Widget receiptBodyWidget(
                             contentPadding: EdgeInsets.only(top: 25.0, bottom: 25.0, left: 24.0, right: 24.0),
                             labelStyle: TextStyle(color: Colors.white),
                             /* Border side */
-                            enabledBorder: outlineInput(getHexaColor(borderColor)),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: _controllerStore.text != "" ? getHexaColor("#95989A") : Colors.transparent, 
+                                width: 1.0
+                              ),
+                            ),
                             focusedBorder: outlineInput(getHexaColor(borderColor)),
                             /* Error Handler */
                             border: errorOutline(),

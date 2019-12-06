@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/daveat/Documents/zeetomic_project/wallet/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml",
+            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
                     "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3be60b34c46f2e833b8d5253573f8610/jetified-core-1.9.13/res/values-hdpi-v4/values-hdpi-v4.xml",

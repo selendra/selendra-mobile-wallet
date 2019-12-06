@@ -40,7 +40,7 @@ const String appBarTextColor = "#EFF0F2";
 const String blackColor = "#000000";
 
 /* Light Blue Sky Color & Green Color*/
-const String lightBlueSky = "#54ffe2", lightGreenColor = "#92FB85";
+const String lightBlueSky = "#54ffe2", greenColor = "#8CC561";
 
 /* Blue Color */
 const String blueColor = "#23b9da";
@@ -243,7 +243,7 @@ Widget scaffoldBGDecoration(double paddingLeft, double paddingRight, double padd
 final Shader linearGradient = LinearGradient(
   colors: [
     getHexaColor(lightBlueSky),
-    getHexaColor(lightGreenColor)
+    getHexaColor(greenColor)
   ]
 ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
@@ -680,7 +680,7 @@ Widget inputField(
   bool obcureText,
   TextInputType inputType, TextEditingController controller,
   FocusNode _focusNode,
-  Function onChanged, Function submit
+  Function onChanged, Function action
   ) {
   return TextFormField(
     focusNode: _focusNode, 
@@ -691,19 +691,19 @@ Widget inputField(
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: controller.text != "" ? getHexaColor("#95989A") : Colors.transparent, 
+          color: controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.1) : Colors.transparent, 
           width: 1.0
         ),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: getHexaColor("#95989A"), width: 1.0),
+        borderSide: BorderSide(color: getHexaColor("#FFFFFF").withOpacity(0.3), width: 1.0),
       ),
       prefixText: prefixText,
-      filled: true, fillColor: Colors.white12,
+      filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
       labelText: labelText,
       labelStyle: TextStyle(
         fontSize: 18.0,
-        color: _focusNode.hasFocus || controller.text != "" ? getHexaColor("#9499A1") : getHexaColor("#ffffff")
+        color: _focusNode.hasFocus || controller.text != "" ? getHexaColor("#FFFFF").withOpacity(0.3) : getHexaColor("#ffffff")
       ),
       focusColor: getHexaColor("#ffffff"),
       contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
@@ -713,8 +713,8 @@ Widget inputField(
       else onChanged(valueChange);
     },
     onFieldSubmitted: (value) {
-      if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") submit(bloc, context);
-      else submit(context, value);
+      if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") action(bloc, context);
+      else action(context, value);
     },
     // onFieldSubmitted: (value) {
     //       firstNode.unfocus();

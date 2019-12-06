@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/daveat/Documents/zeetomic_project/wallet/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml",
+            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml",
             "map": [
                 {
                     "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/a44bc9db1fb240f95825c3807831bfc4/ucrop-2.2.4/res/values-zh-rTW/values-zh-rTW.xml",

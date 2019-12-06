@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/daveat/Documents/zeetomic_project/wallet/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
             "map": [
                 {
                     "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/9ee5da6fca20f6f07dce6c73fc4ca33a/material-1.0.0/res/values/values.xml",
@@ -59,25 +59,6 @@
                     }
                 },
                 {
-                    "source": "/home/daveat/Documents/zeetomic_project/wallet/android/app/src/main/res/values/style.xml",
-                    "from": {
-                        "startLines": "8,2",
-                        "startColumns": "4,4",
-                        "startOffsets": "419,55",
-                        "endLines": "8,7",
-                        "endColumns": "42,12",
-                        "endOffsets": "457,414"
-                    },
-                    "to": {
-                        "startLines": "67,1988",
-                        "startColumns": "4,4",
-                        "startOffsets": "4209,130115",
-                        "endLines": "67,1993",
-                        "endColumns": "42,12",
-                        "endOffsets": "4247,130474"
-                    }
-                },
-                {
                     "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3be60b34c46f2e833b8d5253573f8610/jetified-core-1.9.13/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
@@ -132,6 +113,25 @@
                         "endLines": "293,294,295,303,304,305,445,4396",
                         "endColumns": "58,47,55,74,75,71,65,24",
                         "endOffsets": "19459,19507,19563,20249,20325,20397,28837,278867"
+                    }
+                },
+                {
+                    "source": "/home/daveat/Documents/zeetomic-mobile/android/app/src/main/res/values/style.xml",
+                    "from": {
+                        "startLines": "8,2",
+                        "startColumns": "4,4",
+                        "startOffsets": "419,55",
+                        "endLines": "8,7",
+                        "endColumns": "42,12",
+                        "endOffsets": "457,414"
+                    },
+                    "to": {
+                        "startLines": "67,1988",
+                        "startColumns": "4,4",
+                        "startOffsets": "4209,130115",
+                        "endLines": "67,1993",
+                        "endColumns": "42,12",
+                        "endOffsets": "4247,130474"
                     }
                 },
                 {

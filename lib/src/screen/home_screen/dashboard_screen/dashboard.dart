@@ -193,7 +193,7 @@ class HomeWidgetState extends State<HomeWidget> {
     //   StreamedResponse response = await upLoadImage(cropimage, "uploadreceipt");
     //   response.stream.transform(utf8.decoder).listen((data) async {
     //     Map<String, dynamic> result = await json.decode(data);result['uuid']
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ReceiptVerify("Hello")));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => InvoiceInfo("Hello")));
         // var result = await json.decode(data);
         // setState(() {
         //   _image = result['url'];

@@ -51,7 +51,7 @@ Widget getWalletBody(
                           child: Text("Click on address to copy", style: TextStyle(fontSize: 17.0, color: getHexaColor("#959CA7")),),
                         ),
                         InkWell(
-                          child: Text(userData['wallet'], style: TextStyle(fontSize: 17.0, color: getHexaColor(lightGreenColor)), textAlign: TextAlign.center,),
+                          child: Text(userData['wallet'], style: TextStyle(fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
                           onTap: () {
                             Clipboard.setData(ClipboardData(text: userData['wallet']));
                             snackBar('Copied');

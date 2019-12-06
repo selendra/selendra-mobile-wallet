@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/daveat/Documents/zeetomic_project/wallet/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
+            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
             "map": [
                 {
                     "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/e7201af0ac6a1eb782d2b896d1ec4242/media-1.0.0/res/values-v24/values-v24.xml",

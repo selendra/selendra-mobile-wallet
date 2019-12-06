@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:wallet_apps/src/model/model_receipt.dart';
+import 'package:wallet_apps/src/model/model_invoice.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
@@ -62,7 +62,7 @@ Future<List<dynamic>> listBranches() async {
 }
 
 /* Confirm Receipt */
-Future<Map<String, dynamic>> submitConfirmReceipt(ModelReceipt modelReceipt) async {
+Future<Map<String, dynamic>> submitInvoice(ModelInvoice modelReceipt) async {
   var token = await Provider.fetchToken();
   if (token != null){
     final response = await http.post(
