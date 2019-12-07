@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/screen/main_screen/login_screen/both_field_screen/both_field.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
+import 'package:wallet_apps/src/screen/main_screen/login_screen/phone_field_screen/phone_field.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class WelcomeToZee extends StatefulWidget{
@@ -41,7 +43,10 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
   }
 
   navigatePage(BuildContext context) {
-    Navigator.pushReplacementNamed(context, '/phoneScreen');
+    Navigator.pushReplacement(
+      context, 
+      MaterialPageRoute(builder: (context) => PhoneFieldScreen(widget.setMyState))
+    );
   }
 
   Widget build(BuildContext context) {

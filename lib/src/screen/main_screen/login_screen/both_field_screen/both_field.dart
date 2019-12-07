@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/both_field_screen/both_field_body.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/model_login.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
 import 'package:wallet_apps/src/provider/internet_connection.dart';
 
 class BothFieldScreen extends StatefulWidget{
 
   final ModelLogin modelLogin;
-  // final Function setMyState;
+  final Function setMyState;
 
-  BothFieldScreen(this.modelLogin);
+  BothFieldScreen(this.modelLogin, this.setMyState);
   @override
   State<StatefulWidget> createState() {
     return BothFieldState();

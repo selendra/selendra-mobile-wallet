@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/both_field_screen/both_field.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/model_login.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/phone_field_screen/phone_field_body.dart';
 import '../../../../bloc/bloc.dart';
 
 
-class PhoneScreen extends StatefulWidget {
-  // final Function setMyState;
+class PhoneFieldScreen extends StatefulWidget {
+  final Function setMyState;
+  PhoneFieldScreen(this.setMyState);
   @override
-  PhoneScreen();
   State<StatefulWidget> createState() {
-    return PhoneScreenState();
+    return PhoneFieldScreenState();
   } 
 }
 
-class PhoneScreenState extends State<PhoneScreen> {
+class PhoneFieldScreenState extends State<PhoneFieldScreen> {
 
   ModelLogin modelLogin = ModelLogin();
 
@@ -44,7 +44,7 @@ class PhoneScreenState extends State<PhoneScreen> {
 
   void navigatePage(BuildContext context) {
     if (!(modelLogin.phoneNumber.length < 7) && modelLogin.phoneNumber != "") {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BothFieldScreen(modelLogin)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BothFieldScreen(modelLogin, widget.setMyState)));
     }
   }
 

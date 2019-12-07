@@ -53,7 +53,7 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
             child: AnimatedCircularChart(
               holeRadius: 45.0,
               key: _chartKey,
-              duration: Duration(seconds: 2),
+              duration: Duration(seconds: 1),
               startAngle: 125.0,
               size: Size(190.0, 120),
               percentageValues: true,

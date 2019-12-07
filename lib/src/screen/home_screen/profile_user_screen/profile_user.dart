@@ -63,7 +63,7 @@ class ProfileUserState extends State<ProfileUserWidget> {
       context: context,
       builder: 
       /* If PIN Not Yet Set */
-      _pin == '' ? 
+      _pin == '' ?
       (BuildContext context) {
         return Material(
           color: Colors.transparent,
@@ -145,11 +145,18 @@ class ProfileUserState extends State<ProfileUserWidget> {
     _refreshController.refreshCompleted();
   }
 
+  void nextPage() {
+    
+  }
+
+  void popScreen() {
+    Navigator.pop(context);
+  }
+
   /* Build Function */
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: drawerOnly(context, "profilescreen", logOut),
       body: SmartRefresher(
         physics: BouncingScrollPhysics(),
         controller: _refreshController,
@@ -160,21 +167,16 @@ class ProfileUserState extends State<ProfileUserWidget> {
         Stack(
           children: <Widget>[
             Container( /* Blur Background */
-              child: BackdropFilter(
-                filter: new ui.ImageFilter.blur(
-                  sigmaX: 5.0,
-                  sigmaY: 5.0
-                ),
-                child: isFetch == true /* User Information */ /* IsFetch By Default false */
-                ? bodyWidget(context, userData, snackBar, dialogBox, isHaveWallet)
-                /* Progress Loading */
-                : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    loading()
-                  ],
-                ),
-              ),
+              child: profileUserBodyWidget(isHaveWallet, context, userData, snackBar, dialogBox, popScreen)
+                // isFetch == true /* User Information */ /* IsFetch By Default false */
+                // ? 
+                // /* Progress Loading */
+                // : Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: <Widget>[
+                //     loading()
+                //   ],
+                // ),
             ),
           ],
         )

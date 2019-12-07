@@ -1,7 +1,7 @@
 import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/model_login.dart';
 
 /* body widget */
 Widget bothFieldBodyWidget(

@@ -6,6 +6,7 @@ import 'package:wallet_apps/src/screen/home_screen/add_profile_screen/add_profil
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pin_screen/change_pin.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
@@ -16,6 +17,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sign_up.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 void main () {
   // debugPaintSizeEnabled = true;
@@ -71,11 +73,10 @@ class AppState extends State<App>{
               textTheme: TextTheme(body1: TextStyle(color: getHexaColor(textColor))),
               canvasColor: getHexaColor(color2),
               cardColor: getHexaColor(color1),
-              // ("#4B535F"),
               bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(color1)),
               floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: getHexaColor(textColor)),
               fontFamily: "Avenir",
-              // is not restarted.
+              scaffoldBackgroundColor: Colors.transparent
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
@@ -84,18 +85,18 @@ class AppState extends State<App>{
               // add_profile_screenWidget(),
               // HistroyWidget(),
               // PhoneScreen(setMyState),
-              // HomeWidget(),
-              InvoiceSummary(),
+              HomeWidget(),
+              // ChangePIN(),
+              // InvoiceSummary(),
               // InvoiceInfo("Hello"),
               // ProfileUserWidget(),
-              '/phoneScreen': (context) => PhoneScreen(),
               '/forgotPasswordScreen': (context) => ForgotPasswordWidget(),
               /* Home Screen */
               '/dashboardScreen': (context) => HomeWidget(),
               // '/getWalletScreen': (context) => GetWalletWidget(),
               '/profileScreen': (context) => ProfileUserWidget(),
               '/settingScreen': (context) => SettingWidget(),
-              '/transaction_historyScreen': (context) => HistroyWidget(),
+              '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
               /* Verify User Screen */
               '/add_profile_screen': (context) => AddProfileWidget(),
               '/addDocumentScreen': (context) => AddDocumentWidget(),

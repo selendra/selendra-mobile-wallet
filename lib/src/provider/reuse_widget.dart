@@ -13,6 +13,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
 import 'package:wallet_apps/src/service/services.dart';
+import 'dart:ui' as ui;
 
 /* -----------------------------------Variable--------------------------------------------------- */
 
@@ -317,7 +318,26 @@ void noInternet(BuildContext context) {
   );
 }
 
-/* Bottom App Bar */
+blurBackgroundDecoration(BuildContext context, dynamic screen) {
+  return showCupertinoDialog(
+    // barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return Material(
+        color: Colors.white.withOpacity(0.1),
+        child: BackdropFilter(
+          filter: ui.ImageFilter.blur(
+            sigmaX: 20.0,
+            sigmaY: 20.0,
+          ),
+          child: screen,
+        ),
+      );
+    }
+  );
+}
+
+/* ----------------------------------- Bottom App Bar ----------------------------------- */
 Widget bottomAppBar(BuildContext context, Map<String, dynamic> userWallet, Function scanQR, Function scanReceipt){
   return Stack(
     children: <Widget>[
@@ -698,7 +718,7 @@ Widget inputField(
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: getHexaColor("#FFFFFF").withOpacity(0.3), width: 1.0),
       ),
-      prefixText: prefixText,
+      prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white),
       filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
       labelText: labelText,
       labelStyle: TextStyle(

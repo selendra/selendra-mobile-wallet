@@ -8,14 +8,14 @@ import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HistroyWidget extends StatefulWidget{
+class TransactionHistoryWidget extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return HistoryState();
+    return TracsactionHistoryState();
   }
 }
 
-class HistoryState extends State<HistroyWidget>{
+class TracsactionHistoryState extends State<TransactionHistoryWidget>{
   
   final _globalKey = GlobalKey<ScaffoldState>();
   final _containerKey = GlobalKey<ScaffoldState>();

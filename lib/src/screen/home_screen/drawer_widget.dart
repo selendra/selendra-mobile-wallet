@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
+import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
 import '../../provider/reuse_widget.dart';
+import 'dart:ui' as ui;
 
 final fontSize = 16.0;
 
@@ -74,7 +76,9 @@ Widget drawerOnly(BuildContext context, String currentRoute, Function method) {
                           ],
                         ),
                         onTap: () {
-                          Navigator.push(context, CupertinoPageRoute(builder: (context) => ProfileUserWidget()));
+                          // Navigator.push(context, CupertinoPageRoute(builder: (context) => ));
+                          Navigator.pop(context);
+                          blurBackgroundDecoration(context, ProfileUserWidget());
                           // if (currentRoute == "profileScreen" || currentRoute == "addProfileScreen") Navigator.pop(context);
                           // else {
                           //   if (snapshot.data == null) {
@@ -106,8 +110,8 @@ Widget drawerOnly(BuildContext context, String currentRoute, Function method) {
                     ),
                     onTap: () {
                       if (currentRoute == "historyScreen") Navigator.pop(context);
-                      else Navigator.pushReplacementNamed(context, '/transaction_historyScreen');
-                    },
+                      else blurBackgroundDecoration(context, TransactionHistoryWidget());
+                    }
                   ),
                   /* User Setting */
                   ListTile(
