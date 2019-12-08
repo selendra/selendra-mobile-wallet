@@ -12,6 +12,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 /* Path of file */
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'dart:ui' as ui;
 
@@ -81,6 +82,46 @@ Color getHexaColor(String hexaCode) {
   return Color(convertHexaColor(hexaCode));
 }
 
+class BlurBackground extends ModalRoute<void> {
+
+  final Widget child;
+
+  @required
+  BlurBackground({Key key, this.child});
+
+  @override
+  Duration get transitionDuration => Duration(milliseconds: 300);
+
+  @override
+  bool get opaque => false;
+
+  @override
+  bool get barrierDismissible => false;
+  
+  @override 
+  Color get barrierColor => Colors.black.withOpacity(0.5);
+
+  @override
+  String get barrierLabel => null;
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
+    return Material(
+      type: MaterialType.transparency,
+      color: Colors.white.withOpacity(0.1),
+      child: BackdropFilter(
+        filter: ui.ImageFilter.blur(
+          sigmaX: 20.0,
+          sigmaY: 20.0,
+        ),
+        child: child,
+      ),
+    );
+  }
+}
 
 /* User Input Text */
 TextField userTextField(TextEditingController inputEditor, FocusNode node, Function sink, AsyncSnapshot snapshot, bool showInput, TextInputType inputType, TextInputAction inputAction) {

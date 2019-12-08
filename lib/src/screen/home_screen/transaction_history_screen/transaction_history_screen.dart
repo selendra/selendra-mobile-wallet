@@ -16,22 +16,18 @@ class TransactionHistoryWidget extends StatefulWidget{
 }
 
 class TracsactionHistoryState extends State<TransactionHistoryWidget>{
-  
-  final _globalKey = GlobalKey<ScaffoldState>();
-  final _containerKey = GlobalKey<ScaffoldState>();
+
   final RefreshController _refreshController = RefreshController();
 
-  Size  _containerSize = Size(0,0);
-
   bool isProgress = true; bool isLogout = false;
-  var history;
+
+  Map<String, dynamic> history;
 
   @override
   void initState() {
     super.initState();
     fetchHistoryUser();
     /* Method Wait For Build COmplete */
-    // WidgetsBinding.instance.addPostFrameCallback(_onBuildCompleted);
   }
 
   void fetchHistoryUser() async {
@@ -40,11 +36,6 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
       isProgress = false;
       history = response['data'];
     });
-  }
-
-  /* Trigger Drawer To Open */
-  void openDrawer() {
-    _globalKey.currentState.openDrawer();
   }
 
   /* Log Out Method */
@@ -57,13 +48,6 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
     });
   }
 
-  void openSnackBar() {
-    final snackbar = SnackBar(
-      content: Text('Hello world'),
-    );
-    _globalKey.currentState.showSnackBar(snackbar);
-  }
-
   /* Scroll Refresh */
   void _reFresh() {
     setState(() {
@@ -73,20 +57,14 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
     _refreshController.refreshCompleted();
   }
 
+  void popScreen() => Navigator.pop(context);
+
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      key: _globalKey,
-      drawer: drawerOnly(context, "historyscreen", logOut),
-      appBar: appbarWidget(openDrawer, containerTitleAppBar("History"), openSnackBar),
-      body: SmartRefresher(
-        physics: BouncingScrollPhysics(),
-        controller: _refreshController,
-        child: isProgress == false ? Container(
-          margin: EdgeInsets.all(size4),
-          child: history == null ? textNotification("No History", context) : bodyWidget(context, history, _containerKey, _containerSize, _height),
-        ) : loading(),
-        onRefresh: _reFresh,
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        body: transactionBodyWidget(context, history, popScreen),
       ),
     );
   }

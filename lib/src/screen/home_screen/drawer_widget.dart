@@ -75,10 +75,11 @@ Widget drawerOnly(BuildContext context, String currentRoute, Function method) {
                             drawerText('Profile', getHexaColor(currentRoute == "profileScreen" || currentRoute == "addProfileScreen" ? lightBlueSky : textColor), fontSize)
                           ],
                         ),
-                        onTap: () {
+                        onTap: () async {
                           // Navigator.push(context, CupertinoPageRoute(builder: (context) => ));
                           Navigator.pop(context);
-                          blurBackgroundDecoration(context, ProfileUserWidget());
+                          method();
+                          // blurBackgroundDecoration(context, ProfileUserWidget());
                           // if (currentRoute == "profileScreen" || currentRoute == "addProfileScreen") Navigator.pop(context);
                           // else {
                           //   if (snapshot.data == null) {
@@ -131,20 +132,20 @@ Widget drawerOnly(BuildContext context, String currentRoute, Function method) {
                       else Navigator.pushReplacementNamed(context, '/settingScreen');
                     },
                   ),
-                  ListTile(
-                    contentPadding: EdgeInsets.only(left: 20.0),
-                    leading: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Icon(OMIcons.exitToApp, color: getHexaColor(textColor)),
-                        Container(
-                          margin: EdgeInsets.only(right: 20.0),
-                        ),
-                        drawerText('Log out', getHexaColor(textColor), fontSize)
-                      ],
-                    ),
-                    onTap: method
-                  )
+                  // ListTile(
+                  //   contentPadding: EdgeInsets.only(left: 20.0),
+                  //   leading: Row(
+                  //     mainAxisSize: MainAxisSize.min,
+                  //     children: <Widget>[
+                  //       Icon(OMIcons.exitToApp, color: getHexaColor(textColor)),
+                  //       Container(
+                  //         margin: EdgeInsets.only(right: 20.0),
+                  //       ),
+                  //       drawerText('Log out', getHexaColor(textColor), fontSize)
+                  //     ],
+                  //   ),
+                  //   onTap: method
+                  // )
                 ],
               ),
             ),

@@ -37,7 +37,7 @@ class ProfileUserState extends State<ProfileUserWidget> {
   @override
   void initState() {
     super.initState();
-    fetchUserData();
+    // fetchUserData();
   }
 
   /* Fetch User Data From Local Storage*/
@@ -156,6 +156,7 @@ class ProfileUserState extends State<ProfileUserWidget> {
   /* Build Function */
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       key: _scaffoldKey,
       body: SmartRefresher(
         physics: BouncingScrollPhysics(),

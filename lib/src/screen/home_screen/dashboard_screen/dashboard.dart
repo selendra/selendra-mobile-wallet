@@ -13,6 +13,7 @@ import 'package:wallet_apps/src/graphql/services/query_document.dart';
 import 'package:wallet_apps/src/graphql/services/requery_graphql_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -205,13 +206,19 @@ class HomeWidgetState extends State<HomeWidget> {
     // }
   }
   
+  void pushProfile() {
+    Future.delayed(Duration(milliseconds: 300), () {
+      Navigator.of(context).push(BlurBackground(child: ProfileUserWidget()));
+    });
+  }
+  
   @override
   /* Widget builder */
   Widget build(BuildContext context) {
     final bloc = Bloc();
     return Scaffold(
       key: _scaffoldKey,
-      drawer: drawerOnly(context, "dashboardScreen", logOut),
+      drawer: drawerOnly(context, "dashboardScreen", pushProfile),
       body: scaffoldBGDecoration(
         16, 16, 16, 0,
         color2, color1,

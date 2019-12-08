@@ -23,7 +23,6 @@ Widget profileUserBodyWidget(
     {
       "icon": Icons.query_builder, 
       "title": "Transaction History",
-      "screen": TransactionHistoryWidget()
     },
     {
       "icon": Icons.lock, 
@@ -110,7 +109,11 @@ Widget profileUserBodyWidget(
               child: ListTile(
                 onTap: () {
                   switch (index) {
-                    case 2 : blurBackgroundDecoration(context, ChangePIN()); break;
+                    case 1 : {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(BlurBackground(child: TransactionHistoryWidget()));
+                    } break;
+                    case 2 : Navigator.of(context).push(BlurBackground(child: ChangePIN())); break;
                   }
                 },
                 contentPadding: EdgeInsets.all(0),
