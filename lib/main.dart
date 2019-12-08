@@ -2,7 +2,7 @@
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/forgot_password_screen/forgot_password.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_document_screen/add_document.dart';
-import 'package:wallet_apps/src/screen/home_screen/add_profile_screen/add_profile.dart';
+import 'package:wallet_apps/src/screen/home_screen/add_profile_screen/add_user_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';
@@ -81,7 +81,8 @@ class AppState extends State<App>{
             routes: <String, WidgetBuilder>{
               /* Login Screen */
               '/': (context) => 
-              WelcomeToZee(firstTreeState),
+              AddUserInfo(),
+              // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
               // PhoneScreen(setMyState),
@@ -98,7 +99,7 @@ class AppState extends State<App>{
               '/settingScreen': (context) => SettingWidget(),
               '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
               /* Verify User Screen */
-              '/add_profile_screen': (context) => AddProfileWidget(),
+              '/add_profile_screen': (context) => AddUserInfo(),
               '/addDocumentScreen': (context) => AddDocumentWidget(),
               '/signUpScreen': (context) => SignUpWidget(),
             },

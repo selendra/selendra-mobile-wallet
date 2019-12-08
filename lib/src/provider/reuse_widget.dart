@@ -2,7 +2,7 @@
 import 'dart:io';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
-import 'package:wallet_apps/src/model/model_profile.dart';
+import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -818,7 +818,7 @@ Widget textFieldUserInput(String label, String colorLabel, Color fieldColor, Tex
   );
 }
 
-Widget dropDown(String label, List genderList, List documentIdList, ModelProfile modelProfile, ModelDocument modelDocument ,Function setGender, Function setDocumentName) {
+Widget dropDown(String label, List genderList, List documentIdList, ModelUserInfo modelProfile, ModelDocument modelDocument ,Function setGender, Function setDocumentName) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[

@@ -1,4 +1,4 @@
-import 'package:wallet_apps/src/model/model_profile.dart';
+import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/private_key_dialog_screen/private_key_dialog.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/set_pin_code_dialog_screen/set_confirm_pin_code_dialog.dart';
@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 /* Directory of file */
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/home_screen/drawer_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import './profile_user_body.dart';
 
@@ -25,7 +24,7 @@ class ProfileUserState extends State<ProfileUserWidget> {
   String error = '', _pin = '', _confirmPin = '', _privateKey; 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final RefreshController _refreshController = RefreshController();
-  ModelProfile modelProfile = ModelProfile();
+  ModelUserInfo modelProfile = ModelUserInfo();
   Map<String, dynamic> userData;
   /* Login Inside Dialog */
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
