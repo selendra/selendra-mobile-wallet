@@ -11,7 +11,6 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/drawer_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import './profile_user_body.dart';
-import 'dart:ui' as ui;
 
 class ProfileUserWidget extends StatefulWidget{
   @override

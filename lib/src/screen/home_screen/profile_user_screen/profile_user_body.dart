@@ -5,8 +5,10 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'dart:ui';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/add_asset_screen/add_asset.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pin_screen/change_pin.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
+import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 Widget profileUserBodyWidget(
   bool isHaveWallet /* isHaveWallet By Default false */,
@@ -34,7 +36,7 @@ Widget profileUserBodyWidget(
     },
     {
       "icon": Icons.exit_to_app, 
-      "title": "Add Assets",
+      "title": "Sign Out",
     }
   ];
 
@@ -111,9 +113,17 @@ Widget profileUserBodyWidget(
                   switch (index) {
                     case 1 : {
                       Navigator.pop(context);
-                      Navigator.of(context).push(BlurBackground(child: TransactionHistoryWidget()));
+                      Navigator.of(context).push(BlurBackground(child: TransactionHistoryWidget())); break;
                     } break;
-                    case 2 : Navigator.of(context).push(BlurBackground(child: ChangePIN())); break;
+                    case 2 : {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(BlurBackground(child: ChangePIN())); break;
+                    }
+                    case 3: {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(BlurBackground(child: AddAsset())); break;
+                    }
+                    case 4: Navigator.pushReplacementNamed(context, '/');
                   }
                 },
                 contentPadding: EdgeInsets.all(0),

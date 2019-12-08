@@ -81,11 +81,11 @@ class AppState extends State<App>{
             routes: <String, WidgetBuilder>{
               /* Login Screen */
               '/': (context) => 
-              // WelcomeToZee(firstTreeState),
+              WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
               // PhoneScreen(setMyState),
-              HomeWidget(),
+              // HomeWidget(),
               // ChangePIN(),
               // InvoiceSummary(),
               // InvoiceInfo("Hello"),

@@ -111,13 +111,15 @@ class BlurBackground extends ModalRoute<void> {
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
     return Material(
       type: MaterialType.transparency,
-      color: Colors.white.withOpacity(0.1),
-      child: BackdropFilter(
-        filter: ui.ImageFilter.blur(
-          sigmaX: 20.0,
-          sigmaY: 20.0,
+      child: Container(
+        color: Colors.white.withOpacity(0.15),
+        child: BackdropFilter(
+          filter: ui.ImageFilter.blur(
+            sigmaX: 20.0,
+            sigmaY: 20.0,
+          ),
+          child: child,
         ),
-        child: child,
       ),
     );
   }
@@ -237,7 +239,7 @@ Widget blueButton(
           fontWeight: fontWeight
         ),
       ),
-      shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(size5) ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
       onPressed: () {
         if (widgetName == "bothField") action(bloc, context);
         else if (widgetName == "invoiceInfoScreen") action(); 
@@ -770,7 +772,7 @@ Widget inputField(
       contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
     ),
     onChanged: (valueChange) {
-      if (widgetName == "invoiceInfoScreen") onChanged(labelText, valueChange);
+      if (widgetName == "invoiceInfoScreen" || widgetName == "addAssetScreen") onChanged(labelText, valueChange);
       else onChanged(valueChange);
     },
     onFieldSubmitted: (value) {
