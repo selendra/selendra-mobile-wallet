@@ -21,7 +21,7 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
 
   bool isProgress = true; bool isLogout = false;
 
-  Map<String, dynamic> history;
+  List<dynamic> history;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
     var response = await userHistory();
     setState(() {
       isProgress = false;
-      history = response['data'];
+      history = List<Map<String, dynamic>>.from(response['data']);
     });
   }
 

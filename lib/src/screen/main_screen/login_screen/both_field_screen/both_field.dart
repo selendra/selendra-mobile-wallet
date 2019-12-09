@@ -58,10 +58,11 @@ class BothFieldState extends State<BothFieldScreen>{
     final submitResponse = await bloc.submitMethod(context).then((data) async {
       if (data == true) {
         Navigator.pop(context);
+        widget.setMyState();
         /* Wait And Push Replace To HomePage */
         await Future.delayed(Duration(milliseconds: 200), () async {
-          Navigator.pushReplacementNamed(context, '/dashboardScreen');
         });
+        Navigator.pushReplacementNamed(context, '/dashboardScreen');
       }
       return data;
     }).catchError((onError){
@@ -82,13 +83,16 @@ class BothFieldState extends State<BothFieldScreen>{
 
   Widget build(BuildContext context){
     return Scaffold(
-      body: paddingScreenWidget(
-        context, bothFieldBodyWidget(
-          context,
-          widget.modelLogin,
-          onChanged,
-          validatorLogin
-        )
+      body: Container(
+        decoration: scaffoldBGColor(color1, color2),
+        child: paddingScreenWidget(
+          context, bothFieldBodyWidget(
+            context,
+            widget.modelLogin,
+            onChanged,
+            validatorLogin
+          )
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
-Widget receivedBodyWidget(Map<String, dynamic> receivedHistory) {
+Widget receivedBodyWidget(List<Map<String, dynamic>> receivedHistory) {
   return ListView.builder(
     itemCount: 3,
     itemBuilder: (BuildContext context, int index) {

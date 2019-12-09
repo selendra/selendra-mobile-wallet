@@ -9,7 +9,7 @@ import '../../../../bloc/bloc.dart';
 
 
 class PhoneFieldScreen extends StatefulWidget {
-  final Function setMyState;
+  final setMyState;
   PhoneFieldScreen(this.setMyState);
   @override
   State<StatefulWidget> createState() {

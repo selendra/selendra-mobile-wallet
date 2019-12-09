@@ -115,37 +115,23 @@ Widget drawerOnly(BuildContext context, String currentRoute, Function method) {
                     }
                   ),
                   /* User Setting */
-                  ListTile(
-                    contentPadding: EdgeInsets.only(left: 20.0),
-                    leading: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Icon(OMIcons.settings, color: getHexaColor( currentRoute == "settingScreen" ? lightBlueSky : textColor)),
-                        Container(
-                          margin: EdgeInsets.only(right: 20.0),
-                        ),
-                        drawerText('Setting', getHexaColor(currentRoute == "settingScreen" ? lightBlueSky : textColor), fontSize)
-                      ],
-                    ),
-                    onTap: () {
-                      if (currentRoute == "settingScreen") Navigator.pop(context);
-                      else Navigator.pushReplacementNamed(context, '/settingScreen');
-                    },
-                  ),
                   // ListTile(
                   //   contentPadding: EdgeInsets.only(left: 20.0),
                   //   leading: Row(
                   //     mainAxisSize: MainAxisSize.min,
                   //     children: <Widget>[
-                  //       Icon(OMIcons.exitToApp, color: getHexaColor(textColor)),
+                  //       Icon(OMIcons.settings, color: getHexaColor( currentRoute == "settingScreen" ? lightBlueSky : textColor)),
                   //       Container(
                   //         margin: EdgeInsets.only(right: 20.0),
                   //       ),
-                  //       drawerText('Log out', getHexaColor(textColor), fontSize)
+                  //       drawerText('Setting', getHexaColor(currentRoute == "settingScreen" ? lightBlueSky : textColor), fontSize)
                   //     ],
                   //   ),
-                  //   onTap: method
-                  // )
+                  //   onTap: () {
+                  //     if (currentRoute == "settingScreen") Navigator.pop(context);
+                  //     else Navigator.pushReplacementNamed(context, '/settingScreen');
+                  //   },
+                  // ),
                 ],
               ),
             ),

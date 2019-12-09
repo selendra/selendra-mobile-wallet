@@ -9,6 +9,7 @@ import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/add_asset
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pin_screen/change_pin.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
+import 'package:wallet_apps/src/service/services.dart';
 
 Widget profileUserBodyWidget(
   bool isHaveWallet /* isHaveWallet By Default false */,
@@ -109,7 +110,7 @@ Widget profileUserBodyWidget(
                 border: Border(top: BorderSide(width: 1, color: Colors.white.withOpacity(0.1)))
               ),
               child: ListTile(
-                onTap: () {
+                onTap: () async {
                   switch (index) {
                     case 1 : {
                       Navigator.pop(context);
@@ -123,7 +124,12 @@ Widget profileUserBodyWidget(
                       Navigator.pop(context);
                       Navigator.of(context).push(BlurBackground(child: AddAsset())); break;
                     }
-                    case 4: Navigator.pushReplacementNamed(context, '/');
+                    case 4:  {
+                      clearStorage();
+                      await Future.delayed(Duration(seconds: 2), () {
+                      });
+                      Navigator.pushReplacementNamed(context, '/');
+                    }
                   }
                 },
                 contentPadding: EdgeInsets.all(0),

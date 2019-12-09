@@ -6,7 +6,7 @@ import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/ta
 
 Widget transactionBodyWidget(
   BuildContext context,
-  Map<String, dynamic> history, 
+  List<Map<String, dynamic>> history, 
   Function popScreen
 ) {
   return Container(
