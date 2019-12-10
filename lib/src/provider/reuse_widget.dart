@@ -1,6 +1,7 @@
 /* Package of flutter */
 import 'dart:io';
 import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:flutter/cupertino.dart';
@@ -381,7 +382,10 @@ blurBackgroundDecoration(BuildContext context, dynamic screen) {
 }
 
 /* ----------------------------------- Bottom App Bar ----------------------------------- */
-Widget bottomAppBar(BuildContext context, Map<String, dynamic> userWallet, Function scanQR, Function scanReceipt){
+Widget bottomAppBar(
+  BuildContext context, 
+  ModelDashboard _modelDashboard, 
+  Function scanQR, Function scanReceipt, Function resetState, Function fetchPortfolio){
   return Stack(
     children: <Widget>[
       Container(
@@ -413,7 +417,9 @@ Widget bottomAppBar(BuildContext context, Map<String, dynamic> userWallet, Funct
                           iconSize: 30.0,
                           // padding: EdgeInsets.only(left: 28.0),
                           icon: Icon(OMIcons.arrowUpward, color: Colors.white,),
-                          onPressed: scanQR
+                          onPressed: () async {
+                            await scanQR(context, _modelDashboard, resetState, fetchPortfolio);
+                          }
                         ),
                       ),
                       Text("Send Token", style: TextStyle(color: getHexaColor("#97AAC3"), fontSize: 10.0))
@@ -435,7 +441,7 @@ Widget bottomAppBar(BuildContext context, Map<String, dynamic> userWallet, Funct
                           onPressed: () {
                             Navigator.push(
                               context, 
-                              MaterialPageRoute(builder: (context) => GetWalletWidget(userWallet))
+                              MaterialPageRoute(builder: (context) => GetWalletWidget(_modelDashboard.userWallet))
                             );
                           } 
                         ),

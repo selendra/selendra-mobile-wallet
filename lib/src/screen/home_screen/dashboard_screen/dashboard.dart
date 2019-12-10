@@ -12,6 +12,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/src/graphql/services/query_document.dart';
 import 'package:wallet_apps/src/graphql/services/requery_graphql_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/model/model_dashboard.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/service/services.dart';
@@ -31,16 +33,8 @@ class HomeWidget extends StatefulWidget {
 }
 
 class HomeWidgetState extends State<HomeWidget> {
-
-  bool isProgress = false, isQueried = false, loadingHome = true;
-  final GlobalKey<AnimatedCircularChartState> _chartKey = new GlobalKey<AnimatedCircularChartState>();
-  final RefreshController _refreshController = RefreshController();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  Map<String, dynamic> userData, userWallet;
-  dynamic portfolioData;
-  String userId; String barcode;
   
-  List<Widget> listScreens; int tabIndex = 0;
+  ModelDashboard _modelDashboard = ModelDashboard();
 
   @override
   initState() {
@@ -65,7 +59,7 @@ class HomeWidgetState extends State<HomeWidget> {
   void fetChIds() async {
     await Provider.fetchUserIds();
     setState(() {
-      userId = Provider.idsUser;
+      _modelDashboard.userId = Provider.idsUser;
     });
   }
 
@@ -74,11 +68,11 @@ class HomeWidgetState extends State<HomeWidget> {
     Map<String, dynamic> data = await fetchData('userDataLogin');
     if (data == null) {
       setState(() {
-        userData = {
+        _modelDashboard.userData = {
           "queryUserById": null
         };
       });
-    } else userData = data;
+    } else _modelDashboard.userData = data;
   }
 
   void getStatus() async {
@@ -87,7 +81,7 @@ class HomeWidgetState extends State<HomeWidget> {
   }
 
   /* Open Drawer Method */
-  void openDrawer() => _scaffoldKey.currentState.openDrawer();
+  void openDrawer() => _modelDashboard.scaffoldKey.currentState.openDrawer();
 
   /* Log Out Method */
   void logOut() async{
@@ -105,47 +99,15 @@ class HomeWidgetState extends State<HomeWidget> {
     if (result.data != null) setData(result.data, 'userLogin');
   }
 
-  /* Scan QR Code */
-  Future scanQR() async {
-    try {
-      String barcode = await BarcodeScanner.scan();
-      var response = await Navigator.push(context, MaterialPageRoute(builder: (context) => ScanPayWidget(barcode)));
-      if (response == "succeed") {
-        setState(() {portfolioData = null;});
-        fetchPortfolio();
-      }
-    } on PlatformException catch (e) {
-      if (e.code == BarcodeScanner.CameraAccessDenied) {
-        setState(() {
-          this.barcode = "The user did not grant the camera permission!";
-        });
-      } else {
-        setState(() {
-          this.barcode = "Unknown error: $e";
-        });
-      }
-    } on FormatException {
-      setState(() {
-        this.barcode = "null (User returned using the 'back' -button before scanning anything. Result)";
-      });
-    } catch (e){
-      setState(() {
-        this.barcode = "Unknown error: $e";
-      });
-    }
-  }
-
-  
   void fetchPortfolio() async { /* Fetch Portofolio */
     var response = await userPorfolio();
       setData(response, 'portFolioData');
-      portfolioData = response;
+      _modelDashboard.portfolioData = response;
       setState(() {});
   }
 
-  
   void fetchWallet() async { /* Fetch Only User ID */
-    userWallet = await fetchData("userStatusAndWallet");
+    _modelDashboard.userWallet = await fetchData("userStatusAndWallet");
     Future.delayed(Duration(seconds: 1), () {
       setState(() { });
     });
@@ -155,16 +117,16 @@ class HomeWidgetState extends State<HomeWidget> {
     final snackbar = SnackBar(
       content: Text('Hello world'),
     );
-    _scaffoldKey.currentState.showSnackBar(snackbar);
+    _modelDashboard.scaffoldKey.currentState.showSnackBar(snackbar);
   }
 
   _pullUpRefresh() async {
     setState(() {
-      portfolioData = null;
-      userData['queryUserById'] = null;
+      _modelDashboard.portfolioData = null;
+      _modelDashboard.userData['queryUserById'] = null;
     });
     fetchPortfolio();
-    _refreshController.refreshCompleted();
+    _modelDashboard.refreshController.refreshCompleted();
   }
 
   Future<dynamic> cropImageCamera(BuildContext context) async {
@@ -205,6 +167,15 @@ class HomeWidgetState extends State<HomeWidget> {
       // });
     // }
   }
+
+  void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function fetchPortfolio) {
+    setState(() {
+      if (executeName == "portfolio") {
+        _model.portfolioData = null; 
+        fetchPortfolio();
+      } else if (executeName == "barcode") _model.barcode = barcodeValue;
+    });
+  }
   
   void pushProfile() {
     Future.delayed(Duration(milliseconds: 300), () {
@@ -217,7 +188,7 @@ class HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     final bloc = Bloc();
     return Scaffold(
-      key: _scaffoldKey,
+      key: _modelDashboard.scaffoldKey,
       drawer: drawerOnly(context, "dashboardScreen", pushProfile),
       body: scaffoldBGDecoration(
         16, 16, 16, 0,
@@ -252,11 +223,11 @@ class HomeWidgetState extends State<HomeWidget> {
                 Expanded( /* Body Widget */
                   child: SmartRefresher(
                     physics: BouncingScrollPhysics(),
-                    controller: _refreshController,
-                    child: userData == null ? loading() // Body Widget
-                      : userData['queryUserById'] == null 
-                      ? reQuery(loading(), queryUser(userId), "Home", getUserData) : dashboardBodyWidget(
-                        bloc, _chartKey, portfolioData,
+                    controller: _modelDashboard.refreshController,
+                    child: _modelDashboard.userData == null ? loading() // Body Widget
+                      : _modelDashboard.userData['queryUserById'] == null 
+                      ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : dashboardBodyWidget(
+                        bloc, _modelDashboard.chartKey, _modelDashboard.portfolioData,
                       ),
                     onRefresh: _pullUpRefresh,
                   ),
@@ -267,7 +238,11 @@ class HomeWidgetState extends State<HomeWidget> {
         // )
       ),
       /* Bottom Navigation Bar */
-      bottomNavigationBar: bottomAppBar(context, userWallet, scanQR, scanReceipt)
+      bottomNavigationBar: bottomAppBar(
+        context, 
+        _modelDashboard, 
+        scanQR, scanReceipt, resetState, fetchPortfolio
+      )
     );
   }
 }

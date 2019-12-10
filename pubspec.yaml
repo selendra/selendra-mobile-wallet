@@ -49,6 +49,7 @@ dependencies:
   # drawerbehavior: ^0.0.8
   pull_to_refresh: ^1.5.7
   autocomplete_textfield: ^1.7.3
+  charts_flutter: ^0.8.1
 
 dev_dependencies:
   flutter_test:

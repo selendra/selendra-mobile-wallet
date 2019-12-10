@@ -11,7 +11,7 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_re
 Widget dashboardBodyWidget(
   Bloc bloc,
   GlobalKey<AnimatedCircularChartState> _chartKey,
-  var portfolioData
+  Map<String, dynamic> portfolioData
 ) {
   /* Widget */
   return SingleChildScrollView(
@@ -32,7 +32,7 @@ Widget dashboardBodyWidget(
           Container(
             margin: EdgeInsets.only(top: 16.0),
             width: double.infinity,
-            child: portFolio(portfolioData),
+            child: portfolioList("My Porfolio", portfolioData),
           ),
         ],
       )
@@ -154,171 +154,6 @@ Widget cardTokenAndProfit() {
         ),
       )
     ],
-  );
-}
-
-/* My Portfolio */
-Widget portFolio(var portfolioData) {
-  return Container(
-    padding: EdgeInsets.only(top: 10.0),
-    child: Column(
-      children: <Widget>[
-        /* Title */
-        Container(
-          padding: EdgeInsets.only(bottom: 10.0),
-          alignment: Alignment.centerLeft,
-          child:Text(
-            "My Porfolio", 
-            style: TextStyle(
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold
-            ),
-          ) 
-        ),
-        /* Main Title Assets */
-        SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(bottom: 7.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(left: 1.5),
-                        alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Assets', 
-                            style: TextStyle(
-                              color: getHexaColor("#959ca7"), 
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17.0
-                            )
-                        )
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text('QTY',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17.0,
-                              color: getHexaColor("#959ca7")
-                            )
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              ListView.builder(
-                padding: EdgeInsets.all(0),
-                shrinkWrap: true,
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int index){
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 10.5),
-                    child: Container(
-                      height: 33.5,
-                      margin: EdgeInsets.only(left: 4.0),
-                      decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1), width: 1.5))
-                      ),
-                      child: InkWell(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            /* Asset Icons */
-                            Container(
-                              margin: EdgeInsets.only(right: 9.5),
-                              width: 22.0, 
-                              height: 22.0,
-                              child: CircleAvatar(
-                                backgroundImage: AssetImage(
-                                  'assets/zeeicon_on_screen.png',
-                                )
-                              ),
-                            ),
-                            textPortfolio("ZTO", "#EFF0F2"),
-                            Expanded(child: Container()),
-                            textPortfolio("145.2500125", "#EFF0F2")
-                          ],
-                        ),
-                      ),
-                    )
-                  );
-                },
-              )
-
-              // portfolioData == null
-              // ? Padding(
-              //     padding: EdgeInsets.all(10.0),
-              //     child: loading(),
-              //   )
-              // :
-              /* Check Response For Portfolio */
-              // portfolioData['message'] != null ? Container()
-              // : Container(
-              //     decoration: BoxDecoration(
-              //       border: Border(
-              //         bottom: BorderSide(
-              //           width: size1,
-              //           color: getHexaColor(borderColor)
-              //         )
-              //       )
-              //     ),
-              //     child: ListView.builder(
-              //       physics: BouncingScrollPhysics(),
-              //         shrinkWrap: true,
-              //         itemCount: portfolioData['data'].length,
-              //         itemBuilder: (BuildContext context, int index) {
-              //           // print(portfolioData['data'][1]['asset_code']);
-              //           return Container(
-              //             decoration: BoxDecoration(
-              //                 border: Border(
-              //                   top: BorderSide(
-              //                   width: size1,
-              //                   color: getHexaColor(borderColor)
-              //                 )
-              //               )
-              //             ),
-              //             padding: EdgeInsets.all(5.0),
-              //             child: Row(
-              //               crossAxisAlignment: CrossAxisAlignment.end,
-              //               children: <Widget>[
-              //                 Expanded(
-              //                   child: Container(
-              //                     alignment: Alignment.centerLeft,
-              //                     child: Text(portfolioData['data'][index]['asset_type'] =='native' ? 'XLM' : portfolioData['data'][index]['asset_code'])
-              //                   ),
-              //                 ),
-              //                 Expanded(
-              //                   child: Container(
-              //                     child: Align(
-              //                       alignment: Alignment.centerLeft,
-              //                       child: Text(portfolioData['data'][index]['balance']),
-              //                     ),
-              //                   ),
-              //                 ),
-              //           ],
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
-            ],
-          )
-        )
-        
-      ],
-    ),
   );
 }
 
