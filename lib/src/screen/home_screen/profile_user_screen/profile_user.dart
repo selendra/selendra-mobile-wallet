@@ -169,7 +169,7 @@ class ProfileUserState extends State<ProfileUserWidget> {
               child: profileUserBodyWidget(isHaveWallet, context, userData, snackBar, dialogBox, popScreen)
                 // isFetch == true /* User Information */ /* IsFetch By Default false */
                 // ? 
-                // /* Progress Loading */
+                // /* Progress  Loading */
                 // : Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   children: <Widget>[
