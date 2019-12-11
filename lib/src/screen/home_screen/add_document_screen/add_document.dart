@@ -22,15 +22,8 @@ class AddDocument extends StatefulWidget{
 }
 
 class AddDocumentState extends State<AddDocument> {
-  
-  /* Variable */
+
   ModelDocument _modelDocument = ModelDocument();
-  List<dynamic> queryData = [];
-  bool isPassportImage = false; bool isSelfieImage = false; bool isProgress = false;
-  bool defaultPassportImage = true; bool defaultSelfieImage = true;
-  File filePassport; File fileSelfie;
-  Map<String, dynamic> fetchEmail;
-  String issueDate = "Issue Date", expiredDate = "Expired Date";
 
   @override
   void initState() {
@@ -44,7 +37,7 @@ class AddDocumentState extends State<AddDocument> {
   /* fetch data user login */
   fetchUser() async {
     Map<String, dynamic> data = await fetchData('userDataLogin');
-    fetchEmail = data['queryUserById'];
+    _modelDocument.fetchEmail = data['queryUserById'];
     setState(() {});
   }
 
@@ -70,8 +63,8 @@ class AddDocumentState extends State<AddDocument> {
   /* Reset Date For Display */
   void resetDate(DateTime date, String nameSpotPicker) {
     setState(() {
-      if (nameSpotPicker == "Issue Date") issueDate = DateFormat('yyyy-MM-dd').format(date);
-      else expiredDate = DateFormat('yyyy-MM-dd').format(date);
+      if (nameSpotPicker == "Issue Date") _modelDocument.labelIssueDate = DateFormat('yyyy-MM-dd').format(date);
+      else _modelDocument.labeExpiredDate = DateFormat('yyyy-MM-dd').format(date);
     });
   }
 
@@ -87,11 +80,11 @@ class AddDocumentState extends State<AddDocument> {
     var imageFile = await camera();
     setState(() {
       if (imageType == "passPortImage") {
-        defaultPassportImage = false;
-        isPassportImage = false;
+        _modelDocument.defaultPassportImage = false;
+        _modelDocument.isPassportImage = false;
       } else if (imageType == "selfieImage") {
-        defaultSelfieImage = false;
-        isSelfieImage = false;
+        _modelDocument.defaultSelfieImage = false;
+        _modelDocument.isSelfieImage = false;
       }
     });
     if (imageFile != null) {
@@ -99,25 +92,25 @@ class AddDocumentState extends State<AddDocument> {
         /* Check Image Type */
         if (imageType == "passPortImage") {
           /* Set image for display on screen */
-          filePassport = imageFile;
+          _modelDocument.filePassport = imageFile;
         } else if (imageType == "selfieImage") {
           /* Set image for display on screen */
-          fileSelfie = imageFile;
+          _modelDocument.fileSelfie = imageFile;
         }
       });
     } else {
       setState(() {
         /* If User Not Take A Picture. Stay Default Image */
-        if (imageType == "passPortImage" && filePassport == null) {
-          defaultPassportImage = true;
-        } else if (imageType == "selfieImage" && fileSelfie == null) {
-          defaultSelfieImage = true;
+        if (imageType == "passPortImage" && _modelDocument.filePassport == null) {
+          _modelDocument.defaultPassportImage = true;
+        } else if (imageType == "selfieImage" && _modelDocument.fileSelfie == null) {
+          _modelDocument.defaultSelfieImage = true;
         }
         /* If User Not Take A Picture But Have Already Take A Picture Last Time. Stay With Picture Last Time */
-        if (imageType == "passPortImage" && filePassport != null) {
-          isPassportImage = true;
-        } else if (imageType == "selfieImage" && fileSelfie != null) {
-          isSelfieImage = true;
+        if (imageType == "passPortImage" && _modelDocument.filePassport != null) {
+          _modelDocument.isPassportImage = true;
+        } else if (imageType == "selfieImage" && _modelDocument.fileSelfie != null) {
+          _modelDocument.isSelfieImage = true;
         }
       });
     }
@@ -127,10 +120,10 @@ class AddDocumentState extends State<AddDocument> {
   void resetImage(String imageNameToReset, String imageUrl){
     setState(() {
       if (imageNameToReset == "passPortImage") {
-        isPassportImage = true;
+        _modelDocument.isPassportImage = true;
         _modelDocument.documentsUri = imageUrl;
       } else if (imageNameToReset == "selfieImage"){
-        isSelfieImage = true;
+        _modelDocument.isSelfieImage = true;
         _modelDocument.faceUri = imageUrl;
       }
     });
@@ -156,7 +149,7 @@ class AddDocumentState extends State<AddDocument> {
     /* Loading */
     dialogLoading(context);
     runMutation({
-      'emails': fetchEmail['email'] != null ? fetchEmail['email'] : '',
+      'emails': _modelDocument.fetchEmail['email'] != null ? _modelDocument.fetchEmail['email'] : '',
       'document_noes': _modelDocument.documentNo,
       'documenttype_ids': _modelDocument.documentTypeId,
       'documents_uris': _modelDocument.documentsUri,
@@ -177,7 +170,7 @@ class AddDocumentState extends State<AddDocument> {
         options: QueryOptions(document: queryAllDocument),
         builder: (QueryResult result, {VoidCallback refetch}){
           if ( result.data != null) {
-            queryData = result.data['queryAllDocumentsType'];
+            _modelDocument.queryData = result.data['queryAllDocumentsType'];
           }
           /* Mutation */
           return Mutation(
@@ -185,7 +178,13 @@ class AddDocumentState extends State<AddDocument> {
             builder: (RunMutation runMutation, QueryResult result) {
               return Stack(
                 children: <Widget>[
-                  bodyWidget(context, fetchEmail, runMutation, queryData, _modelDocument, setDocumentName, isPassportImage, defaultPassportImage , isSelfieImage , defaultSelfieImage, filePassport, fileSelfie, issueDate, expiredDate, triggerImage, validatorUser, pushReplace, popScreen, resetImage, resetDate, clickSubmit, textChanged),
+                  bodyWidget(
+                    context,  
+                    runMutation, 
+                    _modelDocument, 
+                    setDocumentName, 
+                    triggerImage, validatorUser, pushReplace, popScreen, 
+                    resetImage, resetDate, clickSubmit, textChanged),
                 ],
               );
             },

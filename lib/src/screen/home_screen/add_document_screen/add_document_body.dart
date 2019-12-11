@@ -11,18 +11,11 @@ import 'package:wallet_apps/src/http_request/rest_api.dart';
 
 Widget bodyWidget(
   BuildContext context,
-  Map<String, dynamic> fetchEmail,
   RunMutation runMutation,
-  List<dynamic> queryData,
   ModelDocument _modelDocument,
   Function setDocumentName,
-  bool isPassportImage, bool defaultPassportImage,
-  bool isSelfieImage, bool defaultSelfieImage,
-  File filePassport,
-  File fileSelfie,
-  String issueDate, String expiredDate,
-  Function triggerImage, Function validatorUser, Function pushReplace, Function popScreen, Function resetImage, Function resetDate,
-  Function clickSubmit, Function textChanged
+  Function triggerImage, Function validatorUser, Function pushReplace, Function popScreen, 
+  Function resetImage, Function resetDate,Function clickSubmit, Function textChanged
 ) {
   return Column(
     children: <Widget>[
@@ -50,7 +43,7 @@ Widget bodyWidget(
                         Expanded(
                           child: Container(
                             margin: EdgeInsets.only(left: 20.0),
-                            child: dropDown("Document Type", null, queryData, null, _modelDocument, null, setDocumentName),
+                            child: dropDown("Document Type", null, _modelDocument.queryData, null, _modelDocument, null, setDocumentName),
                           )
                         )
                       ],
@@ -74,8 +67,8 @@ Widget bodyWidget(
                               width: 240.0,
                               height: 180.0,
                               child: 
-                              defaultPassportImage == true ? Image(image: AssetImage('assets/passport.png'),)
-                              : isPassportImage == false ? loading() : Image.file(filePassport)
+                              _modelDocument.defaultPassportImage == true ? Image(image: AssetImage('assets/passport.png'),)
+                              : _modelDocument.isPassportImage == false ? loading() : Image.file(_modelDocument.filePassport)
                             ),
                           ),
                           /* Trigger Image */
@@ -129,8 +122,8 @@ Widget bodyWidget(
                               width: 240.0,
                               height: 180.0,
                               child: 
-                              defaultSelfieImage == true ? Image(image: AssetImage('assets/passport_zuman.png'), color: Colors.white,) :
-                              isSelfieImage == false ? loading() : Image.file(fileSelfie)
+                              _modelDocument.defaultSelfieImage == true ? Image(image: AssetImage('assets/passport_zuman.png'), color: Colors.white,) :
+                              _modelDocument.isSelfieImage == false ? loading() : Image.file(_modelDocument.fileSelfie)
                             ),
                           ),
                           Flexible(
@@ -167,10 +160,10 @@ Widget bodyWidget(
                     ),
                     
                     /* Issue Date */
-                    fieldPicker(context, issueDate, Icons.calendar_today, _modelDocument, resetDate),
+                    fieldPicker(context, _modelDocument.labelIssueDate, Icons.calendar_today, _modelDocument, resetDate),
 
                     /* Expire Date */
-                    fieldPicker(context, expiredDate, Icons.calendar_today, _modelDocument, resetDate)
+                    fieldPicker(context, _modelDocument.labeExpiredDate, Icons.calendar_today, _modelDocument, resetDate)
                   ],
                 ),
               ),

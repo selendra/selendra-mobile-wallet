@@ -6,11 +6,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'dart:async';
 /* Directory of file */
 import 'package:wallet_apps/src/model/model_user_info.dart';
-import 'package:wallet_apps/src/screen/home_screen/add_document_screen/add_document.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import './add_user_info_body.dart';
 import 'package:wallet_apps/src/graphql/services/mutation_document.dart';
-import 'package:wallet_apps/src/screen/home_screen/drawer_widget.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 class AddUserInfo extends StatefulWidget{
@@ -30,38 +28,31 @@ class AddUserInfoState extends State<AddUserInfo>{
 
   @override
   void initState() {
-    super.initState();
     getData();
+    super.initState();
   }
-
-  /* fetch data user login */
-  getData() async {
+  
+  getData() async { /* fetch data user login */
     Map<String, dynamic> data = await fetchData('userDataLogin');
     _modelUserInfo.fetchEmail = data['queryUserById']; 
     setState(() {});
   }
-  /* Open Drawer Method */
-  void openDrawer() => _scaffoldKey.currentState.openDrawer();
-
-  /* Trigger Snack Bar Function */
-  void snackBar() {
+  
+  void snackBar() { /* Trigger Snack Bar Function */
     final snackbar = SnackBar(
       content: Text('Hello world'),
     );
     _scaffoldKey.currentState.showSnackBar(snackbar);
   }
-
-  /* Log Out Method */
-  void logOut() {
-    /* Loading */
-    dialogLoading(context);
+  
+  void logOut() { /* Log Out Method */
+    dialogLoading(context); /* Loading */
     Future.delayed(Duration(seconds: 2), () {
       Timer(Duration(milliseconds: 500), () => Navigator.pushReplacementNamed(context, '/'));
     });
   }
 
-  /* Validate user AddProfileWidget input */
-  Future<bool> validatorProfileUser() async { 
+  Future<bool> validatorProfileUser() async { /* Validate user AddProfileWidget input */
     bool isTrue;
     // print(fetchEmail['email']);
     // print('${_modelUserInfo.firstName}, ${_modelUserInfo.lastName}, ${_modelUserInfo.occupation} ${_modelUserInfo.gender} ${_modelUserInfo.nationality} ${_modelUserInfo.country} ${_modelUserInfo.city} ${_modelUserInfo.countryCode} ${_modelUserInfo.phoneNumber} ${_modelUserInfo.address} ${_modelUserInfo.buildNumber} ${_modelUserInfo.postalCode}');
@@ -209,13 +200,10 @@ class AddUserInfoState extends State<AddUserInfo>{
           );
         },
         update: (Cache cache, QueryResult result) async {
-          /* Pop Loading */
-          await Future.delayed(Duration(milliseconds: 800), () => Navigator.pop(context));
-          /* Push Add Document */ 
-          Navigator.pushNamed(context, '/addDocument');
+          await Future.delayed(Duration(milliseconds: 800), () => Navigator.pop(context)); /* Pop Loading */ 
+          Navigator.pushNamed(context, '/addDocument'); /* Push Add Document */
         },
-        onCompleted: (dynamic resultData){
-        },
+        onCompleted: (dynamic resultData){ },
       )
     );
   }
