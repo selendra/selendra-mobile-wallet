@@ -81,8 +81,8 @@ class AppState extends State<App>{
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
-              '/': (context) => 
-              ZeeChart(),
+              '/': (context) =>
+              AddUserInfo(),
               // AddUserInfo(),
               // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
@@ -102,7 +102,7 @@ class AppState extends State<App>{
               '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
               /* Verify User Screen */
               '/add_profile_screen': (context) => AddUserInfo(),
-              '/addDocumentScreen': (context) => AddDocumentWidget(),
+              '/addDocumentScreen': (context) => AddDocument(),
               '/signUpScreen': (context) => SignUpWidget(),
             },
           )

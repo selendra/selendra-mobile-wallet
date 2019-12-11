@@ -6,6 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'dart:async';
 /* Directory of file */
 import 'package:wallet_apps/src/model/model_user_info.dart';
+import 'package:wallet_apps/src/screen/home_screen/add_document_screen/add_document.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import './add_user_info_body.dart';
 import 'package:wallet_apps/src/graphql/services/mutation_document.dart';
@@ -21,16 +22,9 @@ class AddUserInfo extends StatefulWidget{
 
 class AddUserInfoState extends State<AddUserInfo>{
 
-  Map<String, dynamic> fetchEmail;
-
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   ModelUserInfo _modelUserInfo = ModelUserInfo();
-
-  /* File image from picker */
-  File file; 
-
-  bool isImage = false; bool isValidate = false; bool isProgress = false; bool isUploading = false;
 
   List<String> dropDownList = ["Male", "Female"];
 
@@ -43,7 +37,7 @@ class AddUserInfoState extends State<AddUserInfo>{
   /* fetch data user login */
   getData() async {
     Map<String, dynamic> data = await fetchData('userDataLogin');
-    fetchEmail = data['queryUserById']; 
+    _modelUserInfo.fetchEmail = data['queryUserById']; 
     setState(() {});
   }
   /* Open Drawer Method */
@@ -130,33 +124,28 @@ class AddUserInfoState extends State<AddUserInfo>{
     }
   }
 
-  /* Set gender to setState for display on UI */
-  void resetGender(String valueChange){
+  void resetGender(String valueChange){ /* Set gender to setState for display on UI */
     setState(() { _modelUserInfo.gender = valueChange; });
   }
 
-  /* Trigger image from gallery */
-  Future<File> triggerImage() async {
+  Future<File> triggerImage() async { /* Trigger image from gallery */
     var imageFile = await gallery();
     setState(() {
-      isUploading = true;
-      isImage = false;
+      _modelUserInfo.isUploading = true;
+      _modelUserInfo.isImage = false;
     });
-    if ( imageFile != null) {
-      /* Set Image for display on screen */
-      file = imageFile;
+    if ( imageFile != null) { 
+      _modelUserInfo.file = imageFile; /* Set Image for display on screen */
     } 
-    /* If User Cancel Image Selection. Set Default Image*/
-    else {
-      /* If User Have Already Upload At The Last Time. No Need To Set Default Image */
-      if (file == null) {
+    else { /* Image canceled. Set Default Image*/
+      if (_modelUserInfo.file == null) { /* If User Have Already Upload At The Last Time. No Need To Set Default Image */
         setState(() {
-          isUploading = false;
+          _modelUserInfo.isUploading = false;
         });
       } else {
         setState(() {  
-          isUploading = true;
-          isImage = true;
+          _modelUserInfo.isUploading = true;
+          _modelUserInfo.isImage = true;
         });
       }
     }
@@ -165,7 +154,7 @@ class AddUserInfoState extends State<AddUserInfo>{
 
   void resetImage(String imageUrl) {
     setState(() {
-      isImage = true;
+      _modelUserInfo.isImage = true;
       _modelUserInfo.profileImg = imageUrl;
     });
   }
@@ -174,7 +163,7 @@ class AddUserInfoState extends State<AddUserInfo>{
     /* Loading */
     dialogLoading(context);
     runMutation({
-      'emails': fetchEmail['email'],
+      'emails': _modelUserInfo.fetchEmail['email'],
       'first_names': _modelUserInfo.firstName,
       'mid_names': _modelUserInfo.midName != null ? _modelUserInfo.midName : "",
       'last_names': _modelUserInfo.lastName,
@@ -210,11 +199,8 @@ class AddUserInfoState extends State<AddUserInfo>{
                 context, 
                 runMutation, 
                 dropDownList, 
-                fetchEmail, 
                 _modelUserInfo, 
-                file, 
                 triggerImage, 
-                isImage, isUploading, 
                 resetGender, 
                 validatorProfileUser, 
                 resetImage, textChanged, clickNext, popScreen

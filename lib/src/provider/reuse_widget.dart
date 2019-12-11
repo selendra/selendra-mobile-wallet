@@ -654,7 +654,7 @@ Widget qrCodeGenerate(String _walletCode) {
 }
 
 /* ---------------------------------- Setting ----------------------------------*/
-Widget textFieldDisplay(bool enableInput, TextEditingController textController,bool isObscureText, String labelText, ModelDocument model) {
+Widget textFieldDisplay(bool enableInput, TextEditingController textController,bool isObscureText, String labelText, ModelDocument _modelDocument) {
   return Container(
     margin: EdgeInsets.only(top: 20.0),
     child: Column(
@@ -680,7 +680,7 @@ Widget textFieldDisplay(bool enableInput, TextEditingController textController,b
             )
           ),
           onChanged: (data) {
-            model.documentNo = data;
+            _modelDocument.documentNo = data;
           },
         )
       ],
@@ -693,48 +693,28 @@ Widget textNotification(String text, BuildContext context) {
 }
 
 /*----------------------------------------------- Add Document Widget ----------------------------------------------------- */
-Widget datePickerNDisplay(BuildContext context, String issueDate, String labelName, Function resetDate, ModelDocument modelDocument) {
+Widget fieldPicker(BuildContext context, String labelText, IconData icons, dynamic _model,  Function method) {
   return Container(
-    margin: EdgeInsets.only(top: 20.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        /* Email label */
-        Container(child: labelUserInput(labelName, "#ffffff"), margin: EdgeInsets.only(bottom: size4),),
-        /* Text Field*/
-        InkWell(
+        InkWell( /* Text Field*/
           child: Container(
-            padding: EdgeInsets.all(size10),
+            padding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0, right: 26.0),
             decoration: BoxDecoration(
-              color: black38,
-              border: Border.fromBorderSide(
-                BorderSide(color: getHexaColor(borderColor))
-              ),
+              color: getHexaColor("#FFFFFF").withOpacity(0.1),
               borderRadius: BorderRadius.circular(size5)
             ),
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: Text(issueDate, style: TextStyle(color: Colors.white),),
+                  child: Text(labelText, style: TextStyle(color: Colors.white, fontSize: 18.0),),
                 ),
-                Icon(Icons.calendar_today, color: Colors.white)
+                Icon(icons, color: Colors.white,)
               ],
             ),
           ),
-          onTap: () {
-            DatePicker.showDatePicker(
-              context, 
-              showTitleActions: true,
-              minTime: DateTime(2000, 1, 1),
-              maxTime: DateTime(2050, 1, 1),
-              onChanged: (date){ },
-              onConfirm: (data){
-                resetDate(data, labelName);
-                if (labelName == "Issue Date")modelDocument.issueDate = data.millisecondsSinceEpoch;
-                else modelDocument.expireDate = data.millisecondsSinceEpoch;
-              }
-            );
-          },
+          onTap: method,
         )
       ],
     )
@@ -824,7 +804,7 @@ Widget textFieldUserInput(String label, String colorLabel, Color fieldColor, Tex
   );
 }
 
-Widget dropDown(String label, List genderList, List documentIdList, ModelUserInfo modelProfile, ModelDocument modelDocument ,Function setGender, Function setDocumentName) {
+Widget dropDown(String label, List genderList, List documentIdList, ModelUserInfo _modelUserInfo, ModelDocument _modelDocument ,Function setGender, Function setDocumentName) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -864,7 +844,7 @@ Widget dropDown(String label, List genderList, List documentIdList, ModelUserInf
                     child: Text(mapData['document_name']),
                   );
                 }).toList(),
-              value: label == "Gender" ? modelProfile.gender : modelDocument.documentTypeId,
+              value: label == "Gender" ? _modelUserInfo.gender : _modelDocument.documentTypeId,
               onChanged: (changed) {
                 if (label == "Gender") {
                   setGender(changed);

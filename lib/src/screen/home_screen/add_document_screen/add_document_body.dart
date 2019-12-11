@@ -14,7 +14,7 @@ Widget bodyWidget(
   Map<String, dynamic> fetchEmail,
   RunMutation runMutation,
   List<dynamic> queryData,
-  ModelDocument modelDocument,
+  ModelDocument _modelDocument,
   Function setDocumentName,
   bool isPassportImage, bool defaultPassportImage,
   bool isSelfieImage, bool defaultSelfieImage,
@@ -50,7 +50,7 @@ Widget bodyWidget(
                         Expanded(
                           child: Container(
                             margin: EdgeInsets.only(left: 20.0),
-                            child: dropDown("Document Type", null, queryData, null, modelDocument, null, setDocumentName),
+                            child: dropDown("Document Type", null, queryData, null, _modelDocument, null, setDocumentName),
                           )
                         )
                       ],
@@ -146,7 +146,7 @@ Widget bodyWidget(
                                     Text("Selfie")
                                   ],
                                 ),
-                                onPressed: modelDocument.documentsUri == null ? null :
+                                onPressed: _modelDocument.documentsUri == null ? null :
                                 () async {
                                   var imageFile = await triggerImage('selfieImage');
                                   if (imageFile != null) {
@@ -167,10 +167,10 @@ Widget bodyWidget(
                     ),
                     
                     /* Issue Date */
-                    datePickerNDisplay(context, issueDate, "Issue Date", resetDate, modelDocument),
+                    fieldPicker(context, issueDate, Icons.calendar_today, _modelDocument, resetDate),
 
                     /* Expire Date */
-                    datePickerNDisplay(context, expiredDate, "Expired Date", resetDate, modelDocument)
+                    fieldPicker(context, expiredDate, Icons.calendar_today, _modelDocument, resetDate)
                   ],
                 ),
               ),

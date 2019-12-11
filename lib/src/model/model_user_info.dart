@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
@@ -26,6 +28,12 @@ class ModelUserInfo {
   String countryCode, phoneNumber; 
   String address;
   String buildNumber, postalCode;
+  /* File image from picker */
+  File file; 
+
+  bool isImage = false; bool isValidate = false; bool isProgress = false; bool isUploading = false;
+
+  Map<String, dynamic> fetchEmail = {};
 
   Future<Map<String, dynamic>> fetchDataOfUser() async {
     final data = await fetchData('userDataLogin');

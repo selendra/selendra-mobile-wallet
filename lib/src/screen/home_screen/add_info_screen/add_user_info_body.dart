@@ -10,11 +10,8 @@ Widget userInfobodyWidget(
   BuildContext context,
   RunMutation runMutation, 
   List<String> genderList,
-  Map<String, dynamic> fetchEmail, 
   ModelUserInfo _modelUserInfo,
-  File file,
   Function triggerImage,
-  bool isImage, bool isUploading,
   Function resetGender, Function validatorProfileUser, 
   Function resetImage, Function textChanged, Function clickNext, Function popScreen
   ) {
@@ -42,15 +39,57 @@ Widget userInfobodyWidget(
               margin: EdgeInsets.only(bottom: 12.0, left: 27.0, right: 27.0, top: 27.0),
               child: Column(
                 children: <Widget>[
-                  inputField(
+                  Container( /* Occupation Field */
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: inputField(
+                      _modelUserInfo.bloc, 
+                      context,
+                      "Occupation", null, "addUserInfoScreen",
+                      false, 
+                      TextInputType.text,
+                      _modelUserInfo.controlOccupation,
+                      _modelUserInfo.nodeOccupatioin,
+                      null, null
+                    ),
+                  ),
+                  Container( /* Nationality Screen */
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: inputField(
+                      _modelUserInfo.bloc, 
+                      context,
+                      "Nationality", null, "addUserInfoScreen",
+                      false, 
+                      TextInputType.text,
+                      _modelUserInfo.controlNationality,
+                      _modelUserInfo.nodeNationality,
+                      null, null
+                    ),
+                  ),
+                  Container( /* Country */
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: fieldPicker(context, "Country", Icons.search, _modelUserInfo, null),
+                  ),
+                  Container( /* Upload porfile picture */
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: fieldPicker(context, "Upload profile picture", Icons.camera_alt, _modelUserInfo, triggerImage),
+                  ),
+                  _modelUserInfo.file != null ? Container( /* Image Display */
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: Image.file(_modelUserInfo.file),
+                  ) : Container(),
+                  blueButton( /* Next Button */
                     _modelUserInfo.bloc, 
-                    context,
-                    "Occupation", null, "addUserInfoScreen",
-                    false, 
-                    TextInputType.text,
-                    _modelUserInfo.controlOccupation,
-                    _modelUserInfo.nodeOccupatioin,
-                    null, null
+                    context, 
+                    "Next", "addUserInfoScreen", 
+                    FontWeight.normal,
+                    size18,
+                    EdgeInsets.only(top: 15.0),
+                    EdgeInsets.only(top: size15, bottom: size15),
+                    BoxShadow(
+                      color: Color.fromRGBO(0,0,0,0.54),
+                      blurRadius: 5.0
+                    ),
+                    null
                   )
                 ],
               ),

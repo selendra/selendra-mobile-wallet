@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/graphql/services/query_document.dart';
@@ -11,23 +12,25 @@ import 'package:intl/intl.dart';
 import './add_document_body.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-class AddDocumentWidget extends StatefulWidget{
+class AddDocument extends StatefulWidget{
+
+  
   @override
   State<StatefulWidget> createState() {
     return AddDocumentState();
   }
 }
 
-class AddDocumentState extends State<AddDocumentWidget> {
+class AddDocumentState extends State<AddDocument> {
   
   /* Variable */
-  ModelDocument modelDocument = ModelDocument();
+  ModelDocument _modelDocument = ModelDocument();
   List<dynamic> queryData = [];
   bool isPassportImage = false; bool isSelfieImage = false; bool isProgress = false;
   bool defaultPassportImage = true; bool defaultSelfieImage = true;
   File filePassport; File fileSelfie;
   Map<String, dynamic> fetchEmail;
-  String issueDate = "DD-MM-YYYY", expiredDate = "DD-MM-YYYY";
+  String issueDate = "Issue Date", expiredDate = "Expired Date";
 
   @override
   void initState() {
@@ -49,6 +52,21 @@ class AddDocumentState extends State<AddDocumentWidget> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUserWidget()));
   }
 
+  void trickerDate(String labelText) {
+    DatePicker.showDatePicker(
+      context, 
+      showTitleActions: true,
+      minTime: DateTime(2000, 1, 1),
+      maxTime: DateTime(2050, 1, 1),
+      onChanged: (date){ },
+      onConfirm: (data){
+        resetDate(data, labelText);
+        if (labelText == "Issue Date") _modelDocument.issueDate = data.millisecondsSinceEpoch;
+        else _modelDocument.expireDate = data.millisecondsSinceEpoch;
+      }
+    );
+  }
+
   /* Reset Date For Display */
   void resetDate(DateTime date, String nameSpotPicker) {
     setState(() {
@@ -60,7 +78,7 @@ class AddDocumentState extends State<AddDocumentWidget> {
   /* Set Document Name */
   void setDocumentName(String id) {
     setState(() {
-      modelDocument.documentTypeId = id;
+      _modelDocument.documentTypeId = id;
     });
   }
 
@@ -110,10 +128,10 @@ class AddDocumentState extends State<AddDocumentWidget> {
     setState(() {
       if (imageNameToReset == "passPortImage") {
         isPassportImage = true;
-        modelDocument.documentsUri = imageUrl;
+        _modelDocument.documentsUri = imageUrl;
       } else if (imageNameToReset == "selfieImage"){
         isSelfieImage = true;
-        modelDocument.faceUri = imageUrl;
+        _modelDocument.faceUri = imageUrl;
       }
     });
   }
@@ -122,12 +140,12 @@ class AddDocumentState extends State<AddDocumentWidget> {
   Future<bool> validatorUser() async {
     bool isTrue;
     if ( 
-      modelDocument.documentNo != null && modelDocument.documentNo != "" &&
-      modelDocument.documentTypeId != null && modelDocument.documentTypeId != "" &&
-      modelDocument.documentsUri != null && modelDocument.documentsUri != "" &&
-      modelDocument.faceUri != null && modelDocument.faceUri != "" &&
-      modelDocument.issueDate != null &&
-      modelDocument.expireDate != null
+      _modelDocument.documentNo != null && _modelDocument.documentNo != "" &&
+      _modelDocument.documentTypeId != null && _modelDocument.documentTypeId != "" &&
+      _modelDocument.documentsUri != null && _modelDocument.documentsUri != "" &&
+      _modelDocument.faceUri != null && _modelDocument.faceUri != "" &&
+      _modelDocument.issueDate != null &&
+      _modelDocument.expireDate != null
     ){
       isTrue = true;
     } 
@@ -139,17 +157,17 @@ class AddDocumentState extends State<AddDocumentWidget> {
     dialogLoading(context);
     runMutation({
       'emails': fetchEmail['email'] != null ? fetchEmail['email'] : '',
-      'document_noes': modelDocument.documentNo,
-      'documenttype_ids': modelDocument.documentTypeId,
-      'documents_uris': modelDocument.documentsUri,
-      'face_uris': modelDocument.faceUri,
-      'issue_dates': modelDocument.issueDate.toString(),
-      'expire_dates': modelDocument.expireDate.toString()
+      'document_noes': _modelDocument.documentNo,
+      'documenttype_ids': _modelDocument.documentTypeId,
+      'documents_uris': _modelDocument.documentsUri,
+      'face_uris': _modelDocument.faceUri,
+      'issue_dates': _modelDocument.issueDate.toString(),
+      'expire_dates': _modelDocument.expireDate.toString()
     });
   }
 
   void textChanged(String label, String changed) {
-    modelDocument.documentNo = changed;
+    _modelDocument.documentNo = changed;
   }
 
   Widget build(BuildContext context) {
@@ -167,7 +185,7 @@ class AddDocumentState extends State<AddDocumentWidget> {
             builder: (RunMutation runMutation, QueryResult result) {
               return Stack(
                 children: <Widget>[
-                  bodyWidget(context, fetchEmail, runMutation, queryData, modelDocument, setDocumentName, isPassportImage, defaultPassportImage , isSelfieImage , defaultSelfieImage, filePassport, fileSelfie, issueDate, expiredDate, triggerImage, validatorUser, pushReplace, popScreen, resetImage, resetDate, clickSubmit, textChanged),
+                  bodyWidget(context, fetchEmail, runMutation, queryData, _modelDocument, setDocumentName, isPassportImage, defaultPassportImage , isSelfieImage , defaultSelfieImage, filePassport, fileSelfie, issueDate, expiredDate, triggerImage, validatorUser, pushReplace, popScreen, resetImage, resetDate, clickSubmit, textChanged),
                 ],
               );
             },
