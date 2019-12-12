@@ -67,11 +67,11 @@ Widget userInfobodyWidget(
                   ),
                   Container( /* Country */
                     margin: EdgeInsets.only(bottom: 12.0),
-                    child: fieldPicker(context, "Country", Icons.search, _modelUserInfo, null),
+                    child: fieldPicker(context, "Country", "addUserInfoScreen", Icons.search, _modelUserInfo, null),
                   ),
                   Container( /* Upload porfile picture */
                     margin: EdgeInsets.only(bottom: 12.0),
-                    child: fieldPicker(context, "Upload profile picture", Icons.camera_alt, _modelUserInfo, triggerImage),
+                    child: fieldPicker(context, "Upload profile picture", "addUserInfoScreen", Icons.camera_alt, _modelUserInfo, triggerImage),
                   ),
                   _modelUserInfo.file != null ? Container( /* Image Display */
                     margin: EdgeInsets.only(bottom: 12.0),

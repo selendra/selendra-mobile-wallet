@@ -45,7 +45,7 @@ class AddDocumentState extends State<AddDocument> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUserWidget()));
   }
 
-  void trickerDate(String labelText) {
+  void triggerDate(String labelText) {
     DatePicker.showDatePicker(
       context, 
       showTitleActions: true,
@@ -61,9 +61,9 @@ class AddDocumentState extends State<AddDocument> {
   }
 
   /* Reset Date For Display */
-  void resetDate(DateTime date, String nameSpotPicker) {
+  void resetDate(DateTime date, String label) {
     setState(() {
-      if (nameSpotPicker == "Issue Date") _modelDocument.labelIssueDate = DateFormat('yyyy-MM-dd').format(date);
+      if (label == "Issue Date") _modelDocument.labelIssueDate = DateFormat('yyyy-MM-dd').format(date);
       else _modelDocument.labeExpiredDate = DateFormat('yyyy-MM-dd').format(date);
     });
   }
@@ -160,7 +160,8 @@ class AddDocumentState extends State<AddDocument> {
   }
 
   void textChanged(String label, String changed) {
-    _modelDocument.documentNo = changed;
+    if (label == "Document type") _modelDocument.documentTypeId = changed;
+    else _modelDocument.documentNo = changed;
   }
 
   Widget build(BuildContext context) {
@@ -184,7 +185,7 @@ class AddDocumentState extends State<AddDocument> {
                     _modelDocument, 
                     setDocumentName, 
                     triggerImage, validatorUser, pushReplace, popScreen, 
-                    resetImage, resetDate, clickSubmit, textChanged),
+                    triggerDate, resetDate, clickSubmit, textChanged),
                 ],
               );
             },

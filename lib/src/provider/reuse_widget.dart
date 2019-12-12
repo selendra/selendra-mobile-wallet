@@ -693,7 +693,7 @@ Widget textNotification(String text, BuildContext context) {
 }
 
 /*----------------------------------------------- Add Document Widget ----------------------------------------------------- */
-Widget fieldPicker(BuildContext context, String labelText, IconData icons, dynamic _model,  Function method) {
+Widget fieldPicker(BuildContext context, String labelText, String widgetName, IconData icons, dynamic _model,  Function method) {
   return Container(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -714,7 +714,10 @@ Widget fieldPicker(BuildContext context, String labelText, IconData icons, dynam
               ],
             ),
           ),
-          onTap: method,
+          onTap: () {
+            if (widgetName == "addDocumentScreen") method(labelText);
+            else method();
+          },
         )
       ],
     )

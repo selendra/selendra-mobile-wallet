@@ -2,7 +2,7 @@
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/forgot_password_screen/forgot_password.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_document_screen/add_document.dart';
-import 'package:wallet_apps/src/screen/home_screen/add_info_screen/add_user_info.dart';
+import 'package:wallet_apps/src/screen/home_screen/add_user_info_screen/add_user_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';

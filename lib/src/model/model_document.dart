@@ -1,6 +1,10 @@
 import 'dart:io';
+import 'package:flutter/widgets.dart';
+import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelDocument{
+
+  Bloc bloc = Bloc();
 
   List<dynamic> queryData = [];
   bool isPassportImage = false; bool isSelfieImage = false; bool isProgress = false;
@@ -9,6 +13,12 @@ class ModelDocument{
   Map<String, dynamic> fetchEmail;
   String labelIssueDate = "Issue Date", labeExpiredDate = "Expired Date";
   
+  TextEditingController controllerDocsType = TextEditingController(text: "");
+  TextEditingController controllerDocsNumber = TextEditingController(text: "");
+  
+  FocusNode nodeDocsType = FocusNode();
+  FocusNode nodeDocsNumber = FocusNode();
+
   String documentTypeId;
   String documentNo;
   String documentsUri;
