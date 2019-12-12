@@ -64,7 +64,6 @@ class SettingState extends State<SettingWidget>{
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: appbarWidget(openDrawer, containerTitleAppBar('Settings'), snackBar),
       drawer: drawerOnly(context, "settingscreen", logOut),
       body: Stack(
         children: <Widget>[

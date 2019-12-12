@@ -1,13 +1,12 @@
 /* Flutter package */
+import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/forgot_password_screen/forgot_password.dart';
-import 'package:wallet_apps/src/screen/home_screen/add_document_screen/add_document.dart';
+import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/add_success_screen/add_success.dart';
+import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/fill_documents.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_user_info_screen/add_user_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
-import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
-import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';
-import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/zee_chart_screen/zee_chart.dart';
-import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pin_screen/change_pin.dart';
+import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/take_selfie_screen/take_selfie.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
@@ -34,14 +33,17 @@ class App extends StatefulWidget{
 }
 
 class AppState extends State<App>{
+
   Map<String, dynamic> token;
+
+  ModelDocument _modelDocument;
 
   @override
   void initState() {
     super.initState();
   }
 
-  firstTreeState() async { /* ReSet Bearer Token In Main Widget */
+  firstTreeState() async { /* Reset Bearer Token In Main Widget */
     token = await Provider.fetchToken();
     setState(() {}); 
   }
@@ -81,8 +83,8 @@ class AppState extends State<App>{
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
-              '/': (context) => AddDocument(),
-              // WelcomeToZee(firstTreeState),
+              '/': (context) => 
+              WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
               // PhoneScreen(setMyState),
@@ -100,7 +102,7 @@ class AppState extends State<App>{
               '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
               /* Verify User Screen */
               '/add_profile_screen': (context) => AddUserInfo(),
-              '/addDocumentScreen': (context) => AddDocument(),
+              '/addDocumentScreen': (context) => AddDocuments(),
               '/signUpScreen': (context) => SignUpWidget(),
             },
           )

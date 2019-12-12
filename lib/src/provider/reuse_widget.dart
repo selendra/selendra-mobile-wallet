@@ -551,47 +551,6 @@ Widget containerTitleAppBar(String title) {
   );
 }
 
-/* Appbar with menu and notification */
-Widget appbarWidget(Function openMyDrawer, Widget title, Function snackBar) {
-  return AppBar(
-    title: title,
-    automaticallyImplyLeading: false,
-    backgroundColor: Colors.transparent,
-    leading: Container(
-      margin: EdgeInsets.only(left: 5.0),
-      child: IconButton(
-        iconSize: 40.0,
-        icon: Icon(Icons.sort),
-        onPressed: () {
-          openMyDrawer();
-        },
-      ),
-    ),
-    actions: <Widget>[
-      IconButton(
-        icon: Icon(OMIcons.notifications),
-        onPressed: () {},
-      )
-    ],
-  );
-}
-
-/* Trasparent AppBar have only back arrow button */
-Widget appBar(String title, Function pop) {
-  return AppBar(
-    centerTitle: true,
-    title: Text(title, style: TextStyle(color: getHexaColor(textColor), fontWeight: FontWeight.bold),),
-    backgroundColor: getHexaColor("#344051"),
-    elevation: 0.0,
-    iconTheme: IconThemeData(color: getHexaColor(textColor)),
-    leading: IconButton(
-      color: getHexaColor(textColor),
-      icon: Icon(Icons.arrow_back_ios),
-      onPressed: pop,
-    ),
-  );
-}
-
 Widget zeeLogo(double width, double height) {
   return Image.asset("assets/zeelogo.png", height: height, width: width);
 }
@@ -692,7 +651,7 @@ Widget textNotification(String text, BuildContext context) {
   return Align(alignment: Alignment.center, child: Text(text, style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w300)),);
 }
 
-/*----------------------------------------------- Add Document Widget ----------------------------------------------------- */
+/*----------------------------------------------- Field Icons trigger Widget ----------------------------------------------------- */
 Widget fieldPicker(BuildContext context, String labelText, String widgetName, IconData icons, dynamic _model,  Function method) {
   return Container(
     child: Column(

@@ -119,8 +119,21 @@ class ScanPayState extends State<ScanPayWidget>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: <Widget>[
-          appBar('Pay to', popScreen),
+        children: <Widget>[ 
+          containerAppBar( /* AppBar */
+            context, 
+            Row(
+              children: <Widget>[
+                iconAppBar( /* Arrow Back Button */
+                  Icon(Icons.arrow_back, color: Colors.white,),
+                  Alignment.centerLeft,
+                  EdgeInsets.all(0),
+                  popScreen,
+                ),
+                containerTitleAppBar("Fill Documents")
+              ],
+            )
+          ),
           Mutation(
             options: MutationOptions(document: scanPay),
             builder: (RunMutation runMutation, QueryResult results){
