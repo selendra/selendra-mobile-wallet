@@ -54,7 +54,7 @@ Widget selfieBodyWidget(
                   margin: EdgeInsets.only(bottom: 29.17),
                   child: Container(
                     width: double.infinity, height: 189.26,
-                    child: Image.asset("assets/zuman.png", fit: BoxFit.fill,),
+                    child: Image.asset("assets/selfie.png", fit: BoxFit.fill,),
                   ),
                 ),
                 Container( /* Upload documents */

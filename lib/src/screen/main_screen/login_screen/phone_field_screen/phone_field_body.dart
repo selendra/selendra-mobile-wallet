@@ -209,7 +209,7 @@ Widget register(BuildContext context) {
 }
 
 /* Forgot Password Button */
-Widget forgotPassword(BuildContext context) {
+Widget forgotPasswordBody(BuildContext context) {
   return InkWell(
     child: Text('Forgot password?', style: TextStyle(color: getHexaColor(lightBlueSky), fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
     onTap: () { Navigator.pushNamed(context, '/forgotPasswordScreen'); },

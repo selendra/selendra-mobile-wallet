@@ -1,7 +1,7 @@
 /* Flutter package */
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/forgot_password_screen/forgot_password.dart';
+import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/add_success_screen/add_success.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/fill_documents.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_user_info_screen/add_user_info.dart';
@@ -20,7 +20,7 @@ import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 void main () {
-  debugPaintSizeEnabled = true;
+  // debugPaintSizeEnabled = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(App());
 }
@@ -83,7 +83,7 @@ class AppState extends State<App>{
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
-              '/': (context) =>  AddSuccess(),
+              '/': (context) =>  ForgotPassword(),
               // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
@@ -93,7 +93,7 @@ class AppState extends State<App>{
               // InvoiceSummary(),
               // InvoiceInfo("Hello"),
               // ProfileUserWidget(),
-              '/forgotPasswordScreen': (context) => ForgotPasswordWidget(),
+              '/forgotPasswordScreen': (context) => ForgotPassword(),
               /* Home Screen */
               '/dashboardScreen': (context) => HomeWidget(),
               // '/getWalletScreen': (context) => GetWalletWidget(),

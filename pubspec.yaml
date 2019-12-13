@@ -77,8 +77,6 @@ flutter:
     - assets/zeetomic-logo-footer.png
     - assets/gallery.png
     - assets/camera.png
-    - assets/passport.png
-    - assets/passport_zuman.png
     - assets/zeetomic-logo-header.png
     - assets/zee_for_qr.png
     - assets/zeelogo.png
@@ -88,7 +86,7 @@ flutter:
     - assets/z_white_logo.png
     - assets/invoice.png 
     - assets/front_picture.png
-    - assets/zuman.png
+    - assets/selfie.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
