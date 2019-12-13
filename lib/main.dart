@@ -1,6 +1,8 @@
 /* Flutter package */
 import 'package:wallet_apps/src/model/model_document.dart';
+import 'package:wallet_apps/src/model/model_forgot_password.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/change_password_screen/change_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/add_success_screen/add_success.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/fill_documents.dart';
@@ -10,6 +12,7 @@ import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/take_se
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
+import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/request_code_screen/request_code.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/phone_field_screen/phone_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -36,7 +39,7 @@ class AppState extends State<App>{
 
   Map<String, dynamic> token;
 
-  ModelDocument _modelDocument;
+  ModelForgotPassword _modelForgotPassword = ModelForgotPassword();
 
   @override
   void initState() {
@@ -83,7 +86,7 @@ class AppState extends State<App>{
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
-              '/': (context) =>  ForgotPassword(),
+              '/': (context) =>  ChangePassword(this._modelForgotPassword),
               // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
