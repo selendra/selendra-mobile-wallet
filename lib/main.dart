@@ -20,7 +20,7 @@ import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 void main () {
-  // debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(App());
 }
@@ -83,8 +83,8 @@ class AppState extends State<App>{
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
-              '/': (context) => 
-              WelcomeToZee(firstTreeState),
+              '/': (context) =>  AddSuccess(),
+              // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
               // PhoneScreen(setMyState),

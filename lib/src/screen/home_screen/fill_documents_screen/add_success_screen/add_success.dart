@@ -22,27 +22,27 @@ Widget addSuccessBodyWidget(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container( /* Icon Round Button */
-          padding: EdgeInsets.all(20.0),
-          margin: EdgeInsets.only(bottom: 12.0),
+          height: 122, width: 122,
+          margin: EdgeInsets.only(bottom: 33.0),
           decoration: BoxDecoration(
             color: getHexaColor(greenColor),
             borderRadius: BorderRadius.circular(60.0)
           ),
-          child: Icon(Icons.done, size: 50.0, color: Colors.white,),
+          child: Icon(Icons.done, size: 90.0, color: Colors.white,),
         ),
         Container( /* Congratulation Text */
-          margin: EdgeInsets.only(bottom: 12.0),
-          child: Text('Congratulation', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0),),
+          margin: EdgeInsets.only(bottom: 17.0),
+          child: Text('Congratulation', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),),
         ),
         Container(
-          margin: EdgeInsets.only(bottom: 12.0),
+          margin: EdgeInsets.only(bottom: 17.0, left: 6.0, right: 6.0),
           child: Text(
             "We will received your information with in 24 hours", 
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20.0),
+            style: TextStyle(fontSize: 18.0),
           ),
         ),
-        blueButton(
+        blueButton( /* Done Button */
           _bloc, context, "Done", "addSuccessScreen", 
           FontWeight.normal,
           size18,

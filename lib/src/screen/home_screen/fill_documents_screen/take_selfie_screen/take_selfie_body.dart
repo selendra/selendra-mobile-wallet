@@ -52,15 +52,9 @@ Widget selfieBodyWidget(
                 // ),
                 Container(
                   margin: EdgeInsets.only(bottom: 29.17),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-                  child: DottedBorder(
-                    strokeWidth: 2,
-                    color: getHexaColor(greenColor),
-                    dashPattern: [8, 4],
-                    child: Container(
-                      width: double.infinity, height: 189.26,
-                      child: Image.asset("assets/passport_zuman.png", width: 97.46, height: 141.49,),
-                    ),
+                  child: Container(
+                    width: double.infinity, height: 189.26,
+                    child: Image.asset("assets/zuman.png", fit: BoxFit.fill,),
                   ),
                 ),
                 Container( /* Upload documents */
