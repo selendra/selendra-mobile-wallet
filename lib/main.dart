@@ -1,6 +1,8 @@
 /* Flutter package */
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/model/model_forgot_password.dart';
+import 'package:wallet_apps/src/model/model_login.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/change_password_screen/change_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password.dart';
@@ -18,8 +20,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/rendering.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_screen/signup_second.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 void main () {
@@ -39,7 +43,7 @@ class AppState extends State<App>{
 
   Map<String, dynamic> token;
 
-  ModelForgotPassword _modelForgotPassword = ModelForgotPassword();
+  ModelSignUp _modelLogin = ModelSignUp();
 
   @override
   void initState() {
@@ -86,7 +90,7 @@ class AppState extends State<App>{
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
-              '/': (context) => SignUp(),
+              '/': (context) => CreatePassword(_modelLogin),
               // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
@@ -106,7 +110,7 @@ class AppState extends State<App>{
               /* Verify User Screen */
               '/add_profile_screen': (context) => AddUserInfo(),
               '/addDocumentScreen': (context) => AddDocuments(),
-              '/signUpScreen': (context) => SignUp(),
+              '/signUpScreen': (context) => SignUpFirst(),
             },
           )
         ),

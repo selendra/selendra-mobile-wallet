@@ -207,7 +207,7 @@ Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButto
   );
 }
 
-Widget blueButton(
+Widget flatCustomButton(
   Bloc bloc,
   BuildContext context,
   String textButton, String widgetName, String buttonColor,
@@ -242,7 +242,7 @@ Widget blueButton(
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
       onPressed: () {
-        if (widgetName == "bothField") action(bloc, context);
+        if (widgetName == "loginSecondScreen") action(bloc, context);
         else if (widgetName == "invoiceInfoScreen") action(); 
         else action(context);
       }

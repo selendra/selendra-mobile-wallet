@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_screen/signup_second_body.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
@@ -8,10 +9,10 @@ import 'package:wallet_apps/src/provider/internet_connection.dart';
 
 class SignUpSecond extends StatefulWidget{
 
-  final ModelLogin modelLogin;
+  final ModelSignUp _modelSignUp;
   final Function setMyState;
 
-  SignUpSecond(this.modelLogin, this.setMyState);
+  SignUpSecond(this._modelSignUp, this.setMyState);
   @override
   State<StatefulWidget> createState() {
     return SignUpSecondState();
@@ -28,21 +29,21 @@ class SignUpSecondState extends State<SignUpSecond>{
 
   focusOnPassword() async {
     await Future.delayed(Duration(milliseconds: 100), (){
-      FocusScope.of(context).requestFocus(widget.modelLogin.secondNode);
+      FocusScope.of(context).requestFocus(widget._modelSignUp.nodeSmsCode);
     });
   }
 
   /* Check Internet Before Validate And Finish Validate*/
   void checkInputAndValidate() async {
-    setState(() {widget.modelLogin.isProgress = true;});  
+    setState(() {widget._modelSignUp.isProgress = true;});  
     await Future.delayed(Duration(milliseconds: 100), (){
       checkConnection(context).then((isConnect) {
         if ( isConnect == true ) {
           validatorLogin(
-            widget.modelLogin.bloc, context);
+            widget._modelSignUp.bloc, context);
         } else {
           setState(() {
-            widget.modelLogin.isProgress = false;
+            widget._modelSignUp.isProgress = false;
             noInternet(context);
           });
         }
@@ -67,7 +68,7 @@ class SignUpSecondState extends State<SignUpSecond>{
       return data;
     }).catchError((onError){
       Navigator.pop(context);
-      setState(() => widget.modelLogin.isProgress = false );
+      setState(() => widget._modelSignUp.isProgress = false );
       return false;
     });
     if (submitResponse == false) {
@@ -86,12 +87,8 @@ class SignUpSecondState extends State<SignUpSecond>{
       body: Container(
         decoration: scaffoldBGColor(color1, color2),
         child: paddingScreenWidget(
-          context, bothFieldBodyWidget(
-            context,
-            widget.modelLogin,
-            onChanged,
-            validatorLogin
-          )
+          context, 
+          signUpSecondBodyWidget(context, widget._modelSignUp, onChanged, validatorLogin)
         ),
       ),
     );

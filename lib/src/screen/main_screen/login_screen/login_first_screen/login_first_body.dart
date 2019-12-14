@@ -36,10 +36,10 @@ Widget loginFirstBodyWidget( /* body widget */
         child: userLogin(context, modelLogin, onChanged, navigatePage),
       ),
       
-      blueButton( /* Button login */
+      flatCustomButton( /* Button login */
         modelLogin.bloc,
         context,
-        "Login", "phoneNumber", blueColor,
+        "Login", "loginFirstScreen", blueColor,
         FontWeight.bold,
         size18,
         EdgeInsets.only(top: size10, bottom: size10),

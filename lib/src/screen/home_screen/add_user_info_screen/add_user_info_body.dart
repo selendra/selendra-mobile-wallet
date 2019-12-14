@@ -6,7 +6,7 @@ import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-Widget userInfobodyWidget(
+Widget addUserInfobodyWidget(
   BuildContext context,
   RunMutation runMutation, 
   List<String> genderList,
@@ -77,7 +77,7 @@ Widget userInfobodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: Image.file(_modelUserInfo.file),
                   ) : Container(),
-                  blueButton( /* Next Button */
+                  flatCustomButton( /* Next Button */
                     _modelUserInfo.bloc, 
                     context, 
                     "Next", "addUserInfoScreen", blueColor,

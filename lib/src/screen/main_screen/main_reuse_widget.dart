@@ -10,7 +10,7 @@ Widget paddingScreenWidget(BuildContext context, Widget body) {
         maxHeight: MediaQuery.of(context).size.height,
         maxWidth: MediaQuery.of(context).size.width
       ), /* Get max height */
-      padding: EdgeInsets.only(top: 102.42, left: leftRight40, right: leftRight40, bottom: 67.0),
+      padding: EdgeInsets.only(top: 102.42, left: leftRight40, right: leftRight40, bottom: 52.0),
       child: body,
     ),
   );

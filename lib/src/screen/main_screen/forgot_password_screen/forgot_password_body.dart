@@ -29,9 +29,9 @@ Widget forgotPasswordBodyWidget(
             margin: EdgeInsets.only(left: 24.0, right: 24.0,top: 59.0),
             child: Column(
               children: <Widget>[
-                Container(
+                Container( /* Phone number field */
                   margin: EdgeInsets.only(bottom: 12.0),
-                  child: inputField( /* Phone number field */
+                  child: inputField(
                     _modelForgots.bloc, 
                     context, "Phone number", "+855", "forgotsScreen", 
                     false, 
@@ -42,7 +42,7 @@ Widget forgotPasswordBodyWidget(
                     null
                   ),
                 ),
-                blueButton(
+                flatCustomButton(
                   _modelForgots.bloc, 
                   context, 
                   "Request Code", "forgotsScreen", greenColor,                    

@@ -186,7 +186,7 @@ class AddUserInfoState extends State<AddUserInfo>{
           return Stack(
             children: <Widget>[
               /* Body verify user 1 */
-              userInfobodyWidget(
+              addUserInfobodyWidget(
                 context, 
                 runMutation, 
                 dropDownList, 

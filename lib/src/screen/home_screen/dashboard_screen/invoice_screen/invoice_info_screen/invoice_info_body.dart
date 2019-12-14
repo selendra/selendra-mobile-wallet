@@ -136,7 +136,7 @@ Widget invoiceBodyWidget(
                     null
                   ),
                 ),
-                blueButton(
+                flatCustomButton(
                   bloc, 
                   context, 
                   "Next", "invoiceInfoScreen", blueColor,

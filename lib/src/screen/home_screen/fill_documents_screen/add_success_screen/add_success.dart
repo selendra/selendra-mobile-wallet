@@ -42,7 +42,7 @@ Widget addSuccessBodyWidget(BuildContext context) {
             style: TextStyle(fontSize: 18.0),
           ),
         ),
-        blueButton( /* Done Button */
+        flatCustomButton( /* Done Button */
           _bloc, context, "Done", "addSuccessScreen", blueColor,
           FontWeight.normal,
           size18,

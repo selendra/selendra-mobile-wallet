@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 /* File Path */
@@ -9,16 +10,16 @@ import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_s
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/internet_connection.dart';
 
-class SignUp extends StatefulWidget{
+class SignUpFirst extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return SignUpState();
+    return SignUpFirstState();
   }
 }
 
-class SignUpState extends State<SignUp> {
+class SignUpFirstState extends State<SignUpFirst> {
 
-  ModelLogin _modelSignUp = ModelLogin();
+  ModelSignUp _modelSignUp = ModelSignUp();
 
   /* Remove Current Screen */
   void popScreen() {

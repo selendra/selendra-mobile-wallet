@@ -55,7 +55,7 @@ Widget requestCodeBodyWidget(
                     null
                   ),
                 ),
-                blueButton( /* Request Button */
+                flatCustomButton( /* Request Button */
                   _modelForgots.bloc, 
                   context, 
                   "Change Now", "forgotsScreen", greenColor,                     
@@ -68,6 +68,11 @@ Widget requestCodeBodyWidget(
                     blurRadius: 5.0
                   ),
                   null
+                ),
+                Container( /* Resend Code Countdown */
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 30.0),
+                  child: Text("Resend Code in 59s", style: TextStyle(fontSize: 18.0),),
                 )
               ],
             )

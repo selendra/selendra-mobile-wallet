@@ -113,7 +113,7 @@ Widget bodyWidget(
                     builder: (context, snapshot){
                       return Container(
                         margin: EdgeInsets.only(bottom: 12.0),
-                        child: blueButton(
+                        child: flatCustomButton(
                           _modelDocument.bloc, 
                           context, 
                           "Submit", "addDocumentScreen", blueColor,                 

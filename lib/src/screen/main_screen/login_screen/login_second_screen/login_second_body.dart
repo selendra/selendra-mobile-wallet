@@ -43,10 +43,10 @@ Widget bothFieldBodyWidget(
         ),
       ),
       /* Button login */
-      blueButton(
+      flatCustomButton(
         modelLogin.bloc,
         context,
-        "Login", "bothField", blueColor,
+        "Login", "loginSecondScreen", blueColor,
         FontWeight.bold,
         size18,
         EdgeInsets.only(top: size10, bottom: 0),

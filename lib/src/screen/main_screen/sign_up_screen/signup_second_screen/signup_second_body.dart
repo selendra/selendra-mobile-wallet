@@ -1,26 +1,24 @@
 import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/model/model_login.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
-/* body widget */
-Widget bothFieldBodyWidget(
+Widget signUpSecondBodyWidget( /* Body widget */
   BuildContext context,
-  ModelLogin modelLogin,
+  ModelSignUp _modelSignup,
   Function onChanged,
   Function validatorLogin
 ) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch, // Stretch is fill cros axis
     children: <Widget>[
-      /* Title of Zeetomic */
-      Container(
+      Container( /* Title of Zeetomic */
         child: Column(
           children: <Widget>[
             Container(
               child: textDisplay(
                 "Login", 
-                // "#ffffff", 30.0, FontWeight.bold,
                 TextStyle(
                   color: getHexaColor("ffffff"),
                   fontSize: 30.0,
@@ -31,22 +29,19 @@ Widget bothFieldBodyWidget(
           ],
         ),
       ),
-      /* Body login */
-      Container(
+      Container( /* Body login */
         padding: EdgeInsets.only(top: 59.0),
-        /* User Input Field */
-        child: userLogin(
+        child: userLogin( /* User Input Field */
           context,
-          modelLogin,
+          _modelSignup,
           onChanged,
           validatorLogin
         ),
       ),
-      /* Button login */
-      blueButton(
-        modelLogin.bloc,
+      flatCustomButton( /* Button login */
+        _modelSignup.bloc,
         context,
-        "Login", "bothField", blueColor,
+        "Sign Up", "signUpSecondScreen", greenColor,
         FontWeight.bold,
         size18,
         EdgeInsets.only(top: size10, bottom: 0),
@@ -57,58 +52,53 @@ Widget bothFieldBodyWidget(
         ),
         validatorLogin
       ),
-      Container(
+      Container( /* Resend Code Countdown */
+        alignment: Alignment.center,
         margin: EdgeInsets.only(top: 30.0),
-        alignment: Alignment.center, 
-        child: forgotPassword(context)
+        child: Text("Resend Code in 59s", style: TextStyle(fontSize: 18.0),),
       ),
+      Expanded(child: Container(),),
+      toLogin(context),
     ],
   );
 }
 
-/* Column of User Login */
-Widget userLogin(
+Widget userLogin( /* Column of User Login */
   BuildContext context, 
-  ModelLogin modelLogin,
+  ModelSignUp _modelSignUp,
   Function onChanged, Function validatorLogin
   ) {
   return Column(
     children: <Widget>[
-      /* Phone number input*/
       Container(
         margin: EdgeInsets.only(bottom: 13.0), 
-        child: inputField(
-          modelLogin.bloc, 
+        child: inputField( /* Phone number input*/
+          _modelSignUp.bloc, 
           context, 
-          "Phone number", modelLogin.countryCode, "BothScreen", 
+          "Phone number", _modelSignUp.countryCode, "signUpSecondScreen", 
           false, 
-          TextInputType.phone, modelLogin.controlPhoneNumbers,
-          modelLogin.firstNode, 
+          TextInputType.phone, _modelSignUp.controlPhoneNums,
+          _modelSignUp.nodePhoneNums, 
           onChanged, 
           null
         )
       ),
-      /* Password input */
-      Container(
+      Container( /* Password input */
         margin: EdgeInsets.only(bottom: 25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             inputField(
-              modelLogin.bloc,
+              _modelSignUp.bloc,
               context, 
-              "Password", null, "BothScreen", 
+              "Enter SMS code", null, "signUpSecondScreen", 
               true, 
               TextInputType.text, 
-              modelLogin.controlPasswords,
-              modelLogin.secondNode, 
+              _modelSignUp.controlSmsCode,
+              _modelSignUp.nodeSmsCode, 
               onChanged, 
               validatorLogin
             )
-            /* Password Label and Forget password button */,
-            // Container(margin: EdgeInsets.only(bottom: 5.0), child: labelUserInput('Password', whiteColorHexa)),
-            /* Password Input */
-            // passwordField(bloc, controlPasswords, firstNode, secondNode, clearAllInput, disableLoginButton, validatorLogin),
           ],
         )
       ),

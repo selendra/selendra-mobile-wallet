@@ -67,7 +67,7 @@ Widget selfieBodyWidget(
                     navigatePage
                   ),
                 ),
-                blueButton(
+                flatCustomButton(
                   bloc, 
                   context, 
                   "Upload", "uploadDocumentScreen", blueColor,                  
