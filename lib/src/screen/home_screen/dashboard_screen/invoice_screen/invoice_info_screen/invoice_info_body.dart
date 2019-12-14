@@ -139,7 +139,7 @@ Widget invoiceBodyWidget(
                 blueButton(
                   bloc, 
                   context, 
-                  "Next", "invoiceInfoScreen", 
+                  "Next", "invoiceInfoScreen", blueColor,
                   FontWeight.bold, 18.0, 
                   EdgeInsets.only(top: size10, bottom: 0),
                   EdgeInsets.only(top: size15, bottom: size15),

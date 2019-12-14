@@ -58,7 +58,7 @@ Widget addAssetBodyWidget(
                   blueButton( /* Add Asset Button */
                     _modelAsset.bloc, 
                     context, 
-                    "Add assets", "addAssetScreen", 
+                    "Add assets", "addAssetScreen", blueColor,
                     FontWeight.normal, 
                     size18,
                     EdgeInsets.only(top: 15.0),

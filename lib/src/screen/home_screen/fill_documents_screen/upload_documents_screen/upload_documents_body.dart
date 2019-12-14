@@ -61,7 +61,7 @@ Widget documentsBodyWidget(
                 blueButton(
                   bloc, 
                   context, 
-                  "Upload", "uploadDocumentScreen",                     
+                  "Upload", "uploadDocumentScreen", blueColor,                  
                   FontWeight.normal,
                   size18,
                   EdgeInsets.only(top: 15.0),

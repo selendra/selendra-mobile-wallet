@@ -58,7 +58,7 @@ Widget requestCodeBodyWidget(
                 blueButton( /* Request Button */
                   _modelForgots.bloc, 
                   context, 
-                  "Change Now", "forgotsScreen",                      
+                  "Change Now", "forgotsScreen", greenColor,                     
                   FontWeight.normal,
                   size18,
                   EdgeInsets.only(top: 15.0),

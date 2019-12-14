@@ -77,7 +77,7 @@ Widget changePinBodyWidget(
                 blueButton(
                   _modelChangePin.bloc, 
                   context, 
-                  "Change Now", "changePinScreen", 
+                  "Change Now", "changePinScreen", blueColor,
                   FontWeight.normal, 
                   size18,
                   EdgeInsets.only(top: 15.0),

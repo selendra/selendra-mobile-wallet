@@ -45,7 +45,7 @@ Widget forgotPasswordBodyWidget(
                 blueButton(
                   _modelForgots.bloc, 
                   context, 
-                  "Request Code", "forgotsScreen",                      
+                  "Request Code", "forgotsScreen", greenColor,                    
                   FontWeight.normal,
                   size18,
                   EdgeInsets.only(top: 15.0),

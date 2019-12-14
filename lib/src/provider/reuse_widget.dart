@@ -210,7 +210,7 @@ Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButto
 Widget blueButton(
   Bloc bloc,
   BuildContext context,
-  String textButton, String widgetName,
+  String textButton, String widgetName, String buttonColor,
   FontWeight fontWeight, 
   double fontSize, 
   EdgeInsetsGeometry edgeMargin, EdgeInsetsGeometry edgePadding, 
@@ -228,7 +228,7 @@ Widget blueButton(
       ]
     ),
     child: FlatButton(
-      color: getHexaColor(blueColor),
+      color: getHexaColor(buttonColor),
       disabledTextColor: Colors.black54,
       disabledColor: Colors.grey[700],
       focusColor: getHexaColor("#83B6BD"),

@@ -43,7 +43,7 @@ Widget addSuccessBodyWidget(BuildContext context) {
           ),
         ),
         blueButton( /* Done Button */
-          _bloc, context, "Done", "addSuccessScreen", 
+          _bloc, context, "Done", "addSuccessScreen", blueColor,
           FontWeight.normal,
           size18,
           EdgeInsets.only(top: 15.0),

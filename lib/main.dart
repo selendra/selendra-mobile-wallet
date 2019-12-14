@@ -13,12 +13,12 @@ import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_u
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/request_code_screen/request_code.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/phone_field_screen/phone_field.dart';
+import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/rendering.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sign_up.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
@@ -86,7 +86,7 @@ class AppState extends State<App>{
             ),
             routes: <String, WidgetBuilder>{
               /* Login Screen */
-              '/': (context) =>  ChangePassword(this._modelForgotPassword),
+              '/': (context) => SignUp(),
               // WelcomeToZee(firstTreeState),
               // add_profile_screenWidget(),
               // HistroyWidget(),
@@ -106,7 +106,7 @@ class AppState extends State<App>{
               /* Verify User Screen */
               '/add_profile_screen': (context) => AddUserInfo(),
               '/addDocumentScreen': (context) => AddDocuments(),
-              '/signUpScreen': (context) => SignUpWidget(),
+              '/signUpScreen': (context) => SignUp(),
             },
           )
         ),

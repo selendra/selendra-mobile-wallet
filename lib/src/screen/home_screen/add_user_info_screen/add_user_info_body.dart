@@ -80,7 +80,7 @@ Widget userInfobodyWidget(
                   blueButton( /* Next Button */
                     _modelUserInfo.bloc, 
                     context, 
-                    "Next", "addUserInfoScreen", 
+                    "Next", "addUserInfoScreen", blueColor,
                     FontWeight.normal,
                     size18,
                     EdgeInsets.only(top: 15.0),

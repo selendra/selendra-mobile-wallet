@@ -116,7 +116,7 @@ Widget bodyWidget(
                         child: blueButton(
                           _modelDocument.bloc, 
                           context, 
-                          "Submit", "addDocumentScreen",                     
+                          "Submit", "addDocumentScreen", blueColor,                 
                           FontWeight.normal,
                           size18,
                           EdgeInsets.only(top: 15.0),
