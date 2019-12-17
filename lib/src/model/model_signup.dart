@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelSignUp {
@@ -32,6 +32,6 @@ class ModelSignUp {
   TextEditingController controlMidName = TextEditingController();
   TextEditingController controlLastName = TextEditingController();
 
-  QueryResult queryResult = QueryResult();
+  // QueryResult queryResult = QueryResult();
 
 }

@@ -1,10 +1,8 @@
 import 'package:wallet_apps/src/model/model_scan_pay.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
-Widget bodyWidget(
-  RunMutation runMutation,
+Widget scanPayBodyWidget(
   String _walletKey,
   dynamic dialog,
   ModelScanPay modelPay,
@@ -56,7 +54,7 @@ Widget bodyWidget(
         FutureBuilder(
           future: checkFillAll,
           builder: (context, snapshot) {
-            return lightBlueButton(snapshot, clickSend, "Send", EdgeInsets.only(top: 20.0), runMutation);
+            return lightBlueButton(snapshot, clickSend, "Send", EdgeInsets.only(top: 20.0));
           },
         )
       ],

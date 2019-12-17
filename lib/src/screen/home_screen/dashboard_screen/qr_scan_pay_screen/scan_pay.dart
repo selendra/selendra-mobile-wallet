@@ -6,7 +6,6 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_
 import './scan_pay_body.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ScanPayWidget extends StatefulWidget{
 
@@ -70,16 +69,16 @@ class ScanPayState extends State<ScanPayWidget>{
   }
 
   /* Click Send Qraph Ql Action */
-  void clickSend(RunMutation runMutation) async {
-    await dialogBox();
-    payProgres();
-    runMutation({
-      'pins': modelPay.pin,
-      'assets': modelPay.asset,
-      'wallets': modelPay.wallet,
-      'amounts': modelPay.amount,
-      'memoes': modelPay.memo
-    });
+  void clickSend() async {
+    // await dialogBox();
+    // payProgres();
+    // runMutation({
+    //   'pins': modelPay.pin,
+    //   'assets': modelPay.asset,
+    //   'wallets': modelPay.wallet,
+    //   'amounts': modelPay.amount,
+    //   'memoes': modelPay.memo
+    // });
   }
 
   /* Show Pin Code For Fill Out */
@@ -134,25 +133,26 @@ class ScanPayState extends State<ScanPayWidget>{
               ],
             )
           ),
-          Mutation(
-            options: MutationOptions(document: scanPay),
-            builder: (RunMutation runMutation, QueryResult results){
-              return bodyWidget(runMutation, widget._walletKey, dialogBox, modelPay, portFolio, payProgres, checkFillAll(), clickSend, resetAssetsDropDown);
-            },
-            update: (Cache cache, QueryResult result) async {
-              if (result.hasErrors) {
-                dialog(context, Text(result.errors[0].message), Icon(Icons.error_outline, color: Colors.red, size: 30.0,));
-                return;
-              } 
-              await dialog(context, Text(result.data['payment']['message']), Icon(Icons.check_circle, color: Colors.greenAccent, size: 30.0,));
-              Navigator.of(context).pop("succeed");
-            },
-            onCompleted: (dynamic resultData){
-              setState(() {
-                isPay = false;
-              });
-            },
-          ),
+          scanPayBodyWidget(widget._walletKey, dialogBox, modelPay, portFolio, payProgres, checkFillAll(), clickSend, resetAssetsDropDown),
+          // Mutation(
+          //   options: MutationOptions(document: scanPay),
+          //   builder: (RunMutation runMutation, QueryResult results){
+          //     return ;
+          //   },
+          //   update: (Cache cache, QueryResult result) async {
+          //     if (result.hasErrors) {
+          //       dialog(context, Text(result.errors[0].message), Icon(Icons.error_outline, color: Colors.red, size: 30.0,));
+          //       return;
+          //     } 
+          //     await dialog(context, Text(result.data['payment']['message']), Icon(Icons.check_circle, color: Colors.greenAccent, size: 30.0,));
+          //     Navigator.of(context).pop("succeed");
+          //   },
+          //   onCompleted: (dynamic resultData){
+          //     setState(() {
+          //       isPay = false;
+          //     });
+          //   },
+          // ),
           isPay == false ? Container() : Container(
             color: Colors.black.withOpacity(0.9),
             child: Column(

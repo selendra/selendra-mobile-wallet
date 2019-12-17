@@ -3,14 +3,54 @@
 //
 
 #import "GeneratedPluginRegistrant.h"
+
+#if __has_include(<barcode_scan/BarcodeScanPlugin.h>)
 #import <barcode_scan/BarcodeScanPlugin.h>
+#else
+@import barcode_scan;
+#endif
+
+#if __has_include(<connectivity/ConnectivityPlugin.h>)
 #import <connectivity/ConnectivityPlugin.h>
+#else
+@import connectivity;
+#endif
+
+#if __has_include(<flutter_image_compress/FlutterImageCompressPlugin.h>)
 #import <flutter_image_compress/FlutterImageCompressPlugin.h>
+#else
+@import flutter_image_compress;
+#endif
+
+#if __has_include(<flutter_webview_plugin/FlutterWebviewPlugin.h>)
 #import <flutter_webview_plugin/FlutterWebviewPlugin.h>
+#else
+@import flutter_webview_plugin;
+#endif
+
+#if __has_include(<image_cropper/ImageCropperPlugin.h>)
 #import <image_cropper/ImageCropperPlugin.h>
+#else
+@import image_cropper;
+#endif
+
+#if __has_include(<image_picker/ImagePickerPlugin.h>)
 #import <image_picker/ImagePickerPlugin.h>
+#else
+@import image_picker;
+#endif
+
+#if __has_include(<path_provider/PathProviderPlugin.h>)
 #import <path_provider/PathProviderPlugin.h>
+#else
+@import path_provider;
+#endif
+
+#if __has_include(<shared_preferences/SharedPreferencesPlugin.h>)
 #import <shared_preferences/SharedPreferencesPlugin.h>
+#else
+@import shared_preferences;
+#endif
 
 @implementation GeneratedPluginRegistrant
 

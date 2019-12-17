@@ -4,18 +4,18 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 
 Widget bodyWidget(
   BuildContext context,
-  RunMutation runMutation,
+  // RunMutation runMutation,
   ModelDocument _modelDocument,
   Function setDocumentName,
   Function triggerImage, Function validatorUser, Function pushReplace, Function popScreen, 
-  Function resetImage, Function triggerDate,Function clickSubmit, Function textChanged, Function navigatePage
+  Function resetImage, Function triggerDate, Function clickSubmit, Function textChanged, Function navigatePage
 ) {
   return Container(
     margin: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),

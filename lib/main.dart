@@ -18,7 +18,6 @@ import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/reques
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
@@ -57,64 +56,65 @@ class AppState extends State<App>{
 
   @override
   Widget build(BuildContext context) {
-    final HttpLink _httpLink = HttpLink(uri: 'https://api.zeetomic.com/gql');
-    final AuthLink authLink = AuthLink(getToken: () async => "Bearer ${token != null ? token['TOKEN'] : ''}");
-    final Link link = authLink.concat(_httpLink);
-    final ValueNotifier<GraphQLClient> client = ValueNotifier(
-      GraphQLClient(
-        link: link,
-        cache: InMemoryCache()
-      )
-    );
-    return GraphQLProvider(
-      client: client,
-      child: CacheProvider(
-        child: Provider(
-          child: MaterialApp(
-            initialRoute: '/',
-            title: 'Zeetomic',
-            theme: ThemeData(
-              appBarTheme: AppBarTheme(
-                textTheme: TextTheme(body1: TextStyle(color: getHexaColor(appBarTextColor))),
-                color: Colors.transparent,
-                iconTheme: IconThemeData(color: getHexaColor(appBarTextColor))
-              ),
-              /* Color All Text */
-              textTheme: TextTheme(body1: TextStyle(color: getHexaColor(textColor))),
-              canvasColor: getHexaColor(color2),
-              cardColor: getHexaColor(color1),
-              bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(color1)),
-              floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: getHexaColor(textColor)),
-              fontFamily: "Avenir",
-              scaffoldBackgroundColor: Colors.transparent
-            ),
-            routes: <String, WidgetBuilder>{
-              /* Login Screen */
-              '/': (context) => CreatePassword(_modelLogin),
-              // WelcomeToZee(firstTreeState),
-              // add_profile_screenWidget(),
-              // HistroyWidget(),
-              // PhoneScreen(setMyState),
-              // HomeWidget(),
-              // ChangePIN(),
-              // InvoiceSummary(),
-              // InvoiceInfo("Hello"),
-              // ProfileUserWidget(),
-              '/forgotPasswordScreen': (context) => ForgotPassword(),
-              /* Home Screen */
-              '/dashboardScreen': (context) => HomeWidget(),
-              // '/getWalletScreen': (context) => GetWalletWidget(),
-              '/profileScreen': (context) => ProfileUserWidget(),
-              '/settingScreen': (context) => SettingWidget(),
-              '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
-              /* Verify User Screen */
-              '/add_profile_screen': (context) => AddUserInfo(),
-              '/addDocumentScreen': (context) => AddDocuments(),
-              '/signUpScreen': (context) => SignUpFirst(),
-            },
-          )
+    // final HttpLink _httpLink = HttpLink(uri: 'https://api.zeetomic.com/gql');
+    // final AuthLink authLink = AuthLink(getToken: () async => "Bearer ${token != null ? token['TOKEN'] : ''}");
+    // final Link link = authLink.concat(_httpLink);
+    // final ValueNotifier<GraphQLClient> client = ValueNotifier(
+    //   GraphQLClient(
+    //     link: link,
+    //     cache: InMemoryCache()
+    //   )
+    // );
+    // return GraphQLProvider(
+    //   client: client,
+    //   child: CacheProvider(
+    //     child: ,
+    //   ),
+    // );
+    Provider(
+      child: MaterialApp(
+        initialRoute: '/',
+        title: 'Zeetomic',
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            textTheme: TextTheme(body1: TextStyle(color: getHexaColor(appBarTextColor))),
+            color: Colors.transparent,
+            iconTheme: IconThemeData(color: getHexaColor(appBarTextColor))
+          ),
+          /* Color All Text */
+          textTheme: TextTheme(body1: TextStyle(color: getHexaColor(textColor))),
+          canvasColor: getHexaColor(color2),
+          cardColor: getHexaColor(color1),
+          bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(color1)),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: getHexaColor(textColor)),
+          fontFamily: "Avenir",
+          scaffoldBackgroundColor: Colors.transparent
         ),
-      ),
+        routes: <String, WidgetBuilder>{
+          /* Login Screen */
+          '/': (context) => CreatePassword(_modelLogin),
+          // WelcomeToZee(firstTreeState),
+          // add_profile_screenWidget(),
+          // HistroyWidget(),
+          // PhoneScreen(setMyState),
+          // HomeWidget(),
+          // ChangePIN(),
+          // InvoiceSummary(),
+          // InvoiceInfo("Hello"),
+          // ProfileUserWidget(),
+          '/forgotPasswordScreen': (context) => ForgotPassword(),
+          /* Home Screen */
+          '/dashboardScreen': (context) => HomeWidget(),
+          // '/getWalletScreen': (context) => GetWalletWidget(),
+          '/profileScreen': (context) => ProfileUserWidget(),
+          '/settingScreen': (context) => SettingWidget(),
+          '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
+          /* Verify User Screen */
+          '/add_profile_screen': (context) => AddUserInfo(),
+          '/addDocumentScreen': (context) => AddDocuments(),
+          '/signUpScreen': (context) => SignUpFirst(),
+        },
+      )
     );
   }
 }

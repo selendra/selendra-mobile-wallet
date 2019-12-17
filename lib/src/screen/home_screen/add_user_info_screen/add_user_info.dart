@@ -2,7 +2,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'dart:async';
 /* Directory of file */
 import 'package:wallet_apps/src/model/model_user_info.dart';
@@ -150,27 +149,27 @@ class AddUserInfoState extends State<AddUserInfo>{
     });
   }
 
-  void clickNext(RunMutation runMutation) async {
+  void clickNext() async {
     /* Loading */
-    dialogLoading(context);
-    runMutation({
-      'emails': _modelUserInfo.fetchEmail['email'],
-      'first_names': _modelUserInfo.firstName,
-      'mid_names': _modelUserInfo.midName != null ? _modelUserInfo.midName : "",
-      'last_names': _modelUserInfo.lastName,
-      'descriptions': _modelUserInfo.description,
-      'genders': _modelUserInfo.gender,
-      'profile_imgs': _modelUserInfo.profileImg != null ? _modelUserInfo.profileImg : "",
-      'Occupations': _modelUserInfo.occupation,
-      'Countrys': _modelUserInfo.country,
-      'Nationalitys': _modelUserInfo.nationality,
-      'Citys': _modelUserInfo.city,
-      'CountryCodes': _modelUserInfo.countryCode,
-      'PhoneNumbers': _modelUserInfo.phoneNumber,
-      'BuildingNumbers': _modelUserInfo.buildNumber,
-      'Addresses': _modelUserInfo.address,
-      'PostalCodes': _modelUserInfo.postalCode
-    });
+    // dialogLoading(context);
+    // runMutation({
+    //   'emails': _modelUserInfo.fetchEmail['email'],
+    //   'first_names': _modelUserInfo.firstName,
+    //   'mid_names': _modelUserInfo.midName != null ? _modelUserInfo.midName : "",
+    //   'last_names': _modelUserInfo.lastName,
+    //   'descriptions': _modelUserInfo.description,
+    //   'genders': _modelUserInfo.gender,
+    //   'profile_imgs': _modelUserInfo.profileImg != null ? _modelUserInfo.profileImg : "",
+    //   'Occupations': _modelUserInfo.occupation,
+    //   'Countrys': _modelUserInfo.country,
+    //   'Nationalitys': _modelUserInfo.nationality,
+    //   'Citys': _modelUserInfo.city,
+    //   'CountryCodes': _modelUserInfo.countryCode,
+    //   'PhoneNumbers': _modelUserInfo.phoneNumber,
+    //   'BuildingNumbers': _modelUserInfo.buildNumber,
+    //   'Addresses': _modelUserInfo.address,
+    //   'PostalCodes': _modelUserInfo.postalCode
+    // });
   }
 
   void popScreen() {
@@ -180,30 +179,19 @@ class AddUserInfoState extends State<AddUserInfo>{
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,  
-      body: Mutation(
-        options: MutationOptions(document: addUser),
-        builder: (RunMutation runMutation, QueryResult result){
-          return Stack(
-            children: <Widget>[
-              /* Body verify user 1 */
-              addUserInfobodyWidget(
-                context, 
-                runMutation, 
-                dropDownList, 
-                _modelUserInfo, 
-                triggerImage, 
-                resetGender, 
-                validatorProfileUser, 
-                resetImage, textChanged, clickNext, popScreen
-              ),
-            ],
-          );
-        },
-        update: (Cache cache, QueryResult result) async {
-          await Future.delayed(Duration(milliseconds: 800), () => Navigator.pop(context)); /* Pop Loading */ 
-          Navigator.pushNamed(context, '/addDocument'); /* Push Add Document */
-        },
-        onCompleted: (dynamic resultData){ },
+      body: Stack(
+        children: <Widget>[
+          /* Body verify user 1 */
+          addUserInfobodyWidget(
+            context, 
+            dropDownList, 
+            _modelUserInfo, 
+            triggerImage, 
+            resetGender, 
+            validatorProfileUser, 
+            resetImage, textChanged, clickNext, popScreen
+          ),
+        ],
       )
     );
   }

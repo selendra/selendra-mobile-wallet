@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelLogin {
@@ -18,7 +18,7 @@ class ModelLogin {
   TextEditingController controlPasswords = TextEditingController();
   TextEditingController controlPhoneNumbers = TextEditingController();
 
-  QueryResult queryResult = QueryResult();
+  // QueryResult queryResult = QueryResult();
 
   Bloc bloc = Bloc();
 }

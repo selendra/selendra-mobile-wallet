@@ -1,7 +1,6 @@
 /* Package of flutter */
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
@@ -95,8 +94,8 @@ class HomeWidgetState extends State<HomeWidget> {
   }
 
   /* Save User Login */
-  void saveUserLogin(QueryResult result) {
-    if (result.data != null) setData(result.data, 'userLogin');
+  void saveUserLogin() {
+    // if (result.data != null) setData(result.data, 'userLogin');
   }
 
   void fetchPortfolio() async { /* Fetch Portofolio */
@@ -224,12 +223,13 @@ class HomeWidgetState extends State<HomeWidget> {
                   child: SmartRefresher(
                     physics: BouncingScrollPhysics(),
                     controller: _modelDashboard.refreshController,
-                    child: _modelDashboard.userData == null ? loading() // Body Widget
-                      : _modelDashboard.userData['queryUserById'] == null 
-                      ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : dashboardBodyWidget(
+                    child: dashboardBodyWidget(
                         bloc, _modelDashboard.chartKey, _modelDashboard.portfolioData,
-                      ),
-                    onRefresh: _pullUpRefresh,
+                      )
+                    // _modelDashboard.userData == null ? loading() // Body Widget
+                    //   : _modelDashboard.userData['queryUserById'] == null 
+                    //   ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : ,
+                    // onRefresh: _pullUpRefresh,
                   ),
                 )
               ],

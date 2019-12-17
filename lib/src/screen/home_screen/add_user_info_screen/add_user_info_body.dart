@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 /* Directory of file*/
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
 Widget addUserInfobodyWidget(
-  BuildContext context,
-  RunMutation runMutation, 
+  BuildContext context, 
   List<String> genderList,
   ModelUserInfo _modelUserInfo,
   Function triggerImage,

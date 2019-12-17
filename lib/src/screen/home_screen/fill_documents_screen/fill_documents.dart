@@ -12,7 +12,7 @@ import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:intl/intl.dart';
 import './fill_documents_body.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'package:graphql_flutter/graphql_flutter.dart';
 
 class AddDocuments extends StatefulWidget{
 
@@ -147,18 +147,18 @@ class AddDocumentsState extends State<AddDocuments> {
     return isTrue;
   }
 
-  void clickSubmit(RunMutation runMutation) async {
-    /* Loading */
-    dialogLoading(context);
-    runMutation({
-      'emails': _modelDocument.fetchEmail['email'] != null ? _modelDocument.fetchEmail['email'] : '',
-      'document_noes': _modelDocument.documentNo,
-      'documenttype_ids': _modelDocument.documentTypeId,
-      'documents_uris': _modelDocument.documentsUri,
-      'face_uris': _modelDocument.faceUri,
-      'issue_dates': _modelDocument.issueDate.toString(),
-      'expire_dates': _modelDocument.expireDate.toString()
-    });
+  void clickSubmit() async {
+  //   /* Loading */
+  //   dialogLoading(context);
+  //   runMutation({
+  //     'emails': _modelDocument.fetchEmail['email'] != null ? _modelDocument.fetchEmail['email'] : '',
+  //     'document_noes': _modelDocument.documentNo,
+  //     'documenttype_ids': _modelDocument.documentTypeId,
+  //     'documents_uris': _modelDocument.documentsUri,
+  //     'face_uris': _modelDocument.faceUri,
+  //     'issue_dates': _modelDocument.issueDate.toString(),
+  //     'expire_dates': _modelDocument.expireDate.toString()
+  //   });
   }
 
   void textChanged(String label, String changed) {
@@ -174,44 +174,43 @@ class AddDocumentsState extends State<AddDocuments> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: getHexaColor(backgroundColor),
-      body: Query(
-        options: QueryOptions(document: queryAllDocument),
-        builder: (QueryResult result, {VoidCallback refetch}){
-          if ( result.data != null) {
-            _modelDocument.queryData = result.data['queryAllDocumentsType'];
-          }
-          /* Mutation */
-          return Mutation(
-            options: MutationOptions(document: addDocument),
-            builder: (RunMutation runMutation, QueryResult result) {
-              return Stack(
+      body: Stack(
                 children: <Widget>[
                   bodyWidget(
                     context,  
-                    runMutation, 
                     _modelDocument, 
                     setDocumentName, 
                     triggerImage, validatorUser, pushReplace, popScreen, 
-                    triggerDate, resetDate, clickSubmit, textChanged,
+                    triggerDate, clickSubmit, resetDate, textChanged,
                     navigatePage
                   ),
                 ],
-              );
-            },
-            update: (Cache cache, QueryResult result) async {
-              /* Pop Loading */
-              await Future.delayed(Duration(milliseconds: 800), () => Navigator.pop(context));
-              /* Push Profile Screen */
-              if (result.data['addDocuments']['id'] != null) {
-                await dialog(context, Text("You have successfully add document !"), Icon(Icons.done_outline));
-                Navigator.pushNamed(context, '/profileScreen');
-              }
-            },
-            onCompleted: (dynamic resultData) {
-            },
-          );
-        },
-      ),
+              )
+      // Query(
+      //   options: QueryOptions(document: queryAllDocument),
+      //   builder: (QueryResult result, {VoidCallback refetch, FetchMore fetchMore}){
+      //     if ( result.data != null) {
+      //       _modelDocument.queryData = result.data['queryAllDocumentsType'];
+      //     }
+      //     /* Mutation */
+      //     return Mutation(
+      //       options: MutationOptions(document: addDocument),
+      //       builder: (RunMutation runMutation, QueryResult result) {
+      //         return S;
+      //       },
+      //       update: (Cache cache, QueryResult result) async {
+      //         /* Pop Loading */
+      //         await Future.delayed(Duration(milliseconds: 800), () => Navigator.pop(context));
+      //         /* Push Profile Screen */
+      //         if (result.data['addDocuments']['id'] != null) {
+      //           await dialog(context, Text("You have successfully add document !"), Icon(Icons.done_outline));
+      //           Navigator.pushNamed(context, '/profileScreen');
+      //         }
+      //       },
+      //       onCompleted: (dynamic resultData) {
+      //       },
+      //     );
+      //   },
     );
   }
 }

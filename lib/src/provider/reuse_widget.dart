@@ -7,7 +7,7 @@ import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 /* Path of file */
@@ -180,7 +180,7 @@ BoxShadow shadow(Color hexaCode, double blurRadius, double spreadRadius) {
 }
 
 /* -------------------------------------- Raised Button -----------------------------------------*/
-Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButton, EdgeInsetsGeometry edgeMargin, RunMutation runMutation) {
+Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButton, EdgeInsetsGeometry edgeMargin) {
   return Container(
     margin: edgeMargin,
     width: double.infinity,
@@ -201,7 +201,7 @@ Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButto
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)),
       onPressed: snapshot.data == null ? null : () {
-        action(runMutation);
+        action();
       }
     ),
   );
