@@ -56,22 +56,7 @@ class AppState extends State<App>{
 
   @override
   Widget build(BuildContext context) {
-    // final HttpLink _httpLink = HttpLink(uri: 'https://api.zeetomic.com/gql');
-    // final AuthLink authLink = AuthLink(getToken: () async => "Bearer ${token != null ? token['TOKEN'] : ''}");
-    // final Link link = authLink.concat(_httpLink);
-    // final ValueNotifier<GraphQLClient> client = ValueNotifier(
-    //   GraphQLClient(
-    //     link: link,
-    //     cache: InMemoryCache()
-    //   )
-    // );
-    // return GraphQLProvider(
-    //   client: client,
-    //   child: CacheProvider(
-    //     child: ,
-    //   ),
-    // );
-    Provider(
+    return Provider(
       child: MaterialApp(
         initialRoute: '/',
         title: 'Zeetomic',
@@ -92,7 +77,7 @@ class AppState extends State<App>{
         ),
         routes: <String, WidgetBuilder>{
           /* Login Screen */
-          '/': (context) => CreatePassword(_modelLogin),
+          '/': (context) => WelcomeToZee(),
           // WelcomeToZee(firstTreeState),
           // add_profile_screenWidget(),
           // HistroyWidget(),

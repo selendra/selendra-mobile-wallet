@@ -9,9 +9,8 @@ import 'package:wallet_apps/src/provider/internet_connection.dart';
 class LoginSecond extends StatefulWidget{
 
   final ModelLogin modelLogin;
-  final Function setMyState;
 
-  LoginSecond(this.modelLogin, this.setMyState);
+  LoginSecond(this.modelLogin);
   @override
   State<StatefulWidget> createState() {
     return LoginSecondState();
@@ -31,9 +30,8 @@ class LoginSecondState extends State<LoginSecond>{
       FocusScope.of(context).requestFocus(widget.modelLogin.secondNode);
     });
   }
-
-  /* Check Internet Before Validate And Finish Validate*/
-  void checkInputAndValidate() async {
+  
+  void checkInputAndValidate() async { /* Check Internet Before Validate And Finish Validate*/
     setState(() {widget.modelLogin.isProgress = true;});  
     await Future.delayed(Duration(milliseconds: 100), (){
       checkConnection(context).then((isConnect) {
@@ -50,34 +48,33 @@ class LoginSecondState extends State<LoginSecond>{
     });
   }
 
-  /* Validator User Login After Check Internet */
-  void validatorLogin(Bloc bloc, BuildContext context) async{
-    /* Show Loading */
-    dialogLoading(context);
-    /* Response Result */
-    final submitResponse = await bloc.submitMethod(context).then((data) async {
-      if (data == true) {
-        Navigator.pop(context);
-        widget.setMyState();
-        /* Wait And Push Replace To HomePage */
-        await Future.delayed(Duration(milliseconds: 200), () async {
-        });
-        Navigator.pushReplacementNamed(context, '/dashboardScreen');
-      }
-      return data;
-    }).catchError((onError){
-      Navigator.pop(context);
-      setState(() => widget.modelLogin.isProgress = false );
-      return false;
-    });
-    if (submitResponse == false) {
-      Navigator.pop(context);
-      // clearAllInput(); 
-      // disableLoginButton(bloc);
-    }
+ 
+  void validatorLogin(Bloc bloc, BuildContext context) async{  /* Validator User Login After Check Internet */
+    // dialogLoading(context); /* Show Loading */
+    // bloc.submitMethod(context, widget.modelLogin);
+    print(widget.modelLogin.controlEmails.text);
+    print(widget.modelLogin.controlPasswords.text);
+    // final submitResponse = await bloc.submitMethod(context, widget.modelLogin).then((data) async { /* Response Result */
+    //   // if (data == true) {
+    //   //   Navigator.pop(context);
+    //   //   await Future.delayed(Duration(milliseconds: 200), () async { /* Wait And Push Replace To HomePage */
+    //   //   });
+    //   //   Navigator.pushReplacementNamed(context, '/dashboardScreen');
+    //   // }
+    //   // return data;
+    // }).catchError((onError){
+    //   Navigator.pop(context);
+    //   setState(() => widget.modelLogin.isProgress = false );
+    //   return false;
+    // });
+    // if (submitResponse == false) {
+    //   Navigator.pop(context);
+    //   // clearAllInput(); 
+    //   // disableLoginButton(bloc);
+    // }
   }
 
-  void onChanged(String valueChanged) {
+  void onChanged(String label, String valueChanged) {
 
   }
 

@@ -56,7 +56,7 @@ class SignUpSecondState extends State<SignUpSecond>{
     /* Show Loading */
     dialogLoading(context);
     /* Response Result */
-    final submitResponse = await bloc.submitMethod(context).then((data) async {
+    final submitResponse = await bloc.submitMethod(context, widget._modelSignUp).then((data) async {
       if (data == true) {
         Navigator.pop(context);
         widget.setMyState();

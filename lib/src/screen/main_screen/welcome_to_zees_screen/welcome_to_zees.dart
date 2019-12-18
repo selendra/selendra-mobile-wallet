@@ -7,9 +7,7 @@ import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class WelcomeToZee extends StatefulWidget{
 
-  final setMyState;
-
-  WelcomeToZee(this.setMyState);
+  WelcomeToZee();
 
   @override
   State<StatefulWidget> createState() {
@@ -30,7 +28,6 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
   void checkLoginBefore(BuildContext context) async {
     var response = await fetchData('userToken');
     if (response != null){
-      widget.setMyState();
       /* Loading */
       dialogLoading(context);
       /* Pop Loading */
@@ -44,7 +41,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
   navigatePage(BuildContext context) {
     Navigator.pushReplacement(
       context, 
-      MaterialPageRoute(builder: (context) => LoginFirstScreen(widget.setMyState))
+      MaterialPageRoute(builder: (context) => LoginFirstScreen())
     );
   }
 

@@ -29,13 +29,81 @@ Widget loginFirstBodyWidget( /* body widget */
           )
         ],
       ),
-      /* Body login */
       Container(
-        padding: EdgeInsets.only(top: 59.0),
-        /* User Input Field */
-        child: userLogin(context, modelLogin, onChanged, navigatePage),
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(bottom: 20.0, top: 20.0),
+        child: Text("By", style: TextStyle(fontSize: 18.0),)
       ),
-      
+      Container(
+        margin: EdgeInsets.only(bottom: 12.0),
+        child: TabBar(
+          unselectedLabelColor: getHexaColor("#FFFFFF"),
+          indicatorColor: getHexaColor(greenColor),
+          labelColor: getHexaColor(greenColor),
+          labelStyle: TextStyle(fontSize: 18.0),
+          tabs: <Widget>[
+            Text("Email"),
+            Text("Phone number")
+          ],
+        ),
+      ),
+      Flexible( /* Body login */
+        child: Container(
+          margin: EdgeInsets.only(top: 40.0, bottom: 12.0),
+          /* User Input Field */
+          child: TabBarView(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 13.0), 
+                child: inputField(
+                  modelLogin.bloc,
+                  context,
+                  "Email", null, "loginFirstScreen",
+                  false, 
+                  TextInputType.text, 
+                  modelLogin.controlEmails,
+                  modelLogin.firstNode,
+                  onChanged,
+                  navigatePage
+                )
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 13.0), 
+                child: inputField(
+                  modelLogin.bloc,
+                  context,
+                  "Phone number", modelLogin.countryCode, "loginFirstScreen",
+                  false, 
+                  TextInputType.phone, 
+                  modelLogin.controlPhoneNumbers,
+                  modelLogin.firstNode,
+                  onChanged,
+                  navigatePage
+                )
+              )
+            ],
+          ),
+        ),
+        // Column(
+        //   children: <Widget>[
+        //     ,
+        //     // flatCustomButton( /* Button login */
+        //     //   modelLogin.bloc,
+        //     //   context,
+        //     //   "Login", "loginFirstScreen", blueColor,
+        //     //   FontWeight.bold,
+        //     //   size18,
+        //     //   EdgeInsets.only(top: size10, bottom: size10),
+        //     //   EdgeInsets.only(top: size15, bottom: size15),
+        //     //   BoxShadow(
+        //     //     color: Color.fromRGBO(0,0,0,0.54),
+        //     //     blurRadius: 5.0
+        //     //   ),
+        //     //   navigatePage
+        //     // )
+        //   ],
+        // ),
+      ),
       flatCustomButton( /* Button login */
         modelLogin.bloc,
         context,
@@ -50,7 +118,10 @@ Widget loginFirstBodyWidget( /* body widget */
         ),
         navigatePage
       ),
-      Expanded(child: Container()),
+      Expanded(
+        flex: 2,
+        child: Container()
+      ),
       noAccountWidget(context)
     ],
   );
@@ -66,7 +137,7 @@ Widget userLogin(BuildContext context, ModelLogin modelLogin, Function onChanged
         child: inputField(
           modelLogin.bloc,
           context,
-          "Phone number", modelLogin.countryCode, "PhoneScreen",
+          "Phone number", modelLogin.countryCode, "loginFirstScreen",
           false, 
           TextInputType.phone, modelLogin.controlPhoneNumbers,
           modelLogin.firstNode,

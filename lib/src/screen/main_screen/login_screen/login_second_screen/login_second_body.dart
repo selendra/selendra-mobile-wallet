@@ -80,7 +80,7 @@ Widget userLogin(
         child: inputField(
           modelLogin.bloc, 
           context, 
-          "Phone number", modelLogin.countryCode, "BothScreen", 
+          "Phone number", modelLogin.countryCode, "loginSecondScreen", 
           false, 
           TextInputType.phone, modelLogin.controlPhoneNumbers,
           modelLogin.firstNode, 
@@ -97,7 +97,7 @@ Widget userLogin(
             inputField(
               modelLogin.bloc,
               context, 
-              "Password", null, "BothScreen", 
+              "Password", null, "loginSecondScreen", 
               true, 
               TextInputType.text, 
               modelLogin.controlPasswords,

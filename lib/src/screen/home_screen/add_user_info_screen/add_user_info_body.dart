@@ -143,7 +143,7 @@ Widget addUserInfobodyWidget(
   //                       var images = await triggerImage();
   //                       if (images != null) {
   //                         Future.delayed(Duration(seconds: 1), () async {
-  //                           http.StreamedResponse response = await upLoadImage(images, "uploadoc");
+  //                           http.StreamedResponse response = await upLoadImage(images, "upload");
   //                           /* Get Response After Upload Image */
   //                           response.stream.transform(utf8.decoder).listen((value) async{
   //                             Map<String, dynamic> decode = await json.decode(value);

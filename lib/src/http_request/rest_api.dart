@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'dart:async';
 
 /* Zeetomic api user data*/
-final _url = "https://api.zeetomic.com";
+final _url = "https://testnet-api.zeetomic.com";
 
 /* Zeetomic api image upload */
 final _urlPostImage = "https://s3.zeetomic.com";

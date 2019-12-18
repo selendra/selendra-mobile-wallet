@@ -186,7 +186,7 @@ Widget bodyWidget(
                   //                     var imageFile = await triggerImage('passPortImage');
                   //                     if (imageFile != null ) {
                   //                       await Future.delayed(Duration(seconds: 1), () async {
-                  //                         http.StreamedResponse response = await upLoadImage(imageFile, "uploadoc");
+                  //                         http.StreamedResponse response = await upLoadImage(imageFile, "upload");
                   //                         /* Get Value Response And Convert */
                   //                         response.stream.transform(utf8.decoder).listen((value) async {
                   //                           Map<String, dynamic> decode = await json.decode(value);
@@ -243,7 +243,7 @@ Widget bodyWidget(
                   //                     if (imageFile != null) {
                   //                       Future.delayed(Duration(seconds: 1), () async {
                   //                         /* Get Value Response And Convert */
-                  //                         http.StreamedResponse response = await upLoadImage(imageFile, "uploadoc");
+                  //                         http.StreamedResponse response = await upLoadImage(imageFile, "upload");
                   //                         response.stream.transform(utf8.decoder).listen((value){
                   //                           resetImage("selfieImage", value);
                   //                         });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
+import 'package:wallet_apps/src/model/model_login.dart';
 import './validator_mixin.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -32,25 +33,26 @@ class Bloc with ValidatorMixin {
   Function(String) get addUsersign => _usersignup.sink.add;
 
   /* Rest Api User Lgoin, Get Respone, Save Data Respone, And Catch Error */
-  Future<bool> submitMethod(BuildContext context) async {
+  Future<bool> submitMethod(BuildContext context, dynamic login) async {
     return await userLogin(
       // _email.value, 
       // _password.value
-      "saing.sab@gmail.com", "123456"
+      login.controlEmails.text, login.controlPasswords.text
     )
     .then((onValue) async {
-      if (onValue['message'] == null) {
-        await setData(onValue, 'userToken');
-        return true;
-      }
-      /* When Error Pop Up Dialog */
-      else await dialog(context, Text('${(onValue['message']+' !')}'), Icon(Icons.error_outline, color: Colors.red,));
-      /* Return False When Error To Disable Login Button */
-      return false;
-    })
-    .catchError((onError){
-      dialog(context, Text("Something goes wrong !"), Icon(Icons.error_outline, color: Colors.red,));
-      return false;
+      print("Sumbit response $onValue");
+    //   if (onValue['message'] == null) {
+    //     await setData(onValue, 'userToken');
+    //     return true;
+    //   }
+    //   /* When Error Pop Up Dialog */
+    //   else await dialog(context, Text('${(onValue['message']+' !')}'), Icon(Icons.error_outline, color: Colors.red,));
+    //   /* Return False When Error To Disable Login Button */
+    //   return false;
+    // })
+    // .catchError((onError){
+    //   dialog(context, Text("Something goes wrong !"), Icon(Icons.error_outline, color: Colors.red,));
+    //   return false;
     });
   }
 

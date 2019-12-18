@@ -702,7 +702,7 @@ Widget inputField(
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.1) : Colors.transparent, 
+          color: controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.3) : Colors.transparent, 
           width: 1.0
         ),
       ),
@@ -720,7 +720,13 @@ Widget inputField(
       contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
     ),
     onChanged: (valueChange) {
-      if (widgetName == "invoiceInfoScreen" || widgetName == "addAssetScreen") onChanged(labelText, valueChange);
+      if (
+        widgetName == "invoiceInfoScreen" || 
+        widgetName == "addAssetScreen" || 
+        widgetName == "loginFirstScreen" ||
+        widgetName == "loginSecondScreen"
+      ) 
+        onChanged(labelText, valueChange);
       else onChanged(valueChange);
     },
     onFieldSubmitted: (value) {

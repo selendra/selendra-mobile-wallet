@@ -152,7 +152,7 @@ class HomeWidgetState extends State<HomeWidget> {
     // File cropimage = await cropImageCamera(context);
     // if (cropimage != null){
     //   dialogLoading(context);
-    //   StreamedResponse response = await upLoadImage(cropimage, "uploadreceipt");
+    //   StreamedResponse response = await upLoadImage(cropimage, "upload");
     //   response.stream.transform(utf8.decoder).listen((data) async {
     //     Map<String, dynamic> result = await json.decode(data);result['uuid']
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => InvoiceInfo("Hello")));
