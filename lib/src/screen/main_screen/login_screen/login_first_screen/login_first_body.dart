@@ -6,7 +6,7 @@ import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
 Widget loginFirstBodyWidget( /* body widget */
   BuildContext context,
-   ModelLogin modelLogin, 
+   ModelLogin _modelLogin, 
    Function onChanged, Function navigatePage
 ) {
   return Column(
@@ -34,49 +34,70 @@ Widget loginFirstBodyWidget( /* body widget */
         margin: EdgeInsets.only(bottom: 20.0, top: 20.0),
         child: Text("By", style: TextStyle(fontSize: 18.0),)
       ),
-      Container(
-        margin: EdgeInsets.only(bottom: 12.0),
-        child: TabBar(
-          unselectedLabelColor: getHexaColor("#FFFFFF"),
-          indicatorColor: getHexaColor(greenColor),
-          labelColor: getHexaColor(greenColor),
-          labelStyle: TextStyle(fontSize: 18.0),
-          tabs: <Widget>[
-            Text("Email"),
-            Text("Phone number")
+      Container( /* User Login Choice Body */
+        height: 75.0,
+        margin: EdgeInsets.only(bottom: 13.0),
+        child: TabBarView( /* Body Sign Up */
+          children: <Widget>[
+            Container( /* Login By Email Field */
+              padding: EdgeInsets.only(top: 9.0),
+              child: inputField( 
+                _modelLogin.bloc,
+                context,
+                "Email", null, "loginFirstScreen",
+                false, 
+                TextInputType.text, 
+                _modelLogin.controlEmails,
+                _modelLogin.nodeEmails,
+                onChanged,
+                navigatePage
+              )
+            ),
+            Container( /* Sign By Phone Number Field */
+              padding: EdgeInsets.only(top: 9.0),
+              child: inputField(
+                _modelLogin.bloc,
+                context,
+                "Phone number", _modelLogin.countryCode, "PhoneScreen",
+                false, 
+                TextInputType.phone, _modelLogin.controlPhoneNums,
+                _modelLogin.nodePhoneNums,
+                onChanged,
+                navigatePage
+              )
+            )
           ],
         ),
       ),
-      Flexible( /* Body login */
+      Expanded( /* Body User Login Choice */
         child: Container(
-          margin: EdgeInsets.only(top: 40.0, bottom: 12.0),
-          /* User Input Field */
-          child: TabBarView(
+          margin: EdgeInsets.only(top: 40.0),
+          child: TabBarView( /* User Input Field */
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(bottom: 13.0), 
-                child: inputField(
-                  modelLogin.bloc,
+              Container( /* Login By Email Field */
+                padding: EdgeInsets.only(top: 5.0),
+                child: inputField( 
+                  _modelLogin.bloc,
                   context,
                   "Email", null, "loginFirstScreen",
                   false, 
                   TextInputType.text, 
-                  modelLogin.controlEmails,
-                  modelLogin.firstNode,
+                  _modelLogin.controlEmails,
+                  _modelLogin.nodeEmails,
                   onChanged,
                   navigatePage
                 )
               ),
-              Container(
+              Container( /* Login By Phone Number Field */
                 margin: EdgeInsets.only(bottom: 13.0), 
                 child: inputField(
-                  modelLogin.bloc,
+                  _modelLogin.bloc,
                   context,
-                  "Phone number", modelLogin.countryCode, "loginFirstScreen",
+                  "Phone number", _modelLogin.countryCode, "loginFirstScreen",
                   false, 
                   TextInputType.phone, 
-                  modelLogin.controlPhoneNumbers,
-                  modelLogin.firstNode,
+                  _modelLogin.controlPhoneNums,
+                  _modelLogin.nodePhoneNums,
                   onChanged,
                   navigatePage
                 )
@@ -84,28 +105,9 @@ Widget loginFirstBodyWidget( /* body widget */
             ],
           ),
         ),
-        // Column(
-        //   children: <Widget>[
-        //     ,
-        //     // flatCustomButton( /* Button login */
-        //     //   modelLogin.bloc,
-        //     //   context,
-        //     //   "Login", "loginFirstScreen", blueColor,
-        //     //   FontWeight.bold,
-        //     //   size18,
-        //     //   EdgeInsets.only(top: size10, bottom: size10),
-        //     //   EdgeInsets.only(top: size15, bottom: size15),
-        //     //   BoxShadow(
-        //     //     color: Color.fromRGBO(0,0,0,0.54),
-        //     //     blurRadius: 5.0
-        //     //   ),
-        //     //   navigatePage
-        //     // )
-        //   ],
-        // ),
       ),
       flatCustomButton( /* Button login */
-        modelLogin.bloc,
+        _modelLogin.bloc,
         context,
         "Login", "loginFirstScreen", blueColor,
         FontWeight.bold,
@@ -118,29 +120,26 @@ Widget loginFirstBodyWidget( /* body widget */
         ),
         navigatePage
       ),
-      Expanded(
-        flex: 2,
-        child: Container()
-      ),
-      noAccountWidget(context)
+      Expanded(flex: 2, child: Container()),
+      noAccountWidget(context) /* Bottom Align Sign Up */ 
     ],
   );
 }
 
 /* Column of User Login */
-Widget userLogin(BuildContext context, ModelLogin modelLogin, Function onChanged, Function navigatePage) {
+Widget userLogin(BuildContext context, ModelLogin _modelLogin, Function onChanged, Function navigatePage) {
   return Column(
     children: <Widget>[
       /* Phone number input*/
       Container(
         margin: EdgeInsets.only(bottom: 13.0), 
         child: inputField(
-          modelLogin.bloc,
+          _modelLogin.bloc,
           context,
-          "Phone number", modelLogin.countryCode, "loginFirstScreen",
+          "Phone number", _modelLogin.countryCode, "loginFirstScreen",
           false, 
-          TextInputType.phone, modelLogin.controlPhoneNumbers,
-          modelLogin.firstNode,
+          TextInputType.phone, _modelLogin.controlPasswords,
+          _modelLogin.nodePasswords,
           onChanged,
           navigatePage
         )

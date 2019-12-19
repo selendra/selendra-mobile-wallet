@@ -24,48 +24,50 @@ class Bloc with ValidatorMixin {
     return null;
   });
   
-  /* User Sign Up */
-  get emailSignUp => _usersignup.stream.transform(validateEmail);
+  get emailSignUp => _usersignup.stream.transform(validateEmail); /* User Sign Up */
 
   /* Add Data Input To Stream */
   Function(String) get addEmail => _email.sink.add;
   Function(String) get addPassword => _password.sink.add;
   Function(String) get addUsersign => _usersignup.sink.add;
 
-  /* Rest Api User Lgoin, Get Respone, Save Data Respone, And Catch Error */
-  Future<bool> submitMethod(BuildContext context, dynamic login) async {
-    return await userLogin(
+  
+  Future<bool> submitMethod(BuildContext context, String emailOrPhoneNums, String passwords, String endpoints) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
+    return userLogin(
       // _email.value, 
       // _password.value
-      login.controlEmails.text, login.controlPasswords.text
+      emailOrPhoneNums, passwords, endpoints
     )
     .then((onValue) async {
       print("Sumbit response $onValue");
-    //   if (onValue['message'] == null) {
-    //     await setData(onValue, 'userToken');
-    //     return true;
-    //   }
-    //   /* When Error Pop Up Dialog */
-    //   else await dialog(context, Text('${(onValue['message']+' !')}'), Icon(Icons.error_outline, color: Colors.red,));
-    //   /* Return False When Error To Disable Login Button */
-    //   return false;
-    // })
-    // .catchError((onError){
-    //   dialog(context, Text("Something goes wrong !"), Icon(Icons.error_outline, color: Colors.red,));
-    //   return false;
+      if (onValue['message'] == null) {
+        await setData(onValue, 'userToken');
+        return true;
+      }
+      else { /* When Error Pop Up Dialog */
+        await dialog(
+          context, 
+          Text('${(onValue['message']+' !')}'), 
+          Icon(Icons.error_outline, color: Colors.red,)
+        );
+      }
+      /* Return False When Error To Disable Login Button */
+      return false;
+    })
+    .catchError((onError){
+      dialog(context, Text("Something goes wrong !"), Icon(Icons.error_outline, color: Colors.red,));
+      return false;
     });
   }
 
-  /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
-  Future<bool> registerUser(BuildContext context) async {
+  Future<bool> registerUser(BuildContext context) async { /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
     return await userRegister(_email.value, _password.value).then((onValue) async {
-      await dialog(
-        context, 
-        Text((onValue['message'])), 
-        /* Check For Change Icon On Alert */
-        onValue['message'] == "User ${_email.value} already exist" 
+      await dialog(context, Text((onValue['message'])
+        ), 
+        onValue['message'] == "User ${_email.value} already exist" /* Check For Change Icon On Alert */
           ? Icon(Icons.warning) : Icon(Icons.done_outline, color
-          : getHexaColor(lightBlueSky),)
+          : getHexaColor(lightBlueSky),
+        )
       );
       return true;
     })

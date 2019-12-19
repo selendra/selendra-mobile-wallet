@@ -17,8 +17,18 @@ final _urlPostImage = "https://s3.zeetomic.com";
 final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 
 /* User Login */
-Future<Map<String, dynamic>> userLogin(String email, String passwords) async {
-  final response = await http.post('$_url/loginuri', body: {"email": email, "passwords": passwords});
+Future<Map<String, dynamic>> userLogin(String emailOrPhoneNums, String passwords, String endpoints) async {
+  String encode = json.encode( /* Convert to Json Data ( String ) */
+    {
+      "email": emailOrPhoneNums, 
+      "password": passwords
+    }
+  );
+  final response = await http.post(
+    '$_url/pub/v1/$endpoints', 
+    headers: {"Content-Type": "application/json; charset=utf-8"},
+    body: encode
+  );
   return json.decode(response.body);
 }
 

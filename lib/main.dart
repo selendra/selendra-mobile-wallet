@@ -26,6 +26,7 @@ import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 void main () {
+  WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error " accessed before the binding was initialized " */
   // debugPaintSizeEnabled = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(App());
@@ -40,18 +41,9 @@ class App extends StatefulWidget{
 
 class AppState extends State<App>{
 
-  Map<String, dynamic> token;
-
-  ModelSignUp _modelLogin = ModelSignUp();
-
   @override
   void initState() {
     super.initState();
-  }
-
-  firstTreeState() async { /* Reset Bearer Token In Main Widget */
-    token = await Provider.fetchToken();
-    setState(() {}); 
   }
 
   @override
@@ -77,8 +69,9 @@ class AppState extends State<App>{
         ),
         routes: <String, WidgetBuilder>{
           /* Login Screen */
-          '/': (context) => WelcomeToZee(),
-          // WelcomeToZee(firstTreeState),
+          '/': (context) => 
+          SignUpFirst(),
+          // WelcomeToZee(),
           // add_profile_screenWidget(),
           // HistroyWidget(),
           // PhoneScreen(setMyState),

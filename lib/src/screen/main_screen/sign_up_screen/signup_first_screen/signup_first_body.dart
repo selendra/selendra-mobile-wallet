@@ -29,12 +29,55 @@ Widget signUpFirstBodyWidget(
           )
         ],
       ),
-      Container( /* Body Sign Up */
-        padding: EdgeInsets.only(top: 59.0),
-        child: Column( /* User Input Field */
-          children: <Widget>[
+      Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(bottom: 20.0, top: 20.0),
+        child: Text("By", style: TextStyle(fontSize: 24.0),)
+      ),
+      Container( /* User Choice Sign Up */
+        margin: EdgeInsets.only(bottom: 59.0),
+        child: TabBar(
+          unselectedLabelColor: getHexaColor("#FFFFFF"),
+          indicatorColor: getHexaColor(greenColor),
+          labelColor: getHexaColor(greenColor),
+          labelStyle: TextStyle(fontSize: 18.0),
+          tabs: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 13.0), 
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              width: double.infinity,
+              child: Text("Email"),
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              alignment: Alignment.center,
+              child: Text("Phone number"),
+            )
+          ],
+        ),
+      ),
+      Container( /* User Sign Up Choice Body */
+        height: 75.0,
+        margin: EdgeInsets.only(bottom: 13.0),
+        child: TabBarView( /* Body Sign Up */
+          children: <Widget>[
+            Container( /* Login By Email Field */
+              padding: EdgeInsets.only(top: 9.0),
+              child: inputField( 
+                _modelSignUp.bloc,
+                context,
+                "Email", null, "loginFirstScreen",
+                false, 
+                TextInputType.text, 
+                _modelSignUp.controlEmails,
+                _modelSignUp.nodeEmails,
+                onChanged,
+                navigatePage
+              )
+            ),
+            Container( /* Sign By Phone Number Field */
+              padding: EdgeInsets.only(top: 9.0),
               child: inputField(
                 _modelSignUp.bloc,
                 context,
@@ -63,7 +106,7 @@ Widget signUpFirstBodyWidget(
         ),
         navigatePage
       ),
-      Expanded(child: Container()),
+      Flexible(flex: 2, child: Container()),
       toLogin(context)
     ],
   );

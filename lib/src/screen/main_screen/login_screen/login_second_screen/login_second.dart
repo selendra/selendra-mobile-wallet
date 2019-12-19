@@ -8,9 +8,10 @@ import 'package:wallet_apps/src/provider/internet_connection.dart';
 
 class LoginSecond extends StatefulWidget{
 
-  final ModelLogin modelLogin;
+  LoginSecond(this._modelLogin);
+  
+  final ModelLogin _modelLogin;
 
-  LoginSecond(this.modelLogin);
   @override
   State<StatefulWidget> createState() {
     return LoginSecondState();
@@ -18,7 +19,7 @@ class LoginSecond extends StatefulWidget{
 }
 
 class LoginSecondState extends State<LoginSecond>{
-
+  
   @override
   void initState() {
     super.initState();
@@ -27,20 +28,19 @@ class LoginSecondState extends State<LoginSecond>{
 
   focusOnPassword() async {
     await Future.delayed(Duration(milliseconds: 100), (){
-      FocusScope.of(context).requestFocus(widget.modelLogin.secondNode);
+      FocusScope.of(context).requestFocus(widget._modelLogin.nodePasswords);
     });
   }
   
-  void checkInputAndValidate() async { /* Check Internet Before Validate And Finish Validate*/
-    setState(() {widget.modelLogin.isProgress = true;});  
+  void checkInputAndValidate(Bloc bloc, BuildContext context, String label) async { /* Check Internet Before Validate And Finish Validate*/
+    setState(() {widget._modelLogin.isProgress = true;});  
     await Future.delayed(Duration(milliseconds: 100), (){
       checkConnection(context).then((isConnect) {
         if ( isConnect == true ) {
-          validatorLogin(
-            widget.modelLogin.bloc, context);
+          validatorLogin(widget._modelLogin.bloc, context, label);
         } else {
           setState(() {
-            widget.modelLogin.isProgress = false;
+            widget._modelLogin.isProgress = false;
             noInternet(context);
           });
         }
@@ -49,29 +49,30 @@ class LoginSecondState extends State<LoginSecond>{
   }
 
  
-  void validatorLogin(Bloc bloc, BuildContext context) async{  /* Validator User Login After Check Internet */
-    // dialogLoading(context); /* Show Loading */
-    // bloc.submitMethod(context, widget.modelLogin);
-    print(widget.modelLogin.controlEmails.text);
-    print(widget.modelLogin.controlPasswords.text);
-    // final submitResponse = await bloc.submitMethod(context, widget.modelLogin).then((data) async { /* Response Result */
-    //   // if (data == true) {
-    //   //   Navigator.pop(context);
-    //   //   await Future.delayed(Duration(milliseconds: 200), () async { /* Wait And Push Replace To HomePage */
-    //   //   });
-    //   //   Navigator.pushReplacementNamed(context, '/dashboardScreen');
-    //   // }
-    //   // return data;
-    // }).catchError((onError){
-    //   Navigator.pop(context);
-    //   setState(() => widget.modelLogin.isProgress = false );
-    //   return false;
-    // });
-    // if (submitResponse == false) {
-    //   Navigator.pop(context);
-    //   // clearAllInput(); 
-    //   // disableLoginButton(bloc);
-    // }
+  void validatorLogin(Bloc bloc, BuildContext context, String label) async{  /* Validator User Login After Check Internet */
+    dialogLoading(context); /* Show Loading */
+    final submitResponse = await bloc.submitMethod(
+        context,
+        label == "Email" ? widget._modelLogin.controlEmails.text : widget._modelLogin.controlPhoneNums.text,
+        widget._modelLogin.controlPasswords.text,
+        "loginbyemail" 
+      ).then((data) async { /* Response Result */
+      if (data == true) {
+        Navigator.pop(context);
+        await Future.delayed(Duration(milliseconds: 200), () async { /* Wait And Push Replace To HomePage */
+        });
+        Navigator.pushReplacementNamed(context, '/dashboardScreen');
+      }
+    }).catchError((onError){
+      Navigator.pop(context);
+      setState(() => widget._modelLogin.isProgress = false );
+      return false;
+    });
+    if (submitResponse == false) {
+      Navigator.pop(context);
+      // clearAllInput(); 
+      // disableLoginButton(bloc);
+    }
   }
 
   void onChanged(String label, String valueChanged) {
@@ -85,9 +86,9 @@ class LoginSecondState extends State<LoginSecond>{
         child: paddingScreenWidget(
           context, bothFieldBodyWidget(
             context,
-            widget.modelLogin,
+            widget._modelLogin,
             onChanged,
-            validatorLogin
+            checkInputAndValidate
           )
         ),
       ),

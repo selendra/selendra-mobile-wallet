@@ -12,11 +12,12 @@ class ModelLogin {
   var colorSubmitted = Colors.transparent;
 
   /* User login Property*/
-  final FocusNode firstNode = FocusNode();
-  final FocusNode secondNode = FocusNode();
+  final FocusNode nodeEmails = FocusNode();
+  final FocusNode nodePhoneNums = FocusNode();
+  final FocusNode nodePasswords = FocusNode();
   TextEditingController controlEmails = TextEditingController();
   TextEditingController controlPasswords = TextEditingController();
-  TextEditingController controlPhoneNumbers = TextEditingController();
+  TextEditingController controlPhoneNums = TextEditingController();
 
   // QueryResult queryResult = QueryResult();
 

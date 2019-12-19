@@ -6,21 +6,19 @@ import 'package:flutter/material.dart';
 /* body widget */
 Widget bothFieldBodyWidget(
   BuildContext context,
-  ModelLogin modelLogin,
+  ModelLogin _modelLogin,
   Function onChanged,
-  Function validatorLogin
+  Function checkInputAndValidate
 ) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch, // Stretch is fill cros axis
+    crossAxisAlignment: CrossAxisAlignment.stretch, /* Stretch is fill cros axis */
     children: <Widget>[
-      /* Title of Zeetomic */
-      Container(
+      Container( /* Title of Zeetomic */
         child: Column(
           children: <Widget>[
             Container(
               child: textDisplay(
                 "Login", 
-                // "#ffffff", 30.0, FontWeight.bold,
                 TextStyle(
                   color: getHexaColor("ffffff"),
                   fontSize: 30.0,
@@ -31,20 +29,17 @@ Widget bothFieldBodyWidget(
           ],
         ),
       ),
-      /* Body login */
-      Container(
-        padding: EdgeInsets.only(top: 59.0),
-        /* User Input Field */
-        child: userLogin(
+      Container( /* Body login */
+        margin: EdgeInsets.only(top: 59.0),
+        child: userLogin( /* User Input Field */
           context,
-          modelLogin,
+          _modelLogin,
           onChanged,
-          validatorLogin
+          checkInputAndValidate
         ),
       ),
-      /* Button login */
-      flatCustomButton(
-        modelLogin.bloc,
+      flatCustomButton( /* Button login */
+        _modelLogin.bloc,
         context,
         "Login", "loginSecondScreen", blueColor,
         FontWeight.bold,
@@ -55,7 +50,7 @@ Widget bothFieldBodyWidget(
           color: Color.fromRGBO(0,0,0,0.54),
           blurRadius: 5.0
         ),
-        validatorLogin
+        checkInputAndValidate
       ),
       Container(
         margin: EdgeInsets.only(top: 30.0),
@@ -66,49 +61,49 @@ Widget bothFieldBodyWidget(
   );
 }
 
-/* Column of User Login */
-Widget userLogin(
+Widget userLogin( /* Column of User Login */
   BuildContext context, 
-  ModelLogin modelLogin,
-  Function onChanged, Function validatorLogin
+  ModelLogin _modelLogin,
+  Function onChanged, Function checkInputAndValidate
   ) {
   return Column(
     children: <Widget>[
-      /* Phone number input*/
-      Container(
+      Container( /* Email & Phone Number Input Field*/
         margin: EdgeInsets.only(bottom: 13.0), 
         child: inputField(
-          modelLogin.bloc, 
+          _modelLogin.bloc, 
           context, 
-          "Phone number", modelLogin.countryCode, "loginSecondScreen", 
+          _modelLogin.controlEmails.text != "" ? "Email" : "Phone number", 
+          _modelLogin.controlEmails.text != "" ? null : _modelLogin.countryCode, 
+          "loginSecondScreen", 
           false, 
-          TextInputType.phone, modelLogin.controlPhoneNumbers,
-          modelLogin.firstNode, 
+          _modelLogin.controlEmails.text != "" ? TextInputType.text : TextInputType.phone,
+          _modelLogin.controlEmails.text != "" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
+          _modelLogin.controlEmails.text != "" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums, 
           onChanged, 
           null
         )
       ),
-      /* Password input */
-      Container(
+      Container( /* Password Input Field */
         margin: EdgeInsets.only(bottom: 25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             inputField(
-              modelLogin.bloc,
+              _modelLogin.bloc,
               context, 
               "Password", null, "loginSecondScreen", 
               true, 
               TextInputType.text, 
-              modelLogin.controlPasswords,
-              modelLogin.secondNode, 
+              _modelLogin.controlPasswords,
+              _modelLogin.nodePasswords, 
               onChanged, 
-              validatorLogin
+              checkInputAndValidate
             )
             /* Password Label and Forget password button */,
             // Container(margin: EdgeInsets.only(bottom: 5.0), child: labelUserInput('Password', whiteColorHexa)),
             /* Password Input */
-            // passwordField(bloc, controlPasswords, firstNode, secondNode, clearAllInput, disableLoginButton, validatorLogin),
+            // passwordField(bloc, controlPasswords, firstNode, secondNode, clearAllInput, disableLoginButton, checkInputAndValidate),
           ],
         )
       ),
@@ -151,7 +146,7 @@ Widget userLogin(
 //   );
 // }
 
-Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNode firstNode, FocusNode secondNode, Function clearAllInput, Function disableLoginButton, Function validatorLogin) {
+Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNode firstNode, FocusNode secondNode, Function clearAllInput, Function disableLoginButton, Function checkInputAndValidate) {
   return StreamBuilder(
     stream: bloc.passwordObservable,
     builder: (context, snapshot) {
@@ -181,7 +176,7 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
             bloc.submit.listen((submit){
               if (firstNode.hasFocus == false){
                 if (submit == true && secondNode.hasFocus == false) {
-                  validatorLogin(bloc, context, clearAllInput, disableLoginButton);
+                  checkInputAndValidate(bloc, context, clearAllInput, disableLoginButton);
                 }
               }
             });
@@ -193,7 +188,7 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
   );
 }
 
-Widget loginButton(Bloc bloc, BuildContext context, Function clearAllInput, Function disableLoginButton, Function validatorLogin) {
+Widget loginButton(Bloc bloc, BuildContext context, Function clearAllInput, Function disableLoginButton, Function checkInputAndValidate) {
   return StreamBuilder(
     stream: bloc.submit,
     builder: (context, snapshot) {
@@ -218,7 +213,7 @@ Widget loginButton(Bloc bloc, BuildContext context, Function clearAllInput, Func
           onPressed: 
           snapshot.data == null ? null : 
           () async {
-            validatorLogin(bloc, context, clearAllInput, disableLoginButton);
+            checkInputAndValidate(bloc, context, clearAllInput, disableLoginButton);
           }
         ),
       );

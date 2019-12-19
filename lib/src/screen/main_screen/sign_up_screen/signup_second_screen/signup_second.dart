@@ -10,9 +10,8 @@ import 'package:wallet_apps/src/provider/internet_connection.dart';
 class SignUpSecond extends StatefulWidget{
 
   final ModelSignUp _modelSignUp;
-  final Function setMyState;
 
-  SignUpSecond(this._modelSignUp, this.setMyState);
+  SignUpSecond(this._modelSignUp);
   @override
   State<StatefulWidget> createState() {
     return SignUpSecondState();
@@ -51,31 +50,26 @@ class SignUpSecondState extends State<SignUpSecond>{
     });
   }
 
-  /* Validator User Login After Check Internet */
-  void validatorLogin(Bloc bloc, BuildContext context) async{
-    /* Show Loading */
-    dialogLoading(context);
-    /* Response Result */
-    final submitResponse = await bloc.submitMethod(context, widget._modelSignUp).then((data) async {
-      if (data == true) {
-        Navigator.pop(context);
-        widget.setMyState();
-        /* Wait And Push Replace To HomePage */
-        await Future.delayed(Duration(milliseconds: 200), () async {
-        });
-        Navigator.pushReplacementNamed(context, '/dashboardScreen');
-      }
-      return data;
-    }).catchError((onError){
-      Navigator.pop(context);
-      setState(() => widget._modelSignUp.isProgress = false );
-      return false;
-    });
-    if (submitResponse == false) {
-      Navigator.pop(context);
-      // clearAllInput(); 
-      // disableLoginButton(bloc);
-    }
+  void validatorLogin(Bloc bloc, BuildContext context) async{  /* Validator User Login After Check Internet */
+    // dialogLoading(context); /* Pop Up Loading */
+    // final submitResponse = await bloc.submitMethod(context, widget._modelSignUp).then((data) async { /* Response Result */
+    //   if (data == true) {
+    //     Navigator.pop(context); /* Close Loading Dialog */
+    //     await Future.delayed(Duration(milliseconds: 200), () async { /* Wait And Push Replace To HomePage */
+    //     });
+    //     Navigator.pushReplacementNamed(context, '/dashboardScreen');
+    //   }
+    //   return data;
+    // }).catchError((onError){
+    //   Navigator.pop(context);
+    //   setState(() => widget._modelSignUp.isProgress = false );
+    //   return false;
+    // });
+    // if (submitResponse == false) {
+    //   Navigator.pop(context);
+    //   // clearAllInput(); 
+    //   // disableLoginButton(bloc);
+    // }
   }
 
   void onChanged(String valueChanged) {

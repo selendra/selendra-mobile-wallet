@@ -18,31 +18,28 @@ class LoginFirstScreen extends StatefulWidget {
 
 class LoginFirstState extends State<LoginFirstScreen> {
 
-  ModelLogin modelLogin = ModelLogin();
+  ModelLogin _modelLogin = ModelLogin();
 
   @override
   initState() {
-    /* Clear All Input Field */
-    clearAllInput();
-    /* Init State */
-    super.initState();
+    clearAllInput(); /* Clear All Input Field */
+    super.initState(); /* Init State */
   }
-  /* Disable Login Button When Wrong Password And Error Something */
-  void disableLoginButton(Bloc bloc) {
+  
+  void disableLoginButton(Bloc bloc) { /* Disable Login Button When Wrong Password And Error Something */
     bloc.addEmail(null); bloc.addPassword(null);
   }
 
-  /* Clear Text In Field */
-  void clearAllInput() async {
-    modelLogin.controlEmails.clear(); modelLogin.controlPasswords.clear();
+  void clearAllInput() async { /* Clear Text In Field */
+    _modelLogin.controlEmails.clear(); _modelLogin.controlPasswords.clear();
   }
 
   void onChanged(String label, String valueChange) {
   }
 
-  void navigatePage(BuildContext context) {
-    // if (!(modelLogin.phoneNumber.length < 7) && modelLogin.phoneNumber != "") {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginSecond(modelLogin)));
+  void navigatePage(BuildContext context) async {
+    // if (!(_modelLogin.phoneNumber.length < 7) && _modelLogin.phoneNumber != "") {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginSecond(_modelLogin)));
     // }
   }
 
@@ -55,29 +52,15 @@ class LoginFirstState extends State<LoginFirstScreen> {
           decoration: scaffoldBGColor("#344051", "#222834"),
           child: Stack(
             children: <Widget>[
-              /* Body Widget */
-              paddingScreenWidget(
+              paddingScreenWidget( /* Body Widget */
                 context, 
                 loginFirstBodyWidget(
                   context,
-                  modelLogin,
+                  _modelLogin,
                   onChanged,
                   navigatePage
                 )
-              )
-              // loginBodyWidget(
-              //   isBoth,
-              //   phoneNumber,
-              //   bloc,
-              //   context,
-              //   controlEmails, controlPasswords,
-              //   firstNode, secondNode,
-              //   clearAllInput,
-              //   disableLoginButton,
-              //   validatorLogin,
-              //   navigatePage,
-              //   colorSubmitted,
-              // ),
+              ), 
             ],
           ),
         )

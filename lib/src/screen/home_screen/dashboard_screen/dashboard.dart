@@ -36,30 +36,20 @@ class HomeWidgetState extends State<HomeWidget> {
   ModelDashboard _modelDashboard = ModelDashboard();
 
   @override
-  initState() {
-    /* Init State */
+  initState() { /* Initialize State */
     super.initState();  
-    /* Query User Id After Login From Local Storage */
-    fetChIds();
-    /* Query All User Data From Local Storage */
-    getUserData();
+    fetChIds(); /* Query User Id After Login From Local Storage */  
+    getUserData(); /* Query All User Data From Local Storage */
     fetchPortfolio();
     fetchWallet();
-    /* Method Wait For Build COmplete */
-    // WidgetsBinding.instance.addPostFrameCallback(_onBuildCompleted());
   }
-  // _onBuildCompleted() {
-  //   fetchPortfolio();
-  //   setState(() {});
-  //   // print('Hello world');
-  // }
 
-  /* Fetch User ID */
-  void fetChIds() async {
-    await Provider.fetchUserIds();
-    setState(() {
-      _modelDashboard.userId = Provider.idsUser;
-    });
+  void fetChIds() async { /* Fetch User Token */
+    final token = await Provider.fetchToken();
+    print(token);
+    // setState(() {
+    //   _modelDashboard.userId = Provider.idsUser;
+    // });
   }
 
   /* Fetch User Data From Memory */
