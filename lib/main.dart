@@ -69,8 +69,8 @@ class AppState extends State<App>{
         ),
         routes: <String, WidgetBuilder>{
           /* Login Screen */
-          '/': (context) => 
-          SignUpFirst(),
+          '/': (context) => LoginFirstScreen(),
+          // SignUpFirst(),
           // WelcomeToZee(),
           // add_profile_screenWidget(),
           // HistroyWidget(),

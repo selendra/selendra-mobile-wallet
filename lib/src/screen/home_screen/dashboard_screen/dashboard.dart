@@ -8,8 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 /* Directory of file */
-import 'package:wallet_apps/src/graphql/services/query_document.dart';
-import 'package:wallet_apps/src/graphql/services/requery_graphql_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';

@@ -80,6 +80,7 @@ Widget userLogin( /* Column of User Login */
           "signUpSecondScreen", /* Widget Name */
           false, 
           _modelSignUp.controlEmails.text != "" ? TextInputType.text : TextInputType.phone, 
+          TextInputAction.next,
           _modelSignUp.controlEmails.text != "" ? _modelSignUp.controlEmails : _modelSignUp.controlPhoneNums,
           _modelSignUp.controlEmails.text != "" ? _modelSignUp.nodeEmails : _modelSignUp.nodePhoneNums, 
           onChanged, 
@@ -93,7 +94,7 @@ Widget userLogin( /* Column of User Login */
           context, 
           "Enter SMS code", null, "signUpSecondScreen", 
           true, 
-          TextInputType.text, 
+          TextInputType.text, TextInputAction.done,
           _modelSignUp.controlSmsCode,
           _modelSignUp.nodeSmsCode, 
           onChanged, 

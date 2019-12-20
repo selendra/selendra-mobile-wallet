@@ -34,6 +34,29 @@ Widget loginFirstBodyWidget( /* body widget */
         margin: EdgeInsets.only(bottom: 20.0, top: 20.0),
         child: Text("By", style: TextStyle(fontSize: 18.0),)
       ),
+      Container( /* User Choice Log in */
+        margin: EdgeInsets.only(bottom: 59.0),
+        child: TabBar(
+          unselectedLabelColor: getHexaColor("#FFFFFF"),
+          indicatorColor: getHexaColor(greenColor),
+          labelColor: getHexaColor(greenColor),
+          labelStyle: TextStyle(fontSize: 18.0),
+          tabs: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              width: double.infinity,
+              child: Text("Email"),
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              alignment: Alignment.center,
+              child: Text("Phone number"),
+            )
+          ],
+        ),
+      ),
       Container( /* User Login Choice Body */
         height: 75.0,
         margin: EdgeInsets.only(bottom: 13.0),
@@ -46,7 +69,7 @@ Widget loginFirstBodyWidget( /* body widget */
                 context,
                 "Email", null, "loginFirstScreen",
                 false, 
-                TextInputType.text, 
+                TextInputType.text, TextInputAction.done,
                 _modelLogin.controlEmails,
                 _modelLogin.nodeEmails,
                 onChanged,
@@ -60,50 +83,14 @@ Widget loginFirstBodyWidget( /* body widget */
                 context,
                 "Phone number", _modelLogin.countryCode, "PhoneScreen",
                 false, 
-                TextInputType.phone, _modelLogin.controlPhoneNums,
+                TextInputType.phone,TextInputAction.done,
+                _modelLogin.controlPhoneNums,
                 _modelLogin.nodePhoneNums,
                 onChanged,
                 navigatePage
               )
             )
           ],
-        ),
-      ),
-      Expanded( /* Body User Login Choice */
-        child: Container(
-          margin: EdgeInsets.only(top: 40.0),
-          child: TabBarView( /* User Input Field */
-            children: <Widget>[
-              Container( /* Login By Email Field */
-                padding: EdgeInsets.only(top: 5.0),
-                child: inputField( 
-                  _modelLogin.bloc,
-                  context,
-                  "Email", null, "loginFirstScreen",
-                  false, 
-                  TextInputType.text, 
-                  _modelLogin.controlEmails,
-                  _modelLogin.nodeEmails,
-                  onChanged,
-                  navigatePage
-                )
-              ),
-              Container( /* Login By Phone Number Field */
-                margin: EdgeInsets.only(bottom: 13.0), 
-                child: inputField(
-                  _modelLogin.bloc,
-                  context,
-                  "Phone number", _modelLogin.countryCode, "loginFirstScreen",
-                  false, 
-                  TextInputType.phone, 
-                  _modelLogin.controlPhoneNums,
-                  _modelLogin.nodePhoneNums,
-                  onChanged,
-                  navigatePage
-                )
-              )
-            ],
-          ),
         ),
       ),
       flatCustomButton( /* Button login */
@@ -138,7 +125,7 @@ Widget userLogin(BuildContext context, ModelLogin _modelLogin, Function onChange
           context,
           "Phone number", _modelLogin.countryCode, "loginFirstScreen",
           false, 
-          TextInputType.phone, _modelLogin.controlPasswords,
+          TextInputType.phone,TextInputAction.next, _modelLogin.controlPasswords,
           _modelLogin.nodePasswords,
           onChanged,
           navigatePage

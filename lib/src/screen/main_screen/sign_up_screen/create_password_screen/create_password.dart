@@ -21,12 +21,20 @@ class CreatePasswordState extends State<CreatePassword> {
 
   }
 
-  void popScreen() {
+  void popScreen() { /* Close Current Screen */
     Navigator.pop(context);
+  } 
+
+  void navigatePage(BuildContext context) { /* Navigate To Fill User Info */
+    if (widget._modelSignUp.controlConfirmPasswords.text != "" && widget._modelSignUp.controlPasswords.text != "") { /* Password != Empty */
+      if (widget._modelSignUp.controlConfirmPasswords.text != widget._modelSignUp.controlPasswords.text) {
+        print("Not match !");
+      } else print("Match !");
+    }
   }
 
-  void navigatePage() {
-    // Navigator.push(context, Mater)
+  void changeFocus(BuildContext context, String value) {
+    FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPasswords);
   }
 
   Widget build(BuildContext context) {
@@ -34,7 +42,7 @@ class CreatePasswordState extends State<CreatePassword> {
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0,
         color1, color2,
-        createPasswordBodyWidget(context, widget._modelSignUp, onChanged, popScreen, navigatePage)
+        createPasswordBodyWidget(context, widget._modelSignUp, onChanged, popScreen, changeFocus, navigatePage)
       )
     );
   }

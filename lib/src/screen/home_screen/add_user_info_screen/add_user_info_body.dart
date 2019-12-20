@@ -44,7 +44,7 @@ Widget addUserInfobodyWidget(
                       context,
                       "Occupation", null, "addUserInfoScreen",
                       false, 
-                      TextInputType.text,
+                      TextInputType.text, TextInputAction.next,
                       _modelUserInfo.controlOccupation,
                       _modelUserInfo.nodeOccupatioin,
                       null, null
@@ -57,7 +57,7 @@ Widget addUserInfobodyWidget(
                       context,
                       "Nationality", null, "addUserInfoScreen",
                       false, 
-                      TextInputType.text,
+                      TextInputType.text, TextInputAction.done,
                       _modelUserInfo.controlNationality,
                       _modelUserInfo.nodeNationality,
                       null, null

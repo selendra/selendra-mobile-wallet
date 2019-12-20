@@ -1,4 +1,3 @@
-import 'package:wallet_apps/src/graphql/services/mutation_document.dart';
 import 'package:wallet_apps/src/model/model_scan_pay.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';

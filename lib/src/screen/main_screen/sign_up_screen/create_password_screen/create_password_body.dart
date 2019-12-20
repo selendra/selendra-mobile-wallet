@@ -5,7 +5,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 Widget createPasswordBodyWidget(
   BuildContext context,
   ModelSignUp _modelSignUp,
-  Function onChanged, Function popScreen, Function navigatePage
+  Function onChanged, Function popScreen, Function changeFocus, Function navigatePage
 ) {
   return Container(
     child: Column(
@@ -34,12 +34,12 @@ Widget createPasswordBodyWidget(
                   child: inputField(
                     _modelSignUp.bloc, 
                     context, "Password", null, "createPasswordScreen", 
-                    false, 
-                    TextInputType.text, 
+                    true, 
+                    TextInputType.text, TextInputAction.next, 
                     _modelSignUp.controlPasswords, 
                     _modelSignUp.nodePassword, 
                     onChanged, 
-                    null
+                    changeFocus
                   ),
                 ),
                 Container( /* Confirm Password Field */
@@ -47,8 +47,8 @@ Widget createPasswordBodyWidget(
                   child: inputField(
                     _modelSignUp.bloc, 
                     context, "Confirm Password", null, "createPasswordScreen", 
-                    false, 
-                    TextInputType.text, 
+                    true, 
+                    TextInputType.text, TextInputAction.done, 
                     _modelSignUp.controlConfirmPasswords, 
                     _modelSignUp.nodeConfirmPasswords, 
                     onChanged, 

@@ -59,7 +59,7 @@ Widget invoiceSummaryBodyWidget(
             context, 
             "Authorization code", null, "invoiceSummary", 
             true, 
-            TextInputType.text, 
+            TextInputType.text, TextInputAction.done,
             _controllerCode, 
             _nodeCode, 
             onChanged, 

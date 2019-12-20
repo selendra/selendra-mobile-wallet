@@ -49,7 +49,7 @@ Widget bodyWidget(
                       context, 
                       "Document type", null, 'addDocumentScreen', 
                       false, 
-                      TextInputType.text, 
+                      TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsType, 
                       _modelDocument.nodeDocsType, 
                       textChanged, null
@@ -62,7 +62,7 @@ Widget bodyWidget(
                       context, 
                       "Document number", null, 'addDocumentScreen', 
                       false, 
-                      TextInputType.text, 
+                      TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsNumber, 
                       _modelDocument.nodeDocsNumber, 
                       textChanged, null

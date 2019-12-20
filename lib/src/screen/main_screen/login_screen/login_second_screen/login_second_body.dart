@@ -78,6 +78,7 @@ Widget userLogin( /* Column of User Login */
           "loginSecondScreen", 
           false, 
           _modelLogin.controlEmails.text != "" ? TextInputType.text : TextInputType.phone,
+          TextInputAction.next,
           _modelLogin.controlEmails.text != "" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
           _modelLogin.controlEmails.text != "" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums, 
           onChanged, 
@@ -86,26 +87,27 @@ Widget userLogin( /* Column of User Login */
       ),
       Container( /* Password Input Field */
         margin: EdgeInsets.only(bottom: 25.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            inputField(
-              _modelLogin.bloc,
-              context, 
-              "Password", null, "loginSecondScreen", 
-              true, 
-              TextInputType.text, 
-              _modelLogin.controlPasswords,
-              _modelLogin.nodePasswords, 
-              onChanged, 
-              checkInputAndValidate
-            )
-            /* Password Label and Forget password button */,
+        child: inputField(
+          _modelLogin.bloc,
+          context, 
+          "Password", null, "loginSecondScreen", 
+          true, 
+          TextInputType.text, TextInputAction.done,
+          _modelLogin.controlPasswords,
+          _modelLogin.nodePasswords, 
+          onChanged, 
+          checkInputAndValidate
+        ),
+        // Column(
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: <Widget>[
+            
+            /* Password Label and Forget password button */
             // Container(margin: EdgeInsets.only(bottom: 5.0), child: labelUserInput('Password', whiteColorHexa)),
             /* Password Input */
             // passwordField(bloc, controlPasswords, firstNode, secondNode, clearAllInput, disableLoginButton, checkInputAndValidate),
-          ],
-        )
+        //   ],
+        // )
       ),
     ],
   );

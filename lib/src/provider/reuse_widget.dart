@@ -689,7 +689,7 @@ Widget inputField(
   BuildContext context,
   String labelText, String prefixText, String widgetName,
   bool obcureText,
-  TextInputType inputType, TextEditingController controller,
+  TextInputType inputType, TextInputAction inputAction, TextEditingController controller,
   FocusNode _focusNode,
   Function onChanged, Function action
   ) {
@@ -698,6 +698,7 @@ Widget inputField(
     keyboardType: inputType,
     obscureText: obcureText,
     controller: controller,
+    textInputAction: inputAction,
     style: TextStyle(color: getHexaColor("#ffffff")),
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(

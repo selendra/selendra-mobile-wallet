@@ -35,7 +35,7 @@ Widget forgotPasswordBodyWidget(
                     _modelForgots.bloc, 
                     context, "Phone number", "+855", "forgotsScreen", 
                     false, 
-                    TextInputType.text, 
+                    TextInputType.text, TextInputAction.done,
                     _modelForgots.controllerPhone, 
                     _modelForgots.nodePhone, 
                     onChanged, 

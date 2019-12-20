@@ -36,7 +36,7 @@ Widget userInfoBodyWidget(
                     context,
                     "First Name", null, "userInfoScreen",
                     false, 
-                    TextInputType.text,
+                    TextInputType.text, TextInputAction.next,
                     _modelSignUp.controlFirstName,
                     _modelSignUp.nodeFirstName,
                     null, null
@@ -49,7 +49,7 @@ Widget userInfoBodyWidget(
                     context,
                     "Mid Name", null, "userInfoScreen",
                     false, 
-                    TextInputType.text,
+                    TextInputType.text, TextInputAction.next,
                     _modelSignUp.controlMidName,
                     _modelSignUp.nodeMidName,
                     null, null
@@ -62,7 +62,7 @@ Widget userInfoBodyWidget(
                     context,
                     "Last Name", null, "userInfoScreen",
                     false, 
-                    TextInputType.text,
+                    TextInputType.text, TextInputAction.next,
                     _modelSignUp.controlLastName,
                     _modelSignUp.nodeLastName,
                     null, null

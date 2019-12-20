@@ -5,6 +5,7 @@ import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first_body.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/internet_connection.dart';
@@ -57,7 +58,7 @@ class SignUpFirstState extends State<SignUpFirst> {
   }
 
   void navigatePage(BuildContext context) { /* Navigate To Second Sign Up */
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpSecond(_modelSignUp)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));
   }
 
   void onChanged(String valueChange) { /* Input Field Value Change */

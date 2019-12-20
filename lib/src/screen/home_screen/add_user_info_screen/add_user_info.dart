@@ -7,7 +7,6 @@ import 'dart:async';
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import './add_user_info_body.dart';
-import 'package:wallet_apps/src/graphql/services/mutation_document.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 class AddUserInfo extends StatefulWidget{

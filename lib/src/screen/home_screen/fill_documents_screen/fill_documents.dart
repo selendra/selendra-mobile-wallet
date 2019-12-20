@@ -5,9 +5,7 @@ import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/take_se
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/upload_documents_screen/upload_documents.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/graphql/services/query_document.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/graphql/services/mutation_document.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:intl/intl.dart';

@@ -37,7 +37,7 @@ Widget addAssetBodyWidget(
                       _modelAsset.bloc, context, 
                       "Asset Code", null, "addAssetScreen", 
                       false, 
-                      TextInputType.text, 
+                      TextInputType.text, TextInputAction.next, 
                       _modelAsset.controllerAssetCode, _modelAsset.nodeAssetCode, 
                       onChanged, 
                       null
@@ -49,7 +49,7 @@ Widget addAssetBodyWidget(
                       _modelAsset.bloc, context, 
                       "Issuer", null, "addAssetScreen", 
                       false, 
-                      TextInputType.text, 
+                      TextInputType.text, TextInputAction.done, 
                       _modelAsset.controllerIssuer, _modelAsset.nodeIssuer,
                       onChanged, 
                       null
