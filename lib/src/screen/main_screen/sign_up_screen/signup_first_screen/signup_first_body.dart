@@ -1,4 +1,3 @@
-import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +66,7 @@ Widget signUpFirstBodyWidget(
               child: inputField( 
                 _modelSignUp.bloc,
                 context,
-                "Email", null, "loginFirstScreen",
+                "Email", null, "signUpFirstScreen",
                 false, 
                 TextInputType.text, 
                 _modelSignUp.controlEmails,
@@ -81,9 +80,10 @@ Widget signUpFirstBodyWidget(
               child: inputField(
                 _modelSignUp.bloc,
                 context,
-                "Phone number", _modelSignUp.countryCode, "PhoneScreen",
+                "Phone number", _modelSignUp.countryCode, "signUpFirstScreen",
                 false, 
-                TextInputType.phone, _modelSignUp.controlPhoneNums,
+                TextInputType.phone,
+                _modelSignUp.controlPhoneNums,
                 _modelSignUp.nodePhoneNums,
                 onChanged,
                 navigatePage

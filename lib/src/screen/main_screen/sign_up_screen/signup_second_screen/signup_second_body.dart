@@ -11,14 +11,14 @@ Widget signUpSecondBodyWidget( /* Body widget */
   Function validatorLogin
 ) {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch, // Stretch is fill cros axis
+    crossAxisAlignment: CrossAxisAlignment.stretch, /* Stretch Is Fill Cross Axis */
     children: <Widget>[
       Container( /* Title of Zeetomic */
         child: Column(
           children: <Widget>[
             Container(
               child: textDisplay(
-                "Login", 
+                "Sign up", 
                 TextStyle(
                   color: getHexaColor("ffffff"),
                   fontSize: 30.0,
@@ -70,36 +70,34 @@ Widget userLogin( /* Column of User Login */
   ) {
   return Column(
     children: <Widget>[
-      Container(
+      Container( /* Email & Phone Number Input Field*/
         margin: EdgeInsets.only(bottom: 13.0), 
-        child: inputField( /* Phone number input*/
+        child: inputField(
           _modelSignUp.bloc, 
           context, 
-          "Phone number", _modelSignUp.countryCode, "signUpSecondScreen", 
+          _modelSignUp.controlEmails.text != "" ? "Email" : "Phone number", /* Label */
+          _modelSignUp.controlEmails.text != "" ? null : _modelSignUp.countryCode, /* Prefix */
+          "signUpSecondScreen", /* Widget Name */
           false, 
-          TextInputType.phone, _modelSignUp.controlPhoneNums,
-          _modelSignUp.nodePhoneNums, 
+          _modelSignUp.controlEmails.text != "" ? TextInputType.text : TextInputType.phone, 
+          _modelSignUp.controlEmails.text != "" ? _modelSignUp.controlEmails : _modelSignUp.controlPhoneNums,
+          _modelSignUp.controlEmails.text != "" ? _modelSignUp.nodeEmails : _modelSignUp.nodePhoneNums, 
           onChanged, 
           null
         )
       ),
       Container( /* Password input */
         margin: EdgeInsets.only(bottom: 25.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            inputField(
-              _modelSignUp.bloc,
-              context, 
-              "Enter SMS code", null, "signUpSecondScreen", 
-              true, 
-              TextInputType.text, 
-              _modelSignUp.controlSmsCode,
-              _modelSignUp.nodeSmsCode, 
-              onChanged, 
-              validatorLogin
-            )
-          ],
+        child: inputField(
+          _modelSignUp.bloc,
+          context, 
+          "Enter SMS code", null, "signUpSecondScreen", 
+          true, 
+          TextInputType.text, 
+          _modelSignUp.controlSmsCode,
+          _modelSignUp.nodeSmsCode, 
+          onChanged, 
+          validatorLogin
         )
       ),
     ],

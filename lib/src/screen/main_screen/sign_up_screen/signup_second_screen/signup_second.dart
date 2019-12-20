@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_screen/signup_second_body.dart';
@@ -26,14 +25,13 @@ class SignUpSecondState extends State<SignUpSecond>{
     focusOnPassword();
   }
 
-  focusOnPassword() async {
+  void focusOnPassword() async {
     await Future.delayed(Duration(milliseconds: 100), (){
       FocusScope.of(context).requestFocus(widget._modelSignUp.nodeSmsCode);
     });
   }
 
-  /* Check Internet Before Validate And Finish Validate*/
-  void checkInputAndValidate() async {
+  void checkInputAndValidate() async { /* Check Internet Before Validate And Finish Validate*/
     setState(() {widget._modelSignUp.isProgress = true;});  
     await Future.delayed(Duration(milliseconds: 100), (){
       checkConnection(context).then((isConnect) {

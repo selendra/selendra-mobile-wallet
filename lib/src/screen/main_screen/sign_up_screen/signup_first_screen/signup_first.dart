@@ -56,12 +56,11 @@ class SignUpFirstState extends State<SignUpFirst> {
     bloc.addUsersign(null);
   }
 
-  void navigatePage() { /* Navigate To Second Sign Up */
+  void navigatePage(BuildContext context) { /* Navigate To Second Sign Up */
     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpSecond(_modelSignUp)));
   }
 
   void onChanged(String valueChange) { /* Input Field Value Change */
-    _modelSignUp.phoneNumber = valueChange;
   }
   
   Widget build(BuildContext context) { /* User Sign Up Build Widget */

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelSignUp {
@@ -7,7 +6,7 @@ class ModelSignUp {
 
   bool isProgress = false, isLogedin = false, isBoth = false;
 
-  String token, phoneNumber = "", countryCode = "+855 ", gender;
+  String token, countryCode = "+855 ", gender;
 
   var colorSubmitted = Colors.transparent;
 
@@ -23,7 +22,8 @@ class ModelSignUp {
   FocusNode nodeMidName = FocusNode();
   FocusNode nodeLastName = FocusNode();
 
-  TextEditingController controlEmails = TextEditingController();
+  
+  TextEditingController controlEmails = TextEditingController(); /* Value Controller Empty By Default */
   TextEditingController controlPasswords = TextEditingController();
   TextEditingController controlSmsCode = TextEditingController();
   TextEditingController controlConfirmPasswords = TextEditingController();
@@ -31,7 +31,5 @@ class ModelSignUp {
   TextEditingController controlFirstName = TextEditingController();
   TextEditingController controlMidName = TextEditingController();
   TextEditingController controlLastName = TextEditingController();
-
-  // QueryResult queryResult = QueryResult();
 
 }
