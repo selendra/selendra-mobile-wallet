@@ -21,11 +21,21 @@ class UserInfoState extends State<UserInfo> {
     Navigator.pop(context);
   }
 
+  void submit(BuildContext context) {
+    widget._modelSignUp.bloc.registerUser(
+      context,
+      // widget._modelSignUp.controlEmails.text,
+      // widget._modelSignUp.controlPasswords.text,
+      "condaveat@gmail.com", "123456",
+      "registerbyemail"
+    );
+  } 
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0, color1, color2, 
-        userInfoBodyWidget(context, widget._modelSignUp, popScreen)
+        userInfoBodyWidget(context, widget._modelSignUp, popScreen, submit)
       ),
     );
   }

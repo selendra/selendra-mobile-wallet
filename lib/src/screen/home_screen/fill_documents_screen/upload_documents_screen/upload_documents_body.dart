@@ -58,7 +58,7 @@ Widget documentsBodyWidget(
                     navigatePage
                   ),
                 ),
-                flatCustomButton(
+                customFlatButton(
                   bloc, 
                   context, 
                   "Upload", "uploadDocumentScreen", blueColor,                  

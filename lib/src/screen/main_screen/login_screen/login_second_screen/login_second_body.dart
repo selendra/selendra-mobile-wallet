@@ -38,7 +38,7 @@ Widget bothFieldBodyWidget(
           checkInputAndValidate
         ),
       ),
-      flatCustomButton( /* Button login */
+      customFlatButton( /* Button login */
         _modelLogin.bloc,
         context,
         "Login", "loginSecondScreen", blueColor,

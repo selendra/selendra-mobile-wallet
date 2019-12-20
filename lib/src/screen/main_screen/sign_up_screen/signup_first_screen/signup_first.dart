@@ -18,9 +18,15 @@ class SignUpFirst extends StatefulWidget{
   }
 }
 
-class SignUpFirstState extends State<SignUpFirst> {
+class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderStateMixin{
 
   ModelSignUp _modelSignUp = ModelSignUp();
+
+  @override
+  void initState() {
+    super.initState();
+    _modelSignUp.tabController = new TabController(length: 2, vsync: this);
+  }
 
   void popScreen() { /* Pop Current Screen */
     Navigator.pop(context);
@@ -41,16 +47,16 @@ class SignUpFirstState extends State<SignUpFirst> {
 
   
   void validator(Bloc bloc) { /* Button Verify User Sign Up */
-    dialogLoading(context); /* Loading */
-    bloc.registerUser(context)
-    .then((onValue){
-      if (onValue == false) {
-      } else if (onValue == true){
-        Navigator.pushReplacementNamed(context, '/');
-      }
-    })
-    .catchError((onError){
-    });
+    // dialogLoading(context); /* Loading */
+    // bloc.registerUser(context)
+    // .then((onValue){
+    //   if (onValue == false) {
+    //   } else if (onValue == true){
+    //     Navigator.pushReplacementNamed(context, '/');
+    //   }
+    // })
+    // .catchError((onError){
+    // });
   }
   
   void resetBloc(Bloc bloc) { /* Reset All Field */
@@ -62,6 +68,10 @@ class SignUpFirstState extends State<SignUpFirst> {
   }
 
   void onChanged(String valueChange) { /* Input Field Value Change */
+  }
+
+  void changeButtonText(int index) {
+    setState(() {});
   }
   
   Widget build(BuildContext context) { /* User Sign Up Build Widget */
@@ -78,7 +88,7 @@ class SignUpFirstState extends State<SignUpFirst> {
                 signUpFirstBodyWidget( /* Body Widget */
                   context, 
                   _modelSignUp, 
-                  popScreen, submitValidator, navigatePage, onChanged
+                  popScreen, submitValidator, navigatePage, changeButtonText, onChanged
                 )
               )
             ],

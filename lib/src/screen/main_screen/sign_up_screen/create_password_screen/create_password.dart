@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password_body.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 
 class CreatePassword extends StatefulWidget{
 
@@ -28,8 +29,10 @@ class CreatePasswordState extends State<CreatePassword> {
   void navigatePage(BuildContext context) { /* Navigate To Fill User Info */
     if (widget._modelSignUp.controlConfirmPasswords.text != "" && widget._modelSignUp.controlPasswords.text != "") { /* Password != Empty */
       if (widget._modelSignUp.controlConfirmPasswords.text != widget._modelSignUp.controlPasswords.text) {
-        print("Not match !");
-      } else print("Match !");
+        setState(() {
+          widget._modelSignUp.isMatch = true; /* Pop Not Match Text Below Confrim Password Field */
+        });
+      } else Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
     }
   }
 

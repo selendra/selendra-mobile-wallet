@@ -55,7 +55,7 @@ Widget changePasswordBodyWidget(
                     null
                   ),
                 ),
-                flatCustomButton( /* Request Button */
+                customFlatButton( /* Request Button */
                   _modelForgots.bloc, 
                   context, 
                   "Request Code", "forgotsScreen", greenColor,                    

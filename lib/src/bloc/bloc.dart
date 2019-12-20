@@ -32,11 +32,11 @@ class Bloc with ValidatorMixin {
   Function(String) get addUsersign => _usersignup.sink.add;
 
   
-  Future<bool> submitMethod(BuildContext context, String emailOrPhoneNums, String passwords, String endpoints) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
+  Future<bool> submitMethod(BuildContext context, String byEmailOrPhoneNums, String passwords, String endpoints) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
     return userLogin(
       // _email.value, 
       // _password.value
-      emailOrPhoneNums, passwords, endpoints
+      byEmailOrPhoneNums, passwords, endpoints
     )
     .then((onValue) async {
       print("Sumbit response $onValue");
@@ -60,21 +60,22 @@ class Bloc with ValidatorMixin {
     });
   }
 
-  Future<bool> registerUser(BuildContext context) async { /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
-    return await userRegister(_email.value, _password.value).then((onValue) async {
-      await dialog(context, Text((onValue['message'])
-        ), 
-        onValue['message'] == "User ${_email.value} already exist" /* Check For Change Icon On Alert */
-          ? Icon(Icons.warning) : Icon(Icons.done_outline, color
-          : getHexaColor(lightBlueSky),
-        )
-      );
-      return true;
-    })
-    .catchError((onError) async {
-      await dialog(context, Text('Something goes wrong !'), Icon(Icons.warning));
-      return false;
-    });
+  Future<bool> registerUser(BuildContext context, String byEmailOrPhoneNums, String passwords, String endpoints) async { /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
+    userRegister(byEmailOrPhoneNums, passwords, endpoints);
+    // return await userRegister(byEmailOrPhoneNums, passwords, endpoints).then((onValue) async {
+    //   await dialog(context, Text((onValue['message'])
+    //     ), 
+    //     onValue['message'] == "User ${_email.value} already exist" /* Check For Change Icon On Alert */
+    //       ? Icon(Icons.warning) : Icon(Icons.done_outline, color
+    //       : getHexaColor(lightBlueSky),
+    //     )
+    //   );
+    //   return true;
+    // })
+    // .catchError((onError) async {
+    //   await dialog(context, Text('Something goes wrong !'), Icon(Icons.warning));
+    //   return false;
+    // });
   }
 
   /* Close All Stream To Prevent Crash Program Or Memory Leak */

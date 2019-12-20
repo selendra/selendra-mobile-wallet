@@ -55,7 +55,7 @@ Widget addAssetBodyWidget(
                       null
                     ),
                   ),
-                  flatCustomButton( /* Add Asset Button */
+                  customFlatButton( /* Add Asset Button */
                     _modelAsset.bloc, 
                     context, 
                     "Add assets", "addAssetScreen", blueColor,

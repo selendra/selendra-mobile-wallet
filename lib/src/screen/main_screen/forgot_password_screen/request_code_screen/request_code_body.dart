@@ -55,7 +55,7 @@ Widget requestCodeBodyWidget(
                     null
                   ),
                 ),
-                flatCustomButton( /* Request Button */
+                customFlatButton( /* Request Button */
                   _modelForgots.bloc, 
                   context, 
                   "Change Now", "forgotsScreen", greenColor,                     

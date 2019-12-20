@@ -42,7 +42,7 @@ Widget forgotPasswordBodyWidget(
                     null
                   ),
                 ),
-                flatCustomButton(
+                customFlatButton(
                   _modelForgots.bloc, 
                   context, 
                   "Request Code", "forgotsScreen", greenColor,                    

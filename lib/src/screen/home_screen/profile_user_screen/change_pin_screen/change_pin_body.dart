@@ -74,7 +74,7 @@ Widget changePinBodyWidget(
                     null
                   ),
                 ),
-                flatCustomButton(
+                customFlatButton(
                   _modelChangePin.bloc, 
                   context, 
                   "Change Now", "changePinScreen", blueColor,

@@ -16,11 +16,13 @@ final _urlPostImage = "https://s3.zeetomic.com";
 /* Zeetomic OCR */
 final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 
+Map<String, String> headers = {"Content-Type": "application/json; charset=utf-8"};
+
 /* User Login */
-Future<Map<String, dynamic>> userLogin(String emailOrPhoneNums, String passwords, String endpoints) async {
+Future<Map<String, dynamic>> userLogin(String byEmailOrPhoneNums, String passwords, String endpoints) async {
   String encode = json.encode( /* Convert to Json Data ( String ) */
     {
-      "email": emailOrPhoneNums, 
+      "email": byEmailOrPhoneNums, 
       "password": passwords
     }
   );
@@ -33,8 +35,19 @@ Future<Map<String, dynamic>> userLogin(String emailOrPhoneNums, String passwords
 }
 
 /* User Regiser */
-Future<Map<String, dynamic>> userRegister(String email, String passwords) async {
-  final response = await http.post('$_url/registeruri', body: {"email": "$email", "passwords": "$passwords"});
+Future<Map<String, dynamic>> userRegister(String byEmailOrPhoneNums, String passwords, String endpoints) async {
+  String encode = json.encode( /* Convert to Json Data ( String ) */
+    {
+      "email": byEmailOrPhoneNums, 
+      "password": passwords
+    }
+  );
+  final response = await http.post(
+    '$_url/pub/v1/$endpoints', 
+    headers: {"Content-Type": "application/json; charset=utf-8"},
+    body: encode
+  );
+  print(response.body);
   return json.decode(response.body);
 }
 

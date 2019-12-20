@@ -93,7 +93,7 @@ Widget loginFirstBodyWidget( /* body widget */
           ],
         ),
       ),
-      flatCustomButton( /* Button login */
+      customFlatButton( /* Button login */
         _modelLogin.bloc,
         context,
         "Login", "loginFirstScreen", blueColor,

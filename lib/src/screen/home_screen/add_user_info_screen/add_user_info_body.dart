@@ -75,7 +75,7 @@ Widget addUserInfobodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: Image.file(_modelUserInfo.file),
                   ) : Container(),
-                  flatCustomButton( /* Next Button */
+                  customFlatButton( /* Next Button */
                     _modelUserInfo.bloc, 
                     context, 
                     "Next", "addUserInfoScreen", blueColor,

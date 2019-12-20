@@ -44,11 +44,11 @@ Widget bodyWidget(
           ),
         ),
         /* Full Name */
-        textFieldDisplay(false, fullNameControl, false, "Full name", null),
+        // textFieldDisplay(false, fullNameControl, false, "Full name", null),
         /* Email */
-        textFieldDisplay(false, emailControl, false, "Email", null),
+        // textFieldDisplay(false, emailControl, false, "Email", null),
         /* Password */
-        textFieldDisplay(false, passwordControl, true, "Password", null),
+        // textFieldDisplay(false, passwordControl, true, "Password", null),
       ],
     ),
   );

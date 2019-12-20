@@ -207,7 +207,7 @@ Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButto
   );
 }
 
-Widget flatCustomButton(
+Widget customFlatButton(
   Bloc bloc,
   BuildContext context,
   String textButton, String widgetName, String buttonColor,
@@ -612,47 +612,12 @@ Widget qrCodeGenerate(String _walletCode) {
   );
 }
 
-/* ---------------------------------- Setting ----------------------------------*/
-Widget textFieldDisplay(bool enableInput, TextEditingController textController,bool isObscureText, String labelText, ModelDocument _modelDocument) {
-  return Container(
-    margin: EdgeInsets.only(top: 20.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        /* Email label */
-        Container(child: labelUserInput(labelText, whiteColorHexa),),
-        /* Text Field*/
-        TextField(
-          controller: textController,
-          style: TextStyle(color: getHexaColor(lightBlueSky), fontWeight: FontWeight.w300),
-          obscureText: isObscureText,
-          enabled: enableInput,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 20.0, top: 20.0),
-            hasFloatingPlaceholder: false,
-            enabled: true,
-            disabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: getHexaColor(borderColor))
-            ),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: getHexaColor(borderColor))
-            )
-          ),
-          onChanged: (data) {
-            _modelDocument.documentNo = data;
-          },
-        )
-      ],
-    )
-  );
-}
-
 Widget textNotification(String text, BuildContext context) {
   return Align(alignment: Alignment.center, child: Text(text, style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w300)),);
 }
 
 /*----------------------------------------------- Field Icons trigger Widget ----------------------------------------------------- */
-Widget fieldPicker(BuildContext context, String labelText, String widgetName, IconData icons, dynamic _model,  Function method) {
+Widget fieldPicker(BuildContext context, String labelText, String widgetName, IconData icons, dynamic _model,  dynamic method) {
   return Container(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -674,7 +639,7 @@ Widget fieldPicker(BuildContext context, String labelText, String widgetName, Ic
             ),
           ),
           onTap: () {
-            if (widgetName == "addDocumentScreen") method(labelText);
+            if (widgetName == "fillDocsScreen") method(labelText);
             else method();
           },
         )
@@ -741,95 +706,83 @@ Widget inputField(
   );
 }
 
-Widget textFieldUserInput(String label, String colorLabel, Color fieldColor, TextInputType textInputType,Function textChanged, double marginBottom, double marginLeft) {
-  return Container(
-    margin: EdgeInsets.only(bottom: marginBottom, left: marginLeft),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        /* Label Text */
-        Container(margin: EdgeInsets.only(bottom: 5.0), child: labelUserInput(label, colorLabel)),
-        /* User Input Field */
-        TextField(
-          style: TextStyle(color: Colors.white),
-          keyboardType: textInputType,
-          decoration: InputDecoration(
-            fillColor: fieldColor, filled: true,
-            contentPadding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: size10),
-            labelStyle: TextStyle(color: Colors.white),
-            /* Border side */
-            enabledBorder: outlineInput(getHexaColor(borderColor)),
-            focusedBorder: outlineInput(getHexaColor(borderColor)),
-            /* Error Handler */
-            border: errorOutline(),
-            focusedErrorBorder: errorOutline(),
-          ),
-          onChanged: (changed) {
-            textChanged(label, changed);
-          },
-        )
-      ],
-    ),
-  );
-}
-
-Widget dropDown(String label, List genderList, List documentIdList, ModelUserInfo _modelUserInfo, ModelDocument _modelDocument ,Function setGender, Function setDocumentName) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
+Widget customDropDown(String label, List list, dynamic _model ,Function setValue) {
+  return Row(
     children: <Widget>[
-      /* Label Gender */
-      Container(margin: EdgeInsets.only(bottom: 5.0), child: labelUserInput(label, "#ffffff")),
-      /* Text Field */
-      Container(
-        padding: EdgeInsets.only(left: 10.0, right: 5.0),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          border: Border.all(width: size1, color: getHexaColor(borderColor)),
-          borderRadius: BorderRadius.circular(size5),
-          color: black38
-        ),
-        child: Theme(
-          data: ThemeData(canvasColor: getHexaColor(lightGreyColor)),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton(
-              icon: Align(
-                alignment: Alignment.centerRight,
-                child: Icon(Icons.arrow_drop_down),
-              ),
-              style: TextStyle(color: Colors.white),
-              items: 
-              /* If Gender */
-              label == "Gender" 
-                ? genderList.map((text) {
-                  return DropdownMenuItem(
-                    value: text,
-                    child: textDropDown(text),
-                  );
-                }).toList()
-              /* If Document Type Id */
-                : documentIdList.map((mapData) {
-                  return DropdownMenuItem(
-                    value: mapData['id'],
-                    child: Text(mapData['document_name']),
-                  );
-                }).toList(),
-              value: label == "Gender" ? _modelUserInfo.gender : _modelDocument.documentTypeId,
-              onChanged: (changed) {
-                if (label == "Gender") {
-                  setGender(changed);
-                } else if ( label == "Document Type") {
-                  setDocumentName(changed);
-                }
-              },
-            ),
-          ),
-        )
+      PopupMenuButton(
+        padding: EdgeInsets.all(0),
+        icon: Icon(Icons.keyboard_arrow_down),
+        itemBuilder: (BuildContext context) {
+          return list.map((text){
+            return PopupMenuItem(
+              child: Text(text),
+            );
+          }).toList();
+        },
       )
     ],
   );
+  // Column(
+  //   crossAxisAlignment: CrossAxisAlignment.start,
+  //   children: <Widget>[
+  //     /* Text Field */
+  //     Container(
+  //       padding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0, right: 26.0),
+  //       width: double.infinity,
+  //       decoration: BoxDecoration(
+  //         border: Border.all(width: size1, color: getHexaColor(borderColor)),
+  //         borderRadius: BorderRadius.circular(size5),
+  //         color: black38
+  //       ),
+  //       child: Theme(
+  //         data: ThemeData(canvasColor: getHexaColor(lightGreyColor)),
+  //         child: 
+  //         // DropdownButtonHideUnderline(
+  //         //   child: DropdownButton(
+  //         //     isExpanded: false,
+  //         //     icon: Align( /* Arrow Down Icon */
+  //         //       alignment: Alignment.centerRight,
+  //         //       child: Icon(Icons.keyboard_arrow_down),
+  //         //     ),
+  //         //     style: TextStyle(color: Colors.white),
+  //         //     items: list.map((text){
+  //         //       return DropdownMenuItem(
+  //         //         value: text,
+  //         //         child: textDropDown(text),
+  //         //       );
+  //         //     }).toList(),
+  //         //     // /* If Gender */
+  //         //     // label == "Gender" 
+  //         //     //   ? genderList.map((text) {
+  //         //     //     return DropdownMenuItem(
+  //         //     //       value: text,
+  //         //     //       child: textDropDown(text),
+  //         //     //     );
+  //         //     //   }).toList()
+  //         //     // /* If Document Type Id */
+  //         //     //   : documentIdList.map((mapData) {
+  //         //     //     return DropdownMenuItem(
+  //         //     //       value: mapData['id'],
+  //         //     //       child: Text(mapData['document_name']),
+  //         //     //     );
+  //         //     //   }).toList(),
+  //         //     // value: label == "Gender" ? _model.gender : _modelDocument.documentTypeId,
+  //         //     onChanged: (changed) {
+  //         //       // if (label == "Gender") {
+  //         //       //   setGender(changed);
+  //         //       // } else if ( label == "Document Type") {
+  //         //       //   setDocumentName(changed);
+  //         //       // }
+  //         //     },
+  //         //   ),
+  //         // ),
+  //       )
+  //     )
+  //   ],
+  // );
 }
 
-/* Drop Down Text */
+/* List Drop Down Text */
 Widget textDropDown(String text) {
   return Align(alignment: Alignment.center,child: Text(text));
 }

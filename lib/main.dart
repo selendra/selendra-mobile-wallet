@@ -23,10 +23,11 @@ import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_passwor
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_screen/signup_second.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 void main () {
-  WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error " accessed before the binding was initialized " */
+  WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error, " accessed before the binding was initialized " */
   // debugPaintSizeEnabled = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(App());
@@ -40,6 +41,8 @@ class App extends StatefulWidget{
 }
 
 class AppState extends State<App>{
+
+  ModelSignUp _modelSignUp = ModelSignUp();
 
   @override
   void initState() {
@@ -69,7 +72,9 @@ class AppState extends State<App>{
         ),
         routes: <String, WidgetBuilder>{
           /* Login Screen */
-          '/': (context) => LoginFirstScreen(),
+          '/': (context) => 
+          // HomeWidget(),
+          UserInfo(_modelSignUp),
           // SignUpFirst(),
           // WelcomeToZee(),
           // add_profile_screenWidget(),

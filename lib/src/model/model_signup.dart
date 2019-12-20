@@ -4,9 +4,9 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 class ModelSignUp {
   String directory = "userID";
 
-  bool isProgress = false, isLogedin = false, isBoth = false;
+  bool isProgress = false, isLogedin = false, isBoth = false, isMatch = false;
 
-  String token, countryCode = "+855 ", gender;
+  String token, countryCode = "+855 ", gender; 
 
   var colorSubmitted = Colors.transparent;
 
@@ -31,5 +31,7 @@ class ModelSignUp {
   TextEditingController controlFirstName = TextEditingController();
   TextEditingController controlMidName = TextEditingController();
   TextEditingController controlLastName = TextEditingController();
+
+  TabController tabController;
 
 }

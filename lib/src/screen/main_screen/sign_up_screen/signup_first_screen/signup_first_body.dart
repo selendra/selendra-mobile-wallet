@@ -6,7 +6,7 @@ import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 Widget signUpFirstBodyWidget(
   BuildContext context,
   ModelSignUp _modelSignUp,
-  Function popScreen, Function submitValidator, Function navigatePage, Function onChanged
+  Function popScreen, Function submitValidator, Function navigatePage, Function changeButtonText,Function onChanged
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -36,6 +36,7 @@ Widget signUpFirstBodyWidget(
       Container( /* User Choice Sign Up */
         margin: EdgeInsets.only(bottom: 59.0),
         child: TabBar(
+          controller: _modelSignUp.tabController,
           unselectedLabelColor: getHexaColor("#FFFFFF"),
           indicatorColor: getHexaColor(greenColor),
           labelColor: getHexaColor(greenColor),
@@ -54,12 +55,14 @@ Widget signUpFirstBodyWidget(
               child: Text("Phone number"),
             )
           ],
+          onTap: changeButtonText,
         ),
       ),
       Container( /* User Sign Up Choice Body */
         height: 75.0,
         margin: EdgeInsets.only(bottom: 13.0),
         child: TabBarView( /* Body Sign Up */
+          controller: _modelSignUp.tabController,
           children: <Widget>[
             Container( /* Login By Email Field */
               padding: EdgeInsets.only(top: 9.0),
@@ -92,10 +95,11 @@ Widget signUpFirstBodyWidget(
           ],
         ),
       ),
-      flatCustomButton( /* Button Request Code */
+      customFlatButton( /* Button Request Code */
         _modelSignUp.bloc,
         context,
-        "Request Code", "signUpFirstScreen", greenColor,
+        _modelSignUp.tabController.index == 0 ? "Sign up" : "Request Code", 
+        "signUpFirstScreen", greenColor,
         FontWeight.normal,
         size18,
         EdgeInsets.only(top: size10, bottom: size10),

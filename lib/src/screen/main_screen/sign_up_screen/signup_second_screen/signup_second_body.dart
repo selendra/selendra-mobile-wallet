@@ -38,7 +38,7 @@ Widget signUpSecondBodyWidget( /* Body widget */
           validatorLogin
         ),
       ),
-      flatCustomButton( /* Button login */
+      customFlatButton( /* Button login */
         _modelSignup.bloc,
         context,
         "Sign Up", "signUpSecondScreen", greenColor,

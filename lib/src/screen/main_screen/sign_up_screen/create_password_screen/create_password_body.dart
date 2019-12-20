@@ -55,10 +55,11 @@ Widget createPasswordBodyWidget(
                     null
                   ),
                 ),
-                flatCustomButton( /* Button Request Code */
+                _modelSignUp.isMatch == false ? Container() : Text("Confirm password not match !", style: TextStyle(fontSize: 18.0, color: Colors.red),),
+                customFlatButton( /* Button Request Code */
                   _modelSignUp.bloc,
                   context,
-                  "Create Now", "signUpFirstScreen", blueColor,
+                  "Create Now", "signUpFirstScreen", greenColor,
                   FontWeight.normal,
                   size18,
                   EdgeInsets.only(top: size10, bottom: size10),

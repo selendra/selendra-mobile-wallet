@@ -47,7 +47,7 @@ Widget bodyWidget(
                     child: inputField( 
                       _modelDocument.bloc, 
                       context, 
-                      "Document type", null, 'addDocumentScreen', 
+                      "Document type", null, 'fillDocsScreen', 
                       false, 
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsType, 
@@ -60,7 +60,7 @@ Widget bodyWidget(
                     child: inputField( 
                       _modelDocument.bloc, 
                       context, 
-                      "Document number", null, 'addDocumentScreen', 
+                      "Document number", null, 'fillDocsScreen', 
                       false, 
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsNumber, 
@@ -72,7 +72,7 @@ Widget bodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: fieldPicker( 
                       context, 
-                      "Issue date", "addDocumentScreen",
+                      "Issue date", "fillDocsScreen",
                       Icons.calendar_today, 
                       _modelDocument, 
                       triggerDate
@@ -82,7 +82,7 @@ Widget bodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: fieldPicker( 
                       context, 
-                      "Expired date", "addDocumentScreen", 
+                      "Expired date", "fillDocsScreen", 
                       Icons.calendar_today, 
                       _modelDocument, 
                       triggerDate
@@ -92,7 +92,7 @@ Widget bodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: fieldPicker(
                       context, 
-                      "Upload documents", "addDocumentScreen", 
+                      "Upload documents", "fillDocsScreen", 
                       Icons.camera_alt, 
                       _modelDocument, 
                       navigatePage
@@ -102,7 +102,7 @@ Widget bodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: fieldPicker(
                       context, 
-                      "Take selfie", "addDocumentScreen", 
+                      "Take selfie", "fillDocsScreen", 
                       Icons.camera_alt, 
                       _modelDocument, 
                       navigatePage
@@ -113,10 +113,10 @@ Widget bodyWidget(
                     builder: (context, snapshot){
                       return Container(
                         margin: EdgeInsets.only(bottom: 12.0),
-                        child: flatCustomButton(
+                        child: customFlatButton(
                           _modelDocument.bloc, 
                           context, 
-                          "Submit", "addDocumentScreen", blueColor,                 
+                          "Submit", "fillDocsScreen", blueColor,                 
                           FontWeight.normal,
                           size18,
                           EdgeInsets.only(top: 15.0),
