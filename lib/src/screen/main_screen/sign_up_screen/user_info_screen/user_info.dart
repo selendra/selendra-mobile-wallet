@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info_body.dart';
 
 class UserInfo extends StatefulWidget{
@@ -21,14 +22,24 @@ class UserInfoState extends State<UserInfo> {
     Navigator.pop(context);
   }
 
-  void submit(BuildContext context) {
-    widget._modelSignUp.bloc.registerUser(
-      context,
-      // widget._modelSignUp.controlEmails.text,
-      // widget._modelSignUp.controlPasswords.text,
-      "condaveat@gmail.com", "123456",
-      "registerbyemail"
-    );
+  void submit(BuildContext context) async {
+    dialogLoading(context);
+    if (widget._modelSignUp.label == "email") {
+      await widget._modelSignUp.bloc.registerMethod(
+        context,
+        widget._modelSignUp.controlEmails.text,
+        widget._modelSignUp.controlPasswords.text,
+        "registerbyemail", "email"
+      );
+    } else {
+      await widget._modelSignUp.bloc.registerMethod(
+        context,
+        widget._modelSignUp.controlPhoneNums.text,
+        widget._modelSignUp.controlPasswords.text,
+        "registerbyphone", "phone"
+      );
+    }
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpFirst()));
   } 
 
   Widget build(BuildContext context) {

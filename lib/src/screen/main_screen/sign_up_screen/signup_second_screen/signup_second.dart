@@ -36,8 +36,7 @@ class SignUpSecondState extends State<SignUpSecond>{
     await Future.delayed(Duration(milliseconds: 100), (){
       checkConnection(context).then((isConnect) {
         if ( isConnect == true ) {
-          validatorLogin(
-            widget._modelSignUp.bloc, context);
+          validatorLogin(widget._modelSignUp.bloc, context);
         } else {
           setState(() {
             widget._modelSignUp.isProgress = false;

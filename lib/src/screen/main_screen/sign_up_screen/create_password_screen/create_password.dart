@@ -18,6 +18,12 @@ class CreatePassword extends StatefulWidget{
 
 class CreatePasswordState extends State<CreatePassword> {
 
+  @override
+  void initState() {
+    print(widget._modelSignUp.controlEmails.text);
+    super.initState();
+  }
+
   void onChanged(String label, String changed) {
 
   }

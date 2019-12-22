@@ -4,7 +4,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 
 /* body widget */
-Widget bothFieldBodyWidget(
+Widget loginSdcondBodyWidget(
   BuildContext context,
   ModelLogin _modelLogin,
   Function onChanged,

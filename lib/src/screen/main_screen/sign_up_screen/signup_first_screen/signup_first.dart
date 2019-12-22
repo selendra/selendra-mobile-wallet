@@ -67,10 +67,15 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
     Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));
   }
 
-  void onChanged(String valueChange) { /* Input Field Value Change */
+  void onChanged(String label, String onchanged) { /* Input Field Value Change */
+    if (label == "Email") _modelSignUp.label = "email";
+    else _modelSignUp.label = "phone_number";
+    print(_modelSignUp.label);
   }
 
-  void changeButtonText(int index) {
+  void tabBarSelectChanged(int index) {
+    if ( index == 0 ) _modelSignUp.label = "email";
+    else _modelSignUp.label = "phone_number";
     setState(() {});
   }
   
@@ -88,7 +93,7 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
                 signUpFirstBodyWidget( /* Body Widget */
                   context, 
                   _modelSignUp, 
-                  popScreen, submitValidator, navigatePage, changeButtonText, onChanged
+                  popScreen, submitValidator, navigatePage, tabBarSelectChanged, onChanged
                 )
               )
             ],

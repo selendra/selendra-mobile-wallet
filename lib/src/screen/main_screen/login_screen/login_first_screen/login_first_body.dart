@@ -6,8 +6,8 @@ import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
 Widget loginFirstBodyWidget( /* body widget */
   BuildContext context,
-   ModelLogin _modelLogin, 
-   Function onChanged, Function navigatePage
+  ModelLogin _modelLogin, 
+  Function onChanged, Function tabBarSelectChanged, Function navigatePage
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -29,17 +29,12 @@ Widget loginFirstBodyWidget( /* body widget */
           )
         ],
       ),
-      Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(bottom: 20.0, top: 20.0),
-        child: Text("By", style: TextStyle(fontSize: 18.0),)
-      ),
       Container( /* User Choice Log in */
-        margin: EdgeInsets.only(bottom: 59.0),
+        margin: EdgeInsets.only(top: 30.0, bottom: 59.0),
         child: TabBar(
           unselectedLabelColor: getHexaColor("#FFFFFF"),
-          indicatorColor: getHexaColor(greenColor),
-          labelColor: getHexaColor(greenColor),
+          indicatorColor: getHexaColor(blueColor),
+          labelColor: getHexaColor(blueColor),
           labelStyle: TextStyle(fontSize: 18.0),
           tabs: <Widget>[
             Container(
@@ -55,6 +50,7 @@ Widget loginFirstBodyWidget( /* body widget */
               child: Text("Phone number"),
             )
           ],
+          onTap: tabBarSelectChanged,
         ),
       ),
       Container( /* User Login Choice Body */
@@ -81,7 +77,7 @@ Widget loginFirstBodyWidget( /* body widget */
               child: inputField(
                 _modelLogin.bloc,
                 context,
-                "Phone number", _modelLogin.countryCode, "PhoneScreen",
+                "Phone number", _modelLogin.countryCode, "loginFirstScreen",
                 false, 
                 TextInputType.phone,TextInputAction.done,
                 _modelLogin.controlPhoneNums,
@@ -188,7 +184,6 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
   return StreamBuilder(
     stream: bloc.passwordObservable,
     builder: (context, snapshot) {
-      // print(secondNode.hasFocus);
       return TextField(
         controller: controlPasswords,
         style: TextStyle(color: Colors.white),
@@ -210,7 +205,7 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
           focusedErrorBorder: errorOutline(),
         ),
         onSubmitted: (value) {
-          try{
+          try {
             bloc.submit.listen((submit){
               if (firstNode.hasFocus == false){
                 if (submit == true && secondNode.hasFocus == false) {
@@ -218,8 +213,7 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
                 }
               }
             });
-          }catch(err){
-          }
+          } catch(err){ }
         },
       );
     },

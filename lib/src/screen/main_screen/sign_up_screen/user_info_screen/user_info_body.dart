@@ -85,7 +85,7 @@ Widget userInfoBodyWidget(
                     _modelSignUp.bloc, 
                     context, 
                     "Submit", "userInfoScreen", 
-                    blueColor,
+                    greenColor,
                     FontWeight.normal,
                     size18,
                     EdgeInsets.only(top: 15.0, bottom: size10),

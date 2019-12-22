@@ -1,5 +1,6 @@
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 
 /* body widget */
 Widget paddingScreenWidget(BuildContext context, Widget body) {
@@ -21,7 +22,7 @@ Widget noAccountWidget(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
       textDisplay(
-        "Don't have account ? ", 
+        "Don't have account? ", 
         TextStyle(
           color: getHexaColor("#ffffff"),
           fontSize: 18,
@@ -31,7 +32,8 @@ Widget noAccountWidget(BuildContext context) {
         child: textDisplay(
           "Sign up now",
           TextStyle(
-            color: getHexaColor("#ffffff"),
+            fontWeight: FontWeight.bold,
+            color: getHexaColor(blueColor),
             fontSize: 18,
           )
         ),
@@ -48,7 +50,9 @@ Widget toLogin(BuildContext context) { /* Back To Login Screen*/
     alignment: Alignment.center,
     child: InkWell(
       child: Text('Back to login', style: TextStyle(color: Colors.white, fontSize: 18.0)),
-      onTap: () { Navigator.pushReplacementNamed(context, '/');},
+      onTap: () { 
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
+      },
     ),
   );
 }

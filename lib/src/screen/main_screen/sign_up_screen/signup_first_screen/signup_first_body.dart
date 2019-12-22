@@ -6,7 +6,7 @@ import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 Widget signUpFirstBodyWidget(
   BuildContext context,
   ModelSignUp _modelSignUp,
-  Function popScreen, Function submitValidator, Function navigatePage, Function changeButtonText,Function onChanged
+  Function popScreen, Function submitValidator, Function navigatePage, Function tabBarSelectChanged,Function onChanged
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -28,13 +28,8 @@ Widget signUpFirstBodyWidget(
           )
         ],
       ),
-      Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(bottom: 20.0, top: 20.0),
-        child: Text("By", style: TextStyle(fontSize: 24.0),)
-      ),
       Container( /* User Choice Sign Up */
-        margin: EdgeInsets.only(bottom: 59.0),
+        margin: EdgeInsets.only(top: 30.0, bottom: 59.0),
         child: TabBar(
           controller: _modelSignUp.tabController,
           unselectedLabelColor: getHexaColor("#FFFFFF"),
@@ -55,7 +50,7 @@ Widget signUpFirstBodyWidget(
               child: Text("Phone number"),
             )
           ],
-          onTap: changeButtonText,
+          onTap: tabBarSelectChanged,
         ),
       ),
       Container( /* User Sign Up Choice Body */
@@ -70,7 +65,7 @@ Widget signUpFirstBodyWidget(
                 _modelSignUp.bloc,
                 context,
                 "Email", null, "signUpFirstScreen",
-                false, 
+                false,
                 TextInputType.text, TextInputAction.done,
                 _modelSignUp.controlEmails,
                 _modelSignUp.nodeEmails,

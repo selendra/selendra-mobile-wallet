@@ -690,7 +690,8 @@ Widget inputField(
         widgetName == "invoiceInfoScreen" || 
         widgetName == "addAssetScreen" || 
         widgetName == "loginFirstScreen" ||
-        widgetName == "loginSecondScreen"
+        widgetName == "loginSecondScreen" ||
+        widgetName == "signUpFirstScreen"
       ) 
         onChanged(labelText, valueChange);
       else onChanged(valueChange);

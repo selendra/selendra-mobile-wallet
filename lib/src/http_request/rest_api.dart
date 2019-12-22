@@ -19,10 +19,10 @@ final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 Map<String, String> headers = {"Content-Type": "application/json; charset=utf-8"};
 
 /* User Login */
-Future<Map<String, dynamic>> userLogin(String byEmailOrPhoneNums, String passwords, String endpoints) async {
+Future<Map<String, dynamic>> userLogin(String byEmailOrPhoneNums, String passwords, String endpoints, String schema) async {
   String encode = json.encode( /* Convert to Json Data ( String ) */
     {
-      "email": byEmailOrPhoneNums, 
+      schema: byEmailOrPhoneNums, 
       "password": passwords
     }
   );
@@ -35,10 +35,10 @@ Future<Map<String, dynamic>> userLogin(String byEmailOrPhoneNums, String passwor
 }
 
 /* User Regiser */
-Future<Map<String, dynamic>> userRegister(String byEmailOrPhoneNums, String passwords, String endpoints) async {
+Future<Map<String, dynamic>> userRegister(String byEmailOrPhoneNums, String passwords, String endpoints, String schema) async {
   String encode = json.encode( /* Convert to Json Data ( String ) */
     {
-      "email": byEmailOrPhoneNums, 
+      schema: byEmailOrPhoneNums, 
       "password": passwords
     }
   );
@@ -47,7 +47,6 @@ Future<Map<String, dynamic>> userRegister(String byEmailOrPhoneNums, String pass
     headers: {"Content-Type": "application/json; charset=utf-8"},
     body: encode
   );
-  print(response.body);
   return json.decode(response.body);
 }
 

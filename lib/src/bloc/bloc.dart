@@ -32,11 +32,11 @@ class Bloc with ValidatorMixin {
   Function(String) get addUsersign => _usersignup.sink.add;
 
   
-  Future<bool> submitMethod(BuildContext context, String byEmailOrPhoneNums, String passwords, String endpoints) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
+  Future<bool> loginMethod(BuildContext context, String byEmailOrPhoneNums, String passwords, String endpoints, String schema) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
     return userLogin(
       // _email.value, 
       // _password.value
-      byEmailOrPhoneNums, passwords, endpoints
+      byEmailOrPhoneNums, passwords, endpoints, schema
     )
     .then((onValue) async {
       print("Sumbit response $onValue");
@@ -60,22 +60,25 @@ class Bloc with ValidatorMixin {
     });
   }
 
-  Future<bool> registerUser(BuildContext context, String byEmailOrPhoneNums, String passwords, String endpoints) async { /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
-    userRegister(byEmailOrPhoneNums, passwords, endpoints);
-    // return await userRegister(byEmailOrPhoneNums, passwords, endpoints).then((onValue) async {
-    //   await dialog(context, Text((onValue['message'])
-    //     ), 
-    //     onValue['message'] == "User ${_email.value} already exist" /* Check For Change Icon On Alert */
-    //       ? Icon(Icons.warning) : Icon(Icons.done_outline, color
-    //       : getHexaColor(lightBlueSky),
-    //     )
-    //   );
-    //   return true;
-    // })
-    // .catchError((onError) async {
-    //   await dialog(context, Text('Something goes wrong !'), Icon(Icons.warning));
-    //   return false;
-    // });
+  Future<bool> registerMethod(
+    BuildContext context, 
+    String byEmailOrPhoneNums, String passwords, String endpoints, String schema
+  ) async { /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
+    return await userRegister(byEmailOrPhoneNums, passwords, endpoints, schema).then((onValue) async {
+      Navigator.pop(context); /* Close Loading Screen */
+      await dialog(context, Text((onValue['message'])
+        ), 
+        onValue['message'] != "Successfully registered!" /* Check For Change Icon On Alert */
+          ? Icon(Icons.warning, color: Colors.yellow) : Icon(Icons.done_outline, color
+          : getHexaColor(lightBlueSky),
+        )
+      );
+      return true;
+    })
+    .catchError((onError) async {
+      await dialog(context, Text('Something goes wrong !'), Icon(Icons.warning));
+      return false;
+    });
   }
 
   /* Close All Stream To Prevent Crash Program Or Memory Leak */

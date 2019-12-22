@@ -6,7 +6,7 @@ class ModelSignUp {
 
   bool isProgress = false, isLogedin = false, isBoth = false, isMatch = false;
 
-  String token, countryCode = "+855 ", gender; 
+  String token, countryCode = "+855 ", gender, label; 
 
   var colorSubmitted = Colors.transparent;
 
