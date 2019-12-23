@@ -17,7 +17,7 @@ Widget paddingScreenWidget(BuildContext context, Widget body) {
   );
 }
 
-Widget noAccountWidget(BuildContext context) {
+Widget noAccountWidget(BuildContext context, dynamic colorSignUpText) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
@@ -28,18 +28,21 @@ Widget noAccountWidget(BuildContext context) {
           fontSize: 18,
         )
       ),
-      InkWell(
+      Padding(
+        padding: EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
+        child: InkWell(
         child: textDisplay(
           "Sign up now",
           TextStyle(
             fontWeight: FontWeight.bold,
-            color: getHexaColor(blueColor),
+            color: colorSignUpText,
             fontSize: 18,
           )
         ),
         onTap: () {
           Navigator.pushReplacementNamed(context, '/signUpScreen');
         },
+      ),
       )
     ],
   );
@@ -49,7 +52,10 @@ Widget toLogin(BuildContext context) { /* Back To Login Screen*/
   return Align(
     alignment: Alignment.center,
     child: InkWell(
-      child: Text('Back to login', style: TextStyle(color: Colors.white, fontSize: 18.0)),
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Text('Back to login', style: TextStyle(color: Colors.white, fontSize: 18.0))
+      ),
       onTap: () { 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
       },

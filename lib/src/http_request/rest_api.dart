@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'dart:async';
 
 /* Zeetomic api user data*/
-final _url = "https://testnet-api.zeetomic.com";
+final _url = "https://testnet-api.zeetomic.com/pub/v1/";
 
 /* Zeetomic api image upload */
 final _urlPostImage = "https://s3.zeetomic.com";
@@ -27,7 +27,7 @@ Future<Map<String, dynamic>> userLogin(String byEmailOrPhoneNums, String passwor
     }
   );
   final response = await http.post(
-    '$_url/pub/v1/$endpoints', 
+    '$_url$endpoints', 
     headers: {"Content-Type": "application/json; charset=utf-8"},
     body: encode
   );
@@ -43,10 +43,22 @@ Future<Map<String, dynamic>> userRegister(String byEmailOrPhoneNums, String pass
     }
   );
   final response = await http.post(
-    '$_url/pub/v1/$endpoints', 
+    '$_url$endpoints', 
     headers: {"Content-Type": "application/json; charset=utf-8"},
     body: encode
   );
+  return json.decode(response.body);
+}
+
+Future<Map<String, dynamic>> userProfile(String endpoints) async {
+  var token = await Provider.fetchToken();
+  http.Response response;
+  if (token != null){
+    response = await http.get(
+      "$_url$endpoints",
+      headers: {"authorization": "Bearer ${token['token']}"}
+    );
+  }
   return json.decode(response.body);
 }
 

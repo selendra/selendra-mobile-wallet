@@ -93,7 +93,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
                 navigatePage
               ),
             ),
-            noAccountWidget(context)
+            noAccountWidget(context, Colors.white)
           ],
         )
       ),

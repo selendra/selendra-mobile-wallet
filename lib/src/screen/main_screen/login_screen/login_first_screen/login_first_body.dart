@@ -104,7 +104,7 @@ Widget loginFirstBodyWidget( /* body widget */
         navigatePage
       ),
       Expanded(flex: 2, child: Container()),
-      noAccountWidget(context) /* Bottom Align Sign Up */ 
+      noAccountWidget(context, getHexaColor(blueColor)) /* Bottom Align Sign Up */ 
     ],
   );
 }

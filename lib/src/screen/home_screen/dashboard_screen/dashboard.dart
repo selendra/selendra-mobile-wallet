@@ -11,6 +11,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/service/services.dart';
@@ -22,36 +23,41 @@ import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import './dashboard_body.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
 
-class HomeWidget extends StatefulWidget {
+class Dashboard extends StatefulWidget {
 
   State<StatefulWidget> createState() {
-    return HomeWidgetState();
+    return DashboardState();
   }
 }
 
-class HomeWidgetState extends State<HomeWidget> {
+class DashboardState extends State<Dashboard> {
   
   ModelDashboard _modelDashboard = ModelDashboard();
 
   @override
   initState() { /* Initialize State */
     super.initState();  
-    fetChIds(); /* Query User Id After Login From Local Storage */  
-    getUserData(); /* Query All User Data From Local Storage */
-    fetchPortfolio();
-    fetchWallet();
+    fetchUserToken(); /* Query User Id After Login From Local Storage */ 
+    getUser(); 
+    // getUserData(); /* Query All User Data From Local Storage */
+    // fetchPortfolio();
+    // fetchWallet();
   }
 
-  void fetChIds() async { /* Fetch User Token */
-    final token = await Provider.fetchToken();
-    print(token);
+  void fetchUserToken() async { /* Fetch User Token */
+    final response = await Provider.fetchToken();
+    _modelDashboard.token = response['token'];
     // setState(() {
-    //   _modelDashboard.userId = Provider.idsUser;
+    //   _modelDashboard.userId = Provider.id`sUser;
     // });
   }
 
-  /* Fetch User Data From Memory */
-  void getUserData() async {
+  void getUser() async {
+    final profile = await userProfile("userprofile");
+    print("Profile $profile");
+  }
+
+  void getUserData() async { /* Fetch User Data From Memory */
     Map<String, dynamic> data = await fetchData('userDataLogin');
     if (data == null) {
       setState(() {
@@ -164,9 +170,9 @@ class HomeWidgetState extends State<HomeWidget> {
     });
   }
   
-  void pushProfile() {
+  void toReceiveToken() {
     Future.delayed(Duration(milliseconds: 300), () {
-      Navigator.of(context).push(BlurBackground(child: ProfileUserWidget()));
+      Navigator.of(context).push(BlurBackground(child: GetWallet(_modelDashboard.token)));
     });
   }
   
@@ -176,7 +182,7 @@ class HomeWidgetState extends State<HomeWidget> {
     final bloc = Bloc();
     return Scaffold(
       key: _modelDashboard.scaffoldKey,
-      drawer: drawerOnly(context, "dashboardScreen", pushProfile),
+      drawer: drawerOnly(context, "dashboardScreen", toReceiveToken),
       body: scaffoldBGDecoration(
         16, 16, 16, 0,
         color2, color1,
@@ -225,11 +231,10 @@ class HomeWidgetState extends State<HomeWidget> {
         //   ],
         // )
       ),
-      /* Bottom Navigation Bar */
-      bottomNavigationBar: bottomAppBar(
+      bottomNavigationBar: bottomAppBar( /* Bottom Navigation Bar */
         context, 
         _modelDashboard, 
-        scanQR, scanReceipt, resetState, fetchPortfolio
+        scanQR, scanReceipt, resetState, toReceiveToken
       )
     );
   }

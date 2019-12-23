@@ -39,6 +39,7 @@ class Bloc with ValidatorMixin {
       byEmailOrPhoneNums, passwords, endpoints, schema
     )
     .then((onValue) async {
+      Navigator.pop(context);
       print("Sumbit response $onValue");
       if (onValue['message'] == null) {
         await setData(onValue, 'userToken');

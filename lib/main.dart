@@ -87,7 +87,7 @@ class AppState extends State<App>{
           // ProfileUserWidget(),
           '/forgotPasswordScreen': (context) => ForgotPassword(),
           /* Home Screen */
-          '/dashboardScreen': (context) => HomeWidget(),
+          '/dashboardScreen': (context) => Dashboard(),
           // '/getWalletScreen': (context) => GetWalletWidget(),
           '/profileScreen': (context) => ProfileUserWidget(),
           '/settingScreen': (context) => SettingWidget(),

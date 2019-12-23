@@ -73,6 +73,7 @@ Widget cardToken(
     ),
   );
 }
+
 /* Scan QR Code */
 Future scanQR(BuildContext context, ModelDashboard _model, Function resetState, Function fetchPortfolio) async {
   try {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_second_screen/login_second_body.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 import 'package:wallet_apps/src/provider/internet_connection.dart';
@@ -34,6 +35,7 @@ class LoginSecondState extends State<LoginSecond>{
   
   void checkInputAndValidate(Bloc bloc, BuildContext context) async { /* Check Internet Before Validate And Finish Validate*/
     // setState(() {widget._modelLogin.isProgress = true;});
+    dialogLoading(context);
     if (widget._modelLogin.label == "email") {
       await widget._modelLogin.bloc.loginMethod(
         context,
@@ -49,6 +51,7 @@ class LoginSecondState extends State<LoginSecond>{
         "loginbyphone", "phone"
       );
     }
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
     // await Future.delayed(Duration(milliseconds: 100), (){
     //   checkConnection(context).then((isConnect) {
     //     if ( isConnect == true ) {
@@ -62,7 +65,6 @@ class LoginSecondState extends State<LoginSecond>{
     //   }); 
     // });
   }
-
  
   void validatorLogin(Bloc bloc, BuildContext context, String label) async{ /* Validator User Login After Check Internet */
     dialogLoading(context); /* Show Loading */

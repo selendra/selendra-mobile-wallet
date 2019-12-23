@@ -125,8 +125,10 @@ Widget profileUserBodyWidget(
                       Navigator.of(context).push(BlurBackground(child: AddAsset())); break;
                     }
                     case 4:  {
+                      dialogLoading(context);
                       clearStorage();
-                      await Future.delayed(Duration(seconds: 2), () {
+                      await Future.delayed(Duration(seconds: 1), () {
+                        Navigator.pop(context);
                       });
                       Navigator.pushReplacementNamed(context, '/');
                     }

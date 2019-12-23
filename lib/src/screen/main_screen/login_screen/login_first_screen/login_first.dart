@@ -37,13 +37,11 @@ class LoginFirstState extends State<LoginFirstScreen> {
   void onChanged(String label, String valueChange) {
     if (label == "Email") _modelLogin.label = "email";
     else _modelLogin.label = "phone_number";
-    print("On changed ${_modelLogin.label}");
   }
 
   void tabBarSelectChanged(int index) {
     if ( index == 0 ) _modelLogin.label = "email";
     else _modelLogin.label = "phone_number";
-    print("On changed ${_modelLogin.label}");
     setState(() {});
   }
 

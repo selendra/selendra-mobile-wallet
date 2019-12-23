@@ -2,10 +2,10 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_s
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import 'package:flutter/material.dart';
 
-class GetWalletWidget extends StatefulWidget{
-  final Map<String, dynamic> userWallet;
+class GetWallet extends StatefulWidget{
+  final String token;
 
-  GetWalletWidget(this.userWallet);
+  GetWallet(this.token);
 
   @override
   State<StatefulWidget> createState() {
@@ -13,7 +13,7 @@ class GetWalletWidget extends StatefulWidget{
   }
 }
 
-class GetWalletState extends State<GetWalletWidget>{
+class GetWalletState extends State<GetWallet>{
   
   final _globalKey = GlobalKey<ScaffoldState>();
 
@@ -22,8 +22,6 @@ class GetWalletState extends State<GetWalletWidget>{
   @override
   void initState() {
     super.initState();
-    // fetchWallet();
-    userData = widget.userWallet;
   }
 
   /* Fetch Only User ID */
@@ -50,7 +48,7 @@ class GetWalletState extends State<GetWalletWidget>{
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      body: getWalletBody(context, userData, snackBar, popScreen),
+      body: getWalletBody(context, widget.token, snackBar, popScreen),
     );
   }
 }

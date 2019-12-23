@@ -385,7 +385,7 @@ blurBackgroundDecoration(BuildContext context, dynamic screen) {
 Widget bottomAppBar(
   BuildContext context, 
   ModelDashboard _modelDashboard, 
-  Function scanQR, Function scanReceipt, Function resetState, Function fetchPortfolio){
+  Function scanQR, Function scanReceipt, Function resetState, Function receiveToken){
   return Stack(
     children: <Widget>[
       Container(
@@ -418,7 +418,7 @@ Widget bottomAppBar(
                           // padding: EdgeInsets.only(left: 28.0),
                           icon: Icon(OMIcons.arrowUpward, color: Colors.white,),
                           onPressed: () async {
-                            await scanQR(context, _modelDashboard, resetState, fetchPortfolio);
+                            await scanQR(context, _modelDashboard, resetState, receiveToken);
                           }
                         ),
                       ),
@@ -438,12 +438,7 @@ Widget bottomAppBar(
                           color: Colors.white,
                           iconSize: 30.0,
                           icon: Icon(OMIcons.arrowDownward),
-                          onPressed: () {
-                            Navigator.push(
-                              context, 
-                              MaterialPageRoute(builder: (context) => GetWalletWidget(_modelDashboard.userWallet))
-                            );
-                          } 
+                          onPressed: receiveToken
                         ),
                       ),
                       Text("Receive Token", style: TextStyle(color: getHexaColor("#97AAC3"), fontSize: 10.0))
@@ -584,6 +579,7 @@ Future<File> camera() async {
 
 /* QR Code Generate Function */
 Widget qrCodeGenerate(String _walletCode) {
+  print("Qr $_walletCode");
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,
@@ -602,7 +598,7 @@ Widget qrCodeGenerate(String _walletCode) {
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(50, 50),
             ),
-            version: 6,
+            // version: 6,
             data: _walletCode,
             gapless: true,
           ), 

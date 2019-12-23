@@ -9,5 +9,5 @@ class ModelDashboard {
   final RefreshController refreshController = RefreshController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   Map<String, dynamic> userData, userWallet, portfolioData;
-  String userId; String barcode;
+  String userId; String barcode, token;
 }
