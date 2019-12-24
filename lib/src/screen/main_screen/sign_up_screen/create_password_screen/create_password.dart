@@ -20,7 +20,6 @@ class CreatePasswordState extends State<CreatePassword> {
 
   @override
   void initState() {
-    print(widget._modelSignUp.controlEmails.text);
     super.initState();
   }
 
@@ -30,15 +29,43 @@ class CreatePasswordState extends State<CreatePassword> {
 
   void popScreen() { /* Close Current Screen */
     Navigator.pop(context);
-  } 
+  }
 
-  void navigatePage(BuildContext context) { /* Navigate To Fill User Info */
+  void navigatePage(BuildContext context) async { /* Navigate To Fill User Info */
+    dialogLoading(context);
     if (widget._modelSignUp.controlConfirmPasswords.text != "" && widget._modelSignUp.controlPasswords.text != "") { /* Password != Empty */
-      if (widget._modelSignUp.controlConfirmPasswords.text != widget._modelSignUp.controlPasswords.text) {
+      if (widget._modelSignUp.controlConfirmPasswords.text != widget._modelSignUp.controlPasswords.text) { /* If Not Match */
         setState(() {
           widget._modelSignUp.isMatch = true; /* Pop Not Match Text Below Confrim Password Field */
         });
-      } else Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
+      } else {
+        if (widget._modelSignUp.label == "email") {
+          final response = await widget._modelSignUp.bloc.registerMethod(
+            context,
+            widget._modelSignUp.controlEmails.text,
+            widget._modelSignUp.controlPasswords.text,
+            "registerbyemail", "email"
+          );
+          if (response == true) {
+            Future.delayed(Duration(milliseconds: 200), (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
+            });
+          }
+        } else {
+          final response = await widget._modelSignUp.bloc.registerMethod(
+            context,
+            widget._modelSignUp.controlPhoneNums.text,
+            widget._modelSignUp.controlPasswords.text,
+            "registerbyphone", "phone"
+          );
+          if (response == true) {
+            Future.delayed(Duration(milliseconds: 200), (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
+            });
+          }
+        }
+      }
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
     }
   }
 

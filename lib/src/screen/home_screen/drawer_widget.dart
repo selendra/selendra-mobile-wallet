@@ -78,7 +78,7 @@ Widget drawerOnly(BuildContext context, String currentRoute, Function method) {
                         onTap: () async {
                           // Navigator.push(context, CupertinoPageRoute(builder: (context) => ));
                           Navigator.pop(context);
-                          method();
+                          blurBackgroundDecoration(context, ProfileUser());
                           // blurBackgroundDecoration(context, ProfileUserWidget());
                           // if (currentRoute == "profileScreen" || currentRoute == "addProfileScreen") Navigator.pop(context);
                           // else {

@@ -42,7 +42,7 @@ class AddDocumentsState extends State<AddDocuments> {
   }
 
   void pushReplace() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUserWidget()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUser()));
   }
 
   void triggerDate(String labelText) {

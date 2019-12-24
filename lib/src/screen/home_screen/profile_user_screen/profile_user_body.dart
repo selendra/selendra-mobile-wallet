@@ -128,9 +128,12 @@ Widget profileUserBodyWidget(
                       dialogLoading(context);
                       clearStorage();
                       await Future.delayed(Duration(seconds: 1), () {
-                        Navigator.pop(context);
+                        Navigator.pop(context); /* Close Dialog Loading */
                       });
-                      Navigator.pushReplacementNamed(context, '/');
+                      Navigator.pop(context); /* Close Profile Screen */
+                      await Future.delayed(Duration(milliseconds: 100), () {
+                        Navigator.pushReplacementNamed(context, '/');
+                      });
                     }
                   }
                 },

@@ -74,7 +74,7 @@ class Bloc with ValidatorMixin {
           : getHexaColor(lightBlueSky),
         )
       );
-      return true;
+      return onValue['message'] == "Successfully registered!" ? true : false;
     })
     .catchError((onError) async {
       await dialog(context, Text('Something goes wrong !'), Icon(Icons.warning));
