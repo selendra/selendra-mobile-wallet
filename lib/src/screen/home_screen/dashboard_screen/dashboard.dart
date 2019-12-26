@@ -38,7 +38,8 @@ class DashboardState extends State<Dashboard> {
   initState() { /* Initialize State */
     super.initState();  
     fetchUserToken(); /* Query User Id After Login From Local Storage */ 
-    getUser(); 
+    // getUser(); 
+    getUserProfile();
     // getUserData(); /* Query All User Data From Local Storage */
     // fetchPortfolio();
     // fetchWallet();
@@ -50,11 +51,6 @@ class DashboardState extends State<Dashboard> {
     // setState(() {
     //   _modelDashboard.userId = Provider.id`sUser;
     // });
-  }
-
-  void getUser() async {
-    final profile = await userProfile("userprofile");
-    print("Profile $profile");
   }
 
   void getUserData() async { /* Fetch User Data From Memory */
@@ -218,7 +214,7 @@ class DashboardState extends State<Dashboard> {
                     physics: BouncingScrollPhysics(),
                     controller: _modelDashboard.refreshController,
                     child: dashboardBodyWidget(
-                        bloc, _modelDashboard.chartKey, _modelDashboard.portfolioData,
+                        context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolioData,
                       )
                     // _modelDashboard.userData == null ? loading() // Body Widget
                     //   : _modelDashboard.userData['queryUserById'] == null 

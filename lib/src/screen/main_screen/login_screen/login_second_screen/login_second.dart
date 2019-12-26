@@ -35,23 +35,25 @@ class LoginSecondState extends State<LoginSecond>{
   
   void checkInputAndValidate(Bloc bloc, BuildContext context) async { /* Check Internet Before Validate And Finish Validate*/
     // setState(() {widget._modelLogin.isProgress = true;});
-    dialogLoading(context);
+    dialogLoading(context); 
+    var response;
     if (widget._modelLogin.label == "email") {
-      await widget._modelLogin.bloc.loginMethod(
+      response = await widget._modelLogin.bloc.loginMethod(
         context,
         widget._modelLogin.controlEmails.text,
         widget._modelLogin.controlPasswords.text,
-        "loginbyemail", "email"
+        "/loginbyemail", "email"
       );
     } else {
-      await widget._modelLogin.bloc.loginMethod(
+      response = await widget._modelLogin.bloc.loginMethod(
         context,
         widget._modelLogin.controlPhoneNums.text,
         widget._modelLogin.controlPasswords.text,
-        "loginbyphone", "phone"
+        "/loginbyphone", "phone"
       );
     }
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
+    if (response == true) Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
     // await Future.delayed(Duration(milliseconds: 100), (){
     //   checkConnection(context).then((isConnect) {
     //     if ( isConnect == true ) {

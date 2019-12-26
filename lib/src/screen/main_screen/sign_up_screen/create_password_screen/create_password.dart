@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password_body.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 
@@ -44,7 +45,7 @@ class CreatePasswordState extends State<CreatePassword> {
             context,
             widget._modelSignUp.controlEmails.text,
             widget._modelSignUp.controlPasswords.text,
-            "registerbyemail", "email"
+            "/registerbyemail", "email"
           );
           if (response == true) {
             Future.delayed(Duration(milliseconds: 200), (){
@@ -56,11 +57,11 @@ class CreatePasswordState extends State<CreatePassword> {
             context,
             widget._modelSignUp.controlPhoneNums.text,
             widget._modelSignUp.controlPasswords.text,
-            "registerbyphone", "phone"
+            "/registerbyphone", "phone"
           );
           if (response == true) {
             Future.delayed(Duration(milliseconds: 200), (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
             });
           }
         }

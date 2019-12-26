@@ -3,12 +3,12 @@ import 'package:wallet_apps/src/model/model_invoice.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as _http;
 import 'dart:convert';
 import 'dart:async';
 
 /* Zeetomic api user data*/
-final _url = "https://testnet-api.zeetomic.com/pub/v1/";
+final _url = "https://testnet-api.zeetomic.com/pub/v1";
 
 /* Zeetomic api image upload */
 final _urlPostImage = "https://s3.zeetomic.com";
@@ -16,57 +16,176 @@ final _urlPostImage = "https://s3.zeetomic.com";
 /* Zeetomic OCR */
 final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 
-Map<String, String> headers = {"Content-Type": "application/json; charset=utf-8"};
+Map<String, String> _conceteHeader(String _key, String _value) { /* Concete More Content Of Header */
+  return _key != null ? 
+    {"Content-Type": "application/json; charset=utf-8", _key: _value} : /* if Parameter != Null = integrate */
+    {"Content-Type": "application/json; charset=utf-8"} ; /* if Parameter Null = Don't integrate */
+}
 
-/* User Login */
-Future<Map<String, dynamic>> userLogin(String byEmailOrPhoneNums, String passwords, String endpoints, String schema) async {
-  String encode = json.encode( /* Convert to Json Data ( String ) */
+/* Rest Api Property */
+Map<String, dynamic> _token;
+_http.Response _response; 
+String _bodyEncode;
+
+/* --------------------------------Post Request-------------------------------- */
+
+Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _schema) async { /* User Login */
+  _bodyEncode = json.encode( /* Convert to Json String */
     {
-      schema: byEmailOrPhoneNums, 
-      "password": passwords
+      _schema: _byEmailOrPhoneNums, 
+      "password": _passwords
     }
   );
-  final response = await http.post(
-    '$_url$endpoints', 
+  _response = await _http.post(
+    '$_url$_endpoints', 
     headers: {"Content-Type": "application/json; charset=utf-8"},
-    body: encode
+    body: _bodyEncode
   );
-  return json.decode(response.body);
+  return json.decode(_response.body);
 }
 
 /* User Regiser */
-Future<Map<String, dynamic>> userRegister(String byEmailOrPhoneNums, String passwords, String endpoints, String schema) async {
-  String encode = json.encode( /* Convert to Json Data ( String ) */
+Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _schema) async {
+  _bodyEncode = json.encode( /* Convert to Json Data ( String ) */
     {
-      schema: byEmailOrPhoneNums, 
-      "password": passwords
+      _schema: _byEmailOrPhoneNums, 
+      "password": _passwords
     }
   );
-  final response = await http.post(
-    '$_url$endpoints', 
+  _response = await _http.post(
+    '$_url$_endpoints', 
     headers: {"Content-Type": "application/json; charset=utf-8"},
-    body: encode
+    body: _bodyEncode
   );
-  return json.decode(response.body);
+  return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> userProfile(String endpoints) async {
-  var token = await Provider.fetchToken();
-  http.Response response;
-  if (token != null){
-    response = await http.get(
-      "$_url$endpoints",
-      headers: {"authorization": "Bearer ${token['token']}"}
+Future<Map<String, dynamic>> uploadUserProfile(dynamic _model, String _endpoints) async { /* Post User Information */
+  _token = await Provider.fetchToken();
+  _bodyEncode = json.encode({
+    "first-name": _model.controlFirstName.text,
+    "mid-name": _model.controlMidName.text,
+    "last-name": _model.controlLastName.text,
+    "gender": _model.gender
+  });
+  if (_token != null){
+    _response = await _http.post(
+      "$_url/userprofile",
+      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+      body: _bodyEncode
     );
+    return json.decode(_response.body);
   }
-  return json.decode(response.body);
+  return null;
+}
+
+Future<Map<String, dynamic>> getWallet(String _pins) async { /* Post Get Wallet */
+  _token = await Provider.fetchToken();
+  _bodyEncode = json.encode({
+    "pin": _pins
+  });
+  if (_token != null){
+    _response = await _http.post(
+      "$_url/getwallet"
+    );
+    return json.decode(_response.body);
+  }
+  return null;
+}
+
+Future<Map<String, dynamic>> addAsset(dynamic _model) async { /* Add New Asset */
+  _token = await Provider.fetchToken();
+  _bodyEncode = json.encode({
+    "asset-code": _model.controlAssetCode.text,
+    "asset-ssuer": _model.controlAssetIssuer.text
+  });
+  if (_token != null){
+    _response = await _http.post(
+      "$_url/userprofile",
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      body: _bodyEncode
+    );
+    return json.decode(_response.body);
+  }
+  return null;
+}
+
+Future<Map<String, dynamic>> sendPayment(dynamic _model) async { /* QR Code Send Request */
+  _token = await Provider.fetchToken();
+  _bodyEncode = json.encode({
+    "asset-code": _model.controlAssetCode.text,
+    "destination": _model.controlDestination.text,
+    "amount": _model.controlAmount.text,
+    "memo": _model.controlMemo.text
+  });
+  if (_token != null){
+    _response = await _http.post(
+      "$_url/sendpayment",
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      body: _bodyEncode
+    );
+    print(_response.body);
+    return json.decode(_response.body);
+  }
+  return null;
+}
+
+Future<Map<String, dynamic>> addMerchant(dynamic _model) async { /* Add New Merchant */
+  _token = await Provider.fetchToken();
+  _bodyEncode = json.encode({
+    "asset-code": _model.controlAssetCode.text,
+    "destination": _model.controlDestination.text,
+    "amount": _model.controlAmount.text,
+    "memo": _model.controlMemo.text
+  });
+  if (_token != null){
+    _response = await _http.post(
+      "$_url/sendpayment",
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      body: _bodyEncode
+    );
+    return json.decode(_response.body);
+  }
+  return null;
+}
+
+
+/* --------------------------------Get Request------------------------------------ */
+
+Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */
+  _token = await Provider.fetchToken();
+  if (_token != null){
+    _response = await _http.get(
+      "$_url/userprofile",
+      headers: {"authorization": "Bearer ${_token['token']}"},
+    );
+    return json.decode(_response.body);
+  }
+  return null;
+}
+
+Future<Map<String, dynamic>> accountConfirmation(dynamic _model) async { /* Add New Asset */
+  // _token = await Provider.fetchToken();
+  // _bodyEncode = json.encode({
+  //   "asset-code": _model.controlAssetCode.text,
+  //   "asset-ssuer": _model.controlAssetIssuer.text
+  // });
+  // if (_token != null){
+  //   _response = await _http.post(
+  //     "$_url/userprofile",
+  //     headers: _conceteHeader("authorization", "Bearer ${_token['_token']}"),
+  //     body: _bodyEncode
+  //   );
+  //   return json.decode(_response.body);
+  // }
+  // return null;
 }
 
 /* User History */
 Future<Map<String, dynamic>> userHistory() async {
-  var token = await Provider.fetchToken();
-  if (token != null){
-    final response = await http.post("$_url/trxhistoryuri", headers: {HttpHeaders.authorizationHeader: "Bearer ${token['TOKEN']}"});
+  _token = await Provider.fetchToken();
+  if (_token != null){
+    final response = await _http.post("$_url/trxhistoryuri", headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
     return json.decode(response.body);
   }
   return null;
@@ -74,9 +193,9 @@ Future<Map<String, dynamic>> userHistory() async {
 
 /* User Porfolio */
 Future<Map<String, dynamic>> userPorfolio() async {
-  var token = await Provider.fetchToken();
-  if (token != null){
-    final response = await http.post("$_url/portforliouri", headers: {HttpHeaders.authorizationHeader: "Bearer ${token['TOKEN']}"});
+  _token = await Provider.fetchToken();
+  if (_token != null){
+    final response = await _http.post("$_url/portforliouri", headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
     return json.decode(response.body);
   }
   return null;
@@ -86,44 +205,32 @@ Future<Map<String, dynamic>> userPorfolio() async {
 
 /* List Branches */
 Future<List<dynamic>> listBranches() async {
-  var token = await Provider.fetchToken();
-  if (token != null) {
-    final response = await http.get('$_url/listBranches', headers: {HttpHeaders.authorizationHeader: "Bearer ${token['TOKEN']}"});
+  _token = await Provider.fetchToken();
+  if (_token != null) {
+    final response = await _http.get('$_url/listBranches', headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
     var data = json.decode(response.body);
     return data['message'];
   }
   return null;
 }
 
-/* Confirm Receipt */
-Future<Map<String, dynamic>> submitInvoice(ModelInvoice modelReceipt) async {
-  var token = await Provider.fetchToken();
-  if (token != null){
-    final response = await http.post(
+Future<Map<String, dynamic>> submitInvoice(ModelInvoice _model) async { /* Confirm Receipt */
+  _token = await Provider.fetchToken();
+  if (_token != null){
+    _response = await _http.post(
       "$_url/confirmreceipt",
       headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${token['TOKEN']}"
+        HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"
       },
-      body: modelReceipt.bodyReceipt(modelReceipt)
+      body: _model.bodyReceipt(_model)
     );
-    Map<String, dynamic> convert = json.decode(response.body);
-    return convert;
-    // if (response.body != null ) {
-    // }
-    // return null;
+    return json.decode(_response.body);
   }
   return null;
 }
 
-
-/* Upload image to server by use multi part form*/
-
-Future<http.StreamedResponse> upLoadImage(File image, String endpoint) async {
-
-  var token = await Provider.fetchToken();
-  Map<String, String> headers = {
-    'Authorization': 'Bearer ${token['TOKEN']}',
-  };
+Future<_http.StreamedResponse> upLoadImage(File image, String endpoint) async { /* Upload image to server by use multi part form*/
+  _token = await Provider.fetchToken();
   /* Compress image file */
   List<int> compressImage = await FlutterImageCompress.compressWithFile(
     image.path,
@@ -132,16 +239,16 @@ Future<http.StreamedResponse> upLoadImage(File image, String endpoint) async {
     quality: 100,
   );
   /* Make request */
-  var request = new http.MultipartRequest('POST', Uri.parse('$_urlPostImage/$endpoint'));
+  var request = new _http.MultipartRequest('POST', Uri.parse('$_urlPostImage/$endpoint'));
   /* Make Form of Multipart */
-  var multipartFile = new http.MultipartFile.fromBytes(
+  var multipartFile = new _http.MultipartFile.fromBytes(
     'file',
     compressImage,
     filename: 'image_picker.jpg',
     contentType: MediaType.parse('image/jpeg'),
   );
   /* Concate Token With Header */
-  request.headers.addAll(headers);
+  request.headers.addAll(_conceteHeader("Authorization", "Bearer ${_token['TOKEN']}"));
   request.files.add(multipartFile);
   /* Start send to server */
   var response = await request.send();
@@ -160,7 +267,7 @@ Future ocrImage (String imageuri) async {
     "amount":"Grand Total(\$)", 
     "trxdate":"Bill Date"
   };
-  final response = await http.post(_urlOCR, body: bodys);
+  final response = await _http.post(_urlOCR, body: bodys);
   print(response.body);
 }
 

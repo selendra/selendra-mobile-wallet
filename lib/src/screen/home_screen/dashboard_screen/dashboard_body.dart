@@ -9,6 +9,7 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_re
 
 /* body widget */
 Widget dashboardBodyWidget(
+  BuildContext context,
   Bloc bloc,
   GlobalKey<AnimatedCircularChartState> _chartKey,
   Map<String, dynamic> portfolioData
@@ -32,7 +33,7 @@ Widget dashboardBodyWidget(
           Container(
             margin: EdgeInsets.only(top: 16.0),
             width: double.infinity,
-            child: portfolioList("My Porfolio", portfolioData),
+            child: portfolioList(context, "My Porfolio", portfolioData),
           ),
         ],
       )

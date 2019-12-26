@@ -36,28 +36,24 @@ class Bloc with ValidatorMixin {
     return userLogin(
       // _email.value, 
       // _password.value
-      byEmailOrPhoneNums, passwords, endpoints, schema
+    byEmailOrPhoneNums, passwords, endpoints, schema
     )
     .then((onValue) async {
       Navigator.pop(context);
       print("Sumbit response $onValue");
-      if (onValue['message'] == null) {
-        await setData(onValue, 'userToken');
-        return true;
+      if (onValue.keys.contains("error")) {
+        dialog(context, Text(onValue['error']["message"]), Icon(Icons.error_outline, color: Colors.red,));
+        return false;
+      } else { /* If Successfully */
+        if (onValue.keys.contains("token")) {
+          dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
+          await setData(onValue, 'userToken');
+          return true;
+        } else { /* If Incorrect Email */
+          dialog(context, Text(onValue["message"]), Icon(Icons.error_outline, color: Colors.red,));
+          return false;
+        }
       }
-      else { /* When Error Pop Up Dialog */
-        await dialog(
-          context, 
-          Text('${(onValue['message']+' !')}'), 
-          Icon(Icons.error_outline, color: Colors.red,)
-        );
-      }
-      /* Return False When Error To Disable Login Button */
-      return false;
-    })
-    .catchError((onError){
-      dialog(context, Text("Something goes wrong !"), Icon(Icons.error_outline, color: Colors.red,));
-      return false;
     });
   }
 

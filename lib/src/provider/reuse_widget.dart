@@ -577,8 +577,7 @@ Future<File> camera() async {
   return image;
 }
 
-/* QR Code Generate Function */
-Widget qrCodeGenerate(String _walletCode) {
+Widget qrCodeGenerate(String _walletCode) { /* QR Code Generate Function */
   print("Qr $_walletCode");
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -644,8 +643,7 @@ Widget fieldPicker(BuildContext context, String labelText, String widgetName, Ic
   );
 }
 
-/* User Input Field */
-Widget inputField(
+Widget inputField( /* User Input Field */
   Bloc bloc,
   BuildContext context,
   String labelText, String prefixText, String widgetName,
@@ -699,25 +697,43 @@ Widget inputField(
     // onFieldSubmitted: (value) {
     //       firstNode.unfocus();
     //       FocusScope.of(context).requestFocus(secondNode);
-//         }
+    // }
   );
 }
 
-Widget customDropDown(String label, List list, dynamic _model ,Function setValue) {
-  return Row(
-    children: <Widget>[
-      PopupMenuButton(
-        padding: EdgeInsets.all(0),
-        icon: Icon(Icons.keyboard_arrow_down),
-        itemBuilder: (BuildContext context) {
-          return list.map((text){
-            return PopupMenuItem(
-              child: Text(text),
-            );
-          }).toList();
-        },
-      )
-    ],
+Widget customDropDown(String label, List list, dynamic _model ,Function changeValue) { /* Custom DropDown */
+  return Container(
+    padding: EdgeInsets.only(top: 11.0, bottom: 11.0, left: 26.0, right: 14.0),
+    decoration: BoxDecoration(
+      color: getHexaColor("#FFFFFF").withOpacity(0.1),
+      borderRadius: BorderRadius.circular(size5)
+    ),
+    child: Row(
+      children: <Widget>[
+        Expanded(
+          child: Text(label, style: TextStyle(color: Colors.white, fontSize: 18.0),),
+        ),
+        Theme(
+          data: ThemeData(canvasColor: getHexaColor("#FFFFFF").withOpacity(0.1)),
+          child: PopupMenuButton(
+            offset: Offset.zero,
+            padding: EdgeInsets.all(12),
+            onSelected: (index) {
+              changeValue(index);
+            },
+            icon: Icon(Icons.keyboard_arrow_down, color: Colors.white,),
+            itemBuilder: (BuildContext context) {
+              return list.map((text){
+                return PopupMenuItem(
+                  value: text,
+                  child: Text(text),
+                );
+              }).toList();
+            },
+          ),
+        )
+      ],
+    ),
   );
   // Column(
   //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -779,12 +795,10 @@ Widget customDropDown(String label, List list, dynamic _model ,Function setValue
   // );
 }
 
-/* List Drop Down Text */
-Widget textDropDown(String text) {
+Widget textDropDown(String text) { /* List Drop Down Text */
   return Align(alignment: Alignment.center,child: Text(text));
 }
 
-/* Drawer Text */
-Widget drawerText(String text, Color colors, double fontSize) {
+Widget drawerText(String text, Color colors, double fontSize) { /* Drawer Text */
   return Text(text, style: TextStyle(color: colors, fontSize: fontSize, fontWeight: FontWeight.bold));
 }

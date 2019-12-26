@@ -107,7 +107,7 @@ class ZeeChartState extends State<ZeeChart>{
                     onRefresh: () {
 
                     },
-                    child: zeeChartBodyWidget(portfolioData),
+                    child: zeeChartBodyWidget(context, portfolioData),
                   ),
                 )
               ],

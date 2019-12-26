@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/barcode_scan/intermediates/res/merged/release/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3be60b34c46f2e833b8d5253573f8610/jetified-core-1.9.13/res/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,114",
+                        "endColumns": "58,55",
+                        "endOffsets": "109,165"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/barcode_scan/intermediates/incremental/mergeReleaseResources/merged.dir/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3be60b34c46f2e833b8d5253573f8610/jetified-core-1.9.13/res/values-xxhdpi-v4/values-xxhdpi-v4.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,114",
+                        "endColumns": "58,55",
+                        "endOffsets": "109,165"
+                    }
+                }
+            ]
+        }
+    ]
+}
