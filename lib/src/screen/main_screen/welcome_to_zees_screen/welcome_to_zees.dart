@@ -1,8 +1,13 @@
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
+import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class WelcomeToZee extends StatefulWidget{
@@ -24,21 +29,20 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
     super.initState();
   }
 
-  /* Check For Previous Login */
-  void checkLoginBefore(BuildContext context) async {
-    var response = await fetchData('userToken');
-    if (response != null){
-      /* Loading */
-      dialogLoading(context);
-      /* Pop Loading */
-      await Future.delayed(Duration(seconds: 2), () {
+  void checkLoginBefore(BuildContext context) async { /* Check For Previous Login */
+    int status = await checkExpiredToken();
+    if (status != 401 && status != null) { /* Check Expired Token */
+      dialogLoading(context); /* Loading */
+      await Future.delayed(Duration(seconds: 2), () { /* Pop Loading */
         Navigator.pop(context);
       });
       Navigator.pushReplacementNamed(context, '/dashboardScreen');
+    } else {
+      clearStorage();
     }
   }
 
-  navigatePage(BuildContext context) {
+  void navigatePage(BuildContext context) {
     Navigator.pushReplacement(
       context, 
       MaterialPageRoute(builder: (context) => LoginFirstScreen())

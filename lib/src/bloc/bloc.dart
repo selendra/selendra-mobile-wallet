@@ -40,7 +40,6 @@ class Bloc with ValidatorMixin {
     )
     .then((onValue) async {
       Navigator.pop(context);
-      print("Sumbit response $onValue");
       if (onValue.keys.contains("error")) {
         dialog(context, Text(onValue['error']["message"]), Icon(Icons.error_outline, color: Colors.red,));
         return false;

@@ -76,29 +76,29 @@ Widget cardToken( /* Card Token Display */
 }
 
 /* Scan QR Code */
-Future scanQR(BuildContext context, ModelDashboard _model, Function resetState, Function fetchPortfolio) async {
+Future scanQR(BuildContext _context, ModelDashboard _model, Function _resetState, Function _fetchPortfolio) async {
   try {
     String barcode = await BarcodeScanner.scan();
-    var response = await Navigator.push(context, MaterialPageRoute(builder: (context) => ScanPayWidget(barcode)));
-    if (response == "succeed") {
-      resetState(null, "portfolio", _model, fetchPortfolio);
+    var _response = await blurBackgroundDecoration(_context, ScanPay(barcode));
+    if (_response == "succeed") {
+      _resetState(null, "portfolio", _model, _fetchPortfolio);
     }
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.CameraAccessDenied) 
-      resetState("The user did not grant the camera permission!", "barcode", _model, fetchPortfolio);
+      _resetState("The user did not grant the camera permission!", "barcode", _model, _fetchPortfolio);
     else 
-      resetState("Unknown error: $e", "barcode", _model, fetchPortfolio);
+      _resetState("Unknown error: $e", "barcode", _model, _fetchPortfolio);
   } on FormatException {
-    resetState(
+    _resetState(
       "null (User returned using the 'back' -button before scanning anything. Result)", "barcode",
       _model, 
-      fetchPortfolio
+      _fetchPortfolio
     );
   } catch (e){
-    resetState(
+    _resetState(
       "Unknown error: $e",
       _model, 
-      fetchPortfolio
+      _fetchPortfolio
     );
   }
 }
@@ -110,7 +110,7 @@ Widget textStylePortfolio(String text, String hexaColor){ /* Style Text Inside P
   );
 }
 
-Widget portfolioList(BuildContext context, String title, Map<String, dynamic> portfolioData) { /* List Of Portfolio */
+Widget portfolioList(BuildContext _context, String title, Map<String, dynamic> portfolioData) { /* List Of Portfolio */
   return Container(
     padding: EdgeInsets.only(top: 10.0),
     child: Column(
@@ -173,7 +173,7 @@ Widget portfolioList(BuildContext context, String title, Map<String, dynamic> po
                   padding: EdgeInsets.all(0),
                   shrinkWrap: true,
                   itemCount: 4,
-                  itemBuilder: (BuildContext context, int index){
+                  itemBuilder: (BuildContext _context, int index){
                     return Container(
                       margin: EdgeInsets.only(top: 10.5),
                       child: Container(
@@ -229,7 +229,7 @@ Widget portfolioList(BuildContext context, String title, Map<String, dynamic> po
                 //       physics: BouncingScrollPhysics(),
                 //         shrinkWrap: true,
                 //         itemCount: portfolioData['data'].length,
-                //         itemBuilder: (BuildContext context, int index) {
+                //         itemBuilder: (BuildContext _context, int index) {
                 //           // print(portfolioData['data'][1]['asset_code']);
                 //           return Container(
                 //             decoration: BoxDecoration(
@@ -268,7 +268,7 @@ Widget portfolioList(BuildContext context, String title, Map<String, dynamic> po
             )
           ),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ZeeChart()));
+            Navigator.push(_context, MaterialPageRoute(builder: (_context) => ZeeChart()));
           },
         )
       ],

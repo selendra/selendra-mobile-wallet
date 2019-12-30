@@ -578,7 +578,6 @@ Future<File> camera() async {
 }
 
 Widget qrCodeGenerate(String _walletCode) { /* QR Code Generate Function */
-  print("Qr $_walletCode");
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,

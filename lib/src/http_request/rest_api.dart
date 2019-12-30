@@ -18,7 +18,7 @@ final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 
 Map<String, String> _conceteHeader(String _key, String _value) { /* Concete More Content Of Header */
   return _key != null ? 
-    {"Content-Type": "application/json; charset=utf-8", _key: _value} : /* if Parameter != Null = integrate */
+    {"Content-Type": "application/json; charset=utf-8", _key: _value} : /* if Parameter != Null = Concete Header With  */
     {"Content-Type": "application/json; charset=utf-8"} ; /* if Parameter Null = Don't integrate */
 }
 
@@ -38,7 +38,7 @@ Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums, String _passw
   );
   _response = await _http.post(
     '$_url$_endpoints', 
-    headers: {"Content-Type": "application/json; charset=utf-8"},
+    headers: _conceteHeader(null, null),
     body: _bodyEncode
   );
   return json.decode(_response.body);
@@ -54,7 +54,7 @@ Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums, String _pa
   );
   _response = await _http.post(
     '$_url$_endpoints', 
-    headers: {"Content-Type": "application/json; charset=utf-8"},
+    headers: _conceteHeader(null, null),
     body: _bodyEncode
   );
   return json.decode(_response.body);
@@ -157,9 +157,21 @@ Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */
   if (_token != null){
     _response = await _http.get(
       "$_url/userprofile",
-      headers: {"authorization": "Bearer ${_token['token']}"},
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
     );
     return json.decode(_response.body);
+  }
+  return null;
+}
+
+Future<int> checkExpiredToken() async {
+  _token = await Provider.fetchToken();
+  if (_token != null){
+    _response = await _http.get(
+      "$_url/userprofile",
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
+    );
+    return _response.statusCode;
   }
   return null;
 }

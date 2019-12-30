@@ -6,59 +6,52 @@ import './scan_pay_body.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import 'package:flutter/material.dart';
 
-class ScanPayWidget extends StatefulWidget{
+class ScanPay extends StatefulWidget{
 
   final String _walletKey;
 
-  ScanPayWidget(this._walletKey);
+  ScanPay(this._walletKey);
   @override
   State<StatefulWidget> createState() {
     return ScanPayState();
   }
 }
 
-class ScanPayState extends State<ScanPayWidget>{
-  bool isSuccessPin = false, isPay = false;
-  ModelScanPay modelPay = ModelScanPay();
-  List portFolio = [];
+class ScanPayState extends State<ScanPay>{
+
+  ModelScanPay _modelScanPay = ModelScanPay();
 
   @override
   void initState() {
     fetchIDs();
-    modelPay.wallet = widget._walletKey;
-    modelPay.asset = "ZTO";
-    fetchPortfolio();
+    _modelScanPay.wallet = widget._walletKey;
+    _modelScanPay.asset = "ZTO";
+    // fetchPortfolio();
     super.initState();
   }
 
-  void fetchPortfolio() async{
-    var response = await fetchData('portFolioData');
-    setState(() {
-      for (int i = 0; i < response['data'].length; i++) {
-        if (response['data'][i]['asset_code'] != null) {
-          portFolio.add(response['data'][i]);
-        }
-      }
-    });
-  }
+  // void fetchPortfolio() async{ /* Fetch Portfolio From Local Storage */
+  //   var response = await fetchData('portFolioData');
+  //   setState(() {
+  //     for (int i = 0; i < response['data'].length; i++) {
+  //       if (response['data'][i]['asset_code'] != null) {
+  //         portFolio.add(response['data'][i]);
+  //       }
+  //     }
+  //   });
+  // }
 
   void fetchIDs() async {
     await Provider.fetchUserIds();
     setState(() {});
   }
-
-  void popAndBackResult(){
-    Navigator.of(context).pop();
-  }
-
-
-  /* Check User Fill Out ALL */
-  Future<bool> checkFillAll() {
+  
+  Future<bool> checkFillAll() { /* Check User Fill Out ALL */
     if ( 
-      modelPay.amount != null && modelPay.amount != "" &&
-      modelPay.memo != null && modelPay.memo != "" &&
-      modelPay.wallet != null &&
-      modelPay.asset != null
+      _modelScanPay.amount != null && _modelScanPay.amount != "" &&
+      _modelScanPay.memo != null && _modelScanPay.memo != "" &&
+      _modelScanPay.wallet != null &&
+      _modelScanPay.asset != null
     ){
       return Future.delayed(Duration(milliseconds: 50), () {
         return true;
@@ -66,22 +59,20 @@ class ScanPayState extends State<ScanPayWidget>{
     }
     return null;
   }
-
-  /* Click Send Qraph Ql Action */
-  void clickSend() async {
+  
+  void clickSend() async { /* Click Send Qraph Ql Action */
     // await dialogBox();
     // payProgres();
     // runMutation({
-    //   'pins': modelPay.pin,
-    //   'assets': modelPay.asset,
-    //   'wallets': modelPay.wallet,
-    //   'amounts': modelPay.amount,
-    //   'memoes': modelPay.memo
+    //   'pins': _modelScanPay.pin,
+    //   'assets': _modelScanPay.asset,
+    //   'wallets': _modelScanPay.wallet,
+    //   'amounts': _modelScanPay.amount,
+    //   'memoes': _modelScanPay.memo
     // });
   }
 
-  /* Show Pin Code For Fill Out */
-  dialogBox() async {
+  void dialogBox() async { /* Show Pin Code For Fill Out */
     var _result = await showDialog(
       barrierDismissible: false,
       context: context,
@@ -93,24 +84,24 @@ class ScanPayState extends State<ScanPayWidget>{
       }
     );
     setState(() {
-      modelPay.pin = _result;
+      _modelScanPay.pin = _result;
     });
   }
 
   /* Loading For User Pay */
   void payProgres() {
     setState(() {
-      isPay = true;
+      _modelScanPay.isPay = true;
     });
   }
 
-  void popScreen() {
+  void popScreen() { /* Close Current Screen */
     Navigator.pop(context);
   }
 
-  void resetAssetsDropDown(String data) {
+  void resetAssetsDropDown(String data) { /* Reset Asset */
     setState(() {
-      modelPay.asset = data;
+      _modelScanPay.asset = data;
     });
   }
 
@@ -132,27 +123,8 @@ class ScanPayState extends State<ScanPayWidget>{
               ],
             )
           ),
-          scanPayBodyWidget(widget._walletKey, dialogBox, modelPay, portFolio, payProgres, checkFillAll(), clickSend, resetAssetsDropDown),
-          // Mutation(
-          //   options: MutationOptions(document: scanPay),
-          //   builder: (RunMutation runMutation, QueryResult results){
-          //     return ;
-          //   },
-          //   update: (Cache cache, QueryResult result) async {
-          //     if (result.hasErrors) {
-          //       dialog(context, Text(result.errors[0].message), Icon(Icons.error_outline, color: Colors.red, size: 30.0,));
-          //       return;
-          //     } 
-          //     await dialog(context, Text(result.data['payment']['message']), Icon(Icons.check_circle, color: Colors.greenAccent, size: 30.0,));
-          //     Navigator.of(context).pop("succeed");
-          //   },
-          //   onCompleted: (dynamic resultData){
-          //     setState(() {
-          //       isPay = false;
-          //     });
-          //   },
-          // ),
-          isPay == false ? Container() : Container(
+          scanPayBodyWidget(widget._walletKey, dialogBox, _modelScanPay, _modelScanPay.portFolio, payProgres, checkFillAll(), clickSend, resetAssetsDropDown), /* Scan Pay Body Widget */
+          _modelScanPay.isPay == false ? Container() : Container(
             color: Colors.black.withOpacity(0.9),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +132,7 @@ class ScanPayState extends State<ScanPayWidget>{
                 loading(),
                 Padding(
                   padding: EdgeInsets.only(top: 30.0),
-                  child: Text('Your payment is being processed . . .', style: TextStyle(fontSize: 20.0, color: getHexaColor(lightBlueSky)),),
+                  child: Text('Your payment is being processing . . .', style: TextStyle(fontSize: 20.0, color: getHexaColor(lightBlueSky)),),
                 )
               ],
             ),

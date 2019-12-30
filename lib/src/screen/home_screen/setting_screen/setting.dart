@@ -64,7 +64,7 @@ class SettingState extends State<SettingWidget>{
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: drawerOnly(context, "settingscreen", logOut),
+      // drawer: drawerOnly(context, "settingscreen", logOut),
       body: Stack(
         children: <Widget>[
           userData == null ? loading() : bodyWidget(context, userData, fullNameControl, emailControl, passwordControl)

@@ -168,7 +168,10 @@ class ProfileUserState extends State<ProfileUser> {
         Stack(
           children: <Widget>[
             Container( /* Blur Background */
-              child: profileUserBodyWidget(isHaveWallet, context, userData, snackBar, dialogBox, popScreen)
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: profileUserBodyWidget(isHaveWallet, context, userData, snackBar, dialogBox, popScreen),
+              )
                 // isFetch == true /* User Information */ /* IsFetch By Default false */
                 // ? 
                 // /* Progress  Loading */

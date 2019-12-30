@@ -2,9 +2,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:barcode_scan/barcode_scan.dart';
-import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 /* Directory of file */
@@ -12,8 +9,6 @@ import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
-import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
-import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -167,9 +162,7 @@ class DashboardState extends State<Dashboard> {
   }
   
   void toReceiveToken() {
-    Future.delayed(Duration(milliseconds: 300), () {
-      Navigator.of(context).push(BlurBackground(child: GetWallet(_modelDashboard.token)));
-    });
+    Navigator.of(context).push(BlurBackground(child: GetWallet(_modelDashboard.token)));
   }
   
   @override
@@ -178,7 +171,7 @@ class DashboardState extends State<Dashboard> {
     final bloc = Bloc();
     return Scaffold(
       key: _modelDashboard.scaffoldKey,
-      drawer: drawerOnly(context, "dashboardScreen", toReceiveToken),
+      drawer: drawerOnly(context, _modelDashboard, "dashboardScreen", toReceiveToken),
       body: scaffoldBGDecoration(
         16, 16, 16, 0,
         color2, color1,

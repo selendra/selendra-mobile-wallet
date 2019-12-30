@@ -12,13 +12,13 @@ Widget scanPayBodyWidget(
   Function clickSend, Function resetAssetsDropDown
 ) {
   return Container(
-    padding: EdgeInsets.all(20.0),
+    padding: EdgeInsets.all(16.0),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         /* Wallet Key or address */
-        Text(_walletKey, style: TextStyle(color: getHexaColor(lightBlueSky), fontSize: 18.0),),
+        Text(_walletKey, style: TextStyle(color: getHexaColor(lightBlueSky), fontSize: 18.0), textAlign: TextAlign.center,),
         /* Type of payment */
         Theme(
           data: ThemeData(canvasColor: getHexaColor("#36363B")),
