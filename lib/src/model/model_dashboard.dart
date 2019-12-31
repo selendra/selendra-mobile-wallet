@@ -5,9 +5,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ModelDashboard {
   bool isProgress = false, isQueried = false, loadingHome = true;
+  Map<String, dynamic> userData, userWallet;
+  String userId; String barcode, token;
+  List<dynamic> portfolio = [];
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<AnimatedCircularChartState> chartKey = new GlobalKey<AnimatedCircularChartState>();
   final RefreshController refreshController = RefreshController();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  Map<String, dynamic> userData, userWallet, portfolioData;
-  String userId; String barcode, token;
 }

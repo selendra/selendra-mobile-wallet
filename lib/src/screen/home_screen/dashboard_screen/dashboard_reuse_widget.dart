@@ -110,7 +110,7 @@ Widget textStylePortfolio(String text, String hexaColor){ /* Style Text Inside P
   );
 }
 
-Widget portfolioList(BuildContext _context, String title, Map<String, dynamic> portfolioData) { /* List Of Portfolio */
+Widget portfolioList(BuildContext _context, String title, List<dynamic> portfolioData) { /* List Of Portfolio */
   return Container(
     padding: EdgeInsets.only(top: 10.0),
     child: Column(
@@ -168,11 +168,11 @@ Widget portfolioList(BuildContext _context, String title, Map<String, dynamic> p
                     ],
                   ),
                 ),
-
-                ListView.builder(
+                portfolioData.length != 0 ? ListView.builder( /* Build Portfolio */
                   padding: EdgeInsets.all(0),
                   shrinkWrap: true,
-                  itemCount: 4,
+                  itemCount: portfolioData.length,
+                  physics: BouncingScrollPhysics(),
                   itemBuilder: (BuildContext _context, int index){
                     return Container(
                       margin: EdgeInsets.only(top: 10.5),
@@ -197,15 +197,24 @@ Widget portfolioList(BuildContext _context, String title, Map<String, dynamic> p
                                   )
                                 ),
                               ),
-                              textStylePortfolio("ZTO", "#EFF0F2"),
+                              textStylePortfolio(
+                                portfolioData[index].containsKey("asset_code") 
+                                  ? portfolioData[index]["asset_code"] 
+                                  : "XLM", 
+                                "#EFF0F2"
+                              ), /* Asset Code */
                               Expanded(child: Container()),
-                              textStylePortfolio("145.2500125", "#EFF0F2")
+                              textStylePortfolio(portfolioData[index]["balance"], "#EFF0F2") /* Balance */
                             ],
                           ),
                         ),
                       )
                     );
                   },
+                ) 
+                : Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: loading(),
                 )
 
                 // portfolioData == null

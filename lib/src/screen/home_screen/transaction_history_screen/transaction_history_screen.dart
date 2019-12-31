@@ -21,7 +21,7 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
 
   bool isProgress = true; bool isLogout = false;
 
-  List<dynamic> history;
+  List<dynamic> _history = [];
 
   @override
   void initState() {
@@ -30,12 +30,9 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
     /* Method Wait For Build COmplete */
   }
 
-  void fetchHistoryUser() async {
-    var response = await userHistory();
-    setState(() {
-      isProgress = false;
-      history = List<Map<String, dynamic>>.from(response['data']);
-    });
+  void fetchHistoryUser() async { /* Request Transaction History */
+    _history = await trxUserHistory();
+    setState(() { });
   }
 
   /* Log Out Method */
@@ -64,7 +61,7 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
       initialIndex: 1,
       length: 3,
       child: Scaffold(
-        body: transactionBodyWidget(context, history, popScreen),
+        body: transactionBodyWidget(context, _history, popScreen),
       ),
     );
   }

@@ -70,7 +70,6 @@ class LoginSecondState extends State<LoginSecond>{
  
   void validatorLogin(Bloc bloc, BuildContext context, String label) async{ /* Validator User Login After Check Internet */
     dialogLoading(context); /* Show Loading */
-    print(widget._modelLogin.label);
     // if (widget._modelLogin.label == "email") {
     //   await widget._modelLogin.bloc.submitMethod(
     //     context,

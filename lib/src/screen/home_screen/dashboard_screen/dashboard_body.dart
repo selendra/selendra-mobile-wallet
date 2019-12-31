@@ -12,7 +12,7 @@ Widget dashboardBodyWidget(
   BuildContext context,
   Bloc bloc,
   GlobalKey<AnimatedCircularChartState> _chartKey,
-  Map<String, dynamic> portfolioData
+  List<dynamic> portfolioData
 ) {
   /* Widget */
   return SingleChildScrollView(
@@ -101,7 +101,7 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
                     child: Text(
                       'Blockchain as a service and smart assets issurance and management platform.',
                       style: TextStyle(
-                        fontSize: 12.0,
+                        fontSize: 14.0,
                       ),
                     ),
                   )

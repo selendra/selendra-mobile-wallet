@@ -21,7 +21,11 @@ class ZeeChartState extends State<ZeeChart>{
 
   RefreshController _refreshController = RefreshController();
 
-  Map<String, dynamic> portfolioData;
+  @override
+  initState() {
+    fetchPortfolio();
+    super.initState();
+  }
 
   void popScreen() {
     Navigator.pop(context);
@@ -35,16 +39,14 @@ class ZeeChartState extends State<ZeeChart>{
   }
 
   void fetchPortfolio() async { /* Fetch Portofolio */
-    var response = await userPorfolio();
-    setData(response, 'portFolioData');
-    portfolioData = response;
+    _modelDashboard.portfolio = await fetchData("portFolioData");
     setState(() {});
   }
 
   void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function fetchPortfolio) {
     setState(() {
       if (executeName == "portfolio") {
-        _model.portfolioData = null; 
+        _model.portfolio = null; 
         fetchPortfolio();
       } else if (executeName == "barcode") _model.barcode = barcodeValue;
     });
@@ -105,9 +107,12 @@ class ZeeChartState extends State<ZeeChart>{
                   child: SmartRefresher(
                     controller: _refreshController,
                     onRefresh: () {
-
+                      // setState(() async {
+                      //   _modelDashboard.portfolio = [];
+                      //   _modelDashboard.portfolio = await trxUserHistory();
+                      // });
                     },
-                    child: zeeChartBodyWidget(context, portfolioData),
+                    child: zeeChartBodyWidget(context, _modelDashboard.portfolio),
                   ),
                 )
               ],

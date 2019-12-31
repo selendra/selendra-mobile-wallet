@@ -6,7 +6,7 @@ import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/ta
 
 Widget transactionBodyWidget(
   BuildContext context,
-  List<Map<String, dynamic>> history, 
+  List<dynamic> _history, 
   Function popScreen
 ) {
   return Container(
@@ -45,7 +45,7 @@ Widget transactionBodyWidget(
           child: TabBarView(
             children: <Widget>[
               allBodyWidget(),
-              receivedBodyWidget(history),
+              receivedBodyWidget(_history),
               sendBodyWidget()
             ],
           )
@@ -58,7 +58,7 @@ Widget transactionBodyWidget(
   //       controller: _refreshController,
   //       child: isProgress == false ? Container(
   //         margin: EdgeInsets.all(size4),
-  //         child: history == null ? textNotification("No History", context) : bodyWidget(context, history, _containerKey, _containerSize, _height),
+  //         child: _history == null ? textNotification("No History", context) : bodyWidget(context, _history, _containerKey, _containerSize, _height),
   //       ) : loading(),
   //       onRefresh: _reFresh,
   //     )
@@ -79,7 +79,7 @@ Widget transactionBodyWidget(
   //           ListView.builder(
   //             primary: false,
   //             shrinkWrap: true,
-  //             itemCount: history.length,
+  //             itemCount: _history.length,
   //             itemBuilder: (BuildContext context, int index) {
   //               return Container(
   //                 padding: EdgeInsets.all(0.0),
@@ -93,9 +93,9 @@ Widget transactionBodyWidget(
   //                   title: Row(
   //                     children: <Widget>[
   //                       Expanded(
-  //                         child: Text('${DateTime.parse(history[index]['trxat']).toLocal()}', style: TextStyle(color: Colors.white),),
+  //                         child: Text('${DateTime.parse(_history[index]['trxat']).toLocal()}', style: TextStyle(color: Colors.white),),
   //                       ),
-  //                       Text(history[index]['type'], style: TextStyle(color: Colors.white),)
+  //                       Text(_history[index]['type'], style: TextStyle(color: Colors.white),)
   //                     ],
   //                   ),
   //                   onTap: () {
@@ -115,12 +115,12 @@ Widget transactionBodyWidget(
   //                             mainAxisSize: MainAxisSize.min,
   //                             crossAxisAlignment: CrossAxisAlignment.start,
   //                             children: <Widget>[
-  //                               Text("Type: ${history[index]['type']}"),
-  //                               Text("Amount: ${history[index]['amount']}"),
-  //                               Text("Asset: ${history[index]['asset']}"),
-  //                               Text("From: ${history[index]['from']}"),
-  //                               Text("To: ${history[index]['to']}"),
-  //                               Text("Date: ${history[index]['trxat']}")
+  //                               Text("Type: ${_history[index]['type']}"),
+  //                               Text("Amount: ${_history[index]['amount']}"),
+  //                               Text("Asset: ${_history[index]['asset']}"),
+  //                               Text("From: ${_history[index]['from']}"),
+  //                               Text("To: ${_history[index]['to']}"),
+  //                               Text("Date: ${_history[index]['trxat']}")
   //                             ],
   //                           ),
   //                         );

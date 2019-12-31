@@ -126,7 +126,6 @@ Future<Map<String, dynamic>> sendPayment(dynamic _model) async { /* QR Code Send
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
       body: _bodyEncode
     );
-    print(_response.body);
     return json.decode(_response.body);
   }
   return null;
@@ -173,7 +172,6 @@ Future<int> checkExpiredToken() async {
       "$_url/userprofile",
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
     );
-    print(_response.statusCode);
     return _response.statusCode;
   }
   return null;
@@ -197,21 +195,26 @@ Future<Map<String, dynamic>> accountConfirmation(dynamic _model) async { /* Add 
 }
 
 /* User History */
-Future<Map<String, dynamic>> userHistory() async {
+Future trxUserHistory() async {
   _token = await Provider.fetchToken();
   if (_token != null){
-    final response = await _http.post("$_url/trxhistoryuri", headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
-    return json.decode(response.body);
+    _response = await _http.get(
+      "$_url/trx-history", 
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
+    );
+    return json.decode(_response.body);
   }
   return null;
 }
 
-/* User Porfolio */
-Future<Map<String, dynamic>> userPorfolio() async {
+Future getPortfolio() async { /* User Porfolio */
   _token = await Provider.fetchToken();
   if (_token != null){
-    final response = await _http.post("$_url/portforliouri", headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
-    return json.decode(response.body);
+    _response = await _http.get(
+      "$_url/portforlio", 
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
+    );
+    return json.decode(_response.body);
   }
   return null;
 }
@@ -222,8 +225,8 @@ Future<Map<String, dynamic>> userPorfolio() async {
 Future<List<dynamic>> listBranches() async {
   _token = await Provider.fetchToken();
   if (_token != null) {
-    final response = await _http.get('$_url/listBranches', headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
-    var data = json.decode(response.body);
+    _response = await _http.get('$_url/listBranches', headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
+    var data = json.decode(_response.body);
     return data['message'];
   }
   return null;
@@ -283,6 +286,5 @@ Future ocrImage (String imageuri) async {
     "trxdate":"Bill Date"
   };
   final response = await _http.post(_urlOCR, body: bodys);
-  print(response.body);
 }
 

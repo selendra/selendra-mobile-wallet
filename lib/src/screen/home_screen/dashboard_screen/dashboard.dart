@@ -36,13 +36,13 @@ class DashboardState extends State<Dashboard> {
     // getUser(); 
     getUserProfile();
     // getUserData(); /* Query All User Data From Local Storage */
-    // fetchPortfolio();
+    fetchPortfolio();
     // fetchWallet();
   }
 
   void fetchUserToken() async { /* Fetch User Token */
-    final response = await Provider.fetchToken();
-    _modelDashboard.token = response['token'];
+    final portfolio = await Provider.fetchToken();
+    _modelDashboard.token = portfolio['token'];
     // setState(() {
     //   _modelDashboard.userId = Provider.id`sUser;
     // });
@@ -84,10 +84,9 @@ class DashboardState extends State<Dashboard> {
   }
 
   void fetchPortfolio() async { /* Fetch Portofolio */
-    var response = await userPorfolio();
-      setData(response, 'portFolioData');
-      _modelDashboard.portfolioData = response;
-      setState(() {});
+    _modelDashboard.portfolio = await getPortfolio();
+    setData(_modelDashboard.portfolio, 'portFolioData');
+    setState(() {});
   }
 
   void fetchWallet() async { /* Fetch Only User ID */
@@ -106,7 +105,7 @@ class DashboardState extends State<Dashboard> {
 
   _pullUpRefresh() async {
     setState(() {
-      _modelDashboard.portfolioData = null;
+      _modelDashboard.portfolio = null;
       _modelDashboard.userData['queryUserById'] = null;
     });
     fetchPortfolio();
@@ -137,8 +136,8 @@ class DashboardState extends State<Dashboard> {
     // File cropimage = await cropImageCamera(context);
     // if (cropimage != null){
     //   dialogLoading(context);
-    //   StreamedResponse response = await upLoadImage(cropimage, "upload");
-    //   response.stream.transform(utf8.decoder).listen((data) async {
+    //   StreamedResponse portfolio = await upLoadImage(cropimage, "upload");
+    //   portfolio.stream.transform(utf8.decoder).listen((data) async {
     //     Map<String, dynamic> result = await json.decode(data);result['uuid']
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => InvoiceInfo("Hello")));
         // var result = await json.decode(data);
@@ -155,7 +154,7 @@ class DashboardState extends State<Dashboard> {
   void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function fetchPortfolio) {
     setState(() {
       if (executeName == "portfolio") {
-        _model.portfolioData = null; 
+        _model.portfolio= null; 
         fetchPortfolio();
       } else if (executeName == "barcode") _model.barcode = barcodeValue;
     });
@@ -207,8 +206,8 @@ class DashboardState extends State<Dashboard> {
                     physics: BouncingScrollPhysics(),
                     controller: _modelDashboard.refreshController,
                     child: dashboardBodyWidget(
-                        context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolioData,
-                      )
+                      context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolio,
+                    )
                     // _modelDashboard.userData == null ? loading() // Body Widget
                     //   : _modelDashboard.userData['queryUserById'] == null 
                     //   ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : ,

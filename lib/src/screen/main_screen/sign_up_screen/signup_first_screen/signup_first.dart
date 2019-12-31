@@ -70,7 +70,6 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
   void onChanged(String label, String onchanged) { /* Input Field Value Change */
     if (label == "Email") _modelSignUp.label = "email";
     else _modelSignUp.label = "phone_number";
-    print(_modelSignUp.label);
   }
 
   void tabBarSelectChanged(int index) {

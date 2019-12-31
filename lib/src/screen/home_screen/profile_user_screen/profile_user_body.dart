@@ -63,7 +63,7 @@ Widget profileUserBodyWidget(
               Container( /* Close Button */
                 margin: EdgeInsets.only(bottom: 26.75),
                 height: 30.0,
-                padding: EdgeInsets.all(0),
+                padding: EdgeInsets.all(5.0),
                 alignment: Alignment.topRight,
                 child: IconButton(
                   padding: EdgeInsets.all(0),
