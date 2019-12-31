@@ -29,7 +29,7 @@ Widget invoiceBodyWidget(
                 EdgeInsets.all(0),
                 popScreen
               ),
-              containerTitleAppBar("Invoice Information"), /* Title AppBar */
+              containerTitle("Invoice Information", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
             ],
           )
         ),

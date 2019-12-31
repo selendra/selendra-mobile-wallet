@@ -20,7 +20,7 @@ Widget createPasswordBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Create Password")
+              containerTitle("Create Password", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

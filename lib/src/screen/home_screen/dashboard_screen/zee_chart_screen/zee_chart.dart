@@ -88,7 +88,7 @@ class ZeeChartState extends State<ZeeChart>{
                         EdgeInsets.all(0),
                         popScreen
                       ),
-                      containerTitleAppBar("Zee Chart"), /* Title AppBar */
+                      containerTitle("Zee Chart", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
                       Expanded(
                         child: Container(),
                       ),

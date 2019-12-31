@@ -22,7 +22,7 @@ Widget changePinBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Change PIN")
+              containerTitle("Change PIN", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

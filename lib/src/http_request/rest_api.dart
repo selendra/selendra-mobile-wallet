@@ -79,14 +79,16 @@ Future<Map<String, dynamic>> uploadUserProfile(dynamic _model, String _endpoints
   return null;
 }
 
-Future<Map<String, dynamic>> getWallet(String _pins) async { /* Post Get Wallet */
+Future<Map<String, dynamic>> retrieveWallet(String _pins) async { /* Post Get Wallet */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "pin": _pins
   });
   if (_token != null){
     _response = await _http.post(
-      "$_url/getwallet"
+      "$_url/getwallet",
+      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+      body: _bodyEncode
     );
     return json.decode(_response.body);
   }
@@ -171,6 +173,7 @@ Future<int> checkExpiredToken() async {
       "$_url/userprofile",
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
     );
+    print(_response.statusCode);
     return _response.statusCode;
   }
   return null;

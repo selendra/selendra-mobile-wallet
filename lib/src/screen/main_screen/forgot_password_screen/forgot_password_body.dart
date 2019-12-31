@@ -20,7 +20,7 @@ Widget forgotPasswordBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Forgot Password")
+              containerTitle("Forgot Password", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

@@ -27,7 +27,7 @@ Widget addUserInfobodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Add Assets")
+              containerTitle("Add Assets", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

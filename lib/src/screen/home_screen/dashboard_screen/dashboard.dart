@@ -189,7 +189,7 @@ class DashboardState extends State<Dashboard> {
                         EdgeInsets.all(0),
                         openDrawer
                       ),
-                      containerTitleAppBar("Dashboard"), /* Title AppBar */
+                      containerTitle("Dashboard", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
                       Expanded(
                         child: Container(),
                       ),

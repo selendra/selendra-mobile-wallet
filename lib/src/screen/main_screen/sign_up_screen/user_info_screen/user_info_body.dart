@@ -20,7 +20,7 @@ Widget userInfoBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("User Information")
+              containerTitle("User Information", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

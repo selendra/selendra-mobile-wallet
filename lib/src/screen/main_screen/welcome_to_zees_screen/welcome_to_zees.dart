@@ -33,7 +33,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
     int status = await checkExpiredToken();
     if (status != 401 && status != null) { /* Check Expired Token */
       dialogLoading(context); /* Loading */
-      await Future.delayed(Duration(seconds: 2), () { /* Pop Loading */
+      await Future.delayed(Duration(milliseconds: 500), () { /* Pop Loading */
         Navigator.pop(context);
       });
       Navigator.pushReplacementNamed(context, '/dashboardScreen');

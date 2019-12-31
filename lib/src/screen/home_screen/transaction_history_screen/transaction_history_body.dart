@@ -23,7 +23,7 @@ Widget transactionBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Transactin History")
+              containerTitle("Transactin History", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

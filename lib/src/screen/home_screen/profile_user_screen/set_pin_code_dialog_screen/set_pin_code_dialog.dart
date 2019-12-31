@@ -9,7 +9,7 @@ class SetPinDialog extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    return SetPinDialogState(showError);
+    return SetPinDialogState();
   }
 }
 
@@ -17,30 +17,35 @@ class SetPinDialogState extends State<SetPinDialog> {
 
   bool disableButton = true;
   String _pin;
-  String showError;
+  String _showError;
 
-  SetPinDialogState(this.showError);
+  @override
+  initState() {
+    if (_pin != null) { /* If PIN Not Have Data Assign To Empty */
+      _showError = '';
+    } else _showError = widget.showError; /* If PIN Have Data */
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
-    if (_pin != null) {
-      showError = '';
-    }
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       title: Align(alignment: Alignment.center, child: Text("Set PIN")),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          widget.showError == '' ? Container() : Container(
+          _showError == '' ? Container() : Container(
             padding: EdgeInsets.all(10.0),
-            child: Text(widget.showError, style: TextStyle(color: Colors.red),),
+            child: Text(_showError, style: TextStyle(color: Colors.red),),
           ),
           PinPut(
             isTextObscure: true,
             fieldsCount: 4,
             onSubmit: (String pins) {
-              disableButton = false;
-              _pin = pins;
+              setState(() {
+                disableButton = false;
+                _pin = pins;
+              });
             },
             onClear: (clear) {
               _pin = null;

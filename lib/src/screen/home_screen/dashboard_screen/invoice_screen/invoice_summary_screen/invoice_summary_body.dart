@@ -27,7 +27,7 @@ Widget invoiceSummaryBodyWidget(
                 EdgeInsets.all(0),
                 popScreen
               ),
-              containerTitleAppBar("Invoice Summary"), /* Title AppBar */
+              containerTitle("Invoice Summary", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
             ],
           )
         ),

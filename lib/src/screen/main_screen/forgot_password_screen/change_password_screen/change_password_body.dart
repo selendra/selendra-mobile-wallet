@@ -20,7 +20,7 @@ Widget changePasswordBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Change Password")
+              containerTitle("Change Password", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

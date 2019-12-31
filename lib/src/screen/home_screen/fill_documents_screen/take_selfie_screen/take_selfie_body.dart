@@ -24,7 +24,7 @@ Widget selfieBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Upload Documents")
+              containerTitle("Upload Documents", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

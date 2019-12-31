@@ -119,7 +119,7 @@ class ScanPayState extends State<ScanPay>{
                   EdgeInsets.all(0),
                   popScreen,
                 ),
-                containerTitleAppBar("Fill Documents")
+                containerTitle("Fill Documents", double.infinity, Colors.white, FontWeight.bold)
               ],
             )
           ),

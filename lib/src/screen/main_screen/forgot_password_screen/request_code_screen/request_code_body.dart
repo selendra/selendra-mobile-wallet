@@ -20,7 +20,7 @@ Widget requestCodeBodyWidget(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Request Code")
+              containerTitle("Request Code", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

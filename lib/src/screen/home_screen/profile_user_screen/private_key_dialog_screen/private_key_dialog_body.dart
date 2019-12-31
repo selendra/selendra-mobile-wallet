@@ -26,7 +26,7 @@ Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function u
               children: <Widget>[
                 Text('Key: '),
                 Expanded(
-                  child: Text(_privateKey, style: TextStyle(color: getHexaColor(lightBlueSky))),
+                  child: Text(_privateKey, style: TextStyle(color: getHexaColor(greenColor))),
                 )
               ],
             )
@@ -72,6 +72,7 @@ List<Widget> listButton (BuildContext context, String _privateKey, bool isCopy, 
       padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
       child: Text('Close'),
       onPressed: isCheck == true ? () {
+        
         Map<String, dynamic> popData = {
           "widget": "dialogPrivateKey",
           "message": 'You saved key successfully'

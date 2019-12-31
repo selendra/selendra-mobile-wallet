@@ -23,7 +23,7 @@ Widget getWalletBody(
                 EdgeInsets.all(0),
                 popScreen,
               ),
-              containerTitleAppBar("Receive Token")
+              containerTitle("Receive Token", double.infinity, Colors.white, FontWeight.bold)
             ],
           )
         ),

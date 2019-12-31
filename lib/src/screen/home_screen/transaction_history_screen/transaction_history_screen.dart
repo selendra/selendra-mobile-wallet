@@ -42,8 +42,8 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
   void logOut() {
     /* Loading */
     dialogLoading(context);
+    clearStorage();
     Timer(Duration(seconds: 1), () {
-      clearStorage();
       Navigator.pushReplacementNamed(context, '/');
     });
   }

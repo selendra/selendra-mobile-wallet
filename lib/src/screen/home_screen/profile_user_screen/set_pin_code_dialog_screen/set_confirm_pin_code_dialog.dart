@@ -1,19 +1,20 @@
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+import 'package:wallet_apps/src/http_request/rest_api.dart';
 
-class SetConfirmPinWidget extends StatefulWidget{
+class SetConfirmPin extends StatefulWidget{
 
   final String _pin;
 
-  SetConfirmPinWidget(this._pin);
+  SetConfirmPin(this._pin);
   @override
   State<StatefulWidget> createState() {
     return SetConfirmPinState();
   }
 }
 
-class SetConfirmPinState extends State<SetConfirmPinWidget> {
+class SetConfirmPinState extends State<SetConfirmPin> {
 
   String _confirmPin;
   bool disableButton = true, isProgress = false;
@@ -45,11 +46,20 @@ class SetConfirmPinState extends State<SetConfirmPinWidget> {
               ),
               RaisedButton(
                 child: Text("Confirm"),
-                onPressed: () {
+                onPressed: () async {
                   /* Loading */
                   dialogLoading(context);
-                  if (_confirmPin == widget._pin){
-                  } else if (_confirmPin != widget._pin){
+                  if (_confirmPin == widget._pin){ /* If PIN Equal Confirm PIN */
+                    popData = {
+                      "widget": "confirmPin",
+                      "confirm_pin": _confirmPin,
+                      "compare": true
+                    };
+                    Map<String, dynamic> _response = await retrieveWallet(_confirmPin); /* Request Wallet */
+                    _response.addAll(popData);
+                    Navigator.pop(context); /* Close Cicular Loading */
+                    Navigator.pop(context, _response); /* Close Dialog And Push Back Data */
+                  } else if (_confirmPin != widget._pin){ /* If PIN Not Equal Confirm PIN */
                     Navigator.pop(context);
                     popData = {
                       "widget": "confirmPin",

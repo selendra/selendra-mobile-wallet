@@ -530,17 +530,17 @@ Widget iconAppBar(Widget icon, Alignment alignment, EdgeInsetsGeometry edgePaddi
   );
 }
 
-Widget containerTitleAppBar(String title) {
+Widget containerTitle(String title, dynamic _height, dynamic textColor, FontWeight _fontWeight) {
   return Container( 
-    height: double.infinity,
+    height: _height,
     alignment: Alignment.center,
     margin: EdgeInsets.only(left: 8.0),
     child: Text(
       title,
       style: TextStyle(
         fontSize: 25.0,
-        color: Colors.white,
-        fontWeight: FontWeight.bold
+        color: textColor,
+        fontWeight: _fontWeight
       )
     ),
   );

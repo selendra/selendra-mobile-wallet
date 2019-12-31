@@ -22,11 +22,12 @@ class ProfileUser extends StatefulWidget{
 class ProfileUserState extends State<ProfileUser> {
   
   /* Variable */
-  String error = '', _pin = '', _confirmPin = '', _privateKey; 
+  String error = '', _pin = '', _confirmPin = '';
+  var result; 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final RefreshController _refreshController = RefreshController();
   ModelUserInfo modelProfile = ModelUserInfo();
-  Map<String, dynamic> userData;
+  Map<String, dynamic> userData, _message;
   /* Login Inside Dialog */
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
   /* Property For RefetchUserData From GraphQL */
@@ -55,69 +56,65 @@ class ProfileUserState extends State<ProfileUser> {
     });
   }
 
-  /* Set PIN Dialog */
-  void dialogBox(BuildContext context) async {
-    var result = await showDialog(
+  void dialogBox(BuildContext context) async { /* Set PIN Dialog */
+    result = await showDialog(
       barrierDismissible: false,
       context: context,
       builder: 
-      /* If PIN Not Yet Set */
-      _pin == '' ?
+      _pin == '' ? /* If PIN Not Yet Set */
       (BuildContext context) {
         return Material(
           color: Colors.transparent,
           child: SetPinDialog(error)
         );
       } :
-      /* Set PIN Done And Then Set ConfirmPin */
-      _confirmPin == '' ?
+      _confirmPin == '' ? /* Set PIN Done And Then Set Confirm Pin */
       (BuildContext context) {
         return Material(
           color: Colors.transparent,
-          child: SetConfirmPinWidget(_pin),
+          child: SetConfirmPin(_pin),
         );
       } :
-      /* Comfirm PIN Success Shower Dialog Of Private Key */
-      (BuildContext context) {
+      (BuildContext context) { /* Comfirm PIN Success Shower Dialog Of Private Key */
         return Material(
           color: Colors.transparent,
-          child: DialogPrivateKeyWidget(_privateKey),
+          child: PrivateKeyDialog(_message),
         );
       }
     );
     /* From Set PIN Widget */
-    if (result['widget'] == 'Pin'){
-      _pin = result['pin'];
-      /* CallBack */
-      error = "PIN does not match";
-      dialogBox(context);
-    } else 
-    /* From Set Confirm PIN Widget */
-    if (result['widget'] == 'confirmPin'){
-      if (result['compare'] == false) {
-        _pin = '';
+    if (result != null) {
+      if (result['widget'] == 'Pin'){
+        _pin = result['pin'];
         /* CallBack */
         dialogBox(context);
-      } else if (result["compare"] == true){
-        _confirmPin = result['confirmPin'];
-        _privateKey = result['_privateKey'];
-        dialogBox(context);
+      } else 
+      /* From Set Confirm PIN Widget */
+      if (result['widget'] == 'confirmPin'){
+        if (result['compare'] == false) {
+          _pin = '';
+          error = "PIN does not match"; /* Set Error */
+          dialogBox(context); /* CallBack */
+        } else if (result["compare"] == true){
+          _confirmPin = result['confirm_pin'];
+          _message = result;
+          await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call DialogBox Function Again */
+            dialogBox(context);
+          });
+        }
+      } else {
+        snackBar(result['message']); /* Copy Private Key Success And Show Message From Bottom */
       }
-    } else 
-    if (result['widget'] == 'dialogPrivateKey'){
-      await Provider.fetchUserIds();
-      snackBar(result['message']);
-      setState(() {
-        reQueryUserData = true;
+    } else {
+      setState(() { /* Reset All Pin */
+        _pin = "";
+        _confirmPin = "";
+        result = "Pin";
       });
     }
   }
 
   /* ----------------------Side Bar -------------------------*/
-  /* Trigger Drawer */
-  void openMyDrawer() {
-    _scaffoldKey.currentState.openDrawer();
-  }
   /* Log Out Method */
   void logOut() async {
     /* Loading */
@@ -136,6 +133,7 @@ class ProfileUserState extends State<ProfileUser> {
     );
     _scaffoldKey.currentState.showSnackBar(snackbar);
   }
+  
   void _reFresh() async {
     await Provider.fetchUserIds();
     setState(() {
