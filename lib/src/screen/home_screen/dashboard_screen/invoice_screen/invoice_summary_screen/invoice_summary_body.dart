@@ -14,6 +14,7 @@ Widget invoiceSummaryBodyWidget(
   return SingleChildScrollView(
     physics: BouncingScrollPhysics(),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         containerAppBar( /* App Bar */
           _context, 
@@ -65,16 +66,30 @@ Widget invoiceSummaryBodyWidget(
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 27.0),
-          child: SliderButton(
-            boxShadow: BoxShadow(color: Colors.transparent, blurRadius: 0.0),
-            buttonColor: Colors.black54,
-            icon: Align(alignment: Alignment.center, child: Icon(Icons.arrow_forward_ios, color: whiteNormalColor,),),
-            label: Text('Slide to submit !'),
-            action: () {
-              verifyInvoice(_modelScanInvoice.bloc, _context);
-            },
-          ),
+          margin: EdgeInsets.only(left: 27, right: 27.0, top: 27.0),
+          child: customFlatButton(
+            _modelScanInvoice.bloc, 
+            _context, 
+            "Submit", "submitReceiptScreen", blueColor, 
+            FontWeight.normal,
+            size18,
+            EdgeInsets.only(top: size10, bottom: size10),
+            EdgeInsets.only(top: size15, bottom: size15),
+            BoxShadow(
+              color: Color.fromRGBO(0,0,0,0.54),
+              blurRadius: 5.0
+            ),
+            verifyInvoice
+          )
+          // SliderButton(
+          //   boxShadow: BoxShadow(color: Colors.transparent, blurRadius: 0.0),
+          //   buttonColor: Colors.black54,
+          //   icon: Align(alignment: Alignment.center, child: Icon(Icons.arrow_forward_ios, color: whiteNormalColor,),),
+          //   label: Text('Slide to submit !'),
+          //   action: () {
+              // verifyInvoice(_modelScanInvoice.bloc, _context);
+          //   },
+          // ),
         )
       ],
     ),

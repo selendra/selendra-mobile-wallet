@@ -193,6 +193,7 @@ Future<int> checkExpiredToken() async {
       "$_url/userprofile",
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
     );
+    print(_response.statusCode);
     return _response.statusCode;
   }
   return null;

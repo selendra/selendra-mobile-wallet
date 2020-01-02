@@ -33,18 +33,20 @@ class InvoiceSummaryState extends State<InvoiceSummary>  {
   } 
 
   void confirmInvoice(Bloc _bloc, BuildContext _context) async {
-    dialogLoading(_context);
-    print(widget._modelScanInvoice.controlBillNO.text);
-    print(widget._modelScanInvoice.controlAmount.text);
-    print(widget._modelScanInvoice.controlLocation.text);
-    print(widget._modelScanInvoice.controlApproveCode.text);
-    await addReceipt(widget._modelScanInvoice);
-    Navigator.pop(context);
-    Navigator.pushAndRemoveUntil(
-      context, 
-      MaterialPageRoute(builder: (context) => Dashboard()), 
-      ModalRoute.withName('/')
-    );
+    dialogLoading(_context); /* Loading Process */
+    var _response = await addReceipt(widget._modelScanInvoice);
+    if (!_response.containsKey("error")){ /* Display Messager To Dialog Box */
+      await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(blueColor),)); /* Show Response */
+      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil( 
+        context, 
+        MaterialPageRoute(builder: (context) => Dashboard()), 
+        ModalRoute.withName('/')
+      );
+    } else { /* Display Error To Dialog Box */
+      Navigator.pop(context);
+      await dialog(context, Text(_response["error"]["message"]), Icon(Icons.warning));
+    }
     // Map<String, dynamic> dataResponse = await submitInvoice(_modelScanInvoice);
     // Navigator.pop(context);
     // if (dataResponse != null) {

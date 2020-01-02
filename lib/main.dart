@@ -28,7 +28,7 @@ import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcom
 
 void main () {
   WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error, " accessed before the binding was initialized " */
-  // debugPaintSizeEnabled = true;
+  debugPaintSizeEnabled = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(App());
 }

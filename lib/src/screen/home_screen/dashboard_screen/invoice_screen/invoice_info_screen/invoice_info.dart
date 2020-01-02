@@ -47,7 +47,6 @@ class InvoiceInfoState extends State<InvoiceInfo> {
 
   void shopChanged(String branchName) async {
     // getIdFromBranchName(branchName);
-    print(branchName);
     await Future.delayed(Duration(milliseconds: 100), (){
       setState(() {
         _modelScanInvoice.controlLocation.text = branchName;

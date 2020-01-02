@@ -242,7 +242,7 @@ Widget customFlatButton(
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
       onPressed: () {
-        if (widgetName == "loginSecondScreen") action(bloc, context);
+        if (widgetName == "loginSecondScreen" || widgetName == "submitReceiptScreen") action(bloc, context);
         else if (widgetName == "invoiceInfoScreen") action(); 
         else action(context);
       }
