@@ -16,4 +16,5 @@ class ModelScanPay{
 
   FocusNode nodeAmount = FocusNode();
   FocusNode nodeMemo = FocusNode();
+  
 }

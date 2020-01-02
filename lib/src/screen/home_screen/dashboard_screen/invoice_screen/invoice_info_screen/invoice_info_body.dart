@@ -3,15 +3,11 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 
 Widget invoiceBodyWidget(
-  Bloc bloc,
-  BuildContext context, 
-  String shopName, 
-  TextEditingController _controllerStore, TextEditingController _controllerBill, TextEditingController _controllerAmount,
-  GlobalKey<AutoCompleteTextFieldState<String>> key,
-  List listOfBranches,
-  FocusNode _nodeBill, FocusNode _nodeAmount,
+  BuildContext _context,
+  ModelScanInvoice _modelScanInvoice,
   Function shopChanged, Function textChanged,  Function toSummaryInvoice, Function popScreen,
 ) {
   return scaffoldBGDecoration(
@@ -20,7 +16,7 @@ Widget invoiceBodyWidget(
     Column(
       children: <Widget>[
         containerAppBar( /* App Bar */
-          context, 
+          _context, 
           Row( /* Sub AppBar */
             children: <Widget>[
               iconAppBar( /* Menu Button */
@@ -45,10 +41,10 @@ Widget invoiceBodyWidget(
                       child: Container(
                         margin: EdgeInsets.only(bottom: 12.0),
                         child: SimpleAutoCompleteTextField(
-                          key: key,
+                          key: _modelScanInvoice.key,
                           style: TextStyle(color: Colors.white),
-                          suggestions: listOfBranches,
-                          controller: _controllerStore,
+                          suggestions: _modelScanInvoice.listNameOfBranches,
+                          controller: _modelScanInvoice.controlLocation,
                           clearOnSubmit: true,
                           textSubmitted: (text) {
                             shopChanged(text);
@@ -61,7 +57,7 @@ Widget invoiceBodyWidget(
                             /* Border side */
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: _controllerStore.text != "" ? getHexaColor("#95989A") : Colors.transparent, 
+                                color: _modelScanInvoice.controlLocation.text != "" ? getHexaColor("#95989A") : Colors.transparent, 
                                 width: 1.0
                               ),
                             ),
@@ -102,7 +98,7 @@ Widget invoiceBodyWidget(
                         color: whiteNormalColor,
                         icon: Icon(OMIcons.close),
                         onPressed: () {
-                          _controllerStore.clear();
+                          _modelScanInvoice.controlLocation.clear();
                         },
                       ),
                     )
@@ -111,13 +107,13 @@ Widget invoiceBodyWidget(
                 Container(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    bloc,
-                    context, 
+                    _modelScanInvoice.bloc,
+                    _context, 
                     "Bills number", null, 'invoiceInfoScreen', 
                     false, 
                     TextInputType.text, TextInputAction.next,
-                    _controllerBill, 
-                    _nodeBill, 
+                    _modelScanInvoice.controlBillNO, 
+                    _modelScanInvoice.nodeBill, 
                     textChanged,
                     null
                   ),
@@ -125,20 +121,20 @@ Widget invoiceBodyWidget(
                 Container(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    bloc, 
-                    context, 
+                    _modelScanInvoice.bloc, 
+                    _context, 
                     "Amount", null, 'invoiceInfoScreen', 
                     false, 
                     TextInputType.number, TextInputAction.done, 
-                    _controllerAmount, 
-                    _nodeAmount, 
+                    _modelScanInvoice.controlAmount, 
+                    _modelScanInvoice.nodeAmount, 
                     textChanged, 
                     null
                   ),
                 ),
                 customFlatButton(
-                  bloc, 
-                  context, 
+                  _modelScanInvoice.bloc, 
+                  _context, 
                   "Next", "invoiceInfoScreen", blueColor,
                   FontWeight.bold, 18.0, 
                   EdgeInsets.only(top: size10, bottom: 0),
@@ -150,19 +146,6 @@ Widget invoiceBodyWidget(
                   toSummaryInvoice
                 )
               ],
-
-                // Container(
-                //   margin: EdgeInsets.only(top: 10.0),
-                //   child: SliderButton(
-                //     boxShadow: BoxShadow(color: Colors.transparent, blurRadius: 0.0),
-                //     buttonColor: Colors.black54,
-                //     icon: Align(alignment: Alignment.center, child: Icon(Icons.arrow_forward_ios, color: whiteNormalColor,),),
-                //     label: Text('Slide to submit !'),
-                //     action: () {
-                //       confirmReceipt(context);
-                //     },
-                //   ),
-                // )
             ),
           ),
         )

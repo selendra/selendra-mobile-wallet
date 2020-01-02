@@ -9,6 +9,7 @@ import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -40,14 +41,7 @@ class DashboardState extends State<Dashboard> {
     // fetchWallet();
   }
 
-  void fetchUserToken() async { /* Fetch User Token */
-    final portfolio = await Provider.fetchToken();
-    _modelDashboard.token = portfolio['token'];
-    // setState(() {
-    //   _modelDashboard.userId = Provider.id`sUser;
-    // });
-  }
-
+  /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
     Map<String, dynamic> data = await fetchData('userDataLogin');
     if (data == null) {
@@ -64,8 +58,16 @@ class DashboardState extends State<Dashboard> {
     if ( status != null ) setState(() {});
   }
 
-  /* Open Drawer Method */
-  void openDrawer() => _modelDashboard.scaffoldKey.currentState.openDrawer();
+  void fetchPortfolio() async { /* Fetch Portofolio */
+    _modelDashboard.portfolio = await getPortfolio();
+    setData(_modelDashboard.portfolio, 'portFolioData');
+    setState(() {});
+  }
+
+  /* ------------------------Method------------------------ */
+
+  /* Open Menu */
+  void openMenu() => blurBackgroundDecoration(context, ProfileUser()); /* Navigate To Profile User */
 
   /* Log Out Method */
   void logOut() async{
@@ -83,10 +85,14 @@ class DashboardState extends State<Dashboard> {
     // if (result.data != null) setData(result.data, 'userLogin');
   }
 
-  void fetchPortfolio() async { /* Fetch Portofolio */
-    _modelDashboard.portfolio = await getPortfolio();
-    setData(_modelDashboard.portfolio, 'portFolioData');
-    setState(() {});
+  /* ------------------------Get Local Data Method------------------------ */
+  
+  void fetchUserToken() async { /* Fetch User Token */
+    final portfolio = await Provider.fetchToken();
+    _modelDashboard.token = portfolio['token'];
+    // setState(() {
+    //   _modelDashboard.userId = Provider.id`sUser;
+    // });
   }
 
   void fetchWallet() async { /* Fetch Only User ID */
@@ -139,7 +145,7 @@ class DashboardState extends State<Dashboard> {
     //   StreamedResponse portfolio = await upLoadImage(cropimage, "upload");
     //   portfolio.stream.transform(utf8.decoder).listen((data) async {
     //     Map<String, dynamic> result = await json.decode(data);result['uuid']
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => InvoiceInfo("Hello")));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => InvoiceInfo()));
         // var result = await json.decode(data);
         // setState(() {
         //   _image = result['url'];
@@ -170,7 +176,7 @@ class DashboardState extends State<Dashboard> {
     final bloc = Bloc();
     return Scaffold(
       key: _modelDashboard.scaffoldKey,
-      drawer: drawerOnly(context, _modelDashboard, "dashboardScreen", toReceiveToken),
+      // drawer: drawerOnly(context, _modelDashboard, "dashboardScreen", toReceiveToken),
       body: scaffoldBGDecoration(
         16, 16, 16, 0,
         color2, color1,
@@ -186,7 +192,7 @@ class DashboardState extends State<Dashboard> {
                         Icon(Icons.sort, color: Colors.white,),
                         Alignment.centerLeft,
                         EdgeInsets.all(0),
-                        openDrawer
+                        openMenu
                       ),
                       containerTitle("Dashboard", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
                       Expanded(
@@ -207,11 +213,11 @@ class DashboardState extends State<Dashboard> {
                     controller: _modelDashboard.refreshController,
                     child: dashboardBodyWidget(
                       context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolio,
-                    )
+                    ),
                     // _modelDashboard.userData == null ? loading() // Body Widget
                     //   : _modelDashboard.userData['queryUserById'] == null 
                     //   ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : ,
-                    // onRefresh: _pullUpRefresh,
+                    onRefresh: _pullUpRefresh,
                   ),
                 )
               ],

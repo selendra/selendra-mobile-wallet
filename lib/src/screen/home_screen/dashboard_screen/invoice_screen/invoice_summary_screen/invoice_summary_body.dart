@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:slider_button/slider_button.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_invoice.dart';
+import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_reuse_widget.dart';
 
 Widget invoiceSummaryBodyWidget(
-  Bloc bloc,
-  BuildContext context,
-  TextEditingController _controllerCode,
-  FocusNode _nodeCode,
-  ModelInvoice modelInvoice,
+  BuildContext _context,
+  ModelScanInvoice _modelScanInvoice,
   Function onChanged, Function verifyInvoice, Function popScreen
 ) {
   return SingleChildScrollView(
@@ -18,7 +16,7 @@ Widget invoiceSummaryBodyWidget(
     child: Column(
       children: <Widget>[
         containerAppBar( /* App Bar */
-          context, 
+          _context, 
           Row( /* Sub AppBar */
             children: <Widget>[
               iconAppBar( /* Menu Button */
@@ -55,13 +53,13 @@ Widget invoiceSummaryBodyWidget(
         Container( /* Authorization Code */
           margin: EdgeInsets.only(left: 27, right: 27.0, top: 27.0),
           child: inputField(
-            bloc, 
-            context, 
+            _modelScanInvoice.bloc, 
+            _context, 
             "Authorization code", null, "invoiceSummary", 
             true, 
             TextInputType.text, TextInputAction.done,
-            _controllerCode, 
-            _nodeCode, 
+            _modelScanInvoice.controlApproveCode, 
+            _modelScanInvoice.nodeApproveCode, 
             onChanged, 
             verifyInvoice
           ),
@@ -74,7 +72,7 @@ Widget invoiceSummaryBodyWidget(
             icon: Align(alignment: Alignment.center, child: Icon(Icons.arrow_forward_ios, color: whiteNormalColor,),),
             label: Text('Slide to submit !'),
             action: () {
-              verifyInvoice(bloc, context);
+              verifyInvoice(_modelScanInvoice.bloc, _context);
             },
           ),
         )

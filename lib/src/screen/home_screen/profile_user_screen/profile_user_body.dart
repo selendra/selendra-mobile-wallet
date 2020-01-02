@@ -29,6 +29,10 @@ Widget profileUserBodyWidget(
       "title": "Transaction History",
     },
     {
+      "icon": Icons.query_builder, 
+      "title": "Activity",
+    },
+    {
       "icon": Icons.account_balance_wallet, 
       "title": "Get Wallet",
     },
@@ -47,9 +51,10 @@ Widget profileUserBodyWidget(
   ];
 
   return Container(
-    margin: EdgeInsets.only(top: 89.0, left: 19, right: 19, bottom: size4),
+    margin: EdgeInsets.only(left: 19, right: 19, bottom: size4),
     width: double.infinity,
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         /* User image */  
         Container(
@@ -62,11 +67,10 @@ Widget profileUserBodyWidget(
             children: <Widget>[
               Container( /* Close Button */
                 margin: EdgeInsets.only(bottom: 26.75),
-                height: 30.0,
-                padding: EdgeInsets.all(5.0),
+                // height: 30.0,
                 alignment: Alignment.topRight,
                 child: IconButton(
-                  padding: EdgeInsets.all(0),
+                  padding: EdgeInsets.all(10.0),
                   color: getHexaColor("#97AAC3"),
                   iconSize: 30.0,
                   alignment: Alignment.topRight,
@@ -122,17 +126,21 @@ Widget profileUserBodyWidget(
                       Navigator.of(context).push(BlurBackground(child: TransactionHistoryWidget())); break;
                     }
                     case 2 : {
-                      await dialogBox(context); break;
+                      // await dialogBox(context); 
+                      break;
                     }
                     case 3 : {
+                      await dialogBox(context); break;
+                    }
+                    case 4 : {
                       Navigator.pop(context);
                       Navigator.of(context).push(BlurBackground(child: ChangePIN())); break;
                     }
-                    case 4: {
+                    case 5: {
                       Navigator.pop(context);
                       Navigator.of(context).push(BlurBackground(child: AddAsset())); break;
                     }
-                    case 5:  {
+                    case 6:  {
                       dialogLoading(context);
                       clearStorage();
                       await Future.delayed(Duration(seconds: 1), () {

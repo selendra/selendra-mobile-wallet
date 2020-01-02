@@ -374,7 +374,9 @@ blurBackgroundDecoration(BuildContext context, dynamic screen) {
             sigmaX: 20.0,
             sigmaY: 20.0,
           ),
-          child: screen,
+          child: Center(
+            child: screen,
+          ),
         ),
       );
     }

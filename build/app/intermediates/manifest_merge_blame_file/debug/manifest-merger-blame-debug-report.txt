@@ -1,0 +1,131 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.zeetomic"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:9:5-66
+14-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:9:22-64
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->[:barcode_scan] /home/daveat/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-65
+15-->[:barcode_scan] /home/daveat/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-62
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+16-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+17    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+17-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+18-->[:connectivity] /home/daveat/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
+18-->[:connectivity] /home/daveat/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+19    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+19-->[:connectivity] /home/daveat/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-76
+19-->[:connectivity] /home/daveat/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-73
+20
+21    <application
+21-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:11:5-40:19
+22        android:name="io.flutter.app.FlutterApplication"
+22-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:12:9-57
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.1.0] /home/daveat/.gradle/caches/transforms-2/files-2.1/7f6c41cc2a14c0fbaa8d0166c17dc544/core-1.1.0/AndroidManifest.xml:24:18-86
+24        android:debuggable="true"
+25        android:icon="@mipmap/zeeicon"
+25-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:14:9-39
+26        android:label="Zeetomic" >
+26-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:13:9-33
+27        <activity
+27-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:15:9-33:20
+28            android:name="com.example.zeetomic.MainActivity"
+28-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:16:13-41
+29            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+29-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:19:13-144
+30            android:hardwareAccelerated="true"
+30-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:20:13-47
+31            android:launchMode="singleTop"
+31-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:17:13-43
+32            android:theme="@style/LaunchTheme"
+32-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:18:13-47
+33            android:windowSoftInputMode="adjustResize" >
+33-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:21:13-55
+34
+35            <!--
+36                 This keeps the window background of the activity showing
+37                 until Flutter renders its first frame. It can be removed if
+38                 there is no splash screen (such as the default splash screen
+39                 defined in @style/LaunchTheme).
+40            -->
+41            <meta-data
+41-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:26:13-28:40
+42                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+42-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:27:17-82
+43                android:value="true" />
+43-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:28:17-37
+44
+45            <intent-filter>
+45-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:29:13-32:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:30:17-68
+46-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:30:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:31:17-76
+48-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:31:27-74
+49            </intent-filter>
+50        </activity>
+51        <activity
+51-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:35:9-38:71
+52            android:name="com.yalantis.ucrop.UCropActivity"
+52-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:36:13-60
+53            android:screenOrientation="portrait"
+53-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:37:13-49
+54            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+54-->/home/daveat/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:38:13-69
+55        <activity android:name="com.apptreesoftware.barcodescan.BarcodeScannerActivity" />
+55-->[:barcode_scan] /home/daveat/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-91
+55-->[:barcode_scan] /home/daveat/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:14:19-88
+56
+57        <provider
+57-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+58            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+58-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+59            android:authorities="com.example.zeetomic.flutter.image_provider"
+59-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+60            android:exported="false"
+60-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+61            android:grantUriPermissions="true" >
+61-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+62            <meta-data
+62-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+63                android:name="android.support.FILE_PROVIDER_PATHS"
+63-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+64                android:resource="@xml/flutter_image_picker_file_paths" />
+64-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+65        </provider>
+66        <provider
+66-->[:flutter_webview_plugin] /home/daveat/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/debug/AndroidManifest.xml:9:9-18:20
+67            android:name="androidx.core.content.FileProvider"
+67-->[:flutter_webview_plugin] /home/daveat/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-62
+68            android:authorities="com.example.zeetomic.fileprovider"
+68-->[:flutter_webview_plugin] /home/daveat/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-64
+69            android:exported="false"
+69-->[:flutter_webview_plugin] /home/daveat/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-37
+70            android:grantUriPermissions="true" >
+70-->[:flutter_webview_plugin] /home/daveat/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-47
+71            <meta-data
+71-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+72                android:name="android.support.FILE_PROVIDER_PATHS"
+72-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+73                android:resource="@xml/filepaths" />
+73-->[:image_picker] /home/daveat/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+74        </provider>
+75    </application>
+76
+77</manifest>

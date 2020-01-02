@@ -30,15 +30,19 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
   }
 
   void checkLoginBefore(BuildContext context) async { /* Check For Previous Login */
-    int status = await checkExpiredToken();
-    if (status != 401 && status != null) { /* Check Expired Token */
-      dialogLoading(context); /* Loading */
-      await Future.delayed(Duration(milliseconds: 500), () { /* Pop Loading */
-        Navigator.pop(context);
-      });
-      Navigator.pushReplacementNamed(context, '/dashboardScreen');
-    } else {
-      clearStorage();
+    try{
+      int status = await checkExpiredToken();
+      if (status != 401 && status != null) { /* Check Expired Token */
+        dialogLoading(context); /* Loading */
+        await Future.delayed(Duration(milliseconds: 500), () { /* Pop Loading */
+          Navigator.pop(context);
+        });
+        Navigator.pushReplacementNamed(context, '/dashboardScreen');
+      } else {
+        clearStorage();
+      }
+    } catch (err) {
+      print("My Error");
     }
   }
 

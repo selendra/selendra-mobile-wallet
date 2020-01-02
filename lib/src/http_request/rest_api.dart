@@ -7,6 +7,8 @@ import 'package:http/http.dart' as _http;
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:wallet_apps/src/model/model_scan_invoice.dart';
+
 /* Zeetomic api user data*/
 final _url = "https://testnet-api.zeetomic.com/pub/v1";
 
@@ -150,6 +152,25 @@ Future<Map<String, dynamic>> addMerchant(dynamic _model) async { /* Add New Merc
   return null;
 }
 
+Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) async {
+  _bodyEncode = json.encode({
+    "receipt_no": _modelScanInvoice.controlBillNO.text,
+    "amount": _modelScanInvoice.controlAmount.text,
+    "location": _modelScanInvoice.controlLocation.text,
+    "approval_code": _modelScanInvoice.controlApproveCode.text
+  });
+  _token = await Provider.fetchToken();
+  if (_token != null) {
+    _response = await _http.post(
+      "$_url/addreceipt",
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      body: _bodyEncode
+    );
+    print(_response.body);
+    return json.decode(_response.body);
+  }
+  return null;
+}
 
 /* --------------------------------Get Request------------------------------------ */
 
@@ -219,6 +240,17 @@ Future getPortfolio() async { /* User Porfolio */
   return null;
 }
 
+Future getAllBranches() async {
+  _token = await Provider.fetchToken();
+  if (_token != null) {
+    _response = await _http.get(
+      "$_url/get-all-branches",
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
+    );
+    return json.decode(_response.body);
+  }
+  return null;
+}
 /*--------------------------------Receipt Transaction--------------------------------*/
 
 /* List Branches */
@@ -232,20 +264,20 @@ Future<List<dynamic>> listBranches() async {
   return null;
 }
 
-Future<Map<String, dynamic>> submitInvoice(ModelInvoice _model) async { /* Confirm Receipt */
-  _token = await Provider.fetchToken();
-  if (_token != null){
-    _response = await _http.post(
-      "$_url/confirmreceipt",
-      headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"
-      },
-      body: _model.bodyReceipt(_model)
-    );
-    return json.decode(_response.body);
-  }
-  return null;
-}
+// Future<Map<String, dynamic>> submitInvoice(ModelInvoice _model) async { /* Confirm Receipt */
+//   _token = await Provider.fetchToken();
+//   if (_token != null){
+//     _response = await _http.post(
+//       "$_url/confirmreceipt",
+//       headers: {
+//         HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"
+//       },
+//       body: _model.bodyReceipt(_model)
+//     );
+//     return json.decode(_response.body);
+//   }
+//   return null;
+// }
 
 Future<_http.StreamedResponse> upLoadImage(File image, String endpoint) async { /* Upload image to server by use multi part form*/
   _token = await Provider.fetchToken();

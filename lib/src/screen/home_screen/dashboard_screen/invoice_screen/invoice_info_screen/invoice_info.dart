@@ -1,5 +1,6 @@
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_invoice.dart';
+import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,6 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_scre
 import './invoice_info_body.dart';
 
 class InvoiceInfo extends StatefulWidget{
-  final String uuid;
-
-  InvoiceInfo(this.uuid);
-
   @override
   State<StatefulWidget> createState() {
     return InvoiceInfoState();
@@ -21,75 +18,59 @@ class InvoiceInfo extends StatefulWidget{
 
 class InvoiceInfoState extends State<InvoiceInfo> {
 
-  Bloc bloc = Bloc();
-
-  TextEditingController _controllerBill = TextEditingController(text: ""), 
-    _controllerAmount = TextEditingController(text: ""), 
-    _controllerStore = TextEditingController(text: "");
-
-  FocusNode _nodeBill = FocusNode(), _nodeAmount = FocusNode();
-
-  SimpleAutoCompleteTextField textField;
-
-  GlobalKey<AutoCompleteTextFieldState<String>> key = GlobalKey();
-
-  List<String> listOfBranches = [], listIdOfBranch = [];
-
-  String shopName;
-  
-  ModelInvoice modelInvoice = ModelInvoice();
+  ModelScanInvoice _modelScanInvoice = ModelScanInvoice();
 
   @override
   initState(){
-    modelInvoice.uuid = widget.uuid;
-    requestListOfBranches();
+    getAllBranches();
+    fetchAllBranches();
     super.initState();
   }
 
-  void requestListOfBranches() async {
-    var response = await listBranches();
-    for (int i = 0; i < response.length; i++){
-      listOfBranches.add(response[i]['branchName']);
-      listIdOfBranch.add(response[i]['_id']);
+  /* ---------------Rest Api--------------- */
+  void fetchAllBranches() async {
+    var _response = await getAllBranches();
+    print(_response);
+    for (int i = 0; i < _response.length; i++){
+      _modelScanInvoice.listNameOfBranches.add(_response[i]['branches_name']);
+      // _modelScanInvoice.listIdOfBranch.add(_response[i]['_id']);
     }
+    setState(() { });
   }
 
   void textChanged(String label, String changed) {
-    setState(() {
-      if (label == "Bills number") modelInvoice.invoiceno = changed;
-      else if (label == "Amount")  modelInvoice.amount = changed;
-    });
+    // setState(() {
+    //   if (label == "Bills number") modelInvoice.invoiceno = changed;
+    //   else if (label == "Amount")  modelInvoice.amount = changed;
+    // });
   }
 
   void shopChanged(String branchName) async {
-    getIdFromBranchName(branchName);
+    // getIdFromBranchName(branchName);
+    print(branchName);
     await Future.delayed(Duration(milliseconds: 100), (){
       setState(() {
-        _controllerStore.text = branchName;
+        _modelScanInvoice.controlLocation.text = branchName;
       });
     });
   }
 
   void getIdFromBranchName(String branchName) {
-    int index = listOfBranches.indexOf(branchName);
-    modelInvoice.branchesid = listIdOfBranch[index];
+    // int index = listOfBranches.indexOf(branchName);
+    // modelInvoice.branchesid = listIdOfBranch[index];
   }
 
   void toSummaryInvoice() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => InvoiceSummary()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InvoiceSummary(_modelScanInvoice)));
   }
   
   void popScreen() => Navigator.pop(context);
   
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _context) {
     return Scaffold(
       body: invoiceBodyWidget(
-        bloc, 
-        context, 
-        shopName, _controllerStore, _controllerBill, _controllerAmount, 
-        key, 
-        listOfBranches, 
-        _nodeBill, _nodeAmount,
+        _context,
+        _modelScanInvoice,
         shopChanged, textChanged, toSummaryInvoice, popScreen
       ),
     );

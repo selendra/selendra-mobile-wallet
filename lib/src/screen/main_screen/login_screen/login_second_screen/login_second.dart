@@ -52,7 +52,14 @@ class LoginSecondState extends State<LoginSecond>{
         "/loginbyphone", "phone"
       );
     }
-    if (response == true) Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
+    if (response == true) {
+      Navigator.pushAndRemoveUntil(
+        context, 
+        MaterialPageRoute(builder: (context) => Dashboard()), 
+        ModalRoute.withName('/')
+      );
+    }
+    
     // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
     // await Future.delayed(Duration(milliseconds: 100), (){
     //   checkConnection(context).then((isConnect) {
