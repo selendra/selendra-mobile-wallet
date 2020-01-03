@@ -46,8 +46,8 @@ class DashboardState extends State<Dashboard> {
 
   /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
-    var _response = await getUserProfile();
-    setData(_response, "user_profile");
+    _modelDashboard.userWallet = await getUserProfile();
+    setData(_modelDashboard.userWallet, "user_profile");
     // Map<String, dynamic> data = await fetchData('userDataLogin');
     // if (data == null) {
     //   setState(() {
@@ -167,7 +167,7 @@ class DashboardState extends State<Dashboard> {
   }
   
   void toReceiveToken(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.token)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.userWallet['wallet'])));
   }
   
   @override

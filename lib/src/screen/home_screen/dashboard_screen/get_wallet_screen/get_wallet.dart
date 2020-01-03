@@ -26,7 +26,8 @@ class GetWalletState extends State<GetWallet>{
 
   /* Fetch Only User ID */
   void fetchWallet() async {
-    userData = await fetchData("userStatusAndWallet");
+    userData = await fetchData("user_profile");
+    print(userData);
     Future.delayed(Duration(seconds: 1), () {
       setState(() {});
     });

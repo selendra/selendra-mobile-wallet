@@ -255,6 +255,19 @@ Future getAllBranches() async {
   }
   return null;
 }
+
+Future<dynamic> getReceipt() async {
+  
+  _token = await Provider.fetchToken();
+  if (_token != null) {
+    _response = await _http.get(
+      "$_url/get-receipt",
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
+    );
+    return json.decode(_response.body);
+  }
+  return null;
+}
 /*--------------------------------Receipt Transaction--------------------------------*/
 
 /* List Branches */

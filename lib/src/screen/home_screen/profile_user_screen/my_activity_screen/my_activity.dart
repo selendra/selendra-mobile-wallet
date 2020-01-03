@@ -30,7 +30,7 @@ class MyActivityState extends State<MyActivity>{
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
-    _activity = await trxUserHistory();
+    _activity = await getReceipt();
     setState(() { });
   }
 
@@ -54,6 +54,7 @@ class MyActivityState extends State<MyActivity>{
   }
 
   void popScreen() => Navigator.pop(context);
+
 
   Widget build(BuildContext context) {
     return Scaffold(

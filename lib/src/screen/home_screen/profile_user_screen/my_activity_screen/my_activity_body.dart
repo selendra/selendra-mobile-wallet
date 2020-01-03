@@ -24,10 +24,10 @@ Widget activityBodyWidget(
                 _popScreen,
               ),
               containerTitle("My Activity", double.infinity, Colors.white, FontWeight.bold),
-              buildListBodyWidget(_activityList)
             ],
           )
         ),
+        buildListBodyWidget(_activityList)
       ],
     ),
   );

@@ -5,7 +5,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 Widget getWalletBody(
   BuildContext context,
   // Map<String, dynamic> userData,
-  String token,
+  String _token,
   Function snackBar, Function popScreen
 ){
   return scaffoldBGDecoration(
@@ -38,7 +38,7 @@ Widget getWalletBody(
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(bottom: 29.52),
-                    child: qrCodeGenerate(token),
+                    child: qrCodeGenerate(_token),
                   ),
                   /* Wallet Text */
                   Container(
@@ -50,9 +50,9 @@ Widget getWalletBody(
                           child: Text("Click on address to copy", style: TextStyle(fontSize: 17.0, color: getHexaColor("#959CA7")),),
                         ),
                         InkWell(
-                          child: Text(token, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
+                          child: Text(_token, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
                           onTap: () {
-                            Clipboard.setData(ClipboardData(text: token));
+                            Clipboard.setData(ClipboardData(text: _token));
                             snackBar('Copied');
                           },
                         )
@@ -83,7 +83,7 @@ Widget getWalletBody(
           //       children: <Widget>[
           //         Container(
           //           margin: EdgeInsets.only(bottom: 29.52),
-          //           child: qrCodeGenerate(token),
+          //           child: qrCodeGenerate(_token),
           //         ),
           //         /* Wallet Text */
           //         Container(
@@ -95,9 +95,9 @@ Widget getWalletBody(
           //                 child: Text("Click on address to copy", style: TextStyle(fontSize: 17.0, color: getHexaColor("#959CA7")),),
           //               ),
           //               InkWell(
-          //                 child: Text(token, style: TextStyle(fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
+          //                 child: Text(_token, style: TextStyle(fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
           //                 onTap: () {
-          //                   Clipboard.setData(ClipboardData(text: token));
+          //                   Clipboard.setData(ClipboardData(text: _token));
           //                   snackBar('Copied');
           //                 },
           //               )

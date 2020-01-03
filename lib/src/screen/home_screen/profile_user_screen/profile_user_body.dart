@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/add_asset_screen/add_asset.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pin_screen/change_pin.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/my_activity_screen/my_activity.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/set_pin_code_dialog_screen/set_pin_code_dialog.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
@@ -124,10 +125,10 @@ Widget profileUserBodyWidget(
                     case 1 : {
                       Navigator.pop(context);
                       blurBackgroundDecoration(context, TransactionHistoryWidget()); break;
-                      // BlurBackground(child: TransactionHistoryWidget()); break;
                     }
                     case 2 : {
-                      // await dialogBox(context); 
+                      Navigator.pop(context);
+                      blurBackgroundDecoration(context, MyActivity());
                       break;
                     }
                     case 3 : {
