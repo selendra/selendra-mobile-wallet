@@ -180,10 +180,11 @@ BoxShadow shadow(Color hexaCode, double blurRadius, double spreadRadius) {
 }
 
 /* -------------------------------------- Raised Button -----------------------------------------*/
-Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButton, EdgeInsetsGeometry edgeMargin) {
+Widget lightBlueButton(BuildContext _context, AsyncSnapshot snapshot, Function action, String textButton, EdgeInsetsGeometry edgeMargin) {
   return Container(
     margin: edgeMargin,
     width: double.infinity,
+    height: 50.0,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(5.0),
     ),
@@ -201,7 +202,7 @@ Widget lightBlueButton(AsyncSnapshot snapshot, Function action, String textButto
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)),
       onPressed: snapshot.data == null ? null : () {
-        action();
+        action(_context);
       }
     ),
   );
@@ -374,9 +375,7 @@ blurBackgroundDecoration(BuildContext context, dynamic screen) {
             sigmaX: 20.0,
             sigmaY: 20.0,
           ),
-          child: Center(
-            child: screen,
-          ),
+          child: screen,
         ),
       );
     }
@@ -387,7 +386,7 @@ blurBackgroundDecoration(BuildContext context, dynamic screen) {
 Widget bottomAppBar(
   BuildContext context, 
   ModelDashboard _modelDashboard, 
-  Function scanQR, Function scanReceipt, Function resetState, Function receiveToken){
+  Function scanQR, Function scanReceipt, Function resetState, Function toReceiveToken){
   return Stack(
     children: <Widget>[
       Container(
@@ -420,7 +419,7 @@ Widget bottomAppBar(
                           // padding: EdgeInsets.only(left: 28.0),
                           icon: Icon(OMIcons.arrowUpward, color: Colors.white,),
                           onPressed: () async {
-                            await scanQR(context, _modelDashboard, resetState, receiveToken);
+                            await scanQR(context, _modelDashboard, resetState, toReceiveToken);
                           }
                         ),
                       ),
@@ -440,7 +439,7 @@ Widget bottomAppBar(
                           color: Colors.white,
                           iconSize: 30.0,
                           icon: Icon(OMIcons.arrowDownward),
-                          onPressed: receiveToken
+                          onPressed: toReceiveToken
                         ),
                       ),
                       Text("Receive Token", style: TextStyle(color: getHexaColor("#97AAC3"), fontSize: 10.0))

@@ -1,9 +1,13 @@
 /* Flutter package */
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/model/model_forgot_password.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/change_password_screen/change_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/add_success_screen/add_success.dart';
@@ -28,8 +32,13 @@ import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcom
 
 void main () {
   WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error, " accessed before the binding was initialized " */
-  debugPaintSizeEnabled = true;
+  // debugPaintSizeEnabled = true;
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  FlutterError.onError = (FlutterErrorDetails details) { /* Catch Error During Callback */
+    FlutterError.dumpErrorToConsole(details);
+    if (kReleaseMode)
+      exit(1);
+  };
   runApp(App());
 }
 

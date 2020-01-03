@@ -42,7 +42,6 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
         clearStorage();
       }
     } catch (err) {
-      print("My Error");
     }
   }
 

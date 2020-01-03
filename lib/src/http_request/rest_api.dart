@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
+import 'package:wallet_apps/src/model/model_scan_pay.dart';
 
 /* Zeetomic api user data*/
 final _url = "https://testnet-api.zeetomic.com/pub/v1";
@@ -114,21 +115,26 @@ Future<Map<String, dynamic>> addAsset(dynamic _model) async { /* Add New Asset *
   return null;
 }
 
-Future<Map<String, dynamic>> sendPayment(dynamic _model) async { /* QR Code Send Request */
+Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code Send Request */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
-    "asset-code": _model.controlAssetCode.text,
-    "destination": _model.controlDestination.text,
+    "pin": _model.pin,
+    "asset_code": _model.asset,
+    "destination": _model.destination,
     "amount": _model.controlAmount.text,
     "memo": _model.controlMemo.text
   });
   if (_token != null){
     _response = await _http.post(
       "$_url/sendpayment",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
       body: _bodyEncode
     );
-    return json.decode(_response.body);
+    Map<String, dynamic> _decode = json.decode(_response.body);
+    _decode.addAll({
+      "status_code": _response.statusCode
+    });
+    return _decode;
   }
   return null;
 }
@@ -166,7 +172,6 @@ Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) asyn
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
       body: _bodyEncode
     );
-    print(_response.body);
     return json.decode(_response.body);
   }
   return null;
@@ -186,14 +191,13 @@ Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */
   return null;
 }
 
-Future<int> checkExpiredToken() async {
+Future<int> checkExpiredToken() async { /* Expired Token In Welcome Screen */
   _token = await Provider.fetchToken();
   if (_token != null){
     _response = await _http.get(
       "$_url/userprofile",
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
     );
-    print(_response.statusCode);
     return _response.statusCode;
   }
   return null;

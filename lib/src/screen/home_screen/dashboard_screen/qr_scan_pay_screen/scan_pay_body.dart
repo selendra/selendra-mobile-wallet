@@ -5,35 +5,35 @@ import 'package:flutter/material.dart';
 Widget scanPayBodyWidget(
   String _walletKey,
   dynamic dialog,
-  ModelScanPay modelPay,
-  List portFolio,
-  Function payProgress,
-  Future<bool> checkFillAll,
-  Function clickSend, Function resetAssetsDropDown
+  ModelScanPay _modelScanPay,
+  Function payProgress, Function validateInput, Function clickSend, Function resetAssetsDropDown
 ) {
   return Container(
-    padding: EdgeInsets.all(16.0),
+    padding: EdgeInsets.only(top: 16.0, left: 40.0, right: 40.0),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         /* Wallet Key or address */
         Text(_walletKey, style: TextStyle(color: getHexaColor(lightBlueSky), fontSize: 18.0), textAlign: TextAlign.center,),
-        /* Type of payment */
-        Theme(
+        Theme( /* Type of payment */
           data: ThemeData(canvasColor: getHexaColor("#36363B")),
           child: DropdownButton(
-            value: modelPay.asset,
+            value: _modelScanPay.asset,
             onChanged: (data) {
               resetAssetsDropDown(data);
             },
-            items: portFolio != null ? portFolio.map((list){
+            items: _modelScanPay.portfolio.length != 0 ? _modelScanPay.portfolio.map((list){
               return DropdownMenuItem(
-                value: list['asset_code'],
+                value: list.containsKey("asset_code") /* Check Asset Code Key */ 
+                ? list["asset_code"] 
+                : "XLM",
                 child: Align(
                   alignment: Alignment.center, 
                   child: Text(
-                    list['asset_code'],
+                    list.containsKey("asset_code") /* Check Asset Code Key */
+                    ? list["asset_code"] 
+                    : "XLM",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -44,17 +44,17 @@ Widget scanPayBodyWidget(
         /* User Fill Out Amount */
         Container(
           margin: EdgeInsets.only(top: 20.0),
-          child: userInput("Amount", modelPay, TextInputType.number),
+          child: userInput("Amount", _modelScanPay, TextInputType.number),
         ),
         Container(
           margin: EdgeInsets.only(top: 20.0),
-          child: userInput("Memo", modelPay, null),
+          child: userInput("Memo", _modelScanPay, null),
         ),
         /* Button Send */
         FutureBuilder(
-          future: checkFillAll,
-          builder: (context, snapshot) {
-            return lightBlueButton(snapshot, clickSend, "Send", EdgeInsets.only(top: 20.0));
+          future: validateInput(),
+          builder: (_context, snapshot) {
+            return lightBlueButton(_context, snapshot, clickSend, "Send", EdgeInsets.only(top: 20.0));
           },
         )
       ],
@@ -62,17 +62,17 @@ Widget scanPayBodyWidget(
   );
 }
 
-Widget userInput(String text, ModelScanPay scanPay, var keyBoardType) {
+Widget userInput(String text, ModelScanPay _scanPay, var keyBoardType) {
   return TextField(
     style: TextStyle(color: Colors.white),
     onChanged: (changed){
-      if (text == "Amount") scanPay.amount = changed; 
-      else if (text == "Memo") scanPay.memo = changed;
+      if (text == "Amount") _scanPay.controlAmount.text = changed; 
+      else if (text == "Memo") _scanPay.controlMemo.text = changed;
     },
     decoration: InputDecoration(
-      fillColor: black38, filled: true,
+      filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
       hintText: text,
-      contentPadding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: 20.0),
+      contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0),
       hintStyle: TextStyle(color: Colors.white),
       enabledBorder: outlineInput(getHexaColor(lightBlueSky)),
       focusedBorder: outlineInput(getHexaColor(lightBlueSky)),

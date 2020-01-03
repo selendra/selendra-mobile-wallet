@@ -14,7 +14,6 @@ import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
-import '../drawer_widget.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import './dashboard_body.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
@@ -35,22 +34,23 @@ class DashboardState extends State<Dashboard> {
     super.initState();  
     fetchUserToken(); /* Query User Id After Login From Local Storage */ 
     // getUser(); 
-    getUserProfile();
-    // getUserData(); /* Query All User Data From Local Storage */
+    getUserData(); /* User Profile */
     fetchPortfolio();
     // fetchWallet();
   }
 
   /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
-    Map<String, dynamic> data = await fetchData('userDataLogin');
-    if (data == null) {
-      setState(() {
-        _modelDashboard.userData = {
-          "queryUserById": null
-        };
-      });
-    } else _modelDashboard.userData = data;
+    var _response = await getUserProfile();
+    setData(_response, "user_profile");
+    // Map<String, dynamic> data = await fetchData('userDataLogin');
+    // if (data == null) {
+    //   setState(() {
+    //     _modelDashboard.userData = {
+    //       "queryUserById": null
+    //     };
+    //   });
+    // } else _modelDashboard.userData = data;
   }
 
   void getStatus() async {

@@ -1,3 +1,5 @@
+import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/model/model_scan_pay.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -6,51 +8,40 @@ import './scan_pay_body.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import 'package:flutter/material.dart';
 
-class ScanPay extends StatefulWidget{
+class SendPayment extends StatefulWidget{
 
   final String _walletKey;
+  final ModelDashboard _modelDashBaord;
 
-  ScanPay(this._walletKey);
+  SendPayment(this._walletKey, this._modelDashBaord);
   @override
   State<StatefulWidget> createState() {
-    return ScanPayState();
+    return SendPaymentState();
   }
 }
 
-class ScanPayState extends State<ScanPay>{
+class SendPaymentState extends State<SendPayment>{
 
   ModelScanPay _modelScanPay = ModelScanPay();
 
   @override
   void initState() {
-    fetchIDs();
-    _modelScanPay.wallet = widget._walletKey;
+    _modelScanPay.destination = widget._walletKey;
     _modelScanPay.asset = "ZTO";
-    // fetchPortfolio();
+    _modelScanPay.portfolio = widget._modelDashBaord.portfolio;
     super.initState();
   }
-
-  // void fetchPortfolio() async{ /* Fetch Portfolio From Local Storage */
-  //   var response = await fetchData('portFolioData');
-  //   setState(() {
-  //     for (int i = 0; i < response['data'].length; i++) {
-  //       if (response['data'][i]['asset_code'] != null) {
-  //         portFolio.add(response['data'][i]);
-  //       }
-  //     }
-  //   });
-  // }
-
+  
   void fetchIDs() async {
     await Provider.fetchUserIds();
     setState(() {});
   }
   
-  Future<bool> checkFillAll() { /* Check User Fill Out ALL */
+  Future<bool> validateInput() { /* Check User Fill Out ALL */
     if ( 
-      _modelScanPay.amount != null && _modelScanPay.amount != "" &&
-      _modelScanPay.memo != null && _modelScanPay.memo != "" &&
-      _modelScanPay.wallet != null &&
+      _modelScanPay.controlAmount.text != null && _modelScanPay.controlAmount.text != "" &&
+      _modelScanPay.controlMemo.text != null && _modelScanPay.controlMemo.text != "" &&
+      _modelScanPay.destination != null &&
       _modelScanPay.asset != null
     ){
       return Future.delayed(Duration(milliseconds: 50), () {
@@ -60,20 +51,21 @@ class ScanPayState extends State<ScanPay>{
     return null;
   }
   
-  void clickSend() async { /* Click Send Qraph Ql Action */
-    // await dialogBox();
-    // payProgres();
-    // runMutation({
-    //   'pins': _modelScanPay.pin,
-    //   'assets': _modelScanPay.asset,
-    //   'wallets': _modelScanPay.wallet,
-    //   'amounts': _modelScanPay.amount,
-    //   'memoes': _modelScanPay.memo
-    // });
+  void clickSend(BuildContext _context) async { /* Send payment */
+    _modelScanPay.pin = await dialogBox();
+    payProgres();
+    var _response = await sendPayment(_modelScanPay);
+    setState(() {
+      _modelScanPay.isPay = false;
+    });
+    if (_response["status_code"] == 200 ){
+      await dialog(_context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(blueColor)));
+      Navigator.pop(context);
+    }
   }
 
-  void dialogBox() async { /* Show Pin Code For Fill Out */
-    var _result = await showDialog(
+  dialogBox() async { /* Show Pin Code For Fill Out */
+    String _result = await showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
@@ -83,9 +75,7 @@ class ScanPayState extends State<ScanPay>{
         );
       }
     );
-    setState(() {
-      _modelScanPay.pin = _result;
-    });
+    return _result;
   }
 
   /* Loading For User Pay */
@@ -123,7 +113,7 @@ class ScanPayState extends State<ScanPay>{
               ],
             )
           ),
-          scanPayBodyWidget(widget._walletKey, dialogBox, _modelScanPay, _modelScanPay.portFolio, payProgres, checkFillAll(), clickSend, resetAssetsDropDown), /* Scan Pay Body Widget */
+          scanPayBodyWidget(widget._walletKey, dialogBox, _modelScanPay, payProgres, validateInput, clickSend, resetAssetsDropDown), /* Scan Pay Body Widget */
           _modelScanPay.isPay == false ? Container() : Container(
             color: Colors.black.withOpacity(0.9),
             child: Column(

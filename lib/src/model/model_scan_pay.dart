@@ -4,12 +4,9 @@ class ModelScanPay{
   /* Scan Pay */
   String pin;
   String asset;
-  String wallet;
-  String amount;
-  String memo;
+  String destination;
   bool isSuccessPin = false, isPay = false;
-  ModelScanPay modelPay = ModelScanPay();
-  List portFolio = [];
+  List portfolio = [];
 
   TextEditingController controlAmount = TextEditingController();
   TextEditingController controlMemo = TextEditingController();

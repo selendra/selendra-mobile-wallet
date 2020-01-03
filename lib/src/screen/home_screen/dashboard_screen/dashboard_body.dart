@@ -1,5 +1,4 @@
 /* Flutter Package */
-import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/Image_slide_show_widget.dart';
 import 'package:flutter/material.dart';
 /* File Path */
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -155,27 +154,5 @@ Widget cardTokenAndProfit() {
         ),
       )
     ],
-  );
-}
-
-Widget sliderImage() {
-  return Card(
-    margin: EdgeInsets.all(size4),
-    child: Container(
-      decoration: BoxDecoration(
-      border: Border.all(width: size1, color: getHexaColor(borderColor)),
-      borderRadius: BorderRadius.circular(size5)),
-      child: Padding(
-        padding:
-          EdgeInsets.only(top: 25.0, bottom: 25.0, left: size4, right: size4),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            slideShow()
-          ],
-        ),
-      ),
-    ),
   );
 }

@@ -1,6 +1,7 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
@@ -76,29 +77,29 @@ Widget cardToken( /* Card Token Display */
 }
 
 /* Scan QR Code */
-Future scanQR(BuildContext _context, ModelDashboard _model, Function _resetState, Function _fetchPortfolio) async {
+Future scanQR(BuildContext _context, ModelDashboard _modelDashBaord, Function _resetState, Function _toReceiveToken) async {
   try {
-    String barcode = await BarcodeScanner.scan();
-    var _response = await blurBackgroundDecoration(_context, ScanPay(barcode));
+    String _barcode = await BarcodeScanner.scan();
+    var _response = await blurBackgroundDecoration(_context, SendPayment(_barcode, _modelDashBaord));
     if (_response == "succeed") {
-      _resetState(null, "portfolio", _model, _fetchPortfolio);
+      _resetState(null, "portfolio", _modelDashBaord, _toReceiveToken);
     }
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.CameraAccessDenied) 
-      _resetState("The user did not grant the camera permission!", "barcode", _model, _fetchPortfolio);
+      _resetState("The user did not grant the camera permission!", "barcode", _modelDashBaord, _toReceiveToken);
     else 
-      _resetState("Unknown error: $e", "barcode", _model, _fetchPortfolio);
+      _resetState("Unknown error: $e", "barcode", _modelDashBaord, _toReceiveToken);
   } on FormatException {
     _resetState(
       "null (User returned using the 'back' -button before scanning anything. Result)", "barcode",
-      _model, 
-      _fetchPortfolio
+      _modelDashBaord, 
+      _toReceiveToken
     );
   } catch (e){
     _resetState(
       "Unknown error: $e",
-      _model, 
-      _fetchPortfolio
+      _modelDashBaord, 
+      _toReceiveToken
     );
   }
 }

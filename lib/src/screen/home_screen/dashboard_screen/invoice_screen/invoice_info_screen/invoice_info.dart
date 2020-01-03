@@ -30,7 +30,6 @@ class InvoiceInfoState extends State<InvoiceInfo> {
   /* ---------------Rest Api--------------- */
   void fetchAllBranches() async {
     var _response = await getAllBranches();
-    print(_response);
     for (int i = 0; i < _response.length; i++){
       _modelScanInvoice.listNameOfBranches.add(_response[i]['branches_name']);
       // _modelScanInvoice.listIdOfBranch.add(_response[i]['_id']);
