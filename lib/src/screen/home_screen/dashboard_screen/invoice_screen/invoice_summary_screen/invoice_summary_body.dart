@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:slider_button/slider_button.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/model/model_invoice.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_reuse_widget.dart';
@@ -42,11 +39,11 @@ Widget invoiceSummaryBodyWidget(
                   width: double.infinity,
                   color: Colors.white,
                   margin: EdgeInsets.only(bottom: 9.0),
-                  child: Image.asset("assets/invoice.png", height: 172,),
+                  child: Image.network(_modelScanInvoice.imageUri['uri']), height: 172,
                 ),
-                invoiceSummary("Store location", "TOUS les JOURS Kampuchea Krom", FontWeight.normal) /* Store Location */,
-                invoiceSummary("Bills number", "15004341", FontWeight.bold) /* Bill Number */,
-                invoiceSummary("Amount", "\$15.75", FontWeight.bold) /* Receipt Amount */,
+                invoiceSummary("Store location", _modelScanInvoice.controlAmount.text, FontWeight.normal) /* Store Location */,
+                invoiceSummary("Bills number", _modelScanInvoice.controlBillNO.text, FontWeight.bold) /* Bill Number */,
+                invoiceSummary("Amount", "\$${_modelScanInvoice.controlAmount.text}", FontWeight.bold) /* Receipt Amount */,
               ],
             ),
           ),

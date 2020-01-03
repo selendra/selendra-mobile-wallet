@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:wallet_apps/src/model/model_invoice.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
@@ -284,11 +283,11 @@ Future<List<dynamic>> listBranches() async {
 //   return null;
 // }
 
-Future<_http.StreamedResponse> upLoadImage(File image, String endpoint) async { /* Upload image to server by use multi part form*/
+Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async { /* Upload image to server by use multi part form*/
   _token = await Provider.fetchToken();
   /* Compress image file */
   List<int> compressImage = await FlutterImageCompress.compressWithFile(
-    image.path,
+    _image.path,
     minHeight: 1300,
     minWidth: 1000,
     quality: 100,

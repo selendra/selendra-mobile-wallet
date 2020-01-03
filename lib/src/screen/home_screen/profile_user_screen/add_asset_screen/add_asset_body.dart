@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget addAssetBodyWidget(
-  BuildContext context,
+  BuildContext _context,
   ModelAsset _modelAsset,
   Function popScreen, Function onChanged, Function submitAddAsset
 ) {
@@ -12,7 +12,7 @@ Widget addAssetBodyWidget(
     child: Column(
       children: <Widget>[
         containerAppBar( /* AppBar */
-          context, 
+          _context, 
           Row(
             children: <Widget>[
               iconAppBar( /* Arrow Back Button */
@@ -34,7 +34,7 @@ Widget addAssetBodyWidget(
                   Container(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField( /* Asset Code Field */
-                      _modelAsset.bloc, context, 
+                      _modelAsset.bloc, _context, 
                       "Asset Code", null, "addAssetScreen", 
                       false, 
                       TextInputType.text, TextInputAction.next, 
@@ -46,7 +46,7 @@ Widget addAssetBodyWidget(
                   Container( /* Issuer Field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelAsset.bloc, context, 
+                      _modelAsset.bloc, _context, 
                       "Issuer", null, "addAssetScreen", 
                       false, 
                       TextInputType.text, TextInputAction.done, 
@@ -57,7 +57,7 @@ Widget addAssetBodyWidget(
                   ),
                   customFlatButton( /* Add Asset Button */
                     _modelAsset.bloc, 
-                    context, 
+                    _context, 
                     "Add assets", "addAssetScreen", blueColor,
                     FontWeight.normal, 
                     size18,

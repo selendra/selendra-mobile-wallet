@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget createPasswordBodyWidget(
-  BuildContext context,
+  BuildContext _context,
   ModelSignUp _modelSignUp,
   Function onChanged, Function popScreen, Function changeFocus, Function navigatePage
 ) {
@@ -11,7 +11,7 @@ Widget createPasswordBodyWidget(
     child: Column(
       children: <Widget>[
         containerAppBar( /* AppBar */
-          context, 
+          _context, 
           Row(
             children: <Widget>[
               iconAppBar( /* Arrow Back Button */
@@ -33,7 +33,7 @@ Widget createPasswordBodyWidget(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
                     _modelSignUp.bloc, 
-                    context, "Password", null, "createPasswordScreen", 
+                    _context, "Password", null, "createPasswordScreen", 
                     true, 
                     TextInputType.text, TextInputAction.next, 
                     _modelSignUp.controlPasswords, 
@@ -46,7 +46,7 @@ Widget createPasswordBodyWidget(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
                     _modelSignUp.bloc, 
-                    context, "Confirm Password", null, "createPasswordScreen", 
+                    _context, "Confirm Password", null, "createPasswordScreen", 
                     true, 
                     TextInputType.text, TextInputAction.done, 
                     _modelSignUp.controlConfirmPasswords, 
@@ -58,7 +58,7 @@ Widget createPasswordBodyWidget(
                 _modelSignUp.isMatch == false ? Container() : Text("Confirm password not match !", style: TextStyle(fontSize: 18.0, color: Colors.red),),
                 customFlatButton( /* Button Request Code */
                   _modelSignUp.bloc,
-                  context,
+                  _context,
                   "Create Now", "signUpFirstScreen", greenColor,
                   FontWeight.normal,
                   size18,

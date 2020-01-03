@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/model/model_invoice.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';

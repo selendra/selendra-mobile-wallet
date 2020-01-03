@@ -65,11 +65,4 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
       ),
     );
   }
-  // _getHeight() {
-  //   final RenderBox renderBox = _containerKey.currentContext.findRenderObject();
-  //   final mySize = renderBox.size;
-  //   setState(() {
-  //     _containerSize = mySize;
-  //   });
-  // }
 }

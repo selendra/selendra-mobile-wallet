@@ -1,12 +1,15 @@
 /* Package of flutter */
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'dart:async';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 /* Directory of file */
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
+import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
@@ -28,6 +31,8 @@ class Dashboard extends StatefulWidget {
 class DashboardState extends State<Dashboard> {
   
   ModelDashboard _modelDashboard = ModelDashboard();
+
+  ModelScanInvoice _modelScanInvoice = ModelScanInvoice();
 
   @override
   initState() { /* Initialize State */
@@ -70,7 +75,7 @@ class DashboardState extends State<Dashboard> {
   void openMenu() => blurBackgroundDecoration(context, ProfileUser()); /* Navigate To Profile User */
 
   /* Log Out Method */
-  void logOut() async{
+  void logOut(BuildContext context) async{
     /* Loading */
     dialogLoading(context);
     clearStorage();
@@ -137,23 +142,19 @@ class DashboardState extends State<Dashboard> {
     return null;
   }
 
-  void scanReceipt() async {
-    // File cropimage = await cropImageCamera(context);
-    // if (cropimage != null){
-    //   dialogLoading(context);
-    //   StreamedResponse portfolio = await upLoadImage(cropimage, "upload");
-    //   portfolio.stream.transform(utf8.decoder).listen((data) async {
-    //     Map<String, dynamic> result = await json.decode(data);result['uuid']
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => InvoiceInfo()));
-        // var result = await json.decode(data);
-        // setState(() {
-        //   _image = result['url'];
-        // });
-        // Map<String, dynamic> result = await json.decode(data);
-        // await ocrImage(result['url']);
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptVerify()));
-      // });
-    // }
+  void scanReceipt() async { /* Receipt Scan Pay Process */
+    File cropimage = await cropImageCamera(context); /* Crop Image From Back Camera */
+    if (cropimage != null){
+      dialogLoading(context); /* Show Loading Process */
+      StreamedResponse _streamedResponse = await upLoadImage(cropimage, "upload"); /* POST Image And Wait Response Back */
+      _streamedResponse.stream.transform(utf8.decoder).listen((data) async {
+        Navigator.pop(context); /* Close Loading Process */
+        _modelScanInvoice.imageUri = json.decode(data); /* Convert Data From Json To Object */
+        Navigator.of(context).push( /* Navigate To Invoice Fill Information */
+          MaterialPageRoute(builder: (context) => InvoiceInfo(_modelScanInvoice))
+        );
+      });
+    }
   }
 
   void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function fetchPortfolio) {
@@ -165,8 +166,8 @@ class DashboardState extends State<Dashboard> {
     });
   }
   
-  void toReceiveToken(BuildContext _context) {
-    Navigator.of(_context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.token)));
+  void toReceiveToken(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.token)));
   }
   
   @override

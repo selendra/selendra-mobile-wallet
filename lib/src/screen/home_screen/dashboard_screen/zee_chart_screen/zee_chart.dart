@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
+import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
@@ -18,6 +19,8 @@ class ZeeChart extends StatefulWidget{
 class ZeeChartState extends State<ZeeChart>{
 
   ModelDashboard _modelDashboard = ModelDashboard();
+
+  ModelScanInvoice _modelScanInvoice = ModelScanInvoice();
 
   RefreshController _refreshController = RefreshController();
 
@@ -59,7 +62,7 @@ class ZeeChartState extends State<ZeeChart>{
   //   StreamedResponse response = await upLoadImage(cropimage, "upload");
   //   response.stream.transform(utf8.decoder).listen((data) async {
   //     Map<String, dynamic> result = await json.decode(data);result['uuid']
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => InvoiceInfo()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => InvoiceInfo(_modelScanInvoice)));
       // var result = await json.decode(data);
       // setState(() {
       //   _image = result['url'];
@@ -72,6 +75,7 @@ class ZeeChartState extends State<ZeeChart>{
   }
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: scaffoldBGDecoration( /* Background Decoration */
         16.0, 16.0, 16.0, 0, 

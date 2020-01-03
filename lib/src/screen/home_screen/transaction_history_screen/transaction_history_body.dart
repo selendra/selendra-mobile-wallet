@@ -5,7 +5,7 @@ import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/ta
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/tab_bars_list/send_transaction.dart';
 
 Widget transactionBodyWidget(
-  BuildContext context,
+  BuildContext _context,
   List<dynamic> _history, 
   Function popScreen
 ) {
@@ -14,7 +14,7 @@ Widget transactionBodyWidget(
     child: Column(
       children: <Widget>[
         containerAppBar( /* AppBar */
-          context, 
+          _context, 
           Row(
             children: <Widget>[
               iconAppBar( /* Arrow Back Button */
@@ -58,7 +58,7 @@ Widget transactionBodyWidget(
   //       controller: _refreshController,
   //       child: isProgress == false ? Container(
   //         margin: EdgeInsets.all(size4),
-  //         child: _history == null ? textNotification("No History", context) : bodyWidget(context, _history, _containerKey, _containerSize, _height),
+  //         child: _history == null ? textNotification("No History", _context) : bodyWidget(_context, _history, _containerKey, _containerSize, _height),
   //       ) : loading(),
   //       onRefresh: _reFresh,
   //     )
@@ -80,7 +80,7 @@ Widget transactionBodyWidget(
   //             primary: false,
   //             shrinkWrap: true,
   //             itemCount: _history.length,
-  //             itemBuilder: (BuildContext context, int index) {
+  //             itemBuilder: (BuildContext _context, int index) {
   //               return Container(
   //                 padding: EdgeInsets.all(0.0),
   //                 margin: EdgeInsets.only(top: size4),
@@ -100,8 +100,8 @@ Widget transactionBodyWidget(
   //                   ),
   //                   onTap: () {
   //                     showDialog(
-  //                       context: context,
-  //                       builder: (BuildContext context){
+  //                       _context: _context,
+  //                       builder: (BuildContext _context){
   //                         return AlertDialog(
   //                           shape: RoundedRectangleBorder(
   //                             side: BorderSide(width: size1, color: getHexaColor(borderColor)),

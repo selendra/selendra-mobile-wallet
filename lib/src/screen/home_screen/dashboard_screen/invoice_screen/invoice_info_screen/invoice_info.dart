@@ -1,5 +1,3 @@
-import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/model/model_invoice.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
@@ -10,6 +8,10 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_scre
 import './invoice_info_body.dart';
 
 class InvoiceInfo extends StatefulWidget{
+
+  final ModelScanInvoice _modelScanInvoice;
+
+  InvoiceInfo(this._modelScanInvoice);
   @override
   State<StatefulWidget> createState() {
     return InvoiceInfoState();
@@ -17,8 +19,6 @@ class InvoiceInfo extends StatefulWidget{
 }
 
 class InvoiceInfoState extends State<InvoiceInfo> {
-
-  ModelScanInvoice _modelScanInvoice = ModelScanInvoice();
 
   @override
   initState(){
@@ -31,7 +31,7 @@ class InvoiceInfoState extends State<InvoiceInfo> {
   void fetchAllBranches() async {
     var _response = await getAllBranches();
     for (int i = 0; i < _response.length; i++){
-      _modelScanInvoice.listNameOfBranches.add(_response[i]['branches_name']);
+      widget._modelScanInvoice.listNameOfBranches.add(_response[i]['branches_name']);
       // _modelScanInvoice.listIdOfBranch.add(_response[i]['_id']);
     }
     setState(() { });
@@ -48,7 +48,7 @@ class InvoiceInfoState extends State<InvoiceInfo> {
     // getIdFromBranchName(branchName);
     await Future.delayed(Duration(milliseconds: 100), (){
       setState(() {
-        _modelScanInvoice.controlLocation.text = branchName;
+        widget._modelScanInvoice.controlLocation.text = branchName;
       });
     });
   }
@@ -59,7 +59,7 @@ class InvoiceInfoState extends State<InvoiceInfo> {
   }
 
   void toSummaryInvoice() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => InvoiceSummary(_modelScanInvoice)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InvoiceSummary(widget._modelScanInvoice)));
   }
   
   void popScreen() => Navigator.pop(context);
@@ -68,7 +68,7 @@ class InvoiceInfoState extends State<InvoiceInfo> {
     return Scaffold(
       body: invoiceBodyWidget(
         _context,
-        _modelScanInvoice,
+        widget._modelScanInvoice,
         shopChanged, textChanged, toSummaryInvoice, popScreen
       ),
     );

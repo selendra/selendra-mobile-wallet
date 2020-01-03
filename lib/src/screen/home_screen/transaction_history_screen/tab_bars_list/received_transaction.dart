@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
-Widget receivedBodyWidget(List<dynamic> _receivedHistory) {
-  return _receivedHistory.length != 0 
+Widget receivedBodyWidget(List<dynamic> list) {
+  return list.length != 0 
   ? ListView.builder(
       physics: BouncingScrollPhysics(),
-      itemCount: _receivedHistory.length,
+      itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
-        return _receivedHistory[index]["transaction_successful"] == true 
+        return list[index]["transaction_successful"] == true 
         ? Container(
           margin: EdgeInsets.only(bottom: 10.5),
           child: Container(
@@ -35,8 +35,8 @@ Widget receivedBodyWidget(List<dynamic> _receivedHistory) {
                   child: Column( /* Asset name and date time */
                   crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      _receivedHistory[index].containsKey("asset_code") 
-                        ? Text(_receivedHistory[index]["asset_code"])
+                      list[index].containsKey("asset_code") 
+                        ? Text(list[index]["asset_code"])
                         : Text("XLM"),
                       Container(
                         child: Text("14-10-2019 12:00"),

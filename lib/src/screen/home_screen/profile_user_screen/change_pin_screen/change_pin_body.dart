@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/model/model_change_pin.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget changePinBodyWidget(
-  BuildContext context, 
+  BuildContext _context, 
   ModelChangePin _modelChangePin, 
   Function popScreen, Function onChanged, Function submitPin
 ) {
@@ -13,7 +13,7 @@ Widget changePinBodyWidget(
     child: Column(
       children: <Widget>[
         containerAppBar( /* AppBar */
-          context, 
+          _context, 
           Row(
             children: <Widget>[
               iconAppBar( /* Arrow Back Button */
@@ -36,7 +36,7 @@ Widget changePinBodyWidget(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child:inputField(
                     _modelChangePin.bloc, 
-                    context, 
+                    _context, 
                     "Old PIN", null, "changePinScreen", 
                     true, 
                     TextInputType.number, TextInputAction.next, 
@@ -50,7 +50,7 @@ Widget changePinBodyWidget(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
                     _modelChangePin.bloc, 
-                    context, 
+                    _context, 
                     "New PIN", null, "changePinScreen", 
                     true, 
                     TextInputType.number, TextInputAction.next,
@@ -64,7 +64,7 @@ Widget changePinBodyWidget(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
                     _modelChangePin.bloc, 
-                    context, 
+                    _context, 
                     "Confirm PIN", null, "changePinScreen", 
                     true, 
                     TextInputType.number, TextInputAction.done,
@@ -76,7 +76,7 @@ Widget changePinBodyWidget(
                 ),
                 customFlatButton(
                   _modelChangePin.bloc, 
-                  context, 
+                  _context, 
                   "Change Now", "changePinScreen", blueColor,
                   FontWeight.normal, 
                   size18,

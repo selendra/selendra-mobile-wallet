@@ -123,7 +123,8 @@ Widget profileUserBodyWidget(
                   switch (index) {
                     case 1 : {
                       Navigator.pop(context);
-                      Navigator.of(context).push(BlurBackground(child: TransactionHistoryWidget())); break;
+                      blurBackgroundDecoration(context, TransactionHistoryWidget()); break;
+                      // BlurBackground(child: TransactionHistoryWidget()); break;
                     }
                     case 2 : {
                       // await dialogBox(context); 
@@ -134,11 +135,11 @@ Widget profileUserBodyWidget(
                     }
                     case 4 : {
                       Navigator.pop(context);
-                      Navigator.of(context).push(BlurBackground(child: ChangePIN())); break;
+                      blurBackgroundDecoration(context, ChangePIN()); break;
                     }
                     case 5: {
                       Navigator.pop(context);
-                      Navigator.of(context).push(BlurBackground(child: AddAsset())); break;
+                      blurBackgroundDecoration(context, AddAsset()); break;
                     }
                     case 6:  {
                       dialogLoading(context);

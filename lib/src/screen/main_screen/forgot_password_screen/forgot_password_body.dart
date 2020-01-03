@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/model/model_forgot_password.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget forgotPasswordBodyWidget(
-  BuildContext context, 
+  BuildContext _context, 
   ModelForgotPassword _modelForgots,
   Function onChanged, Function popScreen
 ) {
@@ -11,7 +11,7 @@ Widget forgotPasswordBodyWidget(
     child: Column(
       children: <Widget>[
         containerAppBar( /* AppBar */
-          context, 
+          _context, 
           Row(
             children: <Widget>[
               iconAppBar( /* Arrow Back Button */
@@ -33,7 +33,7 @@ Widget forgotPasswordBodyWidget(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
                     _modelForgots.bloc, 
-                    context, "Phone number", "+855", "forgotsScreen", 
+                    _context, "Phone number", "+855", "forgotsScreen", 
                     false, 
                     TextInputType.text, TextInputAction.done,
                     _modelForgots.controllerPhone, 
@@ -44,7 +44,7 @@ Widget forgotPasswordBodyWidget(
                 ),
                 customFlatButton(
                   _modelForgots.bloc, 
-                  context, 
+                  _context, 
                   "Request Code", "forgotsScreen", greenColor,                    
                   FontWeight.normal,
                   size18,

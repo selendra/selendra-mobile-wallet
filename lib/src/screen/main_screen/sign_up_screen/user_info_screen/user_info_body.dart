@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget userInfoBodyWidget(
-  BuildContext context, 
+  BuildContext _context, 
   ModelSignUp _modelSignUp,
   Function popScreen, Function submit, Function changeGender
 ) {
@@ -11,7 +11,7 @@ Widget userInfoBodyWidget(
     child: Column(
       children: <Widget>[
         containerAppBar( /* AppBar */
-          context, 
+          _context, 
           Row(
             children: <Widget>[
               iconAppBar( /* Arrow Back Button */
@@ -35,7 +35,7 @@ Widget userInfoBodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
                       _modelSignUp.bloc, 
-                      context,
+                      _context,
                       "First Name", null, "userInfoScreen",
                       false, 
                       TextInputType.text, TextInputAction.next,
@@ -48,7 +48,7 @@ Widget userInfoBodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
                       _modelSignUp.bloc, 
-                      context,
+                      _context,
                       "Mid Name", null, "userInfoScreen",
                       false, 
                       TextInputType.text, TextInputAction.next,
@@ -61,7 +61,7 @@ Widget userInfoBodyWidget(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
                       _modelSignUp.bloc, 
-                      context,
+                      _context,
                       "Last Name", null, "userInfoScreen",
                       false, 
                       TextInputType.text, TextInputAction.next,
@@ -81,7 +81,7 @@ Widget userInfoBodyWidget(
                   ),
                   customFlatButton( /* Submit Button */
                     _modelSignUp.bloc, 
-                    context, 
+                    _context, 
                     "Submit", "userInfoScreen", 
                     greenColor,
                     FontWeight.normal,
