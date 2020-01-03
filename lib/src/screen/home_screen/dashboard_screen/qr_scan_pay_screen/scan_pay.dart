@@ -71,7 +71,7 @@ class SendPaymentState extends State<SendPayment>{
       builder: (BuildContext context) {
         return Material(
           color: Colors.transparent,
-          child: FillPinWidget(),
+          child: FillPin(),
         );
       }
     );

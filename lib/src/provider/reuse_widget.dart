@@ -91,7 +91,7 @@ class BlurBackground extends ModalRoute<void> {
   BlurBackground({Key key, this.child});
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 300);
+  Duration get transitionDuration => Duration(seconds: 10);
 
   @override
   bool get opaque => false;
@@ -111,6 +111,7 @@ class BlurBackground extends ModalRoute<void> {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
     return Material(
+      animationDuration: transitionDuration,
       type: MaterialType.transparency,
       child: Container(
         color: Colors.white.withOpacity(0.15),
@@ -384,9 +385,9 @@ blurBackgroundDecoration(BuildContext context, dynamic screen) {
 
 /* ----------------------------------- Bottom App Bar ----------------------------------- */
 Widget bottomAppBar(
-  BuildContext context, 
+  BuildContext _context, 
   ModelDashboard _modelDashboard, 
-  Function scanQR, Function scanReceipt, Function resetState, Function toReceiveToken){
+  Function _scanQR, Function _scanReceipt, Function _resetState, Function _toReceiveToken){
   return Stack(
     children: <Widget>[
       Container(
@@ -419,7 +420,7 @@ Widget bottomAppBar(
                           // padding: EdgeInsets.only(left: 28.0),
                           icon: Icon(OMIcons.arrowUpward, color: Colors.white,),
                           onPressed: () async {
-                            await scanQR(context, _modelDashboard, resetState, toReceiveToken);
+                            await _scanQR(_context, _modelDashboard, _resetState, _toReceiveToken);
                           }
                         ),
                       ),
@@ -439,7 +440,7 @@ Widget bottomAppBar(
                           color: Colors.white,
                           iconSize: 30.0,
                           icon: Icon(OMIcons.arrowDownward),
-                          onPressed: toReceiveToken
+                          onPressed: () => _toReceiveToken(_context)
                         ),
                       ),
                       Text("Receive Token", style: TextStyle(color: getHexaColor("#97AAC3"), fontSize: 10.0))
@@ -453,7 +454,7 @@ Widget bottomAppBar(
       ),
       /* Logo Z Button */
       Positioned(
-        left: (MediaQuery.of(context).size.width/2-30),
+        left: (MediaQuery.of(_context).size.width/2-30),
         child: FractionalTranslation(
           translation: Offset(0.0, -0.18),
           child: Container(
@@ -463,7 +464,7 @@ Widget bottomAppBar(
                 backgroundColor: getHexaColor("#8CC361"),
                 child: Image.asset('assets/z_white_logo.png', width: 22.02, height: 23.29),
                 onPressed: () async {
-                  scanReceipt();
+                  _scanReceipt();
                 },
               ),
             ),

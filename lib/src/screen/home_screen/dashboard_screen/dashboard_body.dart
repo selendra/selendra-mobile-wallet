@@ -6,7 +6,6 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 
-/* body widget */
 Widget dashboardBodyWidget(
   BuildContext context,
   Bloc bloc,

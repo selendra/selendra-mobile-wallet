@@ -166,6 +166,8 @@ class ProfileUserState extends State<ProfileUser> {
         Stack(
           children: <Widget>[
             Container( /* Blur Background */
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.center,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: profileUserBodyWidget(isHaveWallet, context, userData, snackBar, dialogBox, popScreen),

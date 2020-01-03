@@ -85,8 +85,7 @@ class DashboardState extends State<Dashboard> {
     // if (result.data != null) setData(result.data, 'userLogin');
   }
 
-  /* ------------------------Get Local Data Method------------------------ */
-  
+  /* ------------------------Fetch Local Data Method------------------------ */
   void fetchUserToken() async { /* Fetch User Token */
     final portfolio = await Provider.fetchToken();
     _modelDashboard.token = portfolio['token'];
@@ -166,12 +165,11 @@ class DashboardState extends State<Dashboard> {
     });
   }
   
-  void toReceiveToken() {
-    Navigator.of(context).push(BlurBackground(child: GetWallet(_modelDashboard.token)));
+  void toReceiveToken(BuildContext _context) {
+    Navigator.of(_context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.token)));
   }
   
   @override
-  /* Widget builder */
   Widget build(BuildContext context) {
     final bloc = Bloc();
     return Scaffold(

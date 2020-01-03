@@ -50,14 +50,6 @@ class App extends StatefulWidget{
 }
 
 class AppState extends State<App>{
-
-  ModelSignUp _modelSignUp = ModelSignUp();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Provider(
