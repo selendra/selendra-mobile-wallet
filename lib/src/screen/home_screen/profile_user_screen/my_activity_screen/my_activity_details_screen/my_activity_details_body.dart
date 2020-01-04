@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/my_activity_screen/reuse_activity_widget.dart';
+import 'package:wallet_apps/src/service/services.dart';
 
 Widget activityDetailsBodyWidget(
   BuildContext _context,
@@ -31,11 +32,12 @@ Widget activityDetailsBodyWidget(
           child: Column(
             children: <Widget>[
               rowInformation("Receipt no: ", _trxInfo['receipt_no']),
+              rowInformation("Location: ", _trxInfo['location']),
               rowInformation("Amount: ", _trxInfo['amount']),
               rowInformation("Rewards: ", _trxInfo['rewards']),
               rowInformation("Status", _trxInfo['status']),
-              rowInformation("Created date: ", _trxInfo['created_at']),
-              Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
+              rowInformation("Created date: ", timeStampToDateTime(_trxInfo['created_at'])),
+              // Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
             ],
           ),
         )

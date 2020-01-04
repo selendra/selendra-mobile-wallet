@@ -49,6 +49,7 @@ dependencies:
   autocomplete_textfield: ^1.7.3
   charts_flutter: ^0.8.1
   dotted_border: ^1.0.4
+  date_format: ^1.0.8
 
 dev_dependencies:
   flutter_test:

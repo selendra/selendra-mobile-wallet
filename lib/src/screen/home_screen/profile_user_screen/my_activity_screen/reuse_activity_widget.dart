@@ -74,18 +74,18 @@ Widget rowInformation(String title, dynamic _data) { /* Display Information By R
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
       Container(
         margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text("$title", style: TextStyle(fontSize: 18.0)), /* Title */
+            Text("$title", style: TextStyle(fontSize: 18.0,)), /* Title */
             Expanded(child: Container(),),
-            Text("$_data", style: TextStyle(fontSize: 18.0, color: getHexaColor(greenColor)))  /* Subtitle */
+            Text("$_data", style: TextStyle(fontSize: 18.0,))  /* Subtitle */
           ],
         ),
       ),
+      Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
     ],
   );
 }

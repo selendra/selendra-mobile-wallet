@@ -143,17 +143,21 @@ class DashboardState extends State<Dashboard> {
   }
 
   void scanReceipt() async { /* Receipt Scan Pay Process */
-    File cropimage = await cropImageCamera(context); /* Crop Image From Back Camera */
-    if (cropimage != null){
-      dialogLoading(context); /* Show Loading Process */
-      StreamedResponse _streamedResponse = await upLoadImage(cropimage, "upload"); /* POST Image And Wait Response Back */
-      _streamedResponse.stream.transform(utf8.decoder).listen((data) async {
-        Navigator.pop(context); /* Close Loading Process */
-        _modelScanInvoice.imageUri = json.decode(data); /* Convert Data From Json To Object */
-        Navigator.of(context).push( /* Navigate To Invoice Fill Information */
-          MaterialPageRoute(builder: (context) => InvoiceInfo(_modelScanInvoice))
-        );
-      });
+    try{
+      File cropimage = await cropImageCamera(context); /* Crop Image From Back Camera */
+      if (cropimage != null){
+        dialogLoading(context); /* Show Loading Process */
+        StreamedResponse _streamedResponse = await upLoadImage(cropimage, "upload"); /* POST Image And Wait Response Back */
+        _streamedResponse.stream.transform(utf8.decoder).listen((data) async {
+          Navigator.pop(context); /* Close Loading Process */
+          _modelScanInvoice.imageUri = json.decode(data); /* Convert Data From Json To Object */
+          Navigator.of(context).push( /* Navigate To Invoice Fill Information */
+            MaterialPageRoute(builder: (context) => InvoiceInfo(_modelScanInvoice))
+          );
+        });
+      }
+    } catch (err) {
+      
     }
   }
 

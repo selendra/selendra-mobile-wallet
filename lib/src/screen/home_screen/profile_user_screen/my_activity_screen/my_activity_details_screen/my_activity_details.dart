@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:date_format/date_format.dart';
+import 'package:intl/intl.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/my_activity_screen/my_activity_body.dart';
 import 'package:flutter/material.dart';
 
@@ -31,16 +33,6 @@ class MyActivityDetailsState extends State<MyActivityDetails>{
     super.initState();
   }
 
-  /* Log Out Method */
-  void logOut() {
-    /* Loading */
-    dialogLoading(context);
-    clearStorage();
-    Timer(Duration(seconds: 1), () {
-      Navigator.pushReplacementNamed(context, '/');
-    });
-  }
-
   /* Scroll Refresh */
   void _reFresh() {
     setState(() {
@@ -50,7 +42,6 @@ class MyActivityDetailsState extends State<MyActivityDetails>{
   }
 
   void popScreen() => Navigator.pop(context);
-
 
   Widget build(BuildContext context) {
     return Scaffold(
