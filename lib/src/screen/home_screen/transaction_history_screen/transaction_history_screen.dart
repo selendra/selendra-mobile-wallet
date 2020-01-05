@@ -31,7 +31,14 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
-    _history = await trxUserHistory();
+    await trxUserHistory().then((_response) async { /* Get Response Data */
+      if ( (_response.runtimeType.toString()) != "List<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
+        if (_response.containsKey("error")){
+          await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
+          _history = null; /* Set Portfolio Equal Null To Close Loading Process */
+        }
+      } else _history = _response;
+    });
     setState(() { });
   }
 

@@ -5,7 +5,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 Widget userInfoBodyWidget(
   BuildContext _context, 
   ModelSignUp _modelSignUp,
-  Function popScreen, Function submit, Function changeGender
+  Function popScreen, Function submitProfile, Function changeGender
 ) {
   return Container(
     child: Column(
@@ -73,7 +73,7 @@ Widget userInfoBodyWidget(
                   Container( /* Gender Picker */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: customDropDown(
-                      _modelSignUp.label != null ? _modelSignUp.label : "Gender", 
+                      _modelSignUp.label != null ? _modelSignUp.genderLabel : "Gender", 
                       ["Male", "Female"],
                       _modelSignUp, 
                       changeGender,
@@ -92,7 +92,7 @@ Widget userInfoBodyWidget(
                       color: Color.fromRGBO(0,0,0,0.54),
                       blurRadius: 5.0
                     ), 
-                    submit
+                    submitProfile
                   )
                 ],
               ),

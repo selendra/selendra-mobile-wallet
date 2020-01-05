@@ -25,7 +25,7 @@ class Provider extends InheritedWidget{
   static String idsUser;
 
   static fetchUserIds() async {
-    var userIds = await fetchData('userToken');
+    var userIds = await fetchData('user_token');
     if (userIds != null){
       idsUser = await userIds['id'];
     }
@@ -33,7 +33,7 @@ class Provider extends InheritedWidget{
   
   /* Fetch Token */
   static fetchToken() async {
-    var token = await fetchData('userToken');
+    var token = await fetchData('user_token');
     return token;
   }
 

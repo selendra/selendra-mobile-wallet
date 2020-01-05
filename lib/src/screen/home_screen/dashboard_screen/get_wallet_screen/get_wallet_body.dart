@@ -5,7 +5,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 Widget getWalletBody(
   BuildContext context,
   // Map<String, dynamic> userData,
-  String _token,
+  String _wallet,
   Function snackBar, Function popScreen
 ){
   return scaffoldBGDecoration(
@@ -27,21 +27,22 @@ Widget getWalletBody(
             ],
           )
         ),
-        Expanded(
+        _wallet == null 
+        ? Expanded(child: Center(child: Text("No Wallet", style: TextStyle(fontSize: 18.0),)),) 
+        : Expanded(
           child: Center(
-            child: Card(
+            child:  Card(
               margin: EdgeInsets.all(0),
               child: Container(
                 padding: EdgeInsets.only(top: 44, left: 32, right: 32, bottom: 32),
                 child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Container(
+                  Container( /* Generate QR Code */
                     margin: EdgeInsets.only(bottom: 29.52),
-                    child: qrCodeGenerate(_token),
+                    child: qrCodeGenerate(_wallet),
                   ),
-                  /* Wallet Text */
-                  Container(
+                  Container( /* Wallet Text */
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
@@ -50,19 +51,12 @@ Widget getWalletBody(
                           child: Text("Click on address to copy", style: TextStyle(fontSize: 17.0, color: getHexaColor("#959CA7")),),
                         ),
                         InkWell(
-                          child: Text(_token, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
+                          child: Text(_wallet, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
                           onTap: () {
-                            Clipboard.setData(ClipboardData(text: _token));
+                            Clipboard.setData(ClipboardData(text: _wallet)); /* Copy Text */
                             snackBar('Copied');
                           },
                         )
-                        // InkWell(
-                        //   child: ,
-                        //   onTap: () {
-                        //     Clipboard.setData(ClipboardData(text: userData['wallet']));
-                        //     snackBar('Copied');
-                        //   },
-                        // )
                       ],
                     ),
                   )
@@ -71,51 +65,6 @@ Widget getWalletBody(
               ),
             ),
           )
-          // userData == null ? loading()
-          // : userData['wallet'] == null ? textNotification("You do not have a wallet! Please verify your account to get wallet.!", context)
-          // : Center(
-          //   child: Card(
-          //     margin: EdgeInsets.all(0),
-          //     child: Container(
-          //       padding: EdgeInsets.only(top: 44, left: 32, right: 32, bottom: 32),
-          //       child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: <Widget>[
-          //         Container(
-          //           margin: EdgeInsets.only(bottom: 29.52),
-          //           child: qrCodeGenerate(_token),
-          //         ),
-          //         /* Wallet Text */
-          //         Container(
-          //           child: Column(
-          //             crossAxisAlignment: CrossAxisAlignment.center,
-          //             children: <Widget>[
-          //               Container(
-          //                 margin: EdgeInsets.only(bottom: 17.0),
-          //                 child: Text("Click on address to copy", style: TextStyle(fontSize: 17.0, color: getHexaColor("#959CA7")),),
-          //               ),
-          //               InkWell(
-          //                 child: Text(_token, style: TextStyle(fontSize: 17.0, color: getHexaColor(greenColor)), textAlign: TextAlign.center,),
-          //                 onTap: () {
-          //                   Clipboard.setData(ClipboardData(text: _token));
-          //                   snackBar('Copied');
-          //                 },
-          //               )
-          //               // InkWell(
-          //               //   child: ,
-          //               //   onTap: () {
-          //               //     Clipboard.setData(ClipboardData(text: userData['wallet']));
-          //               //     snackBar('Copied');
-          //               //   },
-          //               // )
-          //             ],
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //     ),
-          //   ),
-          // ),
         )
       ],
     )

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget receivedBodyWidget(List<dynamic> list) {
-  return list.length != 0 
-  ? ListView.builder(
+  return list == null ? Container(
+      child: Text("No transaction", style: TextStyle(fontSize: 18.0),), 
+      alignment: Alignment.center,
+    ) /* Retreive Porfolio Null => Have No List */ 
+    : list.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
+    : ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
@@ -57,6 +61,5 @@ Widget receivedBodyWidget(List<dynamic> list) {
         )
         : Container();
       },
-    ) 
-  : loading(); /* Show Loading If History Length = 0 */
+    );
 }

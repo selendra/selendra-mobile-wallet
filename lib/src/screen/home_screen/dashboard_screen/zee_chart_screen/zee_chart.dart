@@ -34,15 +34,8 @@ class ZeeChartState extends State<ZeeChart>{
     Navigator.pop(context);
   }
 
-  void fetchWallet() async { /* Fetch Only User ID */
-    _modelDashboard.userWallet = await fetchData("userStatusAndWallet");
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() { });
-    });
-  }
-
   void fetchPortfolio() async { /* Fetch Portofolio */
-    _modelDashboard.portfolio = await fetchData("portFolioData");
+    _modelDashboard.portfolio = await fetchData("portfolio");
     setState(() {});
   }
 
@@ -75,7 +68,6 @@ class ZeeChartState extends State<ZeeChart>{
   }
 
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: scaffoldBGDecoration( /* Background Decoration */
         16.0, 16.0, 16.0, 0, 

@@ -169,7 +169,9 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                     ],
                   ),
                 ),
-                portfolioData.length != 0 ? ListView.builder( /* Build Portfolio */
+                portfolioData == null ? Container() /* Retreive Porfolio Null => Have No List */ 
+                : portfolioData.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */ 
+                : ListView.builder( /* Build Portfolio If Have List Of Portfolio */
                   padding: EdgeInsets.all(0),
                   shrinkWrap: true,
                   itemCount: portfolioData.length,
@@ -212,17 +214,10 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                       )
                     );
                   },
-                ) 
-                : Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: loading(),
                 )
 
                 // portfolioData == null
-                // ? Padding(
-                //     padding: EdgeInsets.all(10.0),
-                //     child: loading(),
-                //   )
+                // ? 
                 // :
                 /* Check Response For Portfolio */
                 // portfolioData['message'] != null ? Container()

@@ -64,10 +64,14 @@ Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums, String _pa
 
 Future<Map<String, dynamic>> uploadUserProfile(dynamic _model, String _endpoints) async { /* Post User Information */
   _token = await Provider.fetchToken();
+  print(_model.controlFirstName.text);
+  print(_model.controlMidName.text);
+  print(_model.controlLastName.text);
+  print( _model.gender);
   _bodyEncode = json.encode({
-    "first-name": _model.controlFirstName.text,
-    "mid-name": _model.controlMidName.text,
-    "last-name": _model.controlLastName.text,
+    "first_name": _model.controlFirstName.text,
+    "mid_name": _model.controlMidName.text,
+    "last_name": _model.controlLastName.text,
     "gender": _model.gender
   });
   if (_token != null){
@@ -76,6 +80,7 @@ Future<Map<String, dynamic>> uploadUserProfile(dynamic _model, String _endpoints
       headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
       body: _bodyEncode
     );
+    print(_response.body);
     return json.decode(_response.body);
   }
   return null;
@@ -227,6 +232,7 @@ Future trxUserHistory() async {
       "$_url/trx-history", 
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
     );
+    print(_response.body);
     return json.decode(_response.body);
   }
   return null;

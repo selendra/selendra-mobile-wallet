@@ -37,7 +37,6 @@ class DashboardState extends State<Dashboard> {
   @override
   initState() { /* Initialize State */
     super.initState();  
-    fetchUserToken(); /* Query User Id After Login From Local Storage */ 
     // getUser(); 
     getUserData(); /* User Profile */
     fetchPortfolio();
@@ -46,8 +45,9 @@ class DashboardState extends State<Dashboard> {
 
   /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
-    _modelDashboard.userWallet = await getUserProfile();
-    setData(_modelDashboard.userWallet, "user_profile");
+    _modelDashboard.userData = await getUserProfile();
+    print(_modelDashboard.userData);
+    // setData(_modelDashboard.userWallet, "user_profile");
     // Map<String, dynamic> data = await fetchData('userDataLogin');
     // if (data == null) {
     //   setState(() {
@@ -64,8 +64,17 @@ class DashboardState extends State<Dashboard> {
   }
 
   void fetchPortfolio() async { /* Fetch Portofolio */
-    _modelDashboard.portfolio = await getPortfolio();
-    setData(_modelDashboard.portfolio, 'portFolioData');
+    await getPortfolio().then((_response) async { /* Get Response Data */
+      if ( (_response.runtimeType.toString()) != "List<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
+        if (_response.containsKey("error")){
+          await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
+          _modelDashboard.portfolio = null; /* Set Portfolio Equal Null To Close Loading Process */
+        }
+      } else {
+        _modelDashboard.portfolio = _response;
+        setData(_modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
+      }
+    });
     setState(() {});
   }
 
@@ -91,20 +100,6 @@ class DashboardState extends State<Dashboard> {
   }
 
   /* ------------------------Fetch Local Data Method------------------------ */
-  void fetchUserToken() async { /* Fetch User Token */
-    final portfolio = await Provider.fetchToken();
-    _modelDashboard.token = portfolio['token'];
-    // setState(() {
-    //   _modelDashboard.userId = Provider.id`sUser;
-    // });
-  }
-
-  void fetchWallet() async { /* Fetch Only User ID */
-    _modelDashboard.userWallet = await fetchData("userStatusAndWallet");
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() { });
-    });
-  }
   
   void snackBar() { /* Trigger Snackbar Function */
     final snackbar = SnackBar(
@@ -171,7 +166,7 @@ class DashboardState extends State<Dashboard> {
   }
   
   void toReceiveToken(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.userWallet['wallet'])));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.userData['wallet'])));
   }
   
   @override

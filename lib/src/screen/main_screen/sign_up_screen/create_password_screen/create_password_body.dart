@@ -55,7 +55,7 @@ Widget createPasswordBodyWidget(
                     null
                   ),
                 ),
-                _modelSignUp.isMatch == false ? Container() : Text("Confirm password not match !", style: TextStyle(fontSize: 18.0, color: Colors.red),),
+                _modelSignUp.isMatch == true ? Container() : Text("Confirm password not match !", style: TextStyle(fontSize: 18.0, color: Colors.red),),
                 customFlatButton( /* Button Request Code */
                   _modelSignUp.bloc,
                   _context,

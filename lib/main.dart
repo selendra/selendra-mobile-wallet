@@ -50,6 +50,9 @@ class App extends StatefulWidget{
 }
 
 class AppState extends State<App>{
+
+  ModelSignUp _modelSignUp = ModelSignUp();
+
   @override
   Widget build(BuildContext context) {
     return Provider(
@@ -76,8 +79,8 @@ class AppState extends State<App>{
           '/': (context) => 
           // HomeWidget(),
           // UserInfo(_modelSignUp),
-          // SignUpFirst(),
-          WelcomeToZee(),
+          SignUpFirst(),
+          // WelcomeToZee(),
           // add_profile_screenWidget(),
           // HistroyWidget(),
           // PhoneScreen(setMyState),

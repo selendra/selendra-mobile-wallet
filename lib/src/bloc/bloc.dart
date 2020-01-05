@@ -45,11 +45,12 @@ class Bloc with ValidatorMixin {
         return false;
       } else { /* If Successfully */
         if (onValue.keys.contains("token")) {
-          dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
-          await setData(onValue, 'userToken');
+          print(onValue['token']);
+          // await dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
+          await setData(onValue, 'user_token');
           return true;
         } else { /* If Incorrect Email */
-          dialog(context, Text(onValue["message"]), Icon(Icons.error_outline, color: Colors.red,));
+          await dialog(context, Text(onValue["message"]), Icon(Icons.error_outline, color: Colors.red,));
           return false;
         }
       }
@@ -58,13 +59,14 @@ class Bloc with ValidatorMixin {
 
   Future<bool> registerMethod(
     BuildContext context, 
-    String byEmailOrPhoneNums, String passwords, String endpoints, String schema
+    String byEmailOrPhoneNums, String passwords, String endpoints, String _label
   ) async { /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
-    return await userRegister(byEmailOrPhoneNums, passwords, endpoints, schema).then((onValue) async {
-      Navigator.pop(context); /* Close Loading Screen */
-      await dialog(context, Text((onValue['message'])
-        ), 
-        onValue['message'] != "Successfully registered!" /* Check For Change Icon On Alert */
+    return await userRegister(byEmailOrPhoneNums, passwords, endpoints, _label).then((onValue) async {
+      Navigator.pop(context); /* Close Loading Screen */ 
+      await dialog(
+        context, 
+        Text((onValue['message'])), /* Sub Title */
+        onValue['message'] != "Successfully registered!" /* Check For Change Icon On Alert */ /* Title */
           ? Icon(Icons.warning, color: Colors.yellow) : Icon(Icons.done_outline, color
           : getHexaColor(lightBlueSky),
         )
