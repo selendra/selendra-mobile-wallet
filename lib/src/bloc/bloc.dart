@@ -45,7 +45,6 @@ class Bloc with ValidatorMixin {
         return false;
       } else { /* If Successfully */
         if (onValue.keys.contains("token")) {
-          print(onValue['token']);
           // await dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
           await setData(onValue, 'user_token');
           return true;

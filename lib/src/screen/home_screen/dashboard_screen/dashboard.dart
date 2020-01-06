@@ -46,7 +46,6 @@ class DashboardState extends State<Dashboard> {
   /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
     _modelDashboard.userData = await getUserProfile();
-    print(_modelDashboard.userData);
     // setData(_modelDashboard.userWallet, "user_profile");
     // Map<String, dynamic> data = await fetchData('userDataLogin');
     // if (data == null) {

@@ -41,7 +41,7 @@ Widget signUpSecondBodyWidget( /* Body widget */
       customFlatButton( /* Button login */
         _modelSignup.bloc,
         context,
-        "Sign Up", "signUpSecondScreen", greenColor,
+        "Sign Up", "smsCodeScreen", greenColor,
         FontWeight.bold,
         size18,
         EdgeInsets.only(top: size10, bottom: 0),
@@ -75,14 +75,14 @@ Widget userLogin( /* Column of User Login */
         child: inputField(
           _modelSignUp.bloc, 
           context, 
-          _modelSignUp.controlEmails.text != "" ? "Email" : "Phone number", /* Label */
-          _modelSignUp.controlEmails.text != "" ? null : _modelSignUp.countryCode, /* Prefix */
-          "signUpSecondScreen", /* Widget Name */
+          "Phone number", /* Label */
+          _modelSignUp.countryCode, /* Prefix */
+          "smsCodeScreen", /* Widget Name */
           false, 
           _modelSignUp.controlEmails.text != "" ? TextInputType.text : TextInputType.phone, 
           TextInputAction.next,
-          _modelSignUp.controlEmails.text != "" ? _modelSignUp.controlEmails : _modelSignUp.controlPhoneNums,
-          _modelSignUp.controlEmails.text != "" ? _modelSignUp.nodeEmails : _modelSignUp.nodePhoneNums, 
+          _modelSignUp.controlPhoneNums,
+          _modelSignUp.nodePhoneNums, 
           onChanged, 
           null
         )
@@ -92,7 +92,7 @@ Widget userLogin( /* Column of User Login */
         child: inputField(
           _modelSignUp.bloc,
           context, 
-          "Enter SMS code", null, "signUpSecondScreen", 
+          "Enter SMS code", null, "smsCodeScreen", 
           true, 
           TextInputType.text, TextInputAction.done,
           _modelSignUp.controlSmsCode,

@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget receivedBodyWidget(List<dynamic> list) {
   return list == null ? Container(
-      child: Text("No transaction", style: TextStyle(fontSize: 18.0),), 
+      child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
       alignment: Alignment.center,
     ) /* Retreive Porfolio Null => Have No List */ 
     : list.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
