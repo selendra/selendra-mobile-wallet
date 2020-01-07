@@ -1,3 +1,6 @@
+import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/model/model_login.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/private_key_dialog_screen/private_key_dialog.dart';
@@ -10,9 +13,11 @@ import 'package:flutter/cupertino.dart';
 /* Directory of file */
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import './profile_user_body.dart';
 
 class ProfileUser extends StatefulWidget{
+
   @override
   State<StatefulWidget> createState() {
     return ProfileUserState();
@@ -23,7 +28,7 @@ class ProfileUserState extends State<ProfileUser> {
   
   /* Variable */
   String error = '', _pin = '', _confirmPin = '';
-  var result; 
+  var _result; 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final RefreshController _refreshController = RefreshController();
   ModelUserInfo modelProfile = ModelUserInfo();
@@ -32,32 +37,33 @@ class ProfileUserState extends State<ProfileUser> {
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
   /* Property For RefetchUserData From GraphQL */
   bool reQueryUserData = false;
+  
+  ModelSignUp _modelSignUp = ModelSignUp();
 
   /* InitState */
   @override
   void initState() {
+    fetchUserData();
     super.initState();
-    // fetchUserData();
   }
 
-  /* Fetch User Data From Local Storage*/
-  void fetchUserData() async {
-    int period = 1;
-    /* If No ReQuery Period Of Fetch Data */
-    if ( reQueryUserData == true) period = 2;
-    /* Fetching Data */
-    userData = await modelProfile.fetchDataOfUser();
-    if (userData['wallet'] != null) isHaveWallet = true;
-    await Future.delayed(Duration(seconds: period), (){
+  void fetchUserData() async { 
+    await getUserProfile().then((_response){ /* Get Request User Data And Set To Control To Each Fill */
       setState(() {
-        isFetch = true;
-        reQueryUserData = false;
+        _modelSignUp.controlFirstName.text = _response['first_name'];
+        _modelSignUp.controlMidName.text = _response['mid_name'];
+        _modelSignUp.controlLastName.text = _response['last_name'];
+        _modelSignUp.genderLabel = _response['gender'] == "M" ? "Male" : "Female";
+        _modelSignUp.gender = _response['gender'];
       });
+    });
+    await fetchData("user_token").then((_response){ /* Fetch Token To Concete Authorization Update Profile User Info */
+      _modelSignUp.token = _response['token'];
     });
   }
 
   void dialogBox(BuildContext context) async { /* Set PIN Dialog */
-    result = await showDialog(
+    _result = await showDialog(
       barrierDismissible: false,
       context: context,
       builder: 
@@ -83,21 +89,21 @@ class ProfileUserState extends State<ProfileUser> {
       }
     );
     /* From Set PIN Widget */
-    if (result != null) {
-      if (result['widget'] == 'Pin'){
-        _pin = result['pin'];
+    if (_result != null) {
+      if (_result['widget'] == 'Pin'){
+        _pin = _result['pin'];
         /* CallBack */
         dialogBox(context);
       } else 
       /* From Set Confirm PIN Widget */
-      if (result['widget'] == 'confirmPin'){
-        if (result['compare'] == false) {
+      if (_result['widget'] == 'confirmPin'){
+        if (_result['compare'] == false) {
           _pin = '';
           error = "PIN does not match"; /* Set Error */
           dialogBox(context); /* CallBack */
-        } else if (result["compare"] == true){
-          _confirmPin = result['confirm_pin'];
-          _message = result;
+        } else if (_result["compare"] == true){
+          _confirmPin = _result['confirm_pin'];
+          _message = _result;
           await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call DialogBox Function Again */
             dialogBox(context); /* CallBack */
           });
@@ -105,7 +111,7 @@ class ProfileUserState extends State<ProfileUser> {
       } else { /* Success Set PIN And Push SnackBar */
         _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
         _confirmPin = "";
-        snackBar(result['message']); /* Copy Private Key Success And Show Message From Bottom */
+        snackBar(_result['message']); /* Copy Private Key Success And Show Message From Bottom */
       }
     } else {
       _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
@@ -148,7 +154,7 @@ class ProfileUserState extends State<ProfileUser> {
   }
 
   void popScreen() {
-    Navigator.pop(context);
+    Navigator.pop(context, _result);
   }
 
   /* Build Function */
@@ -170,7 +176,7 @@ class ProfileUserState extends State<ProfileUser> {
               alignment: Alignment.center,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: profileUserBodyWidget(isHaveWallet, context, userData, snackBar, dialogBox, popScreen),
+                child: profileUserBodyWidget(isHaveWallet, context, userData, _modelSignUp, snackBar, dialogBox, popScreen),
               )
                 // isFetch == true /* User Information */ /* IsFetch By Default false */
                 // ? 
@@ -184,16 +190,6 @@ class ProfileUserState extends State<ProfileUser> {
             ),
           ],
         )
-        // : Stack( /* ReQuery User Data With Graphql After Set PIN And Get Wallet */
-        //   children: <Widget>[
-        //     reQuery(
-        //       loading(),
-        //       queryUser(Provider.idsUser),
-        //       "Profile",
-        //       fetchUserData
-        //     )
-        //   ],
-        // ),
       )
     );
   }

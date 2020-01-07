@@ -9,9 +9,9 @@ import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class UserInfo extends StatefulWidget{
 
-  final ModelSignUp _modelSignUp;
+  final dynamic _model;
 
-  UserInfo(this._modelSignUp);
+  UserInfo(this._model);
 
   @override
   State<StatefulWidget> createState() {
@@ -23,6 +23,7 @@ class UserInfoState extends State<UserInfo> {
 
   @override
   void initState() {
+    if (widget._model.gender == null) widget._model.genderLabel = "Gender";
     getTokenByLogin();
     super.initState();
   }
@@ -32,34 +33,41 @@ class UserInfoState extends State<UserInfo> {
   }
 
   void getTokenByLogin() async { /* Get Token To Make Authentication With Add User Info */
-    var _response = await userLogin(
-      widget._modelSignUp.label == "email" ? widget._modelSignUp.controlEmails.text : "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}", 
-      widget._modelSignUp.controlConfirmPasswords.text, 
-      widget._modelSignUp.label == "email" ? "/loginbyemail" : "/loginbyphone", 
-      widget._modelSignUp.label
-    );
-    await setData(_response, "user_token");
+    await fetchData("user_token").then((_response) async {
+      if (_response == null){
+        var _response = await userLogin(
+          widget._model.label == "email" ? widget._model.controlEmails.text : "${widget._model.countryCode}${widget._model.controlPhoneNums.text}", 
+          widget._model.controlConfirmPasswords.text, 
+          widget._model.label == "email" ? "/loginbyemail" : "/loginbyphone", 
+          widget._model.label
+        );
+        await setData(_response, "user_token");
+      }
+    });
   }
 
   void submitProfile(BuildContext context) async { /* Submit Profile User */
     try {
       dialogLoading(context); /* Show Loading Process */
-      var response = await uploadUserProfile(widget._modelSignUp, '/userprofile'); /* Post Request Submit Profile */
+      var response = await uploadUserProfile(widget._model, '/userprofile'); /* Post Request Submit Profile */
       Navigator.pop(context); /* Close Loading Process */
-      if (response != null) {
+      if (response != null && widget._model.token == null) { /* Set Profile Success */
         await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
         clearStorage();
         Future.delayed(Duration(microseconds: 500), () {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
         });
+      } else { /* Edit Profile Success */
+        await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+        Navigator.pop(context);
       }
     } catch (err) {}
   } 
   void changeGender(String gender) {
-    widget._modelSignUp.genderLabel = gender;
-    if (gender == "Male") widget._modelSignUp.gender = "M";
-    else widget._modelSignUp.gender = "F";
-    widget._modelSignUp.label = gender;
+    widget._model.genderLabel = gender;
+    if (gender == "Male") widget._model.gender = "M";
+    else widget._model.gender = "F";
+    widget._model.label = gender;
     setState(() {});
   }
 
@@ -67,7 +75,7 @@ class UserInfoState extends State<UserInfo> {
     return Scaffold(
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0, color1, color2, 
-        userInfoBodyWidget(context, widget._modelSignUp, popScreen, submitProfile, changeGender)
+        userInfoBodyWidget(context, widget._model, popScreen, submitProfile, changeGender)
       ),
     );
   }

@@ -60,11 +60,12 @@ List<Widget> listButton (BuildContext context, String _privateKey, bool isCopy, 
     /* Close Button */
     CupertinoButton(
       padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
-      child: Text('Close'),
+      child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
       onPressed: isCheck == true ? () {
         Map<String, dynamic> popData = {
           "widget": "dialogPrivateKey",
-          "message": 'You saved key successfully'
+          "message": 'You saved key successfully',
+          "isSuccess": true
         };
         Navigator.pop(context, popData);
       } : null,

@@ -94,7 +94,6 @@ class AppState extends State<App>{
           /* Home Screen */
           '/dashboardScreen': (context) => Dashboard(),
           // '/getWalletScreen': (context) => GetWalletWidget(),
-          '/profileScreen': (context) => ProfileUser(),
           '/settingScreen': (context) => SettingWidget(),
           '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
           /* Verify User Screen */

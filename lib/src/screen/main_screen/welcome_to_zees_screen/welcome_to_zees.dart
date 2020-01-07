@@ -100,7 +100,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
                 navigatePage
               ),
             ),
-            noAccountWidget(context, Colors.white)
+            noAccountWidget(context, getHexaColor(greenColor))
           ],
         )
       ),

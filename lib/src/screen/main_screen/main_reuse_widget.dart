@@ -28,21 +28,21 @@ Widget noAccountWidget(BuildContext context, dynamic colorSignUpText) {
           fontSize: 18,
         )
       ),
-      Padding(
-        padding: EdgeInsets.only(right: 10.0, top: 10.0, bottom: 10.0),
-        child: InkWell(
-        child: textDisplay(
-          "Sign up now",
-          TextStyle(
-            fontWeight: FontWeight.bold,
-            color: colorSignUpText,
-            fontSize: 18,
-          )
+      InkWell(
+        child: Padding(
+          padding: EdgeInsets.only(left: 10.0,top: 10.0, bottom: 10.0),
+          child: textDisplay(
+            "Sign up now",
+            TextStyle(
+              fontWeight: FontWeight.bold,
+              color: colorSignUpText,
+              fontSize: 18,
+            )
+          ),
         ),
         onTap: () {
           Navigator.pushReplacementNamed(context, '/signUpScreen');
         },
-      ),
       )
     ],
   );

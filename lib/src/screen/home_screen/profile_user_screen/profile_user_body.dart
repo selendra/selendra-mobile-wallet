@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 /* QR Code Generate */
 import 'dart:ui';
@@ -10,6 +11,7 @@ import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pi
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/my_activity_screen/my_activity.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/set_pin_code_dialog_screen/set_pin_code_dialog.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 import 'package:wallet_apps/src/service/services.dart';
 
@@ -17,6 +19,7 @@ Widget profileUserBodyWidget(
   bool isHaveWallet /* isHaveWallet By Default false */,
   BuildContext context,
   Map<String, dynamic> userData,
+  ModelSignUp _modelSignUp,
   Function snackBar, Function dialogBox, Function popScreen
 ) {
 
@@ -122,6 +125,11 @@ Widget profileUserBodyWidget(
               child: ListTile(
                 onTap: () async {
                   switch (index) {
+                    case 0 : {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(_modelSignUp)));
+                      break;
+                    }
                     case 1 : {
                       Navigator.pop(context);
                       blurBackgroundDecoration(context, TransactionHistoryWidget()); break;

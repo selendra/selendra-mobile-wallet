@@ -46,15 +46,6 @@ class DashboardState extends State<Dashboard> {
   /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
     _modelDashboard.userData = await getUserProfile();
-    // setData(_modelDashboard.userWallet, "user_profile");
-    // Map<String, dynamic> data = await fetchData('userDataLogin');
-    // if (data == null) {
-    //   setState(() {
-    //     _modelDashboard.userData = {
-    //       "queryUserById": null
-    //     };
-    //   });
-    // } else _modelDashboard.userData = data;
   }
 
   void getStatus() async {
@@ -63,6 +54,9 @@ class DashboardState extends State<Dashboard> {
   }
 
   void fetchPortfolio() async { /* Fetch Portofolio */
+    setState(() {
+      _modelDashboard.portfolio = [];
+    });
     await getPortfolio().then((_response) async { /* Get Response Data */
       if ( (_response.runtimeType.toString()) != "List<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
         if (_response.containsKey("error")){
@@ -78,9 +72,14 @@ class DashboardState extends State<Dashboard> {
   }
 
   /* ------------------------Method------------------------ */
-
   /* Open Menu */
-  void openMenu() => blurBackgroundDecoration(context, ProfileUser()); /* Navigate To Profile User */
+  void openMenu() async { /* Navigate To Profile User */
+    var _response = await blurBackgroundDecoration(context, ProfileUser());
+    if (_response != null) { /* Get Request Portfolio And User Profile If Set Wallet Successfully */ 
+      fetchPortfolio();
+      getUserData();
+    }
+  }
 
   /* Log Out Method */
   void logOut(BuildContext context) async{
@@ -99,7 +98,6 @@ class DashboardState extends State<Dashboard> {
   }
 
   /* ------------------------Fetch Local Data Method------------------------ */
-  
   void snackBar() { /* Trigger Snackbar Function */
     final snackbar = SnackBar(
       content: Text('Hello world'),
@@ -107,12 +105,12 @@ class DashboardState extends State<Dashboard> {
     _modelDashboard.scaffoldKey.currentState.showSnackBar(snackbar);
   }
 
-  _pullUpRefresh() async {
+  _pullUpRefresh() async { /* Refech Data User And Portfolio */
     setState(() {
-      _modelDashboard.portfolio = null;
-      _modelDashboard.userData['queryUserById'] = null;
+      _modelDashboard.portfolio = [];
     });
     fetchPortfolio();
+    getUserData(); 
     _modelDashboard.refreshController.refreshCompleted();
   }
 

@@ -73,7 +73,7 @@ Widget userInfoBodyWidget(
                   Container( /* Gender Picker */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: customDropDown(
-                      _modelSignUp.label != null ? _modelSignUp.genderLabel : "Gender", 
+                      _modelSignUp.genderLabel, 
                       ["Male", "Female"],
                       _modelSignUp, 
                       changeGender,
