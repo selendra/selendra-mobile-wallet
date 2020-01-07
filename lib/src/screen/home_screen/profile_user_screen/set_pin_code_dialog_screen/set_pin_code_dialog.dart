@@ -53,7 +53,7 @@ class SetPinDialogState extends State<SetPinDialog> {
             },
           ),
           RaisedButton(
-            child: Text('Next'),
+            child: Text('Next', style: TextStyle(fontWeight: FontWeight.bold)),
             onPressed: disableButton == true ? null : () {
               Map<String, dynamic> popData = {
                 "widget": "Pin",

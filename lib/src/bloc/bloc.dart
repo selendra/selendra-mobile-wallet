@@ -32,11 +32,11 @@ class Bloc with ValidatorMixin {
   Function(String) get addUsersign => _usersignup.sink.add;
 
   
-  Future<bool> loginMethod(BuildContext context, String byEmailOrPhoneNums, String passwords, String endpoints, String schema) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
+  Future<bool> loginMethod(BuildContext context, String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
     return userLogin(
       // _email.value, 
       // _password.value
-    byEmailOrPhoneNums, passwords, endpoints, schema
+    _byEmailOrPhoneNums, _passwords, _endpoints, _label
     )
     .then((onValue) async {
       Navigator.pop(context);
@@ -56,18 +56,18 @@ class Bloc with ValidatorMixin {
     });
   }
 
-  Future<bool> registerMethod(
+  Future<bool> registerMethod( /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
     BuildContext context, 
-    String byEmailOrPhoneNums, String passwords, String endpoints, String _label
-  ) async { /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
-    return await userRegister(byEmailOrPhoneNums, passwords, endpoints, _label).then((onValue) async {
+    String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label
+  ) async {
+    return await userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((onValue) async {
       Navigator.pop(context); /* Close Loading Screen */ 
       await dialog(
         context, 
         Text((onValue['message'])), /* Sub Title */
         onValue['message'] != "Successfully registered!" /* Check For Change Icon On Alert */ /* Title */
-          ? Icon(Icons.warning, color: Colors.yellow) : Icon(Icons.done_outline, color
-          : getHexaColor(lightBlueSky),
+          ? Icon(Icons.warning, color: Colors.yellow) : Icon(Icons.done, color
+          : getHexaColor(_label == "email" ? lightBlueSky : greenColor),
         )
       );
       return onValue['message'] == "Successfully registered!" ? true : false;

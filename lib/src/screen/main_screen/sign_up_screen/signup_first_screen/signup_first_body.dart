@@ -78,7 +78,7 @@ Widget signUpFirstBodyWidget(
               child: inputField(
                 _modelSignUp.bloc,
                 context,
-                "Phone number", _modelSignUp.countryCode, "signUpFirstScreen",
+                "Phone number", "${_modelSignUp.countryCode} ", "signUpFirstScreen",
                 false, 
                 TextInputType.phone, TextInputAction.done,
                 _modelSignUp.controlPhoneNums,
@@ -93,7 +93,7 @@ Widget signUpFirstBodyWidget(
       customFlatButton( /* Button Request Code */
         _modelSignUp.bloc,
         context,
-        _modelSignUp.tabController.index == 0 ? "Sign up" : "Request Code", 
+        "Sign up", 
         "signUpFirstScreen", greenColor,
         FontWeight.normal,
         size18,

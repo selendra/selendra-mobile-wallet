@@ -9,7 +9,7 @@ import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_passwor
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first_body.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/internet_connection.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_screen/signup_second.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sms_code_screen/sms_code.dart';
 
 class SignUpFirst extends StatefulWidget{
   @override
@@ -69,12 +69,12 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
 
   void onChanged(String label, String onchanged) { /* Input Field Value Change */
     if (label == "Email") _modelSignUp.label = "email";
-    else _modelSignUp.label = "phone_number";
+    else _modelSignUp.label = "phone";
   }
 
   void tabBarSelectChanged(int index) {
     if ( index == 0 ) _modelSignUp.label = "email";
-    else _modelSignUp.label = "phone_number";
+    else _modelSignUp.label = "phone";
     setState(() {});
   }
   

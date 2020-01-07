@@ -4,7 +4,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
-Widget signUpSecondBodyWidget( /* Body widget */
+Widget smsCodeBodyWidget( /* Body widget */
   BuildContext context,
   ModelSignUp _modelSignup,
   Function onChanged,
@@ -76,11 +76,10 @@ Widget userLogin( /* Column of User Login */
           _modelSignUp.bloc, 
           context, 
           "Phone number", /* Label */
-          _modelSignUp.countryCode, /* Prefix */
+          "${_modelSignUp.countryCode} ", /* Prefix */
           "smsCodeScreen", /* Widget Name */
           false, 
-          _modelSignUp.controlEmails.text != "" ? TextInputType.text : TextInputType.phone, 
-          TextInputAction.next,
+          TextInputType.phone, TextInputAction.next,
           _modelSignUp.controlPhoneNums,
           _modelSignUp.nodePhoneNums, 
           onChanged, 

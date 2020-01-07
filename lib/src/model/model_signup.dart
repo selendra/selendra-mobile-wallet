@@ -6,7 +6,7 @@ class ModelSignUp {
 
   bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
 
-  String token, countryCode = "+855 ", gender, label, genderLabel = "Gender"; 
+  String token, countryCode = "+855", gender, label, genderLabel = "Gender"; 
 
   var colorSubmitted = Colors.transparent;
 
@@ -22,7 +22,6 @@ class ModelSignUp {
   FocusNode nodeMidName = FocusNode();
   FocusNode nodeLastName = FocusNode();
 
-  
   TextEditingController controlEmails = TextEditingController(); /* Value Controller Empty By Default */
   TextEditingController controlPasswords = TextEditingController();
   TextEditingController controlSmsCode = TextEditingController();

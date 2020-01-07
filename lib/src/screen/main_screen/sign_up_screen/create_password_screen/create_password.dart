@@ -3,6 +3,7 @@ import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password_body.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sms_code_screen/sms_code.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,7 +50,7 @@ class CreatePasswordState extends State<CreatePassword> {
             widget._modelSignUp.controlPasswords.text,
             "/registerbyemail", "email"
           );
-          if (_response == false) {
+          if (_response == true) {
             Future.delayed(Duration(milliseconds: 100), (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
             });
@@ -57,13 +58,14 @@ class CreatePasswordState extends State<CreatePassword> {
         } else { /* Post Register By Phone Number */
           _response = await widget._modelSignUp.bloc.registerMethod(
             context,
-            widget._modelSignUp.controlPhoneNums.text,
+            "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
             widget._modelSignUp.controlPasswords.text,
             "/registerbyphone", "phone"
           );
-          if (_response == true) {
-            Future.delayed(Duration(milliseconds: 200), (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+          if (_response == true) { /* Change To True When your testing done */
+            Future.delayed(Duration(milliseconds: 100), (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp)));
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => SmsCode(widget._modelSignUp)));
             });
           }
         }

@@ -8,6 +8,7 @@ import 'dart:async';
 
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/model/model_scan_pay.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 
 /* Zeetomic api user data*/
 final _url = "https://testnet-api.zeetomic.com/pub/v1";
@@ -81,7 +82,7 @@ Future<Map<String, dynamic>> uploadUserProfile(dynamic _model, String _endpoints
   return null;
 }
 
-Future<Map<String, dynamic>> retrieveWallet(String _pins) async { /* Post Get Wallet */
+Future<Map<String, dynamic>> retreiveWallet(String _pins) async { /* Post Get Wallet */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "pin": _pins
@@ -176,6 +177,19 @@ Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) asyn
   return null;
 }
 
+Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async { /* Confirm User Account By Phone Number */
+  _bodyEncode = json.encode({
+    "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
+    "verification_code": _model.controlSmsCode.text
+  });
+  _response = await _http.post(
+    "$_url/account-confirmation",
+    headers: _conceteHeader(null, null),
+    body: _bodyEncode
+  );
+  return json.decode(_response.body);
+}
+
 /* --------------------------------Get Request------------------------------------ */
 
 Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */
@@ -200,23 +214,6 @@ Future<int> checkExpiredToken() async { /* Expired Token In Welcome Screen */
     return _response.statusCode;
   }
   return null;
-}
-
-Future<Map<String, dynamic>> accountConfirmation(dynamic _model) async { /* Add New Asset */
-  // _token = await Provider.fetchToken();
-  // _bodyEncode = json.encode({
-  //   "asset-code": _model.controlAssetCode.text,
-  //   "asset-ssuer": _model.controlAssetIssuer.text
-  // });
-  // if (_token != null){
-  //   _response = await _http.post(
-  //     "$_url/userprofile",
-  //     headers: _conceteHeader("authorization", "Bearer ${_token['_token']}"),
-  //     body: _bodyEncode
-  //   );
-  //   return json.decode(_response.body);
-  // }
-  // return null;
 }
 
 /* User History */
@@ -257,7 +254,6 @@ Future getAllBranches() async {
 }
 
 Future<dynamic> getReceipt() async {
-  
   _token = await Provider.fetchToken();
   if (_token != null) {
     _response = await _http.get(

@@ -18,6 +18,11 @@ class PrivateKeyDialog extends StatefulWidget{
 class PrivateKeyState extends State<PrivateKeyDialog>{
 
   bool isCheck = false, isSave = false, isCopy = false, disableButton = true;
+  
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void userCheckBox() {
     setState(() {
@@ -33,7 +38,7 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
   void userCopyKey() {
     setState(() {
       isCopy = true;
-      Clipboard.setData(ClipboardData(text: widget._message["seed"]));
+      Clipboard.setData(ClipboardData(text: widget._message['message']["seed"]));
     });
   }
 
@@ -43,18 +48,18 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          !widget._message.containsKey("message") /* If Response Not Have Key Message */
-          ? checkBoxContent(widget._message["seed"], isCheck, isCopy, userCheckBox) /* Display Private Key */
-          : Text(widget._message['message']) /* Display Message */
+          widget._message['message'][0] == null /* Index 0 Will Be Null If It Contains Key */
+          ? checkBoxContent("${widget._message['message']["seed"]}", isCheck, isCopy, userCheckBox) /* Display Private Key */
+          : Text(widget._message['message']) /* Display Message When Index 0 As A String */
         ],
       ),
       actions: /* Button */
-      !widget._message.containsKey("message") /* If Response Not Have Key Message */
-      ? listButton(context, widget._message["seed"],  isCopy, isCheck, userCopyKey) /* Display Many Button */
+      widget._message['message'][0] == null /* Index 0 Will Be Null If It Contains Key */
+      ? listButton(context, widget._message['message']['seed'],  isCopy, isCheck, userCopyKey) /* Display Many Button */
       : [
           CupertinoButton( /* Display Only Close Button */
           padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
-          child: Text('Close'),
+          child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
           onPressed: () {
             Navigator.pop(context, null);
           },
@@ -62,23 +67,5 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
       ]
     );
   }
-  //   AlertDialog(
-  //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-      // title: Align(alignment: Alignment.center, child: containerTitleAppBar("Private Key")),
-  //     content: Container(
-  //       width: 50.0,
-  //       height: 50.0,
-  //       child: Text("Hello"),
-  //     )
-  //     // Column(
-  //     //   mainAxisSize: MainAxisSize.min,
-  //     //   children: <Widget>[
-  //     //     Text("Helllo world")
-  //     //     // checkBoxContent(widget._message, isCheck, isCopy, userCheckBox),
-  //     //   ],
-  //     // ),
-  //     // actions: listButton(context, widget._message,  isCopy, isCheck, userCopyKey)
-  //   );
-  // }
 }
 

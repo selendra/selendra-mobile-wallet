@@ -30,7 +30,10 @@ class MyActivityState extends State<MyActivity>{
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
-    _activity = await getReceipt();
+    await getReceipt().then((_response){
+      if (List<dynamic>.from(_response).length == 0) _activity = null; /* Assign Activity Variable With NUll If Reponse Empty Data */
+      else _activity = _response;
+    });
     setState(() { });
   }
 

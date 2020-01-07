@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
+import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info_body.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
@@ -33,13 +33,12 @@ class UserInfoState extends State<UserInfo> {
 
   void getTokenByLogin() async { /* Get Token To Make Authentication With Add User Info */
     var _response = await userLogin(
-      widget._modelSignUp.label == "email" ? widget._modelSignUp.controlEmails.text : widget._modelSignUp.controlEmails.text, 
+      widget._modelSignUp.label == "email" ? widget._modelSignUp.controlEmails.text : "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}", 
       widget._modelSignUp.controlConfirmPasswords.text, 
       widget._modelSignUp.label == "email" ? "/loginbyemail" : "/loginbyphone", 
       widget._modelSignUp.label
     );
     await setData(_response, "user_token");
-    print(_response);
   }
 
   void submitProfile(BuildContext context) async { /* Submit Profile User */
@@ -51,7 +50,7 @@ class UserInfoState extends State<UserInfo> {
         await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
         clearStorage();
         Future.delayed(Duration(microseconds: 500), () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpFirst()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
         });
       }
     } catch (err) {}

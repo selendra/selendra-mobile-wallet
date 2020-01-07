@@ -2,72 +2,77 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/my_activity_screen/my_activity_details_screen/my_activity_details.dart';
 
-Widget buildListBodyWidget(List<dynamic> list) {
-  return list.length != 0 
-  ? ListView.builder(
-      shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
-      itemCount: list.length,
-      itemBuilder: (BuildContext context, int index) {
-        // return list[index]["transaction_successful"] == true 
-        // ? 
-        return GestureDetector(
-          onTap: () {
-            blurBackgroundDecoration(context, MyActivityDetails(list[index]));
-          },
-          child: Container(
-            margin: EdgeInsets.only(bottom: 10.5),
+Widget buildListBodyWidget(List<dynamic> _activity) {
+  return _activity != null ?
+    _activity.length != 0 
+    ? ListView.builder(
+        shrinkWrap: true,
+        physics: BouncingScrollPhysics(),
+        itemCount: _activity.length,
+        itemBuilder: (BuildContext context, int index) {
+          // return _activity[index]["transaction_successful"] == true 
+          // ? 
+          return GestureDetector(
+            onTap: () {
+              blurBackgroundDecoration(context, MyActivityDetails(_activity[index]));
+            },
             child: Container(
-              margin: EdgeInsets.only(left: 4.0),
-              padding: EdgeInsets.only(top: 20.38, bottom: 16.62),
-              decoration: BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1), width: 1.5))
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  /* Asset Icons */
-                  Container(
-                    margin: EdgeInsets.only(right: 9.5),
-                    width: 31.0, 
-                    height: 31.0,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(
-                        'assets/zeeicon_on_screen.png',
-                      )
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Column( /* Asset name and date time */
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(list[index]['location']),
-                        // list[index].containsKey("asset_code") 
-                        //   ? Text(list[index]["asset_code"])
-                        //   : Text("XLM"),
-                        Container(
-                          child: Text(list[index]['created_at']),
+              margin: EdgeInsets.only(bottom: 10.5),
+              child: Container(
+                margin: EdgeInsets.only(left: 4.0),
+                padding: EdgeInsets.only(top: 20.38, bottom: 16.62),
+                decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1), width: 1.5))
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    /* Asset Icons */
+                    Container(
+                      margin: EdgeInsets.only(right: 9.5),
+                      width: 31.0, 
+                      height: 31.0,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage(
+                          'assets/zeeicon_on_screen.png',
                         )
-                      ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 0,
-                    child: Text(
-                      list[index]['status'], 
-                      style: TextStyle(color: getHexaColor(greenColor)),
+                    Expanded(
+                      flex: 2,
+                      child: Column( /* Asset name and date time */
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(_activity[index]['location']),
+                          // _activity[index].containsKey("asset_code") 
+                          //   ? Text(_activity[index]["asset_code"])
+                          //   : Text("XLM"),
+                          Container(
+                            child: Text(_activity[index]['created_at']),
+                          )
+                        ],
+                      ),
                     ),
-                  )
-                ],
-              ),
-            )
-          ),
-        );
-        // : Container();
-      },
-    ) 
-  : Expanded(child: loading(),); /* Show Loading If History Length = 0 */
+                    Expanded(
+                      flex: 0,
+                      child: Text(
+                        _activity[index]['status'], 
+                        style: TextStyle(color: getHexaColor(greenColor)),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ),
+          );
+          // : Container();
+        },
+      ) 
+    : loading()  /* Show Loading If History Length = 0 */
+  : Align(
+    alignment: Alignment.center,
+    child: Text("No activity", style: TextStyle(fontSize: 18.0),),
+  ); /* Show Text (No activity) If Respoonse Length = 0 */
 }
 
 Widget rowInformation(String title, dynamic _data) { /* Display Information By Row */

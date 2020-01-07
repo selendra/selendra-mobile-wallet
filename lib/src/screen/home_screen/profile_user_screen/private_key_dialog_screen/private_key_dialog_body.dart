@@ -2,8 +2,8 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-/* Check Button Row */
-Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function userCheckBox) {
+
+Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function userCheckBox) { /* Check Button Row */
   return Column(
     mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.start,
@@ -14,8 +14,7 @@ Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function u
           """Please keep your key secure. This secret key will only be showed to you once.\nZeetomic will not be able to help you recover it if lost."""
         ),
       ),
-      /* User Key */
-      Container(
+      Container( /* User Key */
         margin: EdgeInsets.only(top: 15.0, bottom: 5.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,24 +54,14 @@ List<Widget> listButton (BuildContext context, String _privateKey, bool isCopy, 
   return <Widget>[
     CupertinoButton(
       padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
-      child: isCopy == false ? Text('Copy') : Text('Copied'),
+      child: Text(isCopy == false ? 'Copy' : 'Copied', style: TextStyle(fontWeight: FontWeight.bold)),
       onPressed: userCopyKeys,
     ),
-    // CupertinoButton(
-    //   padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
-    //   child: Text('Screen shot'),
-    //   onPressed: () {
-    //     setState(() {
-    //       isSave = true; 
-    //     });
-    //   },
-    // ),
     /* Close Button */
     CupertinoButton(
       padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
       child: Text('Close'),
       onPressed: isCheck == true ? () {
-        
         Map<String, dynamic> popData = {
           "widget": "dialogPrivateKey",
           "message": 'You saved key successfully'

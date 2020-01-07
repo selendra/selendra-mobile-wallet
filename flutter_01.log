@@ -1,0 +1,72 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter emulator --launch Pixel_2_API_28
+
+## exception
+
+ProcessException: ProcessException: Process exited abnormally:
+emulator: ERROR: Not enough disk space to run AVD 'Pixel_2_API_28'. Exiting...
+  Command: /home/daveat/android-sdk/emulator/emulator -avd Pixel_2_API_28
+
+```
+#0      RunResult.throwException (package:flutter_tools/src/base/process.dart:141:5)
+#1      _DefaultProcessUtils.run (package:flutter_tools/src/base/process.dart:275:19)
+<asynchronous suspension>
+#2      AndroidEmulator.launch (package:flutter_tools/src/android/android_emulator.dart:52:52)
+#3      EmulatorsCommand._launchEmulator (package:flutter_tools/src/commands/emulators.dart:74:31)
+<asynchronous suspension>
+#4      EmulatorsCommand.runCommand (package:flutter_tools/src/commands/emulators.dart:47:13)
+#5      FlutterCommand.verifyThenRunCommand (package:flutter_tools/src/runner/flutter_command.dart:615:18)
+#6      _asyncThenWrapperHelper.<anonymous closure> (dart:async-patch/async_patch.dart:73:64)
+#7      _rootRunUnary (dart:async/zone.dart:1134:38)
+#8      _CustomZone.runUnary (dart:async/zone.dart:1031:19)
+#9      _FutureListener.handleValue (dart:async/future_impl.dart:139:18)
+#10     Future._propagateToListeners.handleValueCallback (dart:async/future_impl.dart:680:45)
+#11     Future._propagateToListeners (dart:async/future_impl.dart:709:32)
+#12     Future._completeWithValue (dart:async/future_impl.dart:524:5)
+#13     Future._asyncComplete.<anonymous closure> (dart:async/future_impl.dart:554:7)
+#14     _rootRun (dart:async/zone.dart:1126:13)
+#15     _CustomZone.run (dart:async/zone.dart:1023:19)
+#16     _CustomZone.runGuarded (dart:async/zone.dart:925:7)
+#17     _CustomZone.bindCallbackGuarded.<anonymous closure> (dart:async/zone.dart:965:23)
+#18     _microtaskLoop (dart:async/schedule_microtask.dart:43:21)
+#19     _startMicrotaskLoop (dart:async/schedule_microtask.dart:52:5)
+#20     _runPendingImmediateCallback (dart:isolate-patch/isolate_patch.dart:118:13)
+#21     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:175:5)
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, v1.12.13+hotfix.5, on Linux, locale en_US.UTF-8)
+    [32m•[39m Flutter version 1.12.13+hotfix.5 at /home/daveat/flutter
+    [32m•[39m Framework revision 27321ebbad (4 weeks ago), 2019-12-10 18:15:01 -0800
+    [32m•[39m Engine revision 2994f7e1e6
+    [32m•[39m Dart version 2.7.0
+
+[33m[!][39m Android toolchain - develop for Android devices (Android SDK version 29.0.2)
+    [32m•[39m Android SDK at /home/daveat/android-sdk/
+    [32m•[39m Android NDK location not configured (optional; useful for native profiling
+      support)
+    [32m•[39m Platform android-29, build-tools 29.0.2
+    [32m•[39m ANDROID_HOME = /home/daveat/android-sdk
+    [32m•[39m Java binary at: /home/daveat/Downloads/android-studio/jre/bin/java
+    [32m•[39m Java version OpenJDK Runtime Environment (build
+      1.8.0_202-release-1483-b49-5587405)
+    [33m![39m Some Android licenses not accepted.  To resolve this, run: flutter doctor
+      --android-licenses
+
+[32m[✓][39m Android Studio (version 3.5)
+    [32m•[39m Android Studio at /home/daveat/Downloads/android-studio
+    [32m•[39m Flutter plugin version 41.0.2
+    [32m•[39m Dart plugin version 191.8593
+    [32m•[39m Java version OpenJDK Runtime Environment (build
+      1.8.0_202-release-1483-b49-5587405)
+
+[33m[!][39m Connected device
+    [33m![39m No devices available
+
+[33m![39m Doctor found issues in 2 categories.
+```

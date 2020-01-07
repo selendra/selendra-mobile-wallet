@@ -19,7 +19,7 @@ Widget zeeChartBodyWidget(BuildContext context, List<dynamic> _portfolioData) {
               ),
             ),
           ),
-          portfolioList(context, "Trading Portfolio", _portfolioData)
+          portfolioList(context, "Trading Portfolio", _portfolioData, false)
         ],
       ),
     ),

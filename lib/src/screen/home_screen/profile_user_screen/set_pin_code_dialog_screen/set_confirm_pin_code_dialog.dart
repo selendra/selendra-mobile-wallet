@@ -45,7 +45,7 @@ class SetConfirmPinState extends State<SetConfirmPin> {
                 },
               ),
               RaisedButton(
-                child: Text("Confirm"),
+                child: Text("Confirm", style: TextStyle(fontWeight: FontWeight.bold)),
                 onPressed: () async {
                   /* Loading */
                   dialogLoading(context);
@@ -55,7 +55,7 @@ class SetConfirmPinState extends State<SetConfirmPin> {
                       "confirm_pin": _confirmPin,
                       "compare": true
                     };
-                    Map<String, dynamic> _response = await retrieveWallet(_confirmPin); /* Request Wallet */
+                    Map<String, dynamic> _response = await retreiveWallet(_confirmPin); /* Request Wallet */
                     _response.addAll(popData);
                     Navigator.pop(context); /* Close Cicular Loading */
                     Navigator.pop(context, _response); /* Close Dialog And Push Back Data */

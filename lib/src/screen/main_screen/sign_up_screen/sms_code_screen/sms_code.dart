@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_screen/signup_second_body.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sms_code_screen/sms_code_body.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 import 'package:wallet_apps/src/provider/internet_connection.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
+import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
-class SignUpSecond extends StatefulWidget{
+class SmsCode extends StatefulWidget{
 
   final ModelSignUp _modelSignUp;
 
-  SignUpSecond(this._modelSignUp);
+  SmsCode(this._modelSignUp);
   @override
   State<StatefulWidget> createState() {
-    return SignUpSecondState();
+    return SmsCodeState();
   }
 }
 
-class SignUpSecondState extends State<SignUpSecond>{
+class SmsCodeState extends State<SmsCode>{
 
   @override
   void initState() {
     super.initState();
     focusOnPassword();
+  }
+
+  @override
+  void dispose() {
+    // widget._modelSignUp.nodeSmsCode.dispose();
+    super.dispose();
   }
 
   void focusOnPassword() async {
@@ -36,7 +45,7 @@ class SignUpSecondState extends State<SignUpSecond>{
     await Future.delayed(Duration(milliseconds: 100), (){
       checkConnection(context).then((isConnect) {
         if ( isConnect == true ) {
-          validatorLogin(widget._modelSignUp.bloc, context);
+          validatorLogin(context);
         } else {
           setState(() {
             widget._modelSignUp.isProgress = false;
@@ -47,30 +56,21 @@ class SignUpSecondState extends State<SignUpSecond>{
     });
   }
 
-  void validatorLogin(Bloc bloc, BuildContext context) async{  /* Validator User Login After Check Internet */
-    // dialogLoading(context); /* Pop Up Loading */
-    // final submitResponse = await bloc.submitMethod(context, widget._modelSignUp).then((data) async { /* Response Result */
-    //   if (data == true) {
-    //     Navigator.pop(context); /* Close Loading Dialog */
-    //     await Future.delayed(Duration(milliseconds: 200), () async { /* Wait And Push Replace To HomePage */
-    //     });
-    //     Navigator.pushReplacementNamed(context, '/dashboardScreen');
-    //   }
-    //   return data;
-    // }).catchError((onError){
-    //   Navigator.pop(context);
-    //   setState(() => widget._modelSignUp.isProgress = false );
-    //   return false;
-    // });
-    // if (submitResponse == false) {
-    //   Navigator.pop(context);
-    //   // clearAllInput(); 
-    //   // disableLoginButton(bloc);
-    // }
+  void validatorLogin(BuildContext context) async{  /* Validator User Login After Check Internet */
+    dialogLoading(context); /* Show Loading Process */
+    await confirmAccount(widget._modelSignUp).then((_response) async { /* Response Result */
+      Navigator.pop(context); /* Close Loading Process */
+      if (!_response.containsKey("error")) { /* Successfully Confirm Account */ 
+        await dialog(context, Text("${_response['message']}"), Icon(Icons.done_outline, color: getHexaColor(blueColor),)); /* Pop Successfully To Dialog */
+        Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp))); /* Navigate To User Information */ 
+      } else { /* Not Successfully Or Already Confirm Account */
+        await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow)); /* Pop Error To Dialog */
+      }
+    }).catchError((onError){
+    });
   }
 
   void onChanged(String valueChanged) {
-
   }
 
   Widget build(BuildContext context){
@@ -79,7 +79,7 @@ class SignUpSecondState extends State<SignUpSecond>{
         decoration: scaffoldBGColor(color1, color2),
         child: paddingScreenWidget(
           context, 
-          signUpSecondBodyWidget(context, widget._modelSignUp, onChanged, validatorLogin)
+          smsCodeBodyWidget(context, widget._modelSignUp, onChanged, validatorLogin)
         ),
       ),
     );

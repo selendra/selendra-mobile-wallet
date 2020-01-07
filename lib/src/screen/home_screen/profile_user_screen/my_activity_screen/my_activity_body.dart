@@ -27,7 +27,9 @@ Widget activityBodyWidget(
             ],
           )
         ),
-        buildListBodyWidget(_activityList)
+        Expanded(
+          child: buildListBodyWidget(_activityList),
+        )
       ],
     ),
   );

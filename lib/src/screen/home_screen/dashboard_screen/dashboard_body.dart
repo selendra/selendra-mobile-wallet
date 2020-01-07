@@ -31,7 +31,7 @@ Widget dashboardBodyWidget(
           Container(
             margin: EdgeInsets.only(top: 16.0),
             width: double.infinity,
-            child: portfolioList(context, "My Porfolio", portfolioData),
+            child: portfolioList(context, "My Porfolio", portfolioData, true),
           ),
         ],
       )

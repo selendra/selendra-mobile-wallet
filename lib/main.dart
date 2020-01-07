@@ -26,7 +26,7 @@ import 'package:flutter/rendering.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_second_screen/signup_second.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sms_code_screen/sms_code.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
@@ -79,8 +79,9 @@ class AppState extends State<App>{
           '/': (context) => 
           // HomeWidget(),
           // UserInfo(_modelSignUp),
-          SignUpFirst(),
-          // WelcomeToZee(),
+          // SignUpFirst(),
+          // SmsCode(_modelSignUp),
+          WelcomeToZee(),
           // add_profile_screenWidget(),
           // HistroyWidget(),
           // PhoneScreen(setMyState),

@@ -21,7 +21,6 @@ class GetWalletState extends State<GetWallet>{
     super.initState();
   }
 
-
   void popScreen() {
     Navigator.pop(context);
   }

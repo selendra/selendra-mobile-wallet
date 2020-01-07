@@ -659,7 +659,7 @@ Widget inputField( /* User Input Field */
     obscureText: obcureText,
     controller: controller,
     textInputAction: inputAction,
-    style: TextStyle(color: getHexaColor("#ffffff")),
+    style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
@@ -670,7 +670,7 @@ Widget inputField( /* User Input Field */
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: getHexaColor("#FFFFFF").withOpacity(0.3), width: 1.0),
       ),
-      prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white),
+      prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
       filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
       labelText: labelText,
       labelStyle: TextStyle(
@@ -686,7 +686,7 @@ Widget inputField( /* User Input Field */
         widgetName == "addAssetScreen" || 
         widgetName == "loginFirstScreen" ||
         widgetName == "loginSecondScreen" ||
-        widgetName == "signUpFirstScreen"
+        widgetName == "signUpFirstScreen" 
       ) 
         onChanged(labelText, valueChange);
       else onChanged(valueChange);

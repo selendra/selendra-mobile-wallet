@@ -2,6 +2,7 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
 /* body widget */
 Widget loginSdcondBodyWidget(
@@ -57,6 +58,8 @@ Widget loginSdcondBodyWidget(
         alignment: Alignment.center, 
         child: forgotPassword(context)
       ),
+      Expanded(flex: 2, child: Container()),
+      noAccountWidget(context, getHexaColor(blueColor)) /* Bottom Align Sign Up */ 
     ],
   );
 }

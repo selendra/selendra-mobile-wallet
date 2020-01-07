@@ -99,18 +99,17 @@ class ProfileUserState extends State<ProfileUser> {
           _confirmPin = result['confirm_pin'];
           _message = result;
           await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call DialogBox Function Again */
-            dialogBox(context);
+            dialogBox(context); /* CallBack */
           });
         }
-      } else {
+      } else { /* Success Set PIN And Push SnackBar */
+        _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
+        _confirmPin = "";
         snackBar(result['message']); /* Copy Private Key Success And Show Message From Bottom */
       }
     } else {
-      setState(() { /* Reset All Pin */
-        _pin = "";
-        _confirmPin = "";
-        result = "Pin";
-      });
+      _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
+      _confirmPin = "";
     }
   }
 
@@ -129,6 +128,7 @@ class ProfileUserState extends State<ProfileUser> {
   /* Trigger Snack Bar Function */
   void snackBar(String contents) {
     final snackbar = SnackBar(
+      duration: Duration(seconds: 2),
       content: Text(contents),
     );
     _scaffoldKey.currentState.showSnackBar(snackbar);
