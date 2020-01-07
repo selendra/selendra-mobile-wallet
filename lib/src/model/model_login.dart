@@ -7,7 +7,7 @@ class ModelLogin {
 
   bool isProgress = false, isLogedin = false, isBoth = false;
 
-  String token; String phoneNumber = "", countryCode = "+855 ", label;
+  String token; String phoneNumber = "", countryCode = "+855", label;
 
   var colorSubmitted = Colors.transparent;
 

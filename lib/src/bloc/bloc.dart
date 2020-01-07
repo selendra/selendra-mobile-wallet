@@ -33,23 +33,23 @@ class Bloc with ValidatorMixin {
 
   
   Future<bool> loginMethod(BuildContext context, String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
-    return userLogin(
+    return await userLogin(
       // _email.value, 
       // _password.value
     _byEmailOrPhoneNums, _passwords, _endpoints, _label
     )
-    .then((onValue) async {
+    .then((_response) async {
       Navigator.pop(context);
-      if (onValue.keys.contains("error")) {
-        dialog(context, Text(onValue['error']["message"]), Icon(Icons.error_outline, color: Colors.red,));
+      if (_response.keys.contains("error")) {
+        dialog(context, Text(_response['error']["message"]), Icon(Icons.error_outline, color: Colors.red,));
         return false;
       } else { /* If Successfully */
-        if (onValue.keys.contains("token")) {
+        if (_response.keys.contains("token")) {
           // await dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
-          await setData(onValue, 'user_token');
+          await setData(_response, 'user_token');
           return true;
         } else { /* If Incorrect Email */
-          await dialog(context, Text(onValue["message"]), Icon(Icons.error_outline, color: Colors.red,));
+          await dialog(context, Text(_response["message"]), Icon(Icons.error_outline, color: Colors.red,));
           return false;
         }
       }
@@ -60,17 +60,17 @@ class Bloc with ValidatorMixin {
     BuildContext context, 
     String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label
   ) async {
-    return await userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((onValue) async {
+    return await userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
       Navigator.pop(context); /* Close Loading Screen */ 
       await dialog(
         context, 
-        Text((onValue['message'])), /* Sub Title */
-        onValue['message'] != "Successfully registered!" /* Check For Change Icon On Alert */ /* Title */
+        Text((_response['message'])), /* Sub Title */
+        _response['message'] != "Successfully registered!" /* Check For Change Icon On Alert */ /* Title */
           ? Icon(Icons.warning, color: Colors.yellow) : Icon(Icons.done, color
           : getHexaColor(_label == "email" ? lightBlueSky : greenColor),
         )
       );
-      return onValue['message'] == "Successfully registered!" ? true : false;
+      return _response['message'] == "Successfully registered!" ? true : false;
     })
     .catchError((onError) async {
       await dialog(context, Text('Something goes wrong !'), Icon(Icons.warning));

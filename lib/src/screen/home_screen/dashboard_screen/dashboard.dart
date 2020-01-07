@@ -58,24 +58,27 @@ class DashboardState extends State<Dashboard> {
       _modelDashboard.portfolio = [];
     });
     await getPortfolio().then((_response) async { /* Get Response Data */
-      if ( (_response.runtimeType.toString()) != "List<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
+      if ( (_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>"){ /* If Response DataType Not List<dynamic> */ 
         if (_response.containsKey("error")){
           await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
-          _modelDashboard.portfolio = null; /* Set Portfolio Equal Null To Close Loading Process */
+          setState(() {
+            _modelDashboard.portfolio = null; /* Set Portfolio Equal Null To Close Loading Process */
+          });
         }
       } else {
-        _modelDashboard.portfolio = _response;
+        setState(() {
+          _modelDashboard.portfolio = _response;
+        });
         setData(_modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
       }
     });
-    setState(() {});
   }
 
   /* ------------------------Method------------------------ */
   /* Open Menu */
   void openMenu() async { /* Navigate To Profile User */
     var _response = await blurBackgroundDecoration(context, ProfileUser());
-    if (_response != null) { /* Get Request Portfolio And User Profile If Set Wallet Successfully */ 
+    if (_response != null && _response != '') { /* Get Request Portfolio And User Profile If Set Wallet Successfully */ 
       fetchPortfolio();
       getUserData();
     }

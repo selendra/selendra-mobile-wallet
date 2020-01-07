@@ -126,16 +126,16 @@ Widget profileUserBodyWidget(
                 onTap: () async {
                   switch (index) {
                     case 0 : {
-                      Navigator.pop(context);
+                      Navigator.pop(context, '');
                       Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(_modelSignUp)));
                       break;
                     }
                     case 1 : {
-                      Navigator.pop(context);
+                      Navigator.pop(context, '');
                       blurBackgroundDecoration(context, TransactionHistoryWidget()); break;
                     }
                     case 2 : {
-                      Navigator.pop(context);
+                      Navigator.pop(context, '');
                       blurBackgroundDecoration(context, MyActivity());
                       break;
                     }
@@ -143,11 +143,11 @@ Widget profileUserBodyWidget(
                       await dialogBox(context); break;
                     }
                     case 4 : {
-                      Navigator.pop(context);
+                      Navigator.pop(context, '');
                       blurBackgroundDecoration(context, ChangePIN()); break;
                     }
                     case 5: {
-                      Navigator.pop(context);
+                      Navigator.pop(context, '');
                       blurBackgroundDecoration(context, AddAsset()); break;
                     }
                     case 6:  {
@@ -156,7 +156,7 @@ Widget profileUserBodyWidget(
                       await Future.delayed(Duration(seconds: 1), () {
                         Navigator.pop(context); /* Close Dialog Loading */
                       });
-                      Navigator.pop(context); /* Close Profile Screen */
+                      Navigator.pop(context, ''); /* Close Profile Screen */
                       await Future.delayed(Duration(milliseconds: 100), () {
                         Navigator.pushReplacementNamed(context, '/');
                       });

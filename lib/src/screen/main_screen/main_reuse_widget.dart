@@ -30,7 +30,7 @@ Widget noAccountWidget(BuildContext context, dynamic colorSignUpText) {
       ),
       InkWell(
         child: Padding(
-          padding: EdgeInsets.only(left: 10.0,top: 10.0, bottom: 10.0),
+          padding: EdgeInsets.only(left: 5.0,top: 10.0, bottom: 10.0),
           child: textDisplay(
             "Sign up now",
             TextStyle(

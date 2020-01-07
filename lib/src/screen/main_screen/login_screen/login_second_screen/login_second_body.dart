@@ -77,7 +77,7 @@ Widget userLogin( /* Column of User Login */
           _modelLogin.bloc, 
           context, 
           _modelLogin.controlEmails.text != "" ? "Email" : "Phone number", 
-          _modelLogin.controlEmails.text != "" ? null : _modelLogin.countryCode, 
+          _modelLogin.controlEmails.text != "" ? null : "${_modelLogin.countryCode} ", 
           "loginSecondScreen", 
           false, 
           _modelLogin.controlEmails.text != "" ? TextInputType.text : TextInputType.phone,
