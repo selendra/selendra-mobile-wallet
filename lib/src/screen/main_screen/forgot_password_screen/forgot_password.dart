@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/model/model_forgot_password.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password_body.dart';
+import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/reset_password_screen/reset_password.dart';
 
 class ForgotPassword extends StatefulWidget{
   State<StatefulWidget> createState() {
@@ -12,10 +14,19 @@ class ForgotPassword extends StatefulWidget{
 
 class ForgotPasswordState extends State<ForgotPassword> {
 
-  ModelForgotPassword _modelForgots = ModelForgotPassword();
+  ModelSignUp _modelSignUp = ModelSignUp();
 
   void onChanged(String label, String changed){
 
+  }
+
+  void requestCode(BuildContext context) async {
+    dialogLoading(context);
+    await forgetPassword(_modelSignUp).then((_response) async {
+      Navigator.pop(context);
+      await dialog(context, Text(_response['message']), Icon(Icons.done));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(_modelSignUp)));
+    });
   }
 
   void popScreen() {
@@ -27,7 +38,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0,
         color1, color2,
-        forgotPasswordBodyWidget(context, _modelForgots, onChanged, popScreen)
+        forgotPasswordBodyWidget(context, _modelSignUp, onChanged, popScreen, requestCode)
       ),
     );
   }

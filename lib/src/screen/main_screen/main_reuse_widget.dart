@@ -17,35 +17,36 @@ Widget paddingScreenWidget(BuildContext context, Widget body) {
   );
 }
 
-Widget noAccountWidget(BuildContext context, dynamic colorSignUpText) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-      textDisplay(
-        "Don't have account? ", 
+Widget noAccountWidget(BuildContext context, dynamic colorSignUpText, String text) {
+  return InkWell(
+    child: Padding(
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: textDisplay(
+        text,
         TextStyle(
-          color: getHexaColor("#ffffff"),
+          fontWeight: FontWeight.bold,
+          color: colorSignUpText,
           fontSize: 18,
         )
       ),
-      InkWell(
-        child: Padding(
-          padding: EdgeInsets.only(left: 5.0,top: 10.0, bottom: 10.0),
-          child: textDisplay(
-            "Sign up now",
-            TextStyle(
-              fontWeight: FontWeight.bold,
-              color: colorSignUpText,
-              fontSize: 18,
-            )
-          ),
-        ),
-        onTap: () {
-          Navigator.pushReplacementNamed(context, '/signUpScreen');
-        },
-      )
-    ],
+    ),
+    onTap: () {
+      Navigator.pushReplacementNamed(context, '/signUpScreen');
+    },
   );
+  // Row(
+  //   mainAxisAlignment: MainAxisAlignment.center,
+  //   children: <Widget>[
+  //     // textDisplay(
+  //     //   "Don't have account? ", 
+  //     //   TextStyle(
+  //     //     color: getHexaColor("#ffffff"),
+  //     //     fontSize: 18,
+  //     //   )
+  //     // ),
+      
+  //   ],
+  // );
 }
 
 Widget toLogin(BuildContext context) { /* Back To Login Screen*/
@@ -54,7 +55,7 @@ Widget toLogin(BuildContext context) { /* Back To Login Screen*/
     child: InkWell(
       child: Container(
         padding: EdgeInsets.all(10.0),
-        child: Text('Back to login', style: TextStyle(color: Colors.white, fontSize: 18.0))
+        child: Text('Back to login', style: TextStyle(color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold))
       ),
       onTap: () { 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));

@@ -190,6 +190,32 @@ Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async { /* Confi
   return json.decode(_response.body);
 }
 
+Future<Map<String, dynamic>> forgetPassword(ModelSignUp _model) async { /* Confirm User Account By Phone Number */
+  _bodyEncode = json.encode({
+    "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
+  });
+  _response = await _http.post(
+    "$_url/forget-password",
+    headers: _conceteHeader(null, null),
+    body: _bodyEncode
+  );
+  return json.decode(_response.body);
+}
+
+Future<Map<String, dynamic>> resetPass(ModelSignUp _model) async { /* Confirm User Account By Phone Number */
+  _bodyEncode = json.encode({
+    "temp-code": _model.controlResetCode.text,
+    "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
+    "password": _model.controlConfirmPasswords.text
+  });
+  _response = await _http.post(
+    "$_url/reset-password",
+    headers: _conceteHeader(null, null),
+    body: _bodyEncode
+  );
+  return json.decode(_response.body);
+}
+
 /* --------------------------------Get Request------------------------------------ */
 
 Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */

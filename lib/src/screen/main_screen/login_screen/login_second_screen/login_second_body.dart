@@ -2,7 +2,9 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sms_code_screen/sms_code_body.dart';
 
 /* body widget */
 Widget loginSdcondBodyWidget(
@@ -53,13 +55,15 @@ Widget loginSdcondBodyWidget(
         ),
         checkInputAndValidate
       ),
-      Container(
-        margin: EdgeInsets.only(top: 30.0),
-        alignment: Alignment.center, 
-        child: forgotPassword(context)
-      ),
       Expanded(flex: 2, child: Container()),
-      noAccountWidget(context, getHexaColor(blueColor)) /* Bottom Align Sign Up */ 
+      Row( /* Bottom Navigator */
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          noAccountWidget(context, Colors.white, "Create Account"),
+          Text("  |  ", style: TextStyle(fontWeight: FontWeight.bold),),
+          forgotPass(context, Colors.white),
+        ],
+      ),
     ],
   );
 }
@@ -231,19 +235,5 @@ Widget register(BuildContext context) {
   return InkWell(
     child: Text('Sign up', style: TextStyle(color: getHexaColor(lightBlueSky), fontWeight: FontWeight.bold)),
     onTap: () { Navigator.pushReplacementNamed(context, '/signUp');},
-  );
-}
-
-/* Forgot Password Button */
-Widget forgotPassword(BuildContext context) {
-  return InkWell(
-    child: textDisplay(
-      "Forgot Password",
-      TextStyle(
-        color: getHexaColor("#FFFFFF"),
-        fontSize: 18.0,
-      )
-    ),
-    onTap: () { Navigator.pushNamed(context, '/forgotPasswordScreen'); },
   );
 }

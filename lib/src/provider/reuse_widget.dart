@@ -687,8 +687,7 @@ Widget inputField( /* User Input Field */
         widgetName == "loginFirstScreen" ||
         widgetName == "loginSecondScreen" ||
         widgetName == "signUpFirstScreen" 
-      ) 
-        onChanged(labelText, valueChange);
+      ) onChanged(labelText, valueChange);
       else onChanged(valueChange);
     },
     onFieldSubmitted: (value) {

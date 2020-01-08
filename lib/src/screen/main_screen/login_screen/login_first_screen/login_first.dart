@@ -9,7 +9,6 @@ import '../../../../bloc/bloc.dart';
 
 
 class LoginFirstScreen extends StatefulWidget {
-  LoginFirstScreen();
   @override
   State<StatefulWidget> createState() {
     return LoginFirstState();

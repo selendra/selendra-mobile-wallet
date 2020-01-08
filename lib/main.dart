@@ -3,12 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
-import 'package:wallet_apps/src/model/model_forgot_password.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
-import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/change_password_screen/change_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/add_success_screen/add_success.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/fill_documents.dart';
@@ -18,7 +16,6 @@ import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/take_se
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
-import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/request_code_screen/request_code.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

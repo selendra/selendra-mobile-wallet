@@ -100,7 +100,19 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
                 navigatePage
               ),
             ),
-            noAccountWidget(context, getHexaColor(greenColor))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                textDisplay(
+                  "Don't have account? ", 
+                  TextStyle(
+                    color: getHexaColor("#ffffff"),
+                    fontSize: 18,
+                  )
+                ),
+                noAccountWidget(context, Colors.white, "Sign Up")
+              ],
+            )
           ],
         )
       ),
