@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/model/model_change_pin.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget changePinBodyWidget(
   BuildContext _context, 
-  ModelChangePin _modelChangePin, 
+  ModelSignUp _model, 
   Function popScreen, Function onChanged, Function submitPin
 ) {
   return Container(
@@ -35,13 +35,13 @@ Widget changePinBodyWidget(
                 Container( /* Old PIN */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child:inputField(
-                    _modelChangePin.bloc, 
+                    _model.bloc, 
                     _context, 
                     "Old PIN", null, "changePinScreen", 
                     true, 
                     TextInputType.number, TextInputAction.next, 
-                    _modelChangePin.controllerOldPin, 
-                    _modelChangePin.nodeOldPin, 
+                    _model.controlOldPIN, 
+                    _model.nodeOldPIN, 
                     onChanged, 
                     null
                   ),
@@ -49,13 +49,13 @@ Widget changePinBodyWidget(
                 Container( /* New PIN */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelChangePin.bloc, 
+                    _model.bloc, 
                     _context, 
                     "New PIN", null, "changePinScreen", 
                     true, 
                     TextInputType.number, TextInputAction.next,
-                    _modelChangePin.controllerOldPin, 
-                    _modelChangePin.nodeOldPin, 
+                    _model.controlNewPIN, 
+                    _model.nodeNewPIN, 
                     onChanged, 
                     null
                   ),
@@ -63,19 +63,19 @@ Widget changePinBodyWidget(
                 Container( /* Old PIN */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelChangePin.bloc, 
+                    _model.bloc, 
                     _context, 
                     "Confirm PIN", null, "changePinScreen", 
                     true, 
                     TextInputType.number, TextInputAction.done,
-                    _modelChangePin.controllerOldPin, 
-                    _modelChangePin.nodeOldPin, 
+                    _model.controlConfirmPIN, 
+                    _model.nodeConfirmPIN, 
                     onChanged, 
                     null
                   ),
                 ),
                 customFlatButton(
-                  _modelChangePin.bloc, 
+                  _model.bloc, 
                   _context, 
                   "Change Now", "changePinScreen", blueColor,
                   FontWeight.normal, 

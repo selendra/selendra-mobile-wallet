@@ -35,4 +35,13 @@ class ModelSignUp {
 
   TabController tabController;
 
+  /* Change PIN Properties */
+  TextEditingController controlOldPIN = TextEditingController();
+  TextEditingController controlNewPIN = TextEditingController();
+  TextEditingController controlConfirmPIN = TextEditingController();
+
+  FocusNode nodeOldPIN = FocusNode();
+  FocusNode nodeNewPIN = FocusNode();
+  FocusNode nodeConfirmPIN = FocusNode();
+
 }

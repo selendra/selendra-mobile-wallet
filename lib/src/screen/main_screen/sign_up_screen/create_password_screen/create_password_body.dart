@@ -59,7 +59,7 @@ Widget createPasswordBodyWidget(
                 customFlatButton( /* Button Request Code */
                   _modelSignUp.bloc,
                   _context,
-                  _modelSignUp.label == "email" ? "Create Now" : "Request Code", "signUpFirstScreen", greenColor,
+                  "Sign Up Now", "signUpFirstScreen", greenColor,
                   FontWeight.normal,
                   size18,
                   EdgeInsets.only(top: size10, bottom: size10),

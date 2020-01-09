@@ -5,7 +5,6 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_second_screen/login_second_body.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
-import 'package:wallet_apps/src/provider/internet_connection.dart';
 
 class LoginSecond extends StatefulWidget{
 

@@ -1,5 +1,6 @@
 /* Package of flutter */
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
@@ -649,6 +650,7 @@ Widget inputField( /* User Input Field */
   BuildContext context,
   String labelText, String prefixText, String widgetName,
   bool obcureText,
+  // int maxLength,
   TextInputType inputType, TextInputAction inputAction, TextEditingController controller,
   FocusNode _focusNode,
   Function onChanged, Function action
@@ -680,6 +682,7 @@ Widget inputField( /* User Input Field */
       focusColor: getHexaColor("#ffffff"),
       contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
     ),
+    inputFormatters: [LengthLimitingTextInputFormatter(4)],
     onChanged: (valueChange) {
       if (
         widgetName == "invoiceInfoScreen" || 

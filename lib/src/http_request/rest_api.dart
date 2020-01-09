@@ -216,6 +216,19 @@ Future<Map<String, dynamic>> resetPass(ModelSignUp _model) async { /* Confirm Us
   return json.decode(_response.body);
 }
 
+Future<Map<String, dynamic>> changePIN (ModelSignUp _model) async {
+  _bodyEncode = json.encode({
+    "current_pin": _model.controlOldPIN.text,
+    "new_pin": _model.controlConfirmPIN.text,
+  });
+  _response = await _http.post(
+    "$_url/change-pin",
+    headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+    body: _bodyEncode
+  );
+  return json.decode(_response.body);
+} 
+
 /* --------------------------------Get Request------------------------------------ */
 
 Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */

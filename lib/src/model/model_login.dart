@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelLogin {
+  
   final String directory = "userID";
 
   bool isProgress = false, isLogedin = false, isBoth = false;
