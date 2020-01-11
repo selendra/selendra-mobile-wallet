@@ -33,7 +33,7 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
   void fetchHistoryUser() async { /* Request Transaction History */
     await trxUserHistory().then((_response) async { /* Get Response Data */
       if ( (_response.runtimeType.toString()) != "List<dynamic>" && (_response.runtimeType.toString()) != "_GrowableList<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
-        if (_response.contains("error")){
+        if (_response.containsKey("error")){
           await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
           setState(() {
             _history = null; /* Set Portfolio Equal Null To Close Loading Process */

@@ -21,12 +21,9 @@ final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 
 Map<String, String> _conceteHeader(String _key, String _value) {
   /* Concete More Content Of Header */
-  return _key != null
-      ? {"Content-Type": "application/json; charset=utf-8", _key: _value}
-      : /* if Parameter != Null = Concete Header With  */
-      {
-          "Content-Type": "application/json; charset=utf-8"
-        }; /* if Parameter Null = Don't integrate */
+  return _key != null 
+    ? {"Content-Type": "application/json; charset=utf-8", _key: _value} : /* if Parameter != Null = Concete Header With  */
+      {"Content-Type": "application/json; charset=utf-8"}; /* if Parameter Null = Don't integrate */
 }
 
 /* Rest Api Property */
@@ -143,12 +140,13 @@ Future<Map<String, dynamic>> addMerchant(dynamic _model) async {
   return null;
 }
 
-Future<Map<String, dynamic>> addReceipt(
-    ModelScanInvoice _modelScanInvoice) async {
+Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) async { /* Scan Receipt */
+  print(_modelScanInvoice.imageUri);
   _bodyEncode = json.encode({
     "receipt_no": _modelScanInvoice.controlBillNO.text,
     "amount": _modelScanInvoice.controlAmount.text,
     "location": _modelScanInvoice.controlLocation.text,
+    "image_uri": _modelScanInvoice.imageUri['uri'],
     "approval_code": _modelScanInvoice.controlApproveCode.text
   });
   _token = await Provider.fetchToken();

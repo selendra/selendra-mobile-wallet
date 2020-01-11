@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/activity_screen/activity_details_screen/activity_details.dart';
+import 'package:wallet_apps/src/service/services.dart';
 
 Widget buildListBodyWidget(List<dynamic> _activity) {
   return _activity != null ?
@@ -48,7 +49,7 @@ Widget buildListBodyWidget(List<dynamic> _activity) {
                           //   ? Text(_activity[index]["asset_code"])
                           //   : Text("XLM"),
                           Container(
-                            child: Text(_activity[index]['created_at']),
+                            child: Text(timeStampToDateTime(_activity[index]['created_at'])),
                           )
                         ],
                       ),

@@ -42,8 +42,9 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
   return Card(
     margin: EdgeInsets.only(top: size4, bottom: 0.0),
     child: Container(
-      margin: EdgeInsets.only(top: 26.0, bottom: 17.0, right: 25),
+      padding: EdgeInsets.only(top: 26.0, bottom: 17.0),
       child: Row(
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
@@ -56,8 +57,7 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
               size: Size(190.0, 120),
               percentageValues: true,
               holeLabel: "Z",
-              labelStyle:
-                  TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+              labelStyle:TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
               edgeStyle: SegmentEdgeStyle.flat,
               initialChartData: <CircularStackEntry>[
                 CircularStackEntry(
@@ -81,23 +81,16 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
           ),
           Expanded(
             child: Container(
+              margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  // Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Image.asset("assets/zeetomic-logo-header.png", width: 140.53, height: 21.9,),
-                  // ),
-                  Container(
-                    child: Text(
-                      "About ZEETOMIC",
-                      style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.bold),
-                    ),
+                  Text(
+                    "About ZEETOMIC",
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                   Container(
-                    height: 66,
                     margin: EdgeInsets.only(top: 19.42),
                     child: Text(
                       'The Platform for the Issuance and Management of Digital Asset',

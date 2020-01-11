@@ -34,18 +34,16 @@ class ChangePINState extends State<ChangePassword> {
       if (!_response.containsKey("error")) {
         /* Check Response Not Error */
         await dialog(
-            context, Text("${_response['message']}"), Icon(Icons.done));
+          context, Text("${_response['message']}"), Icon(Icons.done));
         Navigator.pop(context);
       } else
-        await dialog(context, Text("${_response['error']['message']}"),
-            Icon(Icons.done));
+        await dialog(context, Text("${_response['error']['message']}"),Icon(Icons.warning));
     });
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: changePasswordBodyWidget(
-          context, _model, popScreen, onChanged, submitPIN),
+      body: changePasswordBodyWidget(context, _model, popScreen, onChanged, submitPIN),
     );
   }
 }

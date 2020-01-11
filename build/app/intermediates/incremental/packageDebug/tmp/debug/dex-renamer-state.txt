@@ -1,4 +1,7 @@
-#Sat Jan 11 10:49:08 ICT 2020
+#Sat Jan 11 08:57:01 EST 2020
 base.0=/Users/administrator/Documents/dev/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
+base.1=/home/daveat/Documents/zeetomic-mobile/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex

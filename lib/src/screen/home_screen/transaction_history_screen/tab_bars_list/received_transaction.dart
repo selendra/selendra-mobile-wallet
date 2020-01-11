@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/service/services.dart';
 
 Widget receivedBodyWidget(List<dynamic> list) {
   return list == null ? Container(
@@ -43,7 +44,7 @@ Widget receivedBodyWidget(List<dynamic> list) {
                         ? Text(list[index]["asset_code"])
                         : Text("XLM"),
                       Container(
-                        child: Text("14-10-2019 12:00"),
+                        child: Text(timeStampToDateTime(list[index]['created_at'])),
                       )
                     ],
                   ),

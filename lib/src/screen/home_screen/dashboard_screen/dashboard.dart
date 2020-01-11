@@ -139,10 +139,10 @@ class DashboardState extends State<Dashboard> {
 
   void scanReceipt() async { /* Receipt Scan Pay Process */
     try{
-      File cropimage = await cropImageCamera(context); /* Crop Image From Back Camera */
-      if (cropimage != null){
+      _modelScanInvoice.imageCapture = await cropImageCamera(context); /* Crop Image From Back Camera */
+      if (_modelScanInvoice.imageCapture != null){
         dialogLoading(context); /* Show Loading Process */
-        StreamedResponse _streamedResponse = await upLoadImage(cropimage, "upload"); /* POST Image And Wait Response Back */
+        StreamedResponse _streamedResponse = await upLoadImage(_modelScanInvoice.imageCapture, "upload"); /* POST Image And Wait Response Back */
         _streamedResponse.stream.transform(utf8.decoder).listen((data) async {
           Navigator.pop(context); /* Close Loading Process */
           _modelScanInvoice.imageUri = json.decode(data); /* Convert Data From Json To Object */

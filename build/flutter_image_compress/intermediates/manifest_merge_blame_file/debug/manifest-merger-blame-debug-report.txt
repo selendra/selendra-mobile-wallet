@@ -4,8 +4,8 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="16"
-6-->/Users/administrator/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_image_compress-0.6.3/android/src/main/AndroidManifest.xml
+6-->/home/daveat/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_image_compress-0.6.3/android/src/main/AndroidManifest.xml
 7        android:targetSdkVersion="28" />
-7-->/Users/administrator/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_image_compress-0.6.3/android/src/main/AndroidManifest.xml
+7-->/home/daveat/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_image_compress-0.6.3/android/src/main/AndroidManifest.xml
 8
 9</manifest>
