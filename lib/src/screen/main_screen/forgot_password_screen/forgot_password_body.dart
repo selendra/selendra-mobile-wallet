@@ -35,6 +35,7 @@ Widget forgotPasswordBodyWidget(
                     _modelSignUp.bloc,
                     _context, "Phone number", "${_modelSignUp.countryCode} ", "forgotsScreen", 
                     false, 
+                    TextField.noMaxLength,
                     TextInputType.number, TextInputAction.done,
                     _modelSignUp.controlPhoneNums, 
                     _modelSignUp.nodePhoneNums, 

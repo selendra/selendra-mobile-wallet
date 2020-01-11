@@ -1,6 +1,7 @@
 /* Flutter package */
 import 'dart:io';
 
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
@@ -52,53 +53,55 @@ class AppState extends State<App>{
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      child: MaterialApp(
-        initialRoute: '/',
-        title: 'Zeetomic',
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            textTheme: TextTheme(body1: TextStyle(color: getHexaColor(appBarTextColor))),
-            color: Colors.transparent,
-            iconTheme: IconThemeData(color: getHexaColor(appBarTextColor))
+    return ConnectivityAppWrapper(
+      app: Provider(
+        child: MaterialApp(
+          initialRoute: '/',
+          title: 'Zeetomic',
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              textTheme: TextTheme(body1: TextStyle(color: getHexaColor(appBarTextColor))),
+              color: Colors.transparent,
+              iconTheme: IconThemeData(color: getHexaColor(appBarTextColor))
+            ),
+            /* Color All Text */
+            textTheme: TextTheme(body1: TextStyle(color: getHexaColor(textColor))),
+            canvasColor: getHexaColor(color2),
+            cardColor: getHexaColor(color1),
+            bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(color1)),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: getHexaColor(textColor)),
+            fontFamily: "Avenir",
+            scaffoldBackgroundColor: Colors.transparent
           ),
-          /* Color All Text */
-          textTheme: TextTheme(body1: TextStyle(color: getHexaColor(textColor))),
-          canvasColor: getHexaColor(color2),
-          cardColor: getHexaColor(color1),
-          bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(color1)),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: getHexaColor(textColor)),
-          fontFamily: "Avenir",
-          scaffoldBackgroundColor: Colors.transparent
-        ),
-        routes: <String, WidgetBuilder>{
-          /* Login Screen */
-          '/': (context) => 
-          // HomeWidget(),
-          // UserInfo(_modelSignUp),
-          // SignUpFirst(),
-          // SmsCode(_modelSignUp),
-          WelcomeToZee(),
-          // add_profile_screenWidget(),
-          // HistroyWidget(),
-          // PhoneScreen(setMyState),
-          // HomeWidget(),
-          // ChangePIN(),
-          // InvoiceSummary(),
-          // InvoiceInfo("Hello"),
-          // ProfileUserWidget(),
-          '/forgotPasswordScreen': (context) => ForgotPassword(),
-          /* Home Screen */
-          '/dashboardScreen': (context) => Dashboard(),
-          // '/getWalletScreen': (context) => GetWalletWidget(),
-          '/settingScreen': (context) => SettingWidget(),
-          '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
-          /* Verify User Screen */
-          '/add_profile_screen': (context) => AddUserInfo(),
-          '/addDocumentScreen': (context) => AddDocuments(),
-          '/signUpScreen': (context) => SignUpFirst(),
-        },
-      )
+          routes: <String, WidgetBuilder>{
+            /* Login Screen */
+            '/': (context) => 
+            // HomeWidget(),
+            // UserInfo(_modelSignUp),
+            // SignUpFirst(),
+            // SmsCode(_modelSignUp),
+            WelcomeToZee(),
+            // add_profile_screenWidget(),
+            // HistroyWidget(),
+            // PhoneScreen(setMyState),
+            // HomeWidget(),
+            // ChangePIN(),
+            // InvoiceSummary(),
+            // InvoiceInfo("Hello"),
+            // ProfileUserWidget(),
+            '/forgotPasswordScreen': (context) => ForgotPassword(),
+            /* Home Screen */
+            '/dashboardScreen': (context) => Dashboard(),
+            // '/getWalletScreen': (context) => GetWalletWidget(),
+            '/settingScreen': (context) => SettingWidget(),
+            '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
+            /* Verify User Screen */
+            '/add_profile_screen': (context) => AddUserInfo(),
+            '/addDocumentScreen': (context) => AddDocuments(),
+            '/signUpScreen': (context) => SignUpFirst(),
+          },
+        )
+      ),
     );
   }
 }

@@ -79,6 +79,7 @@ Widget userLogin( /* Column of User Login */
           "${_modelSignUp.countryCode} ", /* Prefix */
           "smsCodeScreen", /* Widget Name */
           false, 
+          TextField.noMaxLength,
           TextInputType.phone, TextInputAction.next,
           _modelSignUp.controlPhoneNums,
           _modelSignUp.nodePhoneNums, 
@@ -93,6 +94,7 @@ Widget userLogin( /* Column of User Login */
           context, 
           "Enter SMS code", null, "smsCodeScreen", 
           true, 
+          TextField.noMaxLength,
           TextInputType.text, TextInputAction.done,
           _modelSignUp.controlSmsCode,
           _modelSignUp.nodeSmsCode, 

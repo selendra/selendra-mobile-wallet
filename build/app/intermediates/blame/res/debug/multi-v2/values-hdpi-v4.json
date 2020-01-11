@@ -4,7 +4,7 @@
             "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3be60b34c46f2e833b8d5253573f8610/jetified-core-1.9.13/res/values-hdpi-v4/values-hdpi-v4.xml",
+                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/8d44e19fca6ed2d0a597cc5499fe52d6/jetified-core-1.9.13/res/values-hdpi-v4/values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/values-hdpi-v4/values-hdpi-v4.xml",
+                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3788f3b56b5ecd3ba5f93b17ed23495d/appcompat-1.1.0/res/values-hdpi-v4/values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

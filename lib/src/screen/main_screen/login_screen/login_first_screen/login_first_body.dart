@@ -66,6 +66,7 @@ Widget loginFirstBodyWidget( /* body widget */
                 context,
                 "Email", null, "loginFirstScreen",
                 false, 
+                TextField.noMaxLength,
                 TextInputType.text, TextInputAction.done,
                 _modelLogin.controlEmails,
                 _modelLogin.nodeEmails,
@@ -78,9 +79,10 @@ Widget loginFirstBodyWidget( /* body widget */
               child: inputField(
                 _modelLogin.bloc,
                 context,
-                "Phone number", _modelLogin.countryCode, "loginFirstScreen",
+                "Phone number", "${_modelLogin.countryCode} ", "loginFirstScreen",
                 false, 
-                TextInputType.phone,TextInputAction.done,
+                TextField.noMaxLength,
+                TextInputType.phone, TextInputAction.done,
                 _modelLogin.controlPhoneNums,
                 _modelLogin.nodePhoneNums,
                 onChanged,
@@ -122,19 +124,20 @@ Widget userLogin(BuildContext context, ModelLogin _modelLogin, Function onChange
   return Column(
     children: <Widget>[
       /* Phone number input*/
-      Container(
-        margin: EdgeInsets.only(bottom: 13.0), 
-        child: inputField(
-          _modelLogin.bloc,
-          context,
-          "Phone number", _modelLogin.countryCode, "loginFirstScreen",
-          false, 
-          TextInputType.phone,TextInputAction.next, _modelLogin.controlPasswords,
-          _modelLogin.nodePasswords,
-          onChanged,
-          navigatePage
-        )
-      ),
+      // Container(
+      //   margin: EdgeInsets.only(bottom: 13.0), 
+      //   child: inputField(
+      //     _modelLogin.bloc,
+      //     context,
+      //     "Phone number", "${_modelLogin.countryCode} ", "loginFirstScreen",
+      //     false, 
+      //     TextField.noMaxLength,
+      //     TextInputType.phone, TextInputAction.next, _modelLogin.controlPhoneNums,
+      //     _modelLogin.nodePhoneNums,
+      //     onChanged,
+      //     navigatePage
+      //   )
+      // ),
       /* Password input */
       // Container(
       //   margin: EdgeInsets.only(bottom: 25.0),

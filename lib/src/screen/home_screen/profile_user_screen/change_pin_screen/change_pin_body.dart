@@ -37,8 +37,9 @@ Widget changePinBodyWidget(
                   child:inputField(
                     _model.bloc, 
                     _context, 
-                    "Old PIN", null, "changePinScreen", 
+                    "Old PIN", "", "changePinScreen", 
                     true, 
+                    4,
                     TextInputType.number, TextInputAction.next, 
                     _model.controlOldPIN, 
                     _model.nodeOldPIN, 
@@ -51,8 +52,9 @@ Widget changePinBodyWidget(
                   child: inputField(
                     _model.bloc, 
                     _context, 
-                    "New PIN", null, "changePinScreen", 
+                    "New PIN", "", "changePinScreen", 
                     true, 
+                    4,
                     TextInputType.number, TextInputAction.next,
                     _model.controlNewPIN, 
                     _model.nodeNewPIN, 
@@ -65,8 +67,9 @@ Widget changePinBodyWidget(
                   child: inputField(
                     _model.bloc, 
                     _context, 
-                    "Confirm PIN", null, "changePinScreen", 
+                    "Confirm PIN", "", "changePinScreen", 
                     true, 
+                    4,
                     TextInputType.number, TextInputAction.done,
                     _model.controlConfirmPIN, 
                     _model.nodeConfirmPIN, 

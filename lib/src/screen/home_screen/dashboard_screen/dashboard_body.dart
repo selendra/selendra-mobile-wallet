@@ -23,15 +23,15 @@ Widget dashboardBodyWidget(
             child: cardHeader(_chartKey),
           ),
           /* Token & Profit */
-          Container(
-            margin: EdgeInsets.only(top: 16.0),
-            child: cardTokenAndProfit(),
-          ),
+          // Container(
+          //   margin: EdgeInsets.only(top: 16.0),
+          //   child: cardTokenAndProfit(),
+          // ),
           /* Zeetomic token chart */
           Container(
             margin: EdgeInsets.only(top: 16.0),
             width: double.infinity,
-            child: portfolioList(context, "My Porfolio", portfolioData, true),
+            child: portfolioList(context, "Porfolios", portfolioData, true),
           ),
         ],
       )
@@ -56,10 +56,9 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
               startAngle: 125.0,
               size: Size(190.0, 120),
               percentageValues: true,
-              holeLabel: '88',
+              holeLabel: "Z",
               labelStyle: TextStyle(
-                color: getHexaColor("#8CC361"),
-                fontSize: 28.0,
+                fontSize: 40.0,
                 fontWeight: FontWeight.bold
               ),
               edgeStyle: SegmentEdgeStyle.flat,
@@ -89,9 +88,17 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Image.asset("assets/zeetomic-logo-header.png", width: 140.53, height: 21.9,),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: Image.asset("assets/zeetomic-logo-header.png", width: 140.53, height: 21.9,),
+                  // ),
+                  Container(
+                    child: Text(
+                      "About ZEETOMIC",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
                   ),
                   Container(
                     height: 66,
@@ -99,7 +106,7 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
                     child: Text(
                       'Blockchain as a service and smart assets issurance and management platform.',
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 18.0,
                       ),
                     ),
                   )

@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
@@ -56,65 +57,68 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
     final bloc = Provider.of(context);
     /* Check For Previous Login */
     return Scaffold(
-      body: scaffoldBGDecoration(
-        leftRight40, leftRight40, 0, 67,
-        color1, color2,
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    zeeLogo(91.14, 96.38),
-                    Container(
-                      margin: EdgeInsets.only(top: 50.0),
-                      child: textDisplay(
-                        "Welcome",
-                        TextStyle(
-                          color: getHexaColor("#ffffff"),
-                          fontSize: 34.0,
-                        )
+      body: ConnectivityWidgetWrapper(
+        message: "Please connect an internet!",
+        child: scaffoldBGDecoration(
+          leftRight40, leftRight40, 0, 67,
+          color1, color2,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      zeeLogo(91.14, 96.38),
+                      Container(
+                        margin: EdgeInsets.only(top: 50.0),
+                        child: textDisplay(
+                          "Welcome",
+                          TextStyle(
+                            color: getHexaColor("#ffffff"),
+                            fontSize: 34.0,
+                          )
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(bottom: 30.0),
-              child: customFlatButton(
-                bloc,
-                context,
-                "Login", "welcomeZee", greenColor,
-                FontWeight.bold,
-                size18,
-                EdgeInsets.only(top: size10, bottom: size10),
-                EdgeInsets.only(top: size15, bottom: size15),
-                BoxShadow(
-                  color: Color.fromRGBO(0,0,0,0.54),
-                  blurRadius: 5.0
+              Container(
+                margin: EdgeInsets.only(bottom: 30.0),
+                child: customFlatButton(
+                  bloc,
+                  context,
+                  "Login", "welcomeZee", greenColor,
+                  FontWeight.bold,
+                  size18,
+                  EdgeInsets.only(top: size10, bottom: size10),
+                  EdgeInsets.only(top: size15, bottom: size15),
+                  BoxShadow(
+                    color: Color.fromRGBO(0,0,0,0.54),
+                    blurRadius: 5.0
+                  ),
+                  navigatePage
                 ),
-                navigatePage
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                textDisplay(
-                  "Don't have account? ", 
-                  TextStyle(
-                    color: getHexaColor("#ffffff"),
-                    fontSize: 18,
-                  )
-                ),
-                noAccountWidget(context, Colors.white, "Sign Up")
-              ],
-            )
-          ],
-        )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  textDisplay(
+                    "Don't have account? ", 
+                    TextStyle(
+                      color: getHexaColor("#ffffff"),
+                      fontSize: 18,
+                    )
+                  ),
+                  noAccountWidget(context, Colors.white, "Sign Up")
+                ],
+              )
+            ],
+          )
+        ),
       ),
     );
   }

@@ -44,12 +44,11 @@ dependencies:
   flutter_image_compress: ^0.6.3
   transparent_image: ^1.0.0
   slider_button: ^0.2.1
-  # drawerbehavior: ^0.0.8
   pull_to_refresh: ^1.5.7
   autocomplete_textfield: ^1.7.3
   charts_flutter: ^0.8.1
-  dotted_border: ^1.0.4
   date_format: ^1.0.8
+  connectivity_wrapper: ^1.0.2
 
 dev_dependencies:
   flutter_test:

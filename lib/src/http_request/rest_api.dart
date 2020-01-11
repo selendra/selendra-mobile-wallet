@@ -14,7 +14,7 @@ import 'package:wallet_apps/src/model/model_signup.dart';
 final _url = "https://testnet-api.zeetomic.com/pub/v1";
 
 /* Zeetomic api image upload */
-final _urlPostImage = "https://s3.zeetomic.com";
+final _apiPostImage = "https://s3.zeetomic.com";
 
 /* Zeetomic OCR */
 final _urlOCR = "https://zocr.zeetomic.com/pushimage";
@@ -341,7 +341,7 @@ Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
     quality: 100,
   );
   /* Make request */
-  var request = new _http.MultipartRequest('POST', Uri.parse('$_urlPostImage/$endpoint'));
+  var request = new _http.MultipartRequest('POST', Uri.parse('$_apiPostImage/$endpoint'));
   /* Make Form of Multipart */
   var multipartFile = new _http.MultipartFile.fromBytes(
     'file',

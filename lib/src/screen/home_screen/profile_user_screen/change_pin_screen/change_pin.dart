@@ -31,10 +31,10 @@ class ChangePINState extends State<ChangePIN> {
     await changePIN(_model).then((_response) async {
       Navigator.pop(context); /* Close Loading Process */
       if (!_response.containsKey("error")) { /* Check Response Not Error */
-        await dialog(context, Text(_response['message']), Icon(Icons.done));
+        await dialog(context, Text("${_response['message']}"), Icon(Icons.done));
         Navigator.pop(context);
       }
-      else await dialog(context, Text(_response['error']['message']), Icon(Icons.done));
+      else await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.done));
     });
   }
   

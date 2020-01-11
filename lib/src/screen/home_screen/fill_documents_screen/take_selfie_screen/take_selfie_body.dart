@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 Widget selfieBodyWidget(
   BuildContext context,

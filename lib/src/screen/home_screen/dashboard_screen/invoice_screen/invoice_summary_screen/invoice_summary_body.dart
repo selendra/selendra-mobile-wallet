@@ -55,6 +55,7 @@ Widget invoiceSummaryBodyWidget(
             _context, 
             "Authorization code", null, "invoiceSummary", 
             true, 
+            TextField.noMaxLength,
             TextInputType.text, TextInputAction.done,
             _modelScanInvoice.controlApproveCode, 
             _modelScanInvoice.nodeApproveCode, 
