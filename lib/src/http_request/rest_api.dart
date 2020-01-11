@@ -1,11 +1,11 @@
-import 'dart:io';
-import 'package:wallet_apps/src/bloc/bloc_provider.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:http_parser/http_parser.dart';
-import 'package:http/http.dart' as _http;
-import 'dart:convert';
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:http/http.dart' as _http;
+import 'package:http_parser/http_parser.dart';
+import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/model/model_scan_pay.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
@@ -19,51 +19,46 @@ final _apiPostImage = "https://s3.zeetomic.com";
 /* Zeetomic OCR */
 final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 
-Map<String, String> _conceteHeader(String _key, String _value) { /* Concete More Content Of Header */
-  return _key != null ? 
-    {"Content-Type": "application/json; charset=utf-8", _key: _value} : /* if Parameter != Null = Concete Header With  */
-    {"Content-Type": "application/json; charset=utf-8"} ; /* if Parameter Null = Don't integrate */
+Map<String, String> _conceteHeader(String _key, String _value) {
+  /* Concete More Content Of Header */
+  return _key != null
+      ? {"Content-Type": "application/json; charset=utf-8", _key: _value}
+      : /* if Parameter != Null = Concete Header With  */
+      {
+          "Content-Type": "application/json; charset=utf-8"
+        }; /* if Parameter Null = Don't integrate */
 }
 
 /* Rest Api Property */
 Map<String, dynamic> _token;
-_http.Response _response; 
+_http.Response _response;
 String _bodyEncode;
 
 /* --------------------------------Post Request-------------------------------- */
 
-Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _schema) async { /* User Login */
-  _bodyEncode = json.encode( /* Convert to Json String */
-    {
-      _schema: _byEmailOrPhoneNums, 
-      "password": _passwords
-    }
-  );
-  _response = await _http.post(
-    '$_url$_endpoints', 
-    headers: _conceteHeader(null, null),
-    body: _bodyEncode
-  );
+Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums,
+    String _passwords, String _endpoints, String _schema) async {
+  /* User Login */
+  _bodyEncode = json.encode(/* Convert to Json String */
+      {_schema: _byEmailOrPhoneNums, "password": _passwords});
+  _response = await _http.post('$_url$_endpoints',
+      headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 
 /* User Regiser */
-Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _schema) async {
-  _bodyEncode = json.encode( /* Convert to Json Data ( String ) */
-    {
-      _schema: _byEmailOrPhoneNums, 
-      "password": _passwords
-    }
-  );
-  _response = await _http.post(
-    '$_url$_endpoints', 
-    headers: _conceteHeader(null, null),
-    body: _bodyEncode
-  );
+Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums,
+    String _passwords, String _endpoints, String _schema) async {
+  _bodyEncode = json.encode(/* Convert to Json Data ( String ) */
+      {_schema: _byEmailOrPhoneNums, "password": _passwords});
+  _response = await _http.post('$_url$_endpoints',
+      headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> uploadUserProfile(dynamic _model, String _endpoints) async { /* Post User Information */
+Future<Map<String, dynamic>> uploadUserProfile(
+    dynamic _model, String _endpoints) async {
+  /* Post User Information */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "first_name": _model.controlFirstName.text,
@@ -71,51 +66,46 @@ Future<Map<String, dynamic>> uploadUserProfile(dynamic _model, String _endpoints
     "last_name": _model.controlLastName.text,
     "gender": _model.gender
   });
-  if (_token != null){
-    _response = await _http.post(
-      "$_url/userprofile",
-      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
-      body: _bodyEncode
-    );
+  if (_token != null) {
+    _response = await _http.post("$_url/userprofile",
+        headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+        body: _bodyEncode);
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future<Map<String, dynamic>> retreiveWallet(String _pins) async { /* Post Get Wallet */
+Future<Map<String, dynamic>> retreiveWallet(String _pins) async {
+  /* Post Get Wallet */
   _token = await Provider.fetchToken();
-  _bodyEncode = json.encode({
-    "pin": _pins
-  });
-  if (_token != null){
-    _response = await _http.post(
-      "$_url/getwallet",
-      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
-      body: _bodyEncode
-    );
+  _bodyEncode = json.encode({"pin": _pins});
+  if (_token != null) {
+    _response = await _http.post("$_url/getwallet",
+        headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+        body: _bodyEncode);
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future<Map<String, dynamic>> addAsset(dynamic _model) async { /* Add New Asset */
+Future<Map<String, dynamic>> addAsset(dynamic _model) async {
+  /* Add New Asset */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "asset-code": _model.controlAssetCode.text,
     "asset-ssuer": _model.controlAssetIssuer.text
   });
-  if (_token != null){
-    _response = await _http.post(
-      "$_url/userprofile",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
-      body: _bodyEncode
-    );
+  if (_token != null) {
+    _response = await _http.post("$_url/userprofile",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+        body: _bodyEncode);
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code Send Request */
+Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async {
+  /* QR Code Send Request */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "pin": _model.pin,
@@ -124,22 +114,19 @@ Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code
     "amount": _model.controlAmount.text,
     "memo": _model.controlMemo.text
   });
-  if (_token != null){
-    _response = await _http.post(
-      "$_url/sendpayment",
-      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
-      body: _bodyEncode
-    );
+  if (_token != null) {
+    _response = await _http.post("$_url/sendpayment",
+        headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+        body: _bodyEncode);
     Map<String, dynamic> _decode = json.decode(_response.body);
-    _decode.addAll({
-      "status_code": _response.statusCode
-    });
+    _decode.addAll({"status_code": _response.statusCode});
     return _decode;
   }
   return null;
 }
 
-Future<Map<String, dynamic>> addMerchant(dynamic _model) async { /* Add New Merchant */
+Future<Map<String, dynamic>> addMerchant(dynamic _model) async {
+  /* Add New Merchant */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "asset-code": _model.controlAssetCode.text,
@@ -147,18 +134,17 @@ Future<Map<String, dynamic>> addMerchant(dynamic _model) async { /* Add New Merc
     "amount": _model.controlAmount.text,
     "memo": _model.controlMemo.text
   });
-  if (_token != null){
-    _response = await _http.post(
-      "$_url/sendpayment",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
-      body: _bodyEncode
-    );
+  if (_token != null) {
+    _response = await _http.post("$_url/sendpayment",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+        body: _bodyEncode);
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) async {
+Future<Map<String, dynamic>> addReceipt(
+    ModelScanInvoice _modelScanInvoice) async {
   _bodyEncode = json.encode({
     "receipt_no": _modelScanInvoice.controlBillNO.text,
     "amount": _modelScanInvoice.controlAmount.text,
@@ -167,89 +153,96 @@ Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) asyn
   });
   _token = await Provider.fetchToken();
   if (_token != null) {
-    _response = await _http.post(
-      "$_url/addreceipt",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
-      body: _bodyEncode
-    );
+    _response = await _http.post("$_url/addreceipt",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+        body: _bodyEncode);
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async { /* Confirm User Account By Phone Number */
+Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async {
+  /* Confirm User Account By Phone Number */
   _bodyEncode = json.encode({
     "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
     "verification_code": _model.controlSmsCode.text
   });
-  _response = await _http.post(
-    "$_url/account-confirmation",
-    headers: _conceteHeader(null, null),
-    body: _bodyEncode
-  );
+  _response = await _http.post("$_url/account-confirmation",
+      headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> forgetPassword(ModelSignUp _model) async { /* Confirm User Account By Phone Number */
+Future<Map<String, dynamic>> forgetPassword(ModelSignUp _model) async {
+  /* Confirm User Account By Phone Number */
   _bodyEncode = json.encode({
     "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
   });
-  _response = await _http.post(
-    "$_url/forget-password",
-    headers: _conceteHeader(null, null),
-    body: _bodyEncode
-  );
+  _response = await _http.post("$_url/forget-password",
+      headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> resetPass(ModelSignUp _model) async { /* Confirm User Account By Phone Number */
+Future<Map<String, dynamic>> resetPass(ModelSignUp _model) async {
+  /* Confirm User Account By Phone Number */
   _bodyEncode = json.encode({
     "temp-code": _model.controlResetCode.text,
     "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
-    "password": _model.controlConfirmPasswords.text
+    "password": _model.controlConfirmSecureNumber.text
   });
-  _response = await _http.post(
-    "$_url/reset-password",
-    headers: _conceteHeader(null, null),
-    body: _bodyEncode
-  );
+  _response = await _http.post("$_url/reset-password",
+      headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> changePIN (ModelSignUp _model) async {
-  _bodyEncode = json.encode({
-    "current_pin": _model.controlOldPIN.text,
-    "new_pin": _model.controlConfirmPIN.text,
-  });
-  _response = await _http.post(
-    "$_url/change-pin",
-    headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
-    body: _bodyEncode
-  );
-  return json.decode(_response.body);
-} 
-
-/* --------------------------------Get Request------------------------------------ */
-
-Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */
+Future<Map<String, dynamic>> changePIN(ModelSignUp _model) async {
   _token = await Provider.fetchToken();
-  if (_token != null){
-    _response = await _http.get(
-      "$_url/userprofile",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
-    );
+  _bodyEncode = json.encode({
+    "current_pin": _model.controlOldSecureNumber.text,
+    "new_pin": _model.controlConfirmSecureNumber.text,
+  });
+  if (_token != null) {
+    _response = await _http.post("$_url/change-pin",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+        body: _bodyEncode);
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future<int> checkExpiredToken() async { /* Expired Token In Welcome Screen */
+Future<Map<String, dynamic>> changePassword(ModelSignUp _model) async {
   _token = await Provider.fetchToken();
-  if (_token != null){
-    _response = await _http.get(
-      "$_url/userprofile",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
-    );
+  _bodyEncode = json.encode({
+    "current_password": _model.controlOldSecureNumber.text,
+    "new_password": _model.controlConfirmSecureNumber.text,
+  });
+  if (_token != null) {
+    _response = await _http.post("$_url/change-password",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+        body: _bodyEncode);
+    return json.decode(_response.body);
+  }
+  return null;
+}
+
+/* --------------------------------Get Request------------------------------------ */
+
+Future<Map<String, dynamic>> getUserProfile() async {
+  /* Get User Profile */
+  _token = await Provider.fetchToken();
+  if (_token != null) {
+    _response = await _http.get("$_url/userprofile",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));
+    return json.decode(_response.body);
+  }
+  return null;
+}
+
+Future<int> checkExpiredToken() async {
+  /* Expired Token In Welcome Screen */
+  _token = await Provider.fetchToken();
+  if (_token != null) {
+    _response = await _http.get("$_url/userprofile",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));
     return _response.statusCode;
   }
   return null;
@@ -258,23 +251,20 @@ Future<int> checkExpiredToken() async { /* Expired Token In Welcome Screen */
 /* User History */
 Future trxUserHistory() async {
   _token = await Provider.fetchToken();
-  if (_token != null){
-    _response = await _http.get(
-      "$_url/trx-history", 
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
-    );
+  if (_token != null) {
+    _response = await _http.get("$_url/trx-history",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future getPortfolio() async { /* User Porfolio */
+Future getPortfolio() async {
+  /* User Porfolio */
   _token = await Provider.fetchToken();
-  if (_token != null){
-    _response = await _http.get(
-      "$_url/portforlio", 
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
-    );
+  if (_token != null) {
+    _response = await _http.get("$_url/portforlio",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));
     return json.decode(_response.body);
   }
   return null;
@@ -283,10 +273,8 @@ Future getPortfolio() async { /* User Porfolio */
 Future getAllBranches() async {
   _token = await Provider.fetchToken();
   if (_token != null) {
-    _response = await _http.get(
-      "$_url/get-all-branches",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
-    );
+    _response = await _http.get("$_url/get-all-branches",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));
     return json.decode(_response.body);
   }
   return null;
@@ -295,10 +283,8 @@ Future getAllBranches() async {
 Future<dynamic> getReceipt() async {
   _token = await Provider.fetchToken();
   if (_token != null) {
-    _response = await _http.get(
-      "$_url/get-receipt",
-      headers: _conceteHeader("authorization", "Bearer ${_token['token']}")
-    );
+    _response = await _http.get("$_url/get-receipt",
+        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));
     return json.decode(_response.body);
   }
   return null;
@@ -309,7 +295,9 @@ Future<dynamic> getReceipt() async {
 Future<List<dynamic>> listBranches() async {
   _token = await Provider.fetchToken();
   if (_token != null) {
-    _response = await _http.get('$_url/listBranches', headers: {HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"});
+    _response = await _http.get('$_url/listBranches', headers: {
+      HttpHeaders.authorizationHeader: "Bearer ${_token['TOKEN']}"
+    });
     var data = json.decode(_response.body);
     return data['message'];
   }
@@ -331,7 +319,8 @@ Future<List<dynamic>> listBranches() async {
 //   return null;
 // }
 
-Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async { /* Upload image to server by use multi part form*/
+Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
+  /* Upload image to server by use multi part form*/
   _token = await Provider.fetchToken();
   /* Compress image file */
   List<int> compressImage = await FlutterImageCompress.compressWithFile(
@@ -341,7 +330,8 @@ Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
     quality: 100,
   );
   /* Make request */
-  var request = new _http.MultipartRequest('POST', Uri.parse('$_apiPostImage/$endpoint'));
+  var request =
+      new _http.MultipartRequest('POST', Uri.parse('$_apiPostImage/$endpoint'));
   /* Make Form of Multipart */
   var multipartFile = new _http.MultipartFile.fromBytes(
     'file',
@@ -350,7 +340,8 @@ Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
     contentType: MediaType.parse('image/jpeg'),
   );
   /* Concate Token With Header */
-  request.headers.addAll(_conceteHeader("Authorization", "Bearer ${_token['TOKEN']}"));
+  request.headers
+      .addAll(_conceteHeader("Authorization", "Bearer ${_token['TOKEN']}"));
   request.files.add(multipartFile);
   /* Start send to server */
   var response = await request.send();
@@ -362,13 +353,12 @@ Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
 }
 
 /* OCR Image */
-Future ocrImage (String imageuri) async {
+Future ocrImage(String imageuri) async {
   // "https://i.ibb.co/r69pMmx/ocr.png"
   Map<String, dynamic> bodys = {
     "imguri": imageuri,
-    "amount":"Grand Total(\$)", 
-    "trxdate":"Bill Date"
+    "amount": "Grand Total(\$)",
+    "trxdate": "Bill Date"
   };
   final response = await _http.post(_urlOCR, body: bodys);
 }
-

@@ -1,10 +1,20 @@
 {
     "logs": [
         {
-            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/res/merged/debug/values-v16/values-v16.xml",
+            "outputFile": "/Users/administrator/Documents/dev/build/flutter_webview_plugin/intermediates/res/merged/debug/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3788f3b56b5ecd3ba5f93b17ed23495d/appcompat-1.1.0/res/values-v16/values-v16.xml",
+                    "source": "/Users/administrator/.gradle/caches/transforms-2/files-2.1/2e2076e6216b29ee97192fe17edf1ebc/core-1.1.0/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "/Users/administrator/.gradle/caches/transforms-2/files-2.1/3788f3b56b5ecd3ba5f93b17ed23495d/appcompat-1.1.0/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,25 +30,25 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
-                    }
-                },
-                {
-                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/2e2076e6216b29ee97192fe17edf1ebc/core-1.1.0/res/values-v16/values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
                     }
                 }
             ]
         },
         {
-            "outputFile": "/home/daveat/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
+            "outputFile": "/Users/administrator/Documents/dev/build/flutter_webview_plugin/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/3788f3b56b5ecd3ba5f93b17ed23495d/appcompat-1.1.0/res/values-v16/values-v16.xml",
+                    "source": "/Users/administrator/.gradle/caches/transforms-2/files-2.1/2e2076e6216b29ee97192fe17edf1ebc/core-1.1.0/res/values-v16/values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "/Users/administrator/.gradle/caches/transforms-2/files-2.1/3788f3b56b5ecd3ba5f93b17ed23495d/appcompat-1.1.0/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -54,16 +64,6 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
-                    }
-                },
-                {
-                    "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/2e2076e6216b29ee97192fe17edf1ebc/core-1.1.0/res/values-v16/values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
                     }
                 }
             ]

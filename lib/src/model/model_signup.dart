@@ -6,16 +6,15 @@ class ModelSignUp {
 
   bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
 
-  String token, countryCode = "+855", gender, label, genderLabel = "Gender"; 
+  String token, countryCode = "+855", gender, label, genderLabel = "Gender";
 
   var colorSubmitted = Colors.transparent;
 
   Bloc bloc = Bloc();
-  
-  /* User login Property*/
+
+  /* User login Properties */
   FocusNode nodeEmails = FocusNode();
-  FocusNode nodePassword = FocusNode();
-  FocusNode nodeConfirmPasswords = FocusNode();
+  FocusNode nodeSecureNumber = FocusNode();
   FocusNode nodePhoneNums = FocusNode();
   FocusNode nodeSmsCode = FocusNode();
   FocusNode nodeFirstName = FocusNode();
@@ -23,10 +22,10 @@ class ModelSignUp {
   FocusNode nodeLastName = FocusNode();
   FocusNode nodeResetCode = FocusNode();
 
-  TextEditingController controlEmails = TextEditingController(); /* Value Controller Empty By Default */
-  TextEditingController controlPasswords = TextEditingController();
+  TextEditingController controlEmails =
+      TextEditingController(); /* Value Controller Empty By Default */
+  TextEditingController controlSecureNumber = TextEditingController();
   TextEditingController controlSmsCode = TextEditingController();
-  TextEditingController controlConfirmPasswords = TextEditingController();
   TextEditingController controlPhoneNums = TextEditingController();
   TextEditingController controlFirstName = TextEditingController();
   TextEditingController controlMidName = TextEditingController();
@@ -36,12 +35,9 @@ class ModelSignUp {
   TabController tabController;
 
   /* Change PIN Properties */
-  TextEditingController controlOldPIN = TextEditingController();
-  TextEditingController controlNewPIN = TextEditingController();
-  TextEditingController controlConfirmPIN = TextEditingController();
+  TextEditingController controlOldSecureNumber = TextEditingController();
+  TextEditingController controlConfirmSecureNumber = TextEditingController();
 
-  FocusNode nodeOldPIN = FocusNode();
-  FocusNode nodeNewPIN = FocusNode();
-  FocusNode nodeConfirmPIN = FocusNode();
-
+  FocusNode nodeOldSecureNumber = FocusNode();
+  FocusNode nodeConfirmSecureNumber = FocusNode();
 }

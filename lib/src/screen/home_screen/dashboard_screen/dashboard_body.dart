@@ -7,35 +7,33 @@ import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 
 Widget dashboardBodyWidget(
-  BuildContext context,
-  Bloc bloc,
-  GlobalKey<AnimatedCircularChartState> _chartKey,
-  List<dynamic> portfolioData
-) {
+    BuildContext context,
+    Bloc bloc,
+    GlobalKey<AnimatedCircularChartState> _chartKey,
+    List<dynamic> portfolioData) {
   /* Widget */
   return SingleChildScrollView(
     child: Container(
-      margin: EdgeInsets.only(top: 10.0),
-      child: Column(
-        children: <Widget>[
-          /* Welcome to Zeetomic */
-          Container(
-            child: cardHeader(_chartKey),
-          ),
-          /* Token & Profit */
-          // Container(
-          //   margin: EdgeInsets.only(top: 16.0),
-          //   child: cardTokenAndProfit(),
-          // ),
-          /* Zeetomic token chart */
-          Container(
-            margin: EdgeInsets.only(top: 16.0),
-            width: double.infinity,
-            child: portfolioList(context, "Porfolios", portfolioData, true),
-          ),
-        ],
-      )
-    ),
+        margin: EdgeInsets.only(top: 10.0),
+        child: Column(
+          children: <Widget>[
+            /* Welcome to Zeetomic */
+            Container(
+              child: cardHeader(_chartKey),
+            ),
+            /* Token & Profit */
+            // Container(
+            //   margin: EdgeInsets.only(top: 16.0),
+            //   child: cardTokenAndProfit(),
+            // ),
+            /* Zeetomic token chart */
+            Container(
+              margin: EdgeInsets.only(top: 16.0),
+              width: double.infinity,
+              child: portfolioList(context, "Porfolios", portfolioData, true),
+            ),
+          ],
+        )),
   );
 }
 
@@ -48,7 +46,8 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container( /* Pie Chart */ /* Investment rate */
+          Container(
+            /* Pie Chart */ /* Investment rate */
             child: AnimatedCircularChart(
               holeRadius: 45.0,
               key: _chartKey,
@@ -57,10 +56,8 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
               size: Size(190.0, 120),
               percentageValues: true,
               holeLabel: "Z",
-              labelStyle: TextStyle(
-                fontSize: 40.0,
-                fontWeight: FontWeight.bold
-              ),
+              labelStyle:
+                  TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
               edgeStyle: SegmentEdgeStyle.flat,
               initialChartData: <CircularStackEntry>[
                 CircularStackEntry(
@@ -96,17 +93,16 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
                     child: Text(
                       "About ZEETOMIC",
                       style: TextStyle(
-                        fontSize: 18.0,
-                      ),
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
                     height: 66,
                     margin: EdgeInsets.only(top: 19.42),
                     child: Text(
-                      'Blockchain as a service and smart assets issurance and management platform.',
+                      'The Platform for the Issuance and Management of Digital Asset',
                       style: TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 16.0,
                       ),
                     ),
                   )
@@ -133,30 +129,16 @@ Widget cardTokenAndProfit() {
       Expanded(
         child: Card(
           margin: EdgeInsets.only(top: 0.0, bottom: 0.0, right: 8),
-          child: cardToken(
-            "Most Active Token",
-            "11,356",
-            downColor,
-            greenColor,
-            '-15.8',
-            Icons.arrow_downward,
-            cardPadding6
-          ),
+          child: cardToken("Most Active Token", "11,356", downColor, greenColor,
+              '-15.8', Icons.arrow_downward, cardPadding6),
         ),
       ),
       /* Most Profitable */
       Expanded(
         child: Card(
           margin: EdgeInsets.only(top: 0.0, bottom: 0.0, left: 8),
-          child: cardToken(
-            "Most Profitable Token", 
-            "21,452", 
-            greenColor,
-            greenColor,
-            "25.3", 
-            Icons.arrow_upward,
-            cardPadding6 
-          ),
+          child: cardToken("Most Profitable Token", "21,452", greenColor,
+              greenColor, "25.3", Icons.arrow_upward, cardPadding6),
         ),
       )
     ],
