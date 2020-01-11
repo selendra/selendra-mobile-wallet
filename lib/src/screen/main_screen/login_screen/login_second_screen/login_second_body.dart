@@ -111,7 +111,7 @@ Widget userLogin(
             "loginSecondScreen",
             true,
             TextField.noMaxLength,
-            TextInputType.number,
+            TextInputType.text,
             TextInputAction.done,
             _modelLogin.controlPasswords,
             _modelLogin.nodePasswords,
