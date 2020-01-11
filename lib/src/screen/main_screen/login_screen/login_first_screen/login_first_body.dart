@@ -6,12 +6,13 @@ import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widg
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
 Widget loginFirstBodyWidget(
-    /* body widget */
-    BuildContext context,
-    ModelLogin _modelLogin,
-    Function onChanged,
-    Function tabBarSelectChanged,
-    Function navigatePage) {
+  /* body widget */
+  BuildContext context,
+  ModelLogin _modelLogin,
+  Function onChanged,
+  Function tabBarSelectChanged,
+  Function navigatePage
+) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,11 +25,13 @@ Widget loginFirstBodyWidget(
           Container(
             margin: EdgeInsets.only(top: 38.96),
             child: textDisplay(
-                "Login",
-                TextStyle(
-                    color: getHexaColor("#FFFFFF"),
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold)),
+              "Login",
+              TextStyle(
+                color: getHexaColor("#FFFFFF"),
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold
+              )
+            ),
           )
         ],
       ),
@@ -65,39 +68,43 @@ Widget loginFirstBodyWidget(
           /* Body Sign Up */
           children: <Widget>[
             Container(
-                /* Login By Email Field */
-                padding: EdgeInsets.only(top: 9.0),
-                child: inputField(
-                    _modelLogin.bloc,
-                    context,
-                    "Email",
-                    null,
-                    "loginFirstScreen",
-                    false,
-                    TextField.noMaxLength,
-                    TextInputType.text,
-                    TextInputAction.done,
-                    _modelLogin.controlEmails,
-                    _modelLogin.nodeEmails,
-                    onChanged,
-                    navigatePage)),
+            /* Login By Email Field */
+            padding: EdgeInsets.only(top: 9.0),
+            child: inputField(
+              _modelLogin.bloc,
+              context,
+              "Email",
+              null,
+              "loginFirstScreen",
+              false,
+              TextField.noMaxLength,
+              TextInputType.text,
+              TextInputAction.done,
+              _modelLogin.controlEmails,
+              _modelLogin.nodeEmails,
+              onChanged,
+              navigatePage
+              )
+            ),
             Container(
-                /* Sign By Phone Number Field */
-                padding: EdgeInsets.only(top: 9.0),
-                child: inputField(
-                    _modelLogin.bloc,
-                    context,
-                    "Phone number",
-                    "${_modelLogin.countryCode} ",
-                    "loginFirstScreen",
-                    false,
-                    TextField.noMaxLength,
-                    TextInputType.phone,
-                    TextInputAction.done,
-                    _modelLogin.controlPhoneNums,
-                    _modelLogin.nodePhoneNums,
-                    onChanged,
-                    navigatePage))
+              /* Sign By Phone Number Field */
+              padding: EdgeInsets.only(top: 9.0),
+              child: inputField(
+                _modelLogin.bloc,
+                context,
+                "Phone number",
+                "${_modelLogin.countryCode} ",
+                "loginFirstScreen",
+                false,
+                TextField.noMaxLength,
+                TextInputType.phone,
+                TextInputAction.done,
+                _modelLogin.controlPhoneNums,
+                _modelLogin.nodePhoneNums,
+                onChanged,
+                navigatePage
+              )
+            )
           ],
         ),
       ),
