@@ -38,7 +38,7 @@ class UserInfoState extends State<UserInfo> {
           widget._model.label == "email" ? widget._model.controlEmails.text : "${widget._model.countryCode}${widget._model.controlPhoneNums.text}", 
           widget._model.controlSecureNumber.text, 
           widget._model.label == "email" ? "/loginbyemail" : "/loginbyphone", 
-          widget._model.label
+          widget._model.label 
         );
         await setData(_res, "user_token");
       }
