@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info_body.dart';
@@ -35,13 +34,13 @@ class UserInfoState extends State<UserInfo> {
   void getTokenByLogin() async { /* Get Token To Make Authentication With Add User Info */
     await fetchData("user_token").then((_response) async {
       if (_response == null){
-        var _response = await userLogin(
+        var _res = await userLogin(
           widget._model.label == "email" ? widget._model.controlEmails.text : "${widget._model.countryCode}${widget._model.controlPhoneNums.text}", 
-          widget._model.controlConfirmPasswords.text, 
+          widget._model.controlSecureNumber.text, 
           widget._model.label == "email" ? "/loginbyemail" : "/loginbyphone", 
           widget._model.label
         );
-        await setData(_response, "user_token");
+        await setData(_res, "user_token");
       }
     });
   }

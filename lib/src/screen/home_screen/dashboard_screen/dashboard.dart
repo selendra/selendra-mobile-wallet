@@ -192,7 +192,7 @@ class DashboardState extends State<Dashboard> {
                         EdgeInsets.all(0),
                         openMenu
                       ),
-                      Image.asset("assets/zeetomic-logo-header.png", width: 140.53, height: 21.9,),
+                      Image.asset(_modelDashboard.titleAppBar, width: 140.53, height: 21.9,),
                       //containerTitle("Dashboard", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
                       Expanded(
                         child: Container(),

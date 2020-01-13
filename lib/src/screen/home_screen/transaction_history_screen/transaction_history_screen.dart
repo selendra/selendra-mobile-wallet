@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/drawer_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_body.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,14 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 
 class TransactionHistoryWidget extends StatefulWidget{
+
+  final ModelSignUp _modelSignUp;
+
+  TransactionHistoryWidget(this._modelSignUp);
+
   @override
   State<StatefulWidget> createState() {
     return TracsactionHistoryState();
@@ -73,7 +80,7 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
       initialIndex: 1,
       length: 3,
       child: Scaffold(
-        body: transactionBodyWidget(context, _history, popScreen),
+        body: transactionBodyWidget(context, _history, widget._modelSignUp, popScreen),
       ),
     );
   }

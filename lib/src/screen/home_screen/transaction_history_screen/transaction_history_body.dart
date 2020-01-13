@@ -1,12 +1,15 @@
+import 'package:wallet_apps/src/model/model_dashboard.dart';
+import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/tab_bars_list/all_transaction.dart';
-import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/tab_bars_list/received_transaction.dart';
+import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/tab_bars_list/all_trx.dart';
+import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/tab_bars_list/received_trx.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/tab_bars_list/send_transaction.dart';
 
 Widget transactionBodyWidget(
   BuildContext _context,
-  List<dynamic> _history, 
+  List<dynamic> _trxHistory, 
+  ModelSignUp _modelSignUp,
   Function popScreen
 ) {
   return Container(
@@ -35,18 +38,18 @@ Widget transactionBodyWidget(
             labelColor: getHexaColor(greenColor),
             labelStyle: TextStyle(fontSize: 18.0),
             tabs: <Widget>[
+              Tab(child: Text('Send'),),
               Tab(child: Text('All'),),
               Tab(child: Text('Received'),),
-              Tab(child: Text('Send'),)
             ],
           ),
         ),
         Expanded( /* Tabbar body */
           child: TabBarView(
             children: <Widget>[
-              allBodyWidget(),
-              receivedBodyWidget(_history),
-              sendBodyWidget()
+              sendBodyWidget(_trxHistory, _modelSignUp),
+              allTrxBoyWidget(_trxHistory),
+              receivedTrxBodyWidget(_trxHistory, _modelSignUp),
             ],
           )
         )
@@ -58,7 +61,7 @@ Widget transactionBodyWidget(
   //       controller: _refreshController,
   //       child: isProgress == false ? Container(
   //         margin: EdgeInsets.all(size4),
-  //         child: _history == null ? textNotification("No History", _context) : bodyWidget(_context, _history, _containerKey, _containerSize, _height),
+  //         child: _trxHistory == null ? textNotification("No History", _context) : bodyWidget(_context, _trxHistory, _containerKey, _containerSize, _height),
   //       ) : loading(),
   //       onRefresh: _reFresh,
   //     )
@@ -79,7 +82,7 @@ Widget transactionBodyWidget(
   //           ListView.builder(
   //             primary: false,
   //             shrinkWrap: true,
-  //             itemCount: _history.length,
+  //             itemCount: _trxHistory.length,
   //             itemBuilder: (BuildContext _context, int index) {
   //               return Container(
   //                 padding: EdgeInsets.all(0.0),
@@ -93,9 +96,9 @@ Widget transactionBodyWidget(
   //                   title: Row(
   //                     children: <Widget>[
   //                       Expanded(
-  //                         child: Text('${DateTime.parse(_history[index]['trxat']).toLocal()}', style: TextStyle(color: Colors.white),),
+  //                         child: Text('${DateTime.parse(_trxHistory[index]['trxat']).toLocal()}', style: TextStyle(color: Colors.white),),
   //                       ),
-  //                       Text(_history[index]['type'], style: TextStyle(color: Colors.white),)
+  //                       Text(_trxHistory[index]['type'], style: TextStyle(color: Colors.white),)
   //                     ],
   //                   ),
   //                   onTap: () {
@@ -115,12 +118,12 @@ Widget transactionBodyWidget(
   //                             mainAxisSize: MainAxisSize.min,
   //                             crossAxisAlignment: CrossAxisAlignment.start,
   //                             children: <Widget>[
-  //                               Text("Type: ${_history[index]['type']}"),
-  //                               Text("Amount: ${_history[index]['amount']}"),
-  //                               Text("Asset: ${_history[index]['asset']}"),
-  //                               Text("From: ${_history[index]['from']}"),
-  //                               Text("To: ${_history[index]['to']}"),
-  //                               Text("Date: ${_history[index]['trxat']}")
+  //                               Text("Type: ${_trxHistory[index]['type']}"),
+  //                               Text("Amount: ${_trxHistory[index]['amount']}"),
+  //                               Text("Asset: ${_trxHistory[index]['asset']}"),
+  //                               Text("From: ${_trxHistory[index]['from']}"),
+  //                               Text("To: ${_trxHistory[index]['to']}"),
+  //                               Text("Date: ${_trxHistory[index]['trxat']}")
   //                             ],
   //                           ),
   //                         );

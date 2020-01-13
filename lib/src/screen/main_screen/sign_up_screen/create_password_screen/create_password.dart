@@ -39,25 +39,26 @@ class CreatePasswordState extends State<CreatePassword> {
           widget._modelSignUp.controlSecureNumber.text) {
         /* If Not Match */
         setState(() {
-          widget._modelSignUp.isMatch =
-              false; /* Pop Not Match Text Below Confrim Password Field */
+          widget._modelSignUp.isMatch = false; /* Pop Not Match Text Below Confrim Password Field */
         });
       } else {
         dialogLoading(context);
-        if (widget._modelSignUp.label == "email") {
-          /* Post Register By Email */
+        if (widget._modelSignUp.label == "email") { /* Post Register By Email */
           _response = await widget._modelSignUp.bloc.registerMethod(
-              context,
-              widget._modelSignUp.controlEmails.text,
-              widget._modelSignUp.controlSecureNumber.text,
-              "/registerbyemail",
-              "email");
+            context,
+            widget._modelSignUp.controlEmails.text,
+            widget._modelSignUp.controlSecureNumber.text,
+            "/registerbyemail",
+            "email"
+          );
           if (_response == true) {
             Future.delayed(Duration(milliseconds: 100), () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => UserInfo(widget._modelSignUp)));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserInfo(widget._modelSignUp)
+                )
+              );
             });
           }
         } else {
@@ -65,7 +66,7 @@ class CreatePasswordState extends State<CreatePassword> {
           _response = await widget._modelSignUp.bloc.registerMethod(
               context,
               "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
-              widget._modelSignUp.controlSecureNumber.text,
+              widget._modelSignUp.controlConfirmSecureNumber.text,
               "/registerbyphone",
               "phone");
           if (_response == true) {
@@ -74,7 +75,9 @@ class CreatePasswordState extends State<CreatePassword> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => UserInfo(widget._modelSignUp)));
+                  builder: (context) => UserInfo(widget._modelSignUp)
+                )
+              );
               // Navigator.push(context, MaterialPageRoute(builder: (context) => SmsCode(widget._modelSignUp)));
             });
           }
@@ -90,14 +93,11 @@ class CreatePasswordState extends State<CreatePassword> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body: scaffoldBGDecoration(
-            16.0,
-            16.0,
-            16.0,
-            0,
-            color1,
-            color2,
-            createPasswordBodyWidget(context, widget._modelSignUp, onChanged,
-                popScreen, changeFocus, navigatePage)));
+      body: scaffoldBGDecoration(
+        16.0, 16.0,16.0, 0,
+        color1, color2,
+        createPasswordBodyWidget(context, widget._modelSignUp, onChanged,popScreen, changeFocus, navigatePage)
+      )
+    );
   }
 }

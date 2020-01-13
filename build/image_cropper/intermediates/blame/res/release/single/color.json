@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_tint_switch_track.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/switch_thumb_material_dark.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_btn_colored_text_material.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_search_url_text.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_tint_seek_thumb.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_background_cache_hint_selector_material_light.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_background_cache_hint_selector_material_light.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_background_cache_hint_selector_material_dark.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_background_cache_hint_selector_material_dark.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_btn_colored_borderless_text_material.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_secondary_text_material_dark.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_hint_foreground_material_light.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/switch_thumb_material_light.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_primary_text_material_light.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_tint_spinner.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/ucrop_scale_text_view_selector.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/a44bc9db1fb240f95825c3807831bfc4/ucrop-2.2.4/res/color/ucrop_scale_text_view_selector.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_secondary_text_material_light.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_tint_edittext.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_tint_btn_checkable.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_tint_default.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_tint_default.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_primary_text_material_dark.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/color/abc_hint_foreground_material_dark.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/color/abc_hint_foreground_material_dark.xml"
+    }
+]

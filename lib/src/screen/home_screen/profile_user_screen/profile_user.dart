@@ -49,6 +49,7 @@ class ProfileUserState extends State<ProfileUser> {
 
   void fetchUserData() async { 
     await getUserProfile().then((_response){ /* Get Request User Data And Set To Control To Each Fill */
+      _modelSignUp.wallet = _response['wallet'];
       setState(() {
         _modelSignUp.controlFirstName.text = _response['first_name'];
         _modelSignUp.controlMidName.text = _response['mid_name'];

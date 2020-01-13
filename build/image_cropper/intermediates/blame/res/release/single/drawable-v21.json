@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/drawable-v21/abc_list_divider_material.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/drawable-v21/abc_list_divider_material.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/drawable-v21/abc_edit_text_material.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/drawable-v21/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/drawable-v21/abc_btn_colored_material.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/drawable-v21/notification_action_background.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/7f6c41cc2a14c0fbaa8d0166c17dc544/core-1.1.0/res/drawable-v21/notification_action_background.xml"
+    },
+    {
+        "merged": "/home/daveat/Documents/zeetomic-mobile/build/image_cropper/intermediates/res/merged/release/drawable-v21/abc_dialog_material_background.xml",
+        "source": "/home/daveat/.gradle/caches/transforms-2/files-2.1/f5bdf8930f5b0dade80802408310dda6/appcompat-1.1.0/res/drawable-v21/abc_dialog_material_background.xml"
+    }
+]

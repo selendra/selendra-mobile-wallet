@@ -83,7 +83,6 @@ class AppState extends State<App> {
             '/dashboardScreen': (context) => Dashboard(),
             // '/getWalletScreen': (context) => GetWalletWidget(),
             '/settingScreen': (context) => SettingWidget(),
-            '/transaction_historyScreen': (context) => TransactionHistoryWidget(),
             /* Verify User Screen */
             '/add_profile_screen': (context) => AddUserInfo(),
             '/addDocumentScreen': (context) => AddDocuments(),

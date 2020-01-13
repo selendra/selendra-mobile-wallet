@@ -109,8 +109,8 @@ Widget drawerOnly(BuildContext context, ModelDashboard _modelDashBoard, String c
                       ],
                     ),
                     onTap: () {
-                      if (currentRoute == "historyScreen") Navigator.pop(context);
-                      else blurBackgroundDecoration(context, TransactionHistoryWidget());
+                      // if (currentRoute == "historyScreen") Navigator.pop(context);
+                      // else blurBackgroundDecoration(context, TransactionHistoryWidget());
                     }
                   ),
                   /* User Setting */

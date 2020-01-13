@@ -33,13 +33,13 @@ String _bodyEncode;
 
 /* --------------------------------Post Request-------------------------------- */
 
-Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums,
-    String _passwords, String _endpoints, String _schema) async {
-  /* User Login */
-  _bodyEncode = json.encode(/* Convert to Json String */
-      {_schema: _byEmailOrPhoneNums, "password": _passwords});
+Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums,String _passwords, String _endpoints, String _schema) async { /* User Login */
+  _bodyEncode = json.encode({ /* Convert to Json String */
+    _schema: _byEmailOrPhoneNums, 
+    "password": _passwords
+  });
   _response = await _http.post('$_url$_endpoints',
-      headers: _conceteHeader(null, null), body: _bodyEncode);
+    headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 

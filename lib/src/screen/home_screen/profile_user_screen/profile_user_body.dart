@@ -143,34 +143,31 @@ Widget profileUserBodyWidget(
               child: ListTile(
                   onTap: () async {
                     switch (index) {
-                      case 0:
-                        {
-                          Navigator.pop(context, '');
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      UserInfo(_modelSignUp)));
-                          break;
-                        }
-                      case 1:
-                        {
-                          Navigator.pop(context, '');
-                          blurBackgroundDecoration(
-                              context, TransactionHistoryWidget());
-                          break;
-                        }
-                      case 2:
-                        {
-                          Navigator.pop(context, '');
-                          blurBackgroundDecoration(context, Activity());
-                          break;
-                        }
-                      case 3:
-                        {
-                          await dialogBox(context);
-                          break;
-                        }
+                      case 0: {
+                        Navigator.pop(context, '');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                              UserInfo(_modelSignUp)
+                            )
+                          );
+                        break;
+                      }
+                      case 1: {
+                        Navigator.pop(context, '');
+                        blurBackgroundDecoration(
+                            context, TransactionHistoryWidget(_modelSignUp));
+                        break;
+                      }
+                      case 2: {
+                        Navigator.pop(context, '');
+                        blurBackgroundDecoration(context, Activity());
+                        break;
+                      }
+                      case 3: {
+                        await dialogBox(context); break;
+                      }
                       case 4:
                         {
                           blurBackgroundDecoration(context, ChangePIN());

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelSignUp {
-  String directory = "userID";
+  String directory = "userID"; String wallet;
 
   bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
 
@@ -22,8 +22,7 @@ class ModelSignUp {
   FocusNode nodeLastName = FocusNode();
   FocusNode nodeResetCode = FocusNode();
 
-  TextEditingController controlEmails =
-      TextEditingController(); /* Value Controller Empty By Default */
+  TextEditingController controlEmails = TextEditingController(); /* Value Controller Empty By Default */
   TextEditingController controlSecureNumber = TextEditingController();
   TextEditingController controlSmsCode = TextEditingController();
   TextEditingController controlPhoneNums = TextEditingController();
