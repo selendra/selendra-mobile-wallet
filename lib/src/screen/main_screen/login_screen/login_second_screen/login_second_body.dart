@@ -6,8 +6,10 @@ import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widg
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
 /* body widget */
-Widget loginSdcondBodyWidget(BuildContext context, ModelLogin _modelLogin,
-    Function onChanged, Function checkInputAndValidate) {
+Widget loginSdcondBodyWidget(
+  BuildContext context, ModelLogin _modelLogin,
+  Function onChanged, Function checkInputAndValidate
+){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
     /* Stretch is fill cros axis */
@@ -18,38 +20,39 @@ Widget loginSdcondBodyWidget(BuildContext context, ModelLogin _modelLogin,
           children: <Widget>[
             Container(
               child: textDisplay(
-                  "Login",
-                  TextStyle(
-                      color: getHexaColor("ffffff"),
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold)),
+                "Login",
+                TextStyle(
+                  color: getHexaColor("ffffff"),
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold
+                )
+              ),
             )
           ],
         ),
       ),
-      Container(
-        /* Body login */
+      Container( /* Body login */
         margin: EdgeInsets.only(top: 59.0),
-        child: userLogin(
-            /* User Input Field */
-            context,
-            _modelLogin,
-            onChanged,
-            checkInputAndValidate),
-      ),
-      customFlatButton(
-          /* Button login */
-          _modelLogin.bloc,
+        child: userLogin( /* User Input Field */
           context,
-          "Login",
-          "loginSecondScreen",
-          blueColor,
-          FontWeight.bold,
-          size18,
-          EdgeInsets.only(top: size10, bottom: 0),
-          EdgeInsets.only(top: size15, bottom: size15),
-          BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
-          checkInputAndValidate),
+          _modelLogin,
+          onChanged,
+          checkInputAndValidate
+        ),
+      ),
+      customFlatButton( /* Button login */
+        _modelLogin.bloc,
+        context,
+        "Login",
+        "loginSecondScreen",
+        blueColor,
+        FontWeight.bold,
+        size18,
+        EdgeInsets.only(top: size10, bottom: 0),
+        EdgeInsets.only(top: size15, bottom: size15),
+        BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
+        checkInputAndValidate
+      ),
       Expanded(flex: 2, child: Container()),
       Row(
         /* Bottom Navigator */
@@ -67,66 +70,51 @@ Widget loginSdcondBodyWidget(BuildContext context, ModelLogin _modelLogin,
   );
 }
 
-Widget userLogin(
-    /* Column of User Login */
-    BuildContext context,
-    ModelLogin _modelLogin,
-    Function onChanged,
-    Function checkInputAndValidate) {
+Widget userLogin( /* Column of User Login */
+  BuildContext context,
+  ModelLogin _modelLogin,
+  Function onChanged,
+  Function checkInputAndValidate
+){
   return Column(
     children: <Widget>[
       Container(
-          /* Email & Phone Number Input Field*/
-          margin: EdgeInsets.only(bottom: 13.0),
-          child: inputField(
-              _modelLogin.bloc,
-              context,
-              _modelLogin.controlEmails.text != "" ? "Email" : "Phone number",
-              _modelLogin.controlEmails.text != ""
-                  ? null
-                  : "${_modelLogin.countryCode} ",
-              "loginSecondScreen",
-              false,
-              TextField.noMaxLength,
-              _modelLogin.controlEmails.text != ""
-                  ? TextInputType.text
-                  : TextInputType.phone,
-              TextInputAction.next,
-              _modelLogin.controlEmails.text != ""
-                  ? _modelLogin.controlEmails
-                  : _modelLogin.controlPhoneNums,
-              _modelLogin.controlEmails.text != ""
-                  ? _modelLogin.nodeEmails
-                  : _modelLogin.nodePhoneNums,
-              onChanged,
-              null)),
+        /* Email & Phone Number Input Field*/
+        margin: EdgeInsets.only(bottom: 13.0),
+        child: inputField(
+          _modelLogin.bloc,
+          context,
+          _modelLogin.controlEmails.text != "" ? "Email" : "Phone number",
+          _modelLogin.controlEmails.text != "" ? null : "${_modelLogin.countryCode} ",
+          "loginSecondScreen",
+          false,
+          TextField.noMaxLength,
+          _modelLogin.controlEmails.text != "" ? TextInputType.text : TextInputType.phone,
+          TextInputAction.next,
+          _modelLogin.controlEmails.text != "" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
+          _modelLogin.controlEmails.text != "" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums,
+          onChanged,
+          null
+        )
+      ),
       Container(
         /* Password Input Field */
         margin: EdgeInsets.only(bottom: 25.0),
         child: inputField(
-            _modelLogin.bloc,
-            context,
-            "Password",
-            null,
-            "loginSecondScreen",
-            true,
-            TextField.noMaxLength,
-            TextInputType.text,
-            TextInputAction.done,
-            _modelLogin.controlPasswords,
-            _modelLogin.nodePasswords,
-            onChanged,
-            checkInputAndValidate),
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: <Widget>[
-
-        /* Password Label and Forget password button */
-        // Container(margin: EdgeInsets.only(bottom: 5.0), child: labelUserInput('Password', whiteColorHexa)),
-        /* Password Input */
-        // passwordField(bloc, controlPasswords, firstNode, secondNode, clearAllInput, disableLoginButton, checkInputAndValidate),
-        //   ],
-        // )
+          _modelLogin.bloc,
+          context,
+          "Password",
+          null,
+          "loginSecondScreen",
+          true,
+          TextField.noMaxLength,
+          TextInputType.text,
+          TextInputAction.done,
+          _modelLogin.controlPasswords,
+          _modelLogin.nodePasswords,
+          onChanged,
+          checkInputAndValidate
+        ),
       ),
     ],
   );
@@ -178,7 +166,6 @@ Widget passwordField(
   return StreamBuilder(
     stream: bloc.passwordObservable,
     builder: (context, snapshot) {
-      // print(secondNode.hasFocus);
       return TextField(
         controller: controlPasswords,
         style: TextStyle(color: Colors.white),
@@ -189,8 +176,7 @@ Widget passwordField(
         },
         decoration: InputDecoration(
           filled: true, fillColor: black38,
-          contentPadding:
-              EdgeInsets.only(top: 15.0, bottom: 15.0, left: size10),
+          contentPadding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: size10),
           errorText: snapshot.error,
           // labelText: 'Password',
           labelStyle: TextStyle(color: Colors.white),
@@ -205,8 +191,7 @@ Widget passwordField(
             bloc.submit.listen((submit) {
               if (firstNode.hasFocus == false) {
                 if (submit == true && secondNode.hasFocus == false) {
-                  checkInputAndValidate(
-                      bloc, context, clearAllInput, disableLoginButton);
+                  checkInputAndValidate(bloc, context, clearAllInput, disableLoginButton);
                 }
               }
             });
@@ -217,36 +202,34 @@ Widget passwordField(
   );
 }
 
-Widget loginButton(Bloc bloc, BuildContext context, Function clearAllInput,
-    Function disableLoginButton, Function checkInputAndValidate) {
+Widget loginButton(
+  Bloc bloc, BuildContext context, Function clearAllInput,
+  Function disableLoginButton, Function checkInputAndValidate
+){
   return StreamBuilder(
     stream: bloc.submit,
-    builder: (context, snapshot) {
-      /* Reset User Input And Button Login*/
+    builder: (context, snapshot) { /* Reset User Input And Button Login*/
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: FlatButton(
-            color: getHexaColor(lightBlueSky),
-            disabledTextColor: Colors.black54,
-            disabledColor: Colors.grey[700],
-            focusColor: getHexaColor("#55D8EB"),
-            padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
-            textColor: Colors.black,
-            child: Text(
-              'LOGIN',
-              style: TextStyle(fontSize: 17.0),
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-            onPressed: snapshot.data == null
-                ? null
-                : () async {
-                    checkInputAndValidate(
-                        bloc, context, clearAllInput, disableLoginButton);
-                  }),
+          color: getHexaColor(lightBlueSky),
+          disabledTextColor: Colors.black54,
+          disabledColor: Colors.grey[700],
+          focusColor: getHexaColor("#55D8EB"),
+          padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
+          textColor: Colors.black,
+          child: Text(
+            'LOGIN',
+            style: TextStyle(fontSize: 17.0),
+          ),
+          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(5.0)),
+          onPressed: snapshot.data == null ? null : () async {
+            checkInputAndValidate(bloc, context, clearAllInput, disableLoginButton);
+          }
+        ),
       );
     },
   );

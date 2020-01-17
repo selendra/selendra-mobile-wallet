@@ -80,11 +80,14 @@ flutter:
     - assets/zeelogo.png
     - assets/earthicon.png
     - assets/zeeicon_on_screen.png
-    - assets/z_logo_button.png
     - assets/z_white_logo.png
     - assets/invoice.png 
     - assets/front_picture.png
     - assets/selfie.png
+    - assets/CBM-V1.png
+    - assets/CBM-V4-01.png
+    - assets/cbmlogoyellow.png
+    - assets/cbm_qr_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

@@ -10,8 +10,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Zeetomic"
-        android:icon="@mipmap/zeeicon">
+        android:label="CBM"
+        android:icon="@mipmap/cbm15_07_01">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

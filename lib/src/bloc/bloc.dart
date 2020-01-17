@@ -11,11 +11,13 @@ class Bloc with ValidatorMixin {
 
   /* BehaviorSubject Below Are Similiar StreamController But It Has More Feature Over StreamController*/  
   final _email = BehaviorSubject<String>();
+  final _phoneNums = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
   final _usersignup = BehaviorSubject<String>();
 
   /* Transform User Input To Get Validate Text */
   get emailObservable => _email.stream.transform(validateEmail);
+  get phoneNumsObservable => _phoneNums.stream.transform(validatePhoneNums);
   get passwordObservable => _password.stream.transform(validatePassword);
   get submit => Observable.combineLatest2(emailObservable, passwordObservable, (email, password) {
     if ( email != null && password != null ) {
@@ -28,6 +30,7 @@ class Bloc with ValidatorMixin {
 
   /* Add Data Input To Stream */
   Function(String) get addEmail => _email.sink.add;
+  Function(String) get addPhoneNums => _phoneNums.sink.add;
   Function(String) get addPassword => _password.sink.add;
   Function(String) get addUsersign => _usersignup.sink.add;
 
@@ -81,6 +84,7 @@ class Bloc with ValidatorMixin {
   /* Close All Stream To Prevent Crash Program Or Memory Leak */
   dispose() {
     _email.close();
+    _phoneNums.close(); 
     _password.close();
     _usersignup.close();
   }

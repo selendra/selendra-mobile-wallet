@@ -34,13 +34,42 @@ class LoginFirstState extends State<LoginFirstScreen> {
   }
 
   void onChanged(String label, String valueChange) {
-    if (label == "Email") _modelLogin.label = "email";
-    else _modelLogin.label = "phone";
+    if (label == "Email") {
+      _modelLogin.label = "email"; /* Set Label */
+      _modelLogin.bloc.addEmail(valueChange); /* Add Value To Stream */
+    }
+    else {
+      _modelLogin.label = "phone"; /* Set Label */
+      _modelLogin.bloc.addPhoneNums(valueChange); /* Add Value To Stream */
+    }
   }
 
-  void tabBarSelectChanged(int index) {
-    if ( index == 0 ) _modelLogin.label = "email";
-    else _modelLogin.label = "phone";
+  void enableButton(bool data) async { /* Enable Login Button */
+    await Future.delayed(Duration(milliseconds: 100), () { /* Wait Stream Reset State After That Reset State Again */
+      setState(() {
+        _modelLogin.enable = data;
+      });
+    });
+  }
+
+  void tabBarSelectChanged(int index) { /* Tab Bar Select Change Label */ 
+    if ( index == 0 ){
+      _modelLogin.bloc.addPhoneNums(null);
+      _modelLogin.controlPhoneNums.clear();
+      _modelLogin.nodePhoneNums.unfocus();
+      setState(() {
+        _modelLogin.enable = false;
+      });
+      _modelLogin.label = "email";
+    } else {
+      _modelLogin.bloc.addEmail(null);
+      _modelLogin.controlEmails.clear();
+      _modelLogin.nodeEmails.unfocus();
+      setState(() {
+        _modelLogin.enable = false;
+      });
+      _modelLogin.label = "phone";
+    }
     setState(() {});
   }
 
@@ -65,7 +94,7 @@ class LoginFirstState extends State<LoginFirstScreen> {
                   context,
                   _modelLogin,
                   onChanged, tabBarSelectChanged,
-                  navigatePage
+                  enableButton, navigatePage
                 )
               ), 
             ],

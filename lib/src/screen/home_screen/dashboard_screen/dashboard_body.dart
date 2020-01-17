@@ -81,18 +81,20 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
+                    // "About CBM",
                     "About ZEETOMIC",
                     style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 19.42),
                     child: Text(
+                      // "CBM Corporation Co.,Ltd is a leading food service company in Cambodia",
                       'The Platform for the Issuance and Management of Digital Asset',
                       style: TextStyle(
                         fontSize: 16.0,

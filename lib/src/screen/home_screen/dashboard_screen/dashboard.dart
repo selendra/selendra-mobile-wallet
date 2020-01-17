@@ -192,7 +192,10 @@ class DashboardState extends State<Dashboard> {
                         EdgeInsets.all(0),
                         openMenu
                       ),
-                      Image.asset(_modelDashboard.titleAppBar, width: 140.53, height: 21.9,),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                        child: Image.asset("assets/${_modelDashboard.titleAppBar}", width: 140.53, height: double.infinity, alignment: Alignment.centerLeft),
+                      ),
                       //containerTitle("Dashboard", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
                       Expanded(
                         child: Container(),

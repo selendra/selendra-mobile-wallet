@@ -218,7 +218,7 @@ Widget customFlatButton(
   double fontSize, 
   EdgeInsetsGeometry edgeMargin, EdgeInsetsGeometry edgePadding, 
   BoxShadow boxShadow,
-  Function action
+  dynamic action
 ) {
   return Container(
     margin: edgeMargin,
@@ -244,7 +244,7 @@ Widget customFlatButton(
         ),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
-      onPressed: () {
+      onPressed: action == null ? null : () {
         if (widgetName == "loginSecondScreen" || widgetName == "submitReceiptScreen") action(bloc, context);
         else if (widgetName == "invoiceInfoScreen") action(); 
         else action(context);
@@ -549,8 +549,8 @@ Widget containerTitle(String title, dynamic _height, dynamic textColor, FontWeig
   );
 }
 
-Widget zeeLogo(double width, double height) {
-  return Image.asset("assets/zeelogo.png", height: height, width: width);
+Widget logoWelcomeScreen(String logoName, double width, double height) {
+  return Image.asset("assets/$logoName", width: width, height: height);
 }
 
 /* -----------------------------------Text Style--------------------------------------------------- */
@@ -580,7 +580,7 @@ Future<File> camera() async {
   return image;
 }
 
-Widget qrCodeGenerate(String _walletCode) { /* QR Code Generate Function */
+Widget qrCodeGenerate(String _walletCode, String logoName) { /* QR Code Generate Function */
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,
@@ -595,9 +595,9 @@ Widget qrCodeGenerate(String _walletCode) { /* QR Code Generate Function */
         child: RepaintBoundary(
           child: new QrImage(
           foregroundColor: getHexaColor("#EEF0F2"),
-          embeddedImage: AssetImage('assets/zee_for_qr.png'),
+          embeddedImage: AssetImage('assets/${logoName}'),
             embeddedImageStyle: QrEmbeddedImageStyle(
-              size: Size(50, 50),
+              size: Size(40, 40),
             ),
             // version: 6,
             data: _walletCode,
@@ -655,52 +655,56 @@ Widget inputField( /* User Input Field */
   FocusNode _focusNode,
   Function onChanged, Function action
   ) {
-  return TextFormField(
-    focusNode: _focusNode, 
-    keyboardType: inputType,
-    obscureText: obcureText,
-    controller: controller,
-    textInputAction: inputAction,
-    style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
-    decoration: InputDecoration(
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.3) : Colors.transparent, 
-          width: 1.0
+  return StreamBuilder(
+    builder: (context, builder){
+      return TextFormField(
+        focusNode: _focusNode, 
+        keyboardType: inputType,
+        obscureText: obcureText,
+        controller: controller,
+        textInputAction: inputAction,
+        style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.3) : Colors.transparent, 
+              width: 1.0
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: getHexaColor("#FFFFFF").withOpacity(0.3), width: 1.0),
+          ),
+          prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+          filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
+          labelText: labelText,
+          labelStyle: TextStyle(
+            fontSize: 18.0,
+            color: _focusNode.hasFocus || controller.text != "" ? getHexaColor("#FFFFF").withOpacity(0.3) : getHexaColor("#ffffff")
+          ),
+          focusColor: getHexaColor("#ffffff"),
+          contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
         ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: getHexaColor("#FFFFFF").withOpacity(0.3), width: 1.0),
-      ),
-      prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
-      filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
-      labelText: labelText,
-      labelStyle: TextStyle(
-        fontSize: 18.0,
-        color: _focusNode.hasFocus || controller.text != "" ? getHexaColor("#FFFFF").withOpacity(0.3) : getHexaColor("#ffffff")
-      ),
-      focusColor: getHexaColor("#ffffff"),
-      contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
-    ),
-    inputFormatters: [LengthLimitingTextInputFormatter(textInputLength)],
-    onChanged: (valueChange) {
-      if (
-        widgetName == "invoiceInfoScreen" || 
-        widgetName == "addAssetScreen" || 
-        widgetName == "loginFirstScreen" ||
-        widgetName == "loginSecondScreen" ||
-        widgetName == "signUpFirstScreen" 
-      ) onChanged(labelText, valueChange);
-      else onChanged(valueChange);
+        inputFormatters: [LengthLimitingTextInputFormatter(textInputLength)],
+        onChanged: (valueChange) {
+          if (
+            widgetName == "invoiceInfoScreen" || 
+            widgetName == "addAssetScreen" || 
+            widgetName == "loginFirstScreen" ||
+            widgetName == "loginSecondScreen" ||
+            widgetName == "signUpFirstScreen" 
+          ) onChanged(labelText, valueChange);
+          else onChanged(valueChange);
+        },
+        onFieldSubmitted: (value) {
+          if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") action(bloc, context);
+          else action(context, value);
+        },
+        // onFieldSubmitted: (value) {
+        //       firstNode.unfocus();
+        //       FocusScope.of(context).requestFocus(secondNode);
+        // }
+      );
     },
-    onFieldSubmitted: (value) {
-      if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") action(bloc, context);
-      else action(context, value);
-    },
-    // onFieldSubmitted: (value) {
-    //       firstNode.unfocus();
-    //       FocusScope.of(context).requestFocus(secondNode);
-    // }
   );
 }
 

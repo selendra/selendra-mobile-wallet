@@ -27,13 +27,12 @@ class LoginSecondState extends State<LoginSecond>{
   }
 
   focusOnPassword() async {
-    await Future.delayed(Duration(milliseconds: 100), (){
+    await Future.delayed(Duration(milliseconds: 200), (){
       FocusScope.of(context).requestFocus(widget._modelLogin.nodePasswords);
     });
   }
   
   void checkInputAndValidate(Bloc bloc, BuildContext context) async { /* Check Internet Before Validate And Finish Validate*/
-    // setState(() {widget._modelLogin.isProgress = true;});
     dialogLoading(context); 
     var response;
     if (widget._modelLogin.label == "email") {

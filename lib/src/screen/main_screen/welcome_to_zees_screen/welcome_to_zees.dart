@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'dart:io';
-
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
@@ -9,7 +6,6 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 import 'package:wallet_apps/src/service/services.dart';
-import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class WelcomeToZee extends StatefulWidget{
 
@@ -46,7 +42,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
     }
   }
 
-  void navigatePage(BuildContext context) {
+  void navigatePage(BuildContext context) { /* Navigate Login Screen */
     Navigator.pushReplacement(
       context, 
       MaterialPageRoute(builder: (context) => LoginFirstScreen())
@@ -58,7 +54,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
     /* Check For Previous Login */
     return Scaffold(
       body: ConnectivityWidgetWrapper(
-        message: "Please connect an internet!",
+        message: "Something wrong with internet connection !",
         child: scaffoldBGDecoration(
           leftRight40, leftRight40, 0, 67,
           color1, color2,
@@ -71,7 +67,11 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      zeeLogo(91.14, 96.38),
+                      /* Zeetomic */ 
+                      // 91.14, 96.38 zeelogo
+                      /* CBM */
+                      // CBM-V1.png
+                      logoWelcomeScreen("CBM-V1.png", 120.0, 120.0),
                       Container(
                         margin: EdgeInsets.only(top: 50.0),
                         child: textDisplay(

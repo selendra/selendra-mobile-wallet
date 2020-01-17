@@ -86,8 +86,9 @@ Widget rowInformation(String title, dynamic _data) { /* Display Information By R
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Text("$title", style: TextStyle(fontSize: 18.0,)), /* Title */
-            Expanded(child: Container(),),
-            Text("$_data", style: TextStyle(fontSize: 18.0,))  /* Subtitle */
+            Expanded(
+              child: Text("$_data", style: TextStyle(fontSize: 18.0,), overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,),
+            )  /* Subtitle */
           ],
         ),
       ),

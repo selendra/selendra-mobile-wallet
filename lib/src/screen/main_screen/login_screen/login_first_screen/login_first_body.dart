@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -9,9 +10,7 @@ Widget loginFirstBodyWidget(
   /* body widget */
   BuildContext context,
   ModelLogin _modelLogin,
-  Function onChanged,
-  Function tabBarSelectChanged,
-  Function navigatePage
+  Function onChanged, Function tabBarSelectChanged, Function enableButton, Function navigatePage
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -21,9 +20,10 @@ Widget loginFirstBodyWidget(
       Column(
         /* Title of Zeetomic */
         children: <Widget>[
-          zeeLogo(45.03, 47.62),
+          // zeelogo
+          logoWelcomeScreen("CBM-V1.png", 70.0, 47.62),
           Container(
-            margin: EdgeInsets.only(top: 38.96),
+            margin: EdgeInsets.only(top: 60.0),
             child: textDisplay(
               "Login",
               TextStyle(
@@ -35,8 +35,7 @@ Widget loginFirstBodyWidget(
           )
         ],
       ),
-      Container(
-        /* User Choice Log in */
+      Container( /* User Choice Log in */
         margin: EdgeInsets.only(top: 30.0, bottom: 59.0),
         child: TabBar(
           unselectedLabelColor: getHexaColor("#FFFFFF"),
@@ -60,67 +59,67 @@ Widget loginFirstBodyWidget(
           onTap: tabBarSelectChanged,
         ),
       ),
-      Container(
-        /* User Login Choice Body */
+      Container( /* User Login Choice Body */
         height: 75.0,
         margin: EdgeInsets.only(bottom: 13.0),
-        child: TabBarView(
-          /* Body Sign Up */
+        child: TabBarView( /* Body Sign Up */
           children: <Widget>[
-            Container(
-            /* Login By Email Field */
+            Container( /* Login By Email Field */
             padding: EdgeInsets.only(top: 9.0),
-            child: inputField(
+            child: inputFieldLogin(
               _modelLogin.bloc,
+              _modelLogin.bloc.emailObservable,
+              _modelLogin.bloc.addEmail,
               context,
               "Email",
               null,
               "loginFirstScreen",
+              _modelLogin,
               false,
               TextField.noMaxLength,
               TextInputType.text,
               TextInputAction.done,
               _modelLogin.controlEmails,
               _modelLogin.nodeEmails,
-              onChanged,
-              navigatePage
+              onChanged, enableButton, navigatePage
               )
             ),
-            Container(
-              /* Sign By Phone Number Field */
+            Container( /* Sign By Phone Number Field */
               padding: EdgeInsets.only(top: 9.0),
-              child: inputField(
-                _modelLogin.bloc,
+              child: inputFieldLogin(
+                _modelLogin.bloc, 
+                _modelLogin.bloc.phoneNumsObservable, 
+                _modelLogin.bloc.addPhoneNums,
                 context,
                 "Phone number",
                 "${_modelLogin.countryCode} ",
                 "loginFirstScreen",
+                _modelLogin,
                 false,
                 TextField.noMaxLength,
                 TextInputType.phone,
                 TextInputAction.done,
                 _modelLogin.controlPhoneNums,
                 _modelLogin.nodePhoneNums,
-                onChanged,
-                navigatePage
+                onChanged, enableButton, navigatePage
               )
             )
           ],
         ),
       ),
-      customFlatButton(
-          /* Button login */
-          _modelLogin.bloc,
-          context,
-          "Login",
-          "loginFirstScreen",
-          blueColor,
-          FontWeight.bold,
-          size18,
-          EdgeInsets.only(top: size10, bottom: size10),
-          EdgeInsets.only(top: size15, bottom: size15),
-          BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
-          navigatePage),
+      customFlatButton( /* Button login */
+        _modelLogin.bloc,
+        context,
+        "Login",
+        "loginFirstScreen",
+        blueColor,
+        FontWeight.bold,
+        size18,
+        EdgeInsets.only(top: size10, bottom: size10),
+        EdgeInsets.only(top: size15, bottom: size15),
+        BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
+        _modelLogin.enable == false ? null : navigatePage
+      ),
       Expanded(flex: 2, child: Container()),
       Row(
         /* Bottom Navigator */
@@ -138,9 +137,83 @@ Widget loginFirstBodyWidget(
   );
 }
 
+Widget inputFieldLogin( /* User Input Field */
+  Bloc bloc,
+  Stream _streamObservable, Function _addStream,
+  BuildContext context,
+  String labelText, String prefixText, String widgetName,
+  ModelLogin _modelLogin,
+  bool obcureText,
+  int textInputLength,
+  TextInputType inputType, TextInputAction inputAction, TextEditingController controller,
+  FocusNode _focusNode,
+  Function onChanged, Function enableButton, Function action
+) {
+  return StreamBuilder(
+    stream: _streamObservable,
+    builder: (context, AsyncSnapshot _snapshot){
+      if (_snapshot.hasData) { /* If Snapshot Has Data */
+        enableButton(true); /* Enable Button */ 
+        _addStream(null); /* Make Null Value To Email Stream */ 
+      }
+      return TextFormField(
+        focusNode: _focusNode, 
+        keyboardType: inputType,
+        obscureText: obcureText,
+        controller: controller,
+        textInputAction: inputAction,
+        style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.3) : Colors.transparent, 
+              width: 1.0
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: getHexaColor("#FFFFFF").withOpacity(0.3), width: 1.0),
+          ),
+          prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+          filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
+          labelText: labelText,
+          labelStyle: TextStyle(
+            fontSize: 18.0,
+            color: _focusNode.hasFocus || controller.text != "" ? getHexaColor("#FFFFF").withOpacity(0.3) : getHexaColor("#ffffff")
+          ),
+          focusColor: getHexaColor("#ffffff"),
+          //errorText: _snapshot.hasError ? _snapshot.error : "",
+          contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
+        ),
+        inputFormatters: [LengthLimitingTextInputFormatter(textInputLength)],
+        onChanged: (valueChange) {
+          if (valueChange == "" || _snapshot.hasError) enableButton(false); /* Disable Login Button When Have Error And Empty */
+          if (
+            widgetName == "invoiceInfoScreen" || 
+            widgetName == "addAssetScreen" || 
+            widgetName == "loginFirstScreen" ||
+            widgetName == "loginSecondScreen" ||
+            widgetName == "signUpFirstScreen" 
+          ) onChanged(labelText, valueChange);
+          else onChanged(valueChange);
+        },
+        onFieldSubmitted: (value) {
+          if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") action(bloc, context);
+          else action(context, value);
+        },
+        // onFieldSubmitted: (value) {
+        //       firstNode.unfocus();
+        //       FocusScope.of(context).requestFocus(secondNode);
+        // }
+      );
+    },
+  );
+}
+
 /* Column of User Login */
-Widget userLogin(BuildContext context, ModelLogin _modelLogin,
-    Function onChanged, Function navigatePage) {
+Widget userLogin(
+  BuildContext context, ModelLogin _modelLogin,
+  Function onChanged, Function navigatePage
+){
   return Column(
     children: <Widget>[
       /* Phone number input*/
@@ -178,7 +251,7 @@ Widget userLogin(BuildContext context, ModelLogin _modelLogin,
 
 // Widget emailField(Bloc bloc, TextEditingController controlPasswords, FocusNode firstNode, FocusNode secondNode) {
 //   return StreamBuilder(
-//     stream: bloc.emailObservable,
+//     _streamObservable: bloc.emailObservable,
 //     builder: (context, snapshot) {
 //       return TextField(
 //         controller: controlPasswords,
@@ -248,8 +321,7 @@ Widget passwordField(
             bloc.submit.listen((submit) {
               if (firstNode.hasFocus == false) {
                 if (submit == true && secondNode.hasFocus == false) {
-                  validatorLogin(
-                      bloc, context, clearAllInput, disableLoginButton);
+                  validatorLogin(bloc, context, clearAllInput, disableLoginButton);
                 }
               }
             });
@@ -260,8 +332,9 @@ Widget passwordField(
   );
 }
 
-Widget loginButton(Bloc bloc, BuildContext context, Function clearAllInput,
-    Function disableLoginButton, Function validatorLogin) {
+Widget loginButton(
+  Bloc bloc, BuildContext context, Function clearAllInput,
+  Function disableLoginButton, Function validatorLogin) {
   return StreamBuilder(
     stream: bloc.submit,
     builder: (context, snapshot) {

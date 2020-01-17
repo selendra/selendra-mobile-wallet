@@ -6,7 +6,7 @@ class ModelLogin {
   
   final String directory = "userID";
 
-  bool isProgress = false, isLogedin = false, isBoth = false;
+  bool isProgress = false, isLogedin = false, enable = false;
 
   String token; String phoneNumber = "", countryCode = "+855", label;
 

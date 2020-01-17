@@ -11,6 +11,12 @@ class ValidatorMixin {
     else if (regex.hasMatch(value)) sink.add(value);
   });
 
+  final validatePhoneNums = StreamTransformer<String, dynamic>.fromHandlers(handleData: (value, sink){
+    if (value == '') sink.addError('Fill phone number');
+    else if (value.length < 8) sink.addError("Invalid phone number");
+    else if (value.length >= 8) sink.add(value);
+  });
+
   final validatePassword = StreamTransformer<String, dynamic>.fromHandlers(handleData: (value, sink){
     if ( value == null ) sink.add(null);
     else if( value == '') { sink.addError('Fill password');}

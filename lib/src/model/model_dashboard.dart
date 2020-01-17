@@ -4,7 +4,7 @@ import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ModelDashboard {
-  final String titleAppBar = "assets/zeetomic-logo-header.png";
+  final String titleAppBar = "CBM-V4-01.png"; //"CBM-V4-01.png"; //"zeetomic-logo-header.png";
   bool isProgress = false, isQueried = false, loadingHome = true;
   Map<String, dynamic> userData, userWallet;
   String userId; String barcode, token;
