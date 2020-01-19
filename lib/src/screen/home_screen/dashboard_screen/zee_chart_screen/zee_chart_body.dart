@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-Widget zeeChartBodyWidget(BuildContext context, List<dynamic> _portfolioData) {
+Widget zeeChartBodyWidget(BuildContext context, List<dynamic> _portfolioData, ModelDashboard _modelDashboard) {
   return SingleChildScrollView(
     physics: BouncingScrollPhysics(),
     child: Container(
@@ -19,7 +20,7 @@ Widget zeeChartBodyWidget(BuildContext context, List<dynamic> _portfolioData) {
               ),
             ),
           ),
-          portfolioList(context, "Trading Portfolio", _portfolioData, false)
+          portfolioList(context, "Trading Portfolio", _portfolioData, false, _modelDashboard)
         ],
       ),
     ),

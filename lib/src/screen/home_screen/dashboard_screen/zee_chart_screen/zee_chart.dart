@@ -5,11 +5,17 @@ import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/zee_chart_screen/zee_chart_body.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class ZeeChart extends StatefulWidget{
+
+  final ModelDashboard _modelDashboard;
+
+  ZeeChart(this._modelDashboard);  
+
   @override
   State<StatefulWidget> createState() {
     return ZeeChartState();
@@ -26,7 +32,6 @@ class ZeeChartState extends State<ZeeChart>{
 
   @override
   initState() {
-    fetchPortfolio();
     super.initState();
   }
 
@@ -34,16 +39,15 @@ class ZeeChartState extends State<ZeeChart>{
     Navigator.pop(context);
   }
 
-  void fetchPortfolio() async { /* Fetch Portofolio */
-    _modelDashboard.portfolio = await fetchData("portfolio");
-    setState(() {});
+  void toReceiveToken(BuildContext context) async { /* Fetch Portofolio */
+    Navigator.push(context, MaterialPageRoute(builder: (context) => GetWallet(widget._modelDashboard.userData['wallet'])));
   }
 
-  void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function fetchPortfolio) {
+  void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function toReceiveToken) {
     setState(() {
       if (executeName == "portfolio") {
         _model.portfolio = null; 
-        fetchPortfolio();
+        toReceiveToken();
       } else if (executeName == "barcode") _model.barcode = barcodeValue;
     });
   }
@@ -108,7 +112,7 @@ class ZeeChartState extends State<ZeeChart>{
                       //   _modelDashboard.portfolio = await trxUserHistory();
                       // });
                     },
-                    child: zeeChartBodyWidget(context, _modelDashboard.portfolio),
+                    child: zeeChartBodyWidget(context, _modelDashboard.portfolio, widget._modelDashboard),
                   ),
                 )
               ],
@@ -123,7 +127,7 @@ class ZeeChartState extends State<ZeeChart>{
         scanQR, 
         scanReceipt,
         resetState,
-        fetchPortfolio
+        toReceiveToken
       )
     );
   }

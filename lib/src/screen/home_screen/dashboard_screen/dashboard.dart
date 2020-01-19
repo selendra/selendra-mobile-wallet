@@ -214,7 +214,7 @@ class DashboardState extends State<Dashboard> {
                     physics: BouncingScrollPhysics(),
                     controller: _modelDashboard.refreshController,
                     child: dashboardBodyWidget(
-                      context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolio,
+                      context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolio, _modelDashboard
                     ),
                     // _modelDashboard.userData == null ? loading() // Body Widget
                     //   : _modelDashboard.userData['queryUserById'] == null 

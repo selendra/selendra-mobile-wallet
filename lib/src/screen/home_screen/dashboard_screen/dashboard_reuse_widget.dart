@@ -111,7 +111,7 @@ Widget textStylePortfolio(String text, String hexaColor){ /* Style Text Inside P
   );
 }
 
-Widget portfolioList(BuildContext _context, String title, List<dynamic> portfolioData, bool enable) { /* List Of Portfolio */
+Widget portfolioList(BuildContext _context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard _modelDashboard) { /* List Of Portfolio */
   return Container(
     padding: EdgeInsets.only(top: 10.0),
     child: Column(
@@ -273,7 +273,7 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
             )
           ),
           onTap: enable == true ? () {
-            Navigator.push(_context, MaterialPageRoute(builder: (_context) => ZeeChart()));
+            Navigator.push(_context, MaterialPageRoute(builder: (_context) => ZeeChart(_modelDashboard)));
           } : () {},
         )
       ],

@@ -1,5 +1,6 @@
 /* Flutter Package */
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/model/model_dashboard.dart';
 /* File Path */
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
@@ -7,10 +8,12 @@ import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
 
 Widget dashboardBodyWidget(
-    BuildContext context,
-    Bloc bloc,
-    GlobalKey<AnimatedCircularChartState> _chartKey,
-    List<dynamic> portfolioData) {
+  BuildContext context,
+  Bloc bloc,
+  GlobalKey<AnimatedCircularChartState> _chartKey,
+  List<dynamic> portfolioData,
+  ModelDashboard _modelDashboard
+) {
   /* Widget */
   return SingleChildScrollView(
     child: Container(
@@ -30,7 +33,7 @@ Widget dashboardBodyWidget(
             Container(
               margin: EdgeInsets.only(top: 16.0),
               width: double.infinity,
-              child: portfolioList(context, "Porfolios", portfolioData, true),
+              child: portfolioList(context, "Porfolios", portfolioData, true, _modelDashboard),
             ),
           ],
         )),
