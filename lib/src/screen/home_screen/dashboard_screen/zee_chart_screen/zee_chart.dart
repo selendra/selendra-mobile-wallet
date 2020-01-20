@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
@@ -24,14 +29,13 @@ class ZeeChart extends StatefulWidget{
 
 class ZeeChartState extends State<ZeeChart>{
 
-  ModelDashboard _modelDashboard = ModelDashboard();
-
   ModelScanInvoice _modelScanInvoice = ModelScanInvoice();
 
   RefreshController _refreshController = RefreshController();
 
   @override
   initState() {
+    // print(_m)
     super.initState();
   }
 
@@ -52,23 +56,80 @@ class ZeeChartState extends State<ZeeChart>{
     });
   }
   
+
+  Future<dynamic> cropImageCamera(BuildContext context) async {
+    File image = await camera(); /* Trigger Behind Camera */
+    dialogLoading(context); /* Show Loading Process */
+    if (image != null) {
+      await Future.delayed(Duration(milliseconds: 300), () => Navigator.pop(context)); /* Wait 300 Millisecond And Close Loading Process */
+      File cropImage = await ImageCropper.cropImage(
+        // maxHeight: 4096,
+        // maxWidth: 1024,
+        sourcePath: image.path,
+        androidUiSettings: AndroidUiSettings(
+          backgroundColor: Colors.black,
+          // lockAspectRatio: false
+        )
+      );
+      return cropImage;
+    }
+    await Future.delayed(Duration(milliseconds: 100), () => Navigator.pop(context)); /* Wait 300 Millisecond And Close Loading Process */
+    return null;
+  }
+
+
+  void fetchPortfolio() async { /* Fetch Portofolio */
+    setState(() {
+      widget._modelDashboard.portfolio = [];
+    });
+    await getPortfolio().then((_response) async { /* Get Response Data */
+      if ( (_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>"){ /* If Response DataType Not List<dynamic> */ 
+        if (_response.containsKey("error")){
+          await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
+          setState(() {
+            widget._modelDashboard.portfolio = null; /* Set Portfolio Equal Null To Close Loading Process */
+          });
+        }
+      } else {
+        setState(() {
+          widget._modelDashboard.portfolio = _response;
+        });
+        setData(widget._modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
+      }
+    });
+  }
+
+  void getUserData() async { /* Fetch User Data From Memory */
+    widget._modelDashboard.userData = await getUserProfile();
+  }
+
+  _pullUpRefresh() async { /* Refech Data User And Portfolio */
+    setState(() {
+      widget._modelDashboard.portfolio = [];
+    });
+    fetchPortfolio();
+    getUserData(); 
+    widget._modelDashboard.refreshController.refreshCompleted();
+  }
+  
   void scanReceipt() async {
-  // File cropimage = await cropImageCamera(context);
-  // if (cropimage != null){
-  //   dialogLoading(context);
-  //   StreamedResponse response = await upLoadImage(cropimage, "upload");
-  //   response.stream.transform(utf8.decoder).listen((data) async {
-  //     Map<String, dynamic> result = await json.decode(data);result['uuid']
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => InvoiceInfo(_modelScanInvoice)));
-      // var result = await json.decode(data);
-      // setState(() {
-      //   _image = result['url'];
-      // });
-      // Map<String, dynamic> result = await json.decode(data);
-      // await ocrImage(result['url']);
-      // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptVerify()));
-    // });
-    // }
+    await cropImageCamera(context).then((_response) async {
+      if (_response != null) {
+        _modelScanInvoice.imageCapture = _response;
+          /* Crop Image From Back Camera */
+        if (_modelScanInvoice.imageCapture != null){
+          dialogLoading(context); /* Show Loading Process */
+          StreamedResponse _streamedResponse = await upLoadImage(_modelScanInvoice.imageCapture, "upload"); /* POST Image And Wait Response Back */
+          Navigator.pop(context); /* Close Loading Process */
+          _streamedResponse.stream.transform(utf8.decoder).listen((data) async {
+            _modelScanInvoice.imageUri = json.decode(data); /* Convert Data From Json To Object */
+            Navigator.of(context).push( /* Navigate To Invoice Fill Information */
+              MaterialPageRoute(builder: (context) => InvoiceInfo(_modelScanInvoice))
+            );
+          });
+        }
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -106,13 +167,8 @@ class ZeeChartState extends State<ZeeChart>{
                 Expanded(
                   child: SmartRefresher(
                     controller: _refreshController,
-                    onRefresh: () {
-                      // setState(() async {
-                      //   _modelDashboard.portfolio = [];
-                      //   _modelDashboard.portfolio = await trxUserHistory();
-                      // });
-                    },
-                    child: zeeChartBodyWidget(context, _modelDashboard.portfolio, widget._modelDashboard),
+                    onRefresh: _pullUpRefresh,
+                    child: zeeChartBodyWidget(context, widget._modelDashboard.portfolio, widget._modelDashboard),
                   ),
                 )
               ],
@@ -123,7 +179,7 @@ class ZeeChartState extends State<ZeeChart>{
       /* Bottom Navigation Bar */
       bottomNavigationBar: bottomAppBar(
         context, 
-        _modelDashboard, 
+        widget._modelDashboard, 
         scanQR, 
         scanReceipt,
         resetState,

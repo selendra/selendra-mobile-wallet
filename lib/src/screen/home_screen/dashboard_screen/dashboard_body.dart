@@ -17,26 +17,27 @@ Widget dashboardBodyWidget(
   /* Widget */
   return SingleChildScrollView(
     child: Container(
-        margin: EdgeInsets.only(top: 10.0),
-        child: Column(
-          children: <Widget>[
-            /* Welcome to Zeetomic */
-            Container(
-              child: cardHeader(_chartKey),
-            ),
-            /* Token & Profit */
-            // Container(
-            //   margin: EdgeInsets.only(top: 16.0),
-            //   child: cardTokenAndProfit(),
-            // ),
-            /* Zeetomic token chart */
-            Container(
-              margin: EdgeInsets.only(top: 16.0),
-              width: double.infinity,
-              child: portfolioList(context, "Porfolios", portfolioData, true, _modelDashboard),
-            ),
-          ],
-        )),
+      margin: EdgeInsets.only(top: 10.0),
+      child: Column(
+        children: <Widget>[
+          /* Welcome to Zeetomic */
+          Container(
+            child: cardHeader(_chartKey),
+          ),
+          /* Token & Profit */
+          // Container(
+          //   margin: EdgeInsets.only(top: 16.0),
+          //   child: cardTokenAndProfit(),
+          // ),
+          /* Zeetomic token chart */
+          Container(
+            margin: EdgeInsets.only(top: 16.0),
+            width: double.infinity,
+            child: portfolioList(context, "Porfolios", portfolioData, true, _modelDashboard),
+          ),
+        ],
+      )
+    ),
   );
 }
 

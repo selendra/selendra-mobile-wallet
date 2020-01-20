@@ -121,7 +121,7 @@ class DashboardState extends State<Dashboard> {
     File image = await camera();
     dialogLoading(context);
     if (image != null) {
-      Navigator.pop(context);
+      await Future.delayed(Duration(milliseconds: 300), () => Navigator.pop(context)); /* Wait 300 Millisecond And Close Loading Process */
       File cropImage = await ImageCropper.cropImage(
         // maxHeight: 4096,
         // maxWidth: 1024,
@@ -133,14 +133,14 @@ class DashboardState extends State<Dashboard> {
       );
       return cropImage;
     }
-    Navigator.pop(context);
+    await Future.delayed(Duration(milliseconds: 100), () => Navigator.pop(context)); /* Wait 300 Millisecond And Close Loading Process */
     return null;
   }
 
   void scanReceipt() async { /* Receipt Scan Pay Process */
-    try{
-      _modelScanInvoice.imageCapture = await cropImageCamera(context); /* Crop Image From Back Camera */
+    await cropImageCamera(context).then((_response) async { /* Crop Image From Back Camera */
       if (_modelScanInvoice.imageCapture != null){
+        _modelScanInvoice.imageCapture = _response;
         dialogLoading(context); /* Show Loading Process */
         StreamedResponse _streamedResponse = await upLoadImage(_modelScanInvoice.imageCapture, "upload"); /* POST Image And Wait Response Back */
         _streamedResponse.stream.transform(utf8.decoder).listen((data) async {
@@ -151,9 +151,7 @@ class DashboardState extends State<Dashboard> {
           );
         });
       }
-    } catch (err) {
-      
-    }
+    }); 
   }
 
   void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function fetchPortfolio) {
