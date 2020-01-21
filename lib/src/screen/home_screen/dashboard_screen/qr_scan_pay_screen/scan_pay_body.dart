@@ -11,8 +11,6 @@ Widget scanPayBodyWidget(
   return Container(
     padding: EdgeInsets.only(top: 16.0, left: 40.0, right: 40.0),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         /* Wallet Key or address */
         Text(_walletKey, style: TextStyle(color: getHexaColor(lightBlueSky), fontSize: 18.0), textAlign: TextAlign.center,),

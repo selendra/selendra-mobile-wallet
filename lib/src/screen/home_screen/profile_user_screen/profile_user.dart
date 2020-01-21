@@ -148,59 +148,24 @@ class ProfileUserState extends State<ProfileUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      // key: _scaffoldKey,
-      body: Stack(
-        children: <Widget>[
-          Container( /* Blur Background */
-            height: MediaQuery.of(context).size.height,
-            alignment: Alignment.center,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: profileUserBodyWidget(isHaveWallet, context, userData, _modelSignUp, snackBar, dialogBox, popScreen),
-            )
-              // isFetch == true /* User Information */ /* IsFetch By Default false */
-              // ? 
-              // /* Progress  Loading */
-              // : Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: <Widget>[
-              //     loading()
-              //   ],
-              // ),
-          ),
-        ],
+      key: _scaffoldKey,
+      body:SmartRefresher(
+        physics: BouncingScrollPhysics(),
+        controller: _refreshController,
+        onRefresh: _reFresh,
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height,
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: profileUserBodyWidget(isHaveWallet, context, userData, _modelSignUp, snackBar, dialogBox, popScreen),
+              )
+            ),
+          ],
+        )
       )
-      
-      // SmartRefresher(
-      //   physics: BouncingScrollPhysics(),
-      //   // controller: _refreshController,
-      //   // onRefresh: _reFresh,
-      //   child: 
-      //   // reQueryUserData == false 
-      //   // ? 
-      //   Stack(
-      //     children: <Widget>[
-      //       Container( /* Blur Background */
-      //         height: MediaQuery.of(context).size.height,
-      //         alignment: Alignment.center,
-      //         child: SingleChildScrollView(
-      //           physics: BouncingScrollPhysics(),
-      //           child: profileUserBodyWidget()
-      //           // profileUserBodyWidget(isHaveWallet, context, userData, _modelSignUp, snackBar, dialogBox, popScreen),
-      //         )
-      //           // isFetch == true /* User Information */ /* IsFetch By Default false */
-      //           // ? 
-      //           // /* Progress  Loading */
-      //           // : Column(
-      //           //   mainAxisAlignment: MainAxisAlignment.center,
-      //           //   children: <Widget>[
-      //           //     loading()
-      //           //   ],
-      //           // ),
-      //       ),
-      //     ],
-      //   )
-      // )
     );
   }
 }

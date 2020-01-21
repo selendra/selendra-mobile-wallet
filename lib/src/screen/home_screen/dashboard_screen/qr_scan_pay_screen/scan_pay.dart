@@ -97,7 +97,7 @@ class SendPaymentState extends State<SendPayment>{
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: <Widget>[ 
           containerAppBar( /* AppBar */
             context, 
@@ -113,7 +113,14 @@ class SendPaymentState extends State<SendPayment>{
               ],
             )
           ),
-          scanPayBodyWidget(widget._walletKey, dialogBox, _modelScanPay, payProgres, validateInput, clickSend, resetAssetsDropDown), /* Scan Pay Body Widget */
+          Expanded(
+            child: Center(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: scanPayBodyWidget(widget._walletKey, dialogBox, _modelScanPay, payProgres, validateInput, clickSend, resetAssetsDropDown), /* Scan Pay Body Widget */
+              ),
+            ),
+          ),
           _modelScanPay.isPay == false ? Container() : Container(
             color: Colors.black.withOpacity(0.9),
             child: Column(

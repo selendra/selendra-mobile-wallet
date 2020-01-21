@@ -16,7 +16,7 @@ Widget allTrxBoyWidget(List<dynamic> _trxHistory) {
       return _trxHistory[index]["transaction_successful"] == true 
       ? GestureDetector(
         onTap: () {
-          blurBackgroundDecoration(context, TrxHistoryDetails(_trxHistory[index], "All"));
+          Navigator.push(context, transitonRoute(TrxHistoryDetails(_trxHistory[index], "All")));
         },
         child: Container(
           margin: EdgeInsets.only(bottom: 10.5),

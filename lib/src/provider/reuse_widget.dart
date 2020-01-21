@@ -93,9 +93,8 @@ Route transitonRoute(Widget child) {
       var end = Offset.zero;
       var curve = Curves.ease;
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-      var offsetAnimation = animation.drive(tween);
       return SlideTransition(
-        position: offsetAnimation,
+        position: animation.drive(tween),
         child: Material(
           color: Colors.white.withOpacity(0.1),
           child: BackdropFilter(
@@ -110,61 +109,6 @@ Route transitonRoute(Widget child) {
     }
   );
 }
-
-// class BlurBackground extends PageRoute<void> {
-
-//   BlurBackground({
-//     @required this.builder,
-//     RouteSettings settings,
-//   }) : assert(builder != null), super(settings: settings, fullscreenDialog: false);
-
-//   final WidgetBuilder builder;
-
-//   @override
-//   Duration get transitionDuration => Duration(milliseconds: 250);
-
-//   @override
-//   bool get opaque => false;
-
-//   @override
-//   bool get barrierDismissible => false;
-  
-//   @override 
-//   Color get barrierColor => Colors.black.withOpacity(0.5);
-
-//   @override
-//   String get barrierLabel => null;
-
-//   @override
-//   bool get maintainState => true;
-
-//   @override
-//   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
-//     final result = builder(context);
-//     return FadeTransition(
-//       opacity: Tween<double>(begin: 0, end: 1).animate(animation),
-//       child: Semantics(
-//         scopesRoute: true,
-//         explicitChildNodes: true,
-//         child: result,
-//       ),
-//     );
-//     // Material(
-//     //   animationDuration: transitionDuration,
-//     //   type: MaterialType.transparency,
-//     //   child: Container(
-//     //     color: Colors.white.withOpacity(0.15),
-//     //     child: BackdropFilter(
-//     //       filter: ui.ImageFilter.blur(
-//     //         sigmaX: 20.0,
-//     //         sigmaY: 20.0,
-//     //       ),
-//     //       child: child,
-//     //     ),
-//     //   ),
-//     // );
-//   }
-// }
 
 /* User Input Text */
 TextField userTextField(TextEditingController inputEditor, FocusNode node, Function sink, AsyncSnapshot snapshot, bool showInput, TextInputType inputType, TextInputAction inputAction) {

@@ -17,7 +17,7 @@ Widget sendBodyWidget(List<dynamic> _trxHistory, ModelSignUp _modelSignUp) {
       return _trxHistory[index]["source_account"] == _modelSignUp.wallet &&  /* Send Trx If Source Account Address Equal Wallet Adddress */
              _trxHistory[index]["type"] == "payment" 
       ? GestureDetector(
-        onTap: () => blurBackgroundDecoration(context, TrxHistoryDetails(_trxHistory[index], "Send")),
+        onTap: () => Navigator.push(context, transitonRoute(TrxHistoryDetails(_trxHistory[index], "Send"))),
         child: Container(
           margin: EdgeInsets.only(bottom: 10.5),
           child: Container(

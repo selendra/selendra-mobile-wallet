@@ -25,13 +25,30 @@ Widget profileUserBodyWidget(
 ) {
 
   /* Function */
-  void navigateEditProfile() => Navigator.push(context, transitonRoute(UserInfo(_modelSignUp)));
-  void navigateTrxHistory() => Navigator.push(context, transitonRoute(TransactionHistoryWidget(_modelSignUp)));
-  void navigateAcivity() => Navigator.push(context, transitonRoute(Activity()));
-  void navigateGetWallet() async => await dialogBox(context); 
-  void navigateChangePIN() => Navigator.push(context, transitonRoute(ChangePIN()));
-  void navigateChangePass() => Navigator.push(context, transitonRoute(ChangePassword()));
-  void navigateAddAssets() => Navigator.push(context, transitonRoute(AddAsset()));
+  void navigateEditProfile(){
+    Navigator.pop(context, '');
+    Navigator.push(context, transitonRoute(UserInfo(_modelSignUp)));
+  } 
+  void navigateTrxHistory() {
+    Navigator.pop(context, '');
+    Navigator.push(context, transitonRoute(TransactionHistoryWidget(_modelSignUp)));
+  }
+  void navigateAcivity() { 
+    Navigator.pop(context, '');
+    Navigator.push(context, transitonRoute(Activity()));
+  }
+  void navigateGetWallet() async{
+    await dialogBox(context); 
+  }
+  void navigateChangePIN() { 
+    Navigator.push(context, transitonRoute(ChangePIN()));
+  }
+  void navigateChangePass() {
+    Navigator.push(context, transitonRoute(ChangePassword()));
+  }
+  void navigateAddAssets() {
+    Navigator.push(context, transitonRoute(AddAsset()));
+  }
   void signOut() async {
     dialogLoading(context);
     clearStorage();
@@ -125,6 +142,103 @@ Widget profileUserBodyWidget(
         customListTile(context, Icons.lock, "Change Password", navigateChangePass),
         customListTile(context, Icons.add, "Add Assets", navigateAddAssets),
         customListTile(context, Icons.exit_to_app, "Sign Out", signOut)
+        // ListView.builder(
+        //   padding: EdgeInsets.all(0),
+        //   shrinkWrap: true,
+        //   itemCount: listSettings.length,
+        //   itemBuilder: (BuildContext context, int index) {
+        //     return Container(
+        //       padding: EdgeInsets.only(left: 19.0, right: 19.0),
+        //       decoration: BoxDecoration(
+        //           color: getHexaColor("#222834"),
+        //           border: Border(
+        //               top: BorderSide(
+        //                   width: 1, color: Colors.white.withOpacity(0.1)))),
+        //       child: ListTile(
+        //           onTap: () async {
+        //             switch (index) {
+        //               case 0: {
+        //                 Navigator.pop(context, '');
+        //                 Navigator.push(
+        //                   context,
+        //                   MaterialPageRoute(
+        //                     builder: (context) =>
+        //                       UserInfo(_modelSignUp)
+        //                     )
+        //                   );
+        //                 break;
+        //               }
+        //               case 1: {
+        //                 Navigator.pop(context, '');
+        //                 blurBackgroundDecoration(
+        //                     context, TransactionHistoryWidget(_modelSignUp));
+        //                 break;
+        //               }
+        //               case 2: {
+        //                 Navigator.pop(context, '');
+        //                 blurBackgroundDecoration(context, Activity());
+        //                 break;
+        //               }
+        //               case 3: {
+        //                 await dialogBox(context); break;
+        //               }
+        //               case 4:
+        //                 {
+        //                   blurBackgroundDecoration(context, ChangePIN());
+        //                   break;
+        //                 }
+        //               case 5:
+        //                 {
+        //                   blurBackgroundDecoration(context, ChangePassword());
+        //                   break;
+        //                 }
+        //               case 6:
+        //                 {
+        //                   Navigator.pop(context, '');
+        //                   blurBackgroundDecoration(context, AddAsset());
+        //                   break;
+        //                 }
+        //               case 7:
+        //                 {
+        //                   dialogLoading(context);
+        //                   clearStorage();
+        //                   await Future.delayed(Duration(seconds: 1), () {
+        //                     Navigator.pop(context); /* Close Dialog Loading */
+        //                   });
+        //                   Navigator.pop(context, ''); /* Close Profile Screen */
+        //                   await Future.delayed(Duration(milliseconds: 100), () {
+        //                     Navigator.pushReplacementNamed(context, '/');
+        //                   });
+        //                 }
+        //             }
+        //           },
+        //           contentPadding: EdgeInsets.all(0),
+        //           leading: Container(
+        //             padding: EdgeInsets.all(0),
+        //             decoration: index == 0
+        //                 ? BoxDecoration(
+        //                     color: getHexaColor("#EFF0F2"),
+        //                     borderRadius: BorderRadius.circular(2.0))
+        //                 : null,
+        //             child: Icon(
+        //               listSettings[index]['icon'],
+        //               color: getHexaColor(index == 0 ? "#000000" : "#EFF0F2"),
+        //             ),
+        //           ),
+        //           title: Text(
+        //             listSettings[index]["title"],
+        //             style: TextStyle(
+        //                 fontWeight: FontWeight.bold,
+        //                 color: getHexaColor("#EFF0F2")),
+        //           ),
+        //           trailing: Icon(
+        //             Icons.arrow_forward_ios,
+        //             size: 10.0,
+        //             color: Colors.white,
+        //           )),
+        //     );
+        //   },
+        // )
         /* Import Wallet Button */
         // isHaveWallet == false ?
         // Container(
