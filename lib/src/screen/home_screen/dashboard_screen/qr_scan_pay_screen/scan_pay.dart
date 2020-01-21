@@ -60,7 +60,7 @@ class SendPaymentState extends State<SendPayment>{
     });
     if (_response["status_code"] == 200 ){
       await dialog(_context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(blueColor)));
-      Navigator.pop(context);
+      Navigator.pop(context, _response["status_code"]);
     }
   }
 

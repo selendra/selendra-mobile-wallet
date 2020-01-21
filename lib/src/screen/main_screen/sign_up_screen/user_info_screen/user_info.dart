@@ -62,12 +62,18 @@ class UserInfoState extends State<UserInfo> {
       }
     } catch (err) {}
   } 
-  void changeGender(String gender) {
+  void changeGender(String gender) async {
     widget._model.genderLabel = gender;
     if (gender == "Male") widget._model.gender = "M";
     else widget._model.gender = "F";
     widget._model.label = gender;
-    setState(() {});
+    await Future.delayed(Duration(milliseconds: 100), () {
+      setState(() { /* Unfocus All Field */
+        widget._model.nodeFirstName.unfocus();
+        widget._model.nodeMidName.unfocus();
+        widget._model.nodeLastName.unfocus();
+      });
+    });
   }
 
   Widget build(BuildContext context) {

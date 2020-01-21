@@ -41,10 +41,6 @@ class AddDocumentsState extends State<AddDocuments> {
     setState(() {});
   }
 
-  void pushReplace() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUser()));
-  }
-
   void triggerDate(String labelText) {
     DatePicker.showDatePicker(
       context, 
@@ -76,7 +72,7 @@ class AddDocumentsState extends State<AddDocuments> {
   }
 
   /* Trigger image */
-  triggerImage(String imageType) async {
+  Future<File> triggerImage(String imageType) async {
     var imageFile = await camera();
     setState(() {
       if (imageType == "passPortImage") {
@@ -173,17 +169,17 @@ class AddDocumentsState extends State<AddDocuments> {
     return Scaffold(
       backgroundColor: getHexaColor(backgroundColor),
       body: Stack(
-                children: <Widget>[
-                  bodyWidget(
-                    context,  
-                    _modelDocument, 
-                    setDocumentName, 
-                    triggerImage, validatorUser, pushReplace, popScreen, 
-                    triggerDate, clickSubmit, resetDate, textChanged,
-                    navigatePage
-                  ),
-                ],
-              )
+        children: <Widget>[
+          bodyWidget(
+            context,  
+            _modelDocument, 
+            setDocumentName, 
+            triggerImage, validatorUser, popScreen, 
+            triggerDate, clickSubmit, resetDate, textChanged,
+            navigatePage
+          ),
+        ],
+      )
       // Query(
       //   options: QueryOptions(document: queryAllDocument),
       //   builder: (QueryResult result, {VoidCallback refetch, FetchMore fetchMore}){

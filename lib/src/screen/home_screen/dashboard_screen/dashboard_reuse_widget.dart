@@ -77,29 +77,28 @@ Widget cardToken( /* Card Token Display */
 }
 
 /* Scan QR Code */
-Future scanQR(BuildContext _context, ModelDashboard _modelDashBaord, Function _resetState, Function _toReceiveToken) async {
+Future scanQR(BuildContext _context, ModelDashboard _modelDashBoard, Function _resetState) async {
   try {
     String _barcode = await BarcodeScanner.scan();
-    var _response = await blurBackgroundDecoration(_context, SendPayment(_barcode, _modelDashBaord));
-    if (_response == "succeed") {
-      _resetState(null, "portfolio", _modelDashBaord, _toReceiveToken);
+    var _response = await blurBackgroundDecoration(_context, SendPayment(_barcode, _modelDashBoard));
+    if (_response == 200) {
+      _resetState(null, "portfolio", _modelDashBoard);
     }
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.CameraAccessDenied) 
-      _resetState("The user did not grant the camera permission!", "barcode", _modelDashBaord, _toReceiveToken);
+      _resetState("The user did not grant the camera permission!", "barcode", _modelDashBoard);
     else 
-      _resetState("Unknown error: $e", "barcode", _modelDashBaord, _toReceiveToken);
+      _resetState("Unknown error: $e", "barcode", _modelDashBoard);
   } on FormatException {
     _resetState(
       "null (User returned using the 'back' -button before scanning anything. Result)", "barcode",
-      _modelDashBaord, 
-      _toReceiveToken
+      _modelDashBoard, 
     );
   } catch (e){
     _resetState(
       "Unknown error: $e",
-      _modelDashBaord, 
-      _toReceiveToken
+      "portfolio",
+      _modelDashBoard,
     );
   }
 }
@@ -142,13 +141,12 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                         child: Container(
                           margin: EdgeInsets.only(left: 1.5),
                           alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Assets', 
-                              style: TextStyle(
-                                color: getHexaColor("#959ca7"), 
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17.0
-                              )
+                          child: Text('Assets', 
+                            style: TextStyle(
+                              color: getHexaColor("#959ca7"), 
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.0
+                            )
                           )
                         ),
                       ),

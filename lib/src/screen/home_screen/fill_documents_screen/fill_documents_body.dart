@@ -14,7 +14,7 @@ Widget bodyWidget(
   // RunMutation runMutation,
   ModelDocument _modelDocument,
   Function setDocumentName,
-  Function triggerImage, Function validatorUser, Function pushReplace, Function popScreen, 
+  Function triggerImage, Function validatorUser, Function popScreen, 
   Function resetImage, Function triggerDate, Function clickSubmit, Function textChanged, Function navigatePage
 ) {
   return Container(

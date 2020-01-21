@@ -10,7 +10,7 @@ class ModelDocument{
   bool isPassportImage = false; bool isSelfieImage = false; bool isProgress = false;
   bool defaultPassportImage = true; bool defaultSelfieImage = true;
   File filePassport; File fileSelfie;
-  Map<String, dynamic> fetchEmail;
+  Map<String, dynamic> fetchEmail; Map<String, dynamic> userInfo;
   String labelIssueDate = "Issue Date", labeExpiredDate = "Expired Date";
   
   TextEditingController controllerDocsType = TextEditingController(text: "");

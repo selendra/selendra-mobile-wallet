@@ -17,7 +17,6 @@ import 'package:wallet_apps/src/service/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
-import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import './dashboard_body.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_info_screen/invoice_info.dart';
 
@@ -36,21 +35,14 @@ class DashboardState extends State<Dashboard> {
 
   @override
   initState() { /* Initialize State */
-    super.initState();  
-    // getUser(); 
+    super.initState();
     getUserData(); /* User Profile */
     fetchPortfolio();
-    // fetchWallet();
   }
 
   /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
     _modelDashboard.userData = await getUserProfile();
-  }
-
-  void getStatus() async {
-    var status = await fetchData("userStatusAndWallet");
-    if ( status != null ) setState(() {});
   }
 
   void fetchPortfolio() async { /* Fetch Portofolio */
@@ -77,27 +69,32 @@ class DashboardState extends State<Dashboard> {
   /* ------------------------Method------------------------ */
   /* Open Menu */
   void openMenu() async { /* Navigate To Profile User */
-    var _response = await blurBackgroundDecoration(context, ProfileUser());
-    if (_response != null && _response != '') { /* Get Request Portfolio And User Profile If Set Wallet Successfully */ 
-      fetchPortfolio();
-      getUserData();
-    }
+    // blurBackgroundDecoration(context, ProfileUser(_modelDashboard.userData));
+    Navigator.of(context).push(transitonRoute(ProfileUser(_modelDashboard.userData)));
+      // PageRouteBuilder(
+      //   opaque: false,
+      //   transitionDuration: Duration(milliseconds: 300),
+      //   pageBuilder: (BuildContext context, _, __) {
+      //     return ProfileUser(_modelDashboard.userData);
+      //   }
+      // )
+    // );
+    // MaterialPageRoute
+    // var _response = await 
+    // if (_response != null && _response != '') { /* Get Request Portfolio And User Profile If Set Wallet Successfully */ 
+    //   fetchPortfolio();
+    //   getUserData();
+    // }
   }
 
   /* Log Out Method */
   void logOut(BuildContext context) async{
-    /* Loading */
-    dialogLoading(context);
+    dialogLoading(context); /* Loading */
     clearStorage();
     await Future.delayed(Duration(seconds: 1), () {
       Navigator.pop(context);
       Navigator.of(context, rootNavigator: true).popAndPushNamed('/');
     });
-  }
-
-  /* Save User Login */
-  void saveUserLogin() {
-    // if (result.data != null) setData(result.data, 'userLogin');
   }
 
   /* ------------------------Fetch Local Data Method------------------------ */
@@ -139,7 +136,7 @@ class DashboardState extends State<Dashboard> {
 
   void scanReceipt() async { /* Receipt Scan Pay Process */
     await cropImageCamera(context).then((_response) async { /* Crop Image From Back Camera */
-      if (_modelScanInvoice.imageCapture != null){
+      if (_response != null){
         _modelScanInvoice.imageCapture = _response;
         dialogLoading(context); /* Show Loading Process */
         StreamedResponse _streamedResponse = await upLoadImage(_modelScanInvoice.imageCapture, "upload"); /* POST Image And Wait Response Back */
@@ -154,13 +151,12 @@ class DashboardState extends State<Dashboard> {
     }); 
   }
 
-  void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function fetchPortfolio) {
+  void _resetState(String barcodeValue, String executeName, ModelDashboard _model) { /* Request Portfolio After Trx QR Success */
     setState(() {
-      if (executeName == "portfolio") {
-        _model.portfolio= null; 
-        fetchPortfolio();
-      } else if (executeName == "barcode") _model.barcode = barcodeValue;
+      _modelDashboard.portfolio = [];
     });
+    fetchPortfolio();
+    getUserData(); 
   }
   
   void toReceiveToken(BuildContext context) {
@@ -176,59 +172,55 @@ class DashboardState extends State<Dashboard> {
       body: scaffoldBGDecoration(
         16, 16, 16, 0,
         color2, color1,
-        // Stack(
-        //   children: <Widget>[
-            Column(
-              children: <Widget>[
-                containerAppBar( /* AppBar */
-                  context, 
-                  Row( /* Sub AppBar */
-                    children: <Widget>[
-                      iconAppBar( /* Menu Button */
-                        Icon(Icons.sort, color: Colors.white,),
-                        Alignment.centerLeft,
-                        EdgeInsets.all(0),
-                        openMenu
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                        child: Image.asset("assets/${_modelDashboard.titleAppBar}", width: 140.53, height: double.infinity, alignment: Alignment.centerLeft),
-                      ),
-                      //containerTitle("Dashboard", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
-                      Expanded(
-                        child: Container(),
-                      ),
-                      iconAppBar( /* Earth Icon */
-                        Image.asset('assets/earthicon.png',width: 20.0, height: 20.0, color: Colors.white,),
-                        Alignment.centerRight,
-                        EdgeInsets.only(right: 11, left: 0, top: 0, bottom: 0),
-                        null
-                      )
-                    ],
-                  )  
-                ),    
-                Expanded( /* Body Widget */
-                  child: SmartRefresher(
-                    physics: BouncingScrollPhysics(),
-                    controller: _modelDashboard.refreshController,
-                    child: dashboardBodyWidget(
-                      context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolio, _modelDashboard
-                    ),
-                    // _modelDashboard.userData == null ? loading() // Body Widget
-                    //   : _modelDashboard.userData['queryUserById'] == null 
-                    //   ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : ,
-                    onRefresh: _pullUpRefresh,
+        Column(
+          children: <Widget>[
+            containerAppBar( /* AppBar */
+              context, 
+              Row( /* Sub AppBar */
+                children: <Widget>[
+                  iconAppBar( /* Menu Button */
+                    Icon(Icons.sort, color: Colors.white,),
+                    Alignment.centerLeft,
+                    EdgeInsets.all(0),
+                    openMenu
                   ),
-                )
-              ],
-            ),
-        //   ],
-        // )
+                  Padding(
+                    padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Image.asset("assets/${_modelDashboard.titleAppBar}", width: 140.53, height: double.infinity, alignment: Alignment.centerLeft),
+                  ),
+                  //containerTitle("Dashboard", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
+                  Expanded(
+                    child: Container(),
+                  ),
+                  iconAppBar( /* Earth Icon */
+                    Image.asset('assets/earthicon.png',width: 20.0, height: 20.0, color: Colors.white,),
+                    Alignment.centerRight,
+                    EdgeInsets.only(right: 11, left: 0, top: 0, bottom: 0),
+                    null
+                  )
+                ],
+              )  
+            ),    
+            Expanded( /* Body Widget */
+              child: SmartRefresher(
+                physics: BouncingScrollPhysics(),
+                controller: _modelDashboard.refreshController,
+                child: dashboardBodyWidget(
+                  context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolio, _modelDashboard
+                ),
+                // _modelDashboard.userData == null ? loading() // Body Widget
+                //   : _modelDashboard.userData['queryUserById'] == null 
+                //   ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : ,
+                onRefresh: _pullUpRefresh,
+              ),
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: bottomAppBar( /* Bottom Navigation Bar */
         context, 
         _modelDashboard, 
-        scanQR, scanReceipt, resetState, toReceiveToken
+        scanQR, scanReceipt, _resetState, toReceiveToken
       )
     );
   }

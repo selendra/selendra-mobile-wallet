@@ -42,14 +42,18 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
       if ( (_response.runtimeType.toString()) != "List<dynamic>" && (_response.runtimeType.toString()) != "_GrowableList<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
         if (_response.containsKey("error")){
           await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
-          setState(() {
-            _history = null; /* Set Portfolio Equal Null To Close Loading Process */
-          });
+          if (this.mounted){ /* Prevent Future SetState */
+            setState(() {
+              _history = null; /* Set Portfolio Equal Null To Close Loading Process */
+            });
+          }
         }
       } else {
-        setState(() {
-          _history = _response;
-        });
+        if (this.mounted) { /* Prevent Future SetState */
+          setState(() {
+            _history = _response;
+          });
+        }
       } 
     });
   }

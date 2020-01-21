@@ -84,49 +84,87 @@ Color getHexaColor(String hexaCode) {
   return Color(convertHexaColor(hexaCode));
 }
 
-class BlurBackground extends ModalRoute<void> {
-
-  final Widget child;
-
-  @required
-  BlurBackground({Key key, this.child});
-
-  @override
-  Duration get transitionDuration => Duration(seconds: 10);
-
-  @override
-  bool get opaque => false;
-
-  @override
-  bool get barrierDismissible => false;
-  
-  @override 
-  Color get barrierColor => Colors.black.withOpacity(0.5);
-
-  @override
-  String get barrierLabel => null;
-
-  @override
-  bool get maintainState => true;
-
-  @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
-    return Material(
-      animationDuration: transitionDuration,
-      type: MaterialType.transparency,
-      child: Container(
-        color: Colors.white.withOpacity(0.15),
-        child: BackdropFilter(
-          filter: ui.ImageFilter.blur(
-            sigmaX: 20.0,
-            sigmaY: 20.0,
+Route transitonRoute(Widget child) {
+  return PageRouteBuilder(
+    opaque: false,
+    pageBuilder: (context, animation, secondaryAnimation) => child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child){
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var offsetAnimation = animation.drive(tween);
+      return SlideTransition(
+        position: offsetAnimation,
+        child: Material(
+          color: Colors.white.withOpacity(0.1),
+          child: BackdropFilter(
+            filter: ui.ImageFilter.blur(
+              sigmaX: 20.0,
+              sigmaY: 20.0,
+            ),
+            child: child,
           ),
-          child: child,
-        ),
-      ),
-    );
-  }
+        )
+      );
+    }
+  );
 }
+
+// class BlurBackground extends PageRoute<void> {
+
+//   BlurBackground({
+//     @required this.builder,
+//     RouteSettings settings,
+//   }) : assert(builder != null), super(settings: settings, fullscreenDialog: false);
+
+//   final WidgetBuilder builder;
+
+//   @override
+//   Duration get transitionDuration => Duration(milliseconds: 250);
+
+//   @override
+//   bool get opaque => false;
+
+//   @override
+//   bool get barrierDismissible => false;
+  
+//   @override 
+//   Color get barrierColor => Colors.black.withOpacity(0.5);
+
+//   @override
+//   String get barrierLabel => null;
+
+//   @override
+//   bool get maintainState => true;
+
+//   @override
+//   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation){
+//     final result = builder(context);
+//     return FadeTransition(
+//       opacity: Tween<double>(begin: 0, end: 1).animate(animation),
+//       child: Semantics(
+//         scopesRoute: true,
+//         explicitChildNodes: true,
+//         child: result,
+//       ),
+//     );
+//     // Material(
+//     //   animationDuration: transitionDuration,
+//     //   type: MaterialType.transparency,
+//     //   child: Container(
+//     //     color: Colors.white.withOpacity(0.15),
+//     //     child: BackdropFilter(
+//     //       filter: ui.ImageFilter.blur(
+//     //         sigmaX: 20.0,
+//     //         sigmaY: 20.0,
+//     //       ),
+//     //       child: child,
+//     //     ),
+//     //   ),
+//     // );
+//   }
+// }
 
 /* User Input Text */
 TextField userTextField(TextEditingController inputEditor, FocusNode node, Function sink, AsyncSnapshot snapshot, bool showInput, TextInputType inputType, TextInputAction inputAction) {
@@ -366,7 +404,7 @@ void noInternet(BuildContext context) {
 }
 
 blurBackgroundDecoration(BuildContext context, dynamic screen) {
-  return showCupertinoDialog(
+  return showDialog(
     // barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
@@ -421,7 +459,7 @@ Widget bottomAppBar(
                           // padding: EdgeInsets.only(left: 28.0),
                           icon: Icon(OMIcons.arrowUpward, color: Colors.white,),
                           onPressed: () async {
-                            await _scanQR(_context, _modelDashboard, _resetState, _toReceiveToken);
+                            await _scanQR(_context, _modelDashboard, _resetState);
                           }
                         ),
                       ),
@@ -529,7 +567,9 @@ Widget iconAppBar(Widget icon, Alignment alignment, EdgeInsetsGeometry edgePaddi
     padding: edgePadding,
     iconSize: 40.0,
     icon: icon,
-    onPressed: action,
+    onPressed: () {
+      action();
+    },
   );
 }
 

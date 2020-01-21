@@ -33,12 +33,6 @@ class ZeeChartState extends State<ZeeChart>{
 
   RefreshController _refreshController = RefreshController();
 
-  @override
-  initState() {
-    // print(_m)
-    super.initState();
-  }
-
   void popScreen() {
     Navigator.pop(context);
   }
@@ -56,6 +50,12 @@ class ZeeChartState extends State<ZeeChart>{
     });
   }
   
+  void dispose() {
+    _modelScanInvoice.controlAmount.clear();
+    _modelScanInvoice.controlBillNO.clear();
+    _modelScanInvoice.controlLocation.clear();
+    super.dispose();
+  }
 
   Future<dynamic> cropImageCamera(BuildContext context) async {
     File image = await camera(); /* Trigger Behind Camera */
