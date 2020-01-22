@@ -69,22 +69,8 @@ class DashboardState extends State<Dashboard> {
   /* ------------------------Method------------------------ */
   /* Open Menu */
   void openMenu() async { /* Navigate To Profile User */
-    // blurBackgroundDecoration(context, ProfileUser(_modelDashboard.userData));
-    Navigator.of(context).push(transitonRoute(ProfileUser(_modelDashboard.userData)));
-      // PageRouteBuilder(
-      //   opaque: false,
-      //   transitionDuration: Duration(milliseconds: 300),
-      //   pageBuilder: (BuildContext context, _, __) {
-      //     return ProfileUser(_modelDashboard.userData);
-      //   }
-      // )
-    // );
-    // MaterialPageRoute
-    // var _response = await 
-    // if (_response != null && _response != '') { /* Get Request Portfolio And User Profile If Set Wallet Successfully */ 
-    //   fetchPortfolio();
-    //   getUserData();
-    // }
+    var _result = await Navigator.of(context).push(transitonRoute(ProfileUser(_modelDashboard.userData)));
+    if (_result != "") fetchPortfolio();
   }
 
   /* Log Out Method */

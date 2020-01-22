@@ -15,7 +15,7 @@ Widget buildListBodyWidget(List<dynamic> _activity) {
           // ? 
           return GestureDetector(
             onTap: () {
-              blurBackgroundDecoration(context, MyActivityDetails(_activity[index]));
+              Navigator.push(context, transitonRoute(MyActivityDetails(_activity[index])));
             },
             child: Container(
               margin: EdgeInsets.only(bottom: 10.5),

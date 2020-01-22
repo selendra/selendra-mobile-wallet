@@ -24,20 +24,18 @@ class ActivityState extends State<Activity> {
 
   @override
   void initState() {
-    super.initState();
     fetchHistoryUser();
-    /* Method Wait For Build COmplete */
+    super.initState();
   }
 
-  void fetchHistoryUser() async {
-    /* Request Transaction History */
+  void fetchHistoryUser() async { /* Request Transaction History */
     await getReceipt().then((_response) {
       if (List<dynamic>.from(_response).length == 0)
-        _activity =
-            null; /* Assign Activity Variable With NUll If Reponse Empty Data */
+        _activity = null; /* Assign Activity Variable With NUll If Reponse Empty Data */
       else
         _activity = _response;
     });
+    if (!mounted) return; /* Prevent SetState After Dispose */
     setState(() {});
   }
 

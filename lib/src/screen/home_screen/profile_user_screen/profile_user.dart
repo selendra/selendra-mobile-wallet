@@ -33,7 +33,7 @@ class ProfileUserState extends State<ProfileUser> {
   
   /* Variable */
   String error = '', _pin = '', _confirmPin = '';
-  var _result; 
+  dynamic _result = ""; 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final RefreshController _refreshController = RefreshController();
   ModelUserInfo modelProfile = ModelUserInfo();
@@ -48,7 +48,7 @@ class ProfileUserState extends State<ProfileUser> {
   /* InitState */
   @override
   void initState() {
-    // setUserInfo();
+    setUserInfo();
     super.initState();
   }
 
@@ -141,7 +141,7 @@ class ProfileUserState extends State<ProfileUser> {
   }
 
   void popScreen() {
-    Navigator.pop(context, "");
+    Navigator.pop(context, _result);
   }
 
   /* Build Function */
@@ -149,7 +149,7 @@ class ProfileUserState extends State<ProfileUser> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       key: _scaffoldKey,
-      body:SmartRefresher(
+      body: SmartRefresher(
         physics: BouncingScrollPhysics(),
         controller: _refreshController,
         onRefresh: _reFresh,
