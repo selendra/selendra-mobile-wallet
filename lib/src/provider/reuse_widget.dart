@@ -511,9 +511,7 @@ Widget iconAppBar(Widget icon, Alignment alignment, EdgeInsetsGeometry edgePaddi
     padding: edgePadding,
     iconSize: 40.0,
     icon: icon,
-    onPressed: () {
-      action();
-    },
+    onPressed: action,
   );
 }
 
