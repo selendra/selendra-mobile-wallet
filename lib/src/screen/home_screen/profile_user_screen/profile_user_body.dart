@@ -17,37 +17,36 @@ import 'package:wallet_apps/src/service/services.dart';
 Widget profileUserBodyWidget(
   bool isHaveWallet /* isHaveWallet By Default false */,
   BuildContext context,
-  Map<String, dynamic> userData,
+  Map<String, dynamic> _userData,
   ModelSignUp _modelSignUp,
   Function snackBar,
   Function dialogBox,
   Function popScreen
 ) {
-
   /* Function */
   void navigateEditProfile(){
     Navigator.pop(context, '');
-    Navigator.push(context, transitonRoute(UserInfo(_modelSignUp)));
+    Navigator.push(context, transitionRoute(UserInfo(_modelSignUp)));
   } 
   void navigateTrxHistory() {
     Navigator.pop(context, '');
-    Navigator.push(context, transitonRoute(TransactionHistoryWidget(_modelSignUp)));
+    Navigator.push(context, transitionRoute(TransactionHistoryWidget(_userData)));
   }
   void navigateAcivity() { 
     Navigator.pop(context, '');
-    Navigator.push(context, transitonRoute(Activity()));
+    Navigator.push(context, transitionRoute(Activity()));
   }
   void navigateGetWallet() async{
     await dialogBox(context); 
   }
   void navigateChangePIN() { 
-    Navigator.push(context, transitonRoute(ChangePIN()));
+    Navigator.push(context, transitionRoute(ChangePIN()));
   }
   void navigateChangePass() {
-    Navigator.push(context, transitonRoute(ChangePassword()));
+    Navigator.push(context, transitionRoute(ChangePassword()));
   }
   void navigateAddAssets() {
-    Navigator.push(context, transitonRoute(AddAsset()));
+    Navigator.push(context, transitionRoute(AddAsset()));
   }
   void signOut() async {
     dialogLoading(context);

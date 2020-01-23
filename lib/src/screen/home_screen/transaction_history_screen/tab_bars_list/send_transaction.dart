@@ -4,7 +4,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/trx_history_details/trx_history_detail.dart';
 import 'package:wallet_apps/src/service/services.dart';
 
-Widget sendBodyWidget(List<dynamic> _trxHistory, ModelSignUp _modelSignUp) {
+Widget sendBodyWidget(List<dynamic> _trxHistory, Map<String, dynamic> _userData) {
   return _trxHistory == null ? Container(
     child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
     alignment: Alignment.center,
@@ -14,10 +14,13 @@ Widget sendBodyWidget(List<dynamic> _trxHistory, ModelSignUp _modelSignUp) {
     physics: BouncingScrollPhysics(),
     itemCount: _trxHistory.length,
     itemBuilder: (BuildContext context, int index) {
-      return _trxHistory[index]["source_account"] == _modelSignUp.wallet &&  /* Send Trx If Source Account Address Equal Wallet Adddress */
-             _trxHistory[index]["type"] == "payment" 
+      /* Send Trx If Source Account Address Equal Wallet Adddress */
+      return _trxHistory[index]['type'] == "payment" || _trxHistory[index]['type'] == "manage_offer" ||
+             _userData['wallet'] == _trxHistory[index]['from'] 
+      // _trxHistory[index]["type"] == "manage_offer" ||  
+            //  _trxHistory[index]["type"] == "payment" 
       ? GestureDetector(
-        onTap: () => Navigator.push(context, transitonRoute(TrxHistoryDetails(_trxHistory[index], "Send"))),
+        onTap: () => Navigator.push(context, transitionRoute(TrxHistoryDetails(_trxHistory[index], "Send"))),
         child: Container(
           margin: EdgeInsets.only(bottom: 10.5),
           child: Container(
@@ -28,15 +31,14 @@ Widget sendBodyWidget(List<dynamic> _trxHistory, ModelSignUp _modelSignUp) {
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                /* Asset Icons */
+              children: <Widget>[ /* Asset Icons */
                 Container(
                   margin: EdgeInsets.only(right: 9.5),
                   width: 31.0, 
                   height: 31.0,
                   child: CircleAvatar(
                     backgroundImage: AssetImage(
-                      'assets/zeeicon_on_screen.png',
+                      'assets/zeeicon.png',
                     )
                   ),
                 ),

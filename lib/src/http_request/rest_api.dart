@@ -141,7 +141,6 @@ Future<Map<String, dynamic>> addMerchant(dynamic _model) async {
 }
 
 Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) async { /* Scan Receipt */
-  print(_modelScanInvoice.imageUri);
   _bodyEncode = json.encode({
     "receipt_no": _modelScanInvoice.controlBillNO.text,
     "amount": _modelScanInvoice.controlAmount.text,
@@ -345,7 +344,6 @@ Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
   var response = await request.send();
   /* Getting response */
   // response.stream.transform(utf8.decoder).listen((data){
-  //   print(data);
   // });
   return response;
 }

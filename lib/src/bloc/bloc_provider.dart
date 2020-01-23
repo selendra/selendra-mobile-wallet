@@ -19,7 +19,6 @@ class Provider extends InheritedWidget{
   
   static fetchStatusNWallet() async {
     var userStatusNWallet = await fetchData('userStatusAndWallet');
-    // print(userStatusNWallet);
     return userStatusNWallet;
   }
 

@@ -194,7 +194,7 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                                 height: 22.0,
                                 child: CircleAvatar(
                                   backgroundImage: AssetImage(
-                                    'assets/zeeicon_on_screen.png',
+                                    'assets/zeeicon.png',
                                   )
                                 ),
                               ),
@@ -233,7 +233,6 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                 //         shrinkWrap: true,
                 //         itemCount: portfolioData['data'].length,
                 //         itemBuilder: (BuildContext _context, int index) {
-                //           // print(portfolioData['data'][1]['asset_code']);
                 //           return Container(
                 //             decoration: BoxDecoration(
                 //                 border: Border(

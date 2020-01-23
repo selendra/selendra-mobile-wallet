@@ -145,7 +145,6 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
   return StreamBuilder(
     stream: bloc.passwordObservable,
     builder: (context, snapshot) {
-      // print(secondNode.hasFocus);
       return TextField(
         controller: controlPasswords,
         style: TextStyle(color: Colors.white),

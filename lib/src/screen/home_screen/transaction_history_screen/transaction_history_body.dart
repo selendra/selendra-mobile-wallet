@@ -9,7 +9,7 @@ import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/ta
 Widget transactionBodyWidget(
   BuildContext _context,
   List<dynamic> _trxHistory, 
-  ModelSignUp _modelSignUp,
+  Map<String, dynamic> _userData,
   Function popScreen
 ) {
   return Container(
@@ -47,9 +47,9 @@ Widget transactionBodyWidget(
         Expanded( /* Tabbar body */
           child: TabBarView(
             children: <Widget>[
-              sendBodyWidget(_trxHistory, _modelSignUp),
+              sendBodyWidget(_trxHistory, _userData),
               allTrxBoyWidget(_trxHistory),
-              receivedTrxBodyWidget(_trxHistory, _modelSignUp),
+              receivedTrxBodyWidget(_trxHistory, _userData),
             ],
           )
         )

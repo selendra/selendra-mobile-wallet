@@ -33,7 +33,7 @@ Widget trxHistoryDetailsBodyWidget(
           child: Column(
             children: <Widget>[
               // rowInformation("Receipt no: ", _trxInfo['receipt_no']),
-              rowInformation("Amount: ", _trxInfo['amount']),
+              rowInformation("Amount: ", _trxInfo['amount'] ?? "0.00"),
               // rowInformation("Location: ", _trxInfo['location']),
               rowInformation("Type: ", _trxInfo['type'] == "payment" ? "Payment" : "Fee"),
               rowInformation("From: ", _trxInfo['type'] == "payment" ? _trxInfo['from'] : ""),

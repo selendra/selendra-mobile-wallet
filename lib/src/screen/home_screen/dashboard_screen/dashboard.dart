@@ -69,7 +69,7 @@ class DashboardState extends State<Dashboard> {
   /* ------------------------Method------------------------ */
   /* Open Menu */
   void openMenu() async { /* Navigate To Profile User */
-    var _result = await Navigator.of(context).push(transitonRoute(ProfileUser(_modelDashboard.userData)));
+    var _result = await Navigator.of(context).push(transitionRoute(ProfileUser(_modelDashboard.userData)));
     if (_result != "") fetchPortfolio();
   }
 
@@ -154,7 +154,6 @@ class DashboardState extends State<Dashboard> {
     final bloc = Bloc();
     return Scaffold(
       key: _modelDashboard.scaffoldKey,
-      // drawer: drawerOnly(context, _modelDashboard, "dashboardScreen", toReceiveToken),
       body: scaffoldBGDecoration(
         16, 16, 16, 0,
         color2, color1,

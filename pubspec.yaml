@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+4
+version: 1.0.0+5
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -50,6 +50,7 @@ dependencies:
   date_format: ^1.0.8
   connectivity_wrapper: ^1.0.2
   flutter_launcher_icons: "^0.7.3"
+  rename: ^1.1.8
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +86,6 @@ flutter:
     - assets/zee_for_qr.png
     - assets/zeelogo.png
     - assets/earthicon.png
-    - assets/zeeicon_on_screen.png
     - assets/invoice.png 
     - assets/front_picture.png
     - assets/selfie.png
@@ -94,6 +94,7 @@ flutter:
     - assets/cbmicon.png
     - assets/cbm_yellow_icon.png
     - assets/zeeicon.png
+    - assets/zeeicon_button.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

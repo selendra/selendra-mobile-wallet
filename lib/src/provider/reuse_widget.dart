@@ -84,7 +84,7 @@ Color getHexaColor(String hexaCode) {
   return Color(convertHexaColor(hexaCode));
 }
 
-Route transitonRoute(Widget child) {
+Route transitionRoute(Widget child) {
   return PageRouteBuilder(
     opaque: false,
     pageBuilder: (context, animation, secondaryAnimation) => child,
@@ -437,7 +437,7 @@ Widget bottomAppBar(
             child: FittedBox(
               child: FloatingActionButton(
                 backgroundColor: getHexaColor("#8CC361"),
-                child: Image.asset('assets/z_white_logo.png', width: 22.02, height: 23.29),
+                child: Image.asset('assets/zeeicon_button.png', width: 22.02, height: 23.29),
                 onPressed: () async {
                   _scanReceipt();
                 },

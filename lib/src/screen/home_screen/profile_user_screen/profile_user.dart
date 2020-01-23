@@ -15,13 +15,12 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 import './profile_user_body.dart';
-import 'dart:ui' as ui;
 
 class ProfileUser extends StatefulWidget{
 
-  final Map<String, dynamic> userInfo;
+  final Map<String, dynamic> _userData;
 
-  ProfileUser(this.userInfo);
+  ProfileUser(this._userData);
 
   @override
   State<StatefulWidget> createState() {
@@ -37,7 +36,7 @@ class ProfileUserState extends State<ProfileUser> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final RefreshController _refreshController = RefreshController();
   ModelUserInfo modelProfile = ModelUserInfo();
-  Map<String, dynamic> userData, _message;
+  Map<String, dynamic> _message;
   /* Login Inside Dialog */
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
   /* Property For RefetchUserData From GraphQL */
@@ -53,11 +52,11 @@ class ProfileUserState extends State<ProfileUser> {
   }
 
   void setUserInfo() async {
-    _modelSignUp.controlFirstName.text = widget.userInfo['first_name'];
-    _modelSignUp.controlMidName.text = widget.userInfo['mid_name'];
-    _modelSignUp.controlLastName.text = widget.userInfo['last_name'];
-    _modelSignUp.genderLabel = widget.userInfo['gender'] == "M" ? "Male" : "Female";
-    _modelSignUp.gender = widget.userInfo['gender'];
+    _modelSignUp.controlFirstName.text = widget._userData['first_name'];
+    _modelSignUp.controlMidName.text = widget._userData['mid_name'];
+    _modelSignUp.controlLastName.text = widget._userData['last_name'];
+    _modelSignUp.genderLabel = widget._userData['gender'] == "M" ? "Male" : "Female";
+    _modelSignUp.gender = widget._userData['gender'];
     await fetchData("user_token").then((_response){ /* Fetch Token To Concete Authorization Update Profile User Info */
       _modelSignUp.token = _response['token'];
     });
@@ -160,7 +159,7 @@ class ProfileUserState extends State<ProfileUser> {
               alignment: Alignment.center,
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: profileUserBodyWidget(isHaveWallet, context, userData, _modelSignUp, snackBar, dialogBox, popScreen),
+                child: profileUserBodyWidget(isHaveWallet, context, widget._userData, _modelSignUp, snackBar, dialogBox, popScreen),
               )
             ),
           ],

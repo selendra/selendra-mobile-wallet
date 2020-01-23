@@ -15,7 +15,7 @@ Widget buildListBodyWidget(List<dynamic> _activity) {
           // ? 
           return GestureDetector(
             onTap: () {
-              Navigator.push(context, transitonRoute(MyActivityDetails(_activity[index])));
+              Navigator.push(context, transitionRoute(MyActivityDetails(_activity[index])));
             },
             child: Container(
               margin: EdgeInsets.only(bottom: 10.5),
@@ -35,7 +35,7 @@ Widget buildListBodyWidget(List<dynamic> _activity) {
                       height: 31.0,
                       child: CircleAvatar(
                         backgroundImage: AssetImage(
-                          'assets/zeeicon_on_screen.png',
+                          'assets/zeeicon.png',
                         )
                       ),
                     ),
