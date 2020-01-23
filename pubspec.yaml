@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+4
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -49,10 +49,16 @@ dependencies:
   charts_flutter: ^0.8.1
   date_format: ^1.0.8
   connectivity_wrapper: ^1.0.2
+  flutter_launcher_icons: "^0.7.3"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/cbm_yellow_icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -80,14 +86,14 @@ flutter:
     - assets/zeelogo.png
     - assets/earthicon.png
     - assets/zeeicon_on_screen.png
-    - assets/z_white_logo.png
     - assets/invoice.png 
     - assets/front_picture.png
     - assets/selfie.png
-    - assets/CBM-V1.png
-    - assets/CBM-V4-01.png
-    - assets/cbmlogoyellow.png
-    - assets/cbm_qr_image.png
+    - assets/CBM_V1.png
+    - assets/CBM_V4_01.png
+    - assets/cbmicon.png
+    - assets/cbm_yellow_icon.png
+    - assets/zeeicon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

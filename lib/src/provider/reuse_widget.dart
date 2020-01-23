@@ -305,17 +305,9 @@ Future dialog(BuildContext context, var text, var title) async {
               padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
               child: text,
             ),
-            // Row(children: <Widget>[
-            //   Text("Note: ", style: TextStyle(fontWeight: FontWeight.bold),),
-            //   Text("Please copy your key before close !", style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),)
-            // ],)
           ],
         ),
         actions: <Widget>[
-          // CupertinoDialogAction(
-          //   child: Text('Close'),
-          //   onPressed: () => Navigator.of(context).pop(null),
-          // ),
           CupertinoDialogAction(
             child: Text('Close'),
             onPressed: () => Navigator.of(context).pop(text),

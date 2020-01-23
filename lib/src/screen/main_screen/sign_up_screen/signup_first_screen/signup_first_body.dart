@@ -15,7 +15,7 @@ Widget signUpFirstBodyWidget(
       Column( /* Title of Zeetomic */
         children: <Widget>[
           // zeelogo
-          logoWelcomeScreen("CBM-V1.png", 80.0, 80.0),
+          logoWelcomeScreen("CBM_V1.png", 80.0, 80.0),
           Container(
             margin: EdgeInsets.only(top: 60.0),
             child: textDisplay(

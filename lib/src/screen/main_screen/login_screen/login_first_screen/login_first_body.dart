@@ -21,7 +21,7 @@ Widget loginFirstBodyWidget(
         /* Title of Zeetomic */
         children: <Widget>[
           // zeelogo
-          logoWelcomeScreen("CBM-V1.png", 70.0, 47.62),
+          logoWelcomeScreen("CBM_V1.png", 70.0, 47.62),
           Container(
             margin: EdgeInsets.only(top: 60.0),
             child: textDisplay(

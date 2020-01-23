@@ -40,7 +40,7 @@ Widget getWalletBody(
                 children: <Widget>[
                   Container( /* Generate QR Code */
                     margin: EdgeInsets.only(bottom: 29.52),
-                    child: qrCodeGenerate(_wallet, "cbm_qr_image.png"),
+                    child: qrCodeGenerate(_wallet, "cbm_yellow_icon.png"),
                     // "zee_for_qr.png"
                   ),
                   Container( /* Wallet Text */
