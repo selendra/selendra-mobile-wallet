@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'dart:async';
 /* Directory of file */
 import 'package:wallet_apps/src/model/model_user_info.dart';
@@ -182,13 +183,14 @@ class AddUserInfoState extends State<AddUserInfo>{
         children: <Widget>[
           /* Body verify user 1 */
           addUserInfobodyWidget(
+            validateInstance,
             context, 
             dropDownList, 
             _modelUserInfo, 
             triggerImage, 
             resetGender, 
-            validatorProfileUser, 
-            resetImage, textChanged, clickNext, popScreen
+            validatorProfileUser, resetImage, 
+            textChanged, clickNext, popScreen
           ),
         ],
       )

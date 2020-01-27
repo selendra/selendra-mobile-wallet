@@ -1,4 +1,5 @@
 import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
@@ -115,8 +116,7 @@ Widget invoiceBodyWidget(
                     TextInputType.text, TextInputAction.next,
                     _modelScanInvoice.controlBillNO, 
                     _modelScanInvoice.nodeBill, 
-                    textChanged,
-                    null
+                    validateInstance.validateInvoice, textChanged, null
                   ),
                 ),
                 Container(
@@ -130,8 +130,7 @@ Widget invoiceBodyWidget(
                     TextInputType.number, TextInputAction.done, 
                     _modelScanInvoice.controlAmount, 
                     _modelScanInvoice.nodeAmount, 
-                    textChanged, 
-                    null
+                    validateInstance.validateInvoice, textChanged, null
                   ),
                 ),
                 customFlatButton(

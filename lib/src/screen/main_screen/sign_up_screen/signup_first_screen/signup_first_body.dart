@@ -2,6 +2,7 @@ import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget signUpFirstBodyWidget(
   BuildContext context,
@@ -71,8 +72,7 @@ Widget signUpFirstBodyWidget(
                 TextInputType.text, TextInputAction.done,
                 _modelSignUp.controlEmails,
                 _modelSignUp.nodeEmails,
-                onChanged,
-                navigatePage
+                validateInstance.validateEmails, onChanged, navigatePage
               )
             ),
             Container( /* Sign By Phone Number Field */
@@ -86,8 +86,7 @@ Widget signUpFirstBodyWidget(
                 TextInputType.phone, TextInputAction.done,
                 _modelSignUp.controlPhoneNums,
                 _modelSignUp.nodePhoneNums,
-                onChanged,
-                navigatePage
+                validateInstance.validatePhone, onChanged, navigatePage
               )
             )
           ],

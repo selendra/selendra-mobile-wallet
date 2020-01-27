@@ -5,16 +5,15 @@ import 'package:wallet_apps/src/store_small_data/data_store.dart';
 class Provider extends InheritedWidget{
 
   final bloc = Bloc();
-  static Function refetchData;
   
   @override
   bool updateShouldNotify(_) => true;
 
   Provider({Widget child}) : super(child: child);
 
-  static Bloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(Provider) as Provider).bloc;
-    // return (context.dependOnInheritedWidgetOfExactType() as);
+  static Provider of(BuildContext context) {
+    // return (context.inheritFromWidgetOfExactType(Provider) as Provider).bloc;
+    return context.dependOnInheritedWidgetOfExactType<Provider>();
   }
   
   static fetchStatusNWallet() async {

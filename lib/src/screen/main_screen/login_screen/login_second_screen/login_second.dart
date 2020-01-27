@@ -22,8 +22,8 @@ class LoginSecondState extends State<LoginSecond>{
   
   @override
   void initState() {
-    super.initState();
     focusOnPassword();
+    super.initState();
   }
 
   focusOnPassword() async {
@@ -115,7 +115,12 @@ class LoginSecondState extends State<LoginSecond>{
   }
 
   void onChanged(String label, String valueChanged) {
-
+    widget._modelLogin.formState.currentState.validate();
+    // if (valueChanged.length >= 5 ) {
+    //   widget._modelLogin.enable2 = true;
+    // } else {
+    //   widget._modelLogin.enable2 = false;
+    // }
   }
 
   Widget build(BuildContext context){

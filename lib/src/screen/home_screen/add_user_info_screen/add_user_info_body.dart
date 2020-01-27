@@ -1,17 +1,19 @@
 /* Flutter Package */
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 /* Directory of file*/
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 
 Widget addUserInfobodyWidget(
+  ValidateMixin _validateInstance,
   BuildContext context, 
   List<String> genderList,
   ModelUserInfo _modelUserInfo,
   Function triggerImage,
-  Function resetGender, Function validatorProfileUser, 
-  Function resetImage, Function textChanged, Function clickNext, Function popScreen
+  Function resetGender, Function validatorProfileUser, Function resetImage, 
+  Function textChanged, Function clickNext, Function popScreen
   ) {
   return Container(
     margin: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
@@ -48,6 +50,7 @@ Widget addUserInfobodyWidget(
                       TextInputType.text, TextInputAction.next,
                       _modelUserInfo.controlOccupation,
                       _modelUserInfo.nodeOccupatioin,
+                      _validateInstance.validateOccupation,
                       null, null
                     ),
                   ),
@@ -62,6 +65,7 @@ Widget addUserInfobodyWidget(
                       TextInputType.text, TextInputAction.done,
                       _modelUserInfo.controlNationality,
                       _modelUserInfo.nodeNationality,
+                      _validateInstance.validateNationality,
                       null, null
                     ),
                   ),

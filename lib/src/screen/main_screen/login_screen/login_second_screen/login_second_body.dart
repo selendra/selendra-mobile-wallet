@@ -4,6 +4,7 @@ import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 /* body widget */
 Widget loginSdcondBodyWidget(
@@ -33,12 +34,15 @@ Widget loginSdcondBodyWidget(
       ),
       Container( /* Body login */
         margin: EdgeInsets.only(top: 59.0),
-        child: userLogin( /* User Input Field */
-          context,
-          _modelLogin,
-          onChanged,
-          checkInputAndValidate
-        ),
+        child: Form(
+          key: _modelLogin.formState,
+          child: userLogin( /* User Input Field */
+            context,
+            _modelLogin,
+            onChanged,
+            checkInputAndValidate
+          ),
+        )
       ),
       customFlatButton( /* Button login */
         _modelLogin.bloc,
@@ -51,7 +55,7 @@ Widget loginSdcondBodyWidget(
         EdgeInsets.only(top: size10, bottom: 0),
         EdgeInsets.only(top: size15, bottom: size15),
         BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
-        checkInputAndValidate
+        _modelLogin.enable1 == false ? null : checkInputAndValidate
       ),
       Expanded(flex: 2, child: Container()),
       Row(
@@ -78,8 +82,7 @@ Widget userLogin( /* Column of User Login */
 ){
   return Column(
     children: <Widget>[
-      Container(
-        /* Email & Phone Number Input Field*/
+      Container( /* Email & Phone Number Input Field*/
         margin: EdgeInsets.only(bottom: 13.0),
         child: inputField(
           _modelLogin.bloc,
@@ -93,12 +96,10 @@ Widget userLogin( /* Column of User Login */
           TextInputAction.next,
           _modelLogin.controlEmails.text != "" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
           _modelLogin.controlEmails.text != "" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums,
-          onChanged,
-          null
+          validateInstance.validateEmails, onChanged, null
         )
       ),
-      Container(
-        /* Password Input Field */
+      Container( /* Password Input Field */
         margin: EdgeInsets.only(bottom: 25.0),
         child: inputField(
           _modelLogin.bloc,
@@ -112,8 +113,7 @@ Widget userLogin( /* Column of User Login */
           TextInputAction.done,
           _modelLogin.controlPasswords,
           _modelLogin.nodePasswords,
-          onChanged,
-          checkInputAndValidate
+          validateInstance.validatePassword, onChanged, checkInputAndValidate
         ),
       ),
     ],

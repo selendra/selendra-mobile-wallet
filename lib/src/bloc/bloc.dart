@@ -7,7 +7,7 @@ import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
-class Bloc with ValidatorMixin {
+class Bloc with ValidateMixin {
 
   /* BehaviorSubject Below Are Similiar StreamController But It Has More Feature Over StreamController*/  
   final _email = BehaviorSubject<String>();
@@ -18,7 +18,7 @@ class Bloc with ValidatorMixin {
   /* Transform User Input To Get Validate Text */
   get emailObservable => _email.stream.transform(validateEmail);
   get phoneNumsObservable => _phoneNums.stream.transform(validatePhoneNums);
-  get passwordObservable => _password.stream.transform(validatePassword);
+  get passwordObservable => _password.stream.transform(validatePasswords);
   get submit => Observable.combineLatest2(emailObservable, passwordObservable, (email, password) {
     if ( email != null && password != null ) {
       return true;

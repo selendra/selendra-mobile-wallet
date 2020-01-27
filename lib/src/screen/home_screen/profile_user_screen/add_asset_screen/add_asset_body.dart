@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget addAssetBodyWidget(
   BuildContext _context,
@@ -40,8 +41,7 @@ Widget addAssetBodyWidget(
                       TextField.noMaxLength,
                       TextInputType.text, TextInputAction.next, 
                       _modelAsset.controllerAssetCode, _modelAsset.nodeAssetCode, 
-                      onChanged, 
-                      null
+                      validateInstance.validateAsset, onChanged, null
                     ),
                   ),
                   Container( /* Issuer Field */
@@ -53,8 +53,7 @@ Widget addAssetBodyWidget(
                       TextField.noMaxLength,
                       TextInputType.text, TextInputAction.done, 
                       _modelAsset.controllerIssuer, _modelAsset.nodeIssuer,
-                      onChanged, 
-                      null
+                      validateInstance.validateAsset, onChanged, null
                     ),
                   ),
                   customFlatButton( /* Add Asset Button */

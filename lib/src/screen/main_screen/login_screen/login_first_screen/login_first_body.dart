@@ -6,19 +6,16 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 
-Widget loginFirstBodyWidget(
-  /* body widget */
+Widget loginFirstBodyWidget( /* body widget */
   BuildContext context,
   ModelLogin _modelLogin,
   Function onChanged, Function tabBarSelectChanged, Function enableButton, Function navigatePage
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    /* Stretch is fill cros axis */
+    crossAxisAlignment: CrossAxisAlignment.stretch, /* Stretch is fill cros axis */
     children: <Widget>[
-      Column(
-        /* Title of Zeetomic */
+      Column( /* Title of Zeetomic */
         children: <Widget>[
           // zeelogo
           logoWelcomeScreen("CBM_V1.png", 70.0, 47.62),
@@ -118,7 +115,7 @@ Widget loginFirstBodyWidget(
         EdgeInsets.only(top: size10, bottom: size10),
         EdgeInsets.only(top: size15, bottom: size15),
         BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
-        _modelLogin.enable == false ? null : navigatePage
+        _modelLogin.enable1 == false ? null : navigatePage
       ),
       Expanded(flex: 2, child: Container()),
       Row(

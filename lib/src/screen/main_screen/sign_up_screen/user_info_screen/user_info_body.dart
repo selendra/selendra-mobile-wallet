@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget userInfoBodyWidget(
   BuildContext _context, 
@@ -42,7 +43,7 @@ Widget userInfoBodyWidget(
                       TextInputType.text, TextInputAction.next,
                       _modelSignUp.controlFirstName,
                       _modelSignUp.nodeFirstName,
-                      null, null
+                      validateInstance.validateUserInfo, null, null
                     ),
                   ),
                   Container( /* Mid Name Field */
@@ -56,7 +57,7 @@ Widget userInfoBodyWidget(
                       TextInputType.text, TextInputAction.next,
                       _modelSignUp.controlMidName,
                       _modelSignUp.nodeMidName,
-                      null, null
+                      validateInstance.validateUserInfo, null, null
                     ),
                   ),
                   Container( /* Last Name Field */
@@ -70,7 +71,7 @@ Widget userInfoBodyWidget(
                       TextInputType.text, TextInputAction.next,
                       _modelSignUp.controlLastName,
                       _modelSignUp.nodeLastName,
-                      null, null
+                      validateInstance.validateUserInfo, null, null
                     ),
                   ),
                   Container( /* Gender Picker */

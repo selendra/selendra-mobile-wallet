@@ -59,7 +59,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/cbm_yellow_icon.png"
+  image_path: "assets/cbm_yellow_logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -91,8 +91,8 @@ flutter:
     - assets/selfie.png
     - assets/CBM_V1.png
     - assets/CBM_V4_01.png
-    - assets/cbmicon.png
     - assets/cbm_yellow_icon.png
+    - assets/cbm_yellow_logo.png
     - assets/zeeicon.png
     - assets/zeeicon_button.png
 

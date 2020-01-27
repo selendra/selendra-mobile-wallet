@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget bodyWidget(
   BuildContext context,
@@ -53,7 +54,7 @@ Widget bodyWidget(
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsType, 
                       _modelDocument.nodeDocsType, 
-                      textChanged, null
+                      validateInstance.validateDocument, textChanged, null
                     ),
                   ),
                   Container( /* Document Number */
@@ -67,7 +68,7 @@ Widget bodyWidget(
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsNumber, 
                       _modelDocument.nodeDocsNumber, 
-                      textChanged, null
+                      validateInstance.validateDocument, textChanged, null
                     ),
                   ),
                   Container( /* Issue Date */

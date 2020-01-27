@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget changePasswordBodyWidget(
   BuildContext _context, ModelSignUp _model,
@@ -54,8 +55,7 @@ Widget changePasswordBodyWidget(
                       TextInputAction.next,
                       _model.controlOldSecureNumber,
                       _model.nodeOldSecureNumber,
-                      onChanged,
-                      null
+                      validateInstance.validatePassword, onChanged, null
                     ),
                   ),
                   Container( /* New Password */
@@ -72,8 +72,7 @@ Widget changePasswordBodyWidget(
                       TextInputAction.next,
                       _model.controlSecureNumber,
                       _model.nodeSecureNumber,
-                      onChanged,
-                      null
+                      validateInstance.validatePassword, onChanged, null
                     ),
                   ),
                   Container( /* Old Password */
@@ -90,8 +89,7 @@ Widget changePasswordBodyWidget(
                       TextInputAction.done,
                       _model.controlConfirmSecureNumber,
                       _model.nodeConfirmSecureNumber,
-                      onChanged,
-                      null
+                      validateInstance.validatePassword, onChanged, null
                     ),
                   ),
                   customFlatButton(

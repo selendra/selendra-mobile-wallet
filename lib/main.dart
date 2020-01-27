@@ -38,7 +38,6 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  ModelSignUp _modelSignUp = ModelSignUp();
 
   @override
   Widget build(BuildContext context) {

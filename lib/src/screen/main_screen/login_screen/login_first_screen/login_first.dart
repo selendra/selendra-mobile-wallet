@@ -47,7 +47,7 @@ class LoginFirstState extends State<LoginFirstScreen> {
   void enableButton(bool data) async { /* Enable Login Button */
     await Future.delayed(Duration(milliseconds: 100), () { /* Wait Stream Reset State After That Reset State Again */
       setState(() {
-        _modelLogin.enable = data;
+        _modelLogin.enable1 = data;
       });
     });
   }
@@ -58,7 +58,7 @@ class LoginFirstState extends State<LoginFirstScreen> {
       _modelLogin.controlPhoneNums.clear();
       _modelLogin.nodePhoneNums.unfocus();
       setState(() {
-        _modelLogin.enable = false;
+        _modelLogin.enable1 = false;
       });
       _modelLogin.label = "email";
     } else {
@@ -66,7 +66,7 @@ class LoginFirstState extends State<LoginFirstScreen> {
       _modelLogin.controlEmails.clear();
       _modelLogin.nodeEmails.unfocus();
       setState(() {
-        _modelLogin.enable = false;
+        _modelLogin.enable1 = false;
       });
       _modelLogin.label = "phone";
     }

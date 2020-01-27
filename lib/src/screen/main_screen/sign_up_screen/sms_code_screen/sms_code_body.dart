@@ -1,4 +1,5 @@
 import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
@@ -83,8 +84,7 @@ Widget userLogin( /* Column of User Login */
           TextInputType.phone, TextInputAction.next,
           _modelSignUp.controlPhoneNums,
           _modelSignUp.nodePhoneNums, 
-          onChanged, 
-          null
+          validateInstance.validatePhone, onChanged, null
         )
       ),
       Container( /* Password input */
@@ -98,8 +98,7 @@ Widget userLogin( /* Column of User Login */
           TextInputType.text, TextInputAction.done,
           _modelSignUp.controlSmsCode,
           _modelSignUp.nodeSmsCode, 
-          onChanged, 
-          validatorLogin
+          validateInstance.validateSms, onChanged,  validatorLogin
         )
       ),
     ],

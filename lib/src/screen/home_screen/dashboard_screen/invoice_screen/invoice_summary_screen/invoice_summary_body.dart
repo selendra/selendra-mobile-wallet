@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget invoiceSummaryBodyWidget(
   BuildContext _context,
@@ -60,8 +62,7 @@ Widget invoiceSummaryBodyWidget(
             TextInputType.text, TextInputAction.done,
             _modelScanInvoice.controlApproveCode, 
             _modelScanInvoice.nodeApproveCode, 
-            onChanged, 
-            verifyInvoice
+            validateInstance.validateAuthCode, onChanged, verifyInvoice
           ),
         ),
         Container(

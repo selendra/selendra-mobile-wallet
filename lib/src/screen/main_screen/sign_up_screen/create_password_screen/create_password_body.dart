@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget createPasswordBodyWidget(
   BuildContext _context,
@@ -52,8 +53,7 @@ Widget createPasswordBodyWidget(
                     TextInputAction.next,
                     _modelSignUp.controlSecureNumber,
                     _modelSignUp.nodeSecureNumber,
-                    onChanged,
-                    changeFocus
+                    validateInstance.validatePassword, onChanged, changeFocus
                   ),
                 ),
                 Container(
@@ -71,8 +71,7 @@ Widget createPasswordBodyWidget(
                     TextInputAction.done,
                     _modelSignUp.controlConfirmSecureNumber,
                     _modelSignUp.nodeConfirmSecureNumber,
-                    onChanged,
-                    null
+                    validateInstance.validatePassword, onChanged, null
                   ),
                 ),
                 _modelSignUp.isMatch == true

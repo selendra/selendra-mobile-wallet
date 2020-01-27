@@ -16,6 +16,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/get_wallet_screen/get_wallet.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
 import 'package:wallet_apps/src/service/services.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'dart:ui' as ui;
 
 /* -----------------------------------Variable--------------------------------------------------- */
@@ -135,6 +136,8 @@ TextField userTextField(TextEditingController inputEditor, FocusNode node, Funct
   );
 }
 
+/* ------------------Input Decoration--------------------- */
+
 /* User input Outline Border */
 OutlineInputBorder outlineInput(Color borderColor) {
   return OutlineInputBorder(
@@ -143,8 +146,7 @@ OutlineInputBorder outlineInput(Color borderColor) {
   );
 }
 
-/* User error Outline Border */
-OutlineInputBorder errorOutline() {
+OutlineInputBorder errorOutline() { /* User Error Input Outline Border */
   return OutlineInputBorder(
     borderSide: BorderSide(color: Colors.red)
   );
@@ -627,58 +629,49 @@ Widget inputField( /* User Input Field */
   int textInputLength,
   TextInputType inputType, TextInputAction inputAction, TextEditingController controller,
   FocusNode _focusNode,
-  Function onChanged, Function action
+  Function validateField, Function onChanged, Function action
   ) {
-  return StreamBuilder(
-    builder: (context, builder){
-      return TextFormField(
-        focusNode: _focusNode, 
-        keyboardType: inputType,
-        obscureText: obcureText,
-        controller: controller,
-        textInputAction: inputAction,
-        style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.3) : Colors.transparent, 
-              width: 1.0
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: getHexaColor("#FFFFFF").withOpacity(0.3), width: 1.0),
-          ),
-          prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
-          filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
-          labelText: labelText,
-          labelStyle: TextStyle(
-            fontSize: 18.0,
-            color: _focusNode.hasFocus || controller.text != "" ? getHexaColor("#FFFFF").withOpacity(0.3) : getHexaColor("#ffffff")
-          ),
-          focusColor: getHexaColor("#ffffff"),
-          contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
-        ),
-        inputFormatters: [LengthLimitingTextInputFormatter(textInputLength)],
-        onChanged: (valueChange) {
-          if (
-            widgetName == "invoiceInfoScreen" || 
-            widgetName == "addAssetScreen" || 
-            widgetName == "loginFirstScreen" ||
-            widgetName == "loginSecondScreen" ||
-            widgetName == "signUpFirstScreen" 
-          ) onChanged(labelText, valueChange);
-          else onChanged(valueChange);
-        },
-        onFieldSubmitted: (value) {
-          if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") action(bloc, context);
-          else action(context, value);
-        },
-        // onFieldSubmitted: (value) {
-        //       firstNode.unfocus();
-        //       FocusScope.of(context).requestFocus(secondNode);
-        // }
-      );
+  return TextFormField(
+    focusNode: _focusNode, 
+    keyboardType: inputType,
+    obscureText: obcureText,
+    controller: controller,
+    textInputAction: inputAction,
+    style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
+    validator: validateInstance.validateEmails,
+    decoration: InputDecoration(
+      labelText: labelText,
+      labelStyle: TextStyle(
+        fontSize: 18.0,
+        color: _focusNode.hasFocus || controller.text != "" ? getHexaColor("#FFFFF").withOpacity(0.3) : getHexaColor("#ffffff")
+      ),
+      prefixText: prefixText, prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0), /* Prefix Text */
+      filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
+      enabledBorder: outlineInput(controller.text != "" ? getHexaColor("#FFFFFF").withOpacity(0.3) : Colors.transparent), /* Enable Border But Not Show Error */
+      border: errorOutline(), /* Show Error And Red Border */
+      focusedBorder: outlineInput(getHexaColor("#FFFFFF").withOpacity(0.3)), /* Default Focuse Border Color*/
+      focusColor: getHexaColor("#ffffff"), /* Border Color When Focusing */
+      contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
+    ),
+    inputFormatters: [LengthLimitingTextInputFormatter(textInputLength)], /* Limit Length Of Text Input */
+    onChanged: (valueChange) {
+      if (
+        widgetName == "invoiceInfoScreen" || 
+        widgetName == "addAssetScreen" || 
+        widgetName == "loginFirstScreen" ||
+        widgetName == "loginSecondScreen" ||
+        widgetName == "signUpFirstScreen" 
+      ) onChanged(labelText, valueChange);
+      else onChanged(valueChange);
     },
+    onFieldSubmitted: (value) {
+      if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") action(bloc, context);
+      else action(context, value);
+    },
+    // onFieldSubmitted: (value) {
+    //       firstNode.unfocus();
+    //       FocusScope.of(context).requestFocus(secondNode);
+    // }
   );
 }
 

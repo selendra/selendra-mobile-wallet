@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget forgotPasswordBodyWidget(
   BuildContext _context, 
@@ -39,8 +40,7 @@ Widget forgotPasswordBodyWidget(
                     TextInputType.number, TextInputAction.done,
                     _modelSignUp.controlPhoneNums, 
                     _modelSignUp.nodePhoneNums, 
-                    onChanged, 
-                    null
+                    validateInstance.validatePhone, onChanged, null
                   ),
                 ),
                 customFlatButton(
