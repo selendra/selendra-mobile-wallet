@@ -1,6 +1,7 @@
 /* Flutter Package */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -68,13 +69,39 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
   }
 
   void onChanged(String label, String onchanged) { /* Input Field Value Change */
+    _modelSignUp.formState1.currentState.validate();
     if (label == "Email") _modelSignUp.label = "email";
     else _modelSignUp.label = "phone";
   }
 
+  String validateInput(String value){ /* Initial Validate */
+    if (_modelSignUp.label == "email"){
+      _modelSignUp.response = validateInstance.validateEmails(value);
+      if (_modelSignUp.response == null) setState(() => _modelSignUp.enable1 = true );
+    } else {
+      _modelSignUp.response = validateInstance.validateEmails(value);
+      if (_modelSignUp.response != null) setState(() => _modelSignUp.enable1 = false );
+    }
+    return _modelSignUp.response;
+  }
+
   void tabBarSelectChanged(int index) {
-    if ( index == 0 ) _modelSignUp.label = "email";
-    else _modelSignUp.label = "phone";
+    _modelSignUp.formState1.currentState.reset();
+    if ( index == 0 ){
+      _modelSignUp.controlPhoneNums.clear();
+      _modelSignUp.nodePhoneNums.unfocus();
+      setState(() { /* Disable Button */
+        _modelSignUp.enable1 = false;
+      });
+      _modelSignUp.label = "email";
+    } else {
+      _modelSignUp.controlEmails.clear();
+      _modelSignUp.nodeEmails.unfocus();
+      setState(() { /* Disable Button */
+        _modelSignUp.enable1 = false;
+      });
+      _modelSignUp.label = "phone";
+    }
     setState(() {});
   }
   
@@ -83,20 +110,13 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        body: Container(
-          decoration: scaffoldBGColor(color1, color2),
-          child: Stack(
-            children: <Widget>[
-              paddingScreenWidget( /* Padding Whole Screen */
-                context, 
-                signUpFirstBodyWidget( /* Body Widget */
-                  context, 
-                  _modelSignUp, 
-                  popScreen, submitValidator, navigatePage, tabBarSelectChanged, onChanged
-                )
-              )
-            ],
-          ),
+        body: paddingScreenWidget( /* Padding Whole Screen */
+          context, 
+          signUpFirstBodyWidget( /* Body Widget */
+            context, 
+            _modelSignUp, 
+            validateInput, onChanged, popScreen, submitValidator, navigatePage, tabBarSelectChanged, 
+          )
         )
       ),
     );

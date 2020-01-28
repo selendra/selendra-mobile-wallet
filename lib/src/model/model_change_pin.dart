@@ -3,6 +3,8 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelChangePin {
 
+  final formStateChangePin = GlobalKey<FormState>();
+
   Bloc bloc = Bloc();
   TextEditingController controllerOldPin = TextEditingController(text: "");
   TextEditingController controllerNewPin = TextEditingController(text: "");

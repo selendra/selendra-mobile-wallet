@@ -6,6 +6,9 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as _http;
 import 'package:http_parser/http_parser.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/model/model_change_password.dart';
+import 'package:wallet_apps/src/model/model_change_pin.dart';
+import 'package:wallet_apps/src/model/model_forgot_pass.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/model/model_scan_pay.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
@@ -169,33 +172,33 @@ Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async {
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> forgetPassword(ModelSignUp _model) async {
+Future<Map<String, dynamic>> forgetPassword(ModelForgotPassword _modelForgot) async {
   /* Confirm User Account By Phone Number */
   _bodyEncode = json.encode({
-    "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
+    "phone": "${_modelForgot.countryCode}${_modelForgot.controlPhoneNums.text}",
   });
   _response = await _http.post("$_url/forget-password",
       headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> resetPass(ModelSignUp _model) async {
+Future<Map<String, dynamic>> resetPass(ModelForgotPassword _modelForgot) async {
   /* Confirm User Account By Phone Number */
   _bodyEncode = json.encode({
-    "temp-code": _model.controlResetCode.text,
-    "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
-    "password": _model.controlConfirmSecureNumber.text
+    "temp-code": _modelForgot.controlResetCode.text,
+    "phone": "${_modelForgot.countryCode}${_modelForgot.controlPhoneNums.text}",
+    "password": _modelForgot.controlConfirmPasswords.text
   });
   _response = await _http.post("$_url/reset-password",
       headers: _conceteHeader(null, null), body: _bodyEncode);
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> changePIN(ModelSignUp _model) async {
+Future<Map<String, dynamic>> changePIN(ModelChangePin _model) async {
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
-    "current_pin": _model.controlOldSecureNumber.text,
-    "new_pin": _model.controlConfirmSecureNumber.text,
+    "current_pin": _model.controllerOldPin.text,
+    "new_pin": _model.controllerConfirmPin.text,
   });
   if (_token != null) {
     _response = await _http.post("$_url/change-pin",
@@ -206,11 +209,11 @@ Future<Map<String, dynamic>> changePIN(ModelSignUp _model) async {
   return null;
 }
 
-Future<Map<String, dynamic>> changePassword(ModelSignUp _model) async {
+Future<Map<String, dynamic>> changePassword(ModelChangePassword _model) async {
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
-    "current_password": _model.controlOldSecureNumber.text,
-    "new_password": _model.controlConfirmSecureNumber.text,
+    "current_password": _model.controlOldPassword.text,
+    "new_password": _model.controlConfirmPassword.text,
   });
   if (_token != null) {
     _response = await _http.post("$_url/change-password",

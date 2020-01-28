@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_forgot_pass.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/reset_password_screen/reset_password_body.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 
 class ResetPassword extends StatefulWidget{
 
-  final ModelSignUp _modelSignUp;
+  final ModelForgotPassword _modelForgotPassword;
 
-  ResetPassword(this._modelSignUp);
+  ResetPassword(this._modelForgotPassword);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +25,7 @@ class ResetPasswordState extends State<ResetPassword> {
 
   void submitResetPassword(BuildContext context) async {
     dialogLoading(context);
-    await resetPass(widget._modelSignUp).then((_response) async {
+    await resetPass(widget._modelForgotPassword).then((_response) async {
       Navigator.pop(context);
       await dialog(context, Text(_response['message']), Icon(Icons.done));
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()), ModalRoute.withName('/'));
@@ -41,7 +41,7 @@ class ResetPasswordState extends State<ResetPassword> {
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0,
         color1, color2,
-        resetPasswordBody(context, widget._modelSignUp, onChanged, submitResetPassword , popScreen)
+        resetPasswordBody(context, widget._modelForgotPassword, onChanged, submitResetPassword , popScreen)
       ),
     );
   }

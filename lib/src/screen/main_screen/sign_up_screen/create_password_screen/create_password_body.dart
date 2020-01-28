@@ -42,7 +42,7 @@ Widget createPasswordBodyWidget(
                   /* Password Field */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelSignUp.bloc,
+                    _modelSignUp.formState2,
                     _context,
                     "Password",
                     null,
@@ -60,7 +60,7 @@ Widget createPasswordBodyWidget(
                   /* Confirm Password Field */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelSignUp.bloc,
+                    _modelSignUp.formState2,
                     _context,
                     "Confirm Password",
                     null,
@@ -80,9 +80,7 @@ Widget createPasswordBodyWidget(
                   "Confirm password not match !",
                   style: TextStyle(fontSize: 18.0, color: Colors.red),
                 ),
-                customFlatButton(
-                  /* Button Request Code */
-                  _modelSignUp.bloc,
+                customFlatButton( /* Button Request Code */
                   _context,
                   "Sign Up Now",
                   "signUpFirstScreen",

@@ -35,7 +35,8 @@ Widget addAssetBodyWidget(
                   Container(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField( /* Asset Code Field */
-                      _modelAsset.bloc, _context, 
+                      _modelAsset.formStateAsset, 
+                      _context, 
                       "Asset Code", null, "addAssetScreen", 
                       false, 
                       TextField.noMaxLength,
@@ -47,7 +48,8 @@ Widget addAssetBodyWidget(
                   Container( /* Issuer Field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelAsset.bloc, _context, 
+                      _modelAsset.formStateAsset, 
+                      _context, 
                       "Issuer", null, "addAssetScreen", 
                       false, 
                       TextField.noMaxLength,
@@ -57,7 +59,6 @@ Widget addAssetBodyWidget(
                     ),
                   ),
                   customFlatButton( /* Add Asset Button */
-                    _modelAsset.bloc, 
                     _context, 
                     "Add assets", "addAssetScreen", blueColor,
                     FontWeight.normal, 

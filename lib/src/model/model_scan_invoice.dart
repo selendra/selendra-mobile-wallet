@@ -5,8 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelScanInvoice {
-
-  Bloc bloc = Bloc();
+  
+  final formStateScanInvoice = GlobalKey<FormState>();
 
   TextEditingController controlBillNO = TextEditingController(text: ""), 
     controlAmount = TextEditingController(text: ""), 

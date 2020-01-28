@@ -35,7 +35,6 @@ Widget loginSdcondBodyWidget( /* body widget */
         )
       ),
       customFlatButton( /* Button login */
-        _modelLogin.bloc,
         context,
         "Login",
         "loginSecondScreen",
@@ -74,7 +73,7 @@ Widget userLogin( /* Column of User Login */
       Container( /* Email & Phone Number Input Field*/
         margin: EdgeInsets.only(bottom: 13.0),
         child: inputField(
-          _modelLogin.bloc,
+          _modelLogin.formState1,
           context,
           _modelLogin.controlEmails.text != "" ? "Email" : "Phone number",
           _modelLogin.controlEmails.text != "" ? null : "${_modelLogin.countryCode} ",
@@ -91,7 +90,7 @@ Widget userLogin( /* Column of User Login */
       Container( /* Password Input Field */
         margin: EdgeInsets.only(bottom: 25.0),
         child: inputField(
-          _modelLogin.bloc,
+          _modelLogin.formState1,
           context,
           "Password",
           null,

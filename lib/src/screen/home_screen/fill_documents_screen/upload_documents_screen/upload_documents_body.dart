@@ -59,7 +59,6 @@ Widget documentsBodyWidget(
                   ),
                 ),
                 customFlatButton(
-                  bloc, 
                   context, 
                   "Upload", "uploadDocumentScreen", blueColor,                  
                   FontWeight.normal,

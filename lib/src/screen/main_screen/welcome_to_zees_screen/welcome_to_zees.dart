@@ -89,7 +89,6 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
               Container(
                 margin: EdgeInsets.only(bottom: 30.0),
                 child: customFlatButton(
-                  bloc.bloc,
                   context,
                   "Login", "welcomeZee", greenColor,
                   FontWeight.bold,

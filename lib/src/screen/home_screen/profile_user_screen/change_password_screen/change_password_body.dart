@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_change_password.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget changePasswordBodyWidget(
-  BuildContext _context, ModelSignUp _model,
+  BuildContext _context, ModelChangePassword _model,
   Function popScreen, Function onChanged, Function submitPassword
 ) {
   return Container(
@@ -44,7 +44,7 @@ Widget changePasswordBodyWidget(
                     /* Old Password */
                     margin: EdgeInsets.only(bottom: 12.0, top: 10.0),
                     child: inputField(
-                      _model.bloc,
+                      _model.formStateChangePassword,
                       _context,
                       "Old Password",
                       "",
@@ -53,15 +53,15 @@ Widget changePasswordBodyWidget(
                       TextField.noMaxLength,
                       TextInputType.text,
                       TextInputAction.next,
-                      _model.controlOldSecureNumber,
-                      _model.nodeOldSecureNumber,
+                      _model.controlOldPassword,
+                      _model.nodeOldPassword,
                       validateInstance.validatePassword, onChanged, null
                     ),
                   ),
                   Container( /* New Password */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _model.bloc,
+                      _model.formStateChangePassword,
                       _context,
                       "New Password",
                       "",
@@ -70,15 +70,15 @@ Widget changePasswordBodyWidget(
                       TextField.noMaxLength,
                       TextInputType.text,
                       TextInputAction.next,
-                      _model.controlSecureNumber,
-                      _model.nodeSecureNumber,
+                      _model.controlNewPassword,
+                      _model.nodeNewPassword,
                       validateInstance.validatePassword, onChanged, null
                     ),
                   ),
                   Container( /* Old Password */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _model.bloc,
+                      _model.formStateChangePassword,
                       _context,
                       "Confirm Password",
                       "",
@@ -87,13 +87,12 @@ Widget changePasswordBodyWidget(
                       TextField.noMaxLength,
                       TextInputType.text,
                       TextInputAction.done,
-                      _model.controlConfirmSecureNumber,
-                      _model.nodeConfirmSecureNumber,
+                      _model.controlConfirmPassword,
+                      _model.nodeConfirmPassword,
                       validateInstance.validatePassword, onChanged, null
                     ),
                   ),
                   customFlatButton(
-                    _model.bloc,
                     _context,
                     "Change Now",
                     "changePasswordScreen",

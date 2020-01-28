@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_change_pin.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
-Widget changePinBodyWidget(BuildContext _context, ModelSignUp _model,
-    Function popScreen, Function onChanged, Function submitPin) {
+Widget changePinBodyWidget(
+  BuildContext _context, ModelChangePin _modelChangePin,
+  Function popScreen, Function onChanged, Function submitPin
+){
   return Container(
     padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
     width: double.infinity,
@@ -37,7 +39,7 @@ Widget changePinBodyWidget(BuildContext _context, ModelSignUp _model,
               Container( /* Old PIN */
                 margin: EdgeInsets.only(bottom: 12.0),
                 child: inputField(
-                  _model.bloc,
+                  _modelChangePin.formStateChangePin,
                   _context,
                   "Old PIN",
                   "",
@@ -46,16 +48,15 @@ Widget changePinBodyWidget(BuildContext _context, ModelSignUp _model,
                   4,
                   TextInputType.number,
                   TextInputAction.next,
-                  _model.controlOldSecureNumber,
-                  _model.nodeOldSecureNumber,
+                  _modelChangePin.controllerOldPin,
+                  _modelChangePin.nodeOldPin,
                   validateInstance.validatePin, onChanged, null
                 ),
               ),
-              Container(
-                /* New PIN */
+              Container( /* New PIN */
                 margin: EdgeInsets.only(bottom: 12.0),
                 child: inputField(
-                  _model.bloc,
+                  _modelChangePin.formStateChangePin,
                   _context,
                   "New PIN",
                   "",
@@ -64,16 +65,15 @@ Widget changePinBodyWidget(BuildContext _context, ModelSignUp _model,
                   4,
                   TextInputType.number,
                   TextInputAction.next,
-                  _model.controlSecureNumber,
-                  _model.nodeSecureNumber,
+                  _modelChangePin.controllerNewPin,
+                  _modelChangePin.nodeNewPin,
                   validateInstance.validatePin, onChanged, null
                 ),
               ),
-              Container(
-                /* Old PIN */
+              Container( /* Old PIN */
                 margin: EdgeInsets.only(bottom: 12.0),
                 child: inputField(
-                  _model.bloc,
+                  _modelChangePin.formStateChangePin,
                   _context,
                   "Confirm PIN",
                   "",
@@ -82,24 +82,23 @@ Widget changePinBodyWidget(BuildContext _context, ModelSignUp _model,
                   4,
                   TextInputType.number,
                   TextInputAction.done,
-                  _model.controlConfirmSecureNumber,
-                  _model.nodeConfirmSecureNumber,
+                  _modelChangePin.controllerConfirmPin,
+                  _modelChangePin.nodeConfirmPin,
                   validateInstance.validatePin, onChanged, null
                 ),
               ),
               customFlatButton(
-                  _model.bloc,
-                  _context,
-                  "Change Now",
-                  "changePinScreen",
-                  blueColor,
-                  FontWeight.normal,
-                  size18,
-                  EdgeInsets.only(top: 15.0),
-                  EdgeInsets.only(top: size15, bottom: size15),
-                  BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
-                  submitPin)
+                _context,
+                "Change Now",
+                "changePinScreen",
+                blueColor,
+                FontWeight.normal,
+                size18,
+                EdgeInsets.only(top: 15.0),
+                EdgeInsets.only(top: size15, bottom: size15),
+                BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
+                submitPin
+              )
             ],
           ),
         ))

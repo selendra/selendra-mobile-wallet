@@ -36,19 +36,13 @@ class LoginFirstState extends State<LoginFirstScreen> {
     _modelLogin.controlEmails.clear(); _modelLogin.controlPasswords.clear();
   }
 
-  void onChanged(String label, String valueChange) {
-    _modelLogin.formState1.currentState.validate();
-    if (label == "Email") {
-      _modelLogin.label = "email"; /* Set Label */
-      // _modelLogin.bloc.addEmail(valueChange); /* Add Value To Stream */
-    }
-    else {
-      _modelLogin.label = "phone"; /* Set Label */
-      // _modelLogin.bloc.addPhoneNums(valueChange); /* Add Value To Stream */
-    }
+  void onChanged(String label, String valueChange) { /* Change Value */
+    _modelLogin.formState1.currentState.validate(); /* Trigger Global Key To Call Function Validate */
+    if (label == "Email") _modelLogin.label = "email"; /* Set Label */
+    else _modelLogin.label = "phone"; /* Set Label */
   }
 
-  String validateInput(String value){
+  String validateInput(String value){ /* Initial Validate */
     if (_modelLogin.label == "email"){
       _response = validateInstance.validateEmails(value);
       if (_response == null) setState(() => _modelLogin.enable1 = true );
@@ -61,7 +55,6 @@ class LoginFirstState extends State<LoginFirstScreen> {
 
   void tabBarSelectChanged(int index) { /* Tab Bar Select Change Label */ 
     if ( index == 0 ){
-      _modelLogin.bloc.addPhoneNums(null);
       _modelLogin.controlPhoneNums.clear();
       _modelLogin.nodePhoneNums.unfocus();
       setState(() {
@@ -69,7 +62,6 @@ class LoginFirstState extends State<LoginFirstScreen> {
       });
       _modelLogin.label = "email";
     } else {
-      _modelLogin.bloc.addEmail(null);
       _modelLogin.controlEmails.clear();
       _modelLogin.nodeEmails.unfocus();
       setState(() {

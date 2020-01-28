@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/model/model_forgot_pass.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget forgotPasswordBodyWidget(
   BuildContext _context, 
-  ModelSignUp _modelSignUp,
+  ModelForgotPassword _modelForgotPassword,
   Function onChanged, Function popScreen, Function requestCode
 ) {
   return Container(
@@ -33,18 +34,17 @@ Widget forgotPasswordBodyWidget(
                 Container( /* Phone number field */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelSignUp.bloc,
-                    _context, "Phone number", "${_modelSignUp.countryCode} ", "forgotsScreen", 
+                    _modelForgotPassword.formStatePhone,
+                    _context, "Phone number", "${_modelForgotPassword.countryCode} ", "forgotsScreen", 
                     false, 
                     TextField.noMaxLength,
                     TextInputType.number, TextInputAction.done,
-                    _modelSignUp.controlPhoneNums, 
-                    _modelSignUp.nodePhoneNums, 
+                    _modelForgotPassword.controlPhoneNums, 
+                    _modelForgotPassword.nodePhoneNums, 
                     validateInstance.validatePhone, onChanged, null
                   ),
                 ),
                 customFlatButton(
-                  _modelSignUp.bloc, 
                   _context, 
                   "Request Code", "forgotsScreen", greenColor,                    
                   FontWeight.normal,

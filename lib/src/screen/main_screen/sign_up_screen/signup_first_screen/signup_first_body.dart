@@ -7,28 +7,24 @@ import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 Widget signUpFirstBodyWidget(
   BuildContext context,
   ModelSignUp _modelSignUp,
-  Function popScreen, Function submitValidator, Function navigatePage, Function tabBarSelectChanged,Function onChanged
+  Function validateInput, Function onChanged,
+  Function popScreen, Function submitValidator, Function navigatePage, Function tabBarSelectChanged,
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.stretch, /* Stretch is fill cros axis */
+    crossAxisAlignment: CrossAxisAlignment.center, /* Stretch is fill cros axis */
     children: <Widget>[
-      Column( /* Title of Zeetomic */
-        children: <Widget>[
-          // zeelogo
-          logoWelcomeScreen("CBM_V1.png", 80.0, 80.0),
-          Container(
-            margin: EdgeInsets.only(top: 60.0),
-            child: textDisplay(
-              "Sign Up", 
-              TextStyle(
-                color: getHexaColor("#FFFFFF"),
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold
-              )
-            ),
+      logoWelcomeScreen("CBM_V1.png", 80.0, 80.0),
+      Container(
+        margin: EdgeInsets.only(top: 60.0),
+        child: textDisplay(
+          "Sign Up", 
+          TextStyle(
+            color: getHexaColor("#FFFFFF"),
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold
           )
-        ],
+        ),
       ),
       Container( /* User Choice Sign Up */
         margin: EdgeInsets.only(top: 30.0, bottom: 59.0),
@@ -55,45 +51,46 @@ Widget signUpFirstBodyWidget(
           onTap: tabBarSelectChanged,
         ),
       ),
-      Container( /* User Sign Up Choice Body */
-        height: 75.0,
-        margin: EdgeInsets.only(bottom: 13.0),
-        child: TabBarView( /* Body Sign Up */
-          controller: _modelSignUp.tabController,
-          children: <Widget>[
-            Container( /* Login By Email Field */
-              padding: EdgeInsets.only(top: 9.0),
-              child: inputField( 
-                _modelSignUp.bloc,
-                context,
-                "Email", null, "signUpFirstScreen",
-                false,
-                TextField.noMaxLength,
-                TextInputType.text, TextInputAction.done,
-                _modelSignUp.controlEmails,
-                _modelSignUp.nodeEmails,
-                validateInstance.validateEmails, onChanged, navigatePage
+      Form( /* Form Control User Field */
+        key: _modelSignUp.formState1,
+        child: Container( /* User Sign Up Choice Body */
+          height: 100.0,
+          child: TabBarView( /* Body Sign Up */
+            controller: _modelSignUp.tabController,
+            children: <Widget>[
+              Container( /* Login By Email Field */
+                padding: EdgeInsets.only(top: 9.0),
+                child: inputField( 
+                  _modelSignUp.formState1,
+                  context,
+                  "Email", null, "signUpFirstScreen",
+                  false,
+                  TextField.noMaxLength,
+                  TextInputType.text, TextInputAction.done,
+                  _modelSignUp.controlEmails,
+                  _modelSignUp.nodeEmails,
+                  validateInput, onChanged, navigatePage
+                )
+              ),
+              Container( /* Sign By Phone Number Field */
+                padding: EdgeInsets.only(top: 9.0),
+                child: inputField(
+                  _modelSignUp.formState1,
+                  context,
+                  "Phone number", "${_modelSignUp.countryCode} ", "signUpFirstScreen",
+                  false, 
+                  TextField.noMaxLength,
+                  TextInputType.phone, TextInputAction.done,
+                  _modelSignUp.controlPhoneNums,
+                  _modelSignUp.nodePhoneNums,
+                  validateInput, onChanged, navigatePage
+                )
               )
-            ),
-            Container( /* Sign By Phone Number Field */
-              padding: EdgeInsets.only(top: 9.0),
-              child: inputField(
-                _modelSignUp.bloc,
-                context,
-                "Phone number", "${_modelSignUp.countryCode} ", "signUpFirstScreen",
-                false, 
-                TextField.noMaxLength,
-                TextInputType.phone, TextInputAction.done,
-                _modelSignUp.controlPhoneNums,
-                _modelSignUp.nodePhoneNums,
-                validateInstance.validatePhone, onChanged, navigatePage
-              )
-            )
-          ],
+            ],
+          ),
         ),
       ),
       customFlatButton( /* Button Request Code */
-        _modelSignUp.bloc,
         context,
         "Sign up", 
         "signUpFirstScreen", greenColor,
@@ -105,7 +102,7 @@ Widget signUpFirstBodyWidget(
           color: Color.fromRGBO(0,0,0,0.54),
           blurRadius: 5.0
         ),
-        navigatePage
+        _modelSignUp.enable1 == false ? null : navigatePage
       ),
       Flexible(flex: 2, child: Container()),
       toLogin(context)

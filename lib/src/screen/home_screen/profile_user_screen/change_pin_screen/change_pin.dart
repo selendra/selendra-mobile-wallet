@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_change_pin.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pin_screen/change_pin_body.dart';
 
@@ -12,7 +12,8 @@ class ChangePIN extends StatefulWidget {
 }
 
 class ChangePINState extends State<ChangePIN> {
-  ModelSignUp _model = ModelSignUp();
+
+  ModelChangePin _modelChangePin = ModelChangePin();
 
   void popScreen() {
     Navigator.pop(context);
@@ -20,16 +21,16 @@ class ChangePINState extends State<ChangePIN> {
 
   void onChanged(String fieldName, String changed) {
     if (fieldName == "Old PIN")
-      _model.controlOldSecureNumber.text = changed;
+      _modelChangePin.controllerOldPin.text = changed;
     else if (fieldName == "New PIN")
-      _model.controlSecureNumber.text = changed;
+      _modelChangePin.controllerNewPin.text = changed;
     else if (fieldName == "Confirm PIN")
-      _model.controlConfirmSecureNumber.text = changed;
+      _modelChangePin.controllerConfirmPin.text = changed;
   }
 
   void submitPIN(BuildContext context) async {
     dialogLoading(context); /* Show Loading Process */
-    await changePIN(_model).then((_response) async {
+    await changePIN(_modelChangePin).then((_response) async {
       Navigator.pop(context); /* Close Loading Process */
       if (!_response.containsKey("error")) {
         /* Check Response Not Error */
@@ -44,8 +45,7 @@ class ChangePINState extends State<ChangePIN> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          changePinBodyWidget(context, _model, popScreen, onChanged, submitPIN),
+      body: changePinBodyWidget(context, _modelChangePin, popScreen, onChanged, submitPIN),
     );
   }
 }

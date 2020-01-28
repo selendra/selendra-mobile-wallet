@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelDocument{
-
-  Bloc bloc = Bloc();
+  
+  final formStateDocument = GlobalKey<FormState>();
 
   List<dynamic> queryData = [];
   bool isPassportImage = false; bool isSelfieImage = false; bool isProgress = false;

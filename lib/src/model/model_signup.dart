@@ -2,15 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelSignUp {
-  String directory = "userID"; String wallet;
+
+  final formState1 = GlobalKey<FormState>();
+  final formState2 = GlobalKey<FormState>();
+  final smsForm = GlobalKey<FormState>();
+  final userInfoForm = GlobalKey<FormState>();
+  
+  bool enable1 = false;
+  bool enable2 = false;
+  var response;
+
+  Bloc bloc = Bloc();
+
+  String wallet;
 
   bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
 
   String token, countryCode = "+855", gender, label, genderLabel = "Gender";
 
   var colorSubmitted = Colors.transparent;
-
-  Bloc bloc = Bloc();
 
   /* User login Properties */
   FocusNode nodeEmails = FocusNode();

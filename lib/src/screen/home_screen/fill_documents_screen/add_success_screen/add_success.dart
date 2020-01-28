@@ -43,7 +43,8 @@ Widget addSuccessBodyWidget(BuildContext context) {
           ),
         ),
         customFlatButton( /* Done Button */
-          _bloc, context, "Done", "addSuccessScreen", blueColor,
+          context, 
+          "Done", "addSuccessScreen", blueColor,
           FontWeight.normal,
           size18,
           EdgeInsets.only(top: 15.0),

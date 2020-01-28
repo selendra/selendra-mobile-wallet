@@ -108,7 +108,7 @@ Widget invoiceBodyWidget(
                 Container(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelScanInvoice.bloc,
+                    _modelScanInvoice.formStateScanInvoice,
                     _context, 
                     "Bills number", null, 'invoiceInfoScreen', 
                     false, 
@@ -122,7 +122,7 @@ Widget invoiceBodyWidget(
                 Container(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelScanInvoice.bloc, 
+                    _modelScanInvoice.formStateScanInvoice, 
                     _context, 
                     "Amount", null, 'invoiceInfoScreen', 
                     false, 
@@ -134,7 +134,6 @@ Widget invoiceBodyWidget(
                   ),
                 ),
                 customFlatButton(
-                  _modelScanInvoice.bloc, 
                   _context, 
                   "Next", "invoiceInfoScreen", blueColor,
                   FontWeight.bold, 18.0, 

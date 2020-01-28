@@ -12,7 +12,6 @@ import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget bodyWidget(
   BuildContext context,
-  // RunMutation runMutation,
   ModelDocument _modelDocument,
   Function setDocumentName,
   Function triggerImage, Function validatorUser, Function popScreen, 
@@ -46,7 +45,7 @@ Widget bodyWidget(
                   Container( /* Document Type */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField( 
-                      _modelDocument.bloc, 
+                      _modelDocument.formStateDocument, 
                       context, 
                       "Document type", null, 'fillDocsScreen', 
                       false, 
@@ -60,7 +59,7 @@ Widget bodyWidget(
                   Container( /* Document Number */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField( 
-                      _modelDocument.bloc, 
+                      _modelDocument.formStateDocument, 
                       context, 
                       "Document number", null, 'fillDocsScreen', 
                       false, 
@@ -117,7 +116,6 @@ Widget bodyWidget(
                       return Container(
                         margin: EdgeInsets.only(bottom: 12.0),
                         child: customFlatButton(
-                          _modelDocument.bloc, 
                           context, 
                           "Submit", "fillDocsScreen", blueColor,                 
                           FontWeight.normal,

@@ -35,7 +35,7 @@ Widget userInfoBodyWidget(
                   Container( /* First Name Field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelSignUp.bloc, 
+                      _modelSignUp.userInfoForm, 
                       _context,
                       "First Name", null, "userInfoScreen",
                       false, 
@@ -49,7 +49,7 @@ Widget userInfoBodyWidget(
                   Container( /* Mid Name Field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelSignUp.bloc, 
+                      _modelSignUp.userInfoForm, 
                       _context,
                       "Mid Name", null, "userInfoScreen",
                       false, 
@@ -63,7 +63,7 @@ Widget userInfoBodyWidget(
                   Container( /* Last Name Field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelSignUp.bloc, 
+                      _modelSignUp.userInfoForm, 
                       _context,
                       "Last Name", null, "userInfoScreen",
                       false, 
@@ -84,7 +84,6 @@ Widget userInfoBodyWidget(
                     ),
                   ),
                   customFlatButton( /* Submit Button */
-                    _modelSignUp.bloc, 
                     _context, 
                     "Submit", "userInfoScreen", 
                     greenColor,

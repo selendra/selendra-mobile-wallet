@@ -195,7 +195,6 @@ Widget lightBlueButton(BuildContext _context, AsyncSnapshot snapshot, Function a
 }
 
 Widget customFlatButton(
-  Bloc bloc,
   BuildContext context,
   String textButton, String widgetName, String buttonColor,
   FontWeight fontWeight, 
@@ -229,8 +228,7 @@ Widget customFlatButton(
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
       onPressed: action == null ? null : () {
-        if (widgetName == "loginSecondScreen" || widgetName == "submitReceiptScreen") action(bloc, context);
-        else if (widgetName == "invoiceInfoScreen") action(); 
+        if (widgetName == "invoiceInfoScreen") action(); 
         else action(context);
       }
     ),
@@ -622,7 +620,7 @@ Widget fieldPicker(BuildContext context, String labelText, String widgetName, Ic
 }
 
 Widget inputField( /* User Input Field */
-  Bloc bloc,
+  GlobalKey key,
   BuildContext context,
   String labelText, String prefixText, String widgetName,
   bool obcureText,
@@ -632,6 +630,7 @@ Widget inputField( /* User Input Field */
   Function validateField, Function onChanged, Function action
   ) {
   return TextFormField(
+    key: key,
     focusNode: _focusNode, 
     keyboardType: inputType,
     obscureText: obcureText,
@@ -665,8 +664,7 @@ Widget inputField( /* User Input Field */
       else onChanged(valueChange);
     },
     onFieldSubmitted: (value) {
-      if (widgetName == "BothScreen" || widgetName == "invoiceInfoScreen") action(bloc, context);
-      else action(context, value);
+      action(context, value);
     },
     // onFieldSubmitted: (value) {
     //       firstNode.unfocus();

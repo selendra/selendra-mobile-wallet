@@ -5,8 +5,8 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class ModelUserInfo {
-
-  Bloc bloc = Bloc();
+  
+  final formStateAddUserInfo = GlobalKey<FormState>();
   
   TextEditingController controlOccupation = TextEditingController(text: '');
   TextEditingController controlNationality = TextEditingController(text: '');

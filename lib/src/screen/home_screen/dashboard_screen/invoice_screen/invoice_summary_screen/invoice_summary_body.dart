@@ -54,7 +54,7 @@ Widget invoiceSummaryBodyWidget(
         Container( /* Authorization Code */
           margin: EdgeInsets.only(left: 27, right: 27.0, top: 27.0),
           child: inputField(
-            _modelScanInvoice.bloc, 
+            _modelScanInvoice.formStateScanInvoice, 
             _context, 
             "Authorization code", null, "invoiceSummary", 
             true, 
@@ -67,8 +67,7 @@ Widget invoiceSummaryBodyWidget(
         ),
         Container(
           margin: EdgeInsets.only(left: 27, right: 27.0, top: 27.0),
-          child: customFlatButton(
-            _modelScanInvoice.bloc, 
+          child: customFlatButton( 
             _context, 
             "Submit", "submitReceiptScreen", blueColor, 
             FontWeight.normal,
