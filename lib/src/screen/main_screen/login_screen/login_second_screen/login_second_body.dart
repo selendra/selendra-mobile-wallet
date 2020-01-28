@@ -6,36 +6,26 @@ import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widg
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
-/* body widget */
-Widget loginSdcondBodyWidget(
+Widget loginSdcondBodyWidget( /* body widget */
   BuildContext context, ModelLogin _modelLogin,
   Function onChanged, Function checkInputAndValidate
 ){
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    /* Stretch is fill cros axis */
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center, /* Stretch is fill cros axis */
     children: <Widget>[
-      Container(
-        /* Title of Zeetomic */
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: textDisplay(
-                "Login",
-                TextStyle(
-                  color: getHexaColor("ffffff"),
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold
-                )
-              ),
-            )
-          ],
-        ),
+      textDisplay( /* Title of Zeetomic */
+        "Login",
+        TextStyle(
+          color: getHexaColor("ffffff"),
+          fontSize: 30.0,
+          fontWeight: FontWeight.bold
+        )
       ),
       Container( /* Body login */
         margin: EdgeInsets.only(top: 59.0),
         child: Form(
-          key: _modelLogin.formState,
+          key: _modelLogin.formState2,
           child: userLogin( /* User Input Field */
             context,
             _modelLogin,
@@ -55,11 +45,10 @@ Widget loginSdcondBodyWidget(
         EdgeInsets.only(top: size10, bottom: 0),
         EdgeInsets.only(top: size15, bottom: size15),
         BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
-        _modelLogin.enable1 == false ? null : checkInputAndValidate
+        _modelLogin.enable2 == false ? null : checkInputAndValidate
       ),
       Expanded(flex: 2, child: Container()),
-      Row(
-        /* Bottom Navigator */
+      Row( /* Bottom Navigator */
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           noAccountWidget(context, Colors.white, "Create Account"),
@@ -119,41 +108,6 @@ Widget userLogin( /* Column of User Login */
     ],
   );
 }
-
-// Widget emailField(Bloc bloc, TextEditingController controlPasswords, FocusNode firstNode, FocusNode secondNode) {
-//   return StreamBuilder(
-//     stream: bloc.emailObservable,
-//     builder: (context, snapshot) {
-//       return TextField(
-//         controller: controlPasswords,
-//         style: TextStyle(color: Colors.white, fontWeight: FontWeight.w300),
-//         textInputAction: TextInputAction.next,
-//         focusNode: firstNode,
-//         keyboardType: TextInputType.emailAddress,
-//         onChanged: (userInput) {
-//           bloc.addEmail(userInput);
-//         },
-//         decoration: InputDecoration(
-//           filled: true, fillColor: black38,
-//           hasFloatingPlaceholder: false,
-//           contentPadding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: size10),
-//           errorText: snapshot.error,
-//           labelStyle: TextStyle(color: Colors.white),
-//           /* Border side */
-//           border: errorOutline(),
-//           focusedErrorBorder: errorOutline(),
-//           hintStyle: TextStyle(wordSpacing: 50.0),
-//           enabledBorder: outlineInput(getHexaColor(borderColor)),
-//           focusedBorder: outlineInput(getHexaColor(lightBlueSky)),
-//         ),
-//         onSubmitted: (value) {
-//           firstNode.unfocus();
-//           FocusScope.of(context).requestFocus(secondNode);
-//         },
-//       );
-//     },
-//   );
-// }
 
 Widget passwordField(
     Bloc bloc,

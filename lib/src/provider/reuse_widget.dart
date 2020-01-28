@@ -638,7 +638,7 @@ Widget inputField( /* User Input Field */
     controller: controller,
     textInputAction: inputAction,
     style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
-    validator: validateInstance.validateEmails,
+    validator: validateField,
     decoration: InputDecoration(
       labelText: labelText,
       labelStyle: TextStyle(

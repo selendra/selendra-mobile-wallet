@@ -16,13 +16,14 @@ Widget customListTile(BuildContext context, IconData icon, String title, dynamic
       contentPadding: EdgeInsets.all(0),
       leading: Container(
         padding: EdgeInsets.all(0),
-        decoration: BoxDecoration(
+        decoration: title == "Edit Profile" ? 
+        BoxDecoration( /* Add Border Only For First ListTile */
           color: getHexaColor("#EFF0F2"),
           borderRadius: BorderRadius.circular(2.0)
-        ),
+        ) : null,
         child: Icon(
           icon,
-          color: getHexaColor("#000000"), //"#000000"
+          color: title == "Edit Profile" ? getHexaColor("#000000") : Colors.white, //"#000000"
         ),
       ),
       title: Text(

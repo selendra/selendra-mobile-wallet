@@ -3,16 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 
 /* body widget */
-Widget paddingScreenWidget(BuildContext context, Widget body) {
-  return SingleChildScrollView(
-    physics: BouncingScrollPhysics(),
-    child: Container(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height,
-        maxWidth: MediaQuery.of(context).size.width
-      ), /* Get max height */
-      padding: EdgeInsets.only(top: 102.42, left: leftRight40, right: leftRight40, bottom: 52.0),
-      child: body,
+Widget paddingScreenWidget(BuildContext context, Widget child) {
+  return Container( /* Create Whole Screen Background Color */
+    decoration: scaffoldBGColor("#344051", "#222834"),
+    child: SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Container(
+        padding: EdgeInsets.only(top: 102.42, left: leftRight40, right: leftRight40, bottom: 52.0),
+        constraints: BoxConstraints( /* Make Height And Widget To Fit Screen */
+          maxHeight: MediaQuery.of(context).size.height,
+          maxWidth: MediaQuery.of(context).size.width
+        ),
+        child: Column( /* Column Is A Flex Widget */
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Flexible( /* Need Flexible Widget Inside Flex Widget */
+              child: child,
+            )
+          ],
+        ),
+      ),
     ),
   );
 }
@@ -34,19 +44,6 @@ Widget noAccountWidget(BuildContext context, dynamic colorSignUpText, String tex
       Navigator.pushReplacementNamed(context, '/signUpScreen');
     },
   );
-  // Row(
-  //   mainAxisAlignment: MainAxisAlignment.center,
-  //   children: <Widget>[
-  //     // textDisplay(
-  //     //   "Don't have account? ", 
-  //     //   TextStyle(
-  //     //     color: getHexaColor("#ffffff"),
-  //     //     fontSize: 18,
-  //     //   )
-  //     // ),
-      
-  //   ],
-  // );
 }
 
 Widget toLogin(BuildContext context) { /* Back To Login Screen*/

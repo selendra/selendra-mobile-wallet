@@ -115,26 +115,26 @@ class LoginSecondState extends State<LoginSecond>{
   }
 
   void onChanged(String label, String valueChanged) {
-    widget._modelLogin.formState.currentState.validate();
-    // if (valueChanged.length >= 5 ) {
-    //   widget._modelLogin.enable2 = true;
-    // } else {
-    //   widget._modelLogin.enable2 = false;
-    // }
+    widget._modelLogin.formState2.currentState.validate();
+    setState(() {
+      if (valueChanged.length >= 5 ) {
+        widget._modelLogin.enable2 = true;
+      } else {
+        widget._modelLogin.enable2 = false;
+      }
+    });
   }
 
   Widget build(BuildContext context){
     return Scaffold(
-      body: Container(
-        decoration: scaffoldBGColor(color1, color2),
-        child: paddingScreenWidget(
-          context, loginSdcondBodyWidget(
-            context,
-            widget._modelLogin,
-            onChanged,
-            checkInputAndValidate
-          )
-        ),
+      body: paddingScreenWidget(
+        context, 
+        loginSdcondBodyWidget(
+          context,
+          widget._modelLogin,
+          onChanged,
+          checkInputAndValidate
+        )
       ),
     );
   }

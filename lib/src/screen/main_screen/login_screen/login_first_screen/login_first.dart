@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_second_screen/login_second.dart';
@@ -18,6 +19,8 @@ class LoginFirstScreen extends StatefulWidget {
 class LoginFirstState extends State<LoginFirstScreen> {
 
   ModelLogin _modelLogin = ModelLogin();
+  
+  dynamic _response;
 
   @override
   initState() {
@@ -34,22 +37,26 @@ class LoginFirstState extends State<LoginFirstScreen> {
   }
 
   void onChanged(String label, String valueChange) {
+    _modelLogin.formState1.currentState.validate();
     if (label == "Email") {
       _modelLogin.label = "email"; /* Set Label */
-      _modelLogin.bloc.addEmail(valueChange); /* Add Value To Stream */
+      // _modelLogin.bloc.addEmail(valueChange); /* Add Value To Stream */
     }
     else {
       _modelLogin.label = "phone"; /* Set Label */
-      _modelLogin.bloc.addPhoneNums(valueChange); /* Add Value To Stream */
+      // _modelLogin.bloc.addPhoneNums(valueChange); /* Add Value To Stream */
     }
   }
 
-  void enableButton(bool data) async { /* Enable Login Button */
-    await Future.delayed(Duration(milliseconds: 100), () { /* Wait Stream Reset State After That Reset State Again */
-      setState(() {
-        _modelLogin.enable1 = data;
-      });
-    });
+  String validateInput(String value){
+    if (_modelLogin.label == "email"){
+      _response = validateInstance.validateEmails(value);
+      if (_response == null) setState(() => _modelLogin.enable1 = true );
+    } else {
+      _response = validateInstance.validateEmails(value);
+      if (_response != null) setState(() => _modelLogin.enable1 = false );
+    }
+    return _response;
   }
 
   void tabBarSelectChanged(int index) { /* Tab Bar Select Change Label */ 
@@ -84,21 +91,13 @@ class LoginFirstState extends State<LoginFirstScreen> {
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        body: Container(
-          decoration: scaffoldBGColor("#344051", "#222834"),
-          child: Stack(
-            children: <Widget>[
-              paddingScreenWidget( /* Body Widget */
-                context, 
-                loginFirstBodyWidget(
-                  context,
-                  _modelLogin,
-                  onChanged, tabBarSelectChanged,
-                  enableButton, navigatePage
-                )
-              ), 
-            ],
-          ),
+        body: paddingScreenWidget( /* Body Widget */
+          context,
+          loginFirstBodyWidget(
+            context,
+            _modelLogin,
+            validateInput, onChanged, tabBarSelectChanged, navigatePage
+          )
         )
       ),
     );
