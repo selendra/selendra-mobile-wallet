@@ -54,7 +54,6 @@ Widget invoiceSummaryBodyWidget(
         Container( /* Authorization Code */
           margin: EdgeInsets.only(left: 27, right: 27.0, top: 27.0),
           child: inputField(
-            _modelScanInvoice.formStateScanInvoice, 
             _context, 
             "Authorization code", null, "invoiceSummary", 
             true, 

@@ -34,7 +34,6 @@ Widget forgotPasswordBodyWidget(
                 Container( /* Phone number field */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelForgotPassword.formStatePhone,
                     _context, "Phone number", "${_modelForgotPassword.countryCode} ", "forgotsScreen", 
                     false, 
                     TextField.noMaxLength,

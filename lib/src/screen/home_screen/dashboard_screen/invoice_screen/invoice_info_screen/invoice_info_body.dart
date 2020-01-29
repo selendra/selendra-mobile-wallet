@@ -108,7 +108,6 @@ Widget invoiceBodyWidget(
                 Container(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelScanInvoice.formStateScanInvoice,
                     _context, 
                     "Bills number", null, 'invoiceInfoScreen', 
                     false, 
@@ -122,7 +121,6 @@ Widget invoiceBodyWidget(
                 Container(
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelScanInvoice.formStateScanInvoice, 
                     _context, 
                     "Amount", null, 'invoiceInfoScreen', 
                     false, 

@@ -44,8 +44,7 @@ Widget bodyWidget(
                 children: <Widget>[
                   Container( /* Document Type */
                     margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField( 
-                      _modelDocument.formStateDocument, 
+                    child: inputField(
                       context, 
                       "Document type", null, 'fillDocsScreen', 
                       false, 
@@ -59,7 +58,6 @@ Widget bodyWidget(
                   Container( /* Document Number */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField( 
-                      _modelDocument.formStateDocument, 
                       context, 
                       "Document number", null, 'fillDocsScreen', 
                       false, 

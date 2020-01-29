@@ -35,7 +35,6 @@ Widget addAssetBodyWidget(
                   Container(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField( /* Asset Code Field */
-                      _modelAsset.formStateAsset, 
                       _context, 
                       "Asset Code", null, "addAssetScreen", 
                       false, 
@@ -48,7 +47,6 @@ Widget addAssetBodyWidget(
                   Container( /* Issuer Field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelAsset.formStateAsset, 
                       _context, 
                       "Issuer", null, "addAssetScreen", 
                       false, 

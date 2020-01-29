@@ -12,6 +12,8 @@ class ValidateMixin {
   }
 
   String validatePhone(String value) {
+    if (value.isEmpty) return "Fill your phone number";
+    else if (value.length < 8 || value.length > 9) return "Invalid phone number";
     return null;
   }
 

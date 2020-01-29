@@ -44,7 +44,6 @@ Widget resetPasswordBody(
                     /* Phone number field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelForgots.formStateResetPass,
                       _context,
                       "Phone number",
                       "${_modelForgots.countryCode} ",
@@ -61,7 +60,6 @@ Widget resetPasswordBody(
                   Container(
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelForgots.formStateResetPass,
                       _context,
                       "New Password",
                       null,
@@ -79,7 +77,6 @@ Widget resetPasswordBody(
                     /* SMS code field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelForgots.formStateResetPass,
                       _context,
                       "Confirm New Password",
                       null,
@@ -96,7 +93,6 @@ Widget resetPasswordBody(
                   Container( /* Verify Code field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelForgots.formStateResetPass,
                       _context,
                       "Reset code",
                       null,

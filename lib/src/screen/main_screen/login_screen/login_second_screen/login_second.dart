@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
@@ -32,7 +33,7 @@ class LoginSecondState extends State<LoginSecond>{
     });
   }
   
-  void checkInputAndValidate(Bloc bloc, BuildContext context) async { /* Check Internet Before Validate And Finish Validate*/
+  void checkInputAndValidate(BuildContext context) async { /* Check Internet Before Validate And Finish Validate*/
     dialogLoading(context); 
     var response;
     if (widget._modelLogin.label == "email") {
@@ -115,13 +116,40 @@ class LoginSecondState extends State<LoginSecond>{
   }
 
   void onChanged(String label, String valueChanged) {
-    widget._modelLogin.formState2.currentState.validate();
-    setState(() {
-      if (valueChanged.length >= 5 ) {
-        widget._modelLogin.enable2 = true;
-      } else {
-        widget._modelLogin.enable2 = false;
+    widget._modelLogin.formState2.currentState.validate(); /* Trigger Global Key To Call Function Validate */
+  }
+
+  String validateInput(String value){ /* Initial Validate */
+    if (widget._modelLogin.label == "email"){
+      if (widget._modelLogin.nodeEmails.hasFocus) { /* If Email Field Has Focus */
+        widget._modelLogin.responseEmailPhone = validateInstance.validateEmails(value);
+        enableButton();
+        return widget._modelLogin.responseEmailPhone;
       }
+    } else {
+      if (widget._modelLogin.nodePhoneNums.hasFocus) { /* If Phone Number Field Has Focus */
+        widget._modelLogin.responseEmailPhone = validateInstance.validatePhone(value);
+        enableButton();
+        return widget._modelLogin.responseEmailPhone;
+      }
+    }
+    return null;
+  }
+  
+  String validatePassword(String value){
+    if (widget._modelLogin.nodePasswords.hasFocus) {
+      widget._modelLogin.responsePassword = validateInstance.validatePassword(value);
+      enableButton();
+      return widget._modelLogin.responsePassword;
+    }
+    return null;
+  }
+
+  void enableButton() {
+    setState(() {
+      if (widget._modelLogin.responsePassword == null && widget._modelLogin.responseEmailPhone == null ) /* Check Both Field Are Null => Enalbe Button */
+        widget._modelLogin.enable2 = true;
+      else widget._modelLogin.enable2 = false;
     });
   }
 
@@ -132,6 +160,7 @@ class LoginSecondState extends State<LoginSecond>{
         loginSdcondBodyWidget(
           context,
           widget._modelLogin,
+          validateInput, validatePassword,
           onChanged,
           checkInputAndValidate
         )

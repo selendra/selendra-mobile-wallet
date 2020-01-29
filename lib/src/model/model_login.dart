@@ -12,6 +12,7 @@ class ModelLogin {
   String token; String phoneNumber = "", countryCode = "+855", label;
 
   var colorSubmitted = Colors.transparent;
+  var responseEmailPhone, responsePassword;
 
   /* User login Property*/
   FocusNode nodeEmails = FocusNode();

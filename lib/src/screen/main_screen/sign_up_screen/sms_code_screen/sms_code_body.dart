@@ -73,7 +73,6 @@ Widget userLogin( /* Column of User Login */
       Container( /* Email & Phone Number Input Field*/
         margin: EdgeInsets.only(bottom: 13.0), 
         child: inputField(
-          _modelSignUp.smsForm, 
           context, 
           "Phone number", /* Label */
           "${_modelSignUp.countryCode} ", /* Prefix */
@@ -89,7 +88,6 @@ Widget userLogin( /* Column of User Login */
       Container( /* Password input */
         margin: EdgeInsets.only(bottom: 25.0),
         child: inputField(
-          _modelSignUp.smsForm,
           context, 
           "Enter SMS code", null, "smsCodeScreen", 
           true, 

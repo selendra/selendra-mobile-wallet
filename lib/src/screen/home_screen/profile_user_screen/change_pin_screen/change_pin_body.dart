@@ -39,7 +39,6 @@ Widget changePinBodyWidget(
               Container( /* Old PIN */
                 margin: EdgeInsets.only(bottom: 12.0),
                 child: inputField(
-                  _modelChangePin.formStateChangePin,
                   _context,
                   "Old PIN",
                   "",
@@ -56,7 +55,6 @@ Widget changePinBodyWidget(
               Container( /* New PIN */
                 margin: EdgeInsets.only(bottom: 12.0),
                 child: inputField(
-                  _modelChangePin.formStateChangePin,
                   _context,
                   "New PIN",
                   "",
@@ -73,7 +71,6 @@ Widget changePinBodyWidget(
               Container( /* Old PIN */
                 margin: EdgeInsets.only(bottom: 12.0),
                 child: inputField(
-                  _modelChangePin.formStateChangePin,
                   _context,
                   "Confirm PIN",
                   "",

@@ -8,6 +8,7 @@ import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget loginSdcondBodyWidget( /* body widget */
   BuildContext context, ModelLogin _modelLogin,
+  Function validateInput, Function validatePassword,
   Function onChanged, Function checkInputAndValidate
 ){
   return Column(
@@ -29,8 +30,8 @@ Widget loginSdcondBodyWidget( /* body widget */
           child: userLogin( /* User Input Field */
             context,
             _modelLogin,
-            onChanged,
-            checkInputAndValidate
+            validateInput, validatePassword,
+            onChanged, checkInputAndValidate
           ),
         )
       ),
@@ -65,6 +66,7 @@ Widget loginSdcondBodyWidget( /* body widget */
 Widget userLogin( /* Column of User Login */
   BuildContext context,
   ModelLogin _modelLogin,
+  Function validateInput, Function validatePassword, 
   Function onChanged,
   Function checkInputAndValidate
 ){
@@ -73,7 +75,6 @@ Widget userLogin( /* Column of User Login */
       Container( /* Email & Phone Number Input Field*/
         margin: EdgeInsets.only(bottom: 13.0),
         child: inputField(
-          _modelLogin.formState1,
           context,
           _modelLogin.controlEmails.text != "" ? "Email" : "Phone number",
           _modelLogin.controlEmails.text != "" ? null : "${_modelLogin.countryCode} ",
@@ -84,13 +85,12 @@ Widget userLogin( /* Column of User Login */
           TextInputAction.next,
           _modelLogin.controlEmails.text != "" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
           _modelLogin.controlEmails.text != "" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums,
-          validateInstance.validateEmails, onChanged, null
+          validateInput, onChanged, null
         )
       ),
       Container( /* Password Input Field */
         margin: EdgeInsets.only(bottom: 25.0),
         child: inputField(
-          _modelLogin.formState1,
           context,
           "Password",
           null,
@@ -101,99 +101,22 @@ Widget userLogin( /* Column of User Login */
           TextInputAction.done,
           _modelLogin.controlPasswords,
           _modelLogin.nodePasswords,
-          validateInstance.validatePassword, onChanged, checkInputAndValidate
+          validatePassword, onChanged, checkInputAndValidate
         ),
       ),
     ],
   );
 }
 
-Widget passwordField(
-    Bloc bloc,
-    TextEditingController controlPasswords,
-    FocusNode firstNode,
-    FocusNode secondNode,
-    Function clearAllInput,
-    Function disableLoginButton,
-    Function checkInputAndValidate) {
-  return StreamBuilder(
-    stream: bloc.passwordObservable,
-    builder: (context, snapshot) {
-      return TextField(
-        controller: controlPasswords,
-        style: TextStyle(color: Colors.white),
-        focusNode: secondNode,
-        obscureText: true,
-        onChanged: (value) {
-          bloc.addPassword(value);
-        },
-        decoration: InputDecoration(
-          filled: true, fillColor: black38,
-          contentPadding: EdgeInsets.only(top: 15.0, bottom: 15.0, left: size10),
-          errorText: snapshot.error,
-          // labelText: 'Password',
-          labelStyle: TextStyle(color: Colors.white),
-          /* Border side */
-          border: errorOutline(),
-          enabledBorder: outlineInput(getHexaColor(borderColor)),
-          focusedBorder: outlineInput(getHexaColor(lightBlueSky)),
-          focusedErrorBorder: errorOutline(),
-        ),
-        onSubmitted: (value) {
-          try {
-            bloc.submit.listen((submit) {
-              if (firstNode.hasFocus == false) {
-                if (submit == true && secondNode.hasFocus == false) {
-                  checkInputAndValidate(bloc, context, clearAllInput, disableLoginButton);
-                }
-              }
-            });
-          } catch (err) {}
-        },
-      );
-    },
-  );
-}
-
-Widget loginButton(
-  Bloc bloc, BuildContext context, Function clearAllInput,
-  Function disableLoginButton, Function checkInputAndValidate
-){
-  return StreamBuilder(
-    stream: bloc.submit,
-    builder: (context, snapshot) { /* Reset User Input And Button Login*/
-      return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: FlatButton(
-          color: getHexaColor(lightBlueSky),
-          disabledTextColor: Colors.black54,
-          disabledColor: Colors.grey[700],
-          focusColor: getHexaColor("#55D8EB"),
-          padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
-          textColor: Colors.black,
-          child: Text(
-            'LOGIN',
-            style: TextStyle(fontSize: 17.0),
-          ),
-          shape: RoundedRectangleBorder( borderRadius: BorderRadius.circular(5.0)),
-          onPressed: snapshot.data == null ? null : () async {
-            checkInputAndValidate(bloc, context, clearAllInput, disableLoginButton);
-          }
-        ),
-      );
-    },
-  );
-}
-
 /* To Register */
 Widget register(BuildContext context) {
   return InkWell(
-    child: Text('Sign up',
-        style: TextStyle(
-            color: getHexaColor(lightBlueSky), fontWeight: FontWeight.bold)),
+    child: Text(
+      'Sign up',
+      style: TextStyle(
+        color: getHexaColor(lightBlueSky), fontWeight: FontWeight.bold
+      )
+    ),
     onTap: () {
       Navigator.pushReplacementNamed(context, '/signUp');
     },

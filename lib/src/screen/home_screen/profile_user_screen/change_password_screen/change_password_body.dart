@@ -44,7 +44,6 @@ Widget changePasswordBodyWidget(
                     /* Old Password */
                     margin: EdgeInsets.only(bottom: 12.0, top: 10.0),
                     child: inputField(
-                      _model.formStateChangePassword,
                       _context,
                       "Old Password",
                       "",
@@ -61,7 +60,6 @@ Widget changePasswordBodyWidget(
                   Container( /* New Password */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _model.formStateChangePassword,
                       _context,
                       "New Password",
                       "",
@@ -78,7 +76,6 @@ Widget changePasswordBodyWidget(
                   Container( /* Old Password */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _model.formStateChangePassword,
                       _context,
                       "Confirm Password",
                       "",

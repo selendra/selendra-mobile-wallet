@@ -42,7 +42,6 @@ Widget createPasswordBodyWidget(
                   /* Password Field */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelSignUp.formState2,
                     _context,
                     "Password",
                     null,
@@ -60,7 +59,6 @@ Widget createPasswordBodyWidget(
                   /* Confirm Password Field */
                   margin: EdgeInsets.only(bottom: 12.0),
                   child: inputField(
-                    _modelSignUp.formState2,
                     _context,
                     "Confirm Password",
                     null,

@@ -67,7 +67,6 @@ Widget loginFirstBodyWidget( /* body widget */
               Container( /* Login By Email Field */
                 padding: EdgeInsets.only(top: 9.0),
                 child: inputField(
-                  _modelLogin.formState1,
                   context,
                   "Email",
                   null,
@@ -84,7 +83,6 @@ Widget loginFirstBodyWidget( /* body widget */
               Container( /* Sign By Phone Number Field */
                 padding: EdgeInsets.only(top: 9.0),
                 child: inputField(
-                  _modelLogin.formState1,
                   context,
                   "Phone number",
                   "${_modelLogin.countryCode} ",

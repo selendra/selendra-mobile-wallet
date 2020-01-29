@@ -42,7 +42,6 @@ Widget addUserInfobodyWidget(
                   Container( /* Occupation Field */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelUserInfo.formStateAddUserInfo, 
                       context,
                       "Occupation", null, "addUserInfoScreen",
                       false, 
@@ -57,7 +56,6 @@ Widget addUserInfobodyWidget(
                   Container( /* Nationality Screen */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: inputField(
-                      _modelUserInfo.formStateAddUserInfo, 
                       context,
                       "Nationality", null, "addUserInfoScreen",
                       false, 

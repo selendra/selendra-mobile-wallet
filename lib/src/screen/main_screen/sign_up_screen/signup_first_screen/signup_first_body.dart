@@ -60,8 +60,7 @@ Widget signUpFirstBodyWidget(
             children: <Widget>[
               Container( /* Login By Email Field */
                 padding: EdgeInsets.only(top: 9.0),
-                child: inputField( 
-                  _modelSignUp.formState1,
+                child: inputField(
                   context,
                   "Email", null, "signUpFirstScreen",
                   false,
@@ -75,7 +74,6 @@ Widget signUpFirstBodyWidget(
               Container( /* Sign By Phone Number Field */
                 padding: EdgeInsets.only(top: 9.0),
                 child: inputField(
-                  _modelSignUp.formState1,
                   context,
                   "Phone number", "${_modelSignUp.countryCode} ", "signUpFirstScreen",
                   false, 

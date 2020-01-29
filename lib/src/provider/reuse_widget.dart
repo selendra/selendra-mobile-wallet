@@ -620,7 +620,6 @@ Widget fieldPicker(BuildContext context, String labelText, String widgetName, Ic
 }
 
 Widget inputField( /* User Input Field */
-  GlobalKey key,
   BuildContext context,
   String labelText, String prefixText, String widgetName,
   bool obcureText,
@@ -630,7 +629,6 @@ Widget inputField( /* User Input Field */
   Function validateField, Function onChanged, Function action
   ) {
   return TextFormField(
-    key: key,
     focusNode: _focusNode, 
     keyboardType: inputType,
     obscureText: obcureText,

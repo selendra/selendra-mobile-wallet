@@ -45,17 +45,23 @@ class LoginFirstState extends State<LoginFirstScreen> {
   String validateInput(String value){ /* Initial Validate */
     if (_modelLogin.label == "email"){
       _response = validateInstance.validateEmails(value);
-      if (_response == null) setState(() => _modelLogin.enable1 = true );
+      setState(() {
+        if (_response == null) _modelLogin.enable1 = true; 
+        else _modelLogin.enable1 = false;
+      });
     } else {
-      _response = validateInstance.validateEmails(value);
-      if (_response != null) setState(() => _modelLogin.enable1 = false );
+      _response = validateInstance.validatePhone(value);
+      setState(() {
+        if (_response == null) _modelLogin.enable1 = true; 
+        else _modelLogin.enable1 = false;
+      });
     }
     return _response;
   }
 
   void tabBarSelectChanged(int index) { /* Tab Bar Select Change Label */ 
-    if ( index == 0 ){
-      _modelLogin.controlPhoneNums.clear();
+    if ( index == 0 ){ /* Tab On Email */
+      _modelLogin.controlPhoneNums.clear(); /* Clear Data Phone Number Field */
       _modelLogin.nodePhoneNums.unfocus();
       setState(() {
         _modelLogin.enable1 = false;
