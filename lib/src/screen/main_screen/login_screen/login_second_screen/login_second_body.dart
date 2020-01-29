@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -6,7 +7,7 @@ import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widg
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
-Widget loginSdcondBodyWidget( /* body widget */
+Widget loginSecondBodyWidget( /* body widget */
   BuildContext context, ModelLogin _modelLogin,
   Function validateInput, Function validatePassword,
   Function onChanged, Function checkInputAndValidate
@@ -80,7 +81,9 @@ Widget userLogin( /* Column of User Login */
           _modelLogin.controlEmails.text != "" ? null : "${_modelLogin.countryCode} ",
           "loginSecondScreen",
           false,
-          TextField.noMaxLength,
+          _modelLogin.label == "email" 
+          ? [LengthLimitingTextInputFormatter(TextField.noMaxLength)] /* If Label Equal Email Just Control Length Input Format */
+          : [LengthLimitingTextInputFormatter(TextField.noMaxLength), WhitelistingTextInputFormatter.digitsOnly], /* Else Add Condition 0-9 Only */
           _modelLogin.controlEmails.text != "" ? TextInputType.text : TextInputType.phone,
           TextInputAction.next,
           _modelLogin.controlEmails.text != "" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
@@ -96,7 +99,7 @@ Widget userLogin( /* Column of User Login */
           null,
           "loginSecondScreen",
           true,
-          TextField.noMaxLength,
+          [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
           TextInputType.text,
           TextInputAction.done,
           _modelLogin.controlPasswords,

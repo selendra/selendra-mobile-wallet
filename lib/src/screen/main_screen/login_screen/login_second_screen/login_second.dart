@@ -58,61 +58,6 @@ class LoginSecondState extends State<LoginSecond>{
         ModalRoute.withName('/')
       );
     }
-    
-    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Dashboard()));
-    // await Future.delayed(Duration(milliseconds: 100), (){
-    //   checkConnection(context).then((isConnect) {
-    //     if ( isConnect == true ) {
-    //       validatorLogin(widget._modelLogin.bloc, context, label);
-    //     } else {
-    //       setState(() {
-    //         widget._modelLogin.isProgress = false;
-    //         noInternet(context);
-    //       });
-    //     }
-    //   }); 
-    // });
-  }
- 
-  void validatorLogin(Bloc bloc, BuildContext context, String label) async{ /* Validator User Login After Check Internet */
-    dialogLoading(context); /* Show Loading */
-    // if (widget._modelLogin.label == "email") {
-    //   await widget._modelLogin.bloc.submitMethod(
-    //     context,
-    //     widget._modelLogin.controlEmails.text,
-    //     widget._modelLogin.controlPasswords.text,
-    //     "registerbyemail", "email"
-    //   );
-    // } else {
-    //   await widget._modelLogin.bloc.submitMethod(
-    //     context,
-    //     widget._modelLogin.controlPhoneNums.text,
-    //     widget._modelLogin.controlPasswords.text,
-    //     "registerbyphone", "phone"
-    //   );
-    // }
-    // final submitResponse = await bloc.submitMethod(
-    //     context,
-    //     label == "Email" ? widget._modelLogin.controlEmails.text : widget._modelLogin.controlPhoneNums.text,
-    //     widget._modelLogin.controlPasswords.text,
-    //     "loginbyemail", "email" 
-    //   ).then((data) async { /* Response Result */
-    //   if (data == true) {
-    //     Navigator.pop(context);
-    //     await Future.delayed(Duration(milliseconds: 200), () async { /* Wait And Push Replace To HomePage */
-    //     });
-    //     Navigator.pushReplacementNamed(context, '/dashboardScreen');
-    //   }
-    // }).catchError((onError){
-    //   Navigator.pop(context);
-    //   setState(() => widget._modelLogin.isProgress = false );
-    //   return false;
-    // });
-    // if (submitResponse == false) {
-    //   Navigator.pop(context);
-    //   // clearAllInput(); 
-    //   // disableLoginButton(bloc);
-    // }
   }
 
   void onChanged(String label, String valueChanged) {
@@ -124,25 +69,22 @@ class LoginSecondState extends State<LoginSecond>{
       if (widget._modelLogin.nodeEmails.hasFocus) { /* If Email Field Has Focus */
         widget._modelLogin.responseEmailPhone = validateInstance.validateEmails(value);
         enableButton();
-        return widget._modelLogin.responseEmailPhone;
       }
     } else {
       if (widget._modelLogin.nodePhoneNums.hasFocus) { /* If Phone Number Field Has Focus */
         widget._modelLogin.responseEmailPhone = validateInstance.validatePhone(value);
-        enableButton();
-        return widget._modelLogin.responseEmailPhone;
+        enableButton(); 
       }
     }
-    return null;
+    return widget._modelLogin.responseEmailPhone;
   }
   
-  String validatePassword(String value){
+  String validatePassword(String value){ /* Validate User Password Input */
     if (widget._modelLogin.nodePasswords.hasFocus) {
       widget._modelLogin.responsePassword = validateInstance.validatePassword(value);
       enableButton();
-      return widget._modelLogin.responsePassword;
     }
-    return null;
+    return widget._modelLogin.responsePassword;
   }
 
   void enableButton() {
@@ -157,7 +99,7 @@ class LoginSecondState extends State<LoginSecond>{
     return Scaffold(
       body: paddingScreenWidget(
         context, 
-        loginSdcondBodyWidget(
+        loginSecondBodyWidget(
           context,
           widget._modelLogin,
           validateInput, validatePassword,

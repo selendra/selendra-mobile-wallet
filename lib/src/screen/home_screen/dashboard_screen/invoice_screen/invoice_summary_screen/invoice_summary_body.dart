@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -57,7 +58,7 @@ Widget invoiceSummaryBodyWidget(
             _context, 
             "Authorization code", null, "invoiceSummary", 
             true, 
-            TextField.noMaxLength,
+            [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
             TextInputType.text, TextInputAction.done,
             _modelScanInvoice.controlApproveCode, 
             _modelScanInvoice.nodeApproveCode, 

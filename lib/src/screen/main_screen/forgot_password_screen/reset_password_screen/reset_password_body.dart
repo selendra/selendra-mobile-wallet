@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_forgot_pass.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -49,7 +50,7 @@ Widget resetPasswordBody(
                       "${_modelForgots.countryCode} ",
                       "resetPasswordScreen",
                       false,
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.number,
                       TextInputAction.next,
                       _modelForgots.controlPhoneNums,
@@ -65,7 +66,7 @@ Widget resetPasswordBody(
                       null,
                       "resetPasswordScreen",
                       true,
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text,
                       TextInputAction.next,
                       _modelForgots.controlNewPasswords,
@@ -82,7 +83,7 @@ Widget resetPasswordBody(
                       null,
                       "resetPasswordScreen",
                       true,
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text,
                       TextInputAction.next,
                       _modelForgots.controlConfirmPasswords,
@@ -98,7 +99,7 @@ Widget resetPasswordBody(
                       null,
                       "resetPasswordScreen",
                       false,
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.number,
                       TextInputAction.next,
                       _modelForgots.controlResetCode,

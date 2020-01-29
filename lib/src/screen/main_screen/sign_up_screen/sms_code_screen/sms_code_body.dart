@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
@@ -78,7 +79,7 @@ Widget userLogin( /* Column of User Login */
           "${_modelSignUp.countryCode} ", /* Prefix */
           "smsCodeScreen", /* Widget Name */
           false, 
-          TextField.noMaxLength,
+          [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
           TextInputType.phone, TextInputAction.next,
           _modelSignUp.controlPhoneNums,
           _modelSignUp.nodePhoneNums, 
@@ -91,7 +92,7 @@ Widget userLogin( /* Column of User Login */
           context, 
           "Enter SMS code", null, "smsCodeScreen", 
           true, 
-          TextField.noMaxLength,
+          [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
           TextInputType.text, TextInputAction.done,
           _modelSignUp.controlSmsCode,
           _modelSignUp.nodeSmsCode, 

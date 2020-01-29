@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -111,7 +112,7 @@ Widget invoiceBodyWidget(
                     _context, 
                     "Bills number", null, 'invoiceInfoScreen', 
                     false, 
-                    TextField.noMaxLength,
+                    [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                     TextInputType.text, TextInputAction.next,
                     _modelScanInvoice.controlBillNO, 
                     _modelScanInvoice.nodeBill, 
@@ -124,7 +125,7 @@ Widget invoiceBodyWidget(
                     _context, 
                     "Amount", null, 'invoiceInfoScreen', 
                     false, 
-                    TextField.noMaxLength,
+                    [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                     TextInputType.number, TextInputAction.done, 
                     _modelScanInvoice.controlAmount, 
                     _modelScanInvoice.nodeAmount, 

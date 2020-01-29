@@ -623,7 +623,7 @@ Widget inputField( /* User Input Field */
   BuildContext context,
   String labelText, String prefixText, String widgetName,
   bool obcureText,
-  int textInputLength,
+  List<TextInputFormatter> textInputFormatter,
   TextInputType inputType, TextInputAction inputAction, TextEditingController controller,
   FocusNode _focusNode,
   Function validateField, Function onChanged, Function action
@@ -650,7 +650,7 @@ Widget inputField( /* User Input Field */
       focusColor: getHexaColor("#ffffff"), /* Border Color When Focusing */
       contentPadding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0), // No Content Padding = -10.0 px
     ),
-    inputFormatters: [LengthLimitingTextInputFormatter(textInputLength)], /* Limit Length Of Text Input */
+    inputFormatters: textInputFormatter, /* Limit Length Of Text Input */
     onChanged: (valueChange) {
       if (
         widgetName == "invoiceInfoScreen" || 

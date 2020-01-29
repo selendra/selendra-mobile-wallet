@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_change_password.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
@@ -49,7 +50,7 @@ Widget changePasswordBodyWidget(
                       "",
                       "changePasswordScreen",
                       true,
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text,
                       TextInputAction.next,
                       _model.controlOldPassword,
@@ -65,7 +66,7 @@ Widget changePasswordBodyWidget(
                       "",
                       "changePasswordScreen",
                       true,
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text,
                       TextInputAction.next,
                       _model.controlNewPassword,
@@ -81,7 +82,7 @@ Widget changePasswordBodyWidget(
                       "",
                       "changePasswordScreen",
                       true,
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text,
                       TextInputAction.done,
                       _model.controlConfirmPassword,

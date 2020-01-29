@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_change_pin.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
@@ -44,7 +45,7 @@ Widget changePinBodyWidget(
                   "",
                   "changePinScreen",
                   true,
-                  4,
+                  [LengthLimitingTextInputFormatter(4)],
                   TextInputType.number,
                   TextInputAction.next,
                   _modelChangePin.controllerOldPin,
@@ -60,7 +61,7 @@ Widget changePinBodyWidget(
                   "",
                   "changePinScreen",
                   true,
-                  4,
+                  [LengthLimitingTextInputFormatter(4)],
                   TextInputType.number,
                   TextInputAction.next,
                   _modelChangePin.controllerNewPin,
@@ -76,7 +77,7 @@ Widget changePinBodyWidget(
                   "",
                   "changePinScreen",
                   true,
-                  4,
+                  [LengthLimitingTextInputFormatter(4)],
                   TextInputType.number,
                   TextInputAction.done,
                   _modelChangePin.controllerConfirmPin,

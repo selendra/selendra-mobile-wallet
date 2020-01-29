@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_document.dart';
 import 'package:flutter/material.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
@@ -48,7 +49,7 @@ Widget bodyWidget(
                       context, 
                       "Document type", null, 'fillDocsScreen', 
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsType, 
                       _modelDocument.nodeDocsType, 
@@ -61,7 +62,7 @@ Widget bodyWidget(
                       context, 
                       "Document number", null, 'fillDocsScreen', 
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsNumber, 
                       _modelDocument.nodeDocsNumber, 

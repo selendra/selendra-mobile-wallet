@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
@@ -38,7 +39,7 @@ Widget userInfoBodyWidget(
                       _context,
                       "First Name", null, "userInfoScreen",
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next,
                       _modelSignUp.controlFirstName,
                       _modelSignUp.nodeFirstName,
@@ -51,7 +52,7 @@ Widget userInfoBodyWidget(
                       _context,
                       "Mid Name", null, "userInfoScreen",
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next,
                       _modelSignUp.controlMidName,
                       _modelSignUp.nodeMidName,
@@ -64,7 +65,7 @@ Widget userInfoBodyWidget(
                       _context,
                       "Last Name", null, "userInfoScreen",
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next,
                       _modelSignUp.controlLastName,
                       _modelSignUp.nodeLastName,

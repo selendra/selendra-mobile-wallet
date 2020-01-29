@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
@@ -38,7 +39,7 @@ Widget addAssetBodyWidget(
                       _context, 
                       "Asset Code", null, "addAssetScreen", 
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next, 
                       _modelAsset.controllerAssetCode, _modelAsset.nodeAssetCode, 
                       validateInstance.validateAsset, onChanged, null
@@ -50,7 +51,7 @@ Widget addAssetBodyWidget(
                       _context, 
                       "Issuer", null, "addAssetScreen", 
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.done, 
                       _modelAsset.controllerIssuer, _modelAsset.nodeIssuer,
                       validateInstance.validateAsset, onChanged, null

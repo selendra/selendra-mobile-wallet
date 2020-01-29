@@ -19,8 +19,6 @@ class LoginFirstScreen extends StatefulWidget {
 class LoginFirstState extends State<LoginFirstScreen> {
 
   ModelLogin _modelLogin = ModelLogin();
-  
-  dynamic _response;
 
   @override
   initState() {
@@ -44,19 +42,19 @@ class LoginFirstState extends State<LoginFirstScreen> {
 
   String validateInput(String value){ /* Initial Validate */
     if (_modelLogin.label == "email"){
-      _response = validateInstance.validateEmails(value);
+      _modelLogin.responseEmailPhone = validateInstance.validateEmails(value);
       setState(() {
-        if (_response == null) _modelLogin.enable1 = true; 
+        if (_modelLogin.responseEmailPhone == null) _modelLogin.enable1 = true; 
         else _modelLogin.enable1 = false;
       });
     } else {
-      _response = validateInstance.validatePhone(value);
+      _modelLogin.responseEmailPhone = validateInstance.validatePhone(value);
       setState(() {
-        if (_response == null) _modelLogin.enable1 = true; 
+        if (_modelLogin.responseEmailPhone == null) _modelLogin.enable1 = true; 
         else _modelLogin.enable1 = false;
       });
     }
-    return _response;
+    return _modelLogin.responseEmailPhone;
   }
 
   void tabBarSelectChanged(int index) { /* Tab Bar Select Change Label */ 

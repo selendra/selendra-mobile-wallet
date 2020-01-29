@@ -1,8 +1,8 @@
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget signUpFirstBodyWidget(
   BuildContext context,
@@ -64,7 +64,7 @@ Widget signUpFirstBodyWidget(
                   context,
                   "Email", null, "signUpFirstScreen",
                   false,
-                  TextField.noMaxLength,
+                  [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                   TextInputType.text, TextInputAction.done,
                   _modelSignUp.controlEmails,
                   _modelSignUp.nodeEmails,
@@ -77,7 +77,7 @@ Widget signUpFirstBodyWidget(
                   context,
                   "Phone number", "${_modelSignUp.countryCode} ", "signUpFirstScreen",
                   false, 
-                  TextField.noMaxLength,
+                  [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                   TextInputType.phone, TextInputAction.done,
                   _modelSignUp.controlPhoneNums,
                   _modelSignUp.nodePhoneNums,

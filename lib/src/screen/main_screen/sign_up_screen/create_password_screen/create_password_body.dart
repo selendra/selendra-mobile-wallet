@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
@@ -47,7 +48,7 @@ Widget createPasswordBodyWidget(
                     null,
                     "createPasswordScreen",
                     true,
-                    TextField.noMaxLength,
+                    [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                     TextInputType.text,
                     TextInputAction.next,
                     _modelSignUp.controlSecureNumber,
@@ -64,7 +65,7 @@ Widget createPasswordBodyWidget(
                     null,
                     "createPasswordScreen",
                     true,
-                    TextField.noMaxLength,
+                    [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                     TextInputType.text,
                     TextInputAction.done,
                     _modelSignUp.controlConfirmSecureNumber,

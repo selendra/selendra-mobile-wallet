@@ -1,6 +1,7 @@
 /* Flutter Package */
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 /* Directory of file*/
 import 'package:wallet_apps/src/model/model_user_info.dart';
@@ -45,7 +46,7 @@ Widget addUserInfobodyWidget(
                       context,
                       "Occupation", null, "addUserInfoScreen",
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next,
                       _modelUserInfo.controlOccupation,
                       _modelUserInfo.nodeOccupatioin,
@@ -59,7 +60,7 @@ Widget addUserInfobodyWidget(
                       context,
                       "Nationality", null, "addUserInfoScreen",
                       false, 
-                      TextField.noMaxLength,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.done,
                       _modelUserInfo.controlNationality,
                       _modelUserInfo.nodeNationality,

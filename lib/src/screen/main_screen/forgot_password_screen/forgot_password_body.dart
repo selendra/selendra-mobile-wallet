@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/model/model_forgot_pass.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -36,7 +37,7 @@ Widget forgotPasswordBodyWidget(
                   child: inputField(
                     _context, "Phone number", "${_modelForgotPassword.countryCode} ", "forgotsScreen", 
                     false, 
-                    TextField.noMaxLength,
+                    [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                     TextInputType.number, TextInputAction.done,
                     _modelForgotPassword.controlPhoneNums, 
                     _modelForgotPassword.nodePhoneNums, 
