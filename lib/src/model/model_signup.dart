@@ -3,13 +3,15 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelSignUp {
 
-  final formState1 = GlobalKey<FormState>();
-  final formState2 = GlobalKey<FormState>();
+  final formStateEmailPhone = GlobalKey<FormState>();
+  final formStatePassword = GlobalKey<FormState>();
   final smsForm = GlobalKey<FormState>();
   final userInfoForm = GlobalKey<FormState>();
   
   bool enable1 = false;
   bool enable2 = false;
+
+  String responsePass1, responsePass2;
   var response;
 
   Bloc bloc = Bloc();
@@ -24,16 +26,20 @@ class ModelSignUp {
 
   /* User login Properties */
   FocusNode nodeEmails = FocusNode();
-  FocusNode nodeSecureNumber = FocusNode();
   FocusNode nodePhoneNums = FocusNode();
+  FocusNode nodePassword = FocusNode();
+  FocusNode nodeConfirmPassword = FocusNode();
+
+  TextEditingController controlEmails = TextEditingController(); /* Value Controller Empty By Default */
+  TextEditingController controlPassword = TextEditingController();
+  TextEditingController controlControlPassword = TextEditingController();
+
   FocusNode nodeSmsCode = FocusNode();
   FocusNode nodeFirstName = FocusNode();
   FocusNode nodeMidName = FocusNode();
   FocusNode nodeLastName = FocusNode();
   FocusNode nodeResetCode = FocusNode();
 
-  TextEditingController controlEmails = TextEditingController(); /* Value Controller Empty By Default */
-  TextEditingController controlSecureNumber = TextEditingController();
   TextEditingController controlSmsCode = TextEditingController();
   TextEditingController controlPhoneNums = TextEditingController();
   TextEditingController controlFirstName = TextEditingController();

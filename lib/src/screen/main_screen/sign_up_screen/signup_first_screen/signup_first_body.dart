@@ -8,7 +8,7 @@ Widget signUpFirstBodyWidget(
   BuildContext context,
   ModelSignUp _modelSignUp,
   Function validateInput, Function onChanged,
-  Function popScreen, Function submitValidator, Function navigatePage, Function tabBarSelectChanged,
+  Function popScreen, Function navigatePage, Function tabBarSelectChanged,
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +52,7 @@ Widget signUpFirstBodyWidget(
         ),
       ),
       Form( /* Form Control User Field */
-        key: _modelSignUp.formState1,
+        key: _modelSignUp.formStateEmailPhone,
         child: Container( /* User Sign Up Choice Body */
           height: 100.0,
           child: TabBarView( /* Body Sign Up */
@@ -77,7 +77,7 @@ Widget signUpFirstBodyWidget(
                   context,
                   "Phone number", "${_modelSignUp.countryCode} ", "signUpFirstScreen",
                   false, 
-                  [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                  [LengthLimitingTextInputFormatter(9), WhitelistingTextInputFormatter.digitsOnly],
                   TextInputType.phone, TextInputAction.done,
                   _modelSignUp.controlPhoneNums,
                   _modelSignUp.nodePhoneNums,

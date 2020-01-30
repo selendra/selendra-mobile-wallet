@@ -68,12 +68,14 @@ class LoginSecondState extends State<LoginSecond>{
     if (widget._modelLogin.label == "email"){
       if (widget._modelLogin.nodeEmails.hasFocus) { /* If Email Field Has Focus */
         widget._modelLogin.responseEmailPhone = validateInstance.validateEmails(value);
-        enableButton();
+        if (widget._modelLogin.responseEmailPhone == null && widget._modelLogin.responsePassword == null ) enableButton();
+        else if ( widget._modelLogin.enable2 == true ) setState(() => widget._modelLogin.enable2 = false);
       }
     } else {
       if (widget._modelLogin.nodePhoneNums.hasFocus) { /* If Phone Number Field Has Focus */
         widget._modelLogin.responseEmailPhone = validateInstance.validatePhone(value);
-        enableButton(); 
+        if (widget._modelLogin.responseEmailPhone == null && widget._modelLogin.responsePassword == null ) enableButton();
+        else if ( widget._modelLogin.enable2 == true ) setState(() => widget._modelLogin.enable2 = false);
       }
     }
     return widget._modelLogin.responseEmailPhone;
@@ -82,17 +84,18 @@ class LoginSecondState extends State<LoginSecond>{
   String validatePassword(String value){ /* Validate User Password Input */
     if (widget._modelLogin.nodePasswords.hasFocus) {
       widget._modelLogin.responsePassword = validateInstance.validatePassword(value);
-      enableButton();
+      if (widget._modelLogin.responseEmailPhone == null && widget._modelLogin.responsePassword == null ) enableButton();
+      else if ( widget._modelLogin.enable2 == true ) setState(() => widget._modelLogin.enable2 = false);
     }
     return widget._modelLogin.responsePassword;
   }
 
-  void enableButton() {
-    setState(() {
-      if (widget._modelLogin.responsePassword == null && widget._modelLogin.responseEmailPhone == null ) /* Check Both Field Are Null => Enalbe Button */
-        widget._modelLogin.enable2 = true;
-      else widget._modelLogin.enable2 = false;
-    });
+  void enableButton() { /* Validate Button */
+    if ( widget._modelLogin.label == 'email'){
+      if (widget._modelLogin.controlEmails.text != '' && widget._modelLogin.controlPasswords.text != '' ) setState(() => widget._modelLogin.enable2 = true);
+    } else {
+      if (widget._modelLogin.controlPhoneNums.text != '' && widget._modelLogin.controlPasswords.text != '' ) setState(() => widget._modelLogin.enable2 = true);
+    }
   }
 
   Widget build(BuildContext context){

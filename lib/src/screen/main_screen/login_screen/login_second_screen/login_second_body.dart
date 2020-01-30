@@ -77,17 +77,17 @@ Widget userLogin( /* Column of User Login */
         margin: EdgeInsets.only(bottom: 13.0),
         child: inputField(
           context,
-          _modelLogin.controlEmails.text != "" ? "Email" : "Phone number",
-          _modelLogin.controlEmails.text != "" ? null : "${_modelLogin.countryCode} ",
+          _modelLogin.label == "email" ? "Email" : "Phone number",
+          _modelLogin.label == "email" ? null : "${_modelLogin.countryCode} ",
           "loginSecondScreen",
           false,
           _modelLogin.label == "email" 
           ? [LengthLimitingTextInputFormatter(TextField.noMaxLength)] /* If Label Equal Email Just Control Length Input Format */
-          : [LengthLimitingTextInputFormatter(TextField.noMaxLength), WhitelistingTextInputFormatter.digitsOnly], /* Else Add Condition 0-9 Only */
+          : [LengthLimitingTextInputFormatter(9), WhitelistingTextInputFormatter.digitsOnly], /* Else Add Condition 0-9 Only */
           _modelLogin.controlEmails.text != "" ? TextInputType.text : TextInputType.phone,
           TextInputAction.next,
-          _modelLogin.controlEmails.text != "" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
-          _modelLogin.controlEmails.text != "" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums,
+          _modelLogin.label == "email" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
+          _modelLogin.label == "email" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums,
           validateInput, onChanged, null
         )
       ),
