@@ -61,7 +61,7 @@ Widget createPasswordBodyWidget(
                   [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                   TextInputType.text,
                   TextInputAction.done,
-                  _modelSignUp.controlControlPassword,
+                  _modelSignUp.controlConfirmPassword,
                   _modelSignUp.nodeConfirmPassword,
                   validatePass2, onChanged, 
                   _modelSignUp.enable2 == true ? navigatePage : null

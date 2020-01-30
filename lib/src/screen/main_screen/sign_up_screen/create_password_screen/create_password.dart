@@ -25,11 +25,15 @@ class CreatePasswordState extends State<CreatePassword> {
   }
 
   void onChanged(String changed) {
+    print(widget._modelSignUp.nodeConfirmPassword.hasFocus);
     widget._modelSignUp.formStatePassword.currentState.validate();
   }
 
   String validatePass1(String value){ /* Validate User Input And Enable Or Disable Button */
     if (widget._modelSignUp.nodePassword.hasFocus){
+      setState(() { /* Disable Not Match Text */
+        widget._modelSignUp.isMatch = true;
+      });
       widget._modelSignUp.responsePass1 = validateInstance.validatePassword(value);
       if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
       else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
@@ -39,6 +43,9 @@ class CreatePasswordState extends State<CreatePassword> {
 
   String validatePass2(String value) {
     if (widget._modelSignUp.nodeConfirmPassword.hasFocus){
+      setState(() { /* Disable Not Match Text */
+        widget._modelSignUp.isMatch = true;
+      });
       widget._modelSignUp.responsePass2 = validateInstance.validatePassword(value);
       if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
       else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
@@ -47,13 +54,13 @@ class CreatePasswordState extends State<CreatePassword> {
   }
 
   void enableButton() { /* Validate Button */
-    if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlControlPassword.text != '') setState(() => widget._modelSignUp.enable2 = true);
+    if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlConfirmPassword.text != '') setState(() => widget._modelSignUp.enable2 = true);
   }
 
   void navigatePage(BuildContext context) async { /* Navigate To Fill User Info */
-    if (widget._modelSignUp.controlControlPassword.text != "" &&
+    if (widget._modelSignUp.controlConfirmPassword.text != "" &&
         widget._modelSignUp.controlPassword.text != "") { /* Password != Empty */
-      if (widget._modelSignUp.controlControlPassword.text !=
+      if (widget._modelSignUp.controlConfirmPassword.text !=
           widget._modelSignUp.controlPassword.text) { /* If Not Match */
         setState(() {
           widget._modelSignUp.isMatch = false; /* Pop Not Match Text Below Confrim Password Field */
@@ -82,7 +89,7 @@ class CreatePasswordState extends State<CreatePassword> {
           widget._modelSignUp.response = await widget._modelSignUp.bloc.registerMethod(
             context,
             "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
-            widget._modelSignUp.controlControlPassword.text,
+            widget._modelSignUp.controlConfirmPassword.text,
             "/registerbyphone",
             "phone"
           );
@@ -108,6 +115,17 @@ class CreatePasswordState extends State<CreatePassword> {
   
   void popScreen() { /* Close Current Screen */
     Navigator.pop(context);
+  }
+
+  @override
+  void dispose() {
+    widget._modelSignUp.controlPassword.clear();
+    widget._modelSignUp.controlConfirmPassword.clear();
+    widget._modelSignUp.isMatch = true;
+    widget._modelSignUp.enable2 = false;
+    widget._modelSignUp.responsePass1 = null;
+    widget._modelSignUp.responsePass2 = null;
+    super.dispose();
   }
 
   Widget build(BuildContext context) {

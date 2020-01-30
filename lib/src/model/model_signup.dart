@@ -31,8 +31,9 @@ class ModelSignUp {
   FocusNode nodeConfirmPassword = FocusNode();
 
   TextEditingController controlEmails = TextEditingController(); /* Value Controller Empty By Default */
+  TextEditingController controlPhoneNums = TextEditingController();
   TextEditingController controlPassword = TextEditingController();
-  TextEditingController controlControlPassword = TextEditingController();
+  TextEditingController controlConfirmPassword = TextEditingController();
 
   FocusNode nodeSmsCode = FocusNode();
   FocusNode nodeFirstName = FocusNode();
@@ -41,7 +42,6 @@ class ModelSignUp {
   FocusNode nodeResetCode = FocusNode();
 
   TextEditingController controlSmsCode = TextEditingController();
-  TextEditingController controlPhoneNums = TextEditingController();
   TextEditingController controlFirstName = TextEditingController();
   TextEditingController controlMidName = TextEditingController();
   TextEditingController controlLastName = TextEditingController();
