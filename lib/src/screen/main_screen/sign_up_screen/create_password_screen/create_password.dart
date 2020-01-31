@@ -32,7 +32,7 @@ class CreatePasswordState extends State<CreatePassword> {
     if (widget._modelSignUp.nodePassword.hasFocus){
       if (widget._modelSignUp.isNotMatch == true){
         setState(() { /* Disable Not Match Text */
-          widget._modelSignUp.isNotMatch= false;
+          widget._modelSignUp.isNotMatch = false;
         });
       }
       widget._modelSignUp.responsePass1 = validateInstance.validatePassword(value);
@@ -115,8 +115,7 @@ class CreatePasswordState extends State<CreatePassword> {
   void onSubmit(BuildContext context) {
     if (widget._modelSignUp.nodePassword.hasFocus) {
       FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPassword);
-    } else if (widget._modelSignUp.nodeConfirmPassword.hasFocus && widget._modelSignUp.enable2 == true){ /* Prevent Submit On Smart Keyboard */ 
-      print("Hello 2");
+    } else { /* Prevent Submit On Smart Keyboard */ 
       navigatePage(context);
     }
   }

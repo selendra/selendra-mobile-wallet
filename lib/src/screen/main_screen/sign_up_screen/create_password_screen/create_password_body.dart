@@ -63,8 +63,7 @@ Widget createPasswordBodyWidget(
                   TextInputAction.done,
                   _modelSignUp.controlConfirmPassword,
                   _modelSignUp.nodeConfirmPassword,
-                  validatePass2, onChanged, 
-                  onSubmit
+                  validatePass2, onChanged, onSubmit
                 ),
               ),
               _modelSignUp.isNotMatch == false
