@@ -25,15 +25,16 @@ class CreatePasswordState extends State<CreatePassword> {
   }
 
   void onChanged(String changed) {
-    print(widget._modelSignUp.nodeConfirmPassword.hasFocus);
     widget._modelSignUp.formStatePassword.currentState.validate();
   }
 
   String validatePass1(String value){ /* Validate User Input And Enable Or Disable Button */
     if (widget._modelSignUp.nodePassword.hasFocus){
-      setState(() { /* Disable Not Match Text */
-        widget._modelSignUp.isMatch = true;
-      });
+      if (widget._modelSignUp.isNotMatch == true){
+        setState(() { /* Disable Not Match Text */
+          widget._modelSignUp.isNotMatch= false;
+        });
+      }
       widget._modelSignUp.responsePass1 = validateInstance.validatePassword(value);
       if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
       else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
@@ -43,9 +44,11 @@ class CreatePasswordState extends State<CreatePassword> {
 
   String validatePass2(String value) {
     if (widget._modelSignUp.nodeConfirmPassword.hasFocus){
-      setState(() { /* Disable Not Match Text */
-        widget._modelSignUp.isMatch = true;
-      });
+      if (widget._modelSignUp.isNotMatch == true){
+        setState(() { /* Disable Not Match Text */
+          widget._modelSignUp.isNotMatch= false;
+        });
+      }
       widget._modelSignUp.responsePass2 = validateInstance.validatePassword(value);
       if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
       else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
@@ -63,7 +66,7 @@ class CreatePasswordState extends State<CreatePassword> {
       if (widget._modelSignUp.controlConfirmPassword.text !=
           widget._modelSignUp.controlPassword.text) { /* If Not Match */
         setState(() {
-          widget._modelSignUp.isMatch = false; /* Pop Not Match Text Below Confrim Password Field */
+          widget._modelSignUp.isNotMatch = true; /* Pop Not Match Text Below Confrim Password Field */
         });
       } else {
         dialogLoading(context);
@@ -109,8 +112,13 @@ class CreatePasswordState extends State<CreatePassword> {
     }
   }
 
-  void changeFocus(BuildContext context, String value) {
-    FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmSecureNumber);
+  void onSubmit(BuildContext context) {
+    if (widget._modelSignUp.nodePassword.hasFocus) {
+      FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPassword);
+    } else if (widget._modelSignUp.nodeConfirmPassword.hasFocus && widget._modelSignUp.enable2 == true){ /* Prevent Submit On Smart Keyboard */ 
+      print("Hello 2");
+      navigatePage(context);
+    }
   }
   
   void popScreen() { /* Close Current Screen */
@@ -121,7 +129,7 @@ class CreatePasswordState extends State<CreatePassword> {
   void dispose() {
     widget._modelSignUp.controlPassword.clear();
     widget._modelSignUp.controlConfirmPassword.clear();
-    widget._modelSignUp.isMatch = true;
+    widget._modelSignUp.isNotMatch = true;
     widget._modelSignUp.enable2 = false;
     widget._modelSignUp.responsePass1 = null;
     widget._modelSignUp.responsePass2 = null;
@@ -133,7 +141,7 @@ class CreatePasswordState extends State<CreatePassword> {
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0,
         color1, color2,
-        createPasswordBodyWidget(context, widget._modelSignUp, validatePass1, validatePass2, onChanged,popScreen, changeFocus, navigatePage)
+        createPasswordBodyWidget(context, widget._modelSignUp, validatePass1, validatePass2, onChanged,popScreen, onSubmit, navigatePage)
       )
     );
   }

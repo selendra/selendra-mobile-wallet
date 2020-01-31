@@ -36,7 +36,8 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
   }
 
   void navigatePage(BuildContext context) { /* Navigate To Second Sign Up */
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));
+    if (_modelSignUp.enable1 == true) /* Prevent Submit On Smart Keyboard */ 
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));
   }
 
   void onChanged(String label, String onchanged) { /* Input Field Value Change */

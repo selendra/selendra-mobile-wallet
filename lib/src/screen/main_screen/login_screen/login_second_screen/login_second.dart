@@ -34,29 +34,33 @@ class LoginSecondState extends State<LoginSecond>{
   }
   
   void checkInputAndValidate(BuildContext context) async { /* Check Internet Before Validate And Finish Validate*/
-    dialogLoading(context); 
-    var response;
-    if (widget._modelLogin.label == "email") {
-      response = await widget._modelLogin.bloc.loginMethod(
-        context,
-        widget._modelLogin.controlEmails.text,
-        widget._modelLogin.controlPasswords.text,
-        "/loginbyemail", "email"
-      );
-    } else {
-      response = await widget._modelLogin.bloc.loginMethod(
-        context,
-        "${widget._modelLogin.countryCode}${widget._modelLogin.controlPhoneNums.text}",
-        widget._modelLogin.controlPasswords.text,
-        "/loginbyphone", "phone"
-      );
-    }
-    if (response == true) {
-      Navigator.pushAndRemoveUntil(
-        context, 
-        MaterialPageRoute(builder: (context) => Dashboard()), 
-        ModalRoute.withName('/')
-      );
+    if (widget._modelLogin.nodeEmails.hasFocus || widget._modelLogin.nodePhoneNums.hasFocus) {
+      FocusScope.of(context).requestFocus(widget._modelLogin.nodePasswords);
+    } else if (widget._modelLogin.enable2 == true) { /* Prevent Submit On Smart Keyboard */ /* Submit Login */
+      dialogLoading(context); 
+        var response;
+        if (widget._modelLogin.label == "email") {
+          response = await widget._modelLogin.bloc.loginMethod(
+            context,
+            widget._modelLogin.controlEmails.text,
+            widget._modelLogin.controlPasswords.text,
+            "/loginbyemail", "email"
+          );
+        } else {
+          response = await widget._modelLogin.bloc.loginMethod(
+            context,
+            "${widget._modelLogin.countryCode}${widget._modelLogin.controlPhoneNums.text}",
+            widget._modelLogin.controlPasswords.text,
+            "/loginbyphone", "phone"
+          );
+        }
+        if (response == true) {
+          Navigator.pushAndRemoveUntil(
+            context, 
+            MaterialPageRoute(builder: (context) => Dashboard()), 
+            ModalRoute.withName('/')
+          );
+        }
     }
   }
 

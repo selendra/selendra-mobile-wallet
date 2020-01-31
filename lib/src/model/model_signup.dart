@@ -18,7 +18,7 @@ class ModelSignUp {
 
   String wallet;
 
-  bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
+  bool isProgress = false, isLogedin = false, isBoth = false, isNotMatch = false;
 
   String token, countryCode = "+855", gender, label, genderLabel = "Gender";
 

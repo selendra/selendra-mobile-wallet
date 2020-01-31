@@ -88,7 +88,7 @@ Widget userLogin( /* Column of User Login */
           TextInputAction.next,
           _modelLogin.label == "email" ? _modelLogin.controlEmails : _modelLogin.controlPhoneNums,
           _modelLogin.label == "email" ? _modelLogin.nodeEmails : _modelLogin.nodePhoneNums,
-          validateInput, onChanged, null
+          validateInput, onChanged, checkInputAndValidate
         )
       ),
       Container( /* Password Input Field */

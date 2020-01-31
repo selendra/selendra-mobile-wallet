@@ -77,9 +77,9 @@ class LoginFirstState extends State<LoginFirstScreen> {
   }
 
   void navigatePage(BuildContext context) async {
-    // if (!(_modelLogin.phoneNumber.length < 7) && _modelLogin.phoneNumber != "") {
+    if (_modelLogin.enable1 == true){ /* Prevent Submit On Smart Keyboard */ 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginSecond(_modelLogin)));
-    // }
+    }
   }
 
   Widget build(BuildContext context) {

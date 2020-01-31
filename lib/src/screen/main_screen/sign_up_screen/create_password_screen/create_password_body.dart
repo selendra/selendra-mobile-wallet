@@ -9,7 +9,7 @@ Widget createPasswordBodyWidget(
   ModelSignUp _modelSignUp,
   Function validatePass1, Function validatePass2,
   Function onChanged, Function popScreen,
-  Function changeFocus, Function navigatePage
+  Function onSubmit, Function navigatePage
 ){
   return Column(
     children: <Widget>[
@@ -47,7 +47,7 @@ Widget createPasswordBodyWidget(
                   TextInputAction.next,
                   _modelSignUp.controlPassword,
                   _modelSignUp.nodePassword,
-                  validatePass1, onChanged, changeFocus
+                  validatePass1, onChanged, onSubmit
                 ),
               ),
               Container( /* Confirm Password Field */
@@ -64,10 +64,10 @@ Widget createPasswordBodyWidget(
                   _modelSignUp.controlConfirmPassword,
                   _modelSignUp.nodeConfirmPassword,
                   validatePass2, onChanged, 
-                  _modelSignUp.enable2 == true ? navigatePage : null
+                  onSubmit
                 ),
               ),
-              _modelSignUp.isMatch == true
+              _modelSignUp.isNotMatch == false
               ? Container()
               : Text(
                 "Confirm password not match !",
