@@ -35,14 +35,10 @@ class ProfileUserState extends State<ProfileUser> {
   dynamic _result = ""; 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final RefreshController _refreshController = RefreshController();
-  ModelUserInfo modelProfile = ModelUserInfo();
+  ModelUserInfo _modelUserInfo = ModelUserInfo();
   Map<String, dynamic> _message;
   /* Login Inside Dialog */
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
-  /* Property For RefetchUserData From GraphQL */
-  bool reQueryUserData = false;
-  
-  ModelSignUp _modelSignUp = ModelSignUp();
 
   /* InitState */
   @override
@@ -52,13 +48,19 @@ class ProfileUserState extends State<ProfileUser> {
   }
 
   void setUserInfo() async {
-    _modelSignUp.controlFirstName.text = widget._userData['first_name'];
-    _modelSignUp.controlMidName.text = widget._userData['mid_name'];
-    _modelSignUp.controlLastName.text = widget._userData['last_name'];
-    _modelSignUp.genderLabel = widget._userData['gender'] == "M" ? "Male" : "Female";
-    _modelSignUp.gender = widget._userData['gender'];
+    print(widget._userData['gender']);
+    _modelUserInfo.userData = {
+      "first_name": widget._userData['first_name'],
+      "mid_name": widget._userData['mid_name'],
+      "last_name": widget._userData['last_name'],
+      "gender": widget._userData['gender'] == "M" ? "Male" : "Female"
+    };
+    // _modelUserInfo.controlMidName.text = widget._userData['mid_name'];
+    // _modelUserInfo.controlLastName.text = widget._userData['last_name'];
+    // _modelUserInfo.genderLabel = widget._userData['gender'] == "M" ? "Male" : "Female";
+    // _modelUserInfo.gender = widget._userData['gender'];
     await fetchData("user_token").then((_response){ /* Fetch Token To Concete Authorization Update Profile User Info */
-      _modelSignUp.token = _response['token'];
+      _modelUserInfo.token = _response['token'];
     });
   }
 
@@ -132,10 +134,6 @@ class ProfileUserState extends State<ProfileUser> {
   
   void _reFresh() async {
     await Provider.fetchUserIds();
-    setState(() {
-      reQueryUserData = true;
-      isFetch = false;
-    });
     _refreshController.refreshCompleted();
   }
 
@@ -157,10 +155,7 @@ class ProfileUserState extends State<ProfileUser> {
             Container(
               height: MediaQuery.of(context).size.height,
               alignment: Alignment.center,
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: profileUserBodyWidget(isHaveWallet, context, widget._userData, _modelSignUp, snackBar, dialogBox, popScreen),
-              )
+              child: profileUserBodyWidget(isHaveWallet, context, _modelUserInfo.userData, widget._userData['wallet'], snackBar, dialogBox, popScreen),
             ),
           ],
         )

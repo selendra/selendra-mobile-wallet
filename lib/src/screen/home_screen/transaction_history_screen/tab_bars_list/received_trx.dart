@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/trx_history_details/trx_history_detail.dart';
 import 'package:wallet_apps/src/service/services.dart';
 
-Widget receivedTrxBodyWidget(List<dynamic> _trxHistory, Map<String, dynamic> _userData) {
+Widget receivedTrxBodyWidget(List<dynamic> _trxHistory, String _walletKey) {
   return _trxHistory == null ? Container(
     child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
     alignment: Alignment.center,
@@ -13,7 +13,7 @@ Widget receivedTrxBodyWidget(List<dynamic> _trxHistory, Map<String, dynamic> _us
     physics: BouncingScrollPhysics(),
     itemCount: _trxHistory.length,
     itemBuilder: (BuildContext context, int index) {
-      return _userData['wallet'] != _trxHistory[index]['from'] && _trxHistory[index]['type'] != "manage_offer"/* Send Trx If Source Account Address Not Equal Wallet Adddress */
+      return _walletKey != _trxHistory[index]['from'] && _trxHistory[index]['type'] != "manage_offer"/* Send Trx If Source Account Address Not Equal Wallet Adddress */
       ? GestureDetector(
         onTap: () => Navigator.push(context, transitionRoute(TrxHistoryDetails(_trxHistory[index], "Received"))),
         child: Container(

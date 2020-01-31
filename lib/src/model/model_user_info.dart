@@ -1,12 +1,24 @@
 import 'dart:io';
-
 import 'package:flutter/widgets.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
 import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class ModelUserInfo {
   
   final formStateAddUserInfo = GlobalKey<FormState>();
+
+  Map<String, dynamic> userData;
+
+  String token, genderLabel = "Gender", gender;
+
+  bool enable = false;
+
+  FocusNode nodeFirstName = FocusNode();
+  FocusNode nodeMidName = FocusNode();
+  FocusNode nodeLastName = FocusNode();
+
+  TextEditingController controlFirstName = TextEditingController();
+  TextEditingController controlMidName = TextEditingController();
+  TextEditingController controlLastName = TextEditingController();
   
   TextEditingController controlOccupation = TextEditingController(text: '');
   TextEditingController controlNationality = TextEditingController(text: '');
@@ -20,7 +32,6 @@ class ModelUserInfo {
   String midName;
   String lastName;
   String description;
-  String gender;
   String profileImg;
   String occupation;
   String nationality, country;

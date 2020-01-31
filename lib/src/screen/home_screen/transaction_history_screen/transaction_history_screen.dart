@@ -12,9 +12,9 @@ import 'package:wallet_apps/src/model/model_signup.dart';
 
 class TransactionHistoryWidget extends StatefulWidget{
 
-  final Map<String, dynamic> _userData;
+  final String _walletKey;
 
-  TransactionHistoryWidget(this._userData);
+  TransactionHistoryWidget(this._walletKey);
 
   @override
   State<StatefulWidget> createState() {
@@ -83,7 +83,7 @@ class TracsactionHistoryState extends State<TransactionHistoryWidget>{
       initialIndex: 1,
       length: 3,
       child: Scaffold(
-        body: transactionBodyWidget(context, _history, widget._userData, popScreen),
+        body: transactionBodyWidget(context, _history, widget._walletKey, popScreen),
       ),
     );
   }

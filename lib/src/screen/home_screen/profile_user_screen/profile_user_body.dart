@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/activity_screen/activity.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/add_asset_screen/add_asset.dart';
@@ -17,8 +18,8 @@ import 'package:wallet_apps/src/service/services.dart';
 Widget profileUserBodyWidget(
   bool isHaveWallet /* isHaveWallet By Default false */,
   BuildContext context,
-  Map<String, dynamic> _userData,
-  ModelSignUp _modelSignUp,
+  Map<String, dynamic> _userInfo,
+  String _walletKey,
   Function snackBar,
   Function dialogBox,
   Function popScreen
@@ -26,11 +27,11 @@ Widget profileUserBodyWidget(
   /* Function */
   void navigateEditProfile(){
     Navigator.pop(context, '');
-    Navigator.push(context, transitionRoute(UserInfo(_modelSignUp)));
+    Navigator.push(context, transitionRoute(UserInfo(_userInfo)));
   } 
   void navigateTrxHistory() {
     Navigator.pop(context, '');
-    Navigator.push(context, transitionRoute(TransactionHistoryWidget(_userData)));
+    Navigator.push(context, transitionRoute(TransactionHistoryWidget(_walletKey)));
   }
   void navigateAcivity() { 
     Navigator.pop(context, '');
@@ -162,7 +163,7 @@ Widget profileUserBodyWidget(
         //                   context,
         //                   MaterialPageRoute(
         //                     builder: (context) =>
-        //                       UserInfo(_modelSignUp)
+        //                       UserInfo(_userInfo)
         //                     )
         //                   );
         //                 break;
@@ -170,7 +171,7 @@ Widget profileUserBodyWidget(
         //               case 1: {
         //                 Navigator.pop(context, '');
         //                 blurBackgroundDecoration(
-        //                     context, TransactionHistoryWidget(_modelSignUp));
+        //                     context, TransactionHistoryWidget(_userInfo));
         //                 break;
         //               }
         //               case 2: {

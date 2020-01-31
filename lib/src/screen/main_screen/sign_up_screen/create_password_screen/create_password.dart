@@ -79,11 +79,16 @@ class CreatePasswordState extends State<CreatePassword> {
             "email"
           );
           if (widget._modelSignUp.response == true) {
+            widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
+              "email": widget._modelSignUp.controlEmails.text,
+              "passwords": widget._modelSignUp.controlPassword.text,
+              "label": widget._modelSignUp.label
+            };
             Future.delayed(Duration(milliseconds: 100), () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UserInfo(widget._modelSignUp)
+                  builder: (context) => UserInfo(widget._modelSignUp.userDataLogin)
                 )
               );
             });
@@ -97,11 +102,16 @@ class CreatePasswordState extends State<CreatePassword> {
             "phone"
           );
           if (widget._modelSignUp.response == true) { /* Change To True When your testing done */
+            widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
+              "email": widget._modelSignUp.controlPhoneNums.text,
+              "passwords": widget._modelSignUp.controlPassword.text,
+              "label": widget._modelSignUp.label
+            };
             Future.delayed(Duration(milliseconds: 100), () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => UserInfo(widget._modelSignUp)
+                  builder: (context) => UserInfo(widget._modelSignUp.userDataLogin)
                 )
               );
               // Navigator.push(context, MaterialPageRoute(builder: (context) => SmsCode(widget._modelSignUp)));

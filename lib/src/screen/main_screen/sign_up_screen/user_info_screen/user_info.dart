@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info_body.dart';
@@ -8,9 +9,9 @@ import 'package:wallet_apps/src/store_small_data/data_store.dart';
 
 class UserInfo extends StatefulWidget{
 
-  final dynamic _model;
+  final Map<String, dynamic> _userData;
 
-  UserInfo(this._model);
+  UserInfo(this._userData);
 
   @override
   State<StatefulWidget> createState() {
@@ -20,10 +21,16 @@ class UserInfo extends StatefulWidget{
 
 class UserInfoState extends State<UserInfo> {
 
+  ModelUserInfo _modelUserInfo = ModelUserInfo();
+
   @override
   void initState() {
-    if (widget._model.gender == null) widget._model.genderLabel = "Gender";
-    getTokenByLogin();
+    if (widget._userData['label'] != 'profile') {
+      replaceDataToController();
+    }
+    else if (widget._userData['label'] == 'email' || widget._userData['phone']){
+      getTokenByLogin();
+    }
     super.initState();
   }
 
@@ -35,22 +42,29 @@ class UserInfoState extends State<UserInfo> {
     await fetchData("user_token").then((_response) async {
       if (_response == null){
         var _res = await userLogin(
-          widget._model.label == "email" ? widget._model.controlEmails.text : "${widget._model.countryCode}${widget._model.controlPhoneNums.text}", 
-          widget._model.controlSecureNumber.text, 
-          widget._model.label == "email" ? "/loginbyemail" : "/loginbyphone", 
-          widget._model.label 
+          widget._userData['email_Phone'], 
+          widget._userData['passwords'], 
+          widget._userData['label'] == "email" ? "/loginbyemail" : "/loginbyphone", 
+          widget._userData['label'] 
         );
         await setData(_res, "user_token");
       }
     });
   }
 
+  void replaceDataToController(){ /* Replace Data From Profile Screen After Push User Informtaion Screen */
+    _modelUserInfo.controlFirstName.text = widget._userData['first_name'];
+    _modelUserInfo.controlMidName.text = widget._userData['mid_name'];
+    _modelUserInfo.controlLastName.text = widget._userData['last_name'];
+    _modelUserInfo.genderLabel = widget._userData['gender'];
+  }
+
   void submitProfile(BuildContext context) async { /* Submit Profile User */
     try {
       dialogLoading(context); /* Show Loading Process */
-      var response = await uploadUserProfile(widget._model, '/userprofile'); /* Post Request Submit Profile */
+      var response = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
       Navigator.pop(context); /* Close Loading Process */
-      if (response != null && widget._model.token == null) { /* Set Profile Success */
+      if (response != null && _modelUserInfo.token == null) { /* Set Profile Success */
         await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
         clearStorage();
         Future.delayed(Duration(microseconds: 500), () {
@@ -63,24 +77,34 @@ class UserInfoState extends State<UserInfo> {
     } catch (err) {}
   } 
   void changeGender(String gender) async {
-    widget._model.genderLabel = gender;
-    if (gender == "Male") widget._model.gender = "M";
-    else widget._model.gender = "F";
-    widget._model.label = gender;
+    _modelUserInfo.genderLabel = gender;
+    if (gender == "Male") _modelUserInfo.gender = "M";
+    else _modelUserInfo.gender = "F";
+    _modelUserInfo.genderLabel = gender;
     await Future.delayed(Duration(milliseconds: 100), () {
       setState(() { /* Unfocus All Field */
-        widget._model.nodeFirstName.unfocus();
-        widget._model.nodeMidName.unfocus();
-        widget._model.nodeLastName.unfocus();
+        _modelUserInfo.nodeFirstName.unfocus();
+        _modelUserInfo.nodeMidName.unfocus();
+        _modelUserInfo.nodeLastName.unfocus();
       });
     });
+  }
+
+  void onSubmit(BuildContext context) {
+    if (_modelUserInfo.nodeFirstName.hasFocus) {
+      FocusScope.of(context).requestFocus(_modelUserInfo.nodeFirstName);
+    } else if (_modelUserInfo.nodeMidName.hasFocus) {
+      FocusScope.of(context).requestFocus(_modelUserInfo.nodeMidName);
+    } else {
+      if (_modelUserInfo.gender != null) submitProfile(context);
+    }
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0, color1, color2, 
-        userInfoBodyWidget(context, widget._model, popScreen, submitProfile, changeGender)
+        userInfoBodyWidget(context, _modelUserInfo, popScreen, onSubmit, changeGender, submitProfile)
       ),
     );
   }

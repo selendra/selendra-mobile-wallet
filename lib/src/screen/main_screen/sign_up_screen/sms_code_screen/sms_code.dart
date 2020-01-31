@@ -57,17 +57,17 @@ class SmsCodeState extends State<SmsCode>{
   }
 
   void validatorLogin(BuildContext context) async{  /* Validator User Login After Check Internet */
-    dialogLoading(context); /* Show Loading Process */
-    await confirmAccount(widget._modelSignUp).then((_response) async { /* Response Result */
-      Navigator.pop(context); /* Close Loading Process */
-      if (!_response.containsKey("error")) { /* Successfully Confirm Account */ 
-        await dialog(context, Text("${_response['message']}"), Icon(Icons.done_outline, color: getHexaColor(blueColor),)); /* Pop Successfully To Dialog */
-        Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp))); /* Navigate To User Information */ 
-      } else { /* Not Successfully Or Already Confirm Account */
-        await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow)); /* Pop Error To Dialog */
-      }
-    }).catchError((onError){
-    });
+    // dialogLoading(context); /* Show Loading Process */
+    // await confirmAccount(widget._modelSignUp).then((_response) async { /* Response Result */
+    //   Navigator.pop(context); /* Close Loading Process */
+    //   if (!_response.containsKey("error")) { /* Successfully Confirm Account */ 
+    //     await dialog(context, Text("${_response['message']}"), Icon(Icons.done_outline, color: getHexaColor(blueColor),)); /* Pop Successfully To Dialog */
+    //     Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo())); /* Navigate To User Information */ 
+    //   } else { /* Not Successfully Or Already Confirm Account */
+    //     await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow)); /* Pop Error To Dialog */
+    //   }
+    // }).catchError((onError){
+    // });
   }
 
   void onChanged(String valueChanged) {

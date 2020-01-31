@@ -7,22 +7,21 @@ class ModelSignUp {
   final formStatePassword = GlobalKey<FormState>();
   final smsForm = GlobalKey<FormState>();
   final userInfoForm = GlobalKey<FormState>();
+
+  Bloc bloc = Bloc();
   
   bool enable1 = false;
   bool enable2 = false;
-
-  String responsePass1, responsePass2;
-  var response;
-
-  Bloc bloc = Bloc();
-
-  String wallet;
-
   bool isProgress = false, isLogedin = false, isBoth = false, isNotMatch = false;
 
-  String token, countryCode = "+855", gender, label, genderLabel = "Gender";
+  String responsePass1, responsePass2;
+  String token, countryCode = "+855", label;
+  String wallet;
 
+  var response;
   var colorSubmitted = Colors.transparent;
+
+  Map<String, dynamic> userDataLogin;
 
   /* User login Properties */
   FocusNode nodeEmails = FocusNode();
@@ -36,15 +35,9 @@ class ModelSignUp {
   TextEditingController controlConfirmPassword = TextEditingController();
 
   FocusNode nodeSmsCode = FocusNode();
-  FocusNode nodeFirstName = FocusNode();
-  FocusNode nodeMidName = FocusNode();
-  FocusNode nodeLastName = FocusNode();
   FocusNode nodeResetCode = FocusNode();
 
   TextEditingController controlSmsCode = TextEditingController();
-  TextEditingController controlFirstName = TextEditingController();
-  TextEditingController controlMidName = TextEditingController();
-  TextEditingController controlLastName = TextEditingController();
   TextEditingController controlResetCode = TextEditingController();
 
   TabController tabController;

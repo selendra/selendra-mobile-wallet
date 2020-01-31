@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 
 Widget userInfoBodyWidget(
   BuildContext _context, 
-  ModelSignUp _modelSignUp,
-  Function popScreen, Function submitProfile, Function changeGender
+  ModelUserInfo _modelUserInfo,
+  Function popScreen, Function onSubmit, Function changeGender, Function submitProfile
 ) {
   return Container(
     child: Column(
@@ -41,9 +41,9 @@ Widget userInfoBodyWidget(
                       false, 
                       [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next,
-                      _modelSignUp.controlFirstName,
-                      _modelSignUp.nodeFirstName,
-                      validateInstance.validateUserInfo, null, null
+                      _modelUserInfo.controlFirstName,
+                      _modelUserInfo.nodeFirstName,
+                      validateInstance.validateUserInfo, null, onSubmit
                     ),
                   ),
                   Container( /* Mid Name Field */
@@ -54,9 +54,9 @@ Widget userInfoBodyWidget(
                       false, 
                       [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next,
-                      _modelSignUp.controlMidName,
-                      _modelSignUp.nodeMidName,
-                      validateInstance.validateUserInfo, null, null
+                      _modelUserInfo.controlMidName,
+                      _modelUserInfo.nodeMidName,
+                      validateInstance.validateUserInfo, null, onSubmit
                     ),
                   ),
                   Container( /* Last Name Field */
@@ -67,17 +67,17 @@ Widget userInfoBodyWidget(
                       false, 
                       [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next,
-                      _modelSignUp.controlLastName,
-                      _modelSignUp.nodeLastName,
-                      validateInstance.validateUserInfo, null, null
+                      _modelUserInfo.controlLastName,
+                      _modelUserInfo.nodeLastName,
+                      validateInstance.validateUserInfo, null, onSubmit
                     ),
                   ),
                   Container( /* Gender Picker */
                     margin: EdgeInsets.only(bottom: 12.0),
                     child: customDropDown(
-                      _modelSignUp.genderLabel, 
+                      _modelUserInfo.genderLabel, 
                       ["Male", "Female"],
-                      _modelSignUp, 
+                      _modelUserInfo, 
                       changeGender,
                     ),
                   ),
@@ -93,7 +93,7 @@ Widget userInfoBodyWidget(
                       color: Color.fromRGBO(0,0,0,0.54),
                       blurRadius: 5.0
                     ), 
-                    submitProfile
+                    _modelUserInfo.enable == false ? null : submitProfile
                   )
                 ],
               ),

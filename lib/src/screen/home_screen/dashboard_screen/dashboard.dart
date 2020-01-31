@@ -35,9 +35,9 @@ class DashboardState extends State<Dashboard> {
 
   @override
   initState() { /* Initialize State */
-    super.initState();
     getUserData(); /* User Profile */
     fetchPortfolio();
+    super.initState();
   }
 
   /* ---------------------------Rest Api--------------------------- */
