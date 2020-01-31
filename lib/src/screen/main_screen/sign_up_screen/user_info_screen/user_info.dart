@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -76,7 +77,7 @@ class UserInfoState extends State<UserInfo> {
       }
     } catch (err) {}
   } 
-  void changeGender(String gender) async {
+  void changeGender(String gender) async { /* Change Select Gender */
     _modelUserInfo.genderLabel = gender;
     if (gender == "Male") _modelUserInfo.gender = "M";
     else _modelUserInfo.gender = "F";
@@ -100,11 +101,35 @@ class UserInfoState extends State<UserInfo> {
     }
   }
 
+  void onChanged(String value) {
+    _modelUserInfo.formStateAddUserInfo.currentState.validate();
+  }
+
+  String validateFirstName(String value){
+    _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
+    return "${_modelUserInfo.responseFirstname}first name";
+  }
+
+  String validateMidName(String value){
+    _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
+    return "${_modelUserInfo.responseFirstname}mid name";
+  }
+
+  String validateLastName(String value){
+    _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
+    return "${_modelUserInfo.responseFirstname}last name";
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: scaffoldBGDecoration(
         16.0, 16.0, 16.0, 0, color1, color2, 
-        userInfoBodyWidget(context, _modelUserInfo, popScreen, onSubmit, changeGender, submitProfile)
+        userInfoBodyWidget(
+          context, _modelUserInfo, 
+          onChanged, changeGender, 
+          validateFirstName, validateMidName, validateLastName,
+          submitProfile, popScreen
+        )
       ),
     );
   }

@@ -48,13 +48,13 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
 
   String validateInput(String value){ /* Initial Validate */
     if (_modelSignUp.label == "email"){
-      _modelSignUp.response = validateInstance.validateEmails(value);
+      _modelSignUp.response = instanceValidate.validateEmails(value);
       setState(() {
         if (_modelSignUp.response == null) _modelSignUp.enable1 = true; 
         else _modelSignUp.enable1 = false;
       });
     } else {
-      _modelSignUp.response = validateInstance.validatePhone(value);
+      _modelSignUp.response = instanceValidate.validatePhone(value);
       setState(() {
         if (_modelSignUp.response == null) _modelSignUp.enable1 = true; 
         else _modelSignUp.enable1 = false;

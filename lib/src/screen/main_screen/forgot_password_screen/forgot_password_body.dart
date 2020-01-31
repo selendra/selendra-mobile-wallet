@@ -41,7 +41,7 @@ Widget forgotPasswordBodyWidget(
                     TextInputType.number, TextInputAction.done,
                     _modelForgotPassword.controlPhoneNums, 
                     _modelForgotPassword.nodePhoneNums, 
-                    validateInstance.validatePhone, onChanged, null
+                    instanceValidate.validatePhone, onChanged, null
                   ),
                 ),
                 customFlatButton(

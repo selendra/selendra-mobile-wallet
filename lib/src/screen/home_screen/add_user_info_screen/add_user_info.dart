@@ -183,7 +183,7 @@ class AddUserInfoState extends State<AddUserInfo>{
         children: <Widget>[
           /* Body verify user 1 */
           addUserInfobodyWidget(
-            validateInstance,
+            instanceValidate,
             context, 
             dropDownList, 
             _modelUserInfo, 

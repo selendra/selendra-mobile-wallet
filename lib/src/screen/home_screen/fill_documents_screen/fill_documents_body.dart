@@ -53,7 +53,7 @@ Widget bodyWidget(
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsType, 
                       _modelDocument.nodeDocsType, 
-                      validateInstance.validateDocument, textChanged, null
+                      instanceValidate.validateDocument, textChanged, null
                     ),
                   ),
                   Container( /* Document Number */
@@ -66,7 +66,7 @@ Widget bodyWidget(
                       TextInputType.text, TextInputAction.next, 
                       _modelDocument.controllerDocsNumber, 
                       _modelDocument.nodeDocsNumber, 
-                      validateInstance.validateDocument, textChanged, null
+                      instanceValidate.validateDocument, textChanged, null
                     ),
                   ),
                   Container( /* Issue Date */

@@ -42,7 +42,7 @@ Widget addAssetBodyWidget(
                       [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.next, 
                       _modelAsset.controllerAssetCode, _modelAsset.nodeAssetCode, 
-                      validateInstance.validateAsset, onChanged, null
+                      instanceValidate.validateAsset, onChanged, null
                     ),
                   ),
                   Container( /* Issuer Field */
@@ -54,7 +54,7 @@ Widget addAssetBodyWidget(
                       [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       TextInputType.text, TextInputAction.done, 
                       _modelAsset.controllerIssuer, _modelAsset.nodeIssuer,
-                      validateInstance.validateAsset, onChanged, null
+                      instanceValidate.validateAsset, onChanged, null
                     ),
                   ),
                   customFlatButton( /* Add Asset Button */

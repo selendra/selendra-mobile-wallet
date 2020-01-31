@@ -29,6 +29,7 @@ class ValidateMixin {
   }
   
   String validateUserInfo(String value){
+    if (value == '') return "Fil your ";
     return null;
   }
 
@@ -88,4 +89,4 @@ class ValidateMixin {
 
 }
 
-final validateInstance = ValidateMixin();
+final instanceValidate = ValidateMixin();

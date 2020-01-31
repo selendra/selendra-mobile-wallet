@@ -71,13 +71,13 @@ class LoginSecondState extends State<LoginSecond>{
   String validateInput(String value){ /* Initial Validate */
     if (widget._modelLogin.label == "email"){
       if (widget._modelLogin.nodeEmails.hasFocus) { /* If Email Field Has Focus */
-        widget._modelLogin.responseEmailPhone = validateInstance.validateEmails(value);
+        widget._modelLogin.responseEmailPhone = instanceValidate.validateEmails(value);
         if (widget._modelLogin.responseEmailPhone == null && widget._modelLogin.responsePassword == null ) enableButton();
         else if ( widget._modelLogin.enable2 == true ) setState(() => widget._modelLogin.enable2 = false);
       }
     } else {
       if (widget._modelLogin.nodePhoneNums.hasFocus) { /* If Phone Number Field Has Focus */
-        widget._modelLogin.responseEmailPhone = validateInstance.validatePhone(value);
+        widget._modelLogin.responseEmailPhone = instanceValidate.validatePhone(value);
         if (widget._modelLogin.responseEmailPhone == null && widget._modelLogin.responsePassword == null ) enableButton();
         else if ( widget._modelLogin.enable2 == true ) setState(() => widget._modelLogin.enable2 = false);
       }
@@ -87,7 +87,7 @@ class LoginSecondState extends State<LoginSecond>{
   
   String validatePassword(String value){ /* Validate User Password Input */
     if (widget._modelLogin.nodePasswords.hasFocus) {
-      widget._modelLogin.responsePassword = validateInstance.validatePassword(value);
+      widget._modelLogin.responsePassword = instanceValidate.validatePassword(value);
       if (widget._modelLogin.responseEmailPhone == null && widget._modelLogin.responsePassword == null ) enableButton();
       else if ( widget._modelLogin.enable2 == true ) setState(() => widget._modelLogin.enable2 = false);
     }

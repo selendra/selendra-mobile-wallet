@@ -55,7 +55,7 @@ Widget changePasswordBodyWidget(
                       TextInputAction.next,
                       _model.controlOldPassword,
                       _model.nodeOldPassword,
-                      validateInstance.validatePassword, onChanged, null
+                      instanceValidate.validatePassword, onChanged, null
                     ),
                   ),
                   Container( /* New Password */
@@ -71,7 +71,7 @@ Widget changePasswordBodyWidget(
                       TextInputAction.next,
                       _model.controlNewPassword,
                       _model.nodeNewPassword,
-                      validateInstance.validatePassword, onChanged, null
+                      instanceValidate.validatePassword, onChanged, null
                     ),
                   ),
                   Container( /* Old Password */
@@ -87,7 +87,7 @@ Widget changePasswordBodyWidget(
                       TextInputAction.done,
                       _model.controlConfirmPassword,
                       _model.nodeConfirmPassword,
-                      validateInstance.validatePassword, onChanged, null
+                      instanceValidate.validatePassword, onChanged, null
                     ),
                   ),
                   customFlatButton(

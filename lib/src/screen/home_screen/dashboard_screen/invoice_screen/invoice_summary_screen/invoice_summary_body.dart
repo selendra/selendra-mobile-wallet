@@ -62,7 +62,7 @@ Widget invoiceSummaryBodyWidget(
             TextInputType.text, TextInputAction.done,
             _modelScanInvoice.controlApproveCode, 
             _modelScanInvoice.nodeApproveCode, 
-            validateInstance.validateAuthCode, onChanged, verifyInvoice
+            instanceValidate.validateAuthCode, onChanged, verifyInvoice
           ),
         ),
         Container(

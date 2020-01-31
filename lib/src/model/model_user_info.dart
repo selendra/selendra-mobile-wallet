@@ -9,6 +9,7 @@ class ModelUserInfo {
   Map<String, dynamic> userData;
 
   String token, genderLabel = "Gender", gender;
+  String responseFirstname, responseMidname, responseLastname;
 
   bool enable = false;
 
@@ -45,10 +46,4 @@ class ModelUserInfo {
   bool isImage = false; bool isValidate = false; bool isProgress = false; bool isUploading = false;
 
   Map<String, dynamic> fetchEmail = {};
-
-  Future<Map<String, dynamic>> fetchDataOfUser() async {
-    final data = await fetchData('userDataLogin');
-    Map<String, dynamic> userData = data['queryUserById'];
-    return userData;
-  }
 }

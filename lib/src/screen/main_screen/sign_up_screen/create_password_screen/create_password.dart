@@ -35,7 +35,7 @@ class CreatePasswordState extends State<CreatePassword> {
           widget._modelSignUp.isNotMatch = false;
         });
       }
-      widget._modelSignUp.responsePass1 = validateInstance.validatePassword(value);
+      widget._modelSignUp.responsePass1 = instanceValidate.validatePassword(value);
       if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
       else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
     }
@@ -49,7 +49,7 @@ class CreatePasswordState extends State<CreatePassword> {
           widget._modelSignUp.isNotMatch= false;
         });
       }
-      widget._modelSignUp.responsePass2 = validateInstance.validatePassword(value);
+      widget._modelSignUp.responsePass2 = instanceValidate.validatePassword(value);
       if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
       else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
     }

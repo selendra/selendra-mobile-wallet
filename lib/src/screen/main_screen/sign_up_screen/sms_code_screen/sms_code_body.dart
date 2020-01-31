@@ -83,7 +83,7 @@ Widget userLogin( /* Column of User Login */
           TextInputType.phone, TextInputAction.next,
           _modelSignUp.controlPhoneNums,
           _modelSignUp.nodePhoneNums, 
-          validateInstance.validatePhone, onChanged, null
+          instanceValidate.validatePhone, onChanged, null
         )
       ),
       Container( /* Password input */
@@ -96,7 +96,7 @@ Widget userLogin( /* Column of User Login */
           TextInputType.text, TextInputAction.done,
           _modelSignUp.controlSmsCode,
           _modelSignUp.nodeSmsCode, 
-          validateInstance.validateSms, onChanged,  validatorLogin
+          instanceValidate.validateSms, onChanged,  validatorLogin
         )
       ),
     ],

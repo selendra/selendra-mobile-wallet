@@ -50,7 +50,7 @@ Widget changePinBodyWidget(
                   TextInputAction.next,
                   _modelChangePin.controllerOldPin,
                   _modelChangePin.nodeOldPin,
-                  validateInstance.validatePin, onChanged, null
+                  instanceValidate.validatePin, onChanged, null
                 ),
               ),
               Container( /* New PIN */
@@ -66,7 +66,7 @@ Widget changePinBodyWidget(
                   TextInputAction.next,
                   _modelChangePin.controllerNewPin,
                   _modelChangePin.nodeNewPin,
-                  validateInstance.validatePin, onChanged, null
+                  instanceValidate.validatePin, onChanged, null
                 ),
               ),
               Container( /* Old PIN */
@@ -82,7 +82,7 @@ Widget changePinBodyWidget(
                   TextInputAction.done,
                   _modelChangePin.controllerConfirmPin,
                   _modelChangePin.nodeConfirmPin,
-                  validateInstance.validatePin, onChanged, null
+                  instanceValidate.validatePin, onChanged, null
                 ),
               ),
               customFlatButton(

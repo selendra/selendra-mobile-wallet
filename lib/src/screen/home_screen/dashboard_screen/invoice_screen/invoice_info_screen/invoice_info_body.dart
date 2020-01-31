@@ -116,7 +116,7 @@ Widget invoiceBodyWidget(
                     TextInputType.text, TextInputAction.next,
                     _modelScanInvoice.controlBillNO, 
                     _modelScanInvoice.nodeBill, 
-                    validateInstance.validateInvoice, textChanged, null
+                    instanceValidate.validateInvoice, textChanged, null
                   ),
                 ),
                 Container(
@@ -129,7 +129,7 @@ Widget invoiceBodyWidget(
                     TextInputType.number, TextInputAction.done, 
                     _modelScanInvoice.controlAmount, 
                     _modelScanInvoice.nodeAmount, 
-                    validateInstance.validateInvoice, textChanged, null
+                    instanceValidate.validateInvoice, textChanged, null
                   ),
                 ),
                 customFlatButton(

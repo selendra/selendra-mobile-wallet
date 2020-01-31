@@ -42,13 +42,13 @@ class LoginFirstState extends State<LoginFirstScreen> {
 
   String validateInput(String value){ /* Initial Validate */
     if (_modelLogin.label == "email"){
-      _modelLogin.responseEmailPhone = validateInstance.validateEmails(value);
+      _modelLogin.responseEmailPhone = instanceValidate.validateEmails(value);
       setState(() {
         if (_modelLogin.responseEmailPhone == null) _modelLogin.enable1 = true; 
         else _modelLogin.enable1 = false;
       });
     } else {
-      _modelLogin.responseEmailPhone = validateInstance.validatePhone(value);
+      _modelLogin.responseEmailPhone = instanceValidate.validatePhone(value);
       setState(() {
         if (_modelLogin.responseEmailPhone == null) _modelLogin.enable1 = true; 
         else _modelLogin.enable1 = false;

@@ -55,7 +55,7 @@ Widget resetPasswordBody(
                       TextInputAction.next,
                       _modelForgots.controlPhoneNums,
                       _modelForgots.nodePhoneNums,
-                      validateInstance.validatePhone, onChanged, null
+                      instanceValidate.validatePhone, onChanged, null
                     ),
                   ),
                   Container(
@@ -71,7 +71,7 @@ Widget resetPasswordBody(
                       TextInputAction.next,
                       _modelForgots.controlNewPasswords,
                       _modelForgots.nodePasswords,
-                      validateInstance.validatePassword, onChanged, null
+                      instanceValidate.validatePassword, onChanged, null
                     ),
                   ),
                   Container(
@@ -88,7 +88,7 @@ Widget resetPasswordBody(
                       TextInputAction.next,
                       _modelForgots.controlConfirmPasswords,
                       _modelForgots.nodeConfirmPasswords,
-                      validateInstance.validatePassword, onChanged, null
+                      instanceValidate.validatePassword, onChanged, null
                     ),
                   ),
                   Container( /* Verify Code field */
@@ -104,7 +104,7 @@ Widget resetPasswordBody(
                       TextInputAction.next,
                       _modelForgots.controlResetCode,
                       _modelForgots.nodeResetCode,
-                      validateInstance.validatePassword, onChanged, null
+                      instanceValidate.validatePassword, onChanged, null
                     ),
                   ),
                   customFlatButton(/* Request Button */
