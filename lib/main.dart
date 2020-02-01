@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_user_info_screen/add_user_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
@@ -16,6 +17,7 @@ import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 import 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
 
 void main() {
@@ -38,6 +40,8 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
+
+  ModelUserInfo _modelUserInfo = ModelUserInfo();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +69,7 @@ class AppState extends State<App> {
             /* Login Screen */
             '/': (context) =>
               // HomeWidget(),
-              // UserInfo(_modelSignUp),
+              // UserInfo({"": ""}),
               // SignUpFirst(),
               // SmsCode(_modelSignUp),
               WelcomeToZee(),

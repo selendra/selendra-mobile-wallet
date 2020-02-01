@@ -671,17 +671,18 @@ Widget inputField( /* User Input Field */
   );
 }
 
-Widget customDropDown(String label, List list, dynamic _model ,Function changeValue) { /* Custom DropDown */
+Widget customDropDown(String genderLabel, List list, dynamic _model ,Function changeValue) { /* Custom DropDown */
   return Container(
     padding: EdgeInsets.only(top: 11.0, bottom: 11.0, left: 26.0, right: 14.0),
     decoration: BoxDecoration(
       color: getHexaColor("#FFFFFF").withOpacity(0.1),
-      borderRadius: BorderRadius.circular(size5)
+      borderRadius: BorderRadius.circular(size5),
+      border: Border.all(width: 1, color: genderLabel == "Gender" ? Colors.transparent : getHexaColor("#FFFFFF").withOpacity(0.3)) /* Control Border Gender Color */
     ),
     child: Row(
       children: <Widget>[
         Expanded(
-          child: Text(label, style: TextStyle(color: Colors.white, fontSize: 18.0),),
+          child: Text(genderLabel, style: TextStyle(color: Colors.white, fontSize: 18.0),),
         ),
         Theme(
           data: ThemeData(canvasColor: getHexaColor("#FFFFFF").withOpacity(0.1)),
@@ -735,7 +736,7 @@ Widget customDropDown(String label, List list, dynamic _model ,Function changeVa
   //         //       );
   //         //     }).toList(),
   //         //     // /* If Gender */
-  //         //     // label == "Gender" 
+  //         //     // genderLabel == "Gender" 
   //         //     //   ? genderList.map((text) {
   //         //     //     return DropdownMenuItem(
   //         //     //       value: text,
@@ -749,11 +750,11 @@ Widget customDropDown(String label, List list, dynamic _model ,Function changeVa
   //         //     //       child: Text(mapData['document_name']),
   //         //     //     );
   //         //     //   }).toList(),
-  //         //     // value: label == "Gender" ? _model.gender : _modelDocument.documentTypeId,
+  //         //     // value: genderLabel == "Gender" ? _model.gender : _modelDocument.documentTypeId,
   //         //     onChanged: (changed) {
-  //         //       // if (label == "Gender") {
+  //         //       // if (genderLabel == "Gender") {
   //         //       //   setGender(changed);
-  //         //       // } else if ( label == "Document Type") {
+  //         //       // } else if ( genderLabel == "Document Type") {
   //         //       //   setDocumentName(changed);
   //         //       // }
   //         //     },

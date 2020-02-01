@@ -7,7 +7,7 @@ import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 Widget userInfoBodyWidget(
   BuildContext _context, 
   ModelUserInfo _modelUserInfo,
-  Function onChanged, Function changeGender, 
+  Function onSubmit, Function onChanged, Function changeGender, 
   Function validateFirstName, Function validateMidName, Function validateLastName,
   Function submitProfile, Function popScreen
 ) {
@@ -28,6 +28,15 @@ Widget userInfoBodyWidget(
             ],
           )
         ),
+                    Container( /* Gender Picker */
+                      margin: EdgeInsets.only(bottom: 12.0),
+                      child: customDropDown(
+                        _modelUserInfo.genderLabel, 
+                        ["Male", "Female"],
+                        _modelUserInfo, 
+                        changeGender,
+                      ),
+                    ),
         Form(
           key: _modelUserInfo.formStateAddUserInfo,
           child: Expanded( /* Body */
@@ -47,7 +56,7 @@ Widget userInfoBodyWidget(
                         TextInputType.text, TextInputAction.next,
                         _modelUserInfo.controlFirstName,
                         _modelUserInfo.nodeFirstName,
-                        instanceValidate.validateUserInfo, onChanged, validateFirstName
+                        validateFirstName, onChanged, onSubmit
                       ),
                     ),
                     Container( /* Mid Name Field */
@@ -60,7 +69,7 @@ Widget userInfoBodyWidget(
                         TextInputType.text, TextInputAction.next,
                         _modelUserInfo.controlMidName,
                         _modelUserInfo.nodeMidName,
-                        instanceValidate.validateUserInfo, onChanged, validateMidName
+                        validateMidName, onChanged, onSubmit
                       ),
                     ),
                     Container( /* Last Name Field */
@@ -70,19 +79,10 @@ Widget userInfoBodyWidget(
                         "Last Name", null, "userInfoScreen",
                         false, 
                         [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                        TextInputType.text, TextInputAction.next,
+                        TextInputType.text, TextInputAction.done,
                         _modelUserInfo.controlLastName,
                         _modelUserInfo.nodeLastName,
-                        instanceValidate.validateUserInfo, onChanged, validateLastName
-                      ),
-                    ),
-                    Container( /* Gender Picker */
-                      margin: EdgeInsets.only(bottom: 12.0),
-                      child: customDropDown(
-                        _modelUserInfo.genderLabel, 
-                        ["Male", "Female"],
-                        _modelUserInfo, 
-                        changeGender,
+                        validateLastName, onChanged, onSubmit
                       ),
                     ),
                     customFlatButton( /* Submit Button */

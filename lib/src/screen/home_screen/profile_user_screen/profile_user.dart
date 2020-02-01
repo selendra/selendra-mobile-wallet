@@ -48,12 +48,12 @@ class ProfileUserState extends State<ProfileUser> {
   }
 
   void setUserInfo() async {
-    print(widget._userData['gender']);
     _modelUserInfo.userData = {
       "first_name": widget._userData['first_name'],
       "mid_name": widget._userData['mid_name'],
       "last_name": widget._userData['last_name'],
-      "gender": widget._userData['gender'] == "M" ? "Male" : "Female"
+      "gender": widget._userData['gender'] == "M" ? "Male" : "Female",
+      "label": "profile"
     };
     // _modelUserInfo.controlMidName.text = widget._userData['mid_name'];
     // _modelUserInfo.controlLastName.text = widget._userData['last_name'];
@@ -141,7 +141,6 @@ class ProfileUserState extends State<ProfileUser> {
     Navigator.pop(context, _result);
   }
 
-  /* Build Function */
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,

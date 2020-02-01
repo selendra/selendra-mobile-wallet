@@ -26,7 +26,7 @@ class UserInfoState extends State<UserInfo> {
 
   @override
   void initState() {
-    if (widget._userData['label'] != 'profile') {
+    if (widget._userData['label'] == 'profile') {
       replaceDataToController();
     }
     else if (widget._userData['label'] == 'email' || widget._userData['phone']){
@@ -78,12 +78,16 @@ class UserInfoState extends State<UserInfo> {
     } catch (err) {}
   } 
   void changeGender(String gender) async { /* Change Select Gender */
+    print("Hello gender");
     _modelUserInfo.genderLabel = gender;
-    if (gender == "Male") _modelUserInfo.gender = "M";
-    else _modelUserInfo.gender = "F";
-    _modelUserInfo.genderLabel = gender;
+
+    if (gender == "Male") 
+      _modelUserInfo.gender = "M";
+    else 
+      _modelUserInfo.gender = "F";
     await Future.delayed(Duration(milliseconds: 100), () {
       setState(() { /* Unfocus All Field */
+        if (_modelUserInfo.gender != null) setState(() => _modelUserInfo.enable = true); /* Enable Button If User Set Gender */
         _modelUserInfo.nodeFirstName.unfocus();
         _modelUserInfo.nodeMidName.unfocus();
         _modelUserInfo.nodeLastName.unfocus();
@@ -93,11 +97,13 @@ class UserInfoState extends State<UserInfo> {
 
   void onSubmit(BuildContext context) {
     if (_modelUserInfo.nodeFirstName.hasFocus) {
-      FocusScope.of(context).requestFocus(_modelUserInfo.nodeFirstName);
-    } else if (_modelUserInfo.nodeMidName.hasFocus) {
       FocusScope.of(context).requestFocus(_modelUserInfo.nodeMidName);
+    } else if (_modelUserInfo.nodeMidName.hasFocus) {
+      FocusScope.of(context).requestFocus(_modelUserInfo.nodeLastName);
     } else {
-      if (_modelUserInfo.gender != null) submitProfile(context);
+      _modelUserInfo.nodeFirstName.unfocus();
+      _modelUserInfo.nodeMidName.unfocus();
+      _modelUserInfo.nodeLastName.unfocus();
     }
   }
 
@@ -106,18 +112,39 @@ class UserInfoState extends State<UserInfo> {
   }
 
   String validateFirstName(String value){
-    _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
-    return "${_modelUserInfo.responseFirstname}first name";
+    if (_modelUserInfo.nodeFirstName.hasFocus){
+      _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
+      if (_modelUserInfo.responseFirstname == null) return null;
+      return "${_modelUserInfo.responseFirstname}first name";
+    }
+    return null;
   }
 
   String validateMidName(String value){
-    _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
-    return "${_modelUserInfo.responseFirstname}mid name";
+    if (_modelUserInfo.nodeMidName.hasFocus){
+      _modelUserInfo.responseMidname = instanceValidate.validateUserInfo(value);
+      if (_modelUserInfo.responseMidname == null) return null;
+      return "${_modelUserInfo.responseMidname}mid name";
+    }
+    return null;
   }
 
   String validateLastName(String value){
-    _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
-    return "${_modelUserInfo.responseFirstname}last name";
+    if (_modelUserInfo.nodeLastName.hasFocus){
+      _modelUserInfo.responseLastname = instanceValidate.validateUserInfo(value);
+      if (_modelUserInfo.responseLastname == null) return null;
+      return "${_modelUserInfo.responseLastname}last name";
+    }
+    return null;
+  }
+
+  @override
+  void dispose() { /* Clear Everything When Pop Screen */
+    _modelUserInfo.controlFirstName.clear();
+    _modelUserInfo.controlMidName.clear();
+    _modelUserInfo.controlLastName.clear();
+    _modelUserInfo.enable = false;
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -126,7 +153,7 @@ class UserInfoState extends State<UserInfo> {
         16.0, 16.0, 16.0, 0, color1, color2, 
         userInfoBodyWidget(
           context, _modelUserInfo, 
-          onChanged, changeGender, 
+          onSubmit, onChanged, changeGender, 
           validateFirstName, validateMidName, validateLastName,
           submitProfile, popScreen
         )
