@@ -13,7 +13,8 @@ class ModelScanInvoice {
     controlLocation = TextEditingController(text: ""),
     controlApproveCode = TextEditingController(text: "");
 
-  FocusNode nodeBill = FocusNode(), nodeAmount = FocusNode(), nodeApproveCode = FocusNode();
+  FocusNode nodeBillNo = FocusNode(), nodeAmount = FocusNode(), nodeApproveCode = FocusNode();
+  FocusNode nodeLocation = FocusNode();
 
   SimpleAutoCompleteTextField textField;
 
@@ -21,8 +22,10 @@ class ModelScanInvoice {
 
   List<String> listNameOfBranches = [], listIdOfBranch = [];
 
-  String shopName;
+  String shopName, responseLocation, responseBillNO, responseAmount;
   Map<String, dynamic> imageUri; 
+
+  bool enable1 = false, enable2 = false;
   
   File imageCapture;
 }

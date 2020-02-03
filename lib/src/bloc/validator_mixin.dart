@@ -45,6 +45,7 @@ class ValidateMixin {
   /* -----------Invoice Field---------- */
 
   String validateInvoice(String value){
+    if (value == '') return "Fil your ";
     return null;
   }
   String validateAuthCode(String value){

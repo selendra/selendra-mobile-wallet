@@ -653,7 +653,6 @@ Widget inputField( /* User Input Field */
     inputFormatters: textInputFormatter, /* Limit Length Of Text Input */
     onChanged: (valueChange) {
       if (
-        widgetName == "invoiceInfoScreen" || 
         widgetName == "addAssetScreen" || 
         widgetName == "loginFirstScreen" ||
         widgetName == "loginSecondScreen" ||
