@@ -27,7 +27,6 @@ class UserInfoState extends State<UserInfo> {
   @override
   void initState() {
     if (widget._userData['label'] == 'profile') {
-      print("Profile");
       replaceDataToController();
     }
      else if (widget._userData['label'] == 'email' || widget._userData['label'] == 'phone'){
@@ -61,21 +60,6 @@ class UserInfoState extends State<UserInfo> {
     _modelUserInfo.genderLabel = widget._userData['gender'];
   }
 
-  void submitProfile(BuildContext context) async { /* Submit Profile User */
-    dialogLoading(context); /* Show Loading Process */
-    var response = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
-    Navigator.pop(context); /* Close Loading Process */
-    if (response != null && _modelUserInfo.token == null) { /* Set Profile Success */
-      await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
-      clearStorage();
-      Future.delayed(Duration(microseconds: 500), () {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
-      });
-    } else { /* Edit Profile Success */
-      await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
-      Navigator.pop(context);
-    }
-  } 
   void changeGender(String gender) async { /* Change Select Gender */
     _modelUserInfo.genderLabel = gender;
 
@@ -136,6 +120,31 @@ class UserInfoState extends State<UserInfo> {
     return _modelUserInfo.responseLastname;
   }
 
+  void validateAllField(BuildContext context) {
+    print(_modelUserInfo.controlFirstName.text);
+    print(_modelUserInfo.controlMidName.text);
+    print(_modelUserInfo.controlLastName.text);
+    print(_modelUserInfo.gender);
+    submitProfile(context);
+  }
+
+
+  void submitProfile(BuildContext context) async { /* Submit Profile User */
+    // dialogLoading(context); /* Show Loading Process */
+    // _modelUserInfo.submitResponse = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
+    // Navigator.pop(context); /* Close Loading Process */
+    // if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) { /* Set Profile Success */
+    //   await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+    //   clearStorage();
+    //   Future.delayed(Duration(microseconds: 500), () {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
+    //   });
+    // } else { /* Edit Profile Success */
+    //   await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+    //   Navigator.pop(context);
+    // }
+  } 
+
   @override
   void dispose() { /* Clear Everything When Pop Screen */
     _modelUserInfo.controlFirstName.clear();
@@ -153,7 +162,7 @@ class UserInfoState extends State<UserInfo> {
           context, _modelUserInfo, 
           onSubmit, onChanged, changeGender, 
           validateFirstName, validateMidName, validateLastName,
-          submitProfile, popScreen
+          validateAllField, popScreen
         )
       ),
     );

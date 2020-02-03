@@ -31,13 +31,13 @@ class InvoiceSummaryState extends State<InvoiceSummary>  {
 
   } 
 
-  void confirmInvoice(Bloc _bloc, BuildContext _context) async {
+  void confirmInvoice(BuildContext _context) async {
     dialogLoading(_context); /* Loading Process */
-    var _response = await addReceipt(widget._modelScanInvoice);
+    Map<String, dynamic> _response = await addReceipt(widget._modelScanInvoice);
     if (!_response.containsKey("error")){ /* Display Messager To Dialog Box */
       await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(blueColor),)); /* Show Response */
       Navigator.pop(context);
-      Navigator.pushAndRemoveUntil( 
+      Navigator.pushAndRemoveUntil(
         context, 
         MaterialPageRoute(builder: (context) => Dashboard()), 
         ModalRoute.withName('/')

@@ -167,7 +167,15 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                     ],
                   ),
                 ),
-                portfolioData == null ? Container() /* Retreive Porfolio Null => Have No List */ 
+                portfolioData == null ? Container( /* Retreive Porfolio Null => Have No List */
+                  width: double.infinity,
+                  padding: EdgeInsets.only(bottom: 11.5),
+                  margin: EdgeInsets.only(left: 4.0, top: 10.5),
+                  decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1), width: 1.5))
+                  ),
+                  child: Row(children: <Widget>[Text("You have no wallet yet")],),
+                )  
                 : portfolioData.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */ 
                 : ListView.builder( /* Build Portfolio If Have List Of Portfolio */
                   padding: EdgeInsets.all(0),
@@ -186,8 +194,7 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                         child: InkWell(
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              /* Asset Icons */
+                            children: <Widget>[ /* Asset Icons */
                               Container(
                                 margin: EdgeInsets.only(right: 9.5),
                                 width: 22.0, 

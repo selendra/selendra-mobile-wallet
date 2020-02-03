@@ -11,6 +11,8 @@ class ModelUserInfo {
   String token, genderLabel = "Gender", gender;
   String responseFirstname, responseMidname, responseLastname;
 
+  var submitResponse;
+
   bool enable = false;
 
   FocusNode nodeFirstName = FocusNode();

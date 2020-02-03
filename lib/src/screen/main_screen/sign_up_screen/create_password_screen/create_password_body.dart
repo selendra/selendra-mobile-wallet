@@ -28,64 +28,66 @@ Widget createPasswordBodyWidget(
         )
       ),
       Expanded( /* Body */
-        child: Container(
-          margin: EdgeInsets.only(left: 27.0, right: 27.0, top: 27.0),
-          child: Form(
-            key: _modelSignUp.formStatePassword,
-            child: Column(
-            children: <Widget>[
-              Container( /* Password Field */
-                margin: EdgeInsets.only(bottom: 12.0),
-                child: inputField(
-                  _context,
-                  "Password",
-                  null,
-                  "createPasswordScreen",
-                  true,
-                  [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                  TextInputType.text,
-                  TextInputAction.next,
-                  _modelSignUp.controlPassword,
-                  _modelSignUp.nodePassword,
-                  validatePass1, onChanged, onSubmit
-                ),
+        child: SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(left: 27.0, right: 27.0, top: 27.0),
+            child: Form(
+              key: _modelSignUp.formStatePassword,
+              child: Column(
+                children: <Widget>[
+                  Container( /* Password Field */
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: inputField(
+                      _context,
+                      "Password",
+                      null,
+                      "createPasswordScreen",
+                      true,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                      TextInputType.text,
+                      TextInputAction.next,
+                      _modelSignUp.controlPassword,
+                      _modelSignUp.nodePassword,
+                      validatePass1, onChanged, onSubmit
+                    ),
+                  ),
+                  Container( /* Confirm Password Field */
+                    margin: EdgeInsets.only(bottom: 12.0),
+                    child: inputField(
+                      _context,
+                      "Confirm Password",
+                      null,
+                      "createPasswordScreen",
+                      true,
+                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                      TextInputType.text,
+                      TextInputAction.done,
+                      _modelSignUp.controlConfirmPassword,
+                      _modelSignUp.nodeConfirmPassword,
+                      validatePass2, onChanged, onSubmit
+                    ),
+                  ),
+                  _modelSignUp.isNotMatch == false
+                  ? Container()
+                  : Text(
+                    "Confirm password not match !",
+                    style: TextStyle(fontSize: 18.0, color: Colors.red),
+                  ),
+                  customFlatButton( /* Button Request Code */
+                    _context,
+                    "Sign Up Now",
+                    "signUpFirstScreen",
+                    greenColor,
+                    FontWeight.normal,
+                    size18,
+                    EdgeInsets.only(top: size10, bottom: size10),
+                    EdgeInsets.only(top: size15, bottom: size15),
+                    BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
+                    _modelSignUp.enable2 == true ? navigatePage : null
+                  )
+                ],
               ),
-              Container( /* Confirm Password Field */
-                margin: EdgeInsets.only(bottom: 12.0),
-                child: inputField(
-                  _context,
-                  "Confirm Password",
-                  null,
-                  "createPasswordScreen",
-                  true,
-                  [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                  TextInputType.text,
-                  TextInputAction.done,
-                  _modelSignUp.controlConfirmPassword,
-                  _modelSignUp.nodeConfirmPassword,
-                  validatePass2, onChanged, onSubmit
-                ),
-              ),
-              _modelSignUp.isNotMatch == false
-              ? Container()
-              : Text(
-                "Confirm password not match !",
-                style: TextStyle(fontSize: 18.0, color: Colors.red),
-              ),
-              customFlatButton( /* Button Request Code */
-                _context,
-                "Sign Up Now",
-                "signUpFirstScreen",
-                greenColor,
-                FontWeight.normal,
-                size18,
-                EdgeInsets.only(top: size10, bottom: size10),
-                EdgeInsets.only(top: size15, bottom: size15),
-                BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
-                _modelSignUp.enable2 == true ? navigatePage : null
-              )
-            ],
-          ),
+            ),
           ),
         ),
       )

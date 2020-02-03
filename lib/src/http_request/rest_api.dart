@@ -12,6 +12,7 @@ import 'package:wallet_apps/src/model/model_forgot_pass.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/model/model_scan_pay.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
+import 'package:wallet_apps/src/model/model_user_info.dart';
 
 /* Zeetomic api user data*/
 final _url = "https://testnet-api.zeetomic.com/pub/v1";
@@ -56,10 +57,13 @@ Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums,
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> uploadUserProfile(
-    dynamic _model, String _endpoints) async {
-  /* Post User Information */
+Future<Map<String, dynamic>> uploadUserProfile(ModelUserInfo _model, String _endpoints) async { /* Post User Information */
   _token = await Provider.fetchToken();
+  print(_token);
+  print(_model.controlFirstName.text);
+  print(_model.controlMidName.text);
+  print(_model.controlLastName.text);
+  print(_model.gender);
   _bodyEncode = json.encode({
     "first_name": _model.controlFirstName.text,
     "mid_name": _model.controlMidName.text,
@@ -67,9 +71,11 @@ Future<Map<String, dynamic>> uploadUserProfile(
     "gender": _model.gender
   });
   if (_token != null) {
-    _response = await _http.post("$_url/userprofile",
-        headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
-        body: _bodyEncode);
+    _response = await _http.post(
+      "$_url/userprofile",
+      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+      body: _bodyEncode
+    );
     return json.decode(_response.body);
   }
   return null;
@@ -152,6 +158,11 @@ Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) asyn
     "approval_code": _modelScanInvoice.controlApproveCode.text
   });
   _token = await Provider.fetchToken();
+  print(_token);
+  print(_modelScanInvoice.controlBillNO.text);
+  print(_modelScanInvoice.controlLocation.text);
+  print(_modelScanInvoice.controlAmount.text);
+  print(_modelScanInvoice.controlApproveCode.text);
   if (_token != null) {
     _response = await _http.post("$_url/addreceipt",
         headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
@@ -226,9 +237,9 @@ Future<Map<String, dynamic>> changePassword(ModelChangePassword _model) async {
 
 /* --------------------------------Get Request------------------------------------ */
 
-Future<Map<String, dynamic>> getUserProfile() async {
-  /* Get User Profile */
+Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */
   _token = await Provider.fetchToken();
+  print(_token);
   if (_token != null) {
     _response = await _http.get("$_url/userprofile",
         headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));

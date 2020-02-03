@@ -71,14 +71,14 @@ class CreatePasswordState extends State<CreatePassword> {
       } else {
         dialogLoading(context);
         if (widget._modelSignUp.label == "email") { /* Post Register By Email */
-          // widget._modelSignUp.response = await widget._modelSignUp.bloc.registerMethod(
-          //   context,
-          //   widget._modelSignUp.controlEmails.text,
-          //   widget._modelSignUp.controlPassword.text,
-          //   "/registerbyemail",
-          //   "email"
-          // );
-          // if (widget._modelSignUp.response == true) {
+          widget._modelSignUp.response = await widget._modelSignUp.bloc.registerMethod(
+            context,
+            widget._modelSignUp.controlEmails.text,
+            widget._modelSignUp.controlPassword.text,
+            "/registerbyemail",
+            "email"
+          );
+          if (widget._modelSignUp.response == true) {
             widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
               "email": widget._modelSignUp.controlEmails.text,
               "passwords": widget._modelSignUp.controlPassword.text,
@@ -92,16 +92,16 @@ class CreatePasswordState extends State<CreatePassword> {
                 )
               );
             });
-          // }
+          } else Navigator.pop(context); /* Close Dialog Process */
         } else { /* Post Register By Phone Number */
-          // widget._modelSignUp.response = await widget._modelSignUp.bloc.registerMethod(
-          //   context,
-          //   "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
-          //   widget._modelSignUp.controlConfirmPassword.text,
-          //   "/registerbyphone",
-          //   "phone"
-          // );
-          // if (widget._modelSignUp.response == true) { /* Change To True When your testing done */
+          widget._modelSignUp.response = await widget._modelSignUp.bloc.registerMethod(
+            context,
+            "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
+            widget._modelSignUp.controlConfirmPassword.text,
+            "/registerbyphone",
+            "phone"
+          );
+          if (widget._modelSignUp.response == true) { /* Change To True When your testing done */
             widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
               "email": widget._modelSignUp.controlPhoneNums.text,
               "passwords": widget._modelSignUp.controlPassword.text,
@@ -116,7 +116,7 @@ class CreatePasswordState extends State<CreatePassword> {
               );
               // Navigator.push(context, MaterialPageRoute(builder: (context) => SmsCode(widget._modelSignUp)));
             });
-          // }
+          } else Navigator.pop(context); /* Close Dialog Process */
         }
       }
     }
@@ -126,7 +126,7 @@ class CreatePasswordState extends State<CreatePassword> {
     if (widget._modelSignUp.nodePassword.hasFocus) {
       FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPassword);
     } else { /* Prevent Submit On Smart Keyboard */ 
-      navigatePage(context);
+      if (widget._modelSignUp.enable2 == true) navigatePage(context);
     }
   }
   
@@ -138,7 +138,7 @@ class CreatePasswordState extends State<CreatePassword> {
   void dispose() {
     widget._modelSignUp.controlPassword.clear();
     widget._modelSignUp.controlConfirmPassword.clear();
-    widget._modelSignUp.isNotMatch = true;
+    widget._modelSignUp.isNotMatch = false;
     widget._modelSignUp.enable2 = false;
     widget._modelSignUp.responsePass1 = null;
     widget._modelSignUp.responsePass2 = null;

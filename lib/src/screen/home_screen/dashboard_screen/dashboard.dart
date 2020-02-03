@@ -145,7 +145,7 @@ class DashboardState extends State<Dashboard> {
     getUserData(); 
   }
   
-  void toReceiveToken(BuildContext context) {
+  void toReceiveToken(BuildContext context) { /* Navigate Receive Token */
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.userData['wallet'])));
   }
   
@@ -173,7 +173,6 @@ class DashboardState extends State<Dashboard> {
                     padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
                     child: Image.asset("assets/${_modelDashboard.titleAppBar}", width: 140.53, height: double.infinity, alignment: Alignment.centerLeft),
                   ),
-                  //containerTitle("Dashboard", double.infinity, Colors.white, FontWeight.bold), /* Title AppBar */
                   Expanded(
                     child: Container(),
                   ),
@@ -193,9 +192,6 @@ class DashboardState extends State<Dashboard> {
                 child: dashboardBodyWidget(
                   context, bloc, _modelDashboard.chartKey, _modelDashboard.portfolio, _modelDashboard
                 ),
-                // _modelDashboard.userData == null ? loading() // Body Widget
-                //   : _modelDashboard.userData['queryUserById'] == null 
-                //   ? reQuery(loading(), queryUser(_modelDashboard.userId), "Home", getUserData) : ,
                 onRefresh: _pullUpRefresh,
               ),
             )
