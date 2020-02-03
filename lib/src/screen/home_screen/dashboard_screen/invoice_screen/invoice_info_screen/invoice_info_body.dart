@@ -10,8 +10,8 @@ import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 Widget invoiceBodyWidget(
   BuildContext _context,
   ModelScanInvoice _modelScanInvoice,
-  Function shopChanged, Function onChanged,  
-  Function validateLocation, Function validateBillNO, Function validateAmount,
+  Function shopChanged, Function onChanged, Function onSubmit,
+  Function validateLocation, Function validateBillNO, Function validateAmount, Function validateAllField,
   Function toSummaryInvoice, Function popScreen,
 ) {
   return scaffoldBGDecoration(
@@ -34,7 +34,7 @@ Widget invoiceBodyWidget(
           )
         ),
         Form(
-          key: _modelScanInvoice.formStateScanInvoice,
+          key: _modelScanInvoice.formState1,
           child: Expanded(
             child: Container(
               margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 34.0),
@@ -54,7 +54,6 @@ Widget invoiceBodyWidget(
                             clearOnSubmit: true,
                             focusNode: _modelScanInvoice.nodeLocation,
                             textSubmitted: validateLocation,
-                            // onFocusChanged: validateLocation,
                             decoration: InputDecoration(
                               labelText: "Store Location",
                               fillColor: getHexaColor("FFFFFF").withOpacity(0.15), filled: true,
@@ -103,6 +102,7 @@ Widget invoiceBodyWidget(
                           icon: Icon(OMIcons.close),
                           onPressed: () {
                             _modelScanInvoice.controlLocation.clear();
+                            validateAllField();
                           },
                         ),
                       )
@@ -118,7 +118,7 @@ Widget invoiceBodyWidget(
                       TextInputType.text, TextInputAction.next,
                       _modelScanInvoice.controlBillNO, 
                       _modelScanInvoice.nodeBillNo, 
-                      validateBillNO, onChanged, null
+                      validateBillNO, onChanged, onSubmit
                     ),
                   ),
                   Container(
@@ -131,7 +131,7 @@ Widget invoiceBodyWidget(
                       TextInputType.number, TextInputAction.done, 
                       _modelScanInvoice.controlAmount, 
                       _modelScanInvoice.nodeAmount, 
-                      validateAmount, onChanged, null
+                      validateAmount, onChanged, onSubmit
                     ),
                   ),
                   customFlatButton(

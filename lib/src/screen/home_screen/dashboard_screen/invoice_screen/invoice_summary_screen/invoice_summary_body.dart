@@ -8,7 +8,9 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_scre
 Widget invoiceSummaryBodyWidget(
   BuildContext _context,
   ModelScanInvoice _modelScanInvoice,
-  Function onChanged, Function confirmInvoice, Function popScreen
+  Function onChanged, Function onSubmit, 
+  Function validateApproveCode,
+  Function confirmInvoice, Function popScreen
 ) {
   return SingleChildScrollView(
     physics: BouncingScrollPhysics(),
@@ -51,17 +53,20 @@ Widget invoiceSummaryBodyWidget(
             ),
           ),
         ),
-        Container( /* Authorization Code */
-          margin: EdgeInsets.only(left: 27, right: 27.0, top: 27.0),
-          child: inputField(
-            _context, 
-            "Authorization code", null, "invoiceSummary", 
-            true, 
-            [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-            TextInputType.text, TextInputAction.done,
-            _modelScanInvoice.controlApproveCode, 
-            _modelScanInvoice.nodeApproveCode, 
-            instanceValidate.validateAuthCode, onChanged, confirmInvoice
+        Form(
+          key: _modelScanInvoice.formState2,
+          child: Container( /* Authorization Code */
+            margin: EdgeInsets.only(left: 27, right: 27.0, top: 27.0),
+            child: inputField(
+              _context, 
+              "Authorization code", null, "invoiceSummary", 
+              true, 
+              [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+              TextInputType.text, TextInputAction.done,
+              _modelScanInvoice.controlApproveCode, 
+              _modelScanInvoice.nodeApproveCode, 
+              validateApproveCode, onChanged, onSubmit
+            ),
           ),
         ),
         Container(
@@ -77,8 +82,8 @@ Widget invoiceSummaryBodyWidget(
               color: Color.fromRGBO(0,0,0,0.54),
               blurRadius: 5.0
             ),
-            confirmInvoice
-          )
+            _modelScanInvoice.enable2 == false ? null : confirmInvoice
+          ),
           // SliderButton(
           //   boxShadow: BoxShadow(color: Colors.transparent, blurRadius: 0.0),
           //   buttonColor: Colors.black54,

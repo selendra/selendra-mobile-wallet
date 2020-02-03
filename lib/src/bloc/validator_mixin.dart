@@ -48,9 +48,6 @@ class ValidateMixin {
     if (value == '') return "Fil your ";
     return null;
   }
-  String validateAuthCode(String value){
-    return null;
-  }
 
   /* ----------Profile User---------- */
   String validatePin(String value){

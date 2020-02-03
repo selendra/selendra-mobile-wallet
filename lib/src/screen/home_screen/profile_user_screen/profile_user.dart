@@ -149,14 +149,10 @@ class ProfileUserState extends State<ProfileUser> {
         physics: BouncingScrollPhysics(),
         controller: _refreshController,
         onRefresh: _reFresh,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height,
-              alignment: Alignment.center,
-              child: profileUserBodyWidget(isHaveWallet, context, _modelUserInfo.userData, widget._userData['wallet'], snackBar, dialogBox, popScreen),
-            ),
-          ],
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          alignment: Alignment.center,
+          child: profileUserBodyWidget(isHaveWallet, context, _modelUserInfo.userData, widget._userData['wallet'], snackBar, dialogBox, popScreen),
         )
       )
     );

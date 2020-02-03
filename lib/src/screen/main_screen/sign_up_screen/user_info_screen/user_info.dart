@@ -124,10 +124,14 @@ class UserInfoState extends State<UserInfo> {
     Navigator.pop(context); /* Close Loading Process */
     if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) { /* Set Profile Success */
       await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
-      clearStorage();
-      Future.delayed(Duration(microseconds: 500), () {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
-      });
+      if (widget._userData['label'] == 'profile') {
+        Navigator.pop(context);
+      } else {
+        clearStorage();
+        Future.delayed(Duration(microseconds: 500), () {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
+        });
+      }
     } else { /* Edit Profile Success */
       await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
       Navigator.pop(context);

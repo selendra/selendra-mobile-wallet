@@ -230,7 +230,6 @@ Future<Map<String, dynamic>> changePassword(ModelChangePassword _model) async {
 
 Future<Map<String, dynamic>> getUserProfile() async { /* Get User Profile */
   _token = await Provider.fetchToken();
-  print(_token);
   if (_token != null) {
     _response = await _http.get("$_url/userprofile",
         headers: _conceteHeader("authorization", "Bearer ${_token['token']}"));

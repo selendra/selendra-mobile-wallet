@@ -228,8 +228,7 @@ Widget customFlatButton(
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
       onPressed: action == null ? null : () {
-        if (widgetName == "invoiceInfoScreen") action(); 
-        else action(context);
+        action(context);
       }
     ),
   );

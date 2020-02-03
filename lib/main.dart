@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_user_info_screen/add_user_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/fill_documents.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
@@ -41,7 +43,7 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
 
-  ModelUserInfo _modelUserInfo = ModelUserInfo();
+  ModelScanInvoice _modelUserInfo = ModelScanInvoice();
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,7 @@ class AppState extends State<App> {
           routes: <String, WidgetBuilder>{
             /* Login Screen */
             '/': (context) =>
+            // InvoiceSummary(_modelUserInfo),
               // HomeWidget(),
               // UserInfo({"label": "fuckyou"}),
               // SignUpFirst(),

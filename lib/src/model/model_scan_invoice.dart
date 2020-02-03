@@ -6,7 +6,8 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelScanInvoice {
   
-  final formStateScanInvoice = GlobalKey<FormState>();
+  final formState1 = GlobalKey<FormState>();
+  final formState2 = GlobalKey<FormState>();
 
   TextEditingController controlBillNO = TextEditingController(text: ""), 
     controlAmount = TextEditingController(text: ""), 
@@ -22,7 +23,7 @@ class ModelScanInvoice {
 
   List<String> listNameOfBranches = [], listIdOfBranch = [];
 
-  String shopName, responseLocation, responseBillNO, responseAmount;
+  String shopName, responseLocation, responseBillNO, responseAmount, responseApproveCode;
   Map<String, dynamic> imageUri; 
 
   bool enable1 = false, enable2 = false;
