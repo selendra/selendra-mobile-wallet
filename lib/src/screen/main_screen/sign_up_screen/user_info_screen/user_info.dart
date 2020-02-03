@@ -30,6 +30,7 @@ class UserInfoState extends State<UserInfo> {
       replaceDataToController();
     }
      else if (widget._userData['label'] == 'email' || widget._userData['label'] == 'phone'){
+      print(widget._userData['label']);
       getTokenByLogin();
     }
     super.initState();
@@ -40,17 +41,15 @@ class UserInfoState extends State<UserInfo> {
   }
 
   void getTokenByLogin() async { /* Get Token To Make Authentication With Add User Info */
-    await fetchData("user_token").then((_response) async {
-      if (_response == null){
-        var _res = await userLogin(
-          widget._userData['email_Phone'], 
-          widget._userData['password'], 
-          widget._userData['label'] == "email" ? "/loginbyemail" : "/loginbyphone", 
-          widget._userData['label'] 
-        );
-        await setData(_res, "user_token");
-      }
-    });
+    Map<String, dynamic> _res = await userLogin(
+      widget._userData['email_phone'], 
+      widget._userData['passwords'], 
+      widget._userData['label'] == "email" ? "/loginbyemail" : "/loginbyphone", 
+      widget._userData['label'] 
+    );
+    if (_res.containsKey('token')){
+      await setData(_res, "user_token");
+    }
   }
 
   void replaceDataToController(){ /* Replace Data From Profile Screen After Push User Informtaion Screen */
@@ -62,7 +61,6 @@ class UserInfoState extends State<UserInfo> {
 
   void changeGender(String gender) async { /* Change Select Gender */
     _modelUserInfo.genderLabel = gender;
-
     if (gender == "Male") 
       _modelUserInfo.gender = "M";
     else 
@@ -120,29 +118,20 @@ class UserInfoState extends State<UserInfo> {
     return _modelUserInfo.responseLastname;
   }
 
-  void validateAllField(BuildContext context) {
-    print(_modelUserInfo.controlFirstName.text);
-    print(_modelUserInfo.controlMidName.text);
-    print(_modelUserInfo.controlLastName.text);
-    print(_modelUserInfo.gender);
-    submitProfile(context);
-  }
-
-
   void submitProfile(BuildContext context) async { /* Submit Profile User */
-    // dialogLoading(context); /* Show Loading Process */
-    // _modelUserInfo.submitResponse = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
-    // Navigator.pop(context); /* Close Loading Process */
-    // if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) { /* Set Profile Success */
-    //   await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
-    //   clearStorage();
-    //   Future.delayed(Duration(microseconds: 500), () {
+    dialogLoading(context); /* Show Loading Process */
+    _modelUserInfo.submitResponse = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
+    Navigator.pop(context); /* Close Loading Process */
+    if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) { /* Set Profile Success */
+      await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      clearStorage();
+      Future.delayed(Duration(microseconds: 500), () {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
-    //   });
-    // } else { /* Edit Profile Success */
-    //   await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
-    //   Navigator.pop(context);
-    // }
+      });
+    } else { /* Edit Profile Success */
+      await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      Navigator.pop(context);
+    }
   } 
 
   @override
@@ -162,7 +151,7 @@ class UserInfoState extends State<UserInfo> {
           context, _modelUserInfo, 
           onSubmit, onChanged, changeGender, 
           validateFirstName, validateMidName, validateLastName,
-          validateAllField, popScreen
+          submitProfile, popScreen
         )
       ),
     );

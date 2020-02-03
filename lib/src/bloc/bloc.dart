@@ -64,7 +64,7 @@ class Bloc with ValidateMixin {
     String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label
   ) async {
     return await userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
-      Navigator.pop(context); /* Close Loading Screen */ 
+      Navigator.pop(context); /* Close Loading Screen */
       await dialog(
         context, 
         Text((_response['message'])), /* Sub Title */

@@ -80,7 +80,7 @@ class CreatePasswordState extends State<CreatePassword> {
           );
           if (widget._modelSignUp.response == true) {
             widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
-              "email": widget._modelSignUp.controlEmails.text,
+              "email_phone": widget._modelSignUp.controlEmails.text,
               "passwords": widget._modelSignUp.controlPassword.text,
               "label": widget._modelSignUp.label
             };
@@ -103,7 +103,7 @@ class CreatePasswordState extends State<CreatePassword> {
           );
           if (widget._modelSignUp.response == true) { /* Change To True When your testing done */
             widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
-              "email": widget._modelSignUp.controlPhoneNums.text,
+              "email_phone": widget._modelSignUp.controlPhoneNums.text,
               "passwords": widget._modelSignUp.controlPassword.text,
               "label": widget._modelSignUp.label
             };

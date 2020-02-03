@@ -59,11 +59,6 @@ Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums,
 
 Future<Map<String, dynamic>> uploadUserProfile(ModelUserInfo _model, String _endpoints) async { /* Post User Information */
   _token = await Provider.fetchToken();
-  print(_token);
-  print(_model.controlFirstName.text);
-  print(_model.controlMidName.text);
-  print(_model.controlLastName.text);
-  print(_model.gender);
   _bodyEncode = json.encode({
     "first_name": _model.controlFirstName.text,
     "mid_name": _model.controlMidName.text,
@@ -94,8 +89,7 @@ Future<Map<String, dynamic>> retreiveWallet(String _pins) async {
   return null;
 }
 
-Future<Map<String, dynamic>> addAsset(dynamic _model) async {
-  /* Add New Asset */
+Future<Map<String, dynamic>> addAsset(dynamic _model) async { /* Add New Asset */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "asset-code": _model.controlAssetCode.text,
@@ -103,15 +97,15 @@ Future<Map<String, dynamic>> addAsset(dynamic _model) async {
   });
   if (_token != null) {
     _response = await _http.post("$_url/userprofile",
-        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
-        body: _bodyEncode);
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      body: _bodyEncode
+    );
     return json.decode(_response.body);
   }
   return null;
 }
 
-Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async {
-  /* QR Code Send Request */
+Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code Send Request */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "pin": _model.pin,
@@ -122,8 +116,9 @@ Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async {
   });
   if (_token != null) {
     _response = await _http.post("$_url/sendpayment",
-        headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
-        body: _bodyEncode);
+      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+      body: _bodyEncode
+    );
     Map<String, dynamic> _decode = json.decode(_response.body);
     _decode.addAll({"status_code": _response.statusCode});
     return _decode;
@@ -131,8 +126,7 @@ Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async {
   return null;
 }
 
-Future<Map<String, dynamic>> addMerchant(dynamic _model) async {
-  /* Add New Merchant */
+Future<Map<String, dynamic>> addMerchant(dynamic _model) async { /* Add New Merchant */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({
     "asset-code": _model.controlAssetCode.text,
@@ -142,8 +136,9 @@ Future<Map<String, dynamic>> addMerchant(dynamic _model) async {
   });
   if (_token != null) {
     _response = await _http.post("$_url/sendpayment",
-        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
-        body: _bodyEncode);
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      body: _bodyEncode
+    );
     return json.decode(_response.body);
   }
   return null;
@@ -158,15 +153,11 @@ Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) asyn
     "approval_code": _modelScanInvoice.controlApproveCode.text
   });
   _token = await Provider.fetchToken();
-  print(_token);
-  print(_modelScanInvoice.controlBillNO.text);
-  print(_modelScanInvoice.controlLocation.text);
-  print(_modelScanInvoice.controlAmount.text);
-  print(_modelScanInvoice.controlApproveCode.text);
   if (_token != null) {
     _response = await _http.post("$_url/addreceipt",
-        headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
-        body: _bodyEncode);
+      headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
+      body: _bodyEncode
+    );
     return json.decode(_response.body);
   }
   return null;
