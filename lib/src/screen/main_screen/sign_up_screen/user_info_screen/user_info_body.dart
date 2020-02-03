@@ -28,15 +28,6 @@ Widget userInfoBodyWidget(
             ],
           )
         ),
-                    Container( /* Gender Picker */
-                      margin: EdgeInsets.only(bottom: 12.0),
-                      child: customDropDown(
-                        _modelUserInfo.genderLabel, 
-                        ["Male", "Female"],
-                        _modelUserInfo, 
-                        changeGender,
-                      ),
-                    ),
         Form(
           key: _modelUserInfo.formStateAddUserInfo,
           child: Expanded( /* Body */
@@ -83,6 +74,15 @@ Widget userInfoBodyWidget(
                         _modelUserInfo.controlLastName,
                         _modelUserInfo.nodeLastName,
                         validateLastName, onChanged, onSubmit
+                      ),
+                    ),
+                    Container( /* Gender Picker */
+                      margin: EdgeInsets.only(bottom: 12.0),
+                      child: customDropDown(
+                        _modelUserInfo.genderLabel, 
+                        ["Male", "Female"],
+                        _modelUserInfo, 
+                        changeGender,
                       ),
                     ),
                     customFlatButton( /* Submit Button */

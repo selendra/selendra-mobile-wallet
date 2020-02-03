@@ -69,10 +69,10 @@ class AppState extends State<App> {
             /* Login Screen */
             '/': (context) =>
               // HomeWidget(),
-              // UserInfo({"": ""}),
+              UserInfo({"label": "fuckyou"}),
               // SignUpFirst(),
               // SmsCode(_modelSignUp),
-              WelcomeToZee(),
+              // WelcomeToZee(),
             // add_profile_screenWidget(),
             // HistroyWidget(),
             // PhoneScreen(setMyState),

@@ -27,9 +27,10 @@ class UserInfoState extends State<UserInfo> {
   @override
   void initState() {
     if (widget._userData['label'] == 'profile') {
+      print("Profile");
       replaceDataToController();
     }
-    else if (widget._userData['label'] == 'email' || widget._userData['phone']){
+     else if (widget._userData['label'] == 'email' || widget._userData['label'] == 'phone'){
       getTokenByLogin();
     }
     super.initState();
@@ -44,7 +45,7 @@ class UserInfoState extends State<UserInfo> {
       if (_response == null){
         var _res = await userLogin(
           widget._userData['email_Phone'], 
-          widget._userData['passwords'], 
+          widget._userData['password'], 
           widget._userData['label'] == "email" ? "/loginbyemail" : "/loginbyphone", 
           widget._userData['label'] 
         );
@@ -61,24 +62,21 @@ class UserInfoState extends State<UserInfo> {
   }
 
   void submitProfile(BuildContext context) async { /* Submit Profile User */
-    try {
-      dialogLoading(context); /* Show Loading Process */
-      var response = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
-      Navigator.pop(context); /* Close Loading Process */
-      if (response != null && _modelUserInfo.token == null) { /* Set Profile Success */
-        await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
-        clearStorage();
-        Future.delayed(Duration(microseconds: 500), () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
-        });
-      } else { /* Edit Profile Success */
-        await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
-        Navigator.pop(context);
-      }
-    } catch (err) {}
+    dialogLoading(context); /* Show Loading Process */
+    var response = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
+    Navigator.pop(context); /* Close Loading Process */
+    if (response != null && _modelUserInfo.token == null) { /* Set Profile Success */
+      await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      clearStorage();
+      Future.delayed(Duration(microseconds: 500), () {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginFirstScreen()));
+      });
+    } else { /* Edit Profile Success */
+      await dialog(context, Text(response['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      Navigator.pop(context);
+    }
   } 
   void changeGender(String gender) async { /* Change Select Gender */
-    print("Hello gender");
     _modelUserInfo.genderLabel = gender;
 
     if (gender == "Male") 
@@ -115,27 +113,27 @@ class UserInfoState extends State<UserInfo> {
     if (_modelUserInfo.nodeFirstName.hasFocus){
       _modelUserInfo.responseFirstname = instanceValidate.validateUserInfo(value);
       if (_modelUserInfo.responseFirstname == null) return null;
-      return "${_modelUserInfo.responseFirstname}first name";
+      else _modelUserInfo.responseFirstname += "first name";
     }
-    return null;
+    return _modelUserInfo.responseFirstname;
   }
 
   String validateMidName(String value){
     if (_modelUserInfo.nodeMidName.hasFocus){
       _modelUserInfo.responseMidname = instanceValidate.validateUserInfo(value);
       if (_modelUserInfo.responseMidname == null) return null;
-      return "${_modelUserInfo.responseMidname}mid name";
+      else _modelUserInfo.responseMidname += "mid name";
     }
-    return null;
+    return _modelUserInfo.responseMidname;
   }
 
   String validateLastName(String value){
     if (_modelUserInfo.nodeLastName.hasFocus){
       _modelUserInfo.responseLastname = instanceValidate.validateUserInfo(value);
       if (_modelUserInfo.responseLastname == null) return null;
-      return "${_modelUserInfo.responseLastname}last name";
+      else _modelUserInfo.responseLastname += "last name";
     }
-    return null;
+    return _modelUserInfo.responseLastname;
   }
 
   @override
