@@ -11,9 +11,9 @@ import 'package:flutter/material.dart';
 class SendPayment extends StatefulWidget{
 
   final String _walletKey;
-  final ModelDashboard _modelDashBaord;
+  final ModelDashboard _modelDashBoard;
 
-  SendPayment(this._walletKey, this._modelDashBaord);
+  SendPayment(this._walletKey, this._modelDashBoard);
   @override
   State<StatefulWidget> createState() {
     return SendPaymentState();
@@ -28,7 +28,7 @@ class SendPaymentState extends State<SendPayment>{
   void initState() {
     _modelScanPay.destination = widget._walletKey;
     _modelScanPay.asset = "ZTO";
-    _modelScanPay.portfolio = widget._modelDashBaord.portfolio;
+    _modelScanPay.portfolio = widget._modelDashBoard.portfolio;
     super.initState();
   }
   

@@ -8,8 +8,7 @@ import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_scre
 Widget invoiceSummaryBodyWidget(
   BuildContext _context,
   ModelScanInvoice _modelScanInvoice,
-  Function onChanged, Function onSubmit, 
-  Function validateApproveCode,
+  Function onChanged, Function onSubmit, Function validateApproveCode,
   Function confirmInvoice, Function popScreen
 ) {
   return SingleChildScrollView(

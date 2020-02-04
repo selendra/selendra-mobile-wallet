@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/model/model_user_info.dart';
@@ -14,6 +15,7 @@ import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/add_user_info_screen/add_user_info.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/invoice_screen/invoice_summary_screen/invoice_summary.dart';
+import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/qr_scan_pay_screen/scan_pay.dart';
 import 'package:wallet_apps/src/screen/home_screen/fill_documents_screen/fill_documents.dart';
 import 'package:wallet_apps/src/screen/home_screen/setting_screen/setting.dart';
 import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
@@ -44,6 +46,7 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
 
   ModelScanInvoice _modelUserInfo = ModelScanInvoice();
+  ModelDashboard _modelDashboard = ModelDashboard();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,8 @@ class AppState extends State<App> {
               // UserInfo({"label": "fuckyou"}),
               // SignUpFirst(),
               // SmsCode(_modelSignUp),
-              WelcomeToZee(),
+              // WelcomeToZee(),
+              SendPayment("hello", _modelDashboard),
             // add_profile_screenWidget(),
             // HistroyWidget(),
             // PhoneScreen(setMyState),

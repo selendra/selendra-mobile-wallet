@@ -47,7 +47,7 @@ class InvoiceInfoState extends State<InvoiceInfo> {
     if (widget._modelScanInvoice.nodeBillNo.hasFocus){
       FocusScope.of(context).requestFocus(widget._modelScanInvoice.nodeAmount);
     } else if (widget._modelScanInvoice.enable1 == true){
-      toSummaryInvoice();
+      toSummaryInvoice(context);
     }
   }
 
@@ -104,7 +104,7 @@ class InvoiceInfoState extends State<InvoiceInfo> {
 
   }
 
-  void toSummaryInvoice() {
+  void toSummaryInvoice(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) => InvoiceSummary(widget._modelScanInvoice)));
   }
   
