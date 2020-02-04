@@ -30,7 +30,6 @@ class UserInfoState extends State<UserInfo> {
       replaceDataToController();
     }
      else if (widget._userData['label'] == 'email' || widget._userData['label'] == 'phone'){
-      print(widget._userData['label']);
       getTokenByLogin();
     }
     super.initState();
@@ -57,6 +56,11 @@ class UserInfoState extends State<UserInfo> {
     _modelUserInfo.controlMidName.text = widget._userData['mid_name'];
     _modelUserInfo.controlLastName.text = widget._userData['last_name'];
     _modelUserInfo.genderLabel = widget._userData['gender'];
+    if (_modelUserInfo.genderLabel == "Male") 
+      _modelUserInfo.gender = "M";
+    else 
+      _modelUserInfo.gender = "F";
+    enableButton();
   }
 
   void changeGender(String gender) async { /* Change Select Gender */
@@ -67,7 +71,7 @@ class UserInfoState extends State<UserInfo> {
       _modelUserInfo.gender = "F";
     await Future.delayed(Duration(milliseconds: 100), () {
       setState(() { /* Unfocus All Field */
-        if (_modelUserInfo.gender != null) setState(() => _modelUserInfo.enable = true); /* Enable Button If User Set Gender */
+        if (_modelUserInfo.gender != null) enableButton(); /* Enable Button If User Set Gender */
         _modelUserInfo.nodeFirstName.unfocus();
         _modelUserInfo.nodeMidName.unfocus();
         _modelUserInfo.nodeLastName.unfocus();
@@ -137,6 +141,8 @@ class UserInfoState extends State<UserInfo> {
       Navigator.pop(context);
     }
   } 
+
+  void enableButton() => _modelUserInfo.enable = true;
 
   @override
   void dispose() { /* Clear Everything When Pop Screen */

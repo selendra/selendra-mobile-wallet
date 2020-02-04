@@ -108,8 +108,8 @@ class ZeeChartState extends State<ZeeChart>{
       widget._modelDashboard.portfolio = [];
     });
     fetchPortfolio();
-    getUserData(); 
-    widget._modelDashboard.refreshController.refreshCompleted();
+    getUserData();
+    _refreshController.refreshCompleted();
   }
   
   void scanReceipt() async {

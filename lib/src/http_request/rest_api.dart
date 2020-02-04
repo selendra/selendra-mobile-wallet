@@ -76,14 +76,14 @@ Future<Map<String, dynamic>> uploadUserProfile(ModelUserInfo _model, String _end
   return null;
 }
 
-Future<Map<String, dynamic>> retreiveWallet(String _pins) async {
-  /* Post Get Wallet */
+Future<Map<String, dynamic>> retreiveWallet(String _pins) async { /* Post Get Wallet */
   _token = await Provider.fetchToken();
   _bodyEncode = json.encode({"pin": _pins});
   if (_token != null) {
     _response = await _http.post("$_url/getwallet",
-        headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
-        body: _bodyEncode);
+      headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
+      body: _bodyEncode
+    );
     return json.decode(_response.body);
   }
   return null;
@@ -163,8 +163,7 @@ Future<Map<String, dynamic>> addReceipt(ModelScanInvoice _modelScanInvoice) asyn
   return null;
 }
 
-Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async {
-  /* Confirm User Account By Phone Number */
+Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async { /* Confirm User Account By Phone Number */
   _bodyEncode = json.encode({
     "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
     "verification_code": _model.controlSmsCode.text
@@ -174,8 +173,7 @@ Future<Map<String, dynamic>> confirmAccount(ModelSignUp _model) async {
   return json.decode(_response.body);
 }
 
-Future<Map<String, dynamic>> forgetPassword(ModelForgotPassword _modelForgot) async {
-  /* Confirm User Account By Phone Number */
+Future<Map<String, dynamic>> forgetPassword(ModelForgotPassword _modelForgot) async { /* Confirm User Account By Phone Number */
   _bodyEncode = json.encode({
     "phone": "${_modelForgot.countryCode}${_modelForgot.controlPhoneNums.text}",
   });
