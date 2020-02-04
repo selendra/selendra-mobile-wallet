@@ -26,8 +26,8 @@ final _urlOCR = "https://zocr.zeetomic.com/pushimage";
 Map<String, String> _conceteHeader(String _key, String _value) {
   /* Concete More Content Of Header */
   return _key != null 
-    ? {"Content-Type": "application/json; charset=utf-8", _key: _value} : /* if Parameter != Null = Concete Header With  */
-      {"Content-Type": "application/json; charset=utf-8"}; /* if Parameter Null = Don't integrate */
+  ? {"Content-Type": "application/json; charset=utf-8", _key: _value} /* if Parameter != Null = Concete Header With  */
+  : {"Content-Type": "application/json; charset=utf-8"}; /* if Parameter Null = Don't integrate */
 }
 
 /* Rest Api Property */
@@ -49,11 +49,14 @@ Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums,String _passwo
 
 /* User Regiser */
 Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums,
-    String _passwords, String _endpoints, String _schema) async {
+  String _passwords, String _endpoints, String _schema) async {
   _bodyEncode = json.encode(/* Convert to Json Data ( String ) */
-      {_schema: _byEmailOrPhoneNums, "password": _passwords});
-  _response = await _http.post('$_url$_endpoints',
-      headers: _conceteHeader(null, null), body: _bodyEncode);
+    {_schema: _byEmailOrPhoneNums, "password": _passwords}
+  );
+  _response = await _http.post(
+    '$_url$_endpoints',
+    headers: _conceteHeader(null, null), body: _bodyEncode
+  );
   return json.decode(_response.body);
 }
 
@@ -71,6 +74,7 @@ Future<Map<String, dynamic>> uploadUserProfile(ModelUserInfo _model, String _end
       headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
       body: _bodyEncode
     );
+    print(_response.body);
     return json.decode(_response.body);
   }
   return null;

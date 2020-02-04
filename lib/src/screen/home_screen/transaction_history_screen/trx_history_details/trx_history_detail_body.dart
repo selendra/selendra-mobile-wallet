@@ -33,9 +33,13 @@ Widget trxHistoryDetailsBodyWidget(
           child: Column(
             children: <Widget>[
               // rowInformation("Receipt no: ", _trxInfo['receipt_no']),
-              rowInformation("Amount: ", _trxInfo['amount'] ?? "0.00"),
+              _trxInfo['type'] == 'create_account' 
+              ? rowInformation("Amount: ", _trxInfo['starting_balance'])
+              : rowInformation("Amount: ", _trxInfo['amount'] ?? "0.00"),
               // rowInformation("Location: ", _trxInfo['location']),
-              rowInformation("Type: ", _trxInfo['type'] == "payment" ? "Payment" : "Fee"),
+              _trxInfo['type'] == "create_account" 
+              ? rowInformation("Type:", _trxInfo['type']) /* If Trx Type As Create Account */
+              : rowInformation("Type: ", _trxInfo['type'] == "payment" ? "Payment" : "Fee"),
               rowInformation("From: ", _trxInfo['type'] == "payment" ? _trxInfo['from'] : ""),
               rowInformation("To: ", _trxInfo['type'] == "payment" ? _trxInfo['to'] : ""),
               rowInformation("Date: ", timeStampToDateTime(_trxInfo['created_at'])),

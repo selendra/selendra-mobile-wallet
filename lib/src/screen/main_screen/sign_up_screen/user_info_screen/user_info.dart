@@ -29,7 +29,7 @@ class UserInfoState extends State<UserInfo> {
     if (widget._userData['label'] == 'profile') {
       replaceDataToController();
     }
-     else if (widget._userData['label'] == 'email' || widget._userData['label'] == 'phone'){
+    else if (widget._userData['label'] == 'email' || widget._userData['label'] == 'phone'){
       getTokenByLogin();
     }
     super.initState();
@@ -127,7 +127,7 @@ class UserInfoState extends State<UserInfo> {
     _modelUserInfo.submitResponse = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
     Navigator.pop(context); /* Close Loading Process */
     if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) { /* Set Profile Success */
-      await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
       if (widget._userData['label'] == 'profile') {
         Navigator.pop(context);
       } else {
@@ -137,7 +137,7 @@ class UserInfoState extends State<UserInfo> {
         });
       }
     } else { /* Edit Profile Success */
-      await dialog(context, Text(_modelUserInfo.submitResponse['message']), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"), Icon(Icons.done_outline, color: getHexaColor(greenColor)));
       Navigator.pop(context);
     }
   } 

@@ -31,10 +31,6 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
     Navigator.pop(context);
   }
 
-  void resetBloc(Bloc bloc) { /* Reset All Field */
-    bloc.addUsersign(null);
-  }
-
   void navigatePage(BuildContext context) { /* Navigate To Second Sign Up */
     if (_modelSignUp.enable1 == true) /* Prevent Submit On Smart Keyboard */ 
       Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));

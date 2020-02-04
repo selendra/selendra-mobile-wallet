@@ -84,6 +84,7 @@ class CreatePasswordState extends State<CreatePassword> {
               "passwords": widget._modelSignUp.controlPassword.text,
               "label": widget._modelSignUp.label
             };
+            Navigator.pop(context);
             Future.delayed(Duration(milliseconds: 100), () {
               Navigator.push(
                 context,
@@ -103,16 +104,15 @@ class CreatePasswordState extends State<CreatePassword> {
           );
           if (widget._modelSignUp.response == true) { /* Change To True When your testing done */
             widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
-              "email_phone": widget._modelSignUp.controlPhoneNums.text,
+              "email_phone": "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
               "passwords": widget._modelSignUp.controlPassword.text,
               "label": widget._modelSignUp.label
             };
+            Navigator.pop(context);
             Future.delayed(Duration(milliseconds: 100), () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                  builder: (context) => UserInfo(widget._modelSignUp.userDataLogin)
-                )
+                context,
+                MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp.userDataLogin) )
               );
               // Navigator.push(context, MaterialPageRoute(builder: (context) => SmsCode(widget._modelSignUp)));
             });
