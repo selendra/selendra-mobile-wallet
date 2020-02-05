@@ -82,7 +82,6 @@ Future scanQR(BuildContext context, ModelDashboard _modelDashBoard, Function _re
     // String _barcode = await BarcodeScanner.scan();
     var _response = await Navigator.push(context, transitionRoute(SendPayment('_barcode', _modelDashBoard)));
     if (_response == 200) {
-      print("QR $_response");
       if (!_response.containsKey('error'))
        _resetState(null, "portfolio", _modelDashBoard);
     }

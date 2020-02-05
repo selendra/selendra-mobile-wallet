@@ -28,6 +28,7 @@ class SendPaymentState extends State<SendPayment>{
   void initState() {
     _modelScanPay.destination = widget._walletKey;
     _modelScanPay.portfolio = widget._modelDashBoard.portfolio;
+    print(_modelScanPay.portfolio);
     super.initState();
   }
   

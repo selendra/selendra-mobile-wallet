@@ -45,7 +45,7 @@ Widget scanPayBodyWidget(
               context, 
               "Amount", null, 'sendTokenScreen', 
               false, 
-              [LengthLimitingTextInputFormatter(TextField.noMaxLength), WhitelistingTextInputFormatter.digitsOnly], 
+              [LengthLimitingTextInputFormatter(TextField.noMaxLength)], 
               TextInputType.number, 
               TextInputAction.next, 
               _modelScanPay.controlAmount, 
