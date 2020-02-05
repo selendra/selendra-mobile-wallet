@@ -79,10 +79,12 @@ Widget cardToken( /* Card Token Display */
 /* Scan QR Code */
 Future scanQR(BuildContext context, ModelDashboard _modelDashBoard, Function _resetState) async {
   try {
-    String _barcode = await BarcodeScanner.scan();
-    var _response = await Navigator.push(context, transitionRoute(SendPayment(_barcode, _modelDashBoard)));
+    // String _barcode = await BarcodeScanner.scan();
+    var _response = await Navigator.push(context, transitionRoute(SendPayment('_barcode', _modelDashBoard)));
     if (_response == 200) {
-      _resetState(null, "portfolio", _modelDashBoard);
+      print("QR $_response");
+      if (!_response.containsKey('error'))
+       _resetState(null, "portfolio", _modelDashBoard);
     }
   } on PlatformException catch (e) {
     if (e.code == BarcodeScanner.CameraAccessDenied) 
@@ -94,6 +96,7 @@ Future scanQR(BuildContext context, ModelDashboard _modelDashBoard, Function _re
       "null (User returned using the 'back' -button before scanning anything. Result)", "barcode",
       _modelDashBoard, 
     );
+
   } catch (e){
     _resetState(
       "Unknown error: $e",

@@ -9,7 +9,8 @@ Widget userInfoBodyWidget(
   ModelUserInfo _modelUserInfo,
   Function onSubmit, Function onChanged, Function changeGender, 
   Function validateFirstName, Function validateMidName, Function validateLastName,
-  Function submitProfile, Function popScreen
+  Function submitProfile, Function popScreen,
+  PopupMenuItem Function(Map<String, dynamic>) item,
 ) {
   return Container(
     child: Column(
@@ -83,6 +84,7 @@ Widget userInfoBodyWidget(
                         ["Male", "Female"],
                         _modelUserInfo, 
                         changeGender,
+                        item
                       ),
                     ),
                     customFlatButton( /* Submit Button */

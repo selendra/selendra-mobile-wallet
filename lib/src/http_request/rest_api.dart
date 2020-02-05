@@ -117,11 +117,6 @@ Future<Map<String, dynamic>> addAsset(dynamic _model) async { /* Add New Asset *
 
 Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code Send Request */
   _token = await Provider.fetchToken();
-  print(_token);
-  print(_model.asset);
-  print(_model.destination);
-  print(_model.controlAmount.text);
-  print(_model.controlMemo.text);
   _bodyEncode = json.encode({
     "pin": _model.pin,
     "asset_code": _model.asset,
@@ -134,6 +129,8 @@ Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code
       headers: _conceteHeader("authorization", "Bearer ${_token["token"]}"),
       body: _bodyEncode
     );
+    print(_response.body);
+    print(_response.statusCode);
     Map<String, dynamic> _decode = json.decode(_response.body);
     _decode.addAll({"status_code": _response.statusCode});
     return _decode;

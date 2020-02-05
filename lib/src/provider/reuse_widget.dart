@@ -640,18 +640,18 @@ Widget inputField( /* User Input Field */
   );
 }
 
-Widget customDropDown(String genderLabel, List list, dynamic _model ,Function changeValue) { /* Custom DropDown */
+Widget customDropDown(String label, List list, dynamic _model ,Function changeValue, PopupMenuItem Function(Map<String, dynamic>) item) { /* Custom DropDown */
   return Container(
     padding: EdgeInsets.only(top: 11.0, bottom: 11.0, left: 26.0, right: 14.0),
     decoration: BoxDecoration(
       color: getHexaColor("#FFFFFF").withOpacity(0.1),
       borderRadius: BorderRadius.circular(size5),
-      border: Border.all(width: 1, color: genderLabel == "Gender" ? Colors.transparent : getHexaColor("#FFFFFF").withOpacity(0.3)) /* Control Border Gender Color */
+      border: Border.all(width: 1, color: label == "Gender" ? Colors.transparent : getHexaColor("#FFFFFF").withOpacity(0.3)) /* Control Border Gender Color */
     ),
     child: Row(
       children: <Widget>[
         Expanded(
-          child: Text(genderLabel, style: TextStyle(color: Colors.white, fontSize: 18.0),),
+          child: Text(label, style: TextStyle(color: Colors.white, fontSize: 18.0),),
         ),
         Theme(
           data: ThemeData(canvasColor: getHexaColor("#FFFFFF").withOpacity(0.1)),
@@ -663,11 +663,8 @@ Widget customDropDown(String genderLabel, List list, dynamic _model ,Function ch
             },
             icon: Icon(Icons.keyboard_arrow_down, color: Colors.white,),
             itemBuilder: (BuildContext context) {
-              return list.map((text){
-                return PopupMenuItem(
-                  value: text,
-                  child: Text(text),
-                );
+              return list.map((list){
+                return item(list);
               }).toList();
             },
           ),
@@ -705,7 +702,7 @@ Widget customDropDown(String genderLabel, List list, dynamic _model ,Function ch
   //         //       );
   //         //     }).toList(),
   //         //     // /* If Gender */
-  //         //     // genderLabel == "Gender" 
+  //         //     // label == "Gender" 
   //         //     //   ? genderList.map((text) {
   //         //     //     return DropdownMenuItem(
   //         //     //       value: text,
@@ -719,11 +716,11 @@ Widget customDropDown(String genderLabel, List list, dynamic _model ,Function ch
   //         //     //       child: Text(mapData['document_name']),
   //         //     //     );
   //         //     //   }).toList(),
-  //         //     // value: genderLabel == "Gender" ? _model.gender : _modelDocument.documentTypeId,
+  //         //     // value: label == "Gender" ? _model.gender : _modelDocument.documentTypeId,
   //         //     onChanged: (changed) {
-  //         //       // if (genderLabel == "Gender") {
+  //         //       // if (label == "Gender") {
   //         //       //   setGender(changed);
-  //         //       // } else if ( genderLabel == "Document Type") {
+  //         //       // } else if ( label == "Document Type") {
   //         //       //   setDocumentName(changed);
   //         //       // }
   //         //     },

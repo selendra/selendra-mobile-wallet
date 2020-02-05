@@ -15,10 +15,7 @@ Widget sendBodyWidget(List<dynamic> _trxHistory, String _walletKey) {
     itemCount: _trxHistory.length,
     itemBuilder: (BuildContext context, int index) {
       /* Send Trx If Source Account Address Equal Wallet Adddress */
-      return _trxHistory[index]['type'] == "payment" || _trxHistory[index]['type'] == "manage_offer" ||
-             _walletKey == _trxHistory[index]['from'] 
-      // _trxHistory[index]["type"] == "manage_offer" ||  
-            //  _trxHistory[index]["type"] == "payment" 
+      return _trxHistory[index].containsKey('from') && _walletKey == _trxHistory[index]['from'] 
       ? GestureDetector(
         onTap: () => Navigator.push(context, transitionRoute(TrxHistoryDetails(_trxHistory[index], "Send"))),
         child: Container(
@@ -49,7 +46,7 @@ Widget sendBodyWidget(List<dynamic> _trxHistory, String _walletKey) {
                     children: <Widget>[
                       _trxHistory[index].containsKey("asset_code") 
                         ? Text(_trxHistory[index]["asset_code"])
-                        : Text("XLM"),
+                        : Text("XLM"),/*  */
                       Container(
                         child: Text(timeStampToDateTime(_trxHistory[index]['created_at'])),
                       )

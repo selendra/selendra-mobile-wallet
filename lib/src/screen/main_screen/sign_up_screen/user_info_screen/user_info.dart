@@ -142,6 +142,13 @@ class UserInfoState extends State<UserInfo> {
     }
   } 
 
+  PopupMenuItem item(dynamic list){
+    return PopupMenuItem(
+      value: list,
+      child: Text(list),
+    );
+  }
+
   void enableButton() => _modelUserInfo.enable = true;
 
   @override
@@ -161,7 +168,7 @@ class UserInfoState extends State<UserInfo> {
           context, _modelUserInfo, 
           onSubmit, onChanged, changeGender, 
           validateFirstName, validateMidName, validateLastName,
-          submitProfile, popScreen
+          submitProfile, popScreen, item
         )
       ),
     );

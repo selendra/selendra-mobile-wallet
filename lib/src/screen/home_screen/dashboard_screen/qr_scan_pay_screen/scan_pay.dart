@@ -57,9 +57,17 @@ class SendPaymentState extends State<SendPayment>{
     setState(() {
       _modelScanPay.isPay = false;
     });
-    if (_response["status_code"] == 200 ){
-      await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(blueColor)));
-      Navigator.pop(context, _response["status_code"]);
+    if (_response["status_code"] == 200){
+      if (!_response.containsKey('error')){
+        await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(blueColor)));
+        Navigator.pop(context, _response["status_code"]);
+      } else {
+        await dialog(context, Text(_response["error"]['message']), Icon(Icons.warning, color: Colors.red));
+        Navigator.pop(context, _response);
+      }
+    } else {
+      await dialog(context, Text('Something goes wrong'), Icon(Icons.warning, color: Colors.red));
+      Navigator.pop(context, _response);
     }
   }
 
@@ -162,6 +170,22 @@ class SendPaymentState extends State<SendPayment>{
     enableButton();
   }
 
+  PopupMenuItem item(Map<String, dynamic> list){ /* Display Drop Down List */
+    return PopupMenuItem(
+      value: list.containsKey("asset_code") /* Check Asset Code Key */ 
+      ? list["asset_code"] 
+      : "XLM",
+      child: Align(
+        alignment: Alignment.center, 
+        child: Text(
+          list.containsKey("asset_code") /* Check Asset Code Key */
+          ? list["asset_code"] 
+          : "XLM",
+        ),
+      )
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -192,7 +216,8 @@ class SendPaymentState extends State<SendPayment>{
                       _modelScanPay, 
                       validateAmount, validateMemo,
                       onChanged, onSubmit, payProgres, 
-                      validateInput, clickSend, resetAssetsDropDown
+                      validateInput, clickSend, resetAssetsDropDown,
+                      item
                     ), /* Scan Pay Body Widget */
                   ),
                 ),

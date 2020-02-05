@@ -10,7 +10,8 @@ Widget scanPayBodyWidget(
   ModelScanPay _modelScanPay,
   Function validateAmount, Function validateMemo,
   Function onChanged, Function onSubmit,
-  Function payProgress, Function validateInput, Function clickSend, Function resetAssetsDropDown
+  Function payProgress, Function validateInput, Function clickSend, Function resetAssetsDropDown,
+  PopupMenuItem Function(Map<String, dynamic>) item
 ) {
   return Container(
     padding: EdgeInsets.only(top: 16.0, left: 40.0, right: 40.0),
@@ -19,44 +20,22 @@ Widget scanPayBodyWidget(
       child: Column(
         children: <Widget>[
           /* Wallet Key or address */
-          Text(_walletKey, style: TextStyle(color: getHexaColor(lightBlueSky), fontSize: 18.0), textAlign: TextAlign.center,),
-          Theme( /* Type of payment */
-            data: ThemeData(canvasColor: getHexaColor("#36363B")),
-            child: DropdownButton(
-              hint: Container(
-                child: Text("Asset name", style: TextStyle(color: Colors.white), textAlign: TextAlign.center,),
-              ),
-              value: _modelScanPay.asset,
-              onChanged: (data) {
-                resetAssetsDropDown(data);
-              },
-              items: _modelScanPay.portfolio.length != 0 ? _modelScanPay.portfolio.map((list){
-                // return DropdownMenuItem(
-                //   value: "XLM",
-                //   child: Container(
-                //     alignment: Alignment.center,
-                //     width: 100.0,
-                //     child: Text(
-                //       "XLM",
-                //       style: TextStyle(color: Colors.white),
-                //     ),
-                //   )
-                // );
-                return DropdownMenuItem(
-                  value: list.containsKey("asset_code") /* Check Asset Code Key */ 
-                  ? list["asset_code"] 
-                  : "XLM",
-                  child: Align(
-                    alignment: Alignment.center, 
-                    child: Text(
-                      list.containsKey("asset_code") /* Check Asset Code Key */
-                      ? list["asset_code"] 
-                      : "XLM",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
-              }).toList() : null,
+          Text(
+            _walletKey, 
+            style: TextStyle(
+              color: getHexaColor(lightBlueSky), fontSize: 18.0,
+              decoration: TextDecoration.underline,
+            ), 
+            textAlign: TextAlign.center,
+          ),
+          Container( /* Type of payment */
+            margin: EdgeInsets.only(top: 20.0),
+            child: customDropDown(
+              _modelScanPay.asset != null ? _modelScanPay.asset : "Asset name", 
+              _modelScanPay.portfolio, 
+              _modelScanPay, 
+              resetAssetsDropDown,
+              item
             ),
           ),
           /* User Fill Out Amount */

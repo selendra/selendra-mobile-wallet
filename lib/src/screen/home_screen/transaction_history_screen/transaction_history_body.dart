@@ -12,6 +12,7 @@ Widget transactionBodyWidget(
   String _walletKey,
   Function popScreen
 ) {
+  print(_trxHistory);
   return Container(
     margin: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
     child: Column(
