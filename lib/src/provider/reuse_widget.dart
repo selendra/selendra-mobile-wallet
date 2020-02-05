@@ -165,35 +165,6 @@ BoxShadow shadow(Color hexaCode, double blurRadius, double spreadRadius) {
   );
 }
 
-/* -------------------------------------- Raised Button -----------------------------------------*/
-Widget lightBlueButton(BuildContext _context, AsyncSnapshot snapshot, Function action, String textButton, EdgeInsetsGeometry edgeMargin) {
-  return Container(
-    margin: edgeMargin,
-    width: double.infinity,
-    height: 50.0,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(5.0),
-    ),
-    child: FlatButton(
-      color: getHexaColor("#2BB9CD"),
-      disabledTextColor: Colors.black54,
-      disabledColor: Colors.grey[700],
-      focusColor: getHexaColor("#55D8EB"),
-      padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
-      textColor: Colors.white,
-      child: Text(
-        textButton,
-        style: TextStyle(fontSize: 17.0),
-      ),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0)),
-      onPressed: snapshot.data == null ? null : () {
-        action(_context);
-      }
-    ),
-  );
-}
-
 Widget customFlatButton(
   BuildContext context,
   String textButton, String widgetName, String buttonColor,
@@ -361,7 +332,7 @@ blurBackgroundDecoration(BuildContext context, dynamic screen) {
 Widget bottomAppBar(
   BuildContext _context, 
   ModelDashboard _modelDashboard, 
-  Function _scanQR, Function _scanReceipt, Function _resetState, Function _toReceiveToken){
+  dynamic _scanQR, dynamic _scanReceipt, Function _resetState, Function _toReceiveToken){
   return Stack(
     children: <Widget>[
       Container(
@@ -393,7 +364,7 @@ Widget bottomAppBar(
                           iconSize: 30.0,
                           // padding: EdgeInsets.only(left: 28.0),
                           icon: Icon(OMIcons.arrowUpward, color: Colors.white,),
-                          onPressed: () async {
+                          onPressed: _scanQR == null ? null : () async {
                             await _scanQR(_context, _modelDashboard, _resetState);
                           }
                         ),
@@ -437,7 +408,7 @@ Widget bottomAppBar(
               child: FloatingActionButton(
                 backgroundColor: getHexaColor("#8CC361"),
                 child: Image.asset('assets/zeeicon_button.png', width: 22.02, height: 23.29),
-                onPressed: () async {
+                onPressed: _scanReceipt == null ? null : () async {
                   _scanReceipt();
                 },
               ),

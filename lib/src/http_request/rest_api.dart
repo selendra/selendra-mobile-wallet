@@ -42,9 +42,15 @@ Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums,String _passwo
     _schema: _byEmailOrPhoneNums, 
     "password": _passwords
   });
-  _response = await _http.post('$_url$_endpoints',
-    headers: _conceteHeader(null, null), body: _bodyEncode);
-  return json.decode(_response.body);
+  _response = await _http.post(
+    '$_url$_endpoints',
+    headers: _conceteHeader(null, null), body: _bodyEncode
+  );
+  Map<String, dynamic> _myResponse = {
+    "status_code": _response.statusCode
+  };
+  _myResponse.addAll(json.decode(_response.body));
+  return _myResponse;
 }
 
 /* User Regiser */
@@ -111,6 +117,11 @@ Future<Map<String, dynamic>> addAsset(dynamic _model) async { /* Add New Asset *
 
 Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code Send Request */
   _token = await Provider.fetchToken();
+  print(_token);
+  print(_model.asset);
+  print(_model.destination);
+  print(_model.controlAmount.text);
+  print(_model.controlMemo.text);
   _bodyEncode = json.encode({
     "pin": _model.pin,
     "asset_code": _model.asset,

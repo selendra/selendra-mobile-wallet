@@ -77,10 +77,10 @@ Widget cardToken( /* Card Token Display */
 }
 
 /* Scan QR Code */
-Future scanQR(BuildContext _context, ModelDashboard _modelDashBoard, Function _resetState) async {
+Future scanQR(BuildContext context, ModelDashboard _modelDashBoard, Function _resetState) async {
   try {
     String _barcode = await BarcodeScanner.scan();
-    var _response = await blurBackgroundDecoration(_context, SendPayment(_barcode, _modelDashBoard));
+    var _response = await Navigator.push(context, transitionRoute(SendPayment(_barcode, _modelDashBoard)));
     if (_response == 200) {
       _resetState(null, "portfolio", _modelDashBoard);
     }
@@ -110,7 +110,7 @@ Widget textStylePortfolio(String text, String hexaColor){ /* Style Text Inside P
   );
 }
 
-Widget portfolioList(BuildContext _context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard _modelDashboard) { /* List Of Portfolio */
+Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard _modelDashboard) { /* List Of Portfolio */
   return Container(
     padding: EdgeInsets.only(top: 10.0),
     child: Column(
@@ -126,8 +126,7 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
             ),
           ) 
         ),
-        /* Main Title Assets */
-        GestureDetector(
+        GestureDetector( /* Main Title Assets */
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
@@ -182,7 +181,7 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                   shrinkWrap: true,
                   itemCount: portfolioData.length,
                   physics: BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext _context, int index){
+                  itemBuilder: (BuildContext context, int index){
                     return Container(
                       margin: EdgeInsets.only(top: 10.5),
                       child: Container(
@@ -239,7 +238,7 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
                 //       physics: BouncingScrollPhysics(),
                 //         shrinkWrap: true,
                 //         itemCount: portfolioData['data'].length,
-                //         itemBuilder: (BuildContext _context, int index) {
+                //         itemBuilder: (BuildContext context, int index) {
                 //           return Container(
                 //             decoration: BoxDecoration(
                 //                 border: Border(
@@ -277,7 +276,7 @@ Widget portfolioList(BuildContext _context, String title, List<dynamic> portfoli
             )
           ),
           onTap: enable == true ? () {
-            Navigator.push(_context, MaterialPageRoute(builder: (_context) => ZeeChart(_modelDashboard)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ZeeChart(_modelDashboard)));
           } : () {},
         )
       ],

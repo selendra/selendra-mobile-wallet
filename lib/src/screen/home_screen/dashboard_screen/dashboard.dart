@@ -64,6 +64,7 @@ class DashboardState extends State<Dashboard> {
         setData(_modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
       }
     });
+    print(_modelDashboard.portfolio);
   }
 
   /* ------------------------Method------------------------ */
@@ -201,7 +202,8 @@ class DashboardState extends State<Dashboard> {
       bottomNavigationBar: bottomAppBar( /* Bottom Navigation Bar */
         context, 
         _modelDashboard, 
-        scanQR, scanReceipt, _resetState, toReceiveToken
+        _modelDashboard.portfolio == null ? null : scanQR, 
+        _modelDashboard.portfolio == null ? null : scanReceipt, _resetState, toReceiveToken
       )
     );
   }

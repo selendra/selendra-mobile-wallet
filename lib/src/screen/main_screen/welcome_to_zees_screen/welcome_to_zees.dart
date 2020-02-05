@@ -29,7 +29,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
   void checkLoginBefore(BuildContext context) async { /* Check For Previous Login */
     try{
       int status = await checkExpiredToken();
-      if (status != 401 && status != null) { /* Check Expired Token */
+      if (status != 401 && status != null && status != 502) { /* Check Expired Token */
         dialogLoading(context); /* Loading */
         await Future.delayed(Duration(milliseconds: 500), () { /* Pop Loading */
           Navigator.pop(context);
@@ -50,8 +50,6 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
   }
 
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
-    /* Check For Previous Login */
     return Scaffold(
       body: ConnectivityWidgetWrapper(
         message: "Something wrong with internet connection !",

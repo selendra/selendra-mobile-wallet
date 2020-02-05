@@ -33,6 +33,11 @@ class ValidateMixin {
     return null;
   }
 
+  String validateSendToken(String value){
+    if(value == '') return "Fill your ";
+    return null;
+  }
+
   /* -----------Add User Field---------- */
   String validateOccupation(String value){
     return null;

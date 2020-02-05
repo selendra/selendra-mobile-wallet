@@ -37,24 +37,27 @@ class Bloc with ValidateMixin {
   
   Future<bool> loginMethod(BuildContext context, String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
     return await userLogin(
-      // _email.value, 
-      // _password.value
     _byEmailOrPhoneNums, _passwords, _endpoints, _label
     )
     .then((_response) async {
-      Navigator.pop(context);
-      if (_response.keys.contains("error")) {
-        dialog(context, Text(_response['error']["message"]), Icon(Icons.error_outline, color: Colors.red,));
-        return false;
-      } else { /* If Successfully */
-        if (_response.keys.contains("token")) {
-          // await dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
-          await setData(_response, 'user_token');
-          return true;
-        } else { /* If Incorrect Email */
-          await dialog(context, Text(_response["message"]), Icon(Icons.error_outline, color: Colors.red,));
+      Navigator.pop(context); /* Close Loading Process */
+      if (_response['status_code'] != '502') {
+        if (_response.keys.contains("error")) {
+          dialog(context, Text(_response['error']["message"]), Icon(Icons.error_outline, color: Colors.red,));
           return false;
+        } else { /* If Successfully */
+          if (_response.keys.contains("token")) {
+            // await dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
+            await setData(_response, 'user_token');
+            return true;
+          } else { /* If Incorrect Email */
+            await dialog(context, Text(_response["message"]), Icon(Icons.error_outline, color: Colors.red,));
+            return false;
+          }
         }
+      } else {
+        dialog(context, Text("Something gone wrong !"), Icon(Icons.error_outline, color: Colors.red,));
+        return false;
       }
     });
   }

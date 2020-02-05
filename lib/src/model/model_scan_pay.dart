@@ -1,11 +1,15 @@
 import 'package:flutter/widgets.dart';
 
 class ModelScanPay{
+
+  final formStateKey = GlobalKey<FormState>();
   /* Scan Pay */
   String pin;
   String asset;
   String destination;
-  bool isSuccessPin = false, isPay = false;
+  String responseAmount, responseMemo;
+  String loadingDot = "";
+  bool isSuccessPin = false, isPay = false, enable = false;
   List portfolio = [];
 
   TextEditingController controlAmount = TextEditingController();
