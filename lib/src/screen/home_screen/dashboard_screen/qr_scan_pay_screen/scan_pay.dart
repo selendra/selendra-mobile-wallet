@@ -8,8 +8,7 @@ import './scan_pay_body.dart';
 import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:flutter/material.dart';
 
-class SendPayment extends StatefulWidget{
-
+class SendPayment extends StatefulWidget {
   final String _walletKey;
   final ModelDashboard _modelDashBoard;
 
@@ -20,8 +19,7 @@ class SendPayment extends StatefulWidget{
   }
 }
 
-class SendPaymentState extends State<SendPayment>{
-
+class SendPaymentState extends State<SendPayment> {
   ModelScanPay _modelScanPay = ModelScanPay();
 
   @override
@@ -31,98 +29,112 @@ class SendPaymentState extends State<SendPayment>{
     print(_modelScanPay.portfolio);
     super.initState();
   }
-  
+
   void fetchIDs() async {
     await Provider.fetchUserIds();
     setState(() {});
   }
-  
-  Future<bool> validateInput() { /* Check User Fill Out ALL */
-    if ( 
-      _modelScanPay.controlAmount.text != null && _modelScanPay.controlAmount.text != "" &&
-      _modelScanPay.controlMemo.text != null && _modelScanPay.controlMemo.text != "" &&
-      _modelScanPay.destination != null &&
-      _modelScanPay.asset != null
-    ){
+
+  void removeAllFocus() {
+    _modelScanPay.nodeAmount.unfocus();
+    _modelScanPay.nodeMemo.unfocus();
+  }
+
+  Future<bool> validateInput() {
+    /* Check User Fill Out ALL */
+    if (_modelScanPay.controlAmount.text != null &&
+        _modelScanPay.controlAmount.text != "" &&
+        _modelScanPay.controlMemo.text != null &&
+        _modelScanPay.controlMemo.text != "" &&
+        _modelScanPay.destination != null &&
+        _modelScanPay.asset != null) {
       return Future.delayed(Duration(milliseconds: 50), () {
         return true;
       });
     }
     return null;
   }
-  
-  void clickSend(BuildContext context) async { /* Send payment */
+
+  void clickSend(BuildContext context) async {
+    /* Send payment */
     _modelScanPay.pin = await dialogBox();
     payProgres();
     var _response = await sendPayment(_modelScanPay);
     setState(() {
       _modelScanPay.isPay = false;
     });
-    if (_response["status_code"] == 200){
-      if (!_response.containsKey('error')){
-        await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(blueColor)));
+    if (_response["status_code"] == 200) {
+      if (!_response.containsKey('error')) {
+        await dialog(context, Text(_response["message"]),
+            Icon(Icons.done_outline, color: getHexaColor(blueColor)));
         Navigator.pop(context, _response["status_code"]);
       } else {
-        await dialog(context, Text(_response["error"]['message']), Icon(Icons.warning, color: Colors.red));
-        Navigator.pop(context, _response);
+        await dialog(context, Text(_response["error"]['message']),
+            Icon(Icons.warning, color: Colors.red));
+        // Navigator.pop(context, _response);
       }
     } else {
-      await dialog(context, Text('Something goes wrong'), Icon(Icons.warning, color: Colors.red));
-      Navigator.pop(context, _response);
+      await dialog(context, Text('Something goes wrong'),
+          Icon(Icons.warning, color: Colors.red));
     }
+    await Future.delayed(Duration(milliseconds: 50), () {
+      removeAllFocus();
+    });
   }
 
-  Future<String> dialogBox() async { /* Show Pin Code For Fill Out */
+  Future<String> dialogBox() async {
+    /* Show Pin Code For Fill Out */
     String _result = await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return Material(
-          color: Colors.transparent,
-          child: FillPin(),
-        );
-      }
-    );
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return Material(
+            color: Colors.transparent,
+            child: FillPin(),
+          );
+        });
     return _result;
   }
 
-  String validateAmount(String value){
-    if (_modelScanPay.nodeAmount.hasFocus){
+  String validateAmount(String value) {
+    if (_modelScanPay.nodeAmount.hasFocus) {
       _modelScanPay.responseAmount = instanceValidate.validateSendToken(value);
       enableButton();
-      if (_modelScanPay.responseAmount != null) return _modelScanPay.responseAmount+="amount";
+      if (_modelScanPay.responseAmount != null)
+        return _modelScanPay.responseAmount += "amount";
     }
     return _modelScanPay.responseAmount;
   }
 
-  String validateMemo(String value){
-    if (_modelScanPay.nodeMemo.hasFocus){
+  String validateMemo(String value) {
+    if (_modelScanPay.nodeMemo.hasFocus) {
       _modelScanPay.responseMemo = instanceValidate.validateSendToken(value);
       enableButton();
-      if (_modelScanPay.responseMemo != null) return _modelScanPay.responseMemo+="memo";
+      if (_modelScanPay.responseMemo != null)
+        return _modelScanPay.responseMemo += "memo";
     }
     return _modelScanPay.responseMemo;
   }
 
-  void onChanged(String value){
+  void onChanged(String value) {
     _modelScanPay.formStateKey.currentState.validate();
   }
 
-  void onSubmit(BuildContext context){
-    if (_modelScanPay.nodeAmount.hasFocus){
+  void onSubmit(BuildContext context) {
+    if (_modelScanPay.nodeAmount.hasFocus) {
       FocusScope.of(context).requestFocus(_modelScanPay.nodeMemo);
     } else {
       if (_modelScanPay.enable == true) clickSend(context);
     }
   }
 
-  void enableButton(){
-    if (
-      _modelScanPay.controlAmount.text != '' &&
-      _modelScanPay.controlMemo.text != '' &&
-      _modelScanPay.asset != null 
-    ) setState(() => _modelScanPay.enable = true);
-    else if (_modelScanPay.enable == true) setState(() => _modelScanPay.enable = false);
+  void enableButton() {
+    if (_modelScanPay.controlAmount.text != '' &&
+        _modelScanPay.controlMemo.text != '' &&
+        _modelScanPay.asset != null)
+      setState(() => _modelScanPay.enable = true);
+    else if (_modelScanPay.enable == true)
+      setState(() => _modelScanPay.enable = false);
   }
 
   /* Loading For User Pay */
@@ -133,58 +145,52 @@ class SendPaymentState extends State<SendPayment>{
     processingSubmit();
   }
 
-  void processingSubmit() async { /* Loading Processing Animation */
+  void processingSubmit() async {
+    /* Loading Processing Animation */
     int perioud = 500;
-    while(_modelScanPay.isPay == true){
-      await Future.delayed(
-        Duration(milliseconds: perioud), 
-        () {
-          if (this.mounted) setState(() => _modelScanPay.loadingDot = ".");
-          perioud = 300;
-        } 
-      );
-      await Future.delayed(
-        Duration(milliseconds: perioud), 
-        () {
-          if (this.mounted) setState(() => _modelScanPay.loadingDot = ". .");
-          perioud = 300;
-        } 
-      );
-      await Future.delayed(
-        Duration(milliseconds: perioud), 
-        () {
-          if (this.mounted) setState(() => _modelScanPay.loadingDot = ". . .");
-          perioud = 300;
-        } 
-      );
+    while (_modelScanPay.isPay == true) {
+      await Future.delayed(Duration(milliseconds: perioud), () {
+        if (this.mounted) setState(() => _modelScanPay.loadingDot = ".");
+        perioud = 300;
+      });
+      await Future.delayed(Duration(milliseconds: perioud), () {
+        if (this.mounted) setState(() => _modelScanPay.loadingDot = ". .");
+        perioud = 300;
+      });
+      await Future.delayed(Duration(milliseconds: perioud), () {
+        if (this.mounted) setState(() => _modelScanPay.loadingDot = ". . .");
+        perioud = 300;
+      });
     }
   }
 
-  void popScreen() { /* Close Current Screen */
+  void popScreen() {
+    /* Close Current Screen */
     Navigator.pop(context);
   }
 
-  void resetAssetsDropDown(String data) { /* Reset Asset */
+  void resetAssetsDropDown(String data) {
+    /* Reset Asset */
     setState(() {
       _modelScanPay.asset = data;
     });
     enableButton();
   }
 
-  PopupMenuItem item(Map<String, dynamic> list){ /* Display Drop Down List */
+  PopupMenuItem item(Map<String, dynamic> list) {
+    /* Display Drop Down List */
     return PopupMenuItem(
-      value: list.containsKey("asset_code") /* Check Asset Code Key */ 
-      ? list["asset_code"] 
-      : "XLM",
-      child: Align(
-        alignment: Alignment.center, 
-        child: Text(
-          list.containsKey("asset_code") /* Check Asset Code Key */
-          ? list["asset_code"] 
-          : "XLM",
-        ),
-      )
-    );
+        value: list.containsKey("asset_code") /* Check Asset Code Key */
+            ? list["asset_code"]
+            : "XLM",
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            list.containsKey("asset_code") /* Check Asset Code Key */
+                ? list["asset_code"]
+                : "XLM",
+          ),
+        ));
   }
 
   Widget build(BuildContext context) {
@@ -192,45 +198,60 @@ class SendPaymentState extends State<SendPayment>{
       body: Stack(
         children: <Widget>[
           Column(
-            children: <Widget>[ 
-              containerAppBar( /* AppBar */
-                context, 
-                Row(
-                  children: <Widget>[
-                    iconAppBar( /* Arrow Back Button */
-                      Icon(Icons.arrow_back, color: Colors.white,),
-                      Alignment.centerLeft,
-                      EdgeInsets.all(0),
-                      popScreen,
-                    ),
-                    containerTitle("Fill Documents", double.infinity, Colors.white, FontWeight.bold)
-                  ],
-                )
-              ),
+            children: <Widget>[
+              containerAppBar(
+                  /* AppBar */
+                  context,
+                  Row(
+                    children: <Widget>[
+                      iconAppBar(
+                        /* Arrow Back Button */
+                        Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        Alignment.centerLeft,
+                        EdgeInsets.all(0),
+                        popScreen,
+                      ),
+                      containerTitle("Fill Documents", double.infinity,
+                          Colors.white, FontWeight.bold)
+                    ],
+                  )),
               Flexible(
                 child: Center(
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     child: scanPayBodyWidget(
-                      context, 
-                      widget._walletKey, dialogBox, 
-                      _modelScanPay, 
-                      validateAmount, validateMemo,
-                      onChanged, onSubmit, payProgres, 
-                      validateInput, clickSend, resetAssetsDropDown,
-                      item
-                    ), /* Scan Pay Body Widget */
+                        context,
+                        widget._walletKey,
+                        dialogBox,
+                        _modelScanPay,
+                        validateAmount,
+                        validateMemo,
+                        onChanged,
+                        onSubmit,
+                        payProgres,
+                        validateInput,
+                        clickSend,
+                        resetAssetsDropDown,
+                        item), /* Scan Pay Body Widget */
                   ),
                 ),
               ),
             ],
           ),
-          _modelScanPay.isPay == false ? Container() : Container(
-            color: Colors.black.withOpacity(0.9),
-            child: Center(
-              child: Text('Your payment is being processing ${_modelScanPay.loadingDot}', style: TextStyle(fontSize: 20.0, color: getHexaColor(lightBlueSky))),
-            ),
-          )
+          _modelScanPay.isPay == false
+              ? Container()
+              : Container(
+                  color: Colors.black.withOpacity(0.9),
+                  child: Center(
+                    child: Text(
+                        'Your payment is being processing ${_modelScanPay.loadingDot}',
+                        style: TextStyle(
+                            fontSize: 20.0, color: getHexaColor(lightBlueSky))),
+                  ),
+                )
         ],
       ),
     );

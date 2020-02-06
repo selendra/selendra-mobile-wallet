@@ -1,0 +1,137 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.zeetomic"
+4    android:versionCode="8"
+5    android:versionName="1.0.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+8-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="28" />
+9-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml
+10
+11    <!--
+12         io.flutter.app.FlutterApplication is an android.app.Application that
+13         calls FlutterMain.startInitialization(this); in its onCreate method.
+14         In most cases you can leave this as-is, but you if you want to provide
+15         additional functionality it is fine to subclass or reimplement
+16         FlutterApplication and put your custom class here.
+17    -->
+18    <uses-permission android:name="android.permission.INTERNET" />
+18-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:9:5-66
+18-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:9:22-64
+19    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+19-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:7:5-80
+19-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:7:22-77
+20    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+20-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:8:5-81
+20-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:8:22-78
+21    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+21-->[:connectivity] /home/koompi/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/release/AndroidManifest.xml:7:5-79
+21-->[:connectivity] /home/koompi/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/release/AndroidManifest.xml:7:22-76
+22    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+22-->[:connectivity] /home/koompi/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/release/AndroidManifest.xml:8:5-76
+22-->[:connectivity] /home/koompi/Documents/zeetomic-mobile/build/connectivity/intermediates/library_manifest/release/AndroidManifest.xml:8:22-73
+23    <uses-permission android:name="android.permission.CAMERA" />
+23-->[:barcode_scan] /home/koompi/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/release/AndroidManifest.xml:11:5-65
+23-->[:barcode_scan] /home/koompi/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/release/AndroidManifest.xml:11:22-62
+24
+25    <application
+25-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:11:5-40:19
+26        android:name="io.flutter.app.FlutterApplication"
+26-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:12:9-57
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.1.0] /home/koompi/.gradle/caches/transforms-2/files-2.1/7f6c41cc2a14c0fbaa8d0166c17dc544/core-1.1.0/AndroidManifest.xml:24:18-86
+28        android:icon="@mipmap/launcher_icon"
+28-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:14:9-45
+29        android:label="CBM" >
+29-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:13:9-28
+30        <activity
+30-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:15:9-33:20
+31            android:name="com.example.zeetomic.MainActivity"
+31-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:16:13-41
+32            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+32-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:19:13-144
+33            android:hardwareAccelerated="true"
+33-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:20:13-47
+34            android:launchMode="singleTop"
+34-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:17:13-43
+35            android:theme="@style/LaunchTheme"
+35-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:18:13-47
+36            android:windowSoftInputMode="adjustResize" >
+36-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:21:13-55
+37
+38            <!--
+39                 This keeps the window background of the activity showing
+40                 until Flutter renders its first frame. It can be removed if
+41                 there is no splash screen (such as the default splash screen
+42                 defined in @style/LaunchTheme).
+43            -->
+44            <meta-data
+44-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:26:13-28:40
+45                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+45-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:27:17-82
+46                android:value="true" />
+46-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:28:17-37
+47
+48            <intent-filter>
+48-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:29:13-32:29
+49                <action android:name="android.intent.action.MAIN" />
+49-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:30:17-68
+49-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:30:25-66
+50
+51                <category android:name="android.intent.category.LAUNCHER" />
+51-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:31:17-76
+51-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:31:27-74
+52            </intent-filter>
+53        </activity>
+54        <activity
+54-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:35:9-38:71
+55            android:name="com.yalantis.ucrop.UCropActivity"
+55-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:36:13-60
+56            android:screenOrientation="portrait"
+56-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:37:13-49
+57            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+57-->/home/koompi/Documents/zeetomic-mobile/android/app/src/main/AndroidManifest.xml:38:13-69
+58
+59        <provider
+59-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:11:9-19:20
+60            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+60-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:12:13-82
+61            android:authorities="com.example.zeetomic.flutter.image_provider"
+61-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:13:13-74
+62            android:exported="false"
+62-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:14:13-37
+63            android:grantUriPermissions="true" >
+63-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:15:13-47
+64            <meta-data
+64-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:16:13-18:75
+65                android:name="android.support.FILE_PROVIDER_PATHS"
+65-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:17:17-67
+66                android:resource="@xml/flutter_image_picker_file_paths" />
+66-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:18:17-72
+67        </provider>
+68        <provider
+68-->[:flutter_webview_plugin] /home/koompi/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/release/AndroidManifest.xml:9:9-18:20
+69            android:name="androidx.core.content.FileProvider"
+69-->[:flutter_webview_plugin] /home/koompi/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/release/AndroidManifest.xml:10:13-62
+70            android:authorities="com.example.zeetomic.fileprovider"
+70-->[:flutter_webview_plugin] /home/koompi/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/release/AndroidManifest.xml:11:13-64
+71            android:exported="false"
+71-->[:flutter_webview_plugin] /home/koompi/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/release/AndroidManifest.xml:12:13-37
+72            android:grantUriPermissions="true" >
+72-->[:flutter_webview_plugin] /home/koompi/Documents/zeetomic-mobile/build/flutter_webview_plugin/intermediates/library_manifest/release/AndroidManifest.xml:13:13-47
+73            <meta-data
+73-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:16:13-18:75
+74                android:name="android.support.FILE_PROVIDER_PATHS"
+74-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:17:17-67
+75                android:resource="@xml/filepaths" />
+75-->[:image_picker] /home/koompi/Documents/zeetomic-mobile/build/image_picker/intermediates/library_manifest/release/AndroidManifest.xml:18:17-72
+76        </provider>
+77
+78        <activity android:name="com.apptreesoftware.barcodescan.BarcodeScannerActivity" />
+78-->[:barcode_scan] /home/koompi/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/release/AndroidManifest.xml:14:9-91
+78-->[:barcode_scan] /home/koompi/Documents/zeetomic-mobile/build/barcode_scan/intermediates/library_manifest/release/AndroidManifest.xml:14:19-88
+79    </application>
+80
+81</manifest>
