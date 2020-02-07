@@ -71,7 +71,6 @@ class SendPaymentState extends State<SendPayment> {
       } else {
         await dialog(context, Text(_response["error"]['message']),
             Icon(Icons.warning, color: Colors.red));
-        // Navigator.pop(context, _response);
       }
     } else {
       await dialog(context, Text('Something goes wrong'),
@@ -137,8 +136,8 @@ class SendPaymentState extends State<SendPayment> {
       setState(() => _modelScanPay.enable = false);
   }
 
-  /* Loading For User Pay */
   void payProgres() {
+    /* Loading For User Pay */
     setState(() {
       _modelScanPay.isPay = true;
     });
