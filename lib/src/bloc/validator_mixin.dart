@@ -1,7 +1,6 @@
 import 'dart:async';
 
 class ValidateMixin {
-
   /* ----------User Login & Sign Up---------- */
   String validateEmails(String value) {
     Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -18,48 +17,49 @@ class ValidateMixin {
   }
 
   /* ----------User Sign Up Next Step---------- */
-  String validatePassword(String value){
-    if( value.isEmpty ) return 'Fill password';
-    else if ( value.length < 5) return 'Password must be greater than 4 digit';
+  String validatePassword(String value) {
+    if (value.isEmpty) return 'Fill password';
+    else if (value.length < 5) return 'Password must be greater than 4 digit';
     return null;
   }
 
-  String validateSms(String value){
+  String validateSms(String value) {
     return null;
   }
-  
-  String validateUserInfo(String value){
+
+  String validateUserInfo(String value) {
     if (value == '') return "Fil your ";
     return null;
   }
 
-  String validateSendToken(String value){
-    if(value == '') return "Fill your ";
+  String validateSendToken(String value) {
+    if (value == '') return "Fill your ";
     return null;
   }
 
   /* -----------Add User Field---------- */
-  String validateOccupation(String value){
+  String validateOccupation(String value) {
     return null;
   }
 
-  String validateNationality(String value){
+  String validateNationality(String value) {
     return null;
   }
 
   /* -----------Invoice Field---------- */
 
-  String validateInvoice(String value){
+  String validateInvoice(String value) {
     if (value == '') return "Fil your ";
     return null;
   }
 
   /* ----------Profile User---------- */
-  String validatePin(String value){
+  String validateChangePin(String value) {
+    if (value == '') return "Fil your ";
     return null;
   }
 
-  String validateAsset(String value){
+  String validateAsset(String value) {
     return null;
   }
 
@@ -67,29 +67,40 @@ class ValidateMixin {
   String validateDocument(String value) {
     return null;
   }
-  
-  final validateEmail = StreamTransformer<String, dynamic>.fromHandlers(handleData: (value, sink){
-    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+  final validateEmail = StreamTransformer<String, dynamic>.fromHandlers(
+      handleData: (value, sink) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (value == null) sink.add(null);
-    else if (value == '') sink.addError('Fill your email');
-    else if (!regex.hasMatch(value)) sink.addError('Invalid email');
+    if (value == null)
+      sink.add(null);
+    else if (value == '')
+      sink.addError('Fill your email');
+    else if (!regex.hasMatch(value))
+      sink.addError('Invalid email');
     else if (regex.hasMatch(value)) sink.add(value);
   });
 
-  final validatePhoneNums = StreamTransformer<String, dynamic>.fromHandlers(handleData: (value, sink){
-    if (value == '') sink.addError('Fill phone number');
-    else if (value.length < 8) sink.addError("Invalid phone number");
+  final validatePhoneNums = StreamTransformer<String, dynamic>.fromHandlers(
+      handleData: (value, sink) {
+    if (value == '')
+      sink.addError('Fill phone number');
+    else if (value.length < 8)
+      sink.addError("Invalid phone number");
     else if (value.length >= 8) sink.add(value);
   });
 
-  final validatePasswords = StreamTransformer<String, dynamic>.fromHandlers(handleData: (value, sink){
-    if ( value == null ) sink.add(null);
-    else if( value == '') { sink.addError('Fill password');}
-    else if ( value.length < 5) sink.addError('Password must be 5digit');
-    else if ( value.length >= 5) sink.add(value);
-  }); 
-
+  final validatePasswords = StreamTransformer<String, dynamic>.fromHandlers(
+      handleData: (value, sink) {
+    if (value == null)
+      sink.add(null);
+    else if (value == '') {
+      sink.addError('Fill password');
+    } else if (value.length < 5)
+      sink.addError('Password must be 5digit');
+    else if (value.length >= 5) sink.add(value);
+  });
 }
 
 final instanceValidate = ValidateMixin();

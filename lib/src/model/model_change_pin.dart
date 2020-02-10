@@ -2,10 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelChangePin {
-
   final formStateChangePin = GlobalKey<FormState>();
 
+  bool enable = false;
+
   Bloc bloc = Bloc();
+
+  String responseOldPin, responseNewPin, responseConfirmPin;
+
   TextEditingController controllerOldPin = TextEditingController(text: "");
   TextEditingController controllerNewPin = TextEditingController(text: "");
   TextEditingController controllerConfirmPin = TextEditingController(text: "");

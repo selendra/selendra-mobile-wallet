@@ -145,15 +145,17 @@ class ProfileUserState extends State<ProfileUser> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       key: _scaffoldKey,
-      body: SmartRefresher(
-        physics: BouncingScrollPhysics(),
-        controller: _refreshController,
-        onRefresh: _reFresh,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          alignment: Alignment.center,
-          child: profileUserBodyWidget(isHaveWallet, context, _modelUserInfo.userData, widget._userData['wallet'], snackBar, dialogBox, popScreen),
-        )
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: SmartRefresher(
+              physics: BouncingScrollPhysics(),
+              controller: _refreshController,
+              onRefresh: _reFresh,
+              child: profileUserBodyWidget(isHaveWallet, context, _modelUserInfo.userData, widget._userData['wallet'], snackBar, dialogBox, popScreen)
+            ),
+          )
+        ],
       )
     );
   }

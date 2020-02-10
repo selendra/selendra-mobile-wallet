@@ -23,14 +23,17 @@ Widget customListTile(BuildContext context, IconData icon, String title, dynamic
         ) : null,
         child: Icon(
           icon,
-          color: title == "Edit Profile" ? getHexaColor("#000000") : Colors.white, //"#000000"
+          color: title == "Edit Profile" 
+            ? getHexaColor("#000000") 
+            : Colors.white,
         ),
       ),
       title: Text(
         title,
         style: TextStyle(
-        fontWeight: FontWeight.bold,
-        color: getHexaColor("#EFF0F2")),
+          fontWeight: FontWeight.bold,
+          color: getHexaColor("#EFF0F2")
+        ),
       ),
       trailing: Icon(
         Icons.arrow_forward_ios,

@@ -199,11 +199,18 @@ class DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      bottomNavigationBar: bottomAppBar( /* Bottom Navigation Bar */
-        context, 
-        _modelDashboard, 
-        _modelDashboard.portfolio == null ? null : scanQR, 
-        _modelDashboard.portfolio == null ? null : scanReceipt, _resetState, toReceiveToken
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Flexible(
+            child: bottomAppBar( /* Bottom Navigation Bar */
+              context, 
+              _modelDashboard, 
+              _modelDashboard.portfolio == null ? null : scanQR, 
+              _modelDashboard.portfolio == null ? null : scanReceipt, _resetState, toReceiveToken
+            ),
+          )
+        ],
       )
     );
   }
