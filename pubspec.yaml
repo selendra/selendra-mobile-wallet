@@ -59,7 +59,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/cbm_yellow_logo.png"
+  image_path: "assets/yinkok_256.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -95,6 +95,9 @@ flutter:
     - assets/cbm_yellow_logo.png
     - assets/zeeicon.png
     - assets/zeeicon_button.png
+    - assets/yinkok.png
+    - assets/yinkok_256.png
+    - assets/yinkok_qr.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

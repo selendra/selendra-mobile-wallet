@@ -198,43 +198,43 @@ class SendPaymentState extends State<SendPayment> {
         children: <Widget>[
           Column(
             children: <Widget>[
-              containerAppBar(
-                  /* AppBar */
-                  context,
-                  Row(
-                    children: <Widget>[
-                      iconAppBar(
-                        /* Arrow Back Button */
-                        Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                        Alignment.centerLeft,
-                        EdgeInsets.all(0),
-                        popScreen,
+              containerAppBar( /* AppBar */
+                context,
+                Row(
+                  children: <Widget>[
+                    iconAppBar( /* Arrow Back Button */
+                      Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
                       ),
-                      containerTitle("Fill Documents", double.infinity,
-                          Colors.white, FontWeight.bold)
-                    ],
-                  )),
+                      Alignment.centerLeft,
+                      EdgeInsets.all(0),
+                      popScreen,
+                    ),
+                    containerTitle("Fill Documents", double.infinity,
+                        Colors.white, FontWeight.bold)
+                  ],
+                )
+              ),
               Flexible(
                 child: Center(
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
                     child: scanPayBodyWidget(
-                        context,
-                        widget._walletKey,
-                        dialogBox,
-                        _modelScanPay,
-                        validateAmount,
-                        validateMemo,
-                        onChanged,
-                        onSubmit,
-                        payProgres,
-                        validateInput,
-                        clickSend,
-                        resetAssetsDropDown,
-                        item), /* Scan Pay Body Widget */
+                      context,
+                      widget._walletKey,
+                      dialogBox,
+                      _modelScanPay,
+                      validateAmount,
+                      validateMemo,
+                      onChanged,
+                      onSubmit,
+                      payProgres,
+                      validateInput,
+                      clickSend,
+                      resetAssetsDropDown,
+                      item
+                    ), /* Scan Pay Body Widget */
                   ),
                 ),
               ),

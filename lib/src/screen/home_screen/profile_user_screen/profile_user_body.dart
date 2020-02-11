@@ -60,7 +60,7 @@ Widget profileUserBodyWidget(
       Navigator.pushReplacementNamed(context, '/');
     });
   }
-  print(_userInfo);
+
   return Container(
     margin: EdgeInsets.all(19),
     width: MediaQuery.of(context).size.width,
@@ -131,14 +131,14 @@ Widget profileUserBodyWidget(
             ],
           )
         ),
-        Flexible(child: customListTile(context, Icons.sort, "Edit Profile", navigateEditProfile),),
-        Flexible(child: customListTile(context, Icons.query_builder, "Transaction History", navigateTrxHistory),),
-        Flexible(child: customListTile(context, Icons.query_builder, "Activity", navigateAcivity),),
-        Flexible(child: customListTile(context, Icons.account_balance_wallet, "Get Wallet", navigateGetWallet),),
-        Flexible(child: customListTile(context, Icons.lock, "Change PIN", navigateChangePIN),),
-        Flexible(child: customListTile(context, Icons.lock, "Change Password", navigateChangePass),),
-        Flexible(child: customListTile(context, Icons.add, "Add Assets", navigateAddAssets),),
-        Flexible(child: customListTile(context, Icons.exit_to_app, "Sign Out", signOut),)
+        customListTile(context, Icons.sort, "Edit Profile", navigateEditProfile),
+        customListTile(context, Icons.query_builder, "Transaction History", navigateTrxHistory),
+        customListTile(context, Icons.query_builder, "Activity", navigateAcivity),
+        customListTile(context, Icons.account_balance_wallet, "Get Wallet", navigateGetWallet),
+        customListTile(context, Icons.lock, "Change PIN", navigateChangePIN),
+        customListTile(context, Icons.lock, "Change Password", navigateChangePass),
+        customListTile(context, Icons.add, "Add Assets", navigateAddAssets),
+        customListTile(context, Icons.exit_to_app, "Sign Out", signOut)
       ],
     ),
   );

@@ -79,8 +79,8 @@ Widget cardToken( /* Card Token Display */
 /* Scan QR Code */
 Future scanQR(BuildContext context, ModelDashboard _modelDashBoard, Function _resetState) async {
   try {
-    // String _barcode = await BarcodeScanner.scan();
-    var _response = await Navigator.push(context, transitionRoute(SendPayment('_barcode', _modelDashBoard)));
+    String _barcode = await BarcodeScanner.scan();
+    var _response = await Navigator.push(context, transitionRoute(SendPayment(_barcode, _modelDashBoard)));
     if (_response == 200) {
       if (!_response.containsKey('error'))
        _resetState(null, "portfolio", _modelDashBoard);

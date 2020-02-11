@@ -91,14 +91,15 @@ Widget cardHeader(GlobalKey<AnimatedCircularChartState> _chartKey) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "About CBM",
+                    "About YINKOK.",
                     // "About ZEETOMIC",
                     style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 19.42),
                     child: Text(
-                      "CBM Corporation Co.,Ltd is a leading food service company in Cambodia",
+                      "YINKOK FOOD CORP is a leading foodservice company in Cambodia such as Domino's Pizza",
+                      // "CBM Corporation Co.,Ltd is a leading food service company in Cambodia",
                       // 'The Platform for the Issuance and Management of Digital Asset',
                       style: TextStyle(
                         fontSize: 16.0,
