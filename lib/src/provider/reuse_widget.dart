@@ -633,10 +633,6 @@ Widget inputField( /* User Input Field */
     onFieldSubmitted: (value) {
       action(context);
     },
-    // onFieldSubmitted: (value) {
-    //       firstNode.unfocus();
-    //       FocusScope.of(context).requestFocus(secondNode);
-    // }
   );
 }
 
