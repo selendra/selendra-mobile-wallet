@@ -14,7 +14,7 @@ Widget signUpFirstBodyWidget(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center, /* Stretch is fill cros axis */
     children: <Widget>[
-      logoWelcomeScreen("CBM_V1.png", 80.0, 80.0),
+      logoWelcomeScreen("yinkok.png", 80.0, 80.0),
       Container(
         margin: EdgeInsets.only(top: 60.0),
         child: textDisplay(

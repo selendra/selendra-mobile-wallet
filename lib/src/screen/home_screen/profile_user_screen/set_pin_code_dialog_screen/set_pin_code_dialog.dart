@@ -39,6 +39,8 @@ class SetPinDialogState extends State<SetPinDialog> {
             child: Text(_showError, style: TextStyle(color: Colors.red),),
           ),
           PinPut(
+            clearButtonIcon: Icon(Icons.close),
+            pasteButtonIcon: Icon(Icons.close),
             isTextObscure: true,
             fieldsCount: 4,
             onSubmit: (String pins) {

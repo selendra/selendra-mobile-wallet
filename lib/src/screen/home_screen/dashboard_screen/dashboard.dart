@@ -172,7 +172,23 @@ class DashboardState extends State<Dashboard> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: Image.asset("assets/${_modelDashboard.titleAppBar}", width: 140.53, height: double.infinity, alignment: Alignment.centerLeft),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Image.asset("assets/${_modelDashboard.titleAppBar}", height: 25.0, color: Colors.white,),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(left: 5.0),
+                          child: Text(
+                            "YINKOK",
+                            style: TextStyle(
+                              fontSize: 28.0
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   Expanded(
                     child: Container(),

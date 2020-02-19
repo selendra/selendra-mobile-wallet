@@ -10,7 +10,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="CBM"
+        android:label="YINKOK"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

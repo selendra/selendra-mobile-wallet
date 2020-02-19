@@ -33,6 +33,8 @@ class SetConfirmPinState extends State<SetConfirmPin> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               PinPut(
+                clearButtonIcon: Icon(Icons.close),
+                pasteButtonIcon: Icon(Icons.close),
                 isTextObscure: true,
                 fieldsCount: 4,
                 onSubmit: (String pins) {
@@ -56,6 +58,7 @@ class SetConfirmPinState extends State<SetConfirmPin> {
                       "compare": true
                     };
                     Map<String, dynamic> _response = await retreiveWallet(_confirmPin); /* Request Wallet */
+                    print("Retreive wallet $_response");
                     _response.addAll(popData);
                     Navigator.pop(context); /* Close Cicular Loading */
                     Navigator.pop(context, _response); /* Close Dialog And Push Back Data */

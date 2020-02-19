@@ -69,7 +69,7 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
                       // 91.14, 96.38 zeelogo
                       /* CBM */
                       // CBM_V1.png
-                      logoWelcomeScreen("CBM_V1.png", 120.0, 120.0),
+                      logoWelcomeScreen("yinkok.png", 120.0, 120.0),
                       Container(
                         margin: EdgeInsets.only(top: 50.0),
                         child: textDisplay(

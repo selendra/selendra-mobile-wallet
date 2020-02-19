@@ -25,12 +25,19 @@ class ChangePINState extends State<ChangePassword> {
   }
 
   void onSubmit(BuildContext context){
-
+    if (_modelChangePassword.nodeOldPassword.hasFocus) {
+      FocusScope.of(context).requestFocus(_modelChangePassword.nodeNewPassword);
+    } else if (_modelChangePassword.nodeNewPassword.hasFocus){
+      FocusScope.of(context).requestFocus(_modelChangePassword.nodeConfirmPassword);
+    } else {
+      if (_modelChangePassword.enable == true) submitPIN(context);
+    }
   }
 
   String validateOldPass(String value){
     if(_modelChangePassword.nodeOldPassword.hasFocus){
       _modelChangePassword.responseOldPass = instanceValidate.validatePassword(value);
+      enableButton();
     }
     return _modelChangePassword.responseOldPass;
   } 
@@ -38,6 +45,7 @@ class ChangePINState extends State<ChangePassword> {
   String validateNewPass(String value){
     if (_modelChangePassword.nodeNewPassword.hasFocus){
       _modelChangePassword.responseNewPass = instanceValidate.validatePassword(value);
+      enableButton();
     }
     return _modelChangePassword.responseNewPass;
   } 
@@ -45,9 +53,26 @@ class ChangePINState extends State<ChangePassword> {
   String validateConfirmPass(String value){
     if(_modelChangePassword.nodeConfirmPassword.hasFocus){
       _modelChangePassword.responseConfirm = instanceValidate.validatePassword(value);
+      enableButton();
     }
     return _modelChangePassword.responseConfirm;
   } 
+
+  void enableButton(){ /* Enable And Disable Button */
+    if (
+      _modelChangePassword.responseOldPass == null &&
+      _modelChangePassword.responseNewPass == null &&
+      _modelChangePassword.responseConfirm == null
+    ) {
+      if (
+        _modelChangePassword.controlOldPassword.text != "" &&
+        _modelChangePassword.controlNewPassword.text != "" &&
+        _modelChangePassword.controlConfirmPassword.text != "" 
+      ) setState(() => _modelChangePassword.enable = true);
+    }
+    else 
+      if (_modelChangePassword.enable == true) setState(() => _modelChangePassword.enable = false);
+  }
 
   void removeAllFocus() {
     _modelChangePassword.nodeOldPassword.unfocus( );
@@ -59,10 +84,12 @@ class ChangePINState extends State<ChangePassword> {
     dialogLoading(context); /* Show Loading Process */
     await changePassword(_modelChangePassword).then((_response) async {
       Navigator.pop(context); /* Close Loading Process */
-      if (!_response.containsKey("error")) {
-        /* Check Response Not Error */
+      if (!_response.containsKey("error")) { /* Check Response Not Error */
         await dialog(
-          context, Text("${_response['message']}"), Icon(Icons.done));
+          context, 
+          Text("${_response['message']}"), 
+          Icon(Icons.done)
+        );
         Navigator.pop(context);
       } else
         await dialog(context, Text("${_response['error']['message']}"),Icon(Icons.warning));
@@ -80,7 +107,13 @@ class ChangePINState extends State<ChangePassword> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: changePasswordBodyWidget(context, _modelChangePassword, popScreen, onChanged, submitPIN),
+      body: changePasswordBodyWidget(
+        context, 
+        _modelChangePassword, 
+        validateOldPass, validateNewPass, validateConfirmPass,
+        onSubmit, onChanged, 
+        submitPIN, popScreen
+      ),
     );
   }
 }

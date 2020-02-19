@@ -494,7 +494,7 @@ Widget containerTitle(String title, dynamic _height, dynamic textColor, FontWeig
 }
 
 Widget logoWelcomeScreen(String logoName, double width, double height) {
-  return Image.asset("assets/$logoName", width: width, height: height);
+  return Image.asset("assets/$logoName", width: width, height: height, color: Colors.white);
 }
 
 /* -----------------------------------Text Style--------------------------------------------------- */
@@ -539,7 +539,7 @@ Widget qrCodeGenerate(String _walletCode, String logoName) { /* QR Code Generate
         child: RepaintBoundary(
           child: new QrImage(
           foregroundColor: getHexaColor("#EEF0F2"),
-          embeddedImage: AssetImage('assets/${logoName}'),
+          embeddedImage: AssetImage('assets/$logoName'),
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(40, 40),
             ),
@@ -633,10 +633,6 @@ Widget inputField( /* User Input Field */
     onFieldSubmitted: (value) {
       action(context);
     },
-    // onFieldSubmitted: (value) {
-    //       firstNode.unfocus();
-    //       FocusScope.of(context).requestFocus(secondNode);
-    // }
   );
 }
 
