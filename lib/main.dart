@@ -1,6 +1,7 @@
 /* Flutter package */
 import 'dart:io';
 import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+import 'package:custom_splash/custom_splash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -47,60 +48,86 @@ class AppState extends State<App> {
   ModelScanInvoice _modelUserInfo = ModelScanInvoice();
   ModelDashboard _modelDashboard = ModelDashboard();
 
+  Function duringSplash = () {
+    print('Something background process');
+    int a = 123 + 23;
+    print(a);
+
+    if (a > 100)
+      return 1;
+    else
+      return 2;
+  };
+
+  // Map<int, Widget> op = {1: MyApp(), 2: MyApp()};
+
   @override
   Widget build(BuildContext context) {
     return ConnectivityAppWrapper(
       app: Provider(
         child: MaterialApp(
-        initialRoute: '/',
-        title: 'Zeetomic',
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-          textTheme: TextTheme(
-            body1: TextStyle(color: getHexaColor(appBarTextColor))
+          // initialRoute: '/',
+          title: 'Zeetomic',
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+            textTheme: TextTheme(
+              body1: TextStyle(color: getHexaColor(appBarTextColor))
+            ),
+            color: Colors.transparent,
+            iconTheme: IconThemeData(color: getHexaColor(appBarTextColor))),
+            /* Color All Text */
+            textTheme: TextTheme(body1: TextStyle(color: getHexaColor(textColor))),
+            canvasColor: getHexaColor(color2),
+            cardColor: getHexaColor(color1),
+            bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(color1)),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: getHexaColor(textColor)
+            ),
+            fontFamily: "Avenir",
+            scaffoldBackgroundColor: Colors.transparent
           ),
-          color: Colors.transparent,
-          iconTheme: IconThemeData(color: getHexaColor(appBarTextColor))),
-          /* Color All Text */
-          textTheme: TextTheme(body1: TextStyle(color: getHexaColor(textColor))),
-          canvasColor: getHexaColor(color2),
-          cardColor: getHexaColor(color1),
-          bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(color1)),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: getHexaColor(textColor)
-          ),
-          fontFamily: "Avenir",
-          scaffoldBackgroundColor: Colors.transparent
-        ),
-        routes: <String, WidgetBuilder>{
-          /* Login Screen */
-          '/': (context) =>
-          // InvoiceSummary(_modelUserInfo),
-          // HomeWidget(),
-          // UserInfo({"label": "fuckyou"}),
-          // SignUpFirst(),
-          // SmsCode(_modelSignUp),
-          WelcomeToZee(),
-          // SendPayment("hello", _modelDashboard),
-          // add_profile_screenWidget(),
-          // HistroyWidget(),
-          // PhoneScreen(setMyState),
-          // HomeWidget(),
-          // ChangePIN(),
-          // InvoiceSummary(),
-          // InvoiceInfo("Hello"),
-          // ProfileUserWidget(),
-          '/forgotPasswordScreen': (context) => ForgotPassword(),
-          /* Home Screen */
-          '/dashboardScreen': (context) => Dashboard(),
-          // '/getWalletScreen': (context) => GetWalletWidget(),
-          '/settingScreen': (context) => SettingWidget(),
-          /* Verify User Screen */
-          '/add_profile_screen': (context) => AddUserInfo(),
-          '/addDocumentScreen': (context) => AddDocuments(),
-          '/signUpScreen': (context) => SignUpFirst(),
-        },
-      )),
+          home: WelcomeToZee() 
+        //   CustomSplash(
+        //     imagePath: 'assets/zeetomic-logo-header.png',
+        //     // backGroundColor: Colors.grey,
+        //     // animationEffect: 'zoom-in',
+        //     logoSize: 100,
+        //     home: WelcomeToZee(),
+        //     customFunction: duringSplash,
+        //     duration: 1,
+        //     type: CustomSplashType.StaticDuration,
+        //     // outputAndHome: op,
+        // ),
+          // routes: <String, WidgetBuilder>{
+          //   /* Login Screen */
+          //   '/': (context) =>
+          //   // InvoiceSummary(_modelUserInfo),
+          //   // HomeWidget(),
+          //   // UserInfo({"label": "fuckyou"}),
+          //   // SignUpFirst(),
+          //   // SmsCode(_modelSignUp),
+          //   WelcomeToZee(),
+          //   // SendPayment("hello", _modelDashboard),
+          //   // add_profile_screenWidget(),
+          //   // HistroyWidget(),
+          //   // PhoneScreen(setMyState),
+          //   // HomeWidget(),
+          //   // ChangePIN(),
+          //   // InvoiceSummary(),
+          //   // InvoiceInfo("Hello"),
+          //   // ProfileUserWidget(),
+          //   '/forgotPasswordScreen': (context) => ForgotPassword(),
+          //   /* Home Screen */
+          //   '/dashboardScreen': (context) => Dashboard(),
+          //   // '/getWalletScreen': (context) => GetWalletWidget(),
+          //   '/settingScreen': (context) => SettingWidget(),
+          //   /* Verify User Screen */
+          //   '/add_profile_screen': (context) => AddUserInfo(),
+          //   '/addDocumentScreen': (context) => AddDocuments(),
+          //   '/signUpScreen': (context) => SignUpFirst(),
+          // },
+        )
+      ),
     );
   }
 }
