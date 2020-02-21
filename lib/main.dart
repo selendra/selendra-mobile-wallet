@@ -66,7 +66,7 @@ class AppState extends State<App> {
     return ConnectivityAppWrapper(
       app: Provider(
         child: MaterialApp(
-          // initialRoute: '/',
+          initialRoute: '/',
           title: 'Zeetomic',
           theme: ThemeData(
             appBarTheme: AppBarTheme(
@@ -86,47 +86,35 @@ class AppState extends State<App> {
             fontFamily: "Avenir",
             scaffoldBackgroundColor: Colors.transparent
           ),
-          home: WelcomeToZee() 
-        //   CustomSplash(
-        //     imagePath: 'assets/zeetomic-logo-header.png',
-        //     // backGroundColor: Colors.grey,
-        //     // animationEffect: 'zoom-in',
-        //     logoSize: 100,
-        //     home: WelcomeToZee(),
-        //     customFunction: duringSplash,
-        //     duration: 1,
-        //     type: CustomSplashType.StaticDuration,
-        //     // outputAndHome: op,
-        // ),
-          // routes: <String, WidgetBuilder>{
-          //   /* Login Screen */
-          //   '/': (context) =>
-          //   // InvoiceSummary(_modelUserInfo),
-          //   // HomeWidget(),
-          //   // UserInfo({"label": "fuckyou"}),
-          //   // SignUpFirst(),
-          //   // SmsCode(_modelSignUp),
-          //   WelcomeToZee(),
-          //   // SendPayment("hello", _modelDashboard),
-          //   // add_profile_screenWidget(),
-          //   // HistroyWidget(),
-          //   // PhoneScreen(setMyState),
-          //   // HomeWidget(),
-          //   // ChangePIN(),
-          //   // InvoiceSummary(),
-          //   // InvoiceInfo("Hello"),
-          //   // ProfileUserWidget(),
-          //   '/forgotPasswordScreen': (context) => ForgotPassword(),
-          //   /* Home Screen */
-          //   '/dashboardScreen': (context) => Dashboard(),
-          //   // '/getWalletScreen': (context) => GetWalletWidget(),
-          //   '/settingScreen': (context) => SettingWidget(),
-          //   /* Verify User Screen */
-          //   '/add_profile_screen': (context) => AddUserInfo(),
-          //   '/addDocumentScreen': (context) => AddDocuments(),
-          //   '/signUpScreen': (context) => SignUpFirst(),
-          // },
-        )
+          routes: <String, WidgetBuilder>{
+            /* Login Screen */
+            '/': (context) =>
+            // InvoiceSummary(_modelUserInfo),
+            // HomeWidget(),
+            // UserInfo({"label": "fuckyou"}),
+            // SignUpFirst(),
+            // SmsCode(_modelSignUp),
+            WelcomeToZee(),
+            // SendPayment("hello", _modelDashboard),
+            // add_profile_screenWidget(),
+            // HistroyWidget(),
+            // PhoneScreen(setMyState),
+            // HomeWidget(),
+            // ChangePIN(),
+            // InvoiceSummary(),
+            // InvoiceInfo("Hello"),
+            // ProfileUserWidget(),
+            '/forgotPasswordScreen': (context) => ForgotPassword(),
+            /* Home Screen */
+            '/dashboardScreen': (context) => Dashboard(),
+            // '/getWalletScreen': (context) => GetWalletWidget(),
+            '/settingScreen': (context) => SettingWidget(),
+            /* Verify User Screen */
+            '/add_profile_screen': (context) => AddUserInfo(),
+            '/addDocumentScreen': (context) => AddDocuments(),
+            '/signUpScreen': (context) => SignUpFirst(),
+          }
+        ),
       ),
     );
   }

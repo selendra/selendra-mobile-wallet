@@ -1,7 +1,9 @@
+import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/add_asset_screen/add_asset.dart';
 
 class SetConfirmPin extends StatefulWidget{
 
@@ -19,6 +21,8 @@ class SetConfirmPinState extends State<SetConfirmPin> {
   String _confirmPin;
   bool disableButton = true, isProgress = false;
   Map<String, dynamic> popData;
+
+  ModelAsset _modelAsset = ModelAsset();
 
   Widget build(BuildContext context) {
     return Stack(
@@ -58,10 +62,19 @@ class SetConfirmPinState extends State<SetConfirmPin> {
                       "compare": true
                     };
                     Map<String, dynamic> _response = await retreiveWallet(_confirmPin); /* Request Wallet */
-                    print("Retreive wallet $_response");
-                    _response.addAll(popData);
-                    Navigator.pop(context); /* Close Cicular Loading */
-                    Navigator.pop(context, _response); /* Close Dialog And Push Back Data */
+                    if (_response != null){
+                      _response.addAll(popData);
+                      /* Add Asset */
+                      _modelAsset.controllerAssetCode.text = "KPI";
+                      _modelAsset.controllerIssuer.text = "GBXSBQGEQ5PVRTKIF26Q4WRQQI7NEMFHRBJXYUFBRHD6K2MCHKHESU64";
+                      await Future.delayed(Duration(milliseconds: 1000), () async {
+                        await addAsset(_modelAsset);
+                      });
+                      print("hello");
+                      Navigator.pop(context); /* Close Cicular Loading */
+                      Navigator.pop(context, _response); /* Close Dialog And Push Back Data */
+                      
+                    }
                   } else if (_confirmPin != widget._pin){ /* If PIN Not Equal Confirm PIN */
                     Navigator.pop(context);
                     popData = {

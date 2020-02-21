@@ -6,6 +6,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as _http;
 import 'package:http_parser/http_parser.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/model/model_change_password.dart';
 import 'package:wallet_apps/src/model/model_change_pin.dart';
 import 'package:wallet_apps/src/model/model_forgot_pass.dart';
@@ -53,9 +54,7 @@ Future<Map<String, dynamic>> userLogin(String _byEmailOrPhoneNums,String _passwo
   return _myResponse;
 }
 
-/* User Regiser */
-Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums,
-  String _passwords, String _endpoints, String _schema) async {
+Future<Map<String, dynamic>> userRegister(String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _schema) async {/* User Regiser */
   _bodyEncode = json.encode(/* Convert to Json Data ( String ) */
     {_schema: _byEmailOrPhoneNums, "password": _passwords}
   );
@@ -99,17 +98,21 @@ Future<Map<String, dynamic>> retreiveWallet(String _pins) async { /* Post Get Wa
   return null;
 }
 
-Future<Map<String, dynamic>> addAsset(dynamic _model) async { /* Add New Asset */
+Future<Map<String, dynamic>> addAsset(ModelAsset _model) async { /* Add New Asset */
   _token = await Provider.fetchToken();
+  print(_model.controllerAssetCode.text);
+  print(_model.controllerIssuer.text);
+  print(_token['token']);
   _bodyEncode = json.encode({
-    "asset-code": _model.controlAssetCode.text,
-    "asset-ssuer": _model.controlAssetIssuer.text
+    "asset_code": _model.controllerAssetCode.text,
+    "asset_issuer": _model.controllerIssuer.text
   });
   if (_token != null) {
-    _response = await _http.post("$_url/userprofile",
+    _response = await _http.post("$_url/addasset",
       headers: _conceteHeader("authorization", "Bearer ${_token['token']}"),
       body: _bodyEncode
     );
+    print("My response ${_response.body}");
     return json.decode(_response.body);
   }
   return null;
