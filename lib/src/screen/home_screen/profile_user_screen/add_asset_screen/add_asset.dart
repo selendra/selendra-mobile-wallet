@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallet_apps/src/bloc/validator_mixin.dart';
 import 'package:wallet_apps/src/http_request/rest_api.dart';
 import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
@@ -15,9 +16,16 @@ class AddAssetState extends State<AddAsset> {
 
   ModelAsset _modelAsset = ModelAsset();
 
-  void onChanged(String label, String textChange){
-    if (label == "Add Assets") _modelAsset.controllerAssetCode.text = textChange;
-    else if (label == "Issuer")_modelAsset.controllerIssuer.text = textChange;
+  void onChanged(String value){
+    _modelAsset.formStateAsset.currentState.validate();
+  }
+
+  void onSubmit(BuildContext context){
+    if (_modelAsset.nodeAssetCode.hasFocus){
+      FocusScope.of(context).requestFocus(_modelAsset.nodeIssuer);
+    } else if (_modelAsset.enable == true){
+      submitAddAsset(context);
+    }
   }
 
   void submitAddAsset(BuildContext context) async {
@@ -33,17 +41,50 @@ class AddAssetState extends State<AddAsset> {
           )
         );
         Navigator.pop(context); /* Close Loading Process */
+        _modelAsset.result = {'widget': 'assetCodeScreen'};
       }
     });
   }
 
+  String validateAssetCode(String value){
+    if (_modelAsset.nodeAssetCode.hasFocus){
+      _modelAsset.responseAssetCode = instanceValidate.validateAsset(value);
+      if (_modelAsset.responseAssetCode != null) _modelAsset.responseAssetCode += "asset code";
+      validateAllField();
+    }
+    return _modelAsset.responseAssetCode;
+  }
+
+  String validateAssetIssuer(String value){
+    if (_modelAsset.nodeIssuer.hasFocus){
+      _modelAsset.responseAssetIssuer = instanceValidate.validateAsset(value);
+      if (_modelAsset.responseAssetIssuer != null) _modelAsset.responseAssetIssuer += "asset issuer";
+      validateAllField();
+    }
+    return _modelAsset.responseAssetIssuer;
+  }
+
+  void validateAllField() {
+    if (
+      _modelAsset.controllerAssetCode.text != "" &&
+      _modelAsset.controllerIssuer.text != ""
+    ) setState(() => _modelAsset.enable = true );
+    else if ( _modelAsset.enable == true ) setState( () => _modelAsset.enable = false );
+  }
+
   void popScreen() {
-    Navigator.pop(context);
+    Navigator.pop(context, _modelAsset.result);
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: addAssetBodyWidget(context, _modelAsset, popScreen, onChanged, submitAddAsset),
+      body: addAssetBodyWidget(
+        context, 
+        _modelAsset, 
+        validateAssetCode, validateAssetIssuer,
+        onChanged, onSubmit,
+        submitAddAsset, popScreen,
+      ),
     );
   }
 }

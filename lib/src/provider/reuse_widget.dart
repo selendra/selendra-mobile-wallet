@@ -623,7 +623,6 @@ Widget inputField( /* User Input Field */
     inputFormatters: textInputFormatter, /* Limit Length Of Text Input */
     onChanged: (valueChange) {
       if (
-        widgetName == "addAssetScreen" || 
         widgetName == "loginFirstScreen" ||
         widgetName == "loginSecondScreen" ||
         widgetName == "signUpFirstScreen" 

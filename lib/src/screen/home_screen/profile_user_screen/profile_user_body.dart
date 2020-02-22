@@ -20,46 +20,12 @@ Widget profileUserBodyWidget(
   BuildContext context,
   Map<String, dynamic> _userInfo,
   String _walletKey,
-  Function snackBar,
-  Function dialogBox,
-  Function popScreen
+  Function navigateEditProfile, Function navigateTrxHistory,
+  Function navigateAcivity, Function navigateGetWallet,
+  Function navigateChangePIN, Function navigateChangePass,
+  Function navigateAddAssets, Function signOut,
+  Function snackBar, Function dialogBox, Function popScreen
 ) {
-  /* Function */
-  void navigateEditProfile(){
-    Navigator.pop(context, '');
-    Navigator.push(context, transitionRoute(UserInfo(_userInfo)));
-  } 
-  void navigateTrxHistory() {
-    Navigator.pop(context, '');
-    Navigator.push(context, transitionRoute(TransactionHistoryWidget(_walletKey)));
-  }
-  void navigateAcivity() { 
-    Navigator.pop(context, '');
-    Navigator.push(context, transitionRoute(Activity()));
-  }
-  void navigateGetWallet() async{
-    await dialogBox(context); 
-  }
-  void navigateChangePIN() { 
-    Navigator.push(context, transitionRoute(ChangePIN()));
-  }
-  void navigateChangePass() {
-    Navigator.push(context, transitionRoute(ChangePassword()));
-  }
-  void navigateAddAssets() {
-    Navigator.push(context, transitionRoute(AddAsset()));
-  }
-  void signOut() async {
-    dialogLoading(context);
-    clearStorage();
-    await Future.delayed(Duration(seconds: 1), () {
-      Navigator.pop(context); /* Close Dialog Loading */
-    });
-    Navigator.pop(context, ''); /* Close Profile Screen */
-    await Future.delayed(Duration(milliseconds: 100), () {
-      Navigator.pushReplacementNamed(context, '/');
-    });
-  }
 
   return Container(
     margin: EdgeInsets.all(19),

@@ -28,7 +28,7 @@ class ValidateMixin {
   }
 
   String validateUserInfo(String value) {
-    if (value == '') return "Fil your ";
+    if (value == '') return "Fill your ";
     return null;
   }
 
@@ -49,17 +49,18 @@ class ValidateMixin {
   /* -----------Invoice Field---------- */
 
   String validateInvoice(String value) {
-    if (value == '') return "Fil your ";
+    if (value == '') return "Fill your ";
     return null;
   }
 
   /* ----------Profile User---------- */
   String validateChangePin(String value) {
-    if (value == '') return "Fil your ";
+    if (value == '') return "Fill your ";
     return null;
   }
 
   String validateAsset(String value) {
+    if (value == '') return "Fill your ";
     return null;
   }
 

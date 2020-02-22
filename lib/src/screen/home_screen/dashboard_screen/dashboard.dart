@@ -51,8 +51,7 @@ class DashboardState extends State<Dashboard> {
       _modelDashboard.portfolio = [];
     });
 
-    print(_modelDashboard.result);
-    if (_modelDashboard.result.containsKey('widget')){ /* If From Get Wallet In Profile */
+    if (_modelDashboard.result.containsValue('dialogPrivateKey')){ /* If From Get Wallet In Profile */
       ModelAsset _modelAsset = ModelAsset();
       _modelAsset.controllerAssetCode.text = "KPI";
       _modelAsset.controllerIssuer.text = "GBXSBQGEQ5PVRTKIF26Q4WRQQI7NEMFHRBJXYUFBRHD6K2MCHKHESU64"; 

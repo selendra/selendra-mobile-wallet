@@ -4,10 +4,16 @@ import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/model/model_user_info.dart';
 import 'package:wallet_apps/src/bloc/bloc_provider.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/activity_screen/activity.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/add_asset_screen/add_asset.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_password_screen/change_password.dart';
+import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/change_pin_screen/change_pin.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/private_key_dialog_screen/private_key_dialog.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/set_pin_code_dialog_screen/set_confirm_pin_code_dialog.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/set_pin_code_dialog_screen/set_pin_code_dialog.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
+import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
+import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
 import 'package:wallet_apps/src/service/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -65,7 +71,7 @@ class ProfileUserState extends State<ProfileUser> {
     });
   }
 
-  void dialogBox(BuildContext context) async { /* Set PIN Dialog */
+  Future<void> dialogBox(BuildContext context) async { /* Set PIN Dialog */
     _result = await showDialog(
       barrierDismissible: false,
       context: context,
@@ -115,23 +121,55 @@ class ProfileUserState extends State<ProfileUser> {
         _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
         _confirmPin = "";
         snackBar(_result['message']); /* Copy Private Key Success And Show Message From Bottom */
-        // if (_result.containsKey('isSuccess')){ /* Check Success Copy Key And Make Auto Add Asset */
-        //   ModelAsset _modelAsset = ModelAsset();
-        //   _modelAsset.controllerAssetCode.text = "KPI";
-        //   _modelAsset.controllerIssuer.text = "GBXSBQGEQ5PVRTKIF26Q4WRQQI7NEMFHRBJXYUFBRHD6K2MCHKHESU64";
-        //   await Future.delayed(Duration(seconds: 1), () async {
-        //     await getPortfolio().then((_myRes){
-        //       print("Portfolio $_myRes");
-        //     });
-        //     print("Hello world");
-        //     await addAsset(_modelAsset);
-        //   });
-        // }
       }
     } else {
       _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
       _confirmPin = "";
     }
+  }
+  
+  /* Function */
+  void navigateEditProfile(){
+    Navigator.pop(context, '');
+    Navigator.push(context, transitionRoute(UserInfo(_modelUserInfo.userData)));
+  } 
+
+  void navigateTrxHistory() {
+    Navigator.pop(context, '');
+    Navigator.push(context, transitionRoute(TransactionHistoryWidget(widget._userData['wallet'])));
+  }
+
+  void navigateAcivity() { 
+    Navigator.pop(context, '');
+    Navigator.push(context, transitionRoute(Activity()));
+  }
+
+  void navigateGetWallet() async {
+    await dialogBox(context); 
+  }
+
+  void navigateChangePIN() { 
+    Navigator.push(context, transitionRoute(ChangePIN()));
+  }
+
+  void navigateChangePass() {
+    Navigator.push(context, transitionRoute(ChangePassword()));
+  }
+
+  void navigateAddAssets() async {
+    _result = await Navigator.push(context, transitionRoute(AddAsset()));
+  }
+  
+  void signOut() async {
+    dialogLoading(context);
+    clearStorage();
+    await Future.delayed(Duration(seconds: 1), () {
+      Navigator.pop(context); /* Close Dialog Loading */
+    });
+    Navigator.pop(context, ''); /* Close Profile Screen */
+    await Future.delayed(Duration(milliseconds: 100), () {
+      Navigator.pushReplacementNamed(context, '/');
+    });
   }
 
   /* ----------------------Side Bar -------------------------*/
@@ -162,7 +200,17 @@ class ProfileUserState extends State<ProfileUser> {
         physics: BouncingScrollPhysics(),
         child: Column(
         children: <Widget>[
-          profileUserBodyWidget(isHaveWallet, context, _modelUserInfo.userData, widget._userData['wallet'], snackBar, dialogBox, popScreen)
+          profileUserBodyWidget(
+            isHaveWallet, 
+            context, 
+            _modelUserInfo.userData, 
+            widget._userData['wallet'], 
+            navigateEditProfile, navigateTrxHistory,
+            navigateAcivity, navigateGetWallet, 
+            navigateChangePIN, navigateChangePass,
+            navigateAddAssets, signOut, 
+            snackBar,  dialogBox, popScreen
+          )
           // Expanded(
           //   child: SingleChildScrollView(
           //     child: 
