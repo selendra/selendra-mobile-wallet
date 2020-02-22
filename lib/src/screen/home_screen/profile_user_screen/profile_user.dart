@@ -1,4 +1,5 @@
 import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/model/model_login.dart';
 import 'package:wallet_apps/src/model/model_signup.dart';
 import 'package:wallet_apps/src/model/model_user_info.dart';
@@ -114,6 +115,18 @@ class ProfileUserState extends State<ProfileUser> {
         _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
         _confirmPin = "";
         snackBar(_result['message']); /* Copy Private Key Success And Show Message From Bottom */
+        // if (_result.containsKey('isSuccess')){ /* Check Success Copy Key And Make Auto Add Asset */
+        //   ModelAsset _modelAsset = ModelAsset();
+        //   _modelAsset.controllerAssetCode.text = "KPI";
+        //   _modelAsset.controllerIssuer.text = "GBXSBQGEQ5PVRTKIF26Q4WRQQI7NEMFHRBJXYUFBRHD6K2MCHKHESU64";
+        //   await Future.delayed(Duration(seconds: 1), () async {
+        //     await getPortfolio().then((_myRes){
+        //       print("Portfolio $_myRes");
+        //     });
+        //     print("Hello world");
+        //     await addAsset(_modelAsset);
+        //   });
+        // }
       }
     } else {
       _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */

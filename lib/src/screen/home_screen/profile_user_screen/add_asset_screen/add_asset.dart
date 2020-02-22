@@ -26,7 +26,7 @@ class AddAssetState extends State<AddAsset> {
       if (_response != null){ 
         await dialog(
           context, 
-          Text("$_response['message']"), 
+          Text("${_response['message']}"), 
           Icon(
             Icons.done_outline, 
             color: getHexaColor(blueColor)

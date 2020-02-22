@@ -9,6 +9,7 @@ class ModelDashboard {
   Map<String, dynamic> userData, userWallet;
   String userId; String barcode, token;
   List<dynamic> portfolio = [];
+  dynamic result = {};
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<AnimatedCircularChartState> chartKey = new GlobalKey<AnimatedCircularChartState>();
   final RefreshController refreshController = RefreshController();

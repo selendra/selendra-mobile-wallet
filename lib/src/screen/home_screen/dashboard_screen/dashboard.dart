@@ -8,6 +8,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 /* Directory of file */
 import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
 import 'package:wallet_apps/src/model/model_scan_invoice.dart';
 import 'package:wallet_apps/src/screen/home_screen/dashboard_screen/dashboard_reuse_widget.dart';
@@ -49,29 +50,61 @@ class DashboardState extends State<Dashboard> {
     setState(() {
       _modelDashboard.portfolio = [];
     });
-    await getPortfolio().then((_response) async { /* Get Response Data */
-      if ( (_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>"){ /* If Response DataType Not List<dynamic> */ 
-        if (_response.containsKey("error")){
-          await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
-          setState(() {
-            _modelDashboard.portfolio = null; /* Set Portfolio Equal Null To Close Loading Process */
-          });
-        }
-      } else {
-        setState(() {
-          _modelDashboard.portfolio = _response;
+
+    print(_modelDashboard.result);
+    if (_modelDashboard.result.containsKey('widget')){ /* If From Get Wallet In Profile */
+      ModelAsset _modelAsset = ModelAsset();
+      _modelAsset.controllerAssetCode.text = "KPI";
+      _modelAsset.controllerIssuer.text = "GBXSBQGEQ5PVRTKIF26Q4WRQQI7NEMFHRBJXYUFBRHD6K2MCHKHESU64"; 
+      await Future.delayed(Duration(seconds: 5), () async {
+        await addAsset(_modelAsset).then((_response) async { /* Auto Add Asset */
+        if (_response.containsKey('message')){
+            print("Start");
+            await getPortfolio().then((_response) async { /* Get Portfolio Data */
+            print("My port $_response");
+              if ( (_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>"){ /* If Response DataType Not List<dynamic> */ 
+                if (_response.containsKey("error")){
+                  await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
+                  setState(() {
+                    _modelDashboard.portfolio = null; /* Set Portfolio Equal Null To Close Loading Process */
+                  });
+                }
+              } else {
+                setState(() {
+                  _modelDashboard.portfolio = _response;
+                });
+                setData(_modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
+              }
+            });
+          }
         });
-        setData(_modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
-      }
-    });
-    print(_modelDashboard.portfolio);
+      });
+      _modelDashboard.result = {}; /* Reset Result Data To Default */ 
+    } else { /* Initstate & Pull Refresh To Get Portfolio */ 
+      print("Pull refresh");
+      await getPortfolio().then((_response) async { /* Get Response Data */
+        if ( (_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>"){ /* If Response DataType Not List<dynamic> */ 
+          if (_response.containsKey("error")){
+            await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
+            setState(() {
+              _modelDashboard.portfolio = null; /* Set Portfolio Equal Null To Close Loading Process */
+            });
+          }
+        } else {
+          setState(() {
+            _modelDashboard.portfolio = _response;
+          });
+          setData(_modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
+        }
+      });
+    }
   }
 
   /* ------------------------Method------------------------ */
   /* Open Menu */
   void openMenu() async { /* Navigate To Profile User */
-    var _result = await Navigator.of(context).push(transitionRoute(ProfileUser(_modelDashboard.userData)));
-    if (_result != "") fetchPortfolio();
+    _modelDashboard.result = await Navigator.of(context).push(transitionRoute(ProfileUser(_modelDashboard.userData)));
+    if (_modelDashboard.result != "") fetchPortfolio();
   }
 
   /* Log Out Method */

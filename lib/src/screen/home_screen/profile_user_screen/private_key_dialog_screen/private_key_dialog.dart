@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wallet_apps/src/http_request/rest_api.dart';
+import 'package:wallet_apps/src/model/model_asset.dart';
 import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/private_key_dialog_screen/private_key_dialog_body.dart';
 
@@ -22,6 +24,11 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
   @override
   void initState() {
     super.initState();
+  }
+
+  void autoAddAsset() async { /* Add Asset */
+    await Future.delayed(Duration(milliseconds: 4000), () async {
+    });
   }
 
   void userCheckBox() {

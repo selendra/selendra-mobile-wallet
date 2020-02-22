@@ -113,6 +113,7 @@ Future<Map<String, dynamic>> addAsset(ModelAsset _model) async { /* Add New Asse
       body: _bodyEncode
     );
     print("My response ${_response.body}");
+    print(json.decode(_response.body)['message']);
     return json.decode(_response.body);
   }
   return null;

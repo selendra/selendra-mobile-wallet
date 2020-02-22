@@ -22,8 +22,6 @@ class SetConfirmPinState extends State<SetConfirmPin> {
   bool disableButton = true, isProgress = false;
   Map<String, dynamic> popData;
 
-  ModelAsset _modelAsset = ModelAsset();
-
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
@@ -64,16 +62,8 @@ class SetConfirmPinState extends State<SetConfirmPin> {
                     Map<String, dynamic> _response = await retreiveWallet(_confirmPin); /* Request Wallet */
                     if (_response != null){
                       _response.addAll(popData);
-                      /* Add Asset */
-                      _modelAsset.controllerAssetCode.text = "KPI";
-                      _modelAsset.controllerIssuer.text = "GBXSBQGEQ5PVRTKIF26Q4WRQQI7NEMFHRBJXYUFBRHD6K2MCHKHESU64";
-                      await Future.delayed(Duration(milliseconds: 1000), () async {
-                        await addAsset(_modelAsset);
-                      });
-                      print("hello");
                       Navigator.pop(context); /* Close Cicular Loading */
                       Navigator.pop(context, _response); /* Close Dialog And Push Back Data */
-                      
                     }
                   } else if (_confirmPin != widget._pin){ /* If PIN Not Equal Confirm PIN */
                     Navigator.pop(context);
