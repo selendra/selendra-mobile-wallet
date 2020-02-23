@@ -80,7 +80,6 @@ class DashboardState extends State<Dashboard> {
       });
       _modelDashboard.result = {}; /* Reset Result Data To Default */ 
     } else { /* Initstate & Pull Refresh To Get Portfolio */ 
-      print("Pull refresh");
       await getPortfolio().then((_response) async { /* Get Response Data */
         if ( (_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>"){ /* If Response DataType Not List<dynamic> */ 
           if (_response.containsKey("error")){
@@ -100,30 +99,12 @@ class DashboardState extends State<Dashboard> {
   }
 
   /* ------------------------Method------------------------ */
-  /* Open Menu */
   void openMenu() async { /* Navigate To Profile User */
     _modelDashboard.result = await Navigator.of(context).push(transitionRoute(ProfileUser(_modelDashboard.userData)));
-    if (_modelDashboard.result != "") fetchPortfolio();
-  }
-
-  /* Log Out Method */
-  void logOut(BuildContext context) async{
-    dialogLoading(context); /* Loading */
-    clearStorage();
-    await Future.delayed(Duration(seconds: 1), () {
-      Navigator.pop(context);
-      Navigator.of(context, rootNavigator: true).popAndPushNamed('/');
-    });
+    if (_modelDashboard.result != '') fetchPortfolio();
   }
 
   /* ------------------------Fetch Local Data Method------------------------ */
-  void snackBar() { /* Trigger Snackbar Function */
-    final snackbar = SnackBar(
-      content: Text('Hello world'),
-    );
-    _modelDashboard.scaffoldKey.currentState.showSnackBar(snackbar);
-  }
-
   _pullUpRefresh() async { /* Refech Data User And Portfolio */
     setState(() {
       _modelDashboard.portfolio = [];
@@ -133,7 +114,7 @@ class DashboardState extends State<Dashboard> {
     _modelDashboard.refreshController.refreshCompleted();
   }
 
-  Future<dynamic> cropImageCamera(BuildContext context) async {
+  Future<dynamic> cropImageCamera(BuildContext context) async { /* Crop Image From Camera */
     File image = await camera();
     dialogLoading(context);
     if (image != null) {
@@ -180,6 +161,15 @@ class DashboardState extends State<Dashboard> {
   
   void toReceiveToken(BuildContext context) { /* Navigate Receive Token */
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetWallet(_modelDashboard.userData['wallet'])));
+  }
+  
+  void logOut(BuildContext context) async{ /* Log Out Method */
+    dialogLoading(context); /* Loading */
+    clearStorage();
+    await Future.delayed(Duration(seconds: 1), () {
+      Navigator.pop(context);
+      Navigator.of(context, rootNavigator: true).popAndPushNamed('/');
+    });
   }
   
   @override
