@@ -10,7 +10,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="YINKOK"
+        android:label="Koompi wallet"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name="com.example.wallet.MainActivity"

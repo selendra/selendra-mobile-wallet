@@ -36,7 +36,7 @@ class DashboardState extends State<Dashboard> {
 
   @override
   initState() { /* Initialize State */
-    getUserData(); /* User Profile */
+    getUserData(); /* Get Profile */
     fetchPortfolio();
     super.initState();
   }
@@ -55,12 +55,10 @@ class DashboardState extends State<Dashboard> {
       ModelAsset _modelAsset = ModelAsset();
       _modelAsset.controllerAssetCode.text = "KPI";
       _modelAsset.controllerIssuer.text = "GBXSBQGEQ5PVRTKIF26Q4WRQQI7NEMFHRBJXYUFBRHD6K2MCHKHESU64"; 
-      await Future.delayed(Duration(seconds: 5), () async {
+      await Future.delayed(Duration(seconds: 4), () async {
         await addAsset(_modelAsset).then((_response) async { /* Auto Add Asset */
         if (_response.containsKey('message')){
-            print("Start");
             await getPortfolio().then((_response) async { /* Get Portfolio Data */
-            print("My port $_response");
               if ( (_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>"){ /* If Response DataType Not List<dynamic> */ 
                 if (_response.containsKey("error")){
                   await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow,));
@@ -203,7 +201,7 @@ class DashboardState extends State<Dashboard> {
                           alignment: Alignment.centerLeft,
                           margin: EdgeInsets.only(left: 5.0),
                           child: Text(
-                            "YINKOK",
+                            "Koompi",
                             style: TextStyle(
                               fontSize: 28.0
                             ),

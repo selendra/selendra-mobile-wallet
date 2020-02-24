@@ -90,20 +90,23 @@ Route transitionRoute(Widget child) {
     opaque: false,
     pageBuilder: (context, animation, secondaryAnimation) => child,
     transitionsBuilder: (context, animation, secondaryAnimation, child){
-      var begin = Offset(0.0, 1.0);
+      var begin = Offset(0.0, 0.25);
       var end = Offset.zero;
-      var curve = Curves.easeOut;
+      var curve = Curves.fastOutSlowIn;
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
       return SlideTransition(
         position: animation.drive(tween),
-        child: Material(
-          color: Colors.white.withOpacity(0.1),
-          child: BackdropFilter(
-            filter: ui.ImageFilter.blur(
-              sigmaX: 20.0,
-              sigmaY: 20.0,
+        child: FadeTransition(
+          opacity: animation,
+          child: Material(
+            color: Colors.white.withOpacity(0.1),
+            child: BackdropFilter(
+              filter: ui.ImageFilter.blur(
+                sigmaX: 20.0,
+                sigmaY: 20.0,
+              ),
+              child: child,
             ),
-            child: child,
           ),
         )
       );
