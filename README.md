@@ -9,5 +9,11 @@ The Platform for the Issuance and Management of Digital Asset.
 
 **Note**: you need to have flutter environment development on your machine.
 
+# Integration
+
+- Icon launcher
+- Logo title on dashbaord
+- Logo for qr code ( Should make white color rectangle background that surround of that logo )
+
 # Getting started
 
