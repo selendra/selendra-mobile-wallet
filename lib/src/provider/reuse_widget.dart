@@ -85,25 +85,28 @@ Color getHexaColor(String hexaCode) {
   return Color(convertHexaColor(hexaCode));
 }
 
-Route transitionRoute(Widget child) {
+Route transitionRoute(Widget child) { /* Transition Animation Fade Up And Down */
   return PageRouteBuilder(
     opaque: false,
     pageBuilder: (context, animation, secondaryAnimation) => child,
     transitionsBuilder: (context, animation, secondaryAnimation, child){
-      var begin = Offset(0.0, 1.0);
+      var begin = Offset(0.0, 0.25);
       var end = Offset.zero;
       var curve = Curves.easeOut;
       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
       return SlideTransition(
         position: animation.drive(tween),
-        child: Material(
-          color: Colors.white.withOpacity(0.1),
-          child: BackdropFilter(
-            filter: ui.ImageFilter.blur(
-              sigmaX: 20.0,
-              sigmaY: 20.0,
+        child: FadeTransition(
+          opacity: animation,
+          child: Material(
+            color: Colors.white.withOpacity(0.1),
+            child: BackdropFilter(
+              filter: ui.ImageFilter.blur(
+                sigmaX: 20.0,
+                sigmaY: 20.0,
+              ),
+              child: child,
             ),
-            child: child,
           ),
         )
       );
