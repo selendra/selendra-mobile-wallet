@@ -13,7 +13,7 @@ The Platform for the Issuance and Management of Digital Asset.
 
 - Icon launcher
 - Logo title on dashbaord
-- Logo for qr code ( Should make white color rectangle background that surround of that logo )
+- Logo for QR code ( logo must have white color rectangle background that surround of that logo )
 
 # Getting started
 
