@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:wallet_apps/src/model/model_dashboard.dart';
-import 'package:wallet_apps/src/screen/home_screen/profile_user_screen/profile_user.dart';
-import 'package:wallet_apps/src/screen/home_screen/transaction_history_screen/transaction_history_screen.dart';
 import '../../provider/reuse_widget.dart';
 
 final fontSize = 16.0;
