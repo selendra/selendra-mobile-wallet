@@ -128,7 +128,7 @@ class ProfileUserState extends State<ProfileUser> {
     }
   }
   
-  /* Function */
+  /* --------------------Function-------------------- */
   void navigateEditProfile(){
     Navigator.pop(context, '');
     Navigator.push(context, transitionRoute(UserInfo(_modelUserInfo.userData)));
@@ -144,7 +144,7 @@ class ProfileUserState extends State<ProfileUser> {
     Navigator.push(context, transitionRoute(Activity()));
   }
 
-  void navigateGetWallet() async {
+  void navigateGetWallet() async { /* User Get Wallet */ 
     await dialogBox(context); 
   }
 
