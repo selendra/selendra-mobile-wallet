@@ -5,20 +5,20 @@ class ValidateMixin {
   String validateEmails(String value) {
     Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (value.isEmpty) return "Fill your email";
+    if (value.isEmpty) return "Please fill your email";
     else if (!regex.hasMatch(value)) return "Invalid email";
     return null;
   }
 
   String validatePhone(String value) {
-    if (value.isEmpty) return "Fill your phone number";
+    if (value.isEmpty) return "Please fill your phone number";
     else if (value.length < 8) return "Invalid phone number";
     return null;
   }
 
   /* ----------User Sign Up Next Step---------- */
   String validatePassword(String value) {
-    if (value.isEmpty) return 'Fill password';
+    if (value.isEmpty) return 'Please fill password';
     else if (value.length < 5) return 'Password must be greater than 4 digit';
     return null;
   }
@@ -28,12 +28,12 @@ class ValidateMixin {
   }
 
   String validateUserInfo(String value) {
-    if (value == '') return "Fill your ";
+    if (value.isEmpty) return "Please fill your ";
     return null;
   }
 
   String validateSendToken(String value) {
-    if (value == '') return "Fill your ";
+    if (value.isEmpty) return "Please fill your ";
     return null;
   }
 
@@ -49,23 +49,30 @@ class ValidateMixin {
   /* -----------Invoice Field---------- */
 
   String validateInvoice(String value) {
-    if (value == '') return "Fill your ";
+    if (value.isEmpty) return "Please fill your ";
     return null;
   }
 
   /* ----------Profile User---------- */
   String validateChangePin(String value) {
-    if (value == '') return "Fill your ";
+    if (value.isEmpty) return "Please fill your ";
+    else if (value.length < 4) return "Pin must be 4 digit";
     return null;
   }
 
   String validateAsset(String value) {
-    if (value == '') return "Fill your ";
+    if (value.isEmpty) return "Please fill your ";
     return null;
   }
 
   /* ----------Home Screen---------- */
   String validateDocument(String value) {
+    return null;
+  }
+  
+  String validateResetCode(String value){
+    if (value.isEmpty) return "Please input your code";
+    else if (value.length < 6 || value.length > 6) return "Your code does not correct";
     return null;
   }
 
@@ -102,6 +109,7 @@ class ValidateMixin {
       sink.addError('Password must be 5digit');
     else if (value.length >= 5) sink.add(value);
   });
+  
 }
 
 final instanceValidate = ValidateMixin();

@@ -1,0 +1,6 @@
+framework module fluttercontactpicker {
+  umbrella header "fluttercontactpicker-umbrella.h"
+
+  export *
+  module * { export * }
+}

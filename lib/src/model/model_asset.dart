@@ -1,15 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelAsset {
 
-  final formStateAsset = GlobalKey<FormState>();
-
   bool enable = false;
 
-  dynamic result = '';
+  String responseAssetCode; String responseIssuer;
 
-  String responseAssetIssuer, responseAssetCode;
+  GlobalKey<FormState> formStateAsset = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+  Map<String, dynamic> result;
 
   TextEditingController controllerAssetCode = TextEditingController(text: "");
   TextEditingController controllerIssuer = TextEditingController(text: "");

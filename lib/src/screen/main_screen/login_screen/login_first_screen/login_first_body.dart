@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
-import 'package:wallet_apps/src/model/model_login.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
+import 'package:wallet_apps/index.dart';
 
 Widget loginFirstBodyWidget( /* body widget */
   BuildContext context,
@@ -13,46 +6,38 @@ Widget loginFirstBodyWidget( /* body widget */
   Function validateInput, Function onChanged, Function tabBarSelectChanged, Function navigatePage
 ) {
   return Column(
-    mainAxisSize: MainAxisSize.min,
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center, /* Stretch is fill cros axis */
     children: <Widget>[
-      Column( /* Title of Zeetomic */
-        children: <Widget>[
-          // zeelogo
-          logoWelcomeScreen("yinkok_256.png", 70.0, 47.62),
-          Container(
-            margin: EdgeInsets.only(top: 60.0),
-            child: textDisplay(
-              "Login",
-              TextStyle(
-                color: getHexaColor("#FFFFFF"),
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold
-              )
-            ),
+      logoWelcomeScreen(AppConfig.logoName, 70.0, 47.62),
+      Container(
+        margin: EdgeInsets.only(top: 60.0),
+        child: textDisplay(
+          "Login",
+          TextStyle(
+            color: getHexaColor("#FFFFFF"),
+            fontSize: 30.0,
+            fontWeight: FontWeight.w400
           )
-        ],
+        ),
       ),
       Container( /* User Choice Log in */
         margin: EdgeInsets.only(top: 30.0, bottom: 59.0),
         child: TabBar(
           unselectedLabelColor: getHexaColor("#FFFFFF"),
-          indicatorColor: getHexaColor(blueColor),
-          labelColor: getHexaColor(blueColor),
-          labelStyle: TextStyle(fontSize: 18.0),
+          indicatorColor: getHexaColor(AppColors.blueColor),
+          labelColor: getHexaColor(AppColors.blueColor),
+          // labelStyle: TextStyle(fontSize: 30.0),
           tabs: <Widget>[
             Container(
               alignment: Alignment.center,
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               width: double.infinity,
-              child: Text("Email"),
+              child: Icon(OMIcons.phone, size: 23.0,),
             ),
             Container(
               width: double.infinity,
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               alignment: Alignment.center,
-              child: Text("Phone number"),
+              child: Icon(OMIcons.email, size: 23.0),
             )
           ],
           onTap: tabBarSelectChanged,
@@ -64,38 +49,40 @@ Widget loginFirstBodyWidget( /* body widget */
           height: 100.0,
           child: TabBarView( /* Body Sign Up */
             children: <Widget>[
-              Container( /* Login By Email Field */
-                padding: EdgeInsets.only(top: 9.0),
-                child: inputField(
-                  context,
-                  "Email",
-                  null,
-                  "loginFirstScreen",
-                  false,
-                  [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                  TextInputType.text,
-                  TextInputAction.done,
-                  _modelLogin.controlEmails,
-                  _modelLogin.nodeEmails,
-                  validateInput, onChanged, navigatePage
-                )
-              ),
               Container( /* Sign By Phone Number Field */
                 padding: EdgeInsets.only(top: 9.0),
                 child: inputField(
-                  context,
-                  "Phone number",
-                  "${_modelLogin.countryCode} ",
-                  "loginFirstScreen",
-                  false,
-                  [LengthLimitingTextInputFormatter(9), WhitelistingTextInputFormatter.digitsOnly],
-                  TextInputType.phone,
-                  TextInputAction.done,
-                  _modelLogin.controlPhoneNums,
-                  _modelLogin.nodePhoneNums,
-                  validateInput, onChanged, navigatePage
+                  context: context,
+                  labelText: "Phone number",
+                  prefixText: "${_modelLogin.countryCode} ",
+                  widgetName: "loginFirstScreen",
+                  textInputFormatter: [LengthLimitingTextInputFormatter(9), WhitelistingTextInputFormatter.digitsOnly],
+                  inputType: TextInputType.phone,
+                  inputAction: TextInputAction.done,
+                  controller: _modelLogin.controlPhoneNums,
+                  focusNode: _modelLogin.nodePhoneNums,
+                  validateField: validateInput, 
+                  onChanged: onChanged, 
+                  action: navigatePage
                 )
-              )
+              ),
+              Container( /* Login By Email Field */
+                padding: EdgeInsets.only(top: 9.0),
+                child: inputField(
+                  context: context,
+                  labelText: "Email",
+                  prefixText: null,
+                  widgetName: "loginFirstScreen",
+                  textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                  inputType: TextInputType.emailAddress,
+                  inputAction: TextInputAction.done,
+                  controller: _modelLogin.controlEmails,
+                  focusNode: _modelLogin.nodeEmails,
+                  validateField: validateInput, 
+                  onChanged: onChanged, 
+                  action: navigatePage
+                )
+              ),
             ],
           ),
         ),
@@ -105,28 +92,43 @@ Widget loginFirstBodyWidget( /* body widget */
           context,
           "Login",
           "loginFirstScreen",
-          blueColor,
+          AppColors.blueColor,
           FontWeight.bold,
           size18,
           EdgeInsets.only(top: size10, bottom: size10),
           EdgeInsets.only(top: size15, bottom: size15),
-          BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.54), blurRadius: 5.0),
+          BoxShadow(
+            color: Colors.black54.withOpacity(_modelLogin.enable1 == false ? 0 : 0.3), 
+            blurRadius: 10.0, 
+            spreadRadius: 2.0, 
+            offset: Offset(2.0, 5.0)
+          ), 
+          // .fromRGBO(0, 0, 0, 0.54)
           _modelLogin.enable1 == false ? null : navigatePage
         ),
       ),
-      Expanded(child: Container()),
       Row(
-        /* Bottom Navigator */
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          noAccountWidget(context, Colors.white, "Create Account"),
-          Text(
-            "  |  ",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          textScale(
+            text: "Don't have account? ", 
+            fontSize: 18,
+            hexaColor: "#FFFFFF"
           ),
-          forgotPass(context, Colors.white),
+          textButton(
+            padding: EdgeInsets.only(left: 5, top: 10, bottom: 10),
+            context: context, 
+            textColor: "#FFFFFF",
+            text: "Sign up",
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            onTap: (){
+              Navigator.pushReplacementNamed(context, '/signUpScreen');
+            }
+          ),
         ],
       ),
+      forgotPass(context, AppColors.blueColor),
     ],
   );
 }
@@ -136,7 +138,7 @@ Widget register(BuildContext context) {
   return InkWell(
     child: Text('Sign up',
       style: TextStyle(
-      color: getHexaColor(lightBlueSky), fontWeight: FontWeight.bold)
+      color: getHexaColor(AppColors.lightBlueSky), fontWeight: FontWeight.bold)
     ),
     onTap: () {
       Navigator.pushReplacementNamed(context, '/signUp');
@@ -149,7 +151,7 @@ Widget forgotPasswordBody(BuildContext context) {
   return InkWell(
     child: Text('Forgot password?',
       style: TextStyle(
-        color: getHexaColor(lightBlueSky),
+        color: getHexaColor(AppColors.lightBlueSky),
         fontWeight: FontWeight.bold,
         decoration: TextDecoration.underline
       )

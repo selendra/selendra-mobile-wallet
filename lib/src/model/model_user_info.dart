@@ -1,12 +1,12 @@
-import 'dart:io';
-import 'package:flutter/widgets.dart';
-import 'package:wallet_apps/src/store_small_data/data_store.dart';
+import 'package:wallet_apps/index.dart';
 
 class ModelUserInfo {
   
   final formStateAddUserInfo = GlobalKey<FormState>();
 
-  Map<String, dynamic> userData;
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+
+  Map<String, dynamic> userData, res;
 
   String token, genderLabel = "Gender", gender;
   String responseFirstname, responseMidname, responseLastname;

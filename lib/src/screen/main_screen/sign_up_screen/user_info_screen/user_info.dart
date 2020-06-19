@@ -1,14 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
-import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/model/model_user_info.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info_body.dart';
-import 'package:wallet_apps/src/service/services.dart';
-import 'package:wallet_apps/src/store_small_data/data_store.dart';
+import 'package:wallet_apps/index.dart';
 
 class UserInfo extends StatefulWidget {
+
   final Map<String, dynamic> _userData;
 
   UserInfo(this._userData);
@@ -20,10 +13,12 @@ class UserInfo extends StatefulWidget {
 }
 
 class UserInfoState extends State<UserInfo> {
+  
   ModelUserInfo _modelUserInfo = ModelUserInfo();
 
   @override
   void initState() {
+    AppServices.noInternetConnection(_modelUserInfo.globalKey);
     if (widget._userData['label'] == 'profile') {
       replaceDataToController();
     } else if (widget._userData['label'] == 'email' ||
@@ -47,7 +42,7 @@ class UserInfoState extends State<UserInfo> {
             : "/loginbyphone",
         widget._userData['label']);
     if (_res.containsKey('token')) {
-      await setData(_res, "user_token");
+      await StorageServices.setData(_res, "user_token");
     }
   }
 
@@ -137,26 +132,26 @@ class UserInfoState extends State<UserInfo> {
   void submitProfile(BuildContext context) async {
     /* Submit Profile User */
     dialogLoading(context); /* Show Loading Process */
-    _modelUserInfo.submitResponse = await uploadUserProfile(
-        _modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
+    _modelUserInfo.submitResponse = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
     Navigator.pop(context); /* Close Loading Process */
     if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) {
       /* Set Profile Success */
-      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"),
-          Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}", textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
       if (widget._userData['label'] == 'profile') {
         Navigator.pop(context);
       } else {
-        clearStorage();
-        Future.delayed(Duration(microseconds: 500), () {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => LoginFirstScreen()));
+        AppServices.clearStorage();
+        Future.delayed(Duration(microseconds: 500), () { // Remove All Screen And Push Login Screen
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginSecond()),
+            ModalRoute.withName('/')
+          );
         });
       }
     } else {
       /* Edit Profile Success */
-      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"),
-          Icon(Icons.done_outline, color: getHexaColor(greenColor)));
+      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
       Navigator.pop(context);
     }
   }
@@ -182,25 +177,22 @@ class UserInfoState extends State<UserInfo> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _modelUserInfo.globalKey,
       body: scaffoldBGDecoration(
-          16.0,
-          16.0,
-          16.0,
-          0,
-          color1,
-          color2,
-          userInfoBodyWidget(
-              context,
-              _modelUserInfo,
-              onSubmit,
-              onChanged,
-              changeGender,
-              validateFirstName,
-              validateMidName,
-              validateLastName,
-              submitProfile,
-              popScreen,
-              item)),
+        child: userInfoBody(
+          context,
+          _modelUserInfo,
+          onSubmit,
+          onChanged,
+          changeGender,
+          validateFirstName,
+          validateMidName,
+          validateLastName,
+          submitProfile,
+          popScreen,
+          item
+        )
+      ),
     );
   }
 }

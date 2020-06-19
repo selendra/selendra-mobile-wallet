@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelDocument{
   
   final formStateDocument = GlobalKey<FormState>();
+
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
   List<dynamic> queryData = [];
   bool isPassportImage = false; bool isSelfieImage = false; bool isProgress = false;

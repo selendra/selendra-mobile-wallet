@@ -1,10 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:wallet_apps/src/model/model_user_info.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
+import 'package:wallet_apps/index.dart';
 
-Widget userInfoBodyWidget(
+Widget userInfoBody(
   BuildContext _context,
   ModelUserInfo _modelUserInfo,
   Function onSubmit,
@@ -37,7 +33,7 @@ Widget userInfoBodyWidget(
                 "User Information", 
                 double.infinity,
                 Colors.white, 
-                FontWeight.bold
+                FontWeight.normal
               )
             ],
           )
@@ -54,49 +50,44 @@ Widget userInfoBodyWidget(
                     Container( /* First Name Field */
                       margin: EdgeInsets.only(bottom: 12.0),
                       child: inputField(
-                        _context,
-                        "First Name", null, "userInfoScreen",
-                        false,
-                        [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                        TextInputType.text,
-                        TextInputAction.next,
-                        _modelUserInfo.controlFirstName,
-                        _modelUserInfo.nodeFirstName,
-                        validateFirstName,
-                        onChanged,
-                        onSubmit
+                        context: _context,
+                        labelText: "First Name",
+                        widgetName: "userInfoScreen",
+                        textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                        controller: _modelUserInfo.controlFirstName,
+                        focusNode: _modelUserInfo.nodeFirstName,
+                        validateField: validateFirstName,
+                        onChanged: onChanged,
+                        action: onSubmit
                       ),
                     ),
                     Container( /* Mid Name Field */
                       margin: EdgeInsets.only(bottom: 12.0),
                       child: inputField(
-                        _context,
-                        "Mid Name", null, "userInfoScreen",
-                        false,
-                        [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                        TextInputType.text,
-                        TextInputAction.next,
-                        _modelUserInfo.controlMidName,
-                        _modelUserInfo.nodeMidName,
-                        validateMidName,
-                        onChanged,
-                        onSubmit
+                        context: _context,
+                        labelText: "Mid Name", 
+                        widgetName: "userInfoScreen",
+                        textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                        controller: _modelUserInfo.controlMidName,
+                        focusNode: _modelUserInfo.nodeMidName,
+                        validateField: validateMidName,
+                        onChanged: onChanged,
+                        action: onSubmit
                       ),
                     ),
                     Container( /* Last Name Field */
                       margin: EdgeInsets.only(bottom: 12.0),
                       child: inputField(
-                        _context,
-                        "Last Name", null, "userInfoScreen",
-                        false,
-                        [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                        TextInputType.text,
-                        TextInputAction.done,
-                        _modelUserInfo.controlLastName,
-                        _modelUserInfo.nodeLastName,
-                        validateLastName,
-                        onChanged,
-                        onSubmit
+                        context: _context,
+                        labelText: "Last Name", 
+                        widgetName: "userInfoScreen",
+                        textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                        controller: _modelUserInfo.controlLastName,
+                        focusNode: _modelUserInfo.nodeLastName,
+                        validateField: validateLastName,
+                        onChanged: onChanged,
+                        action: onSubmit,
+                        inputAction: TextInputAction.done,
                       ),
                     ),
                     Container( /* Gender Picker */
@@ -116,14 +107,16 @@ Widget userInfoBodyWidget(
                       _context,
                       "Submit",
                       "userInfoScreen",
-                      greenColor,
+                      AppColors.greenColor,
                       FontWeight.normal,
                       size18,
                       EdgeInsets.only(top: 15.0, bottom: size10),
                       EdgeInsets.only(top: size15, bottom: size15),
                       BoxShadow(
-                        color: Color.fromRGBO(0, 0, 0, 0.54),
-                        blurRadius: 5.0
+                        color: Colors.black54.withOpacity(_modelUserInfo.enable == false ? 0 : 0.3), 
+                        blurRadius: 10.0, 
+                        spreadRadius: 2.0, 
+                        offset: Offset(2.0, 5.0),
                       ),
                       _modelUserInfo.enable == false ? null : submitProfile
                     )

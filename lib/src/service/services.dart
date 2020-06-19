@@ -1,33 +1,53 @@
-import 'dart:async';
-import 'package:date_format/date_format.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wallet_apps/index.dart';
 
-void clearStorage() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await sharedPreferences.clear();
+class AppServices {
+
+  static void noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {
+    try {
+      Connectivity _connectivity = new Connectivity();
+      StreamSubscription<ConnectivityResult> _connectionSubscription;
+      final myResult = await _connectivity.checkConnectivity();
+      _connectionSubscription = _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+        if (result == ConnectivityResult.none) {
+          mySnackBar(globalKey, AppText.contentConnection);
+        } else {
+          globalKey.currentState.removeCurrentSnackBar();
+        }
+      });
+      if (myResult == ConnectivityResult.none) {
+        mySnackBar(globalKey, AppText.contentConnection);
+      }
+    } catch (e) {}
+  }
+
+  static void mySnackBar(GlobalKey<ScaffoldState> globalKey, String content) {
+    globalKey.currentState.showSnackBar(SnackBar(
+      behavior: SnackBarBehavior.floating,
+      duration: Duration(days: 365),
+      backgroundColor: Colors.red,
+      content: Text(content,
+        style: TextStyle(
+          color: Colors.white,
+        )
+      ),
+      action: SnackBarAction(
+        label: "Close",
+        textColor: Colors.white,
+        onPressed: () {
+          globalKey.currentState.removeCurrentSnackBar();
+        },
+      ),
+    ));
+  }
+
+  static void clearStorage() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+  }
+
+  // Remove Zero At The Position Of Phone Number
+  static String removeZero(String number){
+    return number.replaceFirst("0", "", 0);
+  }
 }
 
-int timeStampConvertor(String userDate){ /* Convert date to timestamp */
-  DateFormat dateFormat = DateFormat('yyyy-MM-dd');
-  DateTime dateTime = dateFormat.parse(userDate);
-  return dateTime.millisecondsSinceEpoch;
-}
-
-String timeStampToDateTime(String timeStamp){ /* Convert Time Stamp To Date time ( Format yyyy-MM-ddTHH:mm:ssZ ) */
-  DateTime parse = DateTime.parse(timeStamp).toUtc(); /* Parse Time Stamp String to DateTime Format */
-  return formatDate(parse, [yyyy, '/', mm, '/', dd, ' ', hh, ':', nn, ':', ss, ' ', am]); /* Return Real Date Time */
-}
-
-void timer(Function fc, int period) async { /* Timer */
-  Timer(Duration(seconds: period), (){
-    fc();
-  });
-}
-
-int convertHexaColor(String colorhexcode){ /* Convert Hexa Color */
-  String colornew = '0xff' + colorhexcode;
-  colornew = colornew.replaceAll('#', '');
-  int colorint = int.parse(colornew);
-  return colorint;
-}

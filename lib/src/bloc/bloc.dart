@@ -1,15 +1,10 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:rxdart/rxdart.dart';
-import 'package:wallet_apps/src/model/model_login.dart';
+import 'package:rxdart/subjects.dart';
 import './validator_mixin.dart';
-import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/store_small_data/data_store.dart';
+import 'package:wallet_apps/index.dart';
 
 class Bloc with ValidateMixin {
-
-  /* BehaviorSubject Below Are Similiar StreamController But It Has More Feature Over StreamController*/  
+  /* BehaviorSubject Below Are Similiar StreamController But It Has More Feature Over StreamController*/
   final _email = BehaviorSubject<String>();
   final _phoneNums = BehaviorSubject<String>();
   final _password = BehaviorSubject<String>();
@@ -20,13 +15,15 @@ class Bloc with ValidateMixin {
   get phoneNumsObservable => _phoneNums.stream.transform(validatePhoneNums);
   get passwordObservable => _password.stream.transform(validatePasswords);
   get submit => Observable.combineLatest2(emailObservable, passwordObservable, (email, password) {
-    if ( email != null && password != null ) {
+    if (email != null && password != null) {
       return true;
     }
-    return null;
-  });
-  
-  get emailSignUp => _usersignup.stream.transform(validateEmail); /* User Sign Up */
+      return null;
+    }
+  );
+
+  /* User Sign Up */
+  get emailSignUp => _usersignup.stream.transform(validateEmail);
 
   /* Add Data Input To Stream */
   Function(String) get addEmail => _email.sink.add;
@@ -34,52 +31,59 @@ class Bloc with ValidateMixin {
   Function(String) get addPassword => _password.sink.add;
   Function(String) get addUsersign => _usersignup.sink.add;
 
-  
-  Future<bool> loginMethod(BuildContext context, String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label) async { /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
-    return await userLogin(
-    _byEmailOrPhoneNums, _passwords, _endpoints, _label
-    )
-    .then((_response) async {
+  Future<bool> loginMethod(BuildContext context, String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label) async {
+    /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
+    return await userLogin(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
       Navigator.pop(context); /* Close Loading Process */
       if (_response['status_code'] != '502') {
         if (_response.keys.contains("error")) {
-          dialog(context, Text(_response['error']["message"]), Icon(Icons.error_outline, color: Colors.red,));
+          await dialog( context, textAlignCenter(text: _response['error']["message"]), textMessage());
           return false;
         } else { /* If Successfully */
           if (_response.keys.contains("token")) {
-            // await dialog(context, Text("Successfully"), Icon(Icons.error_outline, color: Colors.green,));
-            await setData(_response, 'user_token');
+            _response.addAll({
+              "isLoggedIn": true
+            });
+            await StorageServices.setData(_response, 'user_token');
             return true;
           } else { /* If Incorrect Email */
-            await dialog(context, Text(_response["message"]), Icon(Icons.error_outline, color: Colors.red,));
+            await dialog( context, textAlignCenter(text: _response["message"]), textMessage());
             return false;
           }
         }
       } else {
-        dialog(context, Text("Something gone wrong !"), Icon(Icons.error_outline, color: Colors.red,));
+        await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
         return false;
       }
     });
   }
 
-  Future<bool> registerMethod( /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
-    BuildContext context, 
-    String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label
+  /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
+  Future<bool> registerMethod(
+    BuildContext context,
+    String _byEmailOrPhoneNums,
+    String _passwords,
+    String _endpoints,
+    String _label
   ) async {
     return await userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
       Navigator.pop(context); /* Close Loading Screen */
       await dialog(
-        context, 
-        Text((_response['message'])), /* Sub Title */
+        context,
+        textAlignCenter(text: _response['message']),
+        /* Sub Title */
         _response['message'] != "Successfully registered!" /* Check For Change Icon On Alert */ /* Title */
-          ? Icon(Icons.warning, color: Colors.yellow) : Icon(Icons.done, color
-          : getHexaColor(_label == "email" ? lightBlueSky : greenColor),
+        ? Icon(Icons.warning, color: Colors.yellow)
+        : Icon(
+          Icons.done_outline,
+          color: getHexaColor(
+            _label == "email" ? AppColors.lightBlueSky : AppColors.greenColor
+          ),
         )
       );
       return _response['message'] == "Successfully registered!" ? true : false;
-    })
-    .catchError((onError) async {
-      await dialog(context, Text('Something goes wrong !'), Icon(Icons.warning));
+    }).catchError((onError) async {
+      await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
       return false;
     });
   }
@@ -87,7 +91,7 @@ class Bloc with ValidateMixin {
   /* Close All Stream To Prevent Crash Program Or Memory Leak */
   dispose() {
     _email.close();
-    _phoneNums.close(); 
+    _phoneNums.close();
     _password.close();
     _usersignup.close();
   }

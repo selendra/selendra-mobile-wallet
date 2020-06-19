@@ -7,7 +7,9 @@ class ModelLogin {
 
   final formState2 = GlobalKey<FormState>();
 
-  bool enable1 = false, enable2 = false;
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+
+  bool enable1 = false, enable2 = false; bool securePassword = true;
 
   String token; String phoneNumber = "", countryCode = "+855", label;
 

@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ModelChangePassword{
 
   final formStateChangePassword = GlobalKey<FormState>();
+
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
   bool enable = false;
 

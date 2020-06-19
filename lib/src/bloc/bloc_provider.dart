@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/store_small_data/data_store.dart';
+import 'package:wallet_apps/index.dart';
 
 class Provider extends InheritedWidget{
 
@@ -16,15 +14,15 @@ class Provider extends InheritedWidget{
     return context.dependOnInheritedWidgetOfExactType<Provider>();
   }
   
-  static fetchStatusNWallet() async {
-    var userStatusNWallet = await fetchData('userStatusAndWallet');
+  static Future fetchStatusNWallet() async {
+    var userStatusNWallet = await StorageServices.fetchData('userStatusAndWallet');
     return userStatusNWallet;
   }
 
   static String idsUser;
 
   static fetchUserIds() async {
-    var userIds = await fetchData('user_token');
+    var userIds = await StorageServices.fetchData('user_token');
     if (userIds != null){
       idsUser = await userIds['id'];
     }
@@ -32,7 +30,7 @@ class Provider extends InheritedWidget{
   
   /* Fetch Token */
   static fetchToken() async {
-    var token = await fetchData('user_token');
+    var token = await StorageServices.fetchData('user_token');
     return token;
   }
 

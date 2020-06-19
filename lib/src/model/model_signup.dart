@@ -8,11 +8,14 @@ class ModelSignUp {
   final smsForm = GlobalKey<FormState>();
   final userInfoForm = GlobalKey<FormState>();
 
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+
   Bloc bloc = Bloc();
   
   bool enable1 = false;
   bool enable2 = false;
   bool isProgress = false, isLogedin = false, isBoth = false, isNotMatch = false;
+  bool showPassword1 = false; bool showPassword2 = false;
 
   String responsePass1, responsePass2;
   String token, countryCode = "+855", label;

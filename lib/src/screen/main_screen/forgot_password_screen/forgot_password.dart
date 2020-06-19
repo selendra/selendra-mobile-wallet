@@ -1,11 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/model/model_forgot_pass.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password_body.dart';
-import 'package:wallet_apps/src/http_request/rest_api.dart';
-import 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/reset_password_screen/reset_password.dart';
 
 class ForgotPassword extends StatefulWidget{
   State<StatefulWidget> createState() {
@@ -17,16 +12,79 @@ class ForgotPasswordState extends State<ForgotPassword> {
   
   ModelForgotPassword _modelForgotPassword = ModelForgotPassword();
 
-  void onChanged(String label, String changed){
+  @override
+  void initState() {
+    _modelForgotPassword.key = "phone";
+    _modelForgotPassword.endpoint = "forget-password";
+    AppServices.noInternetConnection(_modelForgotPassword.globalKey);
+    super.initState();
+  }
 
+  void onChanged(String changed){
+    _modelForgotPassword.formState.currentState.validate();
+    validateEnableButton();
+  }
+
+  void onSubmit(BuildContext context) {
+    if (_modelForgotPassword.enable1) requestCode(context); // If True Execute
+  }
+
+  String validatePhoneNumber(String value){
+    if (_modelForgotPassword.nodePhoneNums.hasFocus){
+      _modelForgotPassword.responsePhoneNumber = instanceValidate.validatePhone(value);
+    }
+    return _modelForgotPassword.responsePhoneNumber;
+  }
+
+  String validateEmail(String value){
+    if (_modelForgotPassword.nodeEmail.hasFocus){
+      _modelForgotPassword.responseEmail = instanceValidate.validateEmails(value);
+    }
+    return _modelForgotPassword.responseEmail;
+  }
+
+  void validateEnableButton() {
+    if (_modelForgotPassword.key == "phone"){
+      if (_modelForgotPassword.responsePhoneNumber == null) enableButton(true);
+      else if (_modelForgotPassword.enable1) enableButton(false);
+    } else {
+      if (_modelForgotPassword.responseEmail == null) enableButton(true);
+      else if (_modelForgotPassword.enable1) enableButton(false);
+    }
+  }
+
+  void tabBarSelectChanged(int index){
+    if (index == 0){
+      _modelForgotPassword.controlPhoneNums.clear();
+      _modelForgotPassword.nodePhoneNums.unfocus();
+
+      _modelForgotPassword.key = "phone";
+      _modelForgotPassword.endpoint = "forget-password";
+    } else if (index == 1){
+      _modelForgotPassword.controlPhoneNums.clear();
+      _modelForgotPassword.nodePhoneNums.unfocus();
+
+      _modelForgotPassword.key = "email";
+      _modelForgotPassword.endpoint = "forget-password-by-email";
+    }
+    setState(() { });
   }
 
   void requestCode(BuildContext context) async {
     dialogLoading(context);
-    await forgetPassword(_modelForgotPassword).then((_response) async {
+    await forgetPassword(
+      _modelForgotPassword, 
+      _modelForgotPassword.key == "phone" ? "+855${_modelForgotPassword.controlPhoneNums.text}" : _modelForgotPassword.controllerEmail.text // Check User Request By Phone Number Or Email
+    ).then((_response) async {
       Navigator.pop(context);
-      await dialog(context, Text(_response['message']), Icon(Icons.done));
+      await dialog(context, Text(_response['message']), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor),));
       Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(_modelForgotPassword)));
+    });
+  }
+
+  void enableButton(bool enable) {
+    setState(() {
+      _modelForgotPassword.enable1 = enable;
     });
   }
 
@@ -36,10 +94,19 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: scaffoldBGDecoration(
-        16.0, 16.0, 16.0, 0,
-        color1, color2,
-        forgotPasswordBodyWidget(context, _modelForgotPassword, onChanged, popScreen, requestCode)
+      key: _modelForgotPassword.globalKey,
+      body: DefaultTabController(
+        initialIndex: 0,
+        length: 2,
+        child: scaffoldBGDecoration(
+          child: forgotPasswordBodyWidget(
+            context, 
+            _modelForgotPassword, 
+            tabBarSelectChanged, validatePhoneNumber, validateEmail,
+            onChanged, onSubmit,
+            popScreen, requestCode
+          )
+        ),
       ),
     );
   }

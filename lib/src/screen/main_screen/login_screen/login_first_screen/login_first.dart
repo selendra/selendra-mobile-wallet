@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
-import 'package:wallet_apps/src/model/model_login.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/login_second_screen/login_second.dart';
-import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first_body.dart';
-import '../../../../bloc/bloc.dart';
-
+import 'package:wallet_apps/index.dart';
 
 class LoginFirstScreen extends StatefulWidget {
   @override
@@ -58,7 +49,7 @@ class LoginFirstState extends State<LoginFirstScreen> {
   }
 
   void tabBarSelectChanged(int index) { /* Tab Bar Select Change Label */ 
-    if ( index == 0 ){ /* Tab On Email */
+    if ( index == 1 ){ /* Tab On Email */
       _modelLogin.controlPhoneNums.clear(); /* Clear Data Phone Number Field */
       _modelLogin.nodePhoneNums.unfocus();
       setState(() {
@@ -77,9 +68,9 @@ class LoginFirstState extends State<LoginFirstScreen> {
   }
 
   void navigatePage(BuildContext context) async {
-    if (_modelLogin.enable1 == true){ /* Prevent Submit On Smart Keyboard */ 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginSecond(_modelLogin)));
-    }
+    // if (_modelLogin.enable1 == true){ /* Prevent Submit On Smart Keyboard */ 
+    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginSecond(_modelLogin)));
+    // }
   }
 
   Widget build(BuildContext context) {

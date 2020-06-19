@@ -1,15 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
-import 'package:wallet_apps/src/model/model_forgot_pass.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
+import 'package:wallet_apps/index.dart';
 
 Widget resetPasswordBody(
   BuildContext _context,
-  ModelForgotPassword _modelForgots,
-  Function onChanged,
-  Function submitResetPassword,
-  Function popScreen,
+  ModelForgotPassword _modelForgetPassword,
+  Function validatePhoneNumber, Function validateEmail, Function validateNewPassword, 
+  Function validateConfirmPassword, Function validateResetCode,
+  Function onChanged, Function onSubmit,
+  Function submitResetPassword, Function popScreen,
 ) {
   return Container(
     child: Column(
@@ -29,101 +26,132 @@ Widget resetPasswordBody(
                   EdgeInsets.all(0),
                   popScreen,
                 ),
-                containerTitle("Change Password", double.infinity, Colors.white,
-                    FontWeight.bold)
+                containerTitle(
+                  "Change Password", 
+                  double.infinity, 
+                  Colors.white,
+                  FontWeight.normal
+                )
               ],
             )),
-        Expanded(
-          /* Body */
+        Expanded(/* Body */
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            child: Container(
-              margin: EdgeInsets.only(left: 24.0, right: 24.0, top: 59.0),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    /* Phone number field */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
+            child: Form(
+              key: _modelForgetPassword.formStateResetPass,
+              child: Container(
+                padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 59.0),
+                child: Column(
+                  children: <Widget>[
+                    _modelForgetPassword.key == "phone" 
+                    ? Container( /* Phone number field */
+                      margin: EdgeInsets.only(bottom: 12.0),
+                      child: inputField(
+                        enableInput: false,
+                        context: _context,
+                        labelText: "Phone number",
+                        prefixText: "${_modelForgetPassword.countryCode} ",
+                        widgetName: "resetPasswordScreen",
+                        textInputFormatter: [
+                          LengthLimitingTextInputFormatter(9),
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
+                        inputType: TextInputType.number,
+                        inputAction: TextInputAction.next,
+                        controller: _modelForgetPassword.controlPhoneNums,
+                        focusNode: _modelForgetPassword.nodePhoneNums,
+                        validateField: validatePhoneNumber, 
+                        onChanged: onChanged, 
+                        action: onSubmit
+                      ),
+                    )
+                    : Container( /* Email field */
+                      margin: EdgeInsets.only(bottom: 12.0),
+                      child: inputField(
+                        enableInput: false,
+                        context: _context,
+                        labelText: "Email",
+                        prefixText: "",
+                        widgetName: "resetPasswordScreen",
+                        textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                        inputType: TextInputType.emailAddress,
+                        inputAction: TextInputAction.next,
+                        controller: _modelForgetPassword.controllerEmail,
+                        focusNode: _modelForgetPassword.nodePhoneNums,
+                        validateField: validateEmail, 
+                        onChanged: onChanged, 
+                        action: onSubmit
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 12.0),
+                      child: inputField(
+                      context: _context,
+                      labelText: "New Password",
+                      widgetName: "resetPasswordScreen",
+                      obcureText: true,
+                      textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                      inputAction: TextInputAction.next,
+                      controller: _modelForgetPassword.controlNewPasswords,
+                      focusNode: _modelForgetPassword.nodePasswords,
+                      validateField: validateNewPassword, 
+                      onChanged: onChanged, 
+                      action: onSubmit
+                      ),
+                    ),
+                    Container( /* SMS code field */
+                      margin: EdgeInsets.only(bottom: 12.0),
+                      child: inputField(
+                        context: _context,
+                        labelText: "Confirm New Password",
+                        widgetName: "resetPasswordScreen",
+                        obcureText: true,
+                        textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                        inputAction: TextInputAction.next,
+                        controller: _modelForgetPassword.controlConfirmPasswords,
+                        focusNode: _modelForgetPassword.nodeConfirmPasswords,
+                        validateField: validateConfirmPassword, 
+                        onChanged: onChanged, 
+                        action: onSubmit
+                      ),
+                    ),
+                    Container( /* Verify Code field */
+                      margin: EdgeInsets.only(bottom: 12.0),
+                      child: inputField(
+                        context: _context,
+                        labelText: "Reset code",
+                        widgetName: "resetPasswordScreen",
+                        textInputFormatter: [
+                          LengthLimitingTextInputFormatter(6),
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ],
+                        inputAction: TextInputAction.next,
+                        inputType: TextInputType.number,
+                        controller: _modelForgetPassword.controlResetCode,
+                        focusNode: _modelForgetPassword.nodeResetCode,
+                        validateField: validateResetCode, 
+                        onChanged: onChanged, 
+                        action: onSubmit
+                      ),
+                    ),
+                    customFlatButton(/* Request Button */
                       _context,
-                      "Phone number",
-                      "${_modelForgots.countryCode} ",
+                      "Request Code",
                       "resetPasswordScreen",
-                      false,
-                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      TextInputType.number,
-                      TextInputAction.next,
-                      _modelForgots.controlPhoneNums,
-                      _modelForgots.nodePhoneNums,
-                      instanceValidate.validatePhone, onChanged, null
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      _context,
-                      "New Password",
-                      null,
-                      "resetPasswordScreen",
-                      true,
-                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      TextInputType.text,
-                      TextInputAction.next,
-                      _modelForgots.controlNewPasswords,
-                      _modelForgots.nodePasswords,
-                      instanceValidate.validatePassword, onChanged, null
-                    ),
-                  ),
-                  Container(
-                    /* SMS code field */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      _context,
-                      "Confirm New Password",
-                      null,
-                      "resetPasswordScreen",
-                      true,
-                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      TextInputType.text,
-                      TextInputAction.next,
-                      _modelForgots.controlConfirmPasswords,
-                      _modelForgots.nodeConfirmPasswords,
-                      instanceValidate.validatePassword, onChanged, null
-                    ),
-                  ),
-                  Container( /* Verify Code field */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      _context,
-                      "Reset code",
-                      null,
-                      "resetPasswordScreen",
-                      false,
-                      [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      TextInputType.number,
-                      TextInputAction.next,
-                      _modelForgots.controlResetCode,
-                      _modelForgots.nodeResetCode,
-                      instanceValidate.validatePassword, onChanged, null
-                    ),
-                  ),
-                  customFlatButton(/* Request Button */
-                    _context,
-                    "Request Code",
-                    "resetPasswordScreen",
-                    greenColor,
-                    FontWeight.normal,
-                    size18,
-                    EdgeInsets.only(top: 15.0),
-                    EdgeInsets.only(top: size15, bottom: size15),
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.54),
-                      blurRadius: 5.0
-                    ),
-                    submitResetPassword
-                  )
-                ],
-              )
+                      AppColors.greenColor,
+                      FontWeight.normal,
+                      size18,
+                      EdgeInsets.only(top: 15.0),
+                      EdgeInsets.only(top: size15, bottom: size15),
+                      BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.54),
+                        blurRadius: 5.0
+                      ),
+                      _modelForgetPassword.enable2 == false ? null : submitResetPassword
+                    )
+                  ],
+                )
+              ),
             ),
           ),
         ),

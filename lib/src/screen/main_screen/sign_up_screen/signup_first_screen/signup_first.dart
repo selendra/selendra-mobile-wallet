@@ -1,14 +1,6 @@
-/* Flutter Package */
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first_body.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:wallet_apps/src/provider/internet_connection.dart';
+export 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first_body.dart';
+import 'package:wallet_apps/index.dart';
 
 class SignUpFirst extends StatefulWidget{
   @override
@@ -23,6 +15,7 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
 
   @override
   void initState() {
+    AppServices.noInternetConnection(_modelSignUp.globalKey);
     super.initState();
     _modelSignUp.tabController = new TabController(length: 2, vsync: this); /* Initialize Variable TabController */
   }
@@ -60,7 +53,7 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
   }
 
   void tabBarSelectChanged(int index) {
-    if ( index == 0 ){
+    if ( index == 1 ){
       _modelSignUp.controlPhoneNums.clear();
       _modelSignUp.nodePhoneNums.unfocus();
       setState(() { /* Disable Button */
@@ -83,6 +76,7 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
       initialIndex: 0,
       length: 2,
       child: Scaffold(
+        key: _modelSignUp.globalKey,
         body: paddingScreenWidget( /* Padding Whole Screen */
           context, 
           signUpFirstBodyWidget( /* Body Widget */

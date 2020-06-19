@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
-    <style name="LaunchTheme" parent="@android:style/Theme.NoTitleBar" >
-<!--         <item name="android:windowFullscreen">true</item>-->
-=======
     <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
-         <!-- <item name="android:windowFullscreen">true</item> -->
->>>>>>> 2ff55bb3e94b094e87423569cb2b528b445ecc1b
+        <!-- <item name="android:windowFullscreen">true</item> -->
         <!-- Show a splash screen on the activity. Automatically removed when
              Flutter draws its first frame -->
+        
         <item name="android:windowBackground">@drawable/launch_background</item>
+
     </style>
     <color name="darkBlue">#344051</color>
-    <color name="white">#FFFFFF</color>
-    <string name="textSplashScreen">Powered by ZEETOMIC</string>
 </resources>

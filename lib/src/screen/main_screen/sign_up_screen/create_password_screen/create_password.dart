@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
-import 'package:wallet_apps/src/model/model_signup.dart';
-import 'package:wallet_apps/src/provider/reuse_widget.dart';
 import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password_body.dart';
-import 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
+import 'package:wallet_apps/index.dart';
 
 class CreatePassword extends StatefulWidget {
 
@@ -18,9 +14,12 @@ class CreatePassword extends StatefulWidget {
 }
 
 class CreatePasswordState extends State<CreatePassword> {
+
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
   
   @override
   void initState() {
+    AppServices.noInternetConnection(globalKey);
     super.initState();
   }
 
@@ -60,7 +59,7 @@ class CreatePasswordState extends State<CreatePassword> {
     if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlConfirmPassword.text != '') setState(() => widget._modelSignUp.enable2 = true);
   }
 
-  void navigatePage(BuildContext context) async { /* Navigate To Fill User Info */
+  void submitSignUp(BuildContext context) async { /* Navigate To Fill User Info */
     if (widget._modelSignUp.controlConfirmPassword.text != "" &&
         widget._modelSignUp.controlPassword.text != "") { /* Password != Empty */
       if (widget._modelSignUp.controlConfirmPassword.text !=
@@ -104,7 +103,7 @@ class CreatePasswordState extends State<CreatePassword> {
           );
           if (widget._modelSignUp.response == true) { /* Change To True When your testing done */
             widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
-              "email_phone": "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
+              "email_phone": "${widget._modelSignUp.countryCode}${AppServices.removeZero(widget._modelSignUp.controlPhoneNums.text)}",
               "passwords": widget._modelSignUp.controlPassword.text,
               "label": widget._modelSignUp.label
             };
@@ -122,11 +121,23 @@ class CreatePasswordState extends State<CreatePassword> {
     }
   }
 
+  void showPassword(bool showPassword){
+    if (widget._modelSignUp.nodePassword.hasFocus) {
+      setState(() {
+        widget._modelSignUp.showPassword1 = showPassword;
+      });
+    } else if (widget._modelSignUp.nodeConfirmPassword.hasFocus){
+      setState(() {
+        widget._modelSignUp.showPassword2 = showPassword;
+      });
+    } 
+  }
+
   void onSubmit(BuildContext context) {
     if (widget._modelSignUp.nodePassword.hasFocus) {
       FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPassword);
     } else { /* Prevent Submit On Smart Keyboard */ 
-      if (widget._modelSignUp.enable2 == true) navigatePage(context);
+      if (widget._modelSignUp.enable2 == true) submitSignUp(context);
     }
   }
   
@@ -147,10 +158,14 @@ class CreatePasswordState extends State<CreatePassword> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       body: scaffoldBGDecoration(
-        16.0, 16.0, 16.0, 0,
-        color1, color2,
-        createPasswordBodyWidget(context, widget._modelSignUp, validatePass1, validatePass2, onChanged,popScreen, onSubmit, navigatePage)
+        child: createPasswordBodyWidget(
+          context, 
+          widget._modelSignUp, 
+          validatePass1, validatePass2, onChanged,popScreen, showPassword,
+          onSubmit, submitSignUp
+        )
       )
     );
   }
