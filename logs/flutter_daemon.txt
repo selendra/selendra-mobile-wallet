@@ -1,0 +1,53 @@
+!! PLEASE REVIEW THIS LOG FOR SENSITIVE INFORMATION BEFORE SHARING !!
+
+Dart Code extension: 3.7.1
+Flutter extension: 3.7.1 (activated)
+VS Code: 1.41.1
+Platform: mac
+Workspace type: Flutter
+Multi-root?: false
+Dart SDK:
+    Loc: /Users/administrator/Documents/flutter/bin/cache/dart-sdk
+    Ver: 2.7.0-dev.2.1
+Flutter SDK:
+    Loc: /Users/administrator/Documents/flutter
+    Ver: 1.12.13+hotfix.5
+HTTP_PROXY: undefined
+NO_PROXY: undefined
+
+Sat Jan 11 2020 [10:27:39 GMT+0700 (Indochina Time)] Log file started
+[10:27:39 AM] [FlutterDaemon] [Info] Spawning /Users/administrator/Documents/flutter/bin/flutter with args ["daemon"]
+[10:27:39 AM] [FlutterDaemon] [Info] ..  in /Users/administrator/Documents/flutter
+[10:27:39 AM] [FlutterDaemon] [Info]     PID: 1175
+[10:27:39 AM] [FlutterDaemon] [Info] ==> [{"id":"1","method":"emulator.getEmulators"}]
+[10:27:43 AM] [FlutterDaemon] [Info] <== Starting device daemon...
+[10:27:43 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.connected","params":{"version":"0.5.3","pid":6576}}]
+[10:27:43 AM] [FlutterDaemon] [Info] ==> [{"id":"2","method":"device.enable"}]
+[10:27:43 AM] [FlutterDaemon] [Info] <== [{"id":"2"}]
+[10:27:43 AM] [FlutterDaemon] [Info] <== [{"id":"1","result":[{"id":"apple_ios_simulator","name":"iOS Simulator","category":"mobile","platformType":"ios"}]}]
+[10:27:52 AM] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"DRGGAD4852100304","name":"Nokia 6 1 Plus","platform":"android-arm64","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:27:52 AM] [FlutterDaemon] [Info] ==> [{"id":"3","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/administrator/Documents/dev"}}]
+[10:27:52 AM] [FlutterDaemon] [Info] <== [{"id":"3","result":{"platforms":["ios","android"]}}]
+[10:27:52 AM] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"192.168.56.101:5555","name":"192.168.56.101:5555","platform":"android-x86","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:31:54 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"Error 1 retrieving device properties for ro.product.cpu.abi:"}}]
+[10:31:54 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"error: device 'DRGGAD4852100304' not found\n"}}]
+[10:31:54 AM] [FlutterDaemon] [Info] <== [{"event":"device.removed","params":{"id":"DRGGAD4852100304","name":"Nokia 6 1 Plus","platform":"android-arm","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:32:02 AM] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"DRGGAD4852100304","name":"Nokia 6 1 Plus","platform":"android-arm64","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:32:02 AM] [FlutterDaemon] [Info] ==> [{"id":"4","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/administrator/Documents/dev"}}]
+[10:32:02 AM] [FlutterDaemon] [Info] <== [{"id":"4","result":{"platforms":["ios","android"]}}]
+[10:35:28 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"Error 1 retrieving device properties for ro.product.cpu.abi:"}}]
+[10:35:28 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"error: device 'DRGGAD4852100304' not found\n"}}]
+[10:35:28 AM] [FlutterDaemon] [Info] <== [{"event":"device.removed","params":{"id":"DRGGAD4852100304","name":"Nokia 6 1 Plus","platform":"android-arm","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:35:28 AM] [FlutterDaemon] [Info] ==> [{"id":"5","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/administrator/Documents/dev"}}]
+[10:35:28 AM] [FlutterDaemon] [Info] <== [{"id":"5","result":{"platforms":["ios","android"]}}]
+[10:39:41 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"Error 1 retrieving device properties for ro.product.cpu.abi:"}}]
+[10:39:41 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"error: device unauthorized.\nThis adb server's $ADB_VENDOR_KEYS is not set\nTry 'adb kill-server' if that seems wrong.\nOtherwise check for a confirmation dialog on your device.\n"}}]
+[10:39:41 AM] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"DRGGAD4852100304","name":"DRGGAD4852100304","platform":"android-arm","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:39:41 AM] [FlutterDaemon] [Info] ==> [{"id":"6","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/administrator/Documents/dev"}}]
+[10:39:41 AM] [FlutterDaemon] [Info] <== [{"id":"6","result":{"platforms":["ios","android"]}}]
+[10:39:45 AM] [FlutterDaemon] [Info] <== [{"event":"device.removed","params":{"id":"DRGGAD4852100304","name":"DRGGAD4852100304","platform":"android-arm","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:39:49 AM] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"DRGGAD4852100304","name":"Nokia 6 1 Plus","platform":"android-arm64","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null}}]
+[10:39:53 AM] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"* daemon not running; starting now at tcp:5037\nADB server didn't ACK\nFull server startup log: /var/folders/kp/vxv21w_x1lb79hr1py8j9jt00000gn/T//adb.501.log\nServer had pid: 7761\n--- adb starting (pid 7761) ---\nadb I 01-11 10:39:53  7761 64505 main.cpp:60] Android Debug Bridge version 1.0.41\nadb I 01-11 10:39:53  7761 64505 main.cpp:60] Version 29.0.5-5949299\nadb I 01-11 10:39:53  7761 64505 main.cpp:60] Installed as /Users/administrator/Library/Android/sdk/platform-tools/adb\nadb I 01-11 10:39:53  7761 64505 main.cpp:60] \nadb E 01-11 10:39:53  7761 64508 usb_osx.cpp:340] Could not open interface: e00002c5\nadb E 01-11 10:39:53  7761 64508 usb_osx.cpp:301] Could not find device interface\nadb I 01-11 10:39:53  7757 64491 auth.cpp:405] adb_auth_init...\nadb I 01-11 10:39:53  7757 64511 transport.cpp:283] DRGGAD4852100304: read thread spawning\nadb I 01-11 10:39:53  7757 64512 transport.cpp:296] DRGGAD4852100304: write thread spawning\nadb I 01-11 10:39:53  7757 64491 transport.cpp:1334] fetching keys for transport DRGGAD4852100304\nadb I 01-11 10:39:53  7757 64491 auth.cpp:457] Calling send_auth_response\nadb I 01-11 10:39:53  7757 64491 adb.cpp:114] DRGGAD4852100304: offline\nadb F 01-11 10:39:53  7759 64498 main.cpp:144] could not install *smartsocket* listener: Address already in use\nadb F 01-11 10:39:53  7761 64505 main.cpp:144] could not install *smartsocket* listener: Address already in use\n\n* failed to start daemon\nadb: failed to check server version: cannot connect to daemon"}}]
+[10:39:53 AM] [FlutterDaemon] [Error] Unable to run "adb", check your Android SDK installation and ANDROID_HOME environment variable: /Users/administrator/Library/Android/sdk/platform-tools/adb
+[10:39:53 AM] [FlutterDaemon] [Error] 
+[10:39:53 AM] [FlutterDaemon] [Info] Process terminated! 1, null
