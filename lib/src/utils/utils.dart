@@ -1,7 +1,8 @@
 // This file hold Calculation And Data Convertion
-
 import 'package:date_format/date_format.dart';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:intl/intl.dart';
+import 'package:wallet_apps/index.dart';
 
 class UtilsConvert {
 
@@ -32,5 +33,15 @@ class UtilsConvert {
     convert = convert.replaceAll('+', '');
     int parse = int.parse(convert);
     return parse;
+  }
+  
+  static Widget flareAnimation(FlareControls flareControls){
+    return FlareActor(
+      "assets/animation/check.flr",
+      alignment: Alignment.center,
+      fit: BoxFit.cover,
+      animation: "Checkmark",
+      controller: flareControls,
+    );
   }
 }

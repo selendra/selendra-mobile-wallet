@@ -30,6 +30,8 @@ export 'package:image_picker/image_picker.dart';
 export 'package:qr_flutter/qr_flutter.dart';
 export 'package:firebase_remote_config/firebase_remote_config.dart';
 export 'package:share/share.dart';
+export 'package:flare_flutter/flare_actor.dart';
+export 'package:flare_flutter/flare_controller.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -49,31 +51,45 @@ export 'package:wallet_apps/theme/style.dart';
 //Service
 export 'package:wallet_apps/src/service/storage.dart';
 
-/* Route To Screen */
+/* ----------------------Route To Screen---------------------- */
 
-// Main Screeen
-export 'package:wallet_apps/src/screen/main_screen/welcome_to_zees_screen/welcome_to_zees.dart';
+/* Main Screeen */
+export 'package:wallet_apps/src/screen/main/welcome/welcome.dart';
+export  'package:wallet_apps/src/screen/main/welcome/welcome_body.dart';
 
-export 'package:wallet_apps/src/screen/main_screen/login_screen/login_first_screen/login_first_body.dart';
-export 'package:wallet_apps/src/screen/main_screen/login_screen/login_second_screen/login_second.dart';
-export 'package:wallet_apps/src/screen/main_screen/splash_screen/splash_screen.dart';
-export 'package:wallet_apps/src/screen/main_screen/sign_up_screen/signup_first_screen/signup_first.dart';
-export 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
-export 'package:wallet_apps/src/screen/main_screen/sign_up_screen/create_password_screen/create_password.dart';
-export 'package:wallet_apps/src/screen/main_screen/main_reuse_widget.dart';
-export 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info.dart';
-export 'package:wallet_apps/src/screen/main_screen/login_screen/login_reuse_widget.dart';
-export 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/forgot_password.dart';
+export 'package:wallet_apps/src/screen/main/login/login.dart';
+export 'package:wallet_apps/src/screen/main/splash_screen/splash_screen.dart';
+export 'package:wallet_apps/src/screen/main/sign_up/signup_first_screen/signup_first.dart';
+export 'package:wallet_apps/src/screen/main/sign_up/user_info_screen/user_info.dart';
+export 'package:wallet_apps/src/screen/main/component.dart';
+export 'package:wallet_apps/src/screen/main/sign_up/user_info_screen/user_info.dart';
+export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password.dart';
+export 'package:wallet_apps/src/screen/main/login/login_body.dart';
+export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info.dart';
+export 'package:wallet_apps/src/screen/home/fill_documents_screen/fill_documents.dart';
 
 // Reset Password
-export 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/reset_password_screen/reset_password.dart';
-export 'package:wallet_apps/src/screen/main_screen/forgot_password_screen/reset_password_screen/reset_password_body.dart';
+export 'package:wallet_apps/src/screen/main/forgot_password/reset_password_screen/reset_password.dart';
+export 'package:wallet_apps/src/screen/main/forgot_password/reset_password_screen/reset_password_body.dart';
+
+// Forgot Password
+export 'package:wallet_apps/src/screen/main/sign_up/create_password/create_password.dart';
+export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password_body.dart';
+
+// Create Password
+export 'package:wallet_apps/src/screen/main/sign_up/create_password/create_password_body.dart'; 
+
+// Reset Code
+export 'package:wallet_apps/src/screen/main/forgot_password/reset_code/reset_code_body.dart';
 
 //SMS verify
-export 'package:wallet_apps/src/screen/main_screen/sign_up_screen/sms_code/sms_code_verify_body.dart';
+export 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify_body.dart';
 
 // User Information
-export 'package:wallet_apps/src/screen/main_screen/sign_up_screen/user_info_screen/user_info_body.dart';
+export 'package:wallet_apps/src/screen/main/sign_up/user_info_screen/user_info_body.dart';
+
+// Sign Up
+export 'package:wallet_apps/src/screen/main/sign_up/signup_first_screen/signup_first_body.dart';
 
 /* Home Screen */
 
@@ -86,6 +102,7 @@ export 'package:wallet_apps/src/screen/home/dashboard/dashboard_reuse_widget.dar
 export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/fill_pin_dialog.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_reuse_widget.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary_body.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay_body.dart';
 
 /* Menu Screen */
 export 'package:wallet_apps/src/screen/home/setting_screen/setting_body.dart';

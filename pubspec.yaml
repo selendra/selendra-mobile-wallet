@@ -109,6 +109,8 @@ flutter:
     - assets/images/selfie.png
     - assets/images/zeeicon.png
     - assets/images/zeeicon_button.png
+    # Animation Flare
+    - assets/animation/check.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

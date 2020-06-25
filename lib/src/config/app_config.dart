@@ -6,6 +6,7 @@ class AppConfig {
   static String darkBlue50 = "#344051", darkBlue75 = "#222834";
 
   /* ------------------- Logo -----------------  */
+
   // Welcome Screen, Login Screen, Sign Up Screen
   static String logoName = "assets/images/zeelogo.png";
 
@@ -24,8 +25,16 @@ class AppConfig {
   // Transaction History
   static String logoTrxHistroy = 'assets/images/zeeicon.png';
 
+  /* Splash Screen */
+  static String splashLogo = "assets/images/zeetomic-logo-header.png";
+
   /* Zeetomic api user data*/
+  // Main Net API
   static final url = "https://pro-api.zeetomic.com/pub/v1";
-  // "https://pro-api.zeetomic.com/pub/v1"; //Main Net Url
-  // Test net url https://testnet-api.zeetomic.com/pub/v1
+
+  // Test net API 
+  // https://testnet-api.zeetomic.com/pub/v1
+
+  /* Splash Screen */
+  static String bottomText = "Powerd by ZEETOMIC";
 }

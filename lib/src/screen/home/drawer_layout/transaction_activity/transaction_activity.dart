@@ -48,7 +48,7 @@ class TransactionActivityState extends State<TransactionActivity> {
   }
 
   /* Scroll Refresh */
-  void _reFresh() {
+  void reFresh() {
     setState(() {
       isProgress = true;
     });

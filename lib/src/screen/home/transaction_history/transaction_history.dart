@@ -51,7 +51,7 @@ class TracsactionHistoryState extends State<TransactionHistory>{
   }
 
   /* Scroll Refresh */
-  void _reFresh() {
+  void reFresh() {
     setState(() {
       isProgress = true;
     });

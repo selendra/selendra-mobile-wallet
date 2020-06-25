@@ -3,9 +3,7 @@ import 'package:wallet_apps/index.dart';
 
 class GetWalletFromContact extends StatefulWidget{
 
-  final List<dynamic> _listPortFolio;
-
-  GetWalletFromContact(this._listPortFolio);
+  GetWalletFromContact();
 
   @override
   State<StatefulWidget> createState() {

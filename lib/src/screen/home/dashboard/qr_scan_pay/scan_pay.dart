@@ -1,5 +1,5 @@
-import './scan_pay_body.dart';
 import 'dart:ui';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:wallet_apps/index.dart';
 
 class SendPayment extends StatefulWidget {
@@ -17,6 +17,10 @@ class SendPayment extends StatefulWidget {
 class SendPaymentState extends State<SendPayment> {
   
   ModelScanPay _modelScanPay = ModelScanPay();
+
+  FlareControls flareController = FlareControls();
+
+  bool disable = false;
 
   @override
   void initState() {
@@ -40,6 +44,7 @@ class SendPaymentState extends State<SendPayment> {
     if (_modelScanPay.controlAmount.text != null &&
         _modelScanPay.controlAmount.text != "" &&
         _modelScanPay.controlReceiverAddress != null &&
+        _modelScanPay.controlReceiverAddress.text.isNotEmpty &&
         _modelScanPay.asset != null) {
       return Future.delayed(Duration(milliseconds: 50), () {
         return true;
@@ -107,11 +112,26 @@ class SendPaymentState extends State<SendPayment> {
   }
 
   void enableButton() {
-    if (_modelScanPay.controlAmount.text != '' &&
-        _modelScanPay.asset != null)
+    if (_modelScanPay.controlAmount.text != '' && _modelScanPay.asset != null)
       setState(() => _modelScanPay.enable = true);
     else if (_modelScanPay.enable == true)
       setState(() => _modelScanPay.enable = false);
+  }
+
+  Future enableAnimation(var _response) async {
+    setState(() {
+      disable = true;
+    });
+    flareController.play('Checkmark');
+    Timer(Duration(seconds: 3), (){
+      // setState(() {
+      //   disable = false;
+      // });
+      // setState(() {
+      //   _modelScanPay.isPay = false;
+      // });
+      Navigator.pop(context, _response);
+    });
   }
 
   void payProgres() { /* Loading For User Pay */
@@ -156,15 +176,11 @@ class SendPaymentState extends State<SendPayment> {
     }); 
     _modelScanPay.pin = await dialogBox();
     payProgres();
-    // dialogLoading(context, content: "Your payment is being processing");
     var _response = await sendPayment(_modelScanPay);
-    setState(() {
-      _modelScanPay.isPay = false;
-    });
     if (_response["status_code"] == 200) {
       if (!_response.containsKey('error')) {
-        await dialog(context, textAlignCenter(text: _response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor)));
-        Navigator.pop(context, _response);
+        await enableAnimation(_response);
+        // await dialog(context, textAlignCenter(text: _response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor)));
       } else {
         await dialog(context, textAlignCenter(text: _response["error"]['message']), warningTitleDialog());
       }
@@ -227,7 +243,7 @@ class SendPaymentState extends State<SendPayment> {
                   child: Center(
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      child: scanPayBodyWidget(
+                      child: scanPayBody(
                         context,
                         widget.enableInput,
                         dialogBox,
@@ -244,6 +260,7 @@ class SendPaymentState extends State<SendPayment> {
                     ),
                   ),
                 ),
+                
               ],
             )
           ),
@@ -254,26 +271,35 @@ class SendPaymentState extends State<SendPayment> {
               sigmaX: 5.0,
               sigmaY: 5.0,
             ),
-            child: Center(
-              child: FittedBox(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: CircularProgressIndicator()
-                    ),
-                    Text(
-                      'Your payment is being processing',
-                      style: TextStyle(fontSize: 16.0, color: getHexaColor(AppColors.lightBlueSky),),
-                    )
-                  ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: UtilsConvert.flareAnimation(flareController)
                 )
-              ),
+              ],
             )
-          )
+            // disable == false ? Center(
+            //   child: FittedBox(
+            //     child: Column(
+            //       mainAxisSize: MainAxisSize.min,
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       children: <Widget>[
+            //         Container(
+            //           padding: EdgeInsets.only(bottom: 10.0),
+            //           child: CircularProgressIndicator()
+            //         ),
+            //         Text(
+            //           'Your payment is being processing',
+            //           style: TextStyle(fontSize: 16.0, color: getHexaColor(AppColors.lightBlueSky),),
+            //         )
+            //       ],
+            //     // Animation Check Mark
+            //     ) 
+            //   ),
+            // ) : 
+          ),
         ],
       )
     );

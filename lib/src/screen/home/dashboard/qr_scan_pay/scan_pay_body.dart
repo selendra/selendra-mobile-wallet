@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget scanPayBodyWidget(
+Widget scanPayBody(
   BuildContext context,
   bool enableInput,
   dynamic dialog,

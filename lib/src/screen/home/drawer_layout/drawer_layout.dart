@@ -1,7 +1,6 @@
 import 'dart:ui';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import './drawer_layout_body.dart';
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/home/drawer_layout/drawer_layout_body.dart';
 
 class DrawerLayout extends StatefulWidget{
 
@@ -21,7 +20,6 @@ class DrawerLayoutState extends State<DrawerLayout> {
   String error = '', _pin = '', _confirmPin = '';
   dynamic _result; 
   final _globalKey = GlobalKey<ScaffoldState>();
-  final RefreshController _refreshController = RefreshController();
   ModelUserInfo _modelUserInfo = ModelUserInfo();
   Map<String, dynamic> _message;
 
@@ -227,7 +225,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    profileUserBodyWidget(
+                    profileUserBody(
                       isHaveWallet, 
                       context, 
                       widget._userData, 

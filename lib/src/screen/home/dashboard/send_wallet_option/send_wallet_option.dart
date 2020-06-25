@@ -7,7 +7,7 @@ class SendWalletOption extends StatelessWidget {
 
   final List<dynamic> _listPortfolio; final Function _resetState;
 
-  PostRequest postRequest = PostRequest();
+  final PostRequest postRequest = PostRequest();
 
   SendWalletOption(this._listPortfolio, this._resetState){
     AppServices.noInternetConnection(_globalKey);

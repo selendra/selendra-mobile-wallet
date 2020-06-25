@@ -5,9 +5,8 @@ class AppServices {
   static void noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {
     try {
       Connectivity _connectivity = new Connectivity();
-      StreamSubscription<ConnectivityResult> _connectionSubscription;
       final myResult = await _connectivity.checkConnectivity();
-      _connectionSubscription = _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+      _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
         if (result == ConnectivityResult.none) {
           mySnackBar(globalKey, AppText.contentConnection);
         } else {

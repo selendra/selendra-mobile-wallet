@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
-import 'package:flutter/widgets.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/index.dart';
 
 class ModelScanInvoice {
   

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wallet_apps/index.dart';
 
-Widget profileUserBodyWidget(
+Widget profileUserBody(
   bool isHaveWallet /* isHaveWallet By Default false */,
   BuildContext context,
   Map<String, dynamic> _userInfo, 
@@ -106,9 +106,7 @@ Widget profileUserBodyWidget(
       customListTile(context, Icons.lock, "Change PIN", navigateChangePIN),
       customListTile(context, Icons.lock, "Change Password", navigateChangePass),
       customListTile(context, Icons.add, "Add Assets", navigateAddAssets),
-      Container(
-        child: customListTile(context, Icons.exit_to_app, "Sign Out", signOut)
-      )
+      customListTile(context, Icons.exit_to_app, "Sign Out", signOut)
     ],
   );
 }

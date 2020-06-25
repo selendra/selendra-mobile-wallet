@@ -1,7 +1,4 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:wallet_apps/src/bloc/bloc.dart';
+import 'package:wallet_apps/index.dart';
 
 class ModelDocument{
   
