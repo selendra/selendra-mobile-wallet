@@ -106,7 +106,7 @@ export 'package:wallet_apps/src/screen/home/dashboard/dashboard_body.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/send_wallet_option/send_wallet_option.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/dashboard_reuse_widget.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/component.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/fill_pin_dialog.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_reuse_widget.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary_body.dart';

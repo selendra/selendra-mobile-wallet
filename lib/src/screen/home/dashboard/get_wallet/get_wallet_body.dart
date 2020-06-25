@@ -2,7 +2,6 @@ import 'package:wallet_apps/index.dart';
 
 Widget getWalletBody(
   BuildContext context,
-  // Map<String, dynamic> userData,
   String _wallet,
   Function snackBar, Function popScreen
 ){
