@@ -35,12 +35,12 @@ class UtilsConvert {
     return parse;
   }
   
-  static Widget flareAnimation(FlareControls flareControls){
+  static Widget flareAnimation(FlareControls flareControls, String path, String animation){
     return FlareActor(
-      "assets/animation/check.flr",
+      path,
       alignment: Alignment.center,
       fit: BoxFit.cover,
-      animation: "Checkmark",
+      animation: animation,
       controller: flareControls,
     );
   }

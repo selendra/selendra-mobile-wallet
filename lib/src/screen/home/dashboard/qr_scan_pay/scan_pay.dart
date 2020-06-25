@@ -277,7 +277,7 @@ class SendPaymentState extends State<SendPayment> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  child: UtilsConvert.flareAnimation(flareController)
+                  child: UtilsConvert.flareAnimation(flareController, "assets/animation/check.flr", "Checkmark")
                 )
               ],
             )

@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
@@ -16,6 +17,8 @@ class DashboardState extends State<Dashboard> {
   GetRequest _getRequest = GetRequest();
 
   PackageInfo _packageInfo;
+
+  FlareControls _flareControls = FlareControls();
 
   @override
   initState() { /* Initialize State */
@@ -280,13 +283,14 @@ class DashboardState extends State<Dashboard> {
               child: SmartRefresher(
                 physics: BouncingScrollPhysics(),
                 controller: _modelDashboard.refreshController,
-                child: dashboardBody(
-                  context,
-                  bloc,
-                  _modelDashboard.chartKey,
-                  _modelDashboard.portfolio,
-                  _modelDashboard
-                ),
+                child: UtilsConvert.flareAnimation(_flareControls, "assets/animation/fabs.flr", "no_action"),
+                // dashboardBody(
+                //   context,
+                //   bloc,
+                //   _modelDashboard.chartKey,
+                //   _modelDashboard.portfolio,
+                //   _modelDashboard
+                // ),
                 onRefresh: _pullUpRefresh,
               ),
             )
