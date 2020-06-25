@@ -20,6 +20,8 @@ class SendPaymentState extends State<SendPayment> {
 
   FlareControls flareController = FlareControls();
 
+  PostRequest _postRequest = PostRequest();
+
   bool disable = false;
 
   @override
@@ -176,7 +178,7 @@ class SendPaymentState extends State<SendPayment> {
     }); 
     _modelScanPay.pin = await dialogBox();
     payProgres();
-    var _response = await sendPayment(_modelScanPay);
+    var _response = await _postRequest.sendPayment(_modelScanPay);
     if (_response["status_code"] == 200) {
       if (!_response.containsKey('error')) {
         await enableAnimation(_response);

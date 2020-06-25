@@ -1,5 +1,4 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:wallet_apps/src/screen/home/dashboard/zee_chart_screen/zee_chart_body.dart';
 import 'package:wallet_apps/index.dart';
 
 class ZeeChart extends StatefulWidget {
@@ -16,6 +15,8 @@ class ZeeChart extends StatefulWidget {
 class ZeeChartState extends State<ZeeChart> {
 
   RefreshController _refreshController = RefreshController();
+
+  GetRequest _getRequest = GetRequest();
 
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
@@ -55,7 +56,7 @@ class ZeeChartState extends State<ZeeChart> {
     setState(() {
       widget._modelDashboard.portfolio = [];
     });
-    await getPortfolio().then((_response) async {
+    await _getRequest.getPortfolio().then((_response) async {
       /* Get Response Data */
       if ((_response.runtimeType.toString()) != "List<dynamic>" &&
           _response.runtimeType.toString() != "_GrowableList<dynamic>") {
@@ -81,7 +82,7 @@ class ZeeChartState extends State<ZeeChart> {
 
   void getUserData() async {
     /* Fetch User Data From Memory */
-    widget._modelDashboard.userData = await getUserProfile();
+    widget._modelDashboard.userData = await _getRequest.getUserProfile();
   }
 
   _pullUpRefresh() async {

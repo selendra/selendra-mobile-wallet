@@ -2,6 +2,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
 class TrxHistoryDetails extends StatefulWidget {
+  
   final String _title;
   final Map<String, dynamic> _trxInfo;
 
@@ -29,7 +30,7 @@ class TrxHistoryDetailsState extends State<TrxHistoryDetails> {
   }
 
   /* Scroll Refresh */
-  void _reFresh() {
+  void reFresh() {
     setState(() {
       isProgress = true;
     });

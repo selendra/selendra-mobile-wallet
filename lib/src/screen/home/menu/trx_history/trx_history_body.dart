@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget transactionHistoryBody(
+Widget trxHistoryBody(
   BuildContext _context,
   List<dynamic> _trxHistory, 
   String _walletKey,
@@ -41,9 +41,9 @@ Widget transactionHistoryBody(
         Expanded( /* Tabbar body */
           child: TabBarView(
             children: <Widget>[
-              sendBodyWidget(_trxHistory, _walletKey),
-              allTrxBoyWidget(_trxHistory),
-              receivedTrxBodyWidget(_trxHistory, _walletKey),
+              sendBody(_trxHistory, _walletKey),
+              allTrxBody(_trxHistory),
+              receivedTrxBody(_trxHistory, _walletKey),
             ],
           )
         )

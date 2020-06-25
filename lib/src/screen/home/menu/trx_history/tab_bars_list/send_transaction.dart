@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget sendBodyWidget(List<dynamic> _trxHistory, String _walletKey) {
+Widget sendBody(List<dynamic> _trxHistory, String _walletKey) {
   return _trxHistory == null ? Container(
     child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
     alignment: Alignment.center,

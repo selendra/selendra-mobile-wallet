@@ -1,5 +1,4 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import './dashboard_body.dart';
 import 'package:wallet_apps/index.dart';
 
 class Dashboard extends StatefulWidget {
@@ -11,6 +10,10 @@ class Dashboard extends StatefulWidget {
 class DashboardState extends State<Dashboard> {
 
   ModelDashboard _modelDashboard = ModelDashboard();
+  
+  PostRequest _postRequest = PostRequest();
+
+  GetRequest _getRequest = GetRequest();
 
   PackageInfo _packageInfo;
 
@@ -31,7 +34,7 @@ class DashboardState extends State<Dashboard> {
 
   /* ---------------------------Rest Api--------------------------- */
   void getUserData() async { /* Fetch User Data From Memory */
-    await getUserProfile().then((data) {
+    await _getRequest.getUserProfile().then((data) {
       if (data == null)
         _modelDashboard.userData = {};
       else
@@ -53,7 +56,7 @@ class DashboardState extends State<Dashboard> {
     if (_modelDashboard.result.containsValue("dialogPrivateKey")){
       _modelDashboard.result = {}; /* Reset Result Data To Default */
     } else { /* Initstate & Pull Refresh To Get Portfolio */
-      await getPortfolio().then((_response) async { /* Get Response Data */
+      await _getRequest.getPortfolio().then((_response) async { /* Get Response Data */
         _modelDashboard.portFolioResponse = _response;
         if (_response != null) {
           if ((_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>") {
@@ -188,7 +191,7 @@ class DashboardState extends State<Dashboard> {
     try {
       String _barcode = await BarcodeScanner.scan();
       dialogLoading(context); /* Enable Loading Process */
-      await getReward(_barcode).then((onValue) async {
+      await _postRequest.getReward(_barcode).then((onValue) async {
         if (onValue.containsKey('message'))
           await dialog(
             context,
@@ -277,7 +280,7 @@ class DashboardState extends State<Dashboard> {
               child: SmartRefresher(
                 physics: BouncingScrollPhysics(),
                 controller: _modelDashboard.refreshController,
-                child: dashboardBodyWidget(
+                child: dashboardBody(
                   context,
                   bloc,
                   _modelDashboard.chartKey,

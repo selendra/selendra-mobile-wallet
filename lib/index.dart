@@ -32,6 +32,8 @@ export 'package:firebase_remote_config/firebase_remote_config.dart';
 export 'package:share/share.dart';
 export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
+export 'package:http_parser/http_parser.dart';
+export 'package:flutter_image_compress/flutter_image_compress.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -39,14 +41,19 @@ export 'package:wallet_apps/theme/string.dart';
 export 'package:wallet_apps/src/utils/utils.dart';
 export 'package:wallet_apps/theme/color.dart';
 export 'package:wallet_apps/src/components/reuse_widget.dart';
-export 'package:wallet_apps/src/backend/rest_api.dart';
 export 'package:wallet_apps/src/bloc/bloc.dart';
 export 'package:wallet_apps/src/bloc/bloc_provider.dart';
 export 'package:wallet_apps/src/bloc/validator_mixin.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/reuse_profile.dart';
 export 'package:wallet_apps/src/config/app_config.dart';
 export 'package:wallet_apps/src/routes/routing.dart';
 export 'package:wallet_apps/theme/style.dart';
+
+// Backend
+export 'package:wallet_apps/src/backend/api.dart';
+export 'package:wallet_apps/src/backend/get/get_request.dart';
+export 'package:wallet_apps/src/backend/post/post_request.dart';
+
+export 'package:wallet_apps/src/backend/component.dart';
 
 //Service
 export 'package:wallet_apps/src/service/storage.dart';
@@ -61,7 +68,6 @@ export 'package:wallet_apps/src/screen/main/login/login.dart';
 export 'package:wallet_apps/src/screen/main/splash_screen/splash_screen.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/signup_first_screen/signup_first.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/user_info_screen/user_info.dart';
-export 'package:wallet_apps/src/screen/main/component.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/user_info_screen/user_info.dart';
 export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password.dart';
 export 'package:wallet_apps/src/screen/main/login/login_body.dart';
@@ -95,6 +101,8 @@ export 'package:wallet_apps/src/screen/main/sign_up/signup_first_screen/signup_f
 
 // Dashbaord
 export 'package:wallet_apps/src/screen/home/dashboard/dashboard.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/dashboard_body.dart';
+
 export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/send_wallet_option/send_wallet_option.dart';
@@ -103,57 +111,66 @@ export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/fill_pin_dialo
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_reuse_widget.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary_body.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay_body.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/zee_chart_screen/zee_chart_body.dart';
+
+/* Component File */
+export 'package:wallet_apps/src/components/main_component.dart';
+export 'package:wallet_apps/src/components/menu_component.dart';
 
 /* Menu Screen */
-export 'package:wallet_apps/src/screen/home/setting_screen/setting_body.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/drawer_layout.dart';
+export 'package:wallet_apps/src/screen/home/menu/menu.dart';
+
+export 'package:wallet_apps/src/screen/home/menu/menu_body.dart';
+
+// Add User Information
+export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info_body.dart';
 
 // Edit Profile
-export 'package:wallet_apps/src/screen/home/drawer_layout/edit_profile/edit_profile.dart';
+export 'package:wallet_apps/src/screen/home/menu/edit_profile/edit_profile.dart';
 export 'package:wallet_apps/src/screen/home/fill_documents_screen/take_selfie_screen/take_selfie_body.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/edit_profile/edit_profile_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/edit_profile/edit_profile_body.dart';
 
 // Transaction Activiity
-export 'package:wallet_apps/src/screen/home/drawer_layout/transaction_activity/reuse_activity_widget.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/transaction_activity/transaction_activity.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/transaction_activity/transaction_activity_details/transaction_activity_details.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/transaction_activity/transaction_activity_body.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/transaction_activity/transaction_activity_details/transaction_activity_details_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/reuse_activity_widget.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity_details/transaction_activity_details.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity_details/transaction_activity_details_body.dart';
 
 // Transaction History
-export 'package:wallet_apps/src/screen/home/transaction_history/tab_bars_list/all_trx.dart';
-export 'package:wallet_apps/src/screen/home/transaction_history/tab_bars_list/received_trx.dart';
-export 'package:wallet_apps/src/screen/home/transaction_history/tab_bars_list/send_transaction.dart';
-export 'package:wallet_apps/src/screen/home/transaction_history/trx_history_details/trx_history_detail.dart';
-export 'package:wallet_apps/src/screen/home/transaction_history/transaction_history.dart';
-export 'package:wallet_apps/src/screen/home/transaction_history/trx_history_details/trx_history_detail_body.dart';
-export 'package:wallet_apps/src/screen/home/transaction_history/transaction_history_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_history/tab_bars_list/all_trx.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_history/tab_bars_list/received_trx.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_history/tab_bars_list/send_transaction.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_history/trx_history_details/trx_history_detail.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_history/trx_history.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_history/trx_history_details/trx_history_detail_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_history/trx_history_body.dart';
 
 // Change Password
-export 'package:wallet_apps/src/screen/home/drawer_layout/change_password/change_password.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/change_password/change_password_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/change_password/change_password.dart';
+export 'package:wallet_apps/src/screen/home/menu/change_password/change_password_body.dart';
 
 // Change PIN
-export 'package:wallet_apps/src/screen/home/drawer_layout/change_pin/change_pin.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/change_pin/change_pin_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/change_pin/change_pin.dart';
+export 'package:wallet_apps/src/screen/home/menu/change_pin/change_pin_body.dart';
 
 // Document
 export 'package:wallet_apps/src/screen/home/fill_documents_screen/take_selfie_screen/take_selfie.dart';
 export 'package:wallet_apps/src/screen/home/fill_documents_screen/upload_documents_screen/upload_documents.dart';
 
 // Get Wallet
-export 'package:wallet_apps/src/screen/home/drawer_layout/private_key_dialog/private_key_dialog.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/set_pin_code_dialog_screen/set_confirm_pin_code_dialog.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/set_pin_code_dialog_screen/set_pin_code_dialog.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/private_key_dialog/private_key_dialog_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/private_key_dialog/private_key_dialog.dart';
+export 'package:wallet_apps/src/screen/home/menu/set_pin_code_dialog/set_confirm_pin_code_dialog.dart';
+export 'package:wallet_apps/src/screen/home/menu/set_pin_code_dialog/set_pin_code_dialog.dart';
+export 'package:wallet_apps/src/screen/home/menu/private_key_dialog/private_key_dialog_body.dart';
 
 // Reward From Invoice
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_info/invoice_info_body.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary.dart';
 
 // Add Assets
-export 'package:wallet_apps/src/screen/home/drawer_layout/add_asset/add_asset.dart';
-export 'package:wallet_apps/src/screen/home/drawer_layout/add_asset/add_asset_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/add_asset/add_asset.dart';
+export 'package:wallet_apps/src/screen/home/menu/add_asset/add_asset_body.dart';
 
 /* ------------------- App Model ------------------*/
 

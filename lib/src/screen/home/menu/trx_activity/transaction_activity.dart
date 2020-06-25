@@ -19,6 +19,8 @@ class TransactionActivityState extends State<TransactionActivity> {
 
   List<dynamic> _activity = [];
 
+  GetRequest _getRequest = GetRequest();
+
   @override
   void initState() {
     AppServices.noInternetConnection(_globalKey);
@@ -27,7 +29,7 @@ class TransactionActivityState extends State<TransactionActivity> {
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
-    await getReceipt().then((_response) {
+    await _getRequest.getReceipt().then((_response) {
       if (List<dynamic>.from(_response).length == 0)
         _activity = null; /* Assign TransactionActivity Variable With NUll If Reponse Empty Data */
       else

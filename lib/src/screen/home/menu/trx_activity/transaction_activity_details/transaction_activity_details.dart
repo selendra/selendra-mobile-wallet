@@ -28,7 +28,7 @@ class MyActivityDetailsState extends State<TransactionActivityDetails> {
   }
 
   /* Scroll Refresh */
-  void _reFresh() {
+  void reFresh() {
     setState(() {
       isProgress = true;
     });

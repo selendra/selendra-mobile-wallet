@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget addUserInfobodyWidget(
+Widget addUserInfobody(
   ValidateMixin _validateInstance,
   BuildContext context, 
   List<String> genderList,

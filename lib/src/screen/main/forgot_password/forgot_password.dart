@@ -11,6 +11,8 @@ class ForgotPasswordState extends State<ForgotPassword> {
   
   ModelForgotPassword _modelForgotPassword = ModelForgotPassword();
 
+  PostRequest _postRequest = PostRequest();
+
   @override
   void initState() {
     _modelForgotPassword.key = "phone";
@@ -71,7 +73,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   void requestCode(BuildContext context) async {
     dialogLoading(context);
-    await forgetPassword(
+    await _postRequest.forgetPassword(
       _modelForgotPassword, 
       _modelForgotPassword.key == "phone" ? "+855${_modelForgotPassword.controlPhoneNums.text}" : _modelForgotPassword.controllerEmail.text // Check User Request By Phone Number Or Email
     ).then((_response) async {

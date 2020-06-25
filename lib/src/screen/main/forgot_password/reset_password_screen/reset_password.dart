@@ -16,6 +16,8 @@ class ResetPasswordState extends State<ResetPassword> {
 
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
+  PostRequest _postRequest = PostRequest();
+
   @override
   void initState() {
     widget._modelForgotPassword.responseEmail = null;
@@ -177,7 +179,7 @@ class ResetPasswordState extends State<ResetPassword> {
 
   void submitResetPassword(BuildContext context) async {
     dialogLoading(context);
-    await resetPass(
+    await _postRequest.resetPass(
       widget._modelForgotPassword, 
       widget._modelForgotPassword.key == "phone" 
       ? "+855${widget._modelForgotPassword.controlPhoneNums.text}"

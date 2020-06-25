@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget editProfileBodyWidget(
+Widget editProfileBody(
   BuildContext _context,
   ModelUserInfo _modelUserInfo,
   Function onSubmit,

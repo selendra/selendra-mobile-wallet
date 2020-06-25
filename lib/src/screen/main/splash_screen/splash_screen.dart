@@ -9,6 +9,8 @@ class MySplashScreen extends StatefulWidget{
 
 class MySplashScreenState extends State<MySplashScreen>{
 
+  GetRequest _getRequest = GetRequest();
+
   int status; dynamic nextScreen;
 
   @override
@@ -22,7 +24,7 @@ class MySplashScreenState extends State<MySplashScreen>{
     try {
       await StorageServices.fetchData("user_token").then((value) async {
         if (value != null) {
-          status = await checkExpiredToken();
+          status = await _getRequest.checkExpiredToken();
           if (status == 200) { /* Check Expired Token */
             setState(() { // Reset Default Next Screen Variable
               nextScreen = Dashboard();

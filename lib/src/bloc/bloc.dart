@@ -1,9 +1,13 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:wallet_apps/src/backend/post/post_request.dart';
 import './validator_mixin.dart';
 import 'package:wallet_apps/index.dart';
 
 class Bloc with ValidateMixin {
+
+  PostRequest _postRequest = PostRequest();
+
   /* BehaviorSubject Below Are Similiar StreamController But It Has More Feature Over StreamController*/
   final _email = BehaviorSubject<String>();
   final _phoneNums = BehaviorSubject<String>();
@@ -33,7 +37,7 @@ class Bloc with ValidateMixin {
 
   Future<bool> loginMethod(BuildContext context, String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label) async {
     /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
-    return await userLogin(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
+    return await _postRequest.userLogin(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
       Navigator.pop(context); /* Close Loading Process */
       if (_response['status_code'] != '502') {
         if (_response.keys.contains("error")) {
@@ -66,7 +70,7 @@ class Bloc with ValidateMixin {
     String _endpoints,
     String _label
   ) async {
-    return await userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
+    return await _postRequest.userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
       Navigator.pop(context); /* Close Loading Screen */
       await dialog(
         context,

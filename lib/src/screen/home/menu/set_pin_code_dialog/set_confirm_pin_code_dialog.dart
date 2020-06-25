@@ -11,11 +11,14 @@ class SetConfirmPin extends StatefulWidget {
 }
 
 class SetConfirmPinState extends State<SetConfirmPin> {
+
   String _confirmPin;
   bool disableButton = true, isProgress = false;
   Map<String, dynamic> popData;
 
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+  
+  PostRequest _postRequest = PostRequest();
 
   @override
   initState() {
@@ -71,7 +74,7 @@ class SetConfirmPinState extends State<SetConfirmPin> {
                                     "confirm_pin": _confirmPin,
                                     "compare": true
                                   };
-                                  Map<String, dynamic> _response = await retreiveWallet(_confirmPin); /* Request Wallet */
+                                  Map<String, dynamic> _response = await _postRequest.retreiveWallet(_confirmPin); /* Request Wallet */
                                   _response.addAll(popData);
                                   Navigator.pop(
                                       context); /* Close Cicular Loading */

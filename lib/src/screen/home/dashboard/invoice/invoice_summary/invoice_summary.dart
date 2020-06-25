@@ -16,6 +16,8 @@ class InvoiceSummaryState extends State<InvoiceSummary>  {
 
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
+  PostRequest _postRequest = PostRequest();
+
   @override
   void initState() {
     AppServices.noInternetConnection(_globalKey);
@@ -32,7 +34,7 @@ class InvoiceSummaryState extends State<InvoiceSummary>  {
 
   void confirmInvoice(BuildContext context) async {
     dialogLoading(context); /* Loading Process */
-    Map<String, dynamic> _response = await addReceipt(widget._modelScanInvoice);
+    Map<String, dynamic> _response = await _postRequest.addReceipt(widget._modelScanInvoice);
     if (!_response.containsKey("error")){ /* Display Messager To Dialog Box */
       await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor),)); /* Show Response */
       Navigator.pop(context);

@@ -11,6 +11,8 @@ class AddAssetState extends State<AddAsset> {
 
   ModelAsset _modelAsset = ModelAsset();
 
+  PostRequest _postRequest = PostRequest();
+
   @override
   void initState() {
     _modelAsset.result = {};
@@ -67,7 +69,7 @@ class AddAssetState extends State<AddAsset> {
 
   void submitAddAsset(BuildContext context) async {
     dialogLoading(context); // Loading
-    _modelAsset.result = await addAsset(_modelAsset);
+    _modelAsset.result = await _postRequest.addAsset(_modelAsset);
     Navigator.pop(context); // Close Loading
     if (_modelAsset.result.containsKey('message')){
       await dialog(

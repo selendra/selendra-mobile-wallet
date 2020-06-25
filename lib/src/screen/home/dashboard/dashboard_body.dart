@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget dashboardBodyWidget(
+Widget dashboardBody(
   BuildContext context,
   Bloc bloc,
   GlobalKey<AnimatedCircularChartState> _chartKey,

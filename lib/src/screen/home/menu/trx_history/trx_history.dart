@@ -1,19 +1,19 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
-class TransactionHistory extends StatefulWidget{
+class TrxHistory extends StatefulWidget{
 
   final String _walletKey;
 
-  TransactionHistory(this._walletKey);
+  TrxHistory(this._walletKey);
 
   @override
   State<StatefulWidget> createState() {
-    return TracsactionHistoryState();
+    return TrxHistoryState();
   }
 }
 
-class TracsactionHistoryState extends State<TransactionHistory>{
+class TrxHistoryState extends State<TrxHistory>{
 
   final RefreshController _refreshController = RefreshController();
 
@@ -23,6 +23,8 @@ class TracsactionHistoryState extends State<TransactionHistory>{
 
   List<dynamic> _history = [];
 
+  GetRequest _getRequest = GetRequest();
+
   @override
   void initState() {
     AppServices.noInternetConnection(_globalKey);
@@ -31,7 +33,7 @@ class TracsactionHistoryState extends State<TransactionHistory>{
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
-    await trxUserHistory().then((_response) async { /* Get Response Data */
+    await _getRequest.trxUserHistory().then((_response) async { /* Get Response Data */
       if ( (_response.runtimeType.toString()) != "List<dynamic>" && (_response.runtimeType.toString()) != "_GrowableList<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
         if (_response.containsKey("error")){
           if (this.mounted){ /* Prevent Future SetState */
@@ -71,7 +73,7 @@ class TracsactionHistoryState extends State<TransactionHistory>{
       child: Scaffold(
         key: _globalKey,
         body: SafeArea(
-          child: transactionHistoryBody(context, _history, widget._walletKey, popScreen),
+          child: trxHistoryBody(context, _history, widget._walletKey, popScreen),
         ),
       ),
     );

@@ -11,6 +11,8 @@ class ChangePINState extends State<ChangePassword> {
 
   ModelChangePassword _modelChangePassword = ModelChangePassword();
 
+  PostRequest _postRequest = PostRequest();
+
   @override
   initState(){
     AppServices.noInternetConnection(_modelChangePassword.globalKey);
@@ -122,7 +124,7 @@ class ChangePINState extends State<ChangePassword> {
 
   void submitPassword(BuildContext context) async {
     dialogLoading(context); /* Show Loading Process */
-    await changePassword(_modelChangePassword).then((_response) async {
+    await _postRequest.changePassword(_modelChangePassword).then((_response) async {
       Navigator.pop(context); /* Close Loading Process */
       if (!_response.containsKey("error")) { /* Check Response Not Error */
         await dialog(

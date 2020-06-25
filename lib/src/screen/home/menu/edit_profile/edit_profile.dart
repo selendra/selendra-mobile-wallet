@@ -16,6 +16,8 @@ class EditProfileState extends State<EditProfile> {
 
   ModelUserInfo _modelUserInfo = ModelUserInfo();
 
+  PostRequest _postRequest = PostRequest();
+
   @override
   void initState() {
     AppServices.noInternetConnection(_modelUserInfo.globalKey);
@@ -108,7 +110,7 @@ class EditProfileState extends State<EditProfile> {
 
   void submitProfile(BuildContext context) async { /* Submit Profile User */
     dialogLoading(context); /* Show Loading Process */
-    _modelUserInfo.submitResponse = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
+    _modelUserInfo.submitResponse = await _postRequest.uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
     Navigator.pop(context); /* Close Loading Procxess */
     if (_modelUserInfo.submitResponse != null) { /* Set Profile Success */
       await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
@@ -138,7 +140,7 @@ class EditProfileState extends State<EditProfile> {
     return Scaffold(
       key: _modelUserInfo.globalKey,
       body: scaffoldBGDecoration(
-        child: editProfileBodyWidget(
+        child: editProfileBody(
           context,
           _modelUserInfo,
           onSubmit,

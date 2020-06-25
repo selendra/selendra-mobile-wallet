@@ -1,11 +1,7 @@
 /* Flutter Package */
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:wallet_apps/src/bloc/validator_mixin.dart';
-import 'dart:async';
 /* Directory of file */
-import './add_user_info_body.dart';
 import 'package:wallet_apps/index.dart';
 
 class AddUserInfo extends StatefulWidget{
@@ -179,7 +175,7 @@ class AddUserInfoState extends State<AddUserInfo>{
     return Scaffold(
       key: _globalKey,  
       body: scaffoldBGDecoration(
-        child: addUserInfobodyWidget(
+        child: addUserInfobody(
           instanceValidate,
           context, 
           dropDownList, 

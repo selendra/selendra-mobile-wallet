@@ -5,8 +5,6 @@ import 'dart:ui' as ui;
 import 'package:wallet_apps/index.dart';
 
 /* -----------------------------------Variable--------------------------------------------------- */
-
-
 /* Size */
 const double size1 = 1.0;
 const double size2 = 2.0;

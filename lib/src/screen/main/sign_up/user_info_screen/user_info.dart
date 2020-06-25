@@ -16,6 +16,8 @@ class UserInfoState extends State<UserInfo> {
   
   ModelUserInfo _modelUserInfo = ModelUserInfo();
 
+  PostRequest _postRequest = PostRequest();
+
   @override
   void initState() {
     AppServices.noInternetConnection(_modelUserInfo.globalKey);
@@ -34,7 +36,7 @@ class UserInfoState extends State<UserInfo> {
 
   void getTokenByLogin() async {
     /* Get Token To Make Authentication With Add User Info */
-    Map<String, dynamic> _res = await userLogin(
+    Map<String, dynamic> _res = await _postRequest.userLogin(
         widget._userData['email_phone'],
         widget._userData['passwords'],
         widget._userData['label'] == "email"
@@ -132,7 +134,7 @@ class UserInfoState extends State<UserInfo> {
   void submitProfile(BuildContext context) async {
     /* Submit Profile User */
     dialogLoading(context); /* Show Loading Process */
-    _modelUserInfo.submitResponse = await uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
+    _modelUserInfo.submitResponse = await _postRequest.uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
     Navigator.pop(context); /* Close Loading Process */
     if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) {
       /* Set Profile Success */

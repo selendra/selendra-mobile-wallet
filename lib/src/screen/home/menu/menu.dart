@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/screen/home/drawer_layout/drawer_layout_body.dart';
 
 class DrawerLayout extends StatefulWidget{
 
@@ -117,7 +116,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
   void navigateTrxHistory() {
     widget.drawerCallBack(_result);
     Navigator.pop(context);
-    Navigator.push(context, transitionRoute(TransactionHistory(widget._userData['wallet'])));
+    Navigator.push(context, transitionRoute(TrxHistory(widget._userData['wallet'])));
   }
 
   void navigateAcivity() { 

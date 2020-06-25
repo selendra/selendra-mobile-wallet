@@ -1,5 +1,4 @@
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/backend/post/post_request.dart';
 
 class SendWalletOption extends StatelessWidget {
 
@@ -7,7 +6,7 @@ class SendWalletOption extends StatelessWidget {
 
   final List<dynamic> _listPortfolio; final Function _resetState;
 
-  final PostRequest postRequest = PostRequest();
+  final PostRequest _postRequest = PostRequest();
 
   SendWalletOption(this._listPortfolio, this._resetState){
     AppServices.noInternetConnection(_globalKey);
@@ -17,7 +16,7 @@ class SendWalletOption extends StatelessWidget {
     var response;
     final PhoneContact _contact = await FlutterContactPicker.pickPhoneContact();
     if (_contact != null) {
-      await getWalletFromContact(
+      await _postRequest.getWalletFromContact(
         "+855${AppServices.removeZero(_contact.phoneNumber.number.replaceFirst("0", "", 0))}" // Replace 0 At The First Index To Empty
       ).then((value) async {
         if(value['status_code'] == 200 && value.containsKey('wallet')){
@@ -49,7 +48,7 @@ class SendWalletOption extends StatelessWidget {
               onPressed: () async {
                 Navigator.pop(context); // Close Dialog Invite
                 dialogLoading(context); // Process Loading
-                var _response = await postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
+                var _response = await _postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
                 Navigator.pop(context); // Close Dialog Loading
                 if (_response != null) {
                   await dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));

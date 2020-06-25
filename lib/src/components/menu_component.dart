@@ -1,3 +1,5 @@
+/* The components file has custom widgets which are used by multiple different screens */
+
 import 'package:wallet_apps/index.dart';
 
 Widget customListTile(BuildContext context, IconData icon, String title, dynamic method){

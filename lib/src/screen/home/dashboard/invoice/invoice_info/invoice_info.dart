@@ -16,17 +16,19 @@ class InvoiceInfoState extends State<InvoiceInfo> {
 
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
+  GetRequest _getRequest = GetRequest();
+
   @override
   initState(){
     AppServices.noInternetConnection(_globalKey);
-    getAllBranches();
+    _getRequest.getAllBranches();
     getOnlyBranchesName();
     super.initState();
   }
 
   /* ---------------Rest Api--------------- */
   void getOnlyBranchesName() async {
-    var _response = await getAllBranches();
+    var _response = await _getRequest.getAllBranches();
     for (int i = 0; i < _response.length; i++){
       widget._modelScanInvoice.listNameOfBranches.add(_response[i]['branches_name']);
       // _modelScanInvoice.listIdOfBranch.add(_response[i]['_id']);

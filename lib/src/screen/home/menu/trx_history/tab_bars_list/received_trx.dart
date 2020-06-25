@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget allTrxBoyWidget(List<dynamic> _trxHistory) {
+Widget receivedTrxBody(List<dynamic> _trxHistory, String _walletKey) {
   return _trxHistory == null ? Container(
     child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
     alignment: Alignment.center,
@@ -10,11 +10,9 @@ Widget allTrxBoyWidget(List<dynamic> _trxHistory) {
     physics: BouncingScrollPhysics(),
     itemCount: _trxHistory.length,
     itemBuilder: (BuildContext context, int index) {
-      return _trxHistory[index]["transaction_successful"] == true 
+      return _walletKey != _trxHistory[index]['from'] && _trxHistory[index]['type'] != "manage_offer"/* Send Trx If Source Account Address Not Equal Wallet Adddress */
       ? GestureDetector(
-        onTap: () {
-          Navigator.push(context, transitionRoute(TrxHistoryDetails(_trxHistory[index], "All")));
-        },
+        onTap: () => Navigator.push(context, transitionRoute(TrxHistoryDetails(_trxHistory[index], "Received"))),
         child: Container(
           margin: EdgeInsets.only(bottom: 10.5),
           child: Container(
