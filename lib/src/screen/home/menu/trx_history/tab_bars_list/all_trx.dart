@@ -1,12 +1,7 @@
 import 'package:wallet_apps/index.dart';
 
 Widget allTrxBody(List<dynamic> _trxHistory) {
-  return _trxHistory == null ? Container(
-    child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
-    alignment: Alignment.center,
-  ) /* Retreive Porfolio Null => Have No List */ 
-  : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-  : ListView.builder(
+  return ListView.builder(
     physics: BouncingScrollPhysics(),
     itemCount: _trxHistory.length,
     itemBuilder: (BuildContext context, int index) {
@@ -44,7 +39,7 @@ Widget allTrxBody(List<dynamic> _trxHistory) {
                         ? Text(_trxHistory[index]["asset_code"])
                         : Text("XLM"),
                       Container(
-                        child: Text(UtilsConvert.timeStampToDateTime(_trxHistory[index]['created_at'])),
+                        child: Text(AppUtils.timeStampToDateTime(_trxHistory[index]['created_at'])),
                       )
                     ],
                   ),

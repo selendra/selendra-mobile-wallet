@@ -101,7 +101,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
             _modelForgotPassword, 
             tabBarSelectChanged, validatePhoneNumber, validateEmail,
             onChanged, onSubmit,
-            MainComponent.popScreen, requestCode
+            Component.popScreen, requestCode
           )
         ),
       ),

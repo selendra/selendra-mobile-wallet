@@ -46,7 +46,7 @@ Widget buildListBody(List<dynamic> _activity) {
                           //   ? Text(_activity[index]["asset_code"])
                           //   : Text("XLM"),
                           Container(
-                            child: Text(UtilsConvert.timeStampToDateTime(_activity[index]['created_at'])),
+                            child: Text(AppUtils.timeStampToDateTime(_activity[index]['created_at'])),
                           )
                         ],
                       ),

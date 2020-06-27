@@ -30,7 +30,7 @@ class AppConfig {
 
   /* Zeetomic api user data*/
   // Main Net API
-  static final url = "https://pro-api.zeetomic.com/pub/v1";
+  static final url = "https://testnet-api.zeetomic.com/pub/v1";
 
   // Test net API 
   // https://testnet-api.zeetomic.com/pub/v1

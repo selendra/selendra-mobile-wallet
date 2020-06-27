@@ -44,11 +44,19 @@ class TrxHistoryState extends State<TrxHistory>{
         }
       } else {
         if (this.mounted) { /* Prevent Future SetState */
+          sortByDate(_response);
           setState(() {
             _history = _response;
           });
         }
       } 
+    });
+  }
+
+  void sortByDate(List _trxHistory){
+    InstanceTrxOrder _instanceTrxOrder = AppUtils.trxMonthOrder(_trxHistory);
+    _instanceTrxOrder.m6.forEach((element) {
+      print(element['created_at']);
     });
   }
 
@@ -62,7 +70,6 @@ class TrxHistoryState extends State<TrxHistory>{
   }
 
   void popScreen() {
-    print("Pop");
     Navigator.pop(context, {});
   }
 

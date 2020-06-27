@@ -1,10 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
 class MainComponent{
-
-  static void popScreen(BuildContext context) {
-    Navigator.pop(context);
-  }
 }
 
 Widget paddingScreenWidget(BuildContext context, Widget child) {

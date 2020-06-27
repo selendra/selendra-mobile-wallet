@@ -125,7 +125,7 @@ class SendPaymentState extends State<SendPayment> {
       disable = true;
     });
     flareController.play('Checkmark');
-    Timer(Duration(seconds: 3), (){
+    Timer(Duration(seconds: 2), (){
       // setState(() {
       //   disable = false;
       // });
@@ -277,7 +277,7 @@ class SendPaymentState extends State<SendPayment> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  child: UtilsConvert.flareAnimation(flareController, "assets/animation/check.flr", "Checkmark")
+                  child: CustomAnimation.flareAnimation(flareController, "assets/animation/check.flr", "Checkmark")
                 )
               ],
             )

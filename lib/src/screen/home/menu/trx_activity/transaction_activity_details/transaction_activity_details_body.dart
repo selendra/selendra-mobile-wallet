@@ -34,7 +34,7 @@ Widget transactionActivityDetailsBody(
                 rowInformation("Amount: ", _trxInfo['amount']),
                 rowInformation("Rewards: ", _trxInfo['rewards']),
                 rowInformation("Status", _trxInfo['status']),
-                rowInformation("Created date: ", UtilsConvert.timeStampToDateTime(_trxInfo['created_at'])),
+                rowInformation("Created date: ", AppUtils.timeStampToDateTime(_trxInfo['created_at'])),
                 // Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
               ],
             ),

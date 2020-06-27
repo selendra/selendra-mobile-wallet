@@ -40,7 +40,7 @@ Widget trxHistoryDetailsBodyWidget(
                 : rowInformation("Type: ", _trxInfo['type'] == "payment" ? "Payment" : "Fee"),
                 rowInformation("From: ", _trxInfo['type'] == "payment" ? _trxInfo['from'] : ""),
                 rowInformation("To: ", _trxInfo['type'] == "payment" ? _trxInfo['to'] : ""),
-                rowInformation("Date: ", UtilsConvert.timeStampToDateTime(_trxInfo['created_at'])),
+                rowInformation("Date: ", AppUtils.timeStampToDateTime(_trxInfo['created_at'])),
                 // Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
               ],
             ),
