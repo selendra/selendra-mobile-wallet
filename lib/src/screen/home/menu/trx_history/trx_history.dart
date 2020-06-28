@@ -21,7 +21,7 @@ class TrxHistoryState extends State<TrxHistory>{
 
   bool isProgress = true; bool isLogout = false;
 
-  List<dynamic> _history = [];
+  List<dynamic> _trxHistory = [];
   List<dynamic> _trxSend = [];
   List<dynamic> _trxReceived = [];
 
@@ -47,7 +47,7 @@ class TrxHistoryState extends State<TrxHistory>{
         if (_response.containsKey("error")){
           if (this.mounted){ /* Prevent Future SetState */
             setState(() {
-              _history = null; /* Set Portfolio Equal Null To Close Loading Process */
+              _trxHistory = null; /* Set Portfolio Equal Null To Close Loading Process */
             });
           }
         }
@@ -55,7 +55,7 @@ class TrxHistoryState extends State<TrxHistory>{
         if (this.mounted) { /* Prevent Future SetState */
           collectByTrxType(_response);
           setState(() {
-            _history = _response;
+            _trxHistory = _response;
           });
         }
       } 
@@ -70,16 +70,19 @@ class TrxHistoryState extends State<TrxHistory>{
         _trxReceived.add(element);
       }
     });
-    sortByDate(_trxSend, _instanceTrxSendOrder);
-    sortByDate(_trxHistory, _instanceTrxAllOrder);
-    sortByDate(_trxReceived, _instanceTrxReceivedOrder);
-    // print(_trxSend.length);
-    // print(_trxHistory.length);
-    // print(_trxReceived.length);
+    sortByDate(_trxSend, "Send");
+    sortByDate(_trxHistory, "All");
+    sortByDate(_trxReceived, "Received");
   }
 
-  void sortByDate(List _trxHistory, InstanceTrxOrder _instanceTrxOrder){
-    _instanceTrxOrder = AppUtils.trxMonthOrder(_trxHistory);
+  void sortByDate(List _trxHistory, String tab){
+    if (tab == "Send") {
+      _instanceTrxSendOrder = AppUtils.trxMonthOrder(_trxHistory);
+    } else if (tab == "All") {
+      _instanceTrxAllOrder = AppUtils.trxMonthOrder(_trxHistory);
+    } else if ( tab == "Received") {
+      _instanceTrxReceivedOrder = AppUtils.trxMonthOrder(_trxHistory);
+    }
   }
 
   /* Scroll Refresh */
@@ -105,7 +108,7 @@ class TrxHistoryState extends State<TrxHistory>{
           child: trxHistoryBody(
             context,  
             _trxSend,
-            _history,
+            _trxHistory,
             _trxReceived,
             _instanceTrxSendOrder,
             _instanceTrxAllOrder,

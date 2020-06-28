@@ -11,7 +11,6 @@ class TrxComponent {
   }
 
   static Widget trxList(List trx, String tab){
-    print(trx.length);
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -34,10 +33,6 @@ class TrxComponent {
                     backgroundImage: AssetImage(AppConfig.logoTrxHistroy)
                   ),
                 ),
-                
-                // Container(
-                //   child: Text(_instanceTrxOrder.m6[index]['amount']),
-                // ),
                 Expanded(
                   flex: 2,
                   child: trx[index].containsKey("asset_code") 
@@ -60,11 +55,11 @@ class TrxComponent {
   }
 
   static Widget trxListByMonth(List trx, String tab){
-    return trx.length != 0 ? Column(
+    return trx.length != 0 ? Column( // Prevent The Month Have Have No Trx
       children: <Widget>[
+        Divider(color: Colors.grey, height: 1.0),
         TrxComponent.trxTitle(trx),
         TrxComponent.trxList(trx, tab),
-        Divider(color: Colors.grey, height: 1.0)
       ],
     ) : Container();
   }

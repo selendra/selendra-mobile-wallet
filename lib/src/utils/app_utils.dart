@@ -42,12 +42,11 @@ class AppUtils {
     return parse;
   }
 
-  static InstanceTrxOrder trxMonthOrder(List<dynamic> trxHistory){
+  static InstanceTrxOrder trxMonthOrder(List<dynamic> _trxHistory){
     InstanceTrxOrder _instanceTrxOrder = InstanceTrxOrder();
     DateTime date;
-    trxHistory.forEach((element) {
+    _trxHistory.forEach((element) {
       date = DateTime.parse(element['created_at']).toLocal();
-      // if (date.month == 6) print(AppUtils.timeStampToDate(element['created_at']));
       if (date.month == 1) {
         _instanceTrxOrder.m1.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m1.add(element);
@@ -65,6 +64,7 @@ class AppUtils {
         _instanceTrxOrder.m4.add(element);
 
       } else if (date.month == 5){
+        print(date.month);
         if ( _instanceTrxOrder.m5.length == 0 ) _instanceTrxOrder.m5.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m5.add(element);
 
@@ -96,15 +96,7 @@ class AppUtils {
         _instanceTrxOrder.m12.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m12.add(element);
       }
-      // UtilsConvert.timeStampToDateTime(element['created_at']);
     });
-    // print("Month 6 ${_instanceTrxOrder.m6[0]}");
-    // print("Month 6 ${_instanceTrxOrder.m6[1]}");
-    // print("Month 6 ${_instanceTrxOrder.m6[2]}");
-    // print("Month 6 ${_instanceTrxOrder.m6[3]}");
-    // _instanceTrxOrder.m5.forEach((element) {
-    //   print(element['amount']);
-    // });
     return _instanceTrxOrder;
   }
 }
