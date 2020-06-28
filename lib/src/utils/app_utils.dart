@@ -20,6 +20,14 @@ class AppUtils {
     ); /* Return Real Date Time */
   }
 
+  static String timeStampToDate(String timeStamp){
+    DateTime parse = DateTime.parse(timeStamp).toLocal(); /* Parse Time Stamp String to DateTime Format */
+    return formatDate(
+      parse, 
+      [ yyyy, '/', mm, '/', dd]
+    ); /* Return Real Date Time */
+  }
+
   static int convertHexaColor(String colorhexcode) { /* Convert Hexa Color */
     String colornew = '0xff' + colorhexcode;
     colornew = colornew.replaceAll('#', '');
@@ -36,35 +44,67 @@ class AppUtils {
 
   static InstanceTrxOrder trxMonthOrder(List<dynamic> trxHistory){
     InstanceTrxOrder _instanceTrxOrder = InstanceTrxOrder();
+    DateTime date;
     trxHistory.forEach((element) {
-      DateTime date = DateTime.parse(element['created_at']).toLocal();
+      date = DateTime.parse(element['created_at']).toLocal();
+      // if (date.month == 6) print(AppUtils.timeStampToDate(element['created_at']));
       if (date.month == 1) {
+        _instanceTrxOrder.m1.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m1.add(element);
+
       } else if (date.month == 2){
+        _instanceTrxOrder.m2.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m2.add(element);
+
       } else if (date.month == 3){
+        _instanceTrxOrder.m3.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m3.add(element);
+
       } else if (date.month == 4){
+        _instanceTrxOrder.m4.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m4.add(element);
+
       } else if (date.month == 5){
+        if ( _instanceTrxOrder.m5.length == 0 ) _instanceTrxOrder.m5.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m5.add(element);
+
       } else if (date.month == 6){
+        if ( _instanceTrxOrder.m6.length == 0 ) _instanceTrxOrder.m6.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m6.add(element);
+
       } else if (date.month == 7){
+        _instanceTrxOrder.m7.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m7.add(element);
+
       } else if (date.month == 8){
+        _instanceTrxOrder.m8.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m8.add(element);
+
       } else if (date.month == 9){
+        _instanceTrxOrder.m9.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m9.add(element);
+
       } else if (date.month == 10){
+        _instanceTrxOrder.m10.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m10.add(element);
+
       } else if (date.month == 11){
+        _instanceTrxOrder.m11.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m11.add(element);
+
       } else if (date.month == 12){
+        _instanceTrxOrder.m12.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m12.add(element);
       }
       // UtilsConvert.timeStampToDateTime(element['created_at']);
     });
+    // print("Month 6 ${_instanceTrxOrder.m6[0]}");
+    // print("Month 6 ${_instanceTrxOrder.m6[1]}");
+    // print("Month 6 ${_instanceTrxOrder.m6[2]}");
+    // print("Month 6 ${_instanceTrxOrder.m6[3]}");
+    // _instanceTrxOrder.m5.forEach((element) {
+    //   print(element['amount']);
+    // });
     return _instanceTrxOrder;
   }
 }

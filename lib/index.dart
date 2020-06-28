@@ -50,6 +50,7 @@ export 'package:wallet_apps/src/routes/routing.dart';
 export 'package:wallet_apps/theme/style.dart';
 export 'package:wallet_apps/src/components/animation.dart';
 export 'package:wallet_apps/src/utils/instance_trx_order.dart';
+export 'package:wallet_apps/src/components/trx_component.dart';
 
 // Backend
 export 'package:wallet_apps/src/backend/api.dart';

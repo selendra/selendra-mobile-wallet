@@ -2,7 +2,12 @@ import 'package:wallet_apps/index.dart';
 
 Widget trxHistoryBody(
   BuildContext _context,
-  List<dynamic> _trxHistory, 
+  List<dynamic> _trxSend,
+  List<dynamic> _trxHistory,
+  List<dynamic> _trxReceived,
+  InstanceTrxOrder _instanceTrxSendOrder,
+  InstanceTrxOrder _instanceTrxAllOrder,
+  InstanceTrxOrder _instanceTrxReceivedOrder,
   String _walletKey,
   Function popScreen
 ) {
@@ -42,26 +47,30 @@ Widget trxHistoryBody(
           child: TabBarView(
             children: <Widget>[
 
-              _trxHistory == null ? Container(
-                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
-                alignment: Alignment.center,
-              ) /* Retreive Porfolio Null => Have No List */ 
-              : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-              : sendBody(_trxHistory, _walletKey),
+              Container(),
+              
+              // _trxHistory == null ? Container(
+              //   child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
+              //   alignment: Alignment.center,
+              // ) /* Retreive Porfolio Null => Have No List */ 
+              // : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
+              // : sendBody(_trxSend, _walletKey, _instanceTrxSendOrder),
               
               _trxHistory == null ? Container(
                 child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
                 alignment: Alignment.center,
               ) /* Retreive Porfolio Null => Have No List */ 
               : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-              : allTrxBody(_trxHistory),
+              : allTrxBody(_trxHistory, _instanceTrxAllOrder),
+
+              Container()
               
-              _trxHistory == null ? Container(
-                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
-                alignment: Alignment.center,
-              ) /* Retreive Porfolio Null => Have No List */ 
-              : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-              : receivedTrxBody(_trxHistory, _walletKey),
+              // _trxHistory == null ? Container(
+              //   child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
+              //   alignment: Alignment.center,
+              // ) /* Retreive Porfolio Null => Have No List */ 
+              // : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
+              // : receivedTrxBody(_trxReceived, _walletKey),
             ],
           )
         )
