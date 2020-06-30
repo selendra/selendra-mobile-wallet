@@ -2,7 +2,12 @@ import 'package:wallet_apps/index.dart';
 
 Widget trxHistoryBody(
   BuildContext _context,
-  List<dynamic> _trxHistory, 
+  List<dynamic> _trxSend,
+  List<dynamic> _trxHistory,
+  List<dynamic> _trxReceived,
+  InstanceTrxOrder _instanceTrxSendOrder,
+  InstanceTrxOrder _instanceTrxAllOrder,
+  InstanceTrxOrder _instanceTrxReceivedOrder,
   String _walletKey,
   Function popScreen
 ) {
@@ -25,7 +30,7 @@ Widget trxHistoryBody(
           )
         ),
         Container( /* Tab Bar View */
-          margin: EdgeInsets.only(top: 5.0),
+          padding: EdgeInsets.only(top: 5.0, bottom: 20.0),
           child: TabBar(
             unselectedLabelColor: getHexaColor("#FFFFFF"),
             indicatorColor: getHexaColor(AppColors.greenColor),
@@ -41,99 +46,32 @@ Widget trxHistoryBody(
         Expanded( /* Tabbar body */
           child: TabBarView(
             children: <Widget>[
-              sendBody(_trxHistory, _walletKey),
-              allTrxBody(_trxHistory),
-              receivedTrxBody(_trxHistory, _walletKey),
+              
+              _trxHistory == null ? Container(
+                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
+                alignment: Alignment.center,
+              ) /* Retreive Porfolio Null => Have No List */ 
+              : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
+              : sendBody(_trxSend, _walletKey, _instanceTrxSendOrder),
+              
+              _trxHistory == null ? Container(
+                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
+                alignment: Alignment.center,
+              ) /* Retreive Porfolio Null => Have No List */ 
+              : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
+              : allTrxBody(_trxHistory, _instanceTrxAllOrder),
+
+              _trxHistory == null ? Container(
+                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
+                alignment: Alignment.center,
+              ) /* Retreive Porfolio Null => Have No List */ 
+              : _trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
+              : receivedTrxBody(_trxReceived, _walletKey, _instanceTrxReceivedOrder),
+
             ],
           )
         )
       ],
     ),
   );
-  // SmartRefresher(
-  //       physics: BouncingScrollPhysics(),
-  //       controller: _refreshController,
-  //       child: isProgress == false ? Container(
-  //         margin: EdgeInsets.all(size4),
-  //         child: _trxHistory == null ? textNotification("No History", _context) : bodyWidget(_context, _trxHistory, _containerKey, _containerSize, _height),
-  //       ) : loading(),
-  //       onRefresh: _reFresh,
-  //     )
-  // SingleChildScrollView(
-  //   child: Container(
-  //     child: Padding(
-  //       padding: EdgeInsets.only(top: 20.0,),
-  //       child: Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: <Widget>[
-  //           /* Title */
-  //           Container(
-  //             alignment: Alignment.centerLeft,
-  //             padding: EdgeInsets.only(bottom: 10.0),
-  //             child: Text('Transaction', style: TextStyle(color: Colors.white),),
-  //           ),
-  //           /* List History */
-  //           ListView.builder(
-  //             primary: false,
-  //             shrinkWrap: true,
-  //             itemCount: _trxHistory.length,
-  //             itemBuilder: (BuildContext _context, int index) {
-  //               return Container(
-  //                 padding: EdgeInsets.all(0.0),
-  //                 margin: EdgeInsets.only(top: size4),
-  //                 decoration: BoxDecoration(
-  //                   border: Border.all(width: size1, color: getHexaColor(borderColor)),
-  //                   color: getHexaColor(highThenBackgroundColor),
-  //                   borderRadius: BorderRadius.circular(size5)
-  //                 ),
-  //                 child: ListTile(
-  //                   title: Row(
-  //                     children: <Widget>[
-  //                       Expanded(
-  //                         child: Text('${DateTime.parse(_trxHistory[index]['trxat']).toLocal()}', style: TextStyle(color: Colors.white),),
-  //                       ),
-  //                       Text(_trxHistory[index]['type'], style: TextStyle(color: Colors.white),)
-  //                     ],
-  //                   ),
-  //                   onTap: () {
-  //                     showDialog(
-  //                       _context: _context,
-  //                       builder: (BuildContext _context){
-  //                         return AlertDialog(
-  //                           shape: RoundedRectangleBorder(
-  //                             side: BorderSide(width: size1, color: getHexaColor(borderColor)),
-  //                             borderRadius: BorderRadius.circular(size5)
-  //                           ),
-  //                           title: Align(
-  //                             alignment: Alignment.center,
-  //                             child: Text('Payment History'),
-  //                           ),
-  //                           content: Column(
-  //                             mainAxisSize: MainAxisSize.min,
-  //                             crossAxisAlignment: CrossAxisAlignment.start,
-  //                             children: <Widget>[
-  //                               Text("Type: ${_trxHistory[index]['type']}"),
-  //                               Text("Amount: ${_trxHistory[index]['amount']}"),
-  //                               Text("Asset: ${_trxHistory[index]['asset']}"),
-  //                               Text("From: ${_trxHistory[index]['from']}"),
-  //                               Text("To: ${_trxHistory[index]['to']}"),
-  //                               Text("Date: ${_trxHistory[index]['trxat']}")
-  //                             ],
-  //                           ),
-  //                         );
-  //                       }
-  //                     );
-  //                   },
-  //                 ),
-  //               );
-  //             },
-  //           )
-  //           // Expanded(
-  //           //   child: ,
-  //           // )
-  //         ],
-  //       ),
-  //     )
-  //   ),
-  // );
 }

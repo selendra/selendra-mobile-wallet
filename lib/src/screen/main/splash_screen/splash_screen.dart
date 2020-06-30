@@ -46,7 +46,7 @@ class MySplashScreenState extends State<MySplashScreen>{
       image: Image.asset(AppConfig.splashLogo, color: Colors.white),
       photoSize: 80.0,
       navigateAfterSeconds: nextScreen,
-      backgroundColor: getHexaColor(AppColors.color1),
+      backgroundColor: getHexaColor(AppConfig.darkBlue75),
       loadingText: Text(AppConfig.bottomText),
     );
   }

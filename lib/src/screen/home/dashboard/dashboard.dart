@@ -20,6 +20,8 @@ class DashboardState extends State<Dashboard> {
 
   FlareControls _flareControls = FlareControls();
 
+  String action = "no_action";
+
   @override
   initState() { /* Initialize State */
     _modelDashboard.result = {};
@@ -212,7 +214,7 @@ class DashboardState extends State<Dashboard> {
     } on PlatformException catch (e) {} on FormatException {} catch (e) {}
   }
 
-  void _resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
+  void resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
     setState(() {
       _modelDashboard.portfolio = [];
     });
@@ -283,21 +285,36 @@ class DashboardState extends State<Dashboard> {
               child: SmartRefresher(
                 physics: BouncingScrollPhysics(),
                 controller: _modelDashboard.refreshController,
-                child: UtilsConvert.flareAnimation(_flareControls, "assets/animation/fabs.flr", "no_action"),
-                // dashboardBody(
-                //   context,
-                //   bloc,
-                //   _modelDashboard.chartKey,
-                //   _modelDashboard.portfolio,
-                //   _modelDashboard
-                // ),
+                child: dashboardBody(
+                  context,
+                  bloc,
+                  _modelDashboard.chartKey,
+                  _modelDashboard.portfolio,
+                  _modelDashboard
+                ),
                 onRefresh: _pullUpRefresh,
               ),
             )
           ],
         ),
       ),
-      bottomNavigationBar: Column(
+      floatingActionButton: SizedBox(
+        width: 150.0,
+        height: 150.0,
+        child: GestureDetector(
+          child: CustomAnimation.flareAnimation(_flareControls, "assets/animation/fabs.flr", action),
+          onTap: (){
+            setState((){
+              if (action == "active") action = "deactive";
+              else action = "active";
+            });
+          },
+        )
+      ),
+      bottomNavigationBar: 
+      // BottomAppBar(
+      // )
+      Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Flexible(
@@ -317,7 +334,7 @@ class DashboardState extends State<Dashboard> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => SendWalletOption(
-                      _modelDashboard.portfolio, _resetState)
+                      _modelDashboard.portfolio, resetState)
                     )
                   );
                 // _modelDashboard.portfolio == null ? null : scanQR
@@ -332,7 +349,7 @@ class DashboardState extends State<Dashboard> {
               //   );
               // }
               // : (scanReceipt),
-              _resetState,
+              resetState,
               toReceiveToken
             ),
           )

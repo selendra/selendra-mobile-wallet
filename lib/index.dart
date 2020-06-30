@@ -34,11 +34,12 @@ export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 export 'package:http_parser/http_parser.dart';
 export 'package:flutter_image_compress/flutter_image_compress.dart';
+export 'package:flare_flutter/flare_controls.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
 export 'package:wallet_apps/theme/string.dart';
-export 'package:wallet_apps/src/utils/utils.dart';
+export 'package:wallet_apps/src/utils/app_utils.dart';
 export 'package:wallet_apps/theme/color.dart';
 export 'package:wallet_apps/src/components/reuse_widget.dart';
 export 'package:wallet_apps/src/bloc/bloc.dart';
@@ -47,6 +48,9 @@ export 'package:wallet_apps/src/bloc/validator_mixin.dart';
 export 'package:wallet_apps/src/config/app_config.dart';
 export 'package:wallet_apps/src/routes/routing.dart';
 export 'package:wallet_apps/theme/style.dart';
+export 'package:wallet_apps/src/components/animation.dart';
+export 'package:wallet_apps/src/utils/instance_trx_order.dart';
+export 'package:wallet_apps/src/components/trx_component.dart';
 
 // Backend
 export 'package:wallet_apps/src/backend/api.dart';
@@ -114,8 +118,9 @@ export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay_body.
 export 'package:wallet_apps/src/screen/home/dashboard/zee_chart_screen/zee_chart_body.dart';
 
 /* Component File */
-export 'package:wallet_apps/src/components/main_component.dart';
+export 'package:wallet_apps/src/components/component.dart';
 export 'package:wallet_apps/src/components/menu_component.dart';
+export 'package:wallet_apps/src/components/main_component.dart';
 
 /* Menu Screen */
 export 'package:wallet_apps/src/screen/home/menu/menu.dart';

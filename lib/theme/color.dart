@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors{
-  
-  /* Background Color */
-  static String color1 = "#344051", color2 = "#222834";
+
 
   static const String darkGreyBlue = "#242426";
 

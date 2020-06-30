@@ -1,6 +1,7 @@
 import 'package:wallet_apps/index.dart';
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error, " accessed before the binding was initialized " */
 
   // debugPaintSizeEnabled = true; // Enable Debug Paint
@@ -10,7 +11,8 @@ void main() async {
     FlutterError.dumpErrorToConsole(details);
     if (kReleaseMode) exit(1);
   };
-  runApp(App()
+  runApp(
+    App()
   // DevicePreview(
   //   enabled: false,
   //   builder: (context) => App(),

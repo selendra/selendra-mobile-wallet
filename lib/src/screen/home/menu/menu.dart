@@ -219,7 +219,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
               physics: BouncingScrollPhysics(),
               child: Container(
                 decoration: BoxDecoration(
-                color: getHexaColor(AppColors.color1),
+                color: getHexaColor(AppConfig.darkBlue75),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: Column(

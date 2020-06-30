@@ -42,10 +42,10 @@ class WelcomeToZeeState extends State<WelcomeToZee> {
     try {
       _firebaseRemote = FirebaseRemote(); /* Declare instance firebaseRemote */
       await _firebaseRemote.initRemoteConfig();
-      _firebaseRemote.parseVersion = UtilsConvert.versionConverter(_firebaseRemote.latestVersion);
+      _firebaseRemote.parseVersion = AppUtils.versionConverter(_firebaseRemote.latestVersion);
       _packageInfo = await PackageInfo.fromPlatform();
-      currentVersion = UtilsConvert.versionConverter("${_packageInfo.version}+${_packageInfo.buildNumber}");
-      await dialog(context, Text("${_packageInfo.version}+${_packageInfo.buildNumber}"), Text("Version"));
+      currentVersion = AppUtils.versionConverter("${_packageInfo.version}+${_packageInfo.buildNumber}");
+      // await dialog(context, Text("${_packageInfo.version}+${_packageInfo.buildNumber}"), Text("Version"));
       await StorageServices.fetchData("user_token").then((value) { // Checking IsLogged Value
         if (value != null){
           setState(() {
