@@ -58,6 +58,12 @@
 @import path_provider;
 #endif
 
+#if __has_include(<screen/ScreenPlugin.h>)
+#import <screen/ScreenPlugin.h>
+#else
+@import screen;
+#endif
+
 #if __has_include(<share/FLTSharePlugin.h>)
 #import <share/FLTSharePlugin.h>
 #else
@@ -88,6 +94,7 @@
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
   [FLTPackageInfoPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
+  [ScreenPlugin registerWithRegistrar:[registry registrarForPlugin:@"ScreenPlugin"]];
   [FLTSharePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharePlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [StoreRedirectPlugin registerWithRegistrar:[registry registrarForPlugin:@"StoreRedirectPlugin"]];

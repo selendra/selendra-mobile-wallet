@@ -68,6 +68,8 @@ dependencies:
   splashscreen: ^1.2.0
   fluttercontactpicker:
   share:
+
+  screen:
   
   #animation
   flare_flutter:
@@ -113,6 +115,7 @@ flutter:
     # Animation Flare
     - assets/animation/check.flr
     - assets/animation/fabs.flr
+    - assets/animation/splash_screen.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

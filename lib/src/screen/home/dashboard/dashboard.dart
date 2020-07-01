@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
+import 'package:screen/screen.dart';
 
 class Dashboard extends StatefulWidget {
   State<StatefulWidget> createState() {
@@ -298,63 +299,71 @@ class DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      floatingActionButton: SizedBox(
-        width: 150.0,
-        height: 150.0,
-        child: GestureDetector(
-          child: CustomAnimation.flareAnimation(_flareControls, "assets/animation/fabs.flr", action),
-          onTap: (){
-            setState((){
-              if (action == "active") action = "deactive";
-              else action = "active";
-            });
-          },
-        )
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          double brightness = await Screen.brightness;
+          print(brightness);
+          Screen.setBrightness(100.0);
+        },
+        child: Text("Hello")
       ),
-      bottomNavigationBar: 
-      // BottomAppBar(
+      // SizedBox(
+      //   width: 150.0,
+      //   height: 150.0,
+      //   child: GestureDetector(
+      //     child: CustomAnimation.flareAnimation(_flareControls, "assets/animation/fabs.flr", action),
+      //     onTap: (){
+      //       setState((){
+      //         if (action == "active") action = "deactive";
+      //         else action = "active";
+      //       });
+      //     },
+      //   )
+      // ),
+      // bottomNavigationBar: 
+      // // BottomAppBar(
+      // // )
+      // Column(
+      //   mainAxisSize: MainAxisSize.min,
+      //   children: <Widget>[
+      //     Flexible(
+      //       child: bottomAppBar( /* Bottom Navigation Bar */
+      //         context,
+      //         _modelDashboard,
+      //         _modelDashboard.portfolio == null /* Error Dialog */
+      //         ? () async {
+      //           await dialog(
+      //             context,
+      //             Text("${_modelDashboard.portFolioResponse['error']['message']}"),
+      //             warningTitleDialog()
+      //           );
+      //         }
+      //         : () { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) => SendWalletOption(
+      //                 _modelDashboard.portfolio, resetState)
+      //               )
+      //             );
+      //           // _modelDashboard.portfolio == null ? null : scanQR
+      //         },
+      //         (){}, // Bottom Center Button
+      //         // _modelDashboard.portfolio == null
+      //         // ? () async {
+      //         //   await dialog(
+      //         //     context,
+      //         //     Text("${_modelDashboard.portFolioResponse['error']['message']}"),
+      //         //     warningTitleDialog()
+      //         //   );
+      //         // }
+      //         // : (scanReceipt),
+      //         resetState,
+      //         toReceiveToken
+      //       ),
+      //     )
+      //   ],
       // )
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Flexible(
-            child: bottomAppBar( /* Bottom Navigation Bar */
-              context,
-              _modelDashboard,
-              _modelDashboard.portfolio == null /* Error Dialog */
-              ? () async {
-                await dialog(
-                  context,
-                  Text("${_modelDashboard.portFolioResponse['error']['message']}"),
-                  warningTitleDialog()
-                );
-              }
-              : () { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SendWalletOption(
-                      _modelDashboard.portfolio, resetState)
-                    )
-                  );
-                // _modelDashboard.portfolio == null ? null : scanQR
-              },
-              (){}, // Bottom Center Button
-              // _modelDashboard.portfolio == null
-              // ? () async {
-              //   await dialog(
-              //     context,
-              //     Text("${_modelDashboard.portFolioResponse['error']['message']}"),
-              //     warningTitleDialog()
-              //   );
-              // }
-              // : (scanReceipt),
-              resetState,
-              toReceiveToken
-            ),
-          )
-        ],
-      )
     );
   }
 }

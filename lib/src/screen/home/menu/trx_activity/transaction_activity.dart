@@ -21,8 +21,11 @@ class TransactionActivityState extends State<TransactionActivity> {
 
   GetRequest _getRequest = GetRequest();
 
+  InstanceTrxOrder _instanceTrxOrder;
+
   @override
   void initState() {
+    _instanceTrxOrder = InstanceTrxOrder();
     AppServices.noInternetConnection(_globalKey);
     fetchHistoryUser();
     super.initState();
@@ -36,12 +39,16 @@ class TransactionActivityState extends State<TransactionActivity> {
         _activity = _response;
     });
     if (!mounted) return; /* Prevent SetState After Dispose */
+    print(_activity);
     setState(() {});
   }
 
+  void sortByDate(List _trxHistory){
+    _instanceTrxOrder = AppUtils.trxMonthOrder(_trxHistory);
+  }
+
   /* Log Out Method */
-  void logOut() {
-    /* Loading */
+  void logOut() { /* Loading */
     dialogLoading(context);
     AppServices.clearStorage();
     Timer(Duration(seconds: 1), () {
@@ -64,7 +71,7 @@ class TransactionActivityState extends State<TransactionActivity> {
     return Scaffold(
       key: _globalKey,
       body: SafeArea(
-        child: transactionActivityBody(context, _activity, popScreen),
+        child: trxActivityBody(context, _activity, popScreen),
       )
     );
   }

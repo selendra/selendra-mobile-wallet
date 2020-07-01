@@ -23,10 +23,13 @@ class AppConfig {
   static String logoPortfolio = 'assets/images/zeeicon.png';
   
   // Transaction History
-  static String logoTrxHistroy = 'assets/images/zeeicon.png';
+  static String logoTrxHistory = 'assets/images/zeeicon.png';
 
   /* Splash Screen */
   static String splashLogo = "assets/images/zeetomic-logo-header.png";
+  
+  /* Transaction Acivtiy */
+  static String logoTrxActivity = 'assets/images/zeeicon.png';
 
   /* Zeetomic api user data*/
   // Main Net API
