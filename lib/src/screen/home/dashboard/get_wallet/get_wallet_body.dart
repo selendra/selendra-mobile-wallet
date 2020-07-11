@@ -2,7 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 Widget getWalletBody(
   BuildContext context,
-  String _wallet,
+  String _wallet, double wallets,
   Function snackBar, Function popScreen
 ){
   return Column(
@@ -35,6 +35,7 @@ Widget getWalletBody(
           )
         ),
       ),
+      Text("$wallets"),
       FlatButton(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

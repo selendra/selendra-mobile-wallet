@@ -35,6 +35,7 @@ export 'package:flare_flutter/flare_controller.dart';
 export 'package:http_parser/http_parser.dart';
 export 'package:flutter_image_compress/flutter_image_compress.dart';
 export 'package:flare_flutter/flare_controls.dart';
+export 'package:local_auth/local_auth.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -51,6 +52,8 @@ export 'package:wallet_apps/theme/style.dart';
 export 'package:wallet_apps/src/components/animation.dart';
 export 'package:wallet_apps/src/utils/instance_trx_order.dart';
 export 'package:wallet_apps/src/components/trx_component.dart';
+export 'package:wallet_apps/src/components/platform_specific/android_native.dart';
+export 'package:wallet_apps/src/components/platform_specific/ios_native.dart';
 
 // Backend
 export 'package:wallet_apps/src/backend/api.dart';
@@ -68,6 +71,8 @@ export 'package:wallet_apps/src/service/storage.dart';
 export 'package:wallet_apps/src/screen/main/welcome/welcome.dart';
 export  'package:wallet_apps/src/screen/main/welcome/welcome_body.dart';
 
+// Finger Print
+
 export 'package:wallet_apps/src/screen/main/login/login.dart';
 export 'package:wallet_apps/src/screen/main/splash_screen/splash_screen.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/signup_first_screen/signup_first.dart';
@@ -77,6 +82,7 @@ export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password.dart
 export 'package:wallet_apps/src/screen/main/login/login_body.dart';
 export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info.dart';
 export 'package:wallet_apps/src/screen/home/fill_documents_screen/fill_documents.dart';
+export 'package:wallet_apps/src/screen/main/local_auth/finger_print.dart';
 
 // Reset Password
 export 'package:wallet_apps/src/screen/main/forgot_password/reset_password_screen/reset_password.dart';
@@ -116,6 +122,8 @@ export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/in
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary_body.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay_body.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/zee_chart_screen/zee_chart_body.dart';
+
+export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet_body.dart';
 
 /* Component File */
 export 'package:wallet_apps/src/components/component.dart';

@@ -31,12 +31,12 @@ class ZeeChartState extends State<ZeeChart> {
   }
 
   void toReceiveToken(BuildContext context) async {/* Fetch Portofolio */
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>GetWallet(widget._modelDashboard.userData['wallet'])
-      )
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) =>GetWallet(widget._modelDashboard.userData['wallet'], )
+    //   )
+    // );
   }
 
   void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function toReceiveToken) {

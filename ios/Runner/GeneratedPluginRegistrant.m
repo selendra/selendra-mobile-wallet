@@ -46,6 +46,12 @@
 @import image_picker;
 #endif
 
+#if __has_include(<local_auth/FLTLocalAuthPlugin.h>)
+#import <local_auth/FLTLocalAuthPlugin.h>
+#else
+@import local_auth;
+#endif
+
 #if __has_include(<package_info/FLTPackageInfoPlugin.h>)
 #import <package_info/FLTPackageInfoPlugin.h>
 #else
@@ -56,12 +62,6 @@
 #import <path_provider/FLTPathProviderPlugin.h>
 #else
 @import path_provider;
-#endif
-
-#if __has_include(<screen/ScreenPlugin.h>)
-#import <screen/ScreenPlugin.h>
-#else
-@import screen;
 #endif
 
 #if __has_include(<share/FLTSharePlugin.h>)
@@ -92,9 +92,9 @@
   [FlutterContactPickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterContactPickerPlugin"]];
   [FLTImageCropperPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImageCropperPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
+  [FLTLocalAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTLocalAuthPlugin"]];
   [FLTPackageInfoPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
-  [ScreenPlugin registerWithRegistrar:[registry registrarForPlugin:@"ScreenPlugin"]];
   [FLTSharePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharePlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [StoreRedirectPlugin registerWithRegistrar:[registry registrarForPlugin:@"StoreRedirectPlugin"]];

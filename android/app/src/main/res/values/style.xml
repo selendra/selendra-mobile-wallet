@@ -8,5 +8,5 @@
         <item name="android:windowBackground">@drawable/launch_background</item>
 
     </style>
-    <color name="darkBlue">#344051</color>
+    <color name="darkBlue">#222834</color>
 </resources>

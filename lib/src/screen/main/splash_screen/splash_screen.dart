@@ -24,29 +24,36 @@ class MySplashScreenState extends State<MySplashScreen>{
   void tokenExpireChecker() async { /* Check For Previous Login */
     try {
       await StorageServices.fetchData("user_token").then((value) async {
-        print(value);
         if (value != null) {
-          status = await _getRequest.checkExpiredToken();
-          print(status);
-          if (status == 200) { /* Check Expired Token */
+          // status = await _getRequest.checkExpiredToken();
+          // print(status);
+          // if (status == 200) { /* Check Expired Token */
             await Future.delayed(Duration(seconds: 4), (){
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => Dashboard())
-              );
-            });
-          } else if (status == 401) { // Reset isLoggedIn True -> False Cause Token Expired
-            Map<String, dynamic> data = value; 
-            data.update("isLoggedIn", (value) => false);
-            StorageServices.setData(data, "user_token"); // Override Key And Value User Token
-            
-            await Future.delayed(Duration(seconds: 4), (){
-              Navigator.push(
+              Navigator.pushReplacement(
                 context, 
                 MaterialPageRoute(builder: (context) => Login())
               );
             });
-          } 
+          // } else if (status == 401) { // Reset isLoggedIn True -> False Cause Token Expired
+          //   Map<String, dynamic> data = value; 
+          //   data.update("isLoggedIn", (value) => false);
+          //   StorageServices.setData(data, "user_token"); // Override Key And Value User Token
+            
+          //   await Future.delayed(Duration(seconds: 4), (){
+          //     Navigator.pushReplacement(
+          //       context, 
+          //       MaterialPageRoute(builder: (context) => Login())
+          //     );
+          //   });
+          // }
+        } 
+         {
+          await Future.delayed(Duration(seconds: 4), (){
+            Navigator.pushReplacement(
+              context, 
+              MaterialPageRoute(builder: (context) => Login())
+            );
+          });
         }
       });
     } catch (err) {}

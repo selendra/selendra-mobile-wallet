@@ -1,7 +1,6 @@
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
-import 'package:screen/screen.dart';
 
 class Dashboard extends StatefulWidget {
   State<StatefulWidget> createState() {
@@ -223,8 +222,8 @@ class DashboardState extends State<Dashboard> {
     getUserData();
   }
 
-  void toReceiveToken(BuildContext context) { /* Navigate Receive Token */
-    Navigator.of(context).push(
+  void toReceiveToken(BuildContext context) async { /* Navigate Receive Token */
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => GetWallet(
         _modelDashboard.userData.containsKey('wallet')
@@ -233,6 +232,11 @@ class DashboardState extends State<Dashboard> {
         )
       )
     );
+    await IOSPlatform.resetBrightness(IOSPlatform.defaultBrightnessLvl);
+  }
+
+  Future<void> setDefaultBrightness() async {
+    print("Set default");
   }
 
   @override
@@ -299,14 +303,14 @@ class DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          double brightness = await Screen.brightness;
-          print(brightness);
-          Screen.setBrightness(100.0);
-        },
-        child: Text("Hello")
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     double brightness = await Screen.brightness;
+      //     print(brightness);
+      //     Screen.setBrightness(100.0);
+      //   },
+      //   child: Text("Hello")
+      // ),
       // SizedBox(
       //   width: 150.0,
       //   height: 150.0,
@@ -320,50 +324,50 @@ class DashboardState extends State<Dashboard> {
       //     },
       //   )
       // ),
-      // bottomNavigationBar: 
-      // // BottomAppBar(
-      // // )
-      // Column(
-      //   mainAxisSize: MainAxisSize.min,
-      //   children: <Widget>[
-      //     Flexible(
-      //       child: bottomAppBar( /* Bottom Navigation Bar */
-      //         context,
-      //         _modelDashboard,
-      //         _modelDashboard.portfolio == null /* Error Dialog */
-      //         ? () async {
-      //           await dialog(
-      //             context,
-      //             Text("${_modelDashboard.portFolioResponse['error']['message']}"),
-      //             warningTitleDialog()
-      //           );
-      //         }
-      //         : () { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
-      //           Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //               builder: (context) => SendWalletOption(
-      //                 _modelDashboard.portfolio, resetState)
-      //               )
-      //             );
-      //           // _modelDashboard.portfolio == null ? null : scanQR
-      //         },
-      //         (){}, // Bottom Center Button
-      //         // _modelDashboard.portfolio == null
-      //         // ? () async {
-      //         //   await dialog(
-      //         //     context,
-      //         //     Text("${_modelDashboard.portFolioResponse['error']['message']}"),
-      //         //     warningTitleDialog()
-      //         //   );
-      //         // }
-      //         // : (scanReceipt),
-      //         resetState,
-      //         toReceiveToken
-      //       ),
-      //     )
-      //   ],
+      bottomNavigationBar: 
+      // BottomAppBar(
       // )
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Flexible(
+            child: bottomAppBar( /* Bottom Navigation Bar */
+              context,
+              _modelDashboard,
+              _modelDashboard.portfolio == null /* Error Dialog */
+              ? () async {
+                await dialog(
+                  context,
+                  Text("${_modelDashboard.portFolioResponse['error']['message']}"),
+                  warningTitleDialog()
+                );
+              }
+              : () async { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SendWalletOption(
+                      _modelDashboard.portfolio, resetState)
+                    )
+                  );
+                // _modelDashboard.portfolio == null ? null : scanQR
+              },
+              (){}, // Bottom Center Button
+              // _modelDashboard.portfolio == null
+              // ? () async {
+              //   await dialog(
+              //     context,
+              //     Text("${_modelDashboard.portFolioResponse['error']['message']}"),
+              //     warningTitleDialog()
+              //   );
+              // }
+              // : (scanReceipt),
+              resetState,
+              toReceiveToken
+            ),
+          )
+        ],
+      )
     );
   }
 }
