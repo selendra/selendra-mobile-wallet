@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget transactionActivityBody( BuildContext context, List<dynamic> _activityList, Function _popScreen) {
+Widget trxActivityBody( BuildContext context, List<dynamic> _activityList, Function _popScreen) {
   return Container(
     margin: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
     child: Column(

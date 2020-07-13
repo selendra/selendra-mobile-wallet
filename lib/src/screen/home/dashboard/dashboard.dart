@@ -222,8 +222,8 @@ class DashboardState extends State<Dashboard> {
     getUserData();
   }
 
-  void toReceiveToken(BuildContext context) { /* Navigate Receive Token */
-    Navigator.of(context).push(
+  void toReceiveToken(BuildContext context) async { /* Navigate Receive Token */
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => GetWallet(
         _modelDashboard.userData.containsKey('wallet')
@@ -232,6 +232,11 @@ class DashboardState extends State<Dashboard> {
         )
       )
     );
+    await IOSPlatform.resetBrightness(IOSPlatform.defaultBrightnessLvl);
+  }
+
+  Future<void> setDefaultBrightness() async {
+    print("Set default");
   }
 
   @override
@@ -298,19 +303,27 @@ class DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      floatingActionButton: SizedBox(
-        width: 150.0,
-        height: 150.0,
-        child: GestureDetector(
-          child: CustomAnimation.flareAnimation(_flareControls, "assets/animation/fabs.flr", action),
-          onTap: (){
-            setState((){
-              if (action == "active") action = "deactive";
-              else action = "active";
-            });
-          },
-        )
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     double brightness = await Screen.brightness;
+      //     print(brightness);
+      //     Screen.setBrightness(100.0);
+      //   },
+      //   child: Text("Hello")
+      // ),
+      // SizedBox(
+      //   width: 150.0,
+      //   height: 150.0,
+      //   child: GestureDetector(
+      //     child: CustomAnimation.flareAnimation(_flareControls, "assets/animation/fabs.flr", action),
+      //     onTap: (){
+      //       setState((){
+      //         if (action == "active") action = "deactive";
+      //         else action = "active";
+      //       });
+      //     },
+      //   )
+      // ),
       bottomNavigationBar: 
       // BottomAppBar(
       // )
@@ -329,8 +342,8 @@ class DashboardState extends State<Dashboard> {
                   warningTitleDialog()
                 );
               }
-              : () { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
-                Navigator.push(
+              : () async { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
+                await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => SendWalletOption(

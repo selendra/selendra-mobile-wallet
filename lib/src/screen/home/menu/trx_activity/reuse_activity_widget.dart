@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget buildListBody(List<dynamic> _activity) {
+Widget buildListBody(List<dynamic> _activity,) {
   return _activity != null 
     ? _activity.length != 0 
     ? ListView.builder(
@@ -32,7 +32,7 @@ Widget buildListBody(List<dynamic> _activity) {
                       height: 31.0,
                       child: CircleAvatar(
                         backgroundImage: AssetImage(
-                          'assets/zeeicon.png',
+                          AppConfig.logoTrxActivity,
                         )
                       ),
                     ),

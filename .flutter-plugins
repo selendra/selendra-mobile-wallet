@@ -8,6 +8,7 @@ flutter_plugin_android_lifecycle=/home/daveat/.global_path/flutter/.pub-cache/ho
 fluttercontactpicker=/home/daveat/.global_path/flutter/.pub-cache/hosted/pub.dartlang.org/fluttercontactpicker-2.3.2/
 image_cropper=/home/daveat/.global_path/flutter/.pub-cache/hosted/pub.dartlang.org/image_cropper-1.2.2/
 image_picker=/home/daveat/.global_path/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.6+1/
+local_auth=/home/daveat/.global_path/flutter/.pub-cache/hosted/pub.dartlang.org/local_auth-0.6.2+3/
 package_info=/home/daveat/.global_path/flutter/.pub-cache/hosted/pub.dartlang.org/package_info-0.4.0+18/
 path_provider=/home/daveat/.global_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.8/
 path_provider_macos=/home/daveat/.global_path/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+2/
