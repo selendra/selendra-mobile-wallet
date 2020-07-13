@@ -162,7 +162,7 @@
 				TargetAttributes = {
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 372P829W3Z;
+						DevelopmentTeam = 2MXB2J99X7;
 						LastSwiftMigration = 1010;
 					};
 				};
@@ -409,7 +409,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 372P829W3Z;
+				DEVELOPMENT_TEAM = 2MXB2J99X7;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/administrator/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -422,7 +422,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zeetomic.wallets;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zeetomic.wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 4.2.1;
@@ -541,7 +541,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 372P829W3Z;
+				DEVELOPMENT_TEAM = 2MXB2J99X7;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/administrator/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -554,7 +554,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zeetomic.wallets;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zeetomic.wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -570,7 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 372P829W3Z;
+				DEVELOPMENT_TEAM = 2MXB2J99X7;
 				ENABLE_BITCODE = NO;
 				FLUTTER_ROOT = /Users/administrator/Documents/flutter;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -583,7 +583,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zeetomic.wallets;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zeetomic.wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 4.2.1;

@@ -6,6 +6,7 @@ export 'package:flutter/material.dart';
 export 'package:wallet_apps/src/service/services.dart';
 export 'dart:convert';
 export 'package:flutter/services.dart';
+export 'dart:io' show Platform;
 export 'dart:io';
 export 'package:flutter/foundation.dart';
 export 'package:flutter/rendering.dart';

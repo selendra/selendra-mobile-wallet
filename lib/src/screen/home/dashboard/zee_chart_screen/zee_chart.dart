@@ -48,10 +48,6 @@ class ZeeChartState extends State<ZeeChart> {
     });
   }
 
-  void dispose() {
-    super.dispose();
-  }
-
   void fetchPortfolio() async { /* Fetch Portofolio */
     setState(() {
       widget._modelDashboard.portfolio = [];

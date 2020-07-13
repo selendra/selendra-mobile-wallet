@@ -273,23 +273,50 @@ Widget bottomAppBar(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        width: 70.0,
-                        child: IconButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          iconSize: 30.0,
-                          icon: Icon(
-                            OMIcons.arrowUpward,
-                            color: Colors.white,
+                      Stack(
+                        children: [
+                          fabsButton(
+                            degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                            icon: Icons.camera_alt,
+                            duration: Duration(microseconds: 300),
+                            visible: _modelDashboard.visible,
+                            distance: 300,
                           ),
-                          onPressed: _scanQR == null
-                          ? null
-                          : () async {
-                            await _scanQR();
-                            // await _scanQR(_context, _modelDashboard, _resetState);
-                          }
-                        ),
+                          // fabsButton(
+                          //   degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                          //   icon: Icons.camera_alt,
+                          //   duration: Duration(microseconds: 300),
+                          //   visible: _modelDashboard.visible,
+                          //   radien: 270,
+                          //   distance: 120,
+                          // ),
+                          // fabsButton(
+                          //   degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                          //   icon: Icons.camera_alt,
+                          //   duration: Duration(microseconds: 200),
+                          //   visible: _modelDashboard.visible,
+                          //   radien: 270,
+                          //   distance: 180,
+                          // ),
+                          Container(
+                            width: 70.0,
+                            child: IconButton(
+                              padding: EdgeInsets.all(0),
+                              color: Colors.white,
+                              iconSize: 30.0,
+                              icon: Icon(
+                                OMIcons.arrowUpward,
+                                color: Colors.white,
+                              ),
+                              onPressed: _scanQR == null
+                              ? null
+                              : () async {
+                                await _scanQR();
+                                // await _scanQR(_context, _modelDashboard, _resetState);
+                              }
+                            ),
+                          )
+                        ]
                       ),
                       Text("Send Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
                     ],
@@ -345,5 +372,22 @@ Widget bottomAppBar(
         ),
       )
     ],
+  );
+}
+
+Widget fabsButton({
+  Animation degOneTranslationAnimation,
+  IconData icon, Duration duration, bool visible, double radien = 300, double distance, Function method
+}){
+  return AnimatedOpacity(
+    duration: duration,
+    opacity: 1.0,
+    child: Transform.translate(
+      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien), degOneTranslationAnimation.value * 180),
+      child: IconButton(
+        icon: Icon(icon, color: Colors.white),
+        onPressed: method,
+      ),
+    ),
   );
 }

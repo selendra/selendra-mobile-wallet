@@ -19,6 +19,15 @@ class ChangePinState extends State<ChangePin> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    removeAllFocus();
+    _modelChangePin.controllerOldPin.clear();
+    _modelChangePin.controllerNewPin.clear();
+    _modelChangePin.controllerConfirmPin.clear();
+    super.dispose();
+  }
+
   // Validator Field
 
   String validateOldPin(String value) {
@@ -153,14 +162,6 @@ class ChangePinState extends State<ChangePin> {
 
   void popScreen() { /* Close Screen */
     Navigator.pop(context);
-  }
-
-  void dispose() {
-    removeAllFocus();
-    _modelChangePin.controllerOldPin.clear();
-    _modelChangePin.controllerNewPin.clear();
-    _modelChangePin.controllerConfirmPin.clear();
-    super.dispose();
   }
 
   Widget build(BuildContext context) {

@@ -24,6 +24,15 @@ class EditProfileState extends State<EditProfile> {
     replaceDataToController();
     super.initState();
   }
+  
+  @override
+  void dispose() { /* Clear Everything When Pop Screen */
+    _modelUserInfo.controlFirstName.clear();
+    _modelUserInfo.controlMidName.clear();
+    _modelUserInfo.controlLastName.clear();
+    _modelUserInfo.enable = false;
+    super.dispose();
+  }
 
   void popScreen() {
     Navigator.pop(context, '');
@@ -126,15 +135,6 @@ class EditProfileState extends State<EditProfile> {
   }
 
   void enableButton() => _modelUserInfo.enable = true;
-
-  @override
-  void dispose() { /* Clear Everything When Pop Screen */
-    _modelUserInfo.controlFirstName.clear();
-    _modelUserInfo.controlMidName.clear();
-    _modelUserInfo.controlLastName.clear();
-    _modelUserInfo.enable = false;
-    super.dispose();
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(

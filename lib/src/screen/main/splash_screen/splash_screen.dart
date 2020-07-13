@@ -31,7 +31,7 @@ class MySplashScreenState extends State<MySplashScreen>{
             await Future.delayed(Duration(seconds: 4), (){
               Navigator.pushReplacement(
                 context, 
-                MaterialPageRoute(builder: (context) => Login())
+                MaterialPageRoute(builder: (context) => Dashboard())
               );
             });
           // } else if (status == 401) { // Reset isLoggedIn True -> False Cause Token Expired

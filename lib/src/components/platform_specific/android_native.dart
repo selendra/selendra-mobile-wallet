@@ -2,13 +2,13 @@ import 'package:wallet_apps/index.dart';
 
 class AndroidPlatform {
 
-  static int defaultBrightnessLevel; static dynamic defaultBrightnessMode;
+  static int defaultBrightnessLvl; static dynamic defaultBrightnessMode;
 
 
   static const platform = const MethodChannel("daveat/brightness");
 
   static Future<void> getBrightness() async {
-    defaultBrightnessLevel = await platform.invokeMethod("getBrightnessLevel");
+    defaultBrightnessLvl = await platform.invokeMethod("getBrightnessLevel");
   }
 
   static Future<void> getBrightnessMode() async {
@@ -17,7 +17,7 @@ class AndroidPlatform {
 
   static Future<void> increaseBrightness() async {
     try{
-      if (defaultBrightnessLevel < 50){
+      if (defaultBrightnessLvl < 50){
         if (defaultBrightnessMode == "1"){
           await platform.invokeMethod("turnOffMode");
         }
@@ -34,8 +34,8 @@ class AndroidPlatform {
       var currentLevel = await platform.invokeMethod("getBrightnessLevel");
       var currentMode = await platform.invokeMethod("getBrightnessMode");
 
-      if (currentLevel != defaultBrightnessLevel) { // Check Default Brightness Level Have Changed
-        await platform.invokeMethod("setDefaultBrightness", <String, dynamic>{"value": defaultBrightnessLevel});
+      if (currentLevel != defaultBrightnessLvl) { // Check Default Brightness Level Have Changed
+        await platform.invokeMethod("setDefaultBrightness", <String, dynamic>{"value": defaultBrightnessLvl});
         if (currentMode != defaultBrightnessMode){  // Check Default Mode Have Changed
           if (defaultBrightnessMode == "1") await platform.invokeMethod("turnOnMode");
           else await platform.invokeMethod("turnOffMode");

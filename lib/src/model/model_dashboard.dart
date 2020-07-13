@@ -1,10 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wallet_apps/index.dart';
 
 class ModelDashboard {
+
   bool isProgress = false, isQueried = false, loadingHome = true;
+
+  bool visible = false;
+
+  AnimationController animationController;
+
+  Animation degOneTranslationAnimation;
+
   Map<String, dynamic> userData;
   String barcode;
   List<dynamic> portfolio = [];
