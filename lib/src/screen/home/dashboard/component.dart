@@ -273,23 +273,31 @@ Widget bottomAppBar(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        width: 70.0,
-                        child: IconButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          iconSize: 30.0,
-                          icon: Icon(
-                            OMIcons.arrowUpward,
-                            color: Colors.white,
+                      Stack(
+                        children: [
+                          fabsButton(
+                            icon: Icons.camera_alt,
+                            // vi
                           ),
-                          onPressed: _scanQR == null
-                          ? null
-                          : () async {
-                            await _scanQR();
-                            // await _scanQR(_context, _modelDashboard, _resetState);
-                          }
-                        ),
+                          Container(
+                            width: 70.0,
+                            child: IconButton(
+                              padding: EdgeInsets.all(0),
+                              color: Colors.white,
+                              iconSize: 30.0,
+                              icon: Icon(
+                                OMIcons.arrowUpward,
+                                color: Colors.white,
+                              ),
+                              onPressed: _scanQR == null
+                              ? null
+                              : () async {
+                                await _scanQR();
+                                // await _scanQR(_context, _modelDashboard, _resetState);
+                              }
+                            ),
+                          )
+                        ]
                       ),
                       Text("Send Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
                     ],
@@ -345,5 +353,19 @@ Widget bottomAppBar(
         ),
       )
     ],
+  );
+}
+
+Widget fabsButton({IconData icon,Duration duration, double visible, double radien, double distance, Function method}){
+  return AnimatedOpacity(
+    duration: duration,
+    opacity: visible,
+    child: Transform.translate(
+      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien)),
+      child: IconButton(
+        icon: Icon(icon),
+        onPressed: method,
+      ),
+    ),
   );
 }

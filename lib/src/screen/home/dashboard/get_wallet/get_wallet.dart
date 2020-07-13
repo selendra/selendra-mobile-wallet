@@ -18,27 +18,43 @@ class GetWalletState extends State<GetWallet>{
 
   final _globalKey = GlobalKey<ScaffoldState>();
 
-  double wallets = 0.0;
-
   dynamic result;
 
   @override
   void initState() {
     AppServices.noInternetConnection(_globalKey);
-    // _androidHighBright();
-    _iOSHighBright();
+    _platformChecker();
     super.initState();
+  }
+
+  void _platformChecker(){
+    if(Platform.isAndroid) _androidHighBright();
+    else _iOSHighBright();
   }
 
   Future<void> _androidHighBright() async {
     try{
       await AndroidPlatform.getBrightness();
       await AndroidPlatform.getBrightnessMode();
-      if (AndroidPlatform.defaultBrightnessLevel < 50){
+      if (AndroidPlatform.defaultBrightnessLvl < 50){
 
         await AndroidPlatform.checkPermission().then((value) async {
           if (value == false){
-            await message().then((value) async { // Check User Enabled Permission
+            await Component.messagePermission(
+              context: context,
+              content: "Brightness is low that hard to scan ! Click setting and turn on to allow auto brightness mode",
+              method: () async {
+                await AndroidPlatform.writePermission();
+
+                await AndroidPlatform.checkPermission().then((value) async {
+                  if (value == true){
+                    Navigator.pop(context, true);
+                  } else {
+                    Navigator.pop(context, false);
+                  }
+                });
+              }
+            ).then((value) async { // Check User Enabled Permission
               if (value == true) {
                 await AndroidPlatform.increaseBrightness();
               }
@@ -55,55 +71,14 @@ class GetWalletState extends State<GetWallet>{
 
   Future<void> _iOSHighBright() async {
     try{
-      await IOSPlatform.getBrightness().then((value) {
-
-        setState(() {
-          wallets = value;
-        });
+      await IOSPlatform.getBrightness().then((value) async {
+        if (value < 40){
+          await IOSPlatform.setHighBrightness();
+        }
       });
-      await dialog(context, Text("${IOSPlatform.defaultBrightnessLvl}"), Text("Message"));
-      if (IOSPlatform.defaultBrightnessLvl < 30){
-        await IOSPlatform.setHighBrightness();
-      }
     } on PlatformException catch (e) {
 
     }
-  }
-
-  Future message() async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Align(
-            alignment: Alignment.center,
-            child: Text("Message"),
-          ),
-          content: Padding(
-            padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
-            child: Text("Brightness is low that hard to scan ! Click setting and turn on to allow auto brightness mode", textAlign: TextAlign.center),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Setting'),
-              onPressed: () async {
-
-                await AndroidPlatform.writePermission();
-
-                await AndroidPlatform.checkPermission().then((value) async {
-                  if (value == true){
-                    Navigator.pop(context, true);
-                  } else {
-                    Navigator.pop(context, false);
-                  }
-                });
-              },
-            ),
-          ],
-        );
-      }
-    );
   }
 
   void popScreen() {
@@ -122,7 +97,7 @@ class GetWalletState extends State<GetWallet>{
     return Scaffold(
       key: _globalKey,
       body: scaffoldBGDecoration(
-        child: getWalletBody(context, widget.wallet, wallets, snackBar, popScreen)
+        child: getWalletBody(context, widget.wallet, snackBar, popScreen)
       ),
     );
   }

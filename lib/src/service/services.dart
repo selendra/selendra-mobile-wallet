@@ -48,5 +48,10 @@ class AppServices {
   static String removeZero(String number){
     return number.replaceFirst("0", "", 0);
   }
+
+  static double getRadienFromDegree(double degree){
+    double unitRadien = 57.295779513;
+    return degree / unitRadien;
+  }
 }
 

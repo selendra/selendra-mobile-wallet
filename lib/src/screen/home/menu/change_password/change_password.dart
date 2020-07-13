@@ -18,6 +18,15 @@ class ChangePINState extends State<ChangePassword> {
     AppServices.noInternetConnection(_modelChangePassword.globalKey);
     super.initState();
   }
+  
+  @override
+  void dispose(){
+    removeAllFocus();
+    _modelChangePassword.controlOldPassword.clear();
+    _modelChangePassword.controlNewPassword.clear();
+    _modelChangePassword.controlConfirmPassword.clear();
+    super.dispose();
+  }
 
   void popScreen() {
     Navigator.pop(context);
@@ -136,15 +145,6 @@ class ChangePINState extends State<ChangePassword> {
       } else
         await dialog(context, Text("${_response['error']['message']}"), textMessage());
     });
-  }
-
-  @override
-  void dispose(){
-    removeAllFocus();
-    _modelChangePassword.controlOldPassword.clear();
-    _modelChangePassword.controlNewPassword.clear();
-    _modelChangePassword.controlConfirmPassword.clear();
-    super.dispose();
   }
 
   Widget build(BuildContext context) {

@@ -34,7 +34,23 @@ class DashboardState extends State<Dashboard> {
     getUserData(); /* User Profile */
     fetchPortfolio();
     triggerDeviceInfo();
+    if (Platform.isAndroid) appPermission();
     super.initState();
+  }
+
+  Future<void> appPermission() async { 
+    await AndroidPlatform.checkPermission().then((value) async {
+      if (value == false){
+        await Component.messagePermission(
+          context: context,
+          content: "We suggest you to enable permission on apps",
+          method: () async {
+            await AndroidPlatform.writePermission();
+            Navigator.pop(context);
+          }
+        );
+      }
+    });
   }
 
   /* ---------------------------Rest Api--------------------------- */
@@ -232,11 +248,8 @@ class DashboardState extends State<Dashboard> {
         )
       )
     );
-    await IOSPlatform.resetBrightness(IOSPlatform.defaultBrightnessLvl);
-  }
-
-  Future<void> setDefaultBrightness() async {
-    print("Set default");
+    if(Platform.isAndroid) await AndroidPlatform.resetBrightness();
+    else await IOSPlatform.resetBrightness(IOSPlatform.defaultBrightnessLvl);
   }
 
   @override

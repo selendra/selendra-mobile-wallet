@@ -21,6 +21,17 @@ class CreatePasswordState extends State<CreatePassword> {
     AppServices.noInternetConnection(globalKey);
     super.initState();
   }
+  
+  @override
+  void dispose() {
+    widget._modelSignUp.controlPassword.clear();
+    widget._modelSignUp.controlConfirmPassword.clear();
+    widget._modelSignUp.isNotMatch = false;
+    widget._modelSignUp.enable2 = false;
+    widget._modelSignUp.responsePass1 = null;
+    widget._modelSignUp.responsePass2 = null;
+    super.dispose();
+  }
 
   void onChanged(String changed) {
     widget._modelSignUp.formStatePassword.currentState.validate();
@@ -142,17 +153,6 @@ class CreatePasswordState extends State<CreatePassword> {
   
   void popScreen() { /* Close Current Screen */
     Navigator.pop(context);
-  }
-
-  @override
-  void dispose() {
-    widget._modelSignUp.controlPassword.clear();
-    widget._modelSignUp.controlConfirmPassword.clear();
-    widget._modelSignUp.isNotMatch = false;
-    widget._modelSignUp.enable2 = false;
-    widget._modelSignUp.responsePass1 = null;
-    widget._modelSignUp.responsePass2 = null;
-    super.dispose();
   }
 
   Widget build(BuildContext context) {

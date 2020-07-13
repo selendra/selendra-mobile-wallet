@@ -34,6 +34,17 @@ class DrawerLayoutState extends State<DrawerLayout> {
     super.initState();
   }
 
+  @override
+  void dispose(){
+    widget.drawerCallBack(_result);
+    super.dispose();
+  }
+
+  void popScreen() {
+    widget.drawerCallBack(_result);
+    Navigator.pop(context);
+  }
+
   void setUserInfo() async {
     if (widget._userData.length != 0){
       _modelUserInfo.userData = {
@@ -190,17 +201,6 @@ class DrawerLayoutState extends State<DrawerLayout> {
       content: Text(contents),
     );
     _globalKey.currentState.showSnackBar(snackbar);
-  }
-
-  void popScreen() {
-    widget.drawerCallBack(_result);
-    Navigator.pop(context);
-  }
-
-  @override
-  void dispose(){
-    widget.drawerCallBack(_result);
-    super.dispose();
   }
 
   Widget build(BuildContext context) {

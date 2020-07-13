@@ -26,6 +26,14 @@ class InvoiceInfoState extends State<InvoiceInfo> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    widget._modelScanInvoice.controlLocation.clear();
+    widget._modelScanInvoice.controlAmount.clear();
+    widget._modelScanInvoice.controlBillNO.clear();
+    super.dispose();
+  }
+
   /* ---------------Rest Api--------------- */
   void getOnlyBranchesName() async {
     var _response = await _getRequest.getAllBranches();
@@ -107,13 +115,6 @@ class InvoiceInfoState extends State<InvoiceInfo> {
   }
   
   void popScreen() => Navigator.pop(context);
-
-  void dispose() {
-    widget._modelScanInvoice.controlLocation.clear();
-    widget._modelScanInvoice.controlAmount.clear();
-    widget._modelScanInvoice.controlBillNO.clear();
-    super.dispose();
-  }
   
   Widget build(BuildContext _context) {
     return Scaffold(
