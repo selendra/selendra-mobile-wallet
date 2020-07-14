@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
@@ -7,7 +8,7 @@ class Dashboard extends StatefulWidget {
   }
 }
 
-class DashboardState extends State<Dashboard> with TickerProviderStateMixin{
+class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   ModelDashboard _modelDashboard = ModelDashboard();
   
@@ -21,44 +22,42 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin{
 
   String action = "no_action";
 
-  AnimationController _animationController;
-
-  Animation degOneTranslationAnimation;
-
   @override
   initState() { /* Initialize State */
-
-    // fabsAnimation();
-
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
-
-    degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
-
-
-
-    // _modelDashboard.result = {};
-
-    // _modelDashboard.scaffoldKey = GlobalKey<ScaffoldState>();
-
-    // _modelDashboard.circularChart = [
-
-    //   CircularSegmentEntry(_modelDashboard.remainDataChart, getHexaColor("#4B525E"))
-    // ];
-    // AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
-    // _modelDashboard.userData = {};
-    // getUserData(); /* User Profile */
-    // fetchPortfolio();
-    // triggerDeviceInfo();
-    // if (Platform.isAndroid) appPermission();
+    _modelDashboard.result = {};
+    _modelDashboard.scaffoldKey = GlobalKey<ScaffoldState>();
+    _modelDashboard.circularChart = [
+      CircularSegmentEntry(_modelDashboard.remainDataChart, getHexaColor("#4B525E"))
+    ];
+    AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
+    _modelDashboard.userData = {};
+    getUserData(); /* User Profile */
+    fetchPortfolio();
+    triggerDeviceInfo();
+    if (Platform.isAndroid) appPermission();
+    fabsAnimation();
     super.initState();
   }
 
-  /* Initialize Fabs Animation */
+  // Initialize Fabs Animation
   void fabsAnimation(){ 
     _modelDashboard.animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
     _modelDashboard.degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_modelDashboard.animationController);
+    setState((){});
+    _modelDashboard.animationController.addListener(() {
+      setState(() {
+        
+      });
+    });
+  }
+
+  void opacityController(bool visible){
     setState(() {
-      
+      if (visible){ 
+        _modelDashboard.visible = false;
+      } else  if (visible == false) {
+        _modelDashboard.visible = true;
+      }
     });
   }
 
@@ -146,6 +145,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin{
   /* ------------------------Method------------------------ */
 
   void resetDataPieChart(List<dynamic> portfolio){
+    
     if (_modelDashboard.portfolio.length != 0){
 
       _modelDashboard.circularChart.clear(); // Clear Pie Data
@@ -287,60 +287,59 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin{
         ),
         child: DrawerLayout(_modelDashboard.userData, _packageInfo, drawerCallBack),
       ),
-      // body: 
-      // scaffoldBGDecoration(
-      //   left: 0.0, right: 0.0,
-      //   child: Column(
-      //     children: <Widget>[
-      //       containerAppBar( /* AppBar */
-      //         context,
-      //         Row( /* Sub AppBar */
-      //           children: <Widget>[
-      //             iconAppBar( /* Menu Button */
-      //               Icon(
-      //                 Icons.sort,
-      //                 color: Colors.white,
-      //               ),
-      //               Alignment.centerLeft,
-      //               EdgeInsets.all(0),
-      //               (){ // Trigger To Open Drawer
-      //                 _modelDashboard.scaffoldKey.currentState.openDrawer();
-      //               }
-      //             ),
-      //             Padding(
-      //               padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-      //               child: Row(
-      //                 mainAxisAlignment: MainAxisAlignment.start,
-      //                 mainAxisSize: MainAxisSize.min,
-      //                 children: <Widget>[
-      //                   Image.asset(
-      //                     AppConfig.logoAppBar,
-      //                     height: 25.0,
-      //                     color: Colors.white,
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         )
-      //       ),
-      //       Expanded( /* Body Widget */
-      //         child: SmartRefresher(
-      //           physics: BouncingScrollPhysics(),
-      //           controller: _modelDashboard.refreshController,
-      //           child: dashboardBody(
-      //             context,
-      //             bloc,
-      //             _modelDashboard.chartKey,
-      //             _modelDashboard.portfolio,
-      //             _modelDashboard
-      //           ),
-      //           onRefresh: _pullUpRefresh,
-      //         ),
-      //       )
-      //     ],
-      //   ),
-      // ),
+      body: scaffoldBGDecoration(
+        left: 0.0, right: 0.0,
+        child: Column(
+          children: <Widget>[
+            containerAppBar( /* AppBar */
+              context,
+              Row( /* Sub AppBar */
+                children: <Widget>[
+                  iconAppBar( /* Menu Button */
+                    Icon(
+                      Icons.sort,
+                      color: Colors.white,
+                    ),
+                    Alignment.centerLeft,
+                    EdgeInsets.all(0),
+                    (){ // Trigger To Open Drawer
+                      _modelDashboard.scaffoldKey.currentState.openDrawer();
+                    }
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Image.asset(
+                          AppConfig.logoAppBar,
+                          height: 25.0,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
+            ),
+            Expanded( /* Body Widget */
+              child: SmartRefresher(
+                physics: BouncingScrollPhysics(),
+                controller: _modelDashboard.refreshController,
+                child: dashboardBody(
+                  context,
+                  bloc,
+                  _modelDashboard.chartKey,
+                  _modelDashboard.portfolio,
+                  _modelDashboard
+                ),
+                onRefresh: _pullUpRefresh,
+              ),
+            )
+          ],
+        ),
+      ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () async {
       //     double brightness = await Screen.brightness;
@@ -363,102 +362,50 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin{
       //   )
       // ),
       bottomNavigationBar: 
-      BottomAppBar(
-        color: Colors.red,
-        child: Container(
-          height: 100,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Stack(
-                  children: <Widget>[
-                    AnimatedOpacity(
-                      duration: Duration(milliseconds: 300),
-                      opacity: 1.0,
-                      child: Transform.translate(
-                        offset: Offset.fromDirection(AppServices.getRadienFromDegree(0), degOneTranslationAnimation.value * 300),
-                        child: IconButton(
-                          color: Colors.blue,
-                          icon: Icon(Icons.camera),
-                          onPressed: null,
-                        )
-                      ),
-                    ),
-                    Container(
-                      width: 70.0,
-                      child: IconButton(
-                        padding: EdgeInsets.all(0),
-                        color: Colors.white,
-                        iconSize: 30.0,
-                        icon: Icon(
-                          OMIcons.arrowUpward,
-                          color: Colors.white,
-                        ),
-                        onPressed: null
-                      ),
-                    )
-                  ]
-                ),
-              ),
-              Expanded(
-                child: AnimatedOpacity(
-                  duration: Duration(milliseconds: 300),
-                  opacity: 1.0,
-                  child: Transform.translate(
-                    offset: Offset.fromDirection(AppServices.getRadienFromDegree(270), degOneTranslationAnimation.value * 60),
-                    child: IconButton(
-                      color: Colors.blue,
-                      icon: Icon(Icons.camera),
-                      onPressed: null,
-                    )
-                  ),
-                ),
-              )
-            ],
-          )
-        ),
-      )
-      // Column(
-      //   mainAxisSize: MainAxisSize.min,
-      //   children: <Widget>[
-      //     Flexible(
-      //       child: bottomAppBar( /* Bottom Navigation Bar */
-      //         context,
-      //         _modelDashboard,
-      //         _modelDashboard.portfolio == null /* Error Dialog */
-      //         ? () async {
-      //           await dialog(
-      //             context,
-      //             Text("${_modelDashboard.portFolioResponse['error']['message']}"),
-      //             warningTitleDialog()
-      //           );
-      //         }
-      //         : () async { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
-      //           await Navigator.push(
-      //             context,
-      //             MaterialPageRoute(
-      //               builder: (context) => SendWalletOption(
-      //                 _modelDashboard.portfolio, resetState)
-      //               )
-      //             );
-      //           // _modelDashboard.portfolio == null ? null : scanQR
-      //         },
-      //         (){}, // Bottom Center Button
-      //         // _modelDashboard.portfolio == null
-      //         // ? () async {
-      //         //   await dialog(
-      //         //     context,
-      //         //     Text("${_modelDashboard.portFolioResponse['error']['message']}"),
-      //         //     warningTitleDialog()
-      //         //   );
-      //         // }
-      //         // : (scanReceipt),
-      //         resetState,
-      //         toReceiveToken
-      //       ),
-      //     )
-      //   ],
+      // BottomAppBar(
       // )
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Flexible(
+            child: bottomAppBar( /* Bottom Navigation Bar */
+              context,
+              _modelDashboard,
+              _modelDashboard.portfolio == null /* Error Dialog */
+              ? () async {
+                await dialog(
+                  context,
+                  Text("${_modelDashboard.portFolioResponse['error']['message']}"),
+                  warningTitleDialog()
+                );
+              }
+              : () async { /* Lamda Expression Or Annanymous Function Of Option Send Wallet */
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SendWalletOption(
+                      _modelDashboard.portfolio, resetState)
+                    )
+                  );
+                // _modelDashboard.portfolio == null ? null : scanQR
+              },
+              (){}, // Bottom Center Button
+              // _modelDashboard.portfolio == null
+              // ? () async {
+              //   await dialog(
+              //     context,
+              //     Text("${_modelDashboard.portFolioResponse['error']['message']}"),
+              //     warningTitleDialog()
+              //   );
+              // }
+              // : (scanReceipt),
+              resetState,
+              toReceiveToken,
+              opacityController: opacityController
+            ),
+          )
+        ],
+      )
     );
   }
 }

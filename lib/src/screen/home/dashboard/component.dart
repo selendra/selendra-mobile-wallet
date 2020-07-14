@@ -251,7 +251,8 @@ Widget bottomAppBar(
   Function _scanQR,
   Function _scanReceipt,
   Function _resetState,
-  Function _toReceiveToken
+  Function _toReceiveToken,
+  {Function opacityController}
 ) {
   return Stack(
     children: <Widget>[
@@ -278,26 +279,27 @@ Widget bottomAppBar(
                           fabsButton(
                             degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
                             icon: Icons.camera_alt,
+                            duration: Duration(microseconds: 400),
+                            visible: _modelDashboard.visible,
+                            radien: 273,
+                            distance: 140,
+                          ),
+                          fabsButton(
+                            degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                            icon: Icons.camera_alt,
+                            duration: Duration(microseconds: 400),
+                            visible: _modelDashboard.visible,
+                            radien: 274.5,
+                            distance: 100,
+                          ),
+                          fabsButton(
+                            degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                            icon: Icons.camera_alt,
                             duration: Duration(microseconds: 300),
                             visible: _modelDashboard.visible,
-                            distance: 300,
+                            radien: 280,
+                            distance: 60,
                           ),
-                          // fabsButton(
-                          //   degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                          //   icon: Icons.camera_alt,
-                          //   duration: Duration(microseconds: 300),
-                          //   visible: _modelDashboard.visible,
-                          //   radien: 270,
-                          //   distance: 120,
-                          // ),
-                          // fabsButton(
-                          //   degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                          //   icon: Icons.camera_alt,
-                          //   duration: Duration(microseconds: 200),
-                          //   visible: _modelDashboard.visible,
-                          //   radien: 270,
-                          //   distance: 180,
-                          // ),
                           Container(
                             width: 70.0,
                             child: IconButton(
@@ -308,12 +310,20 @@ Widget bottomAppBar(
                                 OMIcons.arrowUpward,
                                 color: Colors.white,
                               ),
-                              onPressed: _scanQR == null
-                              ? null
-                              : () async {
-                                await _scanQR();
-                                // await _scanQR(_context, _modelDashboard, _resetState);
+                              onPressed: (){
+                                if (_modelDashboard.animationController.isCompleted){
+                                  _modelDashboard.animationController.reverse();
+                                } else {
+                                  _modelDashboard.animationController.forward();
+                                }
+                                opacityController(_modelDashboard.visible);
                               }
+                              // _scanQR == null
+                              // ? null
+                              // : () async {
+                              //   await _scanQR();
+                              //   // await _scanQR(_context, _modelDashboard, _resetState);
+                              // }
                             ),
                           )
                         ]
@@ -377,17 +387,66 @@ Widget bottomAppBar(
 
 Widget fabsButton({
   Animation degOneTranslationAnimation,
-  IconData icon, Duration duration, bool visible, double radien = 300, double distance, Function method
+  IconData icon, Duration duration, bool visible, double radien, double distance, Function method
 }){
   return AnimatedOpacity(
     duration: duration,
-    opacity: 1.0,
+    opacity: visible ? 1.0 : 0.0,
     child: Transform.translate(
-      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien), degOneTranslationAnimation.value * 180),
+      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien), degOneTranslationAnimation.value * distance),
       child: IconButton(
         icon: Icon(icon, color: Colors.white),
         onPressed: method,
       ),
     ),
   );
+}
+
+void selectContact({BuildContext context, PostRequest postRequest, Function resetDbdstate, List<dynamic> listPortfolio}) async {
+  var response;
+  final PhoneContact _contact = await FlutterContactPicker.pickPhoneContact();
+  if (_contact != null) {
+    await postRequest.getWalletFromContact(
+      "+855${AppServices.removeZero(_contact.phoneNumber.number.replaceFirst("0", "", 0))}" // Replace 0 At The First Index To Empty
+    ).then((value) async {
+      if(value['status_code'] == 200 && value.containsKey('wallet')){
+        response = await Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => SendPayment(value['wallet'], false, listPortfolio))  
+        );
+        if (response["status_code"] == 200) {
+          resetDbdstate(null, "portfolio");
+          Navigator.pop(context);
+        }
+      } else {
+        await dialog(
+          context, 
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              textAlignCenter(text: value['message']),
+              Container(
+                margin: EdgeInsets.only(top: 5.0),
+                child: textAlignCenter(text: "Do you want to invite this number 0${_contact.phoneNumber.number.replaceFirst("0", "", 0)}?")
+              )
+            ],
+          ), 
+          textMessage(), 
+          action: FlatButton(
+            child: Text("Invite"),
+            onPressed: () async {
+              Navigator.pop(context); // Close Dialog Invite
+              dialogLoading(context); // Process Loading
+              var _response = await postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
+              Navigator.pop(context); // Close Dialog Loading
+              if (_response != null) {
+                await dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+              }
+            },
+          )
+        );
+      }
+    });
+  }
 }
