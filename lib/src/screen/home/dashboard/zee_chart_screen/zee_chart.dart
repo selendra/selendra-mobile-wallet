@@ -42,7 +42,7 @@ class ZeeChartState extends State<ZeeChart> {
   void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function toReceiveToken) {
     setState(() {
       if (executeName == "portfolio") {
-        _model.portfolio = null;
+        _model.portfolioList = null;
         toReceiveToken();
       } else if (executeName == "barcode") _model.barcode = barcodeValue;
     });
@@ -50,7 +50,7 @@ class ZeeChartState extends State<ZeeChart> {
 
   void fetchPortfolio() async { /* Fetch Portofolio */
     setState(() {
-      widget._modelDashboard.portfolio = [];
+      widget._modelDashboard.portfolioList = [];
     });
     await _getRequest.getPortfolio().then((_response) async {
       /* Get Response Data */
@@ -63,15 +63,15 @@ class ZeeChartState extends State<ZeeChart> {
               Text("${_response['error']['message']}"),
               warningTitleDialog());
           setState(() {
-            widget._modelDashboard.portfolio =
+            widget._modelDashboard.portfolioList =
                 null; /* Set Portfolio Equal Null To Close Loading Process */
           });
         }
       } else {
         setState(() {
-          widget._modelDashboard.portfolio = _response;
+          widget._modelDashboard.portfolioList = _response;
         });
-        StorageServices.setData(widget._modelDashboard.portfolio, 'portfolio'); /* Set Portfolio To Local Storage */
+        StorageServices.setData(widget._modelDashboard.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
       }
     });
   }
@@ -84,7 +84,7 @@ class ZeeChartState extends State<ZeeChart> {
   _pullUpRefresh() async {
     /* Refech Data User And Portfolio */
     setState(() {
-      widget._modelDashboard.portfolio = [];
+      widget._modelDashboard.portfolioList = [];
     });
     fetchPortfolio();
     getUserData();
@@ -134,7 +134,7 @@ class ZeeChartState extends State<ZeeChart> {
                     onRefresh: _pullUpRefresh,
                     child: zeeChartBody(
                       context,
-                      widget._modelDashboard.portfolio,
+                      widget._modelDashboard.portfolioList,
                       widget._modelDashboard
                     ),
                   ),

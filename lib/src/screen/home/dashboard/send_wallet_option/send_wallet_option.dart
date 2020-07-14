@@ -4,61 +4,12 @@ class SendWalletOption extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
-  final List<dynamic> _listPortfolio; final Function _resetState;
+  final List<dynamic> _portfolioList; final Function _resetDbdState;
 
   final PostRequest _postRequest = PostRequest();
 
-  SendWalletOption(this._listPortfolio, this._resetState){
+  SendWalletOption(this._portfolioList, this._resetDbdState){
     AppServices.noInternetConnection(_globalKey);
-  }
-
-  void selectContact(BuildContext context) async {
-    var response;
-    final PhoneContact _contact = await FlutterContactPicker.pickPhoneContact();
-    if (_contact != null) {
-      await _postRequest.getWalletFromContact(
-        "+855${AppServices.removeZero(_contact.phoneNumber.number.replaceFirst("0", "", 0))}" // Replace 0 At The First Index To Empty
-      ).then((value) async {
-        if(value['status_code'] == 200 && value.containsKey('wallet')){
-          response = await Navigator.push(
-            context, 
-            MaterialPageRoute(builder: (context) => SendPayment(value['wallet'], false, _listPortfolio))  
-          );
-          if (response["status_code"] == 200) {
-            _resetState(null, "portfolio");
-            Navigator.pop(context);
-          }
-        } else {
-          await dialog(
-            context, 
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                textAlignCenter(text: value['message']),
-                Container(
-                  margin: EdgeInsets.only(top: 5.0),
-                  child: textAlignCenter(text: "Do you want to invite this number 0${_contact.phoneNumber.number.replaceFirst("0", "", 0)}?")
-                )
-              ],
-            ), 
-            textMessage(), 
-            action: FlatButton(
-              child: Text("Invite"),
-              onPressed: () async {
-                Navigator.pop(context); // Close Dialog Invite
-                dialogLoading(context); // Process Loading
-                var _response = await _postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
-                Navigator.pop(context); // Close Dialog Loading
-                if (_response != null) {
-                  await dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
-                }
-              },
-            )
-          );
-        }
-      });
-    }
   }
 
   Widget build(BuildContext context){
@@ -115,7 +66,7 @@ class SendWalletOption extends StatelessWidget {
                               offset: Offset(2.0, 5.0),
                             ),
                             (context) async {
-                              response = await scanQR(context, _listPortfolio, _resetState);
+                              response = await TrxOption.scanQR(context, _portfolioList, _resetDbdState);
                               if (response == null) Navigator.pop(context);
                             },
                           ),
@@ -139,13 +90,7 @@ class SendWalletOption extends StatelessWidget {
                               offset: Offset(2.0, 5.0),
                             ),
                             (context) async {
-                              response = await Navigator.push(
-                                context, 
-                                MaterialPageRoute(builder: (context) => SendPayment("", true, _listPortfolio))
-                              );
-                              if (response['status_code'] == 200) {
-                                _resetState(null, "portfolio");
-                              }
+                              TrxOption.navigateFillAddress(context, this._portfolioList, this._resetDbdState);
                             },
                           ),
                         )
@@ -166,7 +111,7 @@ class SendWalletOption extends StatelessWidget {
                             offset: Offset(2.0, 5.0),
                           ),
                           (context) async {
-                            selectContact(context);
+                            TrxOption.selectContact(context, _postRequest,this._portfolioList, this._resetDbdState);
                           },
                         ),
                       )

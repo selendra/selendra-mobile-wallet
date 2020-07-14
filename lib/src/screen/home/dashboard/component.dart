@@ -68,50 +68,102 @@ Widget cardToken( /* Card Token Display */
   );
 }
 
-/* Scan QR Code */
-Future scanQR(BuildContext context, List<dynamic> _modelDashBoard, Function _resetState) async {
-  var _response;
-  try {
-    String _barcode = await BarcodeScanner.scan();
-    _response = await Navigator.push(context, transitionRoute(SendPayment(_barcode, false, _modelDashBoard)));
-    if (_response['status_code'] == 200) {
-      _resetState(null, "portfolio");
+/* -------------------------Transaction--------------------------- */
+
+class TrxOption {
+  
+  static void selectContact(
+    BuildContext context,
+    PostRequest postRequest,
+    List<dynamic> listPortfolio,
+    Function resetDbdState
+  ) async {
+    var response;
+    final PhoneContact _contact = await FlutterContactPicker.pickPhoneContact();
+    if (_contact != null) {
+      await postRequest.getWalletFromContact(
+        "+855${AppServices.removeZero(_contact.phoneNumber.number.replaceFirst("0", "", 0))}" // Replace 0 At The First Index To Empty
+      ).then((value) async {
+        if(value['status_code'] == 200 && value.containsKey('wallet')){
+          response = await Navigator.push(
+            context, 
+            MaterialPageRoute(builder: (context) => SendPayment(value['wallet'], false, listPortfolio))  
+          );
+          if (response["status_code"] == 200) {
+            resetDbdState(null, "portfolio");
+            Navigator.pop(context);
+          }
+        } else {
+          await dialog(
+            context, 
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                textAlignCenter(text: value['message']),
+                Container(
+                  margin: EdgeInsets.only(top: 5.0),
+                  child: textAlignCenter(text: "Do you want to invite this number 0${_contact.phoneNumber.number.replaceFirst("0", "", 0)}?")
+                )
+              ],
+            ), 
+            textMessage(), 
+            action: FlatButton(
+              child: Text("Invite"),
+              onPressed: () async {
+                Navigator.pop(context); // Close Dialog Invite
+                dialogLoading(context); // Process Loading
+                var _response = await postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
+                Navigator.pop(context); // Close Dialog Loading
+                if (_response != null) {
+                  await dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+                }
+              },
+            )
+          );
+        }
+      });
     }
-  } catch (e) {}
-  // try {
-  //   String _barcode = await BarcodeScanner.scan();
-  //   var _response = await Navigator.push(context, transitionRoute(SendPayment(_barcode, _modelDashBoard)));
-  //   if (_response == 200) {
-  //     if (!_response.containsKey('error'))
-  //      _resetState(null, "portfolio", _modelDashBoard);
-  //   }
-  // } on PlatformException catch (e) {
-  //   if (e.code == BarcodeScanner.CameraAccessDenied)
-  //     _resetState("The user did not grant the camera permission!", "barcode", _modelDashBoard);
-  //   else
-  //     _resetState("Unknown error: $e", "barcode", _modelDashBoard);
-  // } on FormatException {
-  //   _resetState(
-  //     "null (User returned using the 'back' -button before scanning anything. Result)", "barcode",
-  //     _modelDashBoard,
-  //   );
+  }
 
-  // } catch (e){
-  //   _resetState(
-  //     "Unknown error: $e",
-  //     "portfolio",
-  //     _modelDashBoard,
-  //   );
-  // }
+  static void navigateFillAddress(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
+    var response = await Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => SendPayment("", true, portfolioList))
+    );
+    if (response['status_code'] == 200) {
+      resetDbdState(null, "portfolio");
+    }
+  }
+
+  /* Scan QR Code */
+  static Future scanQR(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
+    var _response;
+    try {
+      String _barcode = await BarcodeScanner.scan();
+      _response = await Navigator.push(context, transitionRoute(SendPayment(_barcode, false, portfolioList)));
+      if (_response['status_code'] == 200) {
+        resetDbdState(null, "portfolio");
+      }
+    } catch (e) {}
+  }
+  
 }
 
-Widget textStylePortfolio(String text, String hexaColor) {
-  /* Style Text Inside Portfolio List */
-  return Container(
-    margin: EdgeInsets.only(top: 5.0),
-    child: Text(text, style: TextStyle(color: getHexaColor("#BCFF87"))),
-  );
+// Dashboard Style
+class DbdStyle{
+  static Widget textStylePortfolio(String text, String hexaColor) {
+    /* Style Text Inside Portfolio List */
+    return Container(
+      margin: EdgeInsets.only(top: 5.0),
+      child: Text(text, style: TextStyle(color: getHexaColor("#BCFF87"))),
+    );
+  }
 }
+
+
+
+
 
 Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard _modelDashboard) { /* List Of Portfolio */
   return Container(
@@ -220,7 +272,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                                           backgroundImage: AssetImage(AppConfig.logoPortfolio,)
                                         ),
                                       ),
-                                      textStylePortfolio(
+                                      DbdStyle.textStylePortfolio(
                                         portfolioData[index].containsKey("asset_code")
                                         ? portfolioData[index]["asset_code"]
                                         : "XLM",
@@ -228,7 +280,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                                       ),
                                       /* Asset Code */
                                       Expanded(child: Container()),
-                                      textStylePortfolio(portfolioData[index]["balance"], "#00FFE8") /* Balance */
+                                      DbdStyle.textStylePortfolio(portfolioData[index]["balance"], "#00FFE8") /* Balance */
                                     ],
                                   ),
                                 ),
@@ -246,12 +298,17 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
 
 
 Widget bottomAppBar(
-  BuildContext _context,
+  BuildContext context,
   ModelDashboard _modelDashboard,
-  Function _scanQR,
+  PostRequest postRequest,
   Function _scanReceipt,
-  Function _resetState,
-  Function _toReceiveToken
+  Function resetDbdState,
+  Function _toReceiveToken,
+  {
+    Function opacityController,
+    Function fillAddress,
+    Function contactPiker,
+  }
 ) {
   return Stack(
     children: <Widget>[
@@ -273,50 +330,94 @@ Widget bottomAppBar(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Stack(
-                        children: [
-                          fabsButton(
-                            degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                            icon: Icons.camera_alt,
-                            duration: Duration(microseconds: 300),
-                            visible: _modelDashboard.visible,
-                            distance: 300,
+                      // Stack(
+                      //   children: [
+                      //     fabsButton(
+                      //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                      //       icon: Icons.camera_alt,
+                      //       duration: Duration(microseconds: 400),
+                      //       visible: _modelDashboard.visible,
+                      //       radien: 273,
+                      //       distance: 140,
+                      //       onPressed: () {
+                      //         print("1");
+                      //         // TrxOption.scanQR(context, _modelDashboard.portfolioList, resetDbdState);
+                      //       }
+                      //     ),
+                      //     fabsButton(
+                      //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                      //       icon: Icons.camera_alt,
+                      //       duration: Duration(microseconds: 400),
+                      //       visible: _modelDashboard.visible,
+                      //       radien: 274.5,
+                      //       distance: 100,
+                      //       onPressed: (){
+                      //         print(2);
+                      //         // TrxOption.navigateFillAddress(context, _modelDashboard.portfolioList, resetDbdState);
+                      //       },
+                      //     ),
+                      //     fabsButton(
+                      //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                      //       icon: Icons.camera_alt,
+                      //       duration: Duration(microseconds: 300),
+                      //       visible: _modelDashboard.visible,
+                      //       radien: 280,
+                      //       distance: 60,
+                      //       onPressed: (){
+                      //         print("3");
+                      //         // TrxOption.selectContact(
+                      //         //   context: context, 
+                      //         //   postRequest: postRequest, 
+                      //         //   listPortfolio: _modelDashboard.portfolioList,
+                      //         //   resetDbdState: resetDbdState
+                      //         // );
+                      //       }
+                      //     ),
+                      //     Container(
+                      //       width: 70.0,
+                      //       child: IconButton(
+                      //         padding: EdgeInsets.all(0),
+                      //         color: Colors.white,
+                      //         iconSize: 30.0,
+                      //         icon: Icon(
+                      //           OMIcons.arrowUpward,
+                      //           color: Colors.white,
+                      //         ),
+                      //         onPressed: (){
+                      //           if (_modelDashboard.animationController.isCompleted){
+                      //             _modelDashboard.animationController.reverse();
+                      //           } else {
+                      //             _modelDashboard.animationController.forward();
+                      //           }
+                      //           opacityController(_modelDashboard.visible);
+                      //         }
+                      //         // _scanQR == null
+                      //         // ? null
+                      //         // : () async {
+                      //         //   await _scanQR();
+                      //         //   // await _scanQR(context, _modelDashboard, resetDbdState);
+                      //         // }
+                      //       ),
+                      //     )
+                      //   ]
+                      // ),
+                      Container(
+                        width: 70.0,
+                        child: IconButton(
+                          padding: EdgeInsets.all(0),
+                          color: Colors.white,
+                          iconSize: 30.0,
+                          icon: Icon(
+                            OMIcons.arrowUpward,
+                            color: Colors.white,
                           ),
-                          // fabsButton(
-                          //   degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                          //   icon: Icons.camera_alt,
-                          //   duration: Duration(microseconds: 300),
-                          //   visible: _modelDashboard.visible,
-                          //   radien: 270,
-                          //   distance: 120,
-                          // ),
-                          // fabsButton(
-                          //   degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                          //   icon: Icons.camera_alt,
-                          //   duration: Duration(microseconds: 200),
-                          //   visible: _modelDashboard.visible,
-                          //   radien: 270,
-                          //   distance: 180,
-                          // ),
-                          Container(
-                            width: 70.0,
-                            child: IconButton(
-                              padding: EdgeInsets.all(0),
-                              color: Colors.white,
-                              iconSize: 30.0,
-                              icon: Icon(
-                                OMIcons.arrowUpward,
-                                color: Colors.white,
-                              ),
-                              onPressed: _scanQR == null
-                              ? null
-                              : () async {
-                                await _scanQR();
-                                // await _scanQR(_context, _modelDashboard, _resetState);
-                              }
-                            ),
-                          )
-                        ]
+                          onPressed: () async {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(builder: (context) => SendWalletOption(_modelDashboard.portfolioList, resetDbdState))
+                            );
+                          }
+                        ),
                       ),
                       Text("Send Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
                     ],
@@ -334,7 +435,7 @@ Widget bottomAppBar(
                           color: Colors.white,
                           iconSize: 30.0,
                           icon: Icon(OMIcons.arrowDownward),
-                          onPressed: () => _toReceiveToken(_context)
+                          onPressed: () => _toReceiveToken(context)
                         ),
                       ),
                       Text("Receive Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
@@ -348,7 +449,7 @@ Widget bottomAppBar(
       ),
       /* Logo Z Button */
       Positioned(
-        left: (MediaQuery.of(_context).size.width / 2 - 30),
+        left: (MediaQuery.of(context).size.width / 2 - 30),
         child: FractionalTranslation(
           translation: Offset(0.0, -0.18),
           child: Container(
@@ -377,16 +478,16 @@ Widget bottomAppBar(
 
 Widget fabsButton({
   Animation degOneTranslationAnimation,
-  IconData icon, Duration duration, bool visible, double radien = 300, double distance, Function method
+  IconData icon, Duration duration, bool visible, double radien, double distance, Function onPressed
 }){
   return AnimatedOpacity(
     duration: duration,
-    opacity: 1.0,
+    opacity: visible ? 1.0 : 0.0,
     child: Transform.translate(
-      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien), degOneTranslationAnimation.value * 180),
+      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien), degOneTranslationAnimation.value * distance),
       child: IconButton(
         icon: Icon(icon, color: Colors.white),
-        onPressed: method,
+        onPressed: onPressed,
       ),
     ),
   );

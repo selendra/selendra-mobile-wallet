@@ -13,7 +13,7 @@ class ModelDashboard {
 
   Map<String, dynamic> userData;
   String barcode;
-  List<dynamic> portfolio = [];
+  List<dynamic> portfolioList = [];
   GlobalKey<ScaffoldState> scaffoldKey;
   dynamic result; dynamic portFolioResponse; dynamic response;
 
