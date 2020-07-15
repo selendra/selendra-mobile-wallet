@@ -22,7 +22,8 @@ Zeetomic is a new generation of trusted global solutions for creating a digital 
 
 * Installed Flutter and Android Studio on your machine.
 
-  
+## Folder name annotation
+Utils = For Function Throughout Apps
 
 ## Usage:
 

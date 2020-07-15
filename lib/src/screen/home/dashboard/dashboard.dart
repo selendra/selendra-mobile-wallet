@@ -35,7 +35,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     fetchPortfolio();
     triggerDeviceInfo();
     if (Platform.isAndroid) appPermission();
-    fabsAnimation();
+    // fabsAnimation();
     super.initState();
   }
 
@@ -101,6 +101,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       _modelDashboard.result = {}; /* Reset Result Data To Default */
     } else { /* Initstate & Pull Refresh To Get Portfolio */
       await _getRequest.getPortfolio().then((_response) async { /* Get Response Data */
+        print(_response);
         _modelDashboard.portFolioResponse = _response;
         if (_response != null) {
           if ((_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>") {
@@ -114,9 +115,6 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                     Container(
                       margin: EdgeInsets.only(bottom: 10.0),
                       child: textAlignCenter(text: "${_response['error']['message']}")
-                    ),
-                    Container(
-                      child: textAlignCenter(text: "Please go to menu to get wallet!")
                     ),
                   ],
                 ), 

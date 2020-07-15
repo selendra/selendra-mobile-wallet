@@ -353,7 +353,7 @@ Widget containerAppBar(BuildContext context, Widget subAppBar, {left: 16.0, righ
   );
 }
 
-Widget iconAppBar(Widget icon, Alignment alignment,EdgeInsetsGeometry edgePadding, Function action) {
+Widget iconAppBar(Widget icon, Alignment alignment,EdgeInsetsGeometry edgePadding, Function action, {BuildContext context}) {
   return IconButton(
     /* Menu Icon */
     alignment: alignment,
@@ -421,7 +421,7 @@ Future<File> camera() async {
 }
 
 /* QR Code Generate Function */
-Widget qrCodeGenerate(String _walletCode, String logoName) {
+Widget qrCodeGenerator(String _walletCode, String logoName, GlobalKey _keyQrShare){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,
@@ -439,8 +439,10 @@ Widget qrCodeGenerate(String _walletCode, String logoName) {
         width: 200.0,
         height: 200.0,
         child: RepaintBoundary(
+          key: _keyQrShare,
           child: new QrImage(
-            foregroundColor: getHexaColor("#EEF0F2"),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
             embeddedImage: AssetImage('$logoName'),
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(40, 40),
@@ -449,7 +451,8 @@ Widget qrCodeGenerate(String _walletCode, String logoName) {
             data: _walletCode,
             gapless: true,
           ),
-      )),
+        )
+      ),
     ],
   );
 }

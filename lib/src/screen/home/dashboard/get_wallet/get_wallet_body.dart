@@ -2,8 +2,10 @@ import 'package:wallet_apps/index.dart';
 
 Widget getWalletBody(
   BuildContext context,
+  GlobalKey<ScaffoldState> _globalKey,
+  GlobalKey _keyQrShare,
   String _wallet,
-  Function snackBar, Function popScreen
+  GetWalletFunction _function
 ){
   return Column(
     children: <Widget>[
@@ -15,7 +17,10 @@ Widget getWalletBody(
               Icon(Icons.arrow_back, color: Colors.white,),
               Alignment.centerLeft,
               EdgeInsets.all(0),
-              popScreen,
+              (){
+                _function.popScreen(context);
+              },
+              context: context
             ),
             containerTitle("Receive Token", double.infinity, Colors.white, FontWeight.w400)
           ],
@@ -31,7 +36,7 @@ Widget getWalletBody(
           child: Container( /* Generate QR Code */
             width: double.infinity,
             padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
-            child: qrCodeGenerate(_wallet, AppConfig.logoQrEmbedded),
+            child: qrCodeGenerator(_wallet, AppConfig.logoQrEmbedded, _keyQrShare),
           )
         ),
       ),
@@ -47,7 +52,7 @@ Widget getWalletBody(
           ],
         ),
         onPressed: (){
-          
+          _function.qrShare(_keyQrShare, _wallet);
         },
       ),
       FlatButton(
@@ -63,7 +68,7 @@ Widget getWalletBody(
         ),
         onPressed: (){
           Clipboard.setData(ClipboardData(text: _wallet)); /* Copy Text */
-          snackBar('Copied');
+          _function.snackBar('Copied', _globalKey);
         },
       )
       // Container(

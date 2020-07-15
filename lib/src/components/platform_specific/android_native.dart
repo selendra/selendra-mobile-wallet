@@ -2,13 +2,17 @@ import 'package:wallet_apps/index.dart';
 
 class AndroidPlatform {
 
-  static int defaultBrightnessLvl; static dynamic defaultBrightnessMode;
+  /* Instance Variable */
 
+  static int defaultBrightnessLvl; static dynamic defaultBrightnessMode;
 
   static const platform = const MethodChannel("daveat/brightness");
 
+  /* Function */
+
   static Future<void> getBrightness() async {
     defaultBrightnessLvl = await platform.invokeMethod("getBrightnessLevel");
+    print(defaultBrightnessLvl);
   }
 
   static Future<void> getBrightnessMode() async {

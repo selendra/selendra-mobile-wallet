@@ -10,6 +10,7 @@ export 'dart:io' show Platform;
 export 'dart:io';
 export 'package:flutter/foundation.dart';
 export 'package:flutter/rendering.dart';
+export 'dart:typed_data';
 
 /* Package from Pub.dev */
 export 'package:connectivity/connectivity.dart';
@@ -37,6 +38,8 @@ export 'package:http_parser/http_parser.dart';
 export 'package:flutter_image_compress/flutter_image_compress.dart';
 export 'package:flare_flutter/flare_controls.dart';
 export 'package:local_auth/local_auth.dart';
+export 'package:share_extend/share_extend.dart';
+export 'package:path_provider/path_provider.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -55,6 +58,9 @@ export 'package:wallet_apps/src/utils/instance_trx_order.dart';
 export 'package:wallet_apps/src/components/trx_component.dart';
 export 'package:wallet_apps/src/components/platform_specific/android_native.dart';
 export 'package:wallet_apps/src/components/platform_specific/ios_native.dart';
+
+/* Utils */
+export 'package:wallet_apps/src/utils/get_wallet_fns.dart';
 
 // Backend
 export 'package:wallet_apps/src/backend/api.dart';

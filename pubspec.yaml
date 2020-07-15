@@ -46,6 +46,9 @@ dependencies:
   barcode_scan: ^1.0.0
   qr_flutter: ^3.0.1
 
+  # Share
+  share_extend:
+
   pinput: ^0.1.10
   flutter_datetime_picker:
   syncfusion_flutter_charts: ^1.0.0-beta.5
