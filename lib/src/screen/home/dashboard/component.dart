@@ -2,6 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 
 final fontSizePort = 17.0;
+final fontColorPort = Colors.white;
 
 Widget cardToken( /* Card Token Display */
   String title,
@@ -159,7 +160,7 @@ class DbdStyle{
     /* Style Text Inside Portfolio List */
     return Container(
       margin: EdgeInsets.only(top: 5.0),
-      child: Text(text, style: TextStyle(color: Colors.black)),
+      child: Text(text, style: TextStyle(color: Colors.white)),
     );
   }
 }
@@ -222,7 +223,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                         width: 30.0, height: 30.0,
                         decoration: BoxDecoration(
                           color: Colors.black26,
-                          border: Border.all(width: 1, color: Colors.black12),
+                          border: Border.all(width: 1, color: fontColorPort),
                           borderRadius: BorderRadius.circular(30.0)
                         ),
                         child: Icon(Icons.add)
@@ -230,7 +231,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
 
                       Padding(
                         padding: EdgeInsets.only(left: 10.0),
-                        child: Text("Add asset", style: TextStyle(color: Colors.black, fontSize: fontSizePort,))
+                        child: Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
                       )
                     ]
                   )
@@ -328,8 +329,8 @@ Widget rowDecorationStyle({Widget child, double marginTop: 10}){
     margin: EdgeInsets.only(top: marginTop),
     padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
     decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(width: 1, color: Colors.white),
+      color: getHexaColor(AppConfig.darkBlue50),
+      border: Border.all(width: 1, color: getHexaColor(AppConfig.darkBlue50)),
       borderRadius: BorderRadius.circular(2),
     ),
     child: child

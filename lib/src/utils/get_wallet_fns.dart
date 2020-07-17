@@ -58,18 +58,17 @@ class GetWalletFunction {
   }
 
   void qrShare(GlobalKey globalKey, String _wallet) async {
-    print(_wallet);
     try{
       RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
       var image = await boundary.toImage(pixelRatio: 5.0);
       ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
       Uint8List pngBytes = byteData.buffer.asUint8List();
       final tempDir = await getTemporaryDirectory();
-      final file = await File("${tempDir.path}/h.png").create();
+      final file = await File("${tempDir.path}/selendra.png").create();
       await file.writeAsBytes(pngBytes);
       ShareExtend.share(
         file.path, 
-        "h",
+        "image",
         subject: _wallet,
       );
       // Share.file(title, name, bytes, mimeType)

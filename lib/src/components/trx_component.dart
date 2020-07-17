@@ -36,14 +36,14 @@ class TrxComponent {
                 Expanded(
                   flex: 2,
                   child: trx[index].containsKey("asset_code") 
-                  ? Text(trx[index]["asset_code"], style: TextStyle(color: Colors.black))
-                  : Text("XLM", style: TextStyle(color: Colors.black)),
+                  ? Text(trx[index]["asset_code"], style: TextStyle(color: Colors.white))
+                  : Text("XLM", style: TextStyle(color: Colors.white)),
                 ),
                 Expanded(
                   flex: 0,
                   child: trx[index].containsKey('amount') ? Text(
                     trx[index]['amount'], 
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ) : Container(),
                 )
               ],

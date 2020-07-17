@@ -441,15 +441,14 @@ Widget qrCodeGenerator(String _walletCode, String logoName, GlobalKey _keyQrShar
         child: RepaintBoundary(
           key: _keyQrShare,
           child: new QrImage(
-            // backgroundColor: Colors.white,
-            // foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
             embeddedImage: AssetImage('$logoName'),
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(40, 40),
             ),
             // version: QrVersions.auto,
             data: _walletCode,
-            gapless: true,
           ),
         )
       ),
