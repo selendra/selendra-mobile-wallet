@@ -78,13 +78,13 @@ Widget rowInformation(String title, dynamic _data) { /* Display Information By R
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Container(
-        margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
+        margin: EdgeInsets.all(20.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text("$title", style: TextStyle(fontSize: 18.0,)), /* Title */
+            Text("$title", style: TextStyle(fontSize: 18.0, color: Colors.black)), /* Title */
             Expanded(
-              child: Text("$_data", style: TextStyle(fontSize: 18.0,), overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,),
+              child: Text("$_data", style: TextStyle(fontSize: 18.0, color: Colors.black), overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,),
             )  /* Subtitle */
           ],
         ),

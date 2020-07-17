@@ -133,7 +133,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
   void navigateAcivity() { 
     widget.drawerCallBack(_result);
     Navigator.pop(context);
-    Navigator.push(context, transitionRoute(TransactionActivity()));
+    Navigator.push(context, transitionRoute(TransactionActivity(), sigmaX: 15.0, sigmaY: 15.0));
   }
 
   void navigateGetWallet() async { /* User Get Wallet */ 

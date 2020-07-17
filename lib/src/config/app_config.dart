@@ -2,8 +2,8 @@
 
 class AppConfig { 
 
-  /* Background Color */
-  static String darkBlue50 = "#344051", darkBlue75 = "#222834";
+  /* Background Color */ 
+  static String darkBlue50 = "#344051", darkBlue75 = "#222834"; // App Theme using darkBlue75
 
   /* ------------------- Logo -----------------  */
 
@@ -37,7 +37,4 @@ class AppConfig {
 
   // Test net API 
   // https://testnet-api.zeetomic.com/pub/v1
-
-  /* Splash Screen */
-  static String bottomText = "Powerd by ZEETOMIC";
 }

@@ -42,7 +42,7 @@ class AppUtils {
     return parse;
   }
 
-  static InstanceTrxOrder trxMonthOrder(List<dynamic> _trxHistory){
+  static InstanceTrxOrder trxMonthOrder(List<dynamic> _trxHistory){ 
     InstanceTrxOrder _instanceTrxOrder = InstanceTrxOrder();
     DateTime date;
     _trxHistory.forEach((element) {
@@ -64,7 +64,6 @@ class AppUtils {
         _instanceTrxOrder.m4.add(element);
 
       } else if (date.month == 5){
-        print(date.month);
         if ( _instanceTrxOrder.m5.length == 0 ) _instanceTrxOrder.m5.add({"date": AppUtils.timeStampToDate(element['created_at'])});
         _instanceTrxOrder.m5.add(element);
 

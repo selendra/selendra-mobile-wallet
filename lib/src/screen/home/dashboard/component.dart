@@ -1,5 +1,8 @@
 import 'package:wallet_apps/index.dart';
 
+
+final fontSizePort = 17.0;
+
 Widget cardToken( /* Card Token Display */
   String title,
   String tokenAmount,
@@ -156,14 +159,10 @@ class DbdStyle{
     /* Style Text Inside Portfolio List */
     return Container(
       margin: EdgeInsets.only(top: 5.0),
-      child: Text(text, style: TextStyle(color: getHexaColor("#BCFF87"))),
+      child: Text(text, style: TextStyle(color: Colors.black)),
     );
   }
 }
-
-
-
-
 
 Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard _modelDashboard) { /* List Of Portfolio */
   return Container(
@@ -178,124 +177,164 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
             style: TextStyle(fontSize: 25.0),
           )
         ),
-        GestureDetector( /* Main Title Assets */
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.only(left: 1.5),
-                            alignment: Alignment.centerLeft,
-                            child: Text('Assets',
-                              style: TextStyle(
-                                color: getHexaColor("#FFFFFF"),
-                                fontSize: 17.0,
-                                // fontWeight: FontWeight.w400
-                              )
-                            )
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Text('QTY',
-                                style: TextStyle(
-                                  fontSize: 17.0,
-                                  color: getHexaColor("#FFFFFF")
-                                )
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  portfolioData == null
-                  ? Container(/* Retreive Porfolio Null => Have No List */
-                      width: double.infinity,
-                      padding: EdgeInsets.only(bottom: 11.5),
-                      margin: EdgeInsets.only(left: 4.0, top: 10.5),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Colors.white.withOpacity(0.1),
-                            width: 1.5
-                          )
-                        )
-                      ),
-                      child: Row(
-                        children: <Widget>[Text("You have no wallet yet")],
-                      ),
+        SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: <Widget>[
+              headerPortfolio(),
+              portfolioData == null
+              ? Container(/* Retreive Porfolio Null => Have No List */
+                width: double.infinity,
+                padding: EdgeInsets.only(bottom: 11.5),
+                margin: EdgeInsets.only(left: 4.0, top: 10.5),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.white.withOpacity(0.1),
+                      width: 1.5
                     )
-                  : portfolioData.length == 0
-                    ? Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: loading()
-                    ) /* Show Loading Process At Portfolio List When Requesting Data */
-                    : ListView.builder(
-                        /* Build Portfolio If Have List Of Portfolio */
-                        padding: EdgeInsets.all(0),
-                        shrinkWrap: true,
-                        itemCount: portfolioData.length,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                              margin: EdgeInsets.only(top: 10.5),
-                              child: Container(
-                                padding: EdgeInsets.only(bottom: 11.5),
-                                margin: EdgeInsets.only(left: 4.0),
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Colors.white.withOpacity(0.1),
-                                      width: 1.5
-                                    )
-                                  )
-                                ),
-                                child: InkWell(
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      /* Asset Icons */
-                                      Container(
-                                        margin: EdgeInsets.only(right: 9.5),
-                                        width: 22.0,
-                                        height: 22.0,
-                                        child: CircleAvatar(
-                                          backgroundImage: AssetImage(AppConfig.logoPortfolio,)
-                                        ),
-                                      ),
-                                      DbdStyle.textStylePortfolio(
-                                        portfolioData[index].containsKey("asset_code")
-                                        ? portfolioData[index]["asset_code"]
-                                        : "XLM",
-                                        "#EFF0F2"
-                                      ),
-                                      /* Asset Code */
-                                      Expanded(child: Container()),
-                                      DbdStyle.textStylePortfolio(portfolioData[index]["balance"], "#00FFE8") /* Balance */
-                                    ],
-                                  ),
-                                ),
-                              ));
-                        },
-                    )
-              ],
-            )
-          ),
+                  )
+                ),
+                child: Row(
+                  children: <Widget>[Text("You have no wallet yet")],
+                ),
+              )
+              : portfolioData.length == 0
+              ? Padding(
+                padding: EdgeInsets.all(10.0),
+                child: loading()
+              ) /* Show Loading Process At Portfolio List When Requesting Data */
+              : buildRowList(portfolioData),
+              
+              // Add Asset
+              portfolioData == null || portfolioData.length == 0 ? Container()
+              : GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => AddAsset())
+                  );
+                },
+                child: rowDecorationStyle(
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 30.0, height: 30.0,
+                        decoration: BoxDecoration(
+                          color: Colors.black26,
+                          border: Border.all(width: 1, color: Colors.black12),
+                          borderRadius: BorderRadius.circular(30.0)
+                        ),
+                        child: Icon(Icons.add)
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Add asset", style: TextStyle(color: Colors.black, fontSize: fontSizePort,))
+                      )
+                    ]
+                  )
+                )
+              )
+            ],
+          )
         )
       ],
     ),
   );
 }
 
+Widget headerPortfolio(){
+  return Container(
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(left: 1.5),
+            alignment: Alignment.centerLeft,
+            child: Text('Your assets',
+              style: TextStyle(
+                color: getHexaColor("#FFFFFF"),
+                fontSize: 17.0,
+                // fontWeight: FontWeight.w400
+              )
+            )
+          ),
+        ),
+        Expanded(
+          child: Container(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text('QTY',
+                style: TextStyle(
+                  fontSize: fontSizePort,
+                  color: getHexaColor("#FFFFFF")
+                )
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+/* Build Portfolio If Have List Of Portfolio */
+Widget buildRowList(List<dynamic> portfolioData){
+  return ListView.builder(
+    padding: EdgeInsets.all(0),
+    shrinkWrap: true,
+    itemCount: portfolioData.length,
+    physics: BouncingScrollPhysics(),
+    itemBuilder: (BuildContext context, int index) {
+      return portFolioRowItem(portfolioData, index);
+    },
+  );
+}
+
+Widget portFolioRowItem(List<dynamic> portfolioData, int index){
+  return rowDecorationStyle(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        /* Asset Icons */
+        Container(
+          margin: EdgeInsets.only(right: 9.5),
+          width: 30.0,
+          height: 30.0,
+          child: CircleAvatar(
+            backgroundImage: AssetImage(AppConfig.logoPortfolio,)
+          ),
+        ),
+        DbdStyle.textStylePortfolio(
+          portfolioData[index].containsKey("asset_code")
+          ? portfolioData[index]["asset_code"]
+          : "XLM",
+          "#EFF0F2"
+        ),
+        /* Asset Code */
+        Expanded(child: Container()),
+        DbdStyle.textStylePortfolio(portfolioData[index]["balance"], "#00FFE8") /* Balance */
+      ],
+    )
+  );
+}
+
+// Portfolow Row Decoration
+Widget rowDecorationStyle({Widget child, double marginTop: 10}){
+  return Container(
+    margin: EdgeInsets.only(top: marginTop),
+    padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(width: 1, color: Colors.white),
+      borderRadius: BorderRadius.circular(2),
+    ),
+    child: child
+  );
+}
 
 Widget bottomAppBar(
   BuildContext context,

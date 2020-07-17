@@ -19,7 +19,6 @@ class _FingerPrintState extends State<FingerPrint> {
 
   Future<void> checkBioSupport() async {
     bool hasFingerPrint = false;
-
     try{
       hasFingerPrint = await localAuth.canCheckBiometrics;
       print(hasFingerPrint);
@@ -60,6 +59,7 @@ class _FingerPrintState extends State<FingerPrint> {
     }
 
     if (authenticate) {
+      // StorageServices.setData(authenticate, "bio_auth");
       Navigator.pushReplacement(
         context, 
         MaterialPageRoute(builder: (context) => screen)
@@ -85,38 +85,12 @@ class _FingerPrintState extends State<FingerPrint> {
     } catch (err) {}
   }
 
-  Widget _btnLogin(){
-    return Container(
-      width: 150,
-      height: 50,
-      child: RaisedButton(
-        onPressed: (){
-          authenticate();
-        },
-        child: Text(
-          "Fingerprint Auth",
-          style: TextStyle(
-            color: Colors.white
-          ),
-        ),
-        color: Colors.blueAccent,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30.0))
-        ),
-      ),
-    );
-  }
-
   @override
   void initState() {
-    // checkBioSupport();
-    // getBioList();
     tokenExpireChecker();
-
     authenticate();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {

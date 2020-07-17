@@ -1,4 +1,4 @@
-package com.zeetomic.wallet;
+package com.selendra.wallet;
 
 import android.os.Build;
 import android.os.Bundle;

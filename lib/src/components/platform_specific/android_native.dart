@@ -34,10 +34,9 @@ class AndroidPlatform {
 
   static Future<void> resetBrightness() async {
     try{
-      
       var currentLevel = await platform.invokeMethod("getBrightnessLevel");
       var currentMode = await platform.invokeMethod("getBrightnessMode");
-
+      print(defaultBrightnessLvl);
       if (currentLevel != defaultBrightnessLvl) { // Check Default Brightness Level Have Changed
         await platform.invokeMethod("setDefaultBrightness", <String, dynamic>{"value": defaultBrightnessLvl});
         if (currentMode != defaultBrightnessMode){  // Check Default Mode Have Changed

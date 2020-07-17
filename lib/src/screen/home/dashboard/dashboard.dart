@@ -31,11 +31,13 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     ];
     AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
     _modelDashboard.userData = {};
+
     getUserData(); /* User Profile */
     fetchPortfolio();
     triggerDeviceInfo();
     if (Platform.isAndroid) appPermission();
     // fabsAnimation();
+    
     super.initState();
   }
 

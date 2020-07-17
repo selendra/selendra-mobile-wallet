@@ -27,7 +27,7 @@ Color getHexaColor(String hexaCode) {
 }
 
 /* Transition Animation Fade Up And Down */
-Route transitionRoute(Widget child, {offsetLeft: 0.0, offsetRight: 0.25}) {
+Route transitionRoute(Widget child, {offsetLeft: 0.0, offsetRight: 0.25, sigmaX: 10.0, sigmaY: 10.0}) {
   return PageRouteBuilder(
     opaque: false,
     pageBuilder: (context, animation, secondaryAnimation) => child,
@@ -44,8 +44,8 @@ Route transitionRoute(Widget child, {offsetLeft: 0.0, offsetRight: 0.25}) {
             color: Colors.white.withOpacity(0.1),
             child: BackdropFilter(
               filter: ui.ImageFilter.blur(
-                sigmaX: 10.0,
-                sigmaY: 10.0,
+                sigmaX: sigmaX,
+                sigmaY: sigmaY,
               ),
               child: child,
             ),
@@ -441,8 +441,8 @@ Widget qrCodeGenerator(String _walletCode, String logoName, GlobalKey _keyQrShar
         child: RepaintBoundary(
           key: _keyQrShare,
           child: new QrImage(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
+            // backgroundColor: Colors.white,
+            // foregroundColor: Colors.black,
             embeddedImage: AssetImage('$logoName'),
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(40, 40),

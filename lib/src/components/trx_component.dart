@@ -21,8 +21,8 @@ class TrxComponent {
           onTap: () {
             Navigator.push(context, transitionRoute(TrxHistoryDetails(trx[index], tab)));
           },
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 15.0),
+          child: rowDecorationStyle(
+            marginTop: 5.0,
             child: Row( 
               children: <Widget>[
                 Container(
@@ -36,14 +36,14 @@ class TrxComponent {
                 Expanded(
                   flex: 2,
                   child: trx[index].containsKey("asset_code") 
-                  ? Text(trx[index]["asset_code"])
-                  : Text("XLM"),
+                  ? Text(trx[index]["asset_code"], style: TextStyle(color: Colors.black))
+                  : Text("XLM", style: TextStyle(color: Colors.black)),
                 ),
                 Expanded(
                   flex: 0,
                   child: trx[index].containsKey('amount') ? Text(
                     trx[index]['amount'], 
-                    style: TextStyle(color: getHexaColor(AppColors.greenColor)),
+                    style: TextStyle(color: Colors.black),
                   ) : Container(),
                 )
               ],

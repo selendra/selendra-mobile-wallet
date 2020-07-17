@@ -25,27 +25,26 @@ class MySplashScreenState extends State<MySplashScreen>{
     try {
       await StorageServices.fetchData("user_token").then((value) async {
         if (value != null) {
-          // status = await _getRequest.checkExpiredToken();
-          // print(status);
-          // if (status == 200) { /* Check Expired Token */
+          status = await _getRequest.checkExpiredToken();
+          if (status == 200) { /* Check Expired Token */
             await Future.delayed(Duration(seconds: 4), (){
               Navigator.pushReplacement(
                 context, 
                 MaterialPageRoute(builder: (context) => Dashboard())
               );
             });
-          // } else if (status == 401) { // Reset isLoggedIn True -> False Cause Token Expired
-          //   Map<String, dynamic> data = value; 
-          //   data.update("isLoggedIn", (value) => false);
-          //   StorageServices.setData(data, "user_token"); // Override Key And Value User Token
+          } else if (status == 401) { // Reset isLoggedIn True -> False Cause Token Expired
+            Map<String, dynamic> data = value; 
+            data.update("isLoggedIn", (value) => false);
+            StorageServices.setData(data, "user_token"); // Override Key And Value User Token
             
-          //   await Future.delayed(Duration(seconds: 4), (){
-          //     Navigator.pushReplacement(
-          //       context, 
-          //       MaterialPageRoute(builder: (context) => Login())
-          //     );
-          //   });
-          // }
+            await Future.delayed(Duration(seconds: 4), (){
+              Navigator.pushReplacement(
+                context, 
+                MaterialPageRoute(builder: (context) => Login())
+              );
+            });
+          }
         } 
          {
           await Future.delayed(Duration(seconds: 4), (){
@@ -63,7 +62,7 @@ class MySplashScreenState extends State<MySplashScreen>{
     return Scaffold(
       backgroundColor: getHexaColor(AppConfig.darkBlue75),
       body: Align(
-        alignment: Alignment.center ,
+        alignment: Alignment.center,
         child: Container(
           width: 200.0,
           height: 200.0,

@@ -11,6 +11,7 @@ Widget dashboardBody(
     child: Column(
       children: <Widget>[
         Container(
+          padding: EdgeInsets.only(top: 10.0),
           child: dashBoardCardHeader(_chartKey, _modelDashboard),
         ),
         /* Token & Profit */
@@ -35,7 +36,7 @@ Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, Mode
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
     margin: EdgeInsets.only(top: size4, bottom: 0.0, left: 16.0, right: 16.0),
     child: Container(
-      padding: EdgeInsets.only(top: 17.0, bottom: 17.0, left: 5.0, right: 5.0),
+      padding: EdgeInsets.only(top: 25.0, bottom: 25.0, left: 5.0, right: 5.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -49,7 +50,7 @@ Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, Mode
                 // startAngle: 125.0,
                 size: Size(190.0, 120),
                 percentageValues: true,
-                holeLabel: "Z",
+                holeLabel: "S",
                 labelStyle:TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
                 edgeStyle: SegmentEdgeStyle.flat,
                 initialChartData: <CircularStackEntry>[
@@ -66,21 +67,23 @@ Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, Mode
             child: Container(
               margin: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 10.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FittedBox(
                     child: Text(
-                    "About ZEETOMIC.",
-                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                    // "About ZEETOMIC.",
+                    "Total balance",
+                    style: TextStyle(fontSize: 16.0, color: Colors.white54),
                   )
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 19.42),
                     child: Text(
-                      "The Platform for the Issuance and Management of Digital Asset",
+                      // "The Platform for the Issuance and Management of Digital Asset",
+                      "\$426.75",
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   )

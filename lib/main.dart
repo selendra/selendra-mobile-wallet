@@ -33,7 +33,7 @@ class AppState extends State<App> {
     return Provider(
       child: MaterialApp(
         initialRoute: '/',
-        title: 'ZEETOMIC',
+        title: 'SELENDRA',
         theme: AppStyle.myTheme(),
         routes: AppRouting.route
       )
