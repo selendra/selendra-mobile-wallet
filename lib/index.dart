@@ -18,7 +18,6 @@ export 'package:wallet_apps/src/firebase/firebase_remote_config.dart';
 export 'package:store_redirect/store_redirect.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:package_info/package_info.dart';
-export 'package:splashscreen/splashscreen.dart';
 export 'package:outline_material_icons/outline_material_icons.dart';
 export 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -223,10 +223,10 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                         width: 30.0, height: 30.0,
                         decoration: BoxDecoration(
                           color: Colors.black26,
-                          border: Border.all(width: 1, color: fontColorPort),
+                          border: Border.all(width: 1, color: Colors.transparent),
                           borderRadius: BorderRadius.circular(30.0)
                         ),
-                        child: Icon(Icons.add)
+                        child: Icon(Icons.add, color: Colors.white)
                       ),
 
                       Padding(
@@ -290,12 +290,12 @@ Widget buildRowList(List<dynamic> portfolioData){
     itemCount: portfolioData.length,
     physics: BouncingScrollPhysics(),
     itemBuilder: (BuildContext context, int index) {
-      return portFolioRowItem(portfolioData, index);
+      return portFolioItemRow(portfolioData, index);
     },
   );
 }
 
-Widget portFolioRowItem(List<dynamic> portfolioData, int index){
+Widget portFolioItemRow(List<dynamic> portfolioData, int index){
   return rowDecorationStyle(
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,14 +324,21 @@ Widget portFolioRowItem(List<dynamic> portfolioData, int index){
 }
 
 // Portfolow Row Decoration
-Widget rowDecorationStyle({Widget child, double marginTop: 10}){
+Widget rowDecorationStyle({Widget child, double marginTop: 15}){
   return Container(
     margin: EdgeInsets.only(top: marginTop),
     padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
     decoration: BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 2.0,
+          offset: Offset(1.0, 1.0)
+        )
+      ],
       color: getHexaColor(AppConfig.darkBlue50),
       border: Border.all(width: 1, color: getHexaColor(AppConfig.darkBlue50)),
-      borderRadius: BorderRadius.circular(2),
+      borderRadius: BorderRadius.circular(5),
     ),
     child: child
   );
@@ -350,169 +357,139 @@ Widget bottomAppBar(
     Function contactPiker,
   }
 ) {
-  return Stack(
-    children: <Widget>[
-      Container(
-        decoration: BoxDecoration(color: getHexaColor(AppConfig.darkBlue50), boxShadow: [
-          shadow(getHexaColor("#000000").withOpacity(0.5), 5.0, 3.0)
-        ]),
-        child: BottomAppBar(
-          elevation: 10.0,
-          shape: CircularNotchedRectangle(),
-          child: Container(
-            height: 83.0,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(left: 36.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      // Stack(
-                      //   children: [
-                      //     fabsButton(
-                      //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                      //       icon: Icons.camera_alt,
-                      //       duration: Duration(microseconds: 400),
-                      //       visible: _modelDashboard.visible,
-                      //       radien: 273,
-                      //       distance: 140,
-                      //       onPressed: () {
-                      //         print("1");
-                      //         // TrxOption.scanQR(context, _modelDashboard.portfolioList, resetDbdState);
-                      //       }
-                      //     ),
-                      //     fabsButton(
-                      //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                      //       icon: Icons.camera_alt,
-                      //       duration: Duration(microseconds: 400),
-                      //       visible: _modelDashboard.visible,
-                      //       radien: 274.5,
-                      //       distance: 100,
-                      //       onPressed: (){
-                      //         print(2);
-                      //         // TrxOption.navigateFillAddress(context, _modelDashboard.portfolioList, resetDbdState);
-                      //       },
-                      //     ),
-                      //     fabsButton(
-                      //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                      //       icon: Icons.camera_alt,
-                      //       duration: Duration(microseconds: 300),
-                      //       visible: _modelDashboard.visible,
-                      //       radien: 280,
-                      //       distance: 60,
-                      //       onPressed: (){
-                      //         print("3");
-                      //         // TrxOption.selectContact(
-                      //         //   context: context, 
-                      //         //   postRequest: postRequest, 
-                      //         //   listPortfolio: _modelDashboard.portfolioList,
-                      //         //   resetDbdState: resetDbdState
-                      //         // );
-                      //       }
-                      //     ),
-                      //     Container(
-                      //       width: 70.0,
-                      //       child: IconButton(
-                      //         padding: EdgeInsets.all(0),
-                      //         color: Colors.white,
-                      //         iconSize: 30.0,
-                      //         icon: Icon(
-                      //           OMIcons.arrowUpward,
-                      //           color: Colors.white,
-                      //         ),
-                      //         onPressed: (){
-                      //           if (_modelDashboard.animationController.isCompleted){
-                      //             _modelDashboard.animationController.reverse();
-                      //           } else {
-                      //             _modelDashboard.animationController.forward();
-                      //           }
-                      //           opacityController(_modelDashboard.visible);
-                      //         }
-                      //         // _scanQR == null
-                      //         // ? null
-                      //         // : () async {
-                      //         //   await _scanQR();
-                      //         //   // await _scanQR(context, _modelDashboard, resetDbdState);
-                      //         // }
-                      //       ),
-                      //     )
-                      //   ]
+  return Container(
+    color: getHexaColor(AppConfig.darkBlue75),
+    child: BottomAppBar(
+      notchMargin: 10.0,
+      shape: CircularNotchedRectangle(),
+      child: Container(
+        height: 83.0,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(left: 36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  // Stack(
+                  //   children: [
+                  //     fabsButton(
+                  //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                  //       icon: Icons.camera_alt,
+                  //       duration: Duration(microseconds: 400),
+                  //       visible: _modelDashboard.visible,
+                  //       radien: 273,
+                  //       distance: 140,
+                  //       onPressed: () {
+                  //         print("1");
+                  //         // TrxOption.scanQR(context, _modelDashboard.portfolioList, resetDbdState);
+                  //       }
+                  //     ),
+                  //     fabsButton(
+                  //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                  //       icon: Icons.camera_alt,
+                  //       duration: Duration(microseconds: 400),
+                  //       visible: _modelDashboard.visible,
+                  //       radien: 274.5,
+                  //       distance: 100,
+                  //       onPressed: (){
+                  //         print(2);
+                  //         // TrxOption.navigateFillAddress(context, _modelDashboard.portfolioList, resetDbdState);
+                  //       },
+                  //     ),
+                  //     fabsButton(
+                  //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+                  //       icon: Icons.camera_alt,
+                  //       duration: Duration(microseconds: 300),
+                  //       visible: _modelDashboard.visible,
+                  //       radien: 280,
+                  //       distance: 60,
+                  //       onPressed: (){
+                  //         print("3");
+                  //         // TrxOption.selectContact(
+                  //         //   context: context, 
+                  //         //   postRequest: postRequest, 
+                  //         //   listPortfolio: _modelDashboard.portfolioList,
+                  //         //   resetDbdState: resetDbdState
+                  //         // );
+                  //       }
+                  //     ),
+                  //     Container(
+                  //       width: 70.0,
+                  //       child: IconButton(
+                  //         padding: EdgeInsets.all(0),
+                  //         color: Colors.white,
+                  //         iconSize: 30.0,
+                  //         icon: Icon(
+                  //           OMIcons.arrowUpward,
+                  //           color: Colors.white,
+                  //         ),
+                  //         onPressed: (){
+                  //           if (_modelDashboard.animationController.isCompleted){
+                  //             _modelDashboard.animationController.reverse();
+                  //           } else {
+                  //             _modelDashboard.animationController.forward();
+                  //           }
+                  //           opacityController(_modelDashboard.visible);
+                  //         }
+                  //         // _scanQR == null
+                  //         // ? null
+                  //         // : () async {
+                  //         //   await _scanQR();
+                  //         //   // await _scanQR(context, _modelDashboard, resetDbdState);
+                  //         // }
+                  //       ),
+                  //     )
+                  //   ]
+                  // ),
+                  Container(
+                    width: 70.0,
+                    child: IconButton(
+                      padding: EdgeInsets.all(0),
+                      color: Colors.white,
+                      iconSize: 30.0,
+                      icon: FaIcon(FontAwesomeIcons.telegramPlane),
+                      // Icon(
+                      //   ,
+                      //   color: Colors.white,
                       // ),
-                      Container(
-                        width: 70.0,
-                        child: IconButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          iconSize: 30.0,
-                          icon: Icon(
-                            OMIcons.arrowUpward,
-                            color: Colors.white,
-                          ),
-                          onPressed: () async {
-                            Navigator.push(
-                              context, 
-                              MaterialPageRoute(builder: (context) => SendWalletOption(_modelDashboard.portfolioList, resetDbdState))
-                            );
-                          }
-                        ),
-                      ),
-                      Text("Send Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
-                    ],
+                      onPressed: () async {
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => SendWalletOption(_modelDashboard.portfolioList, resetDbdState))
+                        );
+                      }
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 36.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        width: 70.0,
-                        child: IconButton(
-                          padding: EdgeInsets.all(0),
-                          color: Colors.white,
-                          iconSize: 30.0,
-                          icon: Icon(OMIcons.arrowDownward),
-                          onPressed: () => _toReceiveToken(context)
-                        ),
-                      ),
-                      Text("Receive Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-      /* Logo Z Button */
-      Positioned(
-        left: (MediaQuery.of(context).size.width / 2 - 30),
-        child: FractionalTranslation(
-          translation: Offset(0.0, -0.18),
-          child: Container(
-            width: 60,
-            height: 60,
-            child: FittedBox(
-              child: FloatingActionButton(
-                backgroundColor: getHexaColor("#8CC361"),
-                child: Image.asset(
-                  AppConfig.logoBottomAppBar,
-                  color: Colors.white, width: 30.0, height: 30.0
-                ),
-                onPressed: _scanReceipt == null
-                ? null
-                : () async {
-                  _scanReceipt();
-                },
+                  Text("Send Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
+                ],
               ),
             ),
-          ),
+            Container(
+              margin: EdgeInsets.only(right: 36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 70.0,
+                    child: IconButton(
+                      padding: EdgeInsets.all(0),
+                      color: Colors.white,
+                      iconSize: 30.0,
+                      icon: FaIcon(FontAwesomeIcons.qrcode),
+                      onPressed: () => _toReceiveToken(context)
+                    ),
+                  ),
+                  Text("Receive Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
+                ],
+              ),
+            )
+          ],
         ),
-      )
-    ],
+      ),
+    ),
   );
 }
 

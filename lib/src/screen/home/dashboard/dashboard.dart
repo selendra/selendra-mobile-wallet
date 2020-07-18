@@ -326,14 +326,16 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     double brightness = await Screen.brightness;
-      //     print(brightness);
-      //     Screen.setBrightness(100.0);
-      //   },
-      //   child: Text("Hello")
-      // ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: getHexaColor("#8CC361"),
+        child: Image.asset(
+          AppConfig.logoBottomAppBar,
+          color: Colors.white, width: 30.0, height: 30.0
+        ),
+        onPressed: () async {
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // SizedBox(
       //   width: 150.0,
       //   height: 150.0,

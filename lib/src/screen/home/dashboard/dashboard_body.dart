@@ -33,7 +33,7 @@ Widget dashboardBody(
 Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, ModelDashboard _modelDashboard) { /* Card Header */
   return Card(
     elevation: 2,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
     margin: EdgeInsets.only(top: size4, bottom: 0.0, left: 16.0, right: 16.0),
     child: Container(
       padding: EdgeInsets.only(top: 25.0, bottom: 25.0, left: 5.0, right: 5.0),

@@ -30,17 +30,21 @@ dependencies:
   # Database
   shared_preferences: ^0.5.7
 
-  # Network
+  # Backend
   http:
   connectivity:
+  connectivity_wrapper:
+  firebase_remote_config:
 
-  # Image
+  # Image service
   image_picker: ^0.6.0+17
   path_provider:
   image: ^2.1.4
   flutter_svg: ^0.14.0
   intl: ^0.16.0
   flutter_circular_chart: ^0.1.0
+  image_cropper:
+  flutter_image_compress:
  
   # Scanner
   barcode_scan: ^1.0.0
@@ -49,28 +53,30 @@ dependencies:
   # Share
   share_extend:
 
+  # Chart
+  syncfusion_flutter_charts:
+  charts_flutter:
+
   pinput: ^0.1.10
   flutter_datetime_picker:
-  syncfusion_flutter_charts: ^1.0.0-beta.5
   outline_material_icons: ^0.1.0
-  image_cropper: ^1.1.0
-  flutter_image_compress: ^0.6.3
   transparent_image: ^1.0.0
   slider_button: ^0.2.1
   pull_to_refresh: ^1.5.7
   autocomplete_textfield: ^1.7.3
-  charts_flutter: ^0.8.1
   date_format:
-  connectivity_wrapper: ^1.0.2
   flutter_launcher_icons: ^0.7.5
-  rename:
-  firebase_remote_config:
-  package_info: 
   device_preview: ^0.4.4
   store_redirect:
-  splashscreen: ^1.2.0
   fluttercontactpicker:
   share:
+  font_awesome_flutter:
+
+  # Apps Configuration
+  rename:
+  package_info: 
+
+  #Authenticatioin
   local_auth:
   
   #animation
