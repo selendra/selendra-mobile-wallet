@@ -1,4 +1,5 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify.dart';
 
 class CreatePassword extends StatefulWidget {
 
@@ -98,7 +99,7 @@ class CreatePasswordState extends State<CreatePassword> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UserInfo(widget._modelSignUp.userDataLogin)
+                  builder: (context) => SmsCodeVerify(widget._modelSignUp)
                 )
               );
             });

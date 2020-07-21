@@ -1,8 +1,11 @@
 import 'package:wallet_apps/index.dart';
 
 class AppRouting{
+
+  static ModelSignUp _modelSignUp = ModelSignUp();
+
   static Map<String, WidgetBuilder> route = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => MySplashScreen(),
+    '/': (context) => SmsCodeVerify(_modelSignUp),
     '/forgotPasswordScreen': (context) => ForgotPassword(),
     /* Home Screen */
     '/dashboardScreen': (context) => Dashboard(),

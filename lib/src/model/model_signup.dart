@@ -37,9 +37,11 @@ class ModelSignUp {
   TextEditingController controlPassword = TextEditingController();
   TextEditingController controlConfirmPassword = TextEditingController();
 
-  FocusNode nodeSmsCode = FocusNode();
   FocusNode nodeResetCode = FocusNode();
 
+  /* Account Confirmation */
+  String code = "";
+  FocusNode nodeSmsCode = FocusNode();
   TextEditingController controlSmsCode = TextEditingController();
   TextEditingController controlResetCode = TextEditingController();
 

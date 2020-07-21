@@ -82,6 +82,12 @@
 @import shared_preferences;
 #endif
 
+#if __has_include(<sms_autofill/SmsAutoFillPlugin.h>)
+#import <sms_autofill/SmsAutoFillPlugin.h>
+#else
+@import sms_autofill;
+#endif
+
 #if __has_include(<store_redirect/StoreRedirectPlugin.h>)
 #import <store_redirect/StoreRedirectPlugin.h>
 #else
@@ -104,6 +110,7 @@
   [FLTSharePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharePlugin"]];
   [ShareExtendPlugin registerWithRegistrar:[registry registrarForPlugin:@"ShareExtendPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
+  [SmsAutoFillPlugin registerWithRegistrar:[registry registrarForPlugin:@"SmsAutoFillPlugin"]];
   [StoreRedirectPlugin registerWithRegistrar:[registry registrarForPlugin:@"StoreRedirectPlugin"]];
 }
 

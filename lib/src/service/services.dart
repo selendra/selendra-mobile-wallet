@@ -53,5 +53,9 @@ class AppServices {
     double unitRadien = 57.295779513;
     return degree / unitRadien;
   }
+
+  static Timer appLifeCycle(Timer timer){
+    return timer;
+  }
 }
 

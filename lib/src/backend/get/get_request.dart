@@ -3,7 +3,7 @@ import 'package:http/http.dart' as _http;
 
 class GetRequest{
 
-  BackendComponent _backendComponent = BackendComponent();
+  Backend _backendComponent = Backend();
 
   Future<Map<String, dynamic>> getUserProfile() async {
     /* Get User Profile */

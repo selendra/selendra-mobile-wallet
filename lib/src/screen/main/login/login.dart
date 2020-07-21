@@ -7,14 +7,20 @@ class Login extends StatefulWidget {
   }
 }
 
-class LoginState extends State<Login> {
+class LoginState extends State<Login> with WidgetsBindingObserver {
   
   ModelLogin _modelLogin = ModelLogin();
+  Timer _myTimer;
 
   @override
   void initState() {
     AppServices.noInternetConnection(_modelLogin.globalKey);
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+
   }
 
   void onChanged(String label, String valueChanged) {
@@ -135,6 +141,7 @@ class LoginState extends State<Login> {
       } catch (e) {}
 
       if (response == true) {
+        // AppServices.appLifeCycle(timer);
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => Dashboard()),

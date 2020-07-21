@@ -76,8 +76,9 @@ dependencies:
   rename:
   package_info: 
 
-  #Authenticatioin
+  #Authenticatioin & Verification
   local_auth:
+  sms_autofill:
   
   #animation
   flare_flutter:
@@ -119,6 +120,7 @@ flutter:
     - assets/images/selfie.png
     - assets/images/zeeicon.png
     - assets/images/zeeicon_button.png
+    - assets/images/message.png
 
     # Animation Flare
     - assets/animation/check.flr

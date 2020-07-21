@@ -39,6 +39,7 @@ export 'package:flare_flutter/flare_controls.dart';
 export 'package:local_auth/local_auth.dart';
 export 'package:share_extend/share_extend.dart';
 export 'package:path_provider/path_provider.dart';
+export 'package:sms_autofill/sms_autofill.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -112,6 +113,9 @@ export 'package:wallet_apps/src/screen/main/sign_up/user_info_screen/user_info_b
 
 // Sign Up
 export 'package:wallet_apps/src/screen/main/sign_up/signup_first_screen/signup_first_body.dart';
+
+/* Sms Code Verification */
+export 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify.dart';
 
 /* Home Screen */
 

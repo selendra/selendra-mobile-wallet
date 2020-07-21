@@ -15,6 +15,7 @@ import io.flutter.plugins.pathprovider.PathProviderPlugin;
 import io.flutter.plugins.share.SharePlugin;
 import com.zt.shareextend.ShareExtendPlugin;
 import io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin;
+import com.jaumard.smsautofill.SmsAutoFillPlugin;
 import com.danieldallos.storeredirect.StoreRedirectPlugin;
 
 /**
@@ -39,6 +40,7 @@ public final class GeneratedPluginRegistrant {
     SharePlugin.registerWith(registry.registrarFor("io.flutter.plugins.share.SharePlugin"));
     ShareExtendPlugin.registerWith(registry.registrarFor("com.zt.shareextend.ShareExtendPlugin"));
     SharedPreferencesPlugin.registerWith(registry.registrarFor("io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin"));
+    SmsAutoFillPlugin.registerWith(registry.registrarFor("com.jaumard.smsautofill.SmsAutoFillPlugin"));
     StoreRedirectPlugin.registerWith(registry.registrarFor("com.danieldallos.storeredirect.StoreRedirectPlugin"));
   }
 
