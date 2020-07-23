@@ -121,6 +121,7 @@ flutter:
     - assets/images/zeeicon.png
     - assets/images/zeeicon_button.png
     - assets/images/message.png
+    - assets/images/selendra.png
 
     # Animation Flare
     - assets/animation/check.flr

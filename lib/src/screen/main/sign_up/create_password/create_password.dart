@@ -1,5 +1,6 @@
 import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify.dart';
+import 'package:http/http.dart' as http;
 
 class CreatePassword extends StatefulWidget {
 
@@ -16,6 +17,10 @@ class CreatePassword extends StatefulWidget {
 class CreatePasswordState extends State<CreatePassword> {
 
   GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+
+  PostRequest _postRequest = PostRequest();
+
+  Backend _backend = Backend();
   
   @override
   void initState() {
@@ -37,6 +42,8 @@ class CreatePasswordState extends State<CreatePassword> {
   void onChanged(String changed) {
     widget._modelSignUp.formStatePassword.currentState.validate();
   }
+
+  /* Validate Field */
 
   String validatePass1(String value){ /* Validate User Input And Enable Or Disable Button */
     if (widget._modelSignUp.nodePassword.hasFocus){
@@ -66,11 +73,7 @@ class CreatePasswordState extends State<CreatePassword> {
     return widget._modelSignUp.responsePass2;
   }
 
-  void enableButton() { /* Validate Button */
-    if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlConfirmPassword.text != '') setState(() => widget._modelSignUp.enable2 = true);
-  }
-
-  void submitSignUp(BuildContext context) async { /* Navigate To Fill User Info */
+  void validateAllField(){
     if (widget._modelSignUp.controlConfirmPassword.text != "" &&
         widget._modelSignUp.controlPassword.text != "") { /* Password != Empty */
       if (widget._modelSignUp.controlConfirmPassword.text !=
@@ -78,60 +81,21 @@ class CreatePasswordState extends State<CreatePassword> {
         setState(() {
           widget._modelSignUp.isNotMatch = true; /* Pop Not Match Text Below Confrim Password Field */
         });
-      } else {
-        dialogLoading(context);
-        if (widget._modelSignUp.label == "email") { /* Post Register By Email */
-          widget._modelSignUp.response = await widget._modelSignUp.bloc.registerMethod(
-            context,
-            widget._modelSignUp.controlEmails.text,
-            widget._modelSignUp.controlPassword.text,
-            "/registerbyemail",
-            "email"
-          );
-          if (widget._modelSignUp.response == true) {
-            widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
-              "email_phone": widget._modelSignUp.controlEmails.text,
-              "passwords": widget._modelSignUp.controlPassword.text,
-              "label": widget._modelSignUp.label
-            };
-            Navigator.pop(context);
-            Future.delayed(Duration(milliseconds: 100), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SmsCodeVerify(widget._modelSignUp)
-                )
-              );
-            });
-          } else Navigator.pop(context); /* Close Dialog Process */
-        } else { /* Post Register By Phone Number */
-          widget._modelSignUp.response = await widget._modelSignUp.bloc.registerMethod(
-            context,
-            "${widget._modelSignUp.countryCode}${widget._modelSignUp.controlPhoneNums.text}",
-            widget._modelSignUp.controlConfirmPassword.text,
-            "/registerbyphone",
-            "phone"
-          );
-          if (widget._modelSignUp.response == true) { /* Change To True When your testing done */
-            widget._modelSignUp.userDataLogin = { /* Add Email Or Phone Number And Password And Pass To User Infos */ 
-              "email_phone": "${widget._modelSignUp.countryCode}${AppServices.removeZero(widget._modelSignUp.controlPhoneNums.text)}",
-              "passwords": widget._modelSignUp.controlPassword.text,
-              "label": widget._modelSignUp.label
-            };
-            Navigator.pop(context);
-            Future.delayed(Duration(milliseconds: 100), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UserInfo(widget._modelSignUp.userDataLogin) )
-              );
-              // Navigator.push(context, MaterialPageRoute(builder: (context) => SmsCode(widget._modelSignUp)));
-            });
-          } else Navigator.pop(context); /* Close Dialog Process */
-        }
       }
     }
   }
 
+  /* Validate Button */
+  void enableButton() {
+    if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlConfirmPassword.text != '') setState(() => widget._modelSignUp.enable2 = true);
+  }
+
+  /* Send Message After Register */
+  Future<http.Response> resendOtpCode() async {
+    return await _postRequest.resendCode(widget._modelSignUp.controlPhoneNums.text);
+  }
+
+  /* Show And Hide Passwords */
   void showPassword(bool showPassword){
     if (widget._modelSignUp.nodePassword.hasFocus) {
       setState(() {
@@ -144,11 +108,147 @@ class CreatePasswordState extends State<CreatePassword> {
     } 
   }
 
+  /* Submit From Keyboard */
   void onSubmit(BuildContext context) {
     if (widget._modelSignUp.nodePassword.hasFocus) {
       FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPassword);
     } else { /* Prevent Submit On Smart Keyboard */ 
       if (widget._modelSignUp.enable2 == true) submitSignUp(context);
+    }
+  }
+
+  /* -------------- Submit --------------- */
+
+  void submitSignUp(BuildContext context) async { /* Navigate To Fill User Info */
+    try{
+      // await resendOtpCode().then((value) {
+      //   if(value.statusCode == 200){
+      //     // Close Loading
+      //     Navigator.pop(context); 
+      //     Future.delayed(Duration(milliseconds: 100), () {
+      //       Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (context) => UserInfo(widget._modelSignUp.dataSignUp)
+      //           // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
+      //         )
+      //       );
+      //     });
+      //   }
+      // });
+      if (widget._modelSignUp.label == "email") { /* Post Register By Email */
+        print("email");
+        registerByEmail();
+      } else { /* Post Register By Phone Number */
+        print("phone");
+        registerByPhoneNumber();
+      }
+    } catch (e){
+      print(e);
+    }
+  }
+
+  void registerByEmail() async {
+    dialogLoading(context);
+    try{
+      _backend.response = await _postRequest.registerByEmail(widget._modelSignUp.controlPhoneNums.text,  widget._modelSignUp.controlConfirmPassword.text);
+  
+      _backend.decode = json.decode(_backend.response.body);
+
+      /* Close Loading */
+      Navigator.pop(context);
+
+      if (_backend.response.statusCode == 200){
+        if (_backend.decode['message'] == "Successfully registered!"){
+          await dialog(
+            context,
+            textAlignCenter(text: _backend.decode['message']),
+            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
+            Icon(
+              Icons.done_outline,
+              color: getHexaColor(AppColors.greenColor),
+            ) 
+          );
+        } else {
+          await dialog(
+            context,
+            textAlignCenter(text: _backend.decode['message']),
+            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
+            Text("Message") 
+          );
+        }
+      }
+    } catch (e){
+      await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
+    }
+  }
+
+  void registerByPhoneNumber() async {
+    dialogLoading(context);
+    try{
+      // _backend.response = await _postRequest.registerByPhone(widget._modelSignUp.controlPhoneNums.text,  widget._modelSignUp.controlConfirmPassword.text);
+  
+      // _backend.decode = json.decode(_backend.response.body);
+
+      // /* Close Loading */
+      // Navigator.pop(context);
+
+      // if (_backend.response.statusCode == 200){
+      //   if (_backend.decode['message'] == "Successfully registered!"){
+      //     await dialog(
+      //       context,
+      //       textAlignCenter(text: _backend.decode['message']),
+      //       /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
+      //       Icon(
+      //         Icons.done_outline,
+      //         color: getHexaColor(AppColors.greenColor),
+      //       ) 
+      //     );
+
+      //     await resendOtpCode().then((value) {
+      //       if(value.statusCode == 200){
+      //         // Close Loading
+      //         Navigator.pop(context); 
+      //         Future.delayed(Duration(milliseconds: 100), () {
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) => SmS(widget._modelSignUp)
+      //               // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
+      //             )
+      //           );
+      //         });
+      //       }
+      //     });
+      //   } else {
+      //     await dialog(
+      //       context,
+      //       textAlignCenter(text: _backend.decode['message']),
+      //       /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
+      //       Text("Message") 
+      //     );
+      //   }
+      // }
+
+      await resendOtpCode().then((value) {
+        _backend.decode = json.decode(value.body);
+            if(value.statusCode == 200){
+              // Close Loading
+              Navigator.pop(context); 
+              Future.delayed(Duration(milliseconds: 100), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SmsCodeVerify(widget._modelSignUp, _backend.decode)
+                    // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
+                  )
+                );
+              });
+            }
+          });
+
+    } catch (e){
+      await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
     }
   }
   

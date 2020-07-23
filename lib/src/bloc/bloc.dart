@@ -37,29 +37,29 @@ class Bloc with ValidateMixin {
 
   Future<bool> loginMethod(BuildContext context, String _byEmailOrPhoneNums, String _passwords, String _endpoints, String _label) async {
     /* Rest Api User Lgogin, Get Respone, Save Data Respone, And Catch Error */
-    return await _postRequest.userLogin(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
-      Navigator.pop(context); /* Close Loading Process */
-      if (_response['status_code'] != '502') {
-        if (_response.keys.contains("error")) {
-          await dialog( context, textAlignCenter(text: _response['error']["message"]), textMessage());
-          return false;
-        } else { /* If Successfully */
-          if (_response.keys.contains("token")) {
-            _response.addAll({
-              "isLoggedIn": true
-            });
-            await StorageServices.setData(_response, 'user_token');
-            return true;
-          } else { /* If Incorrect Email */
-            await dialog( context, textAlignCenter(text: _response["message"]), textMessage());
-            return false;
-          }
-        }
-      } else {
-        await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
-        return false;
-      }
-    });
+    // return await _postRequest.userLogin(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
+    //   Navigator.pop(context); /* Close Loading Process */
+    //   if (_response['status_code'] != '502') {
+    //     if (_response.keys.contains("error")) {
+    //       await dialog( context, textAlignCenter(text: _response['error']["message"]), textMessage());
+    //       return false;
+    //     } else { /* If Successfully */
+    //       if (_response.keys.contains("token")) {
+    //         _response.addAll({
+    //           "isLoggedIn": true
+    //         });
+    //         await StorageServices.setData(_response, 'user_token');
+    //         return true;
+    //       } else { /* If Incorrect Email */
+    //         await dialog( context, textAlignCenter(text: _response["message"]), textMessage());
+    //         return false;
+    //       }
+    //     }
+    //   } else {
+    //     await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
+    //     return false;
+    //   }
+    // });
   }
 
   /* Rest Api User Register, Get Respone, Save Data Respone, And Catch Error */
@@ -70,26 +70,32 @@ class Bloc with ValidateMixin {
     String _endpoints,
     String _label
   ) async {
-    return await _postRequest.userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
-      Navigator.pop(context); /* Close Loading Screen */
-      await dialog(
-        context,
-        textAlignCenter(text: _response['message']),
-        /* Sub Title */
-        _response['message'] != "Successfully registered!" /* Check For Change Icon On Alert */ /* Title */
-        ? Icon(Icons.warning, color: Colors.yellow)
-        : Icon(
-          Icons.done_outline,
-          color: getHexaColor(
-            _label == "email" ? AppColors.lightBlueSky : AppColors.greenColor
-          ),
-        )
-      );
-      return _response['message'] == "Successfully registered!" ? true : false;
-    }).catchError((onError) async {
-      await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
-      return false;
-    });
+    print(_byEmailOrPhoneNums);
+    print(_passwords);
+    print(_endpoints);
+    print(_label);
+    // Map<String, dynamic> response = await _postRequest.registerByPhone(_byEmailOrPhoneNums, _passwords, _endpoints, _label);
+    // print(response);
+    // return await _postRequest.userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {
+    //   Navigator.pop(context); /* Close Loading Screen */
+    //   await dialog(
+    //     context,
+    //     textAlignCenter(text: _response['message']),
+    //     /* Sub Title */
+    //     _response['message'] != "Successfully registered!" /* Check For Change Icon On Alert */ /* Title */
+    //     ? Icon(Icons.warning, color: Colors.yellow)
+    //     : Icon(
+    //       Icons.done_outline,
+    //       color: getHexaColor(
+    //         _label == "email" ? AppColors.lightBlueSky : AppColors.greenColor
+    //       ),
+    //     )
+    //   );
+    //   return _response['message'] == "Successfully registered!" ? true : false;
+    // }).catchError((onError) async {
+    //   await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
+    //   return false;
+    // });
   }
 
   /* Close All Stream To Prevent Crash Program Or Memory Leak */

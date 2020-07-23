@@ -38,7 +38,7 @@ class SmsComponent {
               contentPadding: EdgeInsets.only(top: 23,right: 5.0, bottom: 23, left: 5), // No Content Padding = -10.0 px
             ),
             onChanged: (String value){
-              print("my value");
+              // print(value);
               onChanged(value);
             },
           )

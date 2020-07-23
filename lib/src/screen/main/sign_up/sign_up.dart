@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:wallet_apps/index.dart';
 
-class SignUpFirst extends StatefulWidget{
+class SignUp extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return SignUpFirstState();
+    return SignUpState();
   }
 }
 
-class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderStateMixin{
+class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
 
   ModelSignUp _modelSignUp = ModelSignUp();
 
@@ -24,8 +24,8 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
   }
 
   void navigatePage(BuildContext context) { /* Navigate To Second Sign Up */
-    if (_modelSignUp.enable1 == true) /* Prevent Submit On Smart Keyboard */ 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));
+    /* Prevent Submit On Smart Keyboard */
+    if (_modelSignUp.enable1 == true) Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));
   }
 
   void onChanged(String label, String onchanged) { /* Input Field Value Change */
@@ -78,7 +78,7 @@ class SignUpFirstState extends State<SignUpFirst> with SingleTickerProviderState
         key: _modelSignUp.globalKey,
         body: paddingScreenWidget( /* Padding Whole Screen */
           context, 
-          signUpFirstBody( /* Body Widget */
+          signUpBody( /* Body Widget */
             context, 
             _modelSignUp, 
             validateInput, onChanged, popScreen, navigatePage, tabBarSelectChanged, 

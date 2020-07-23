@@ -35,7 +35,7 @@ class AppState extends State<App> {
         initialRoute: '/',
         title: 'SELENDRA',
         theme: AppStyle.myTheme(),
-        routes: AppRouting.route
+        routes: AppRouting.routes
       )
     );
   }

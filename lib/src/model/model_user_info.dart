@@ -8,10 +8,8 @@ class ModelUserInfo {
 
   Map<String, dynamic> userData, res;
 
-  String token, genderLabel = "Gender", gender;
+  String genderLabel = "Gender", gender;
   String responseFirstname, responseMidname, responseLastname;
-
-  var submitResponse;
 
   bool enable = false;
 

@@ -2,9 +2,9 @@ import 'package:wallet_apps/index.dart';
 
 class UserInfo extends StatefulWidget {
 
-  final Map<String, dynamic> _userData;
+  final ModelSignUp _modelSignUp;
 
-  UserInfo(this._userData);
+  UserInfo(this._modelSignUp);
 
   @override
   State<StatefulWidget> createState() {
@@ -18,15 +18,12 @@ class UserInfoState extends State<UserInfo> {
 
   PostRequest _postRequest = PostRequest();
 
+  Backend _backend = Backend();
+
   @override
   void initState() {
     AppServices.noInternetConnection(_modelUserInfo.globalKey);
-    if (widget._userData['label'] == 'profile') {
-      replaceDataToController();
-    } else if (widget._userData['label'] == 'email' ||
-        widget._userData['label'] == 'phone') {
-      getTokenByLogin();
-    }
+    getToken();
     super.initState();
   }
   
@@ -44,35 +41,22 @@ class UserInfoState extends State<UserInfo> {
     Navigator.pop(context);
   }
 
-  void getTokenByLogin() async {
-    /* Get Token To Make Authentication With Add User Info */
-    Map<String, dynamic> _res = await _postRequest.userLogin(
-        widget._userData['email_phone'],
-        widget._userData['passwords'],
-        widget._userData['label'] == "email"
-            ? "/loginbyemail"
-            : "/loginbyphone",
-        widget._userData['label']);
-    if (_res.containsKey('token')) {
-      await StorageServices.setData(_res, "user_token");
+  /* Get Token To Make Authentication With Add User Info */
+  void getToken() async {
+    if(widget._modelSignUp.label == "email"){
+      _backend.response = await _postRequest.loginByEmail(widget._modelSignUp.controlEmails.text, widget._modelSignUp.controlPassword.text);
+    } else {
+      _backend.response = await _postRequest.loginByPhone(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlPassword.text);
+    }
+    print(_backend.response.body);
+    _backend.decode = json.decode(_backend.response.body);
+    if (_backend.decode.containsKey('token')) {
+      await StorageServices.setData(_backend.decode, "user_token");
     }
   }
 
-  void replaceDataToController() {
-    /* Replace Data From Profile Screen After Push User Informtaion Screen */
-    _modelUserInfo.controlFirstName.text = widget._userData['first_name'];
-    _modelUserInfo.controlMidName.text = widget._userData['mid_name'];
-    _modelUserInfo.controlLastName.text = widget._userData['last_name'];
-    _modelUserInfo.genderLabel = widget._userData['gender'];
-    if (_modelUserInfo.genderLabel == "Male")
-      _modelUserInfo.gender = "M";
-    else
-      _modelUserInfo.gender = "F";
-    enableButton();
-  }
-
+  /* Change Select Gender */
   void changeGender(String gender) async {
-    /* Change Select Gender */
     _modelUserInfo.genderLabel = gender;
     if (gender == "Male")
       _modelUserInfo.gender = "M";
@@ -141,29 +125,30 @@ class UserInfoState extends State<UserInfo> {
     return _modelUserInfo.responseLastname;
   }
 
+  /* Submit Profile User */
   void submitProfile(BuildContext context) async {
-    /* Submit Profile User */
-    dialogLoading(context); /* Show Loading Process */
-    _modelUserInfo.submitResponse = await _postRequest.uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
-    Navigator.pop(context); /* Close Loading Process */
-    if (_modelUserInfo.submitResponse != null && _modelUserInfo.token == null) {
+    /* Show Loading Process */
+    dialogLoading(context); 
+    _backend.response = await _postRequest.uploadProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
+    /* Convert String To Object */
+    _backend.decode = json.decode(_backend.response.body);
+    /* Close Loading Process */
+    Navigator.pop(context);
+    if (_backend.response != null && _backend.decode['token'] == null) {
       /* Set Profile Success */
-      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}", textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
-      if (widget._userData['label'] == 'profile') {
-        Navigator.pop(context);
-      } else {
-        AppServices.clearStorage();
-        Future.delayed(Duration(microseconds: 500), () { // Remove All Screen And Push Login Screen
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => Login()),
-            ModalRoute.withName('/')
-          );
-        });
-      }
+      await dialog(context, Text("${_backend.decode['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));
+      /* Clear Storage */
+      AppServices.clearStorage();
+      /* Remove All Screen And Push Login Screen */
+      await Future.delayed(Duration(microseconds: 500), () {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+          ModalRoute.withName('/')
+        );
+      });
     } else {
-      /* Edit Profile Success */
-      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+      await dialog(context, Text("${_backend.decode}"), Text("Message"));
       Navigator.pop(context);
     }
   }

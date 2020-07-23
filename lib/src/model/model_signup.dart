@@ -22,9 +22,10 @@ class ModelSignUp {
   String wallet;
 
   var response;
+  
   var colorSubmitted = Colors.transparent;
 
-  Map<String, dynamic> userDataLogin;
+  Map<String, dynamic> dataSignUp;
 
   /* User login Properties */
   FocusNode nodeEmails = FocusNode();

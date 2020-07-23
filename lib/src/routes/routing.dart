@@ -4,8 +4,8 @@ class AppRouting{
 
   static ModelSignUp _modelSignUp = ModelSignUp();
 
-  static Map<String, WidgetBuilder> route = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => SmsCodeVerify(_modelSignUp),
+  static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
+    '/': (context) => MySplashScreen(),
     '/forgotPasswordScreen': (context) => ForgotPassword(),
     /* Home Screen */
     '/dashboardScreen': (context) => Dashboard(),
@@ -14,7 +14,7 @@ class AppRouting{
     /* Verify User Screen */
     '/add_profile_screen': (context) => AddUserInfo(),
     '/addDocumentScreen': (context) => AddDocuments(),
-    '/signUpScreen': (context) => SignUpFirst(),
+    '/signUpScreen': (context) => SignUp(),
     '/loginScreen': (context) => Login(),
   };
 }

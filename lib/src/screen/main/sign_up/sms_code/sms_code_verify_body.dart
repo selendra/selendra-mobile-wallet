@@ -2,65 +2,116 @@ import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/components/sms_component.dart';
 import 'package:wallet_apps/src/model/sms_code_model.dart';
 
+SmsComponent smsComponent = SmsComponent();
+
 Widget smsCodeVerifyBody( /* Body widget */
   BuildContext context,
   int time,
   SmsCodeModel _smsCodeModel,
   ModelSignUp _modelSignUp,
+  Map<String, dynamic> message,
   Function onChanged,
-  Function onSubmit
+  Function onSubmit,
+  Function runTimer, Function resetTimer,
 ) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center, /* Stretch Is Fill Cross Axis */
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-
-      FittedBox(
-        fit: BoxFit.contain,
-        child: Image.asset('assets/images/message.png', width: 200.0, height: 200.0, color: getHexaColor(AppColors.lightBlueSky)),
-      ),
-
-      Container(
-        padding: EdgeInsets.only(bottom: 15.0),
-        child: Text("Verification Code", style: TextStyle(fontSize: 25)),
-      ),
-
-      Container(
-        padding: EdgeInsets.only(bottom: 15.0),
-        child: Text("Enter the 6 digit code sent to you at +85511****28", textAlign: TextAlign.center),
-      ),
-
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+  return SafeArea(
+    child: SingleChildScrollView(
+      child: Column(
+        // crossAxisAlignment: CrossAxisAlignment.center, /* Stretch Is Fill Cross Axis */
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node1, controller: _smsCodeModel.controller1),
-          SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node2, controller: _smsCodeModel.controller2),
-          SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node3, controller: _smsCodeModel.controller3),
-          SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node4, controller: _smsCodeModel.controller4),
-          SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node5, controller: _smsCodeModel.controller5),
-          SmsComponent.boxCode(onChanged: onChanged, focusNode: _smsCodeModel.node6, controller: _smsCodeModel.controller6),
+
+          Align(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white,),
+              onPressed: (){
+                Navigator.pop(context);
+              },
+            ),
+          ),
+
+          FittedBox(
+            fit: BoxFit.contain,
+            child: Image.asset('assets/images/message.png', width: 200.0, height: 200.0, color: getHexaColor(AppColors.lightBlueSky)),
+          ),
+
+          Container(
+            padding: EdgeInsets.only(bottom: 15.0),
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Text("Verification Code", style: TextStyle(fontSize: 18))
+            ),
+          ),
+
+          Container(
+            padding: EdgeInsets.only(bottom: 15.0),
+            child: Text("${message['message']}", textAlign: TextAlign.center),
+          ),
+
+          Form(
+            key: _smsCodeModel.formKey,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node1, controller: _smsCodeModel.controller1),
+                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node2, controller: _smsCodeModel.controller2),
+                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node3, controller: _smsCodeModel.controller3),
+                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node4, controller: _smsCodeModel.controller4),
+                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node5, controller: _smsCodeModel.controller5),
+                SmsComponent.boxCode(onChanged: onChanged, focusNode: _smsCodeModel.node6, controller: _smsCodeModel.controller6),
+              ],
+            )
+          ),
+
+          // customFlatButton( /* Button login */
+          //   context,
+          //   "Sign Up", "smsCodeScreen", AppColors.greenColor,
+          //   FontWeight.bold,
+          //   size18,
+          //   EdgeInsets.only(top: size10, bottom: 0),
+          //   EdgeInsets.only(top: size15, bottom: size15),
+          //   BoxShadow(
+          //     color: Color.fromRGBO(0,0,0,0.54),
+          //     blurRadius: 5.0
+          //   ),
+          //   onSubmit
+          // ),
+          resendBtn(time: time, smsCodeModel: _smsCodeModel, resetTimer: resetTimer, runTimer: runTimer),
         ],
       ),
-      // customFlatButton( /* Button login */
-      //   context,
-      //   "Sign Up", "smsCodeScreen", AppColors.greenColor,
-      //   FontWeight.bold,
-      //   size18,
-      //   EdgeInsets.only(top: size10, bottom: 0),
-      //   EdgeInsets.only(top: size15, bottom: size15),
-      //   BoxShadow(
-      //     color: Color.fromRGBO(0,0,0,0.54),
-      //     blurRadius: 5.0
-      //   ),
-      //   onSubmit
-      // ),
-      Container( /* Resend Code Countdown */
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(top: 30.0),
-        child: Text("Resend Code in $time\s", style: TextStyle(fontSize: 18.0),),
-      ),
-      toLogin(context),
-    ],
+    ),
+  );
+}
+
+Widget resendBtn({int time, SmsCodeModel smsCodeModel, Function resetTimer, Function runTimer}){
+  return FittedBox(
+    fit: BoxFit.contain,
+    child: Padding(
+      padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            !smsCodeModel.showResendBtn ? "Resend Code in $time\s" 
+            : "Didn't receive a code?",
+            style: TextStyle(fontSize: 18.0),
+          ),
+          !smsCodeModel.showResendBtn ? Container() 
+          : Padding(
+            padding: EdgeInsets.only(left: 10.0),
+            child: InkWell(
+              onTap: (){
+                resetTimer();
+                Timer.periodic(Duration(milliseconds: 1000), runTimer);
+              },
+              child: Text("Resend Code", textAlign: TextAlign.start, style: TextStyle(fontSize: 18.0, color: getHexaColor(AppColors.lightBlueSky),)),
+            )
+          )
+        ],
+      )
+    ),
   );
 }
 

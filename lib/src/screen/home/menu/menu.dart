@@ -25,6 +25,8 @@ class DrawerLayoutState extends State<DrawerLayout> {
   /* Login Inside Dialog */
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
 
+  Backend _backend = Backend();
+
   /* InitState */
   @override
   void initState() {
@@ -55,7 +57,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
         "label": "profile"
       };
       await StorageServices.fetchData("user_token").then((_response){ /* Fetch Token To Concete Authorization Update Profile User Info */
-        _modelUserInfo.token = _response['token'];
+        _backend.decode = _response;
       });
     }
   }
@@ -180,7 +182,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
                 await Future.delayed(Duration(seconds: 1), () {
                   Navigator.pushAndRemoveUntil(
                     context, 
-                    transitionRoute(WelcomeToZee()),
+                    transitionRoute(Welcome()),
                     ModalRoute.withName('/')
                   );
                 });

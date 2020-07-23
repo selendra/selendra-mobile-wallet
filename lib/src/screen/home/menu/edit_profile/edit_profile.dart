@@ -18,6 +18,8 @@ class EditProfileState extends State<EditProfile> {
 
   PostRequest _postRequest = PostRequest();
 
+  Backend _backend = Backend();
+
   @override
   void initState() {
     AppServices.noInternetConnection(_modelUserInfo.globalKey);
@@ -117,12 +119,18 @@ class EditProfileState extends State<EditProfile> {
     return _modelUserInfo.responseLastname;
   }
 
-  void submitProfile(BuildContext context) async { /* Submit Profile User */
-    dialogLoading(context); /* Show Loading Process */
-    _modelUserInfo.submitResponse = await _postRequest.uploadUserProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
-    Navigator.pop(context); /* Close Loading Procxess */
-    if (_modelUserInfo.submitResponse != null) { /* Set Profile Success */
-      await dialog(context, Text("${_modelUserInfo.submitResponse['message']}"), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+  /* Submit Profile User */
+  void submitProfile(BuildContext context) async {
+    /* Show Loading Process */
+    dialogLoading(context);
+    /* Post Request Submit Profile */
+    _backend.response = await _postRequest.uploadProfile(_modelUserInfo, '/userprofile'); 
+    /* Close Loading Procxess */
+    Navigator.pop(context);
+    _backend.decode = json.decode(_backend.response.body);
+    /* Set Profile Success */
+    if (_backend.decode != null) { 
+      await dialog(context, Text("${_backend.decode['message']}"), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
       Navigator.pop(context, 'edit_profile');
     }
   }

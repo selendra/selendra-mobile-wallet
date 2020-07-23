@@ -1,15 +1,15 @@
 import 'package:wallet_apps/index.dart';
 
-class WelcomeToZee extends StatefulWidget {
+class Welcome extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return WelcomeToZeeState();
+    return WelcomeState();
   }
   
 }
 
-class WelcomeToZeeState extends State<WelcomeToZee> {
+class WelcomeState extends State<Welcome> {
 
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 

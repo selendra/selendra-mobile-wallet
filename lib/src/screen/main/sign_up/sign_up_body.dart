@@ -1,14 +1,14 @@
 import 'package:wallet_apps/index.dart';
 
-Widget signUpFirstBody(
+Widget signUpBody(
   BuildContext context,
   ModelSignUp _modelSignUp,
   Function validateInput, Function onChanged,
   Function popScreen, Function navigatePage, Function tabBarSelectChanged,
 ){
   return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center, /* Stretch is fill cros axis */
+    // mainAxisAlignment: MainAxisAlignment.center,
+    // crossAxisAlignment: CrossAxisAlignment.center, /* Stretch is fill cros axis */
     children: <Widget>[
       logoWelcomeScreen(AppConfig.logoName, 80.0, 80.0),
       Container(

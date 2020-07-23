@@ -2,6 +2,10 @@ import 'package:wallet_apps/index.dart';
 
 class SmsCodeModel{
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  bool showResendBtn = false;
+
   FocusNode node1 = FocusNode();
   FocusNode node2 = FocusNode();
   FocusNode node3 = FocusNode();

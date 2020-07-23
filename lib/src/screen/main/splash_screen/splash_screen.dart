@@ -41,7 +41,7 @@ class MySplashScreenState extends State<MySplashScreen>{
             await Future.delayed(Duration(seconds: 4), (){
               Navigator.pushReplacement(
                 context, 
-                MaterialPageRoute(builder: (context) => Login())
+                MaterialPageRoute(builder: (context) => Welcome())
               );
             });
           }
@@ -50,7 +50,7 @@ class MySplashScreenState extends State<MySplashScreen>{
           await Future.delayed(Duration(seconds: 4), (){
             Navigator.pushReplacement(
               context, 
-              MaterialPageRoute(builder: (context) => Login())
+              MaterialPageRoute(builder: (context) => Welcome())
             );
           });
         }

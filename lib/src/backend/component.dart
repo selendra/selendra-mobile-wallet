@@ -1,11 +1,13 @@
-import 'package:wallet_apps/index.dart';
 import 'package:http/http.dart' as http;
 
 class Backend{
 
   Map<String, dynamic> token = {}; 
   String bodyEncode = "";
+
   http.Response response;
+
+  Map<String, dynamic> decode;
 
   dynamic data;
 
