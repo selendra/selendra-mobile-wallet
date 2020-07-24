@@ -10,7 +10,10 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> with WidgetsBindingObserver {
   
   ModelLogin _modelLogin = ModelLogin();
-  Timer _myTimer;
+
+  PostRequest _postRequest = PostRequest();
+
+  Backend _backend = Backend();
 
   @override
   void initState() {
@@ -34,8 +37,8 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         _modelLogin.responseEmailPhone = instanceValidate.validateEmails(value);
         if (_modelLogin.responseEmailPhone == null && _modelLogin.responsePassword == null)
           enableButton();
-        else if (_modelLogin.enable2 == true)
-          setState(() => _modelLogin.enable2 = false);
+        else if (_modelLogin.enable == true)
+          setState(() => _modelLogin.enable = false);
       }
     } else {
       if (_modelLogin.nodePhoneNums.hasFocus) {
@@ -43,8 +46,8 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         _modelLogin.responseEmailPhone = instanceValidate.validatePhone(value);
         if (_modelLogin.responseEmailPhone == null && _modelLogin.responsePassword == null)
           enableButton();
-        else if (_modelLogin.enable2 == true)
-          setState(() => _modelLogin.enable2 = false);
+        else if (_modelLogin.enable == true)
+          setState(() => _modelLogin.enable = false);
       }
     }
     return _modelLogin.responseEmailPhone;
@@ -57,7 +60,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         _modelLogin.responseEmailPhone == null &&
         _modelLogin.responsePassword == null
       ) enableButton();
-      else if (_modelLogin.enable2 == true) setState(() => _modelLogin.enable2 = false);
+      else if (_modelLogin.enable == true) setState(() => _modelLogin.enable = false);
     }
     return _modelLogin.responsePassword;
   }
@@ -66,11 +69,11 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     if (_modelLogin.label == 'email') {
       if (_modelLogin.controlEmails.text != '' &&
           _modelLogin.controlPasswords.text != '')
-        setState(() => _modelLogin.enable2 = true);
+        setState(() => _modelLogin.enable = true);
     } else {
       if (_modelLogin.controlPhoneNums.text != '' &&
           _modelLogin.controlPasswords.text != '')
-        setState(() => _modelLogin.enable2 = true);
+        setState(() => _modelLogin.enable = true);
     }
   }
 
@@ -89,7 +92,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
       _modelLogin.nodePasswords.unfocus();
 
       setState(() {
-        _modelLogin.enable1 = false;
+        _modelLogin.enable = false;
       });
       _modelLogin.label = "email";
     } else {
@@ -100,54 +103,86 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
       _modelLogin.nodePasswords.unfocus();
 
       setState(() {
-        _modelLogin.enable1 = false;
+        _modelLogin.enable = false;
       });
       _modelLogin.label = "phone";
     }
     setState(() {});
   }
 
-  void submitLogin(BuildContext context) async { /* Check Internet Before Validate And Finish Validate*/
+  void focusRequest(){
     if (_modelLogin.nodeEmails.hasFocus || _modelLogin.nodePhoneNums.hasFocus) {
       FocusScope.of(context).requestFocus(_modelLogin.nodePasswords);
-    } else if (_modelLogin.enable2 == true) {
-      /* Prevent Submit On Smart Keyboard */ /* Submit Login */
-      dialogLoading(context);
-      var response;
-      try {
-        if (_modelLogin.label == "email") {
-          response = await _modelLogin.bloc.loginMethod(
-            context,
-            _modelLogin.controlEmails.text,
-            _modelLogin.controlPasswords.text,
-            "/loginbyemail",
-            "email"
-          );
-        } else {
-          response = await _modelLogin.bloc.loginMethod(
-            context,
-            "${_modelLogin.countryCode}${AppServices.removeZero(_modelLogin.controlPhoneNums.text)}",
-            _modelLogin.controlPasswords.text,
-            "/loginbyphone",
-            "phone"
-          );
-        }
-      } on SocketException catch (e) {
-        await Future.delayed(Duration(milliseconds: 300), () {
-          setState(() {});
-        });
-        Navigator.pop(context);
-        AppServices.mySnackBar(_modelLogin.globalKey, AppText.contentConnection);
-      } catch (e) {}
+    } else if (_modelLogin.enable) {
+      submitLogin(context);
+    }
+  }
 
-      if (response == true) {
-        // AppServices.appLifeCycle(timer);
-        Navigator.pushAndRemoveUntil(
+  /* -----------------------Login Method-------------------- */
+
+  // Check Internet Before Validate And Finish Validate
+  void submitLogin(BuildContext context) async { 
+    dialogLoading(context);
+    var response;
+    try {
+      if (_modelLogin.label == "email") {
+        response = await _modelLogin.bloc.loginMethod(
           context,
-          MaterialPageRoute(builder: (context) => Dashboard()),
-          ModalRoute.withName('/')
+          _modelLogin.controlEmails.text,
+          _modelLogin.controlPasswords.text,
+          "/loginbyemail",
+          "email"
         );
+      } else {
+        loginByPhone();
       }
+    } on SocketException catch (e) {
+      await Future.delayed(Duration(milliseconds: 300), () {
+        setState(() {});
+      });
+      Navigator.pop(context);
+      AppServices.mySnackBar(_modelLogin.globalKey, AppText.contentConnection);
+    } catch (e) {}
+
+    if (response == true) {
+      // AppServices.appLifeCycle(timer);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Dashboard()),
+        ModalRoute.withName('/')
+      );
+    }
+  }
+  
+  void loginByPhone() async {
+
+    _backend.response = await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text);
+
+    _backend.decode = json.decode(_backend.response.body);
+
+    if (_backend.response.statusCode != 502) {
+      // Close Loading
+      Navigator.pop(context);
+      if (_backend.decode.containsKey("error")) {
+        await dialog( context, textAlignCenter(text: _backend.decode['error']["message"]), textMessage());
+      } else { 
+        // If Successfully
+        if (_backend.decode.containsKey("token")) {
+          _backend.decode.addAll({
+            "isLoggedIn": true
+          });
+          await StorageServices.setData(_backend.data, 'user_token');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Dashboard())
+          );
+        } else { 
+          // If Incorrect Email
+          await dialog( context, textAlignCenter(text: _backend.data["message"]), textMessage());
+        }
+      }
+    } else {
+      await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
     }
   }
 
@@ -160,19 +195,15 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         child: paddingScreenWidget( /* Body Widget */
           context,
           SafeArea(
-            child: Stack(
-              children: <Widget>[
-                loginBody(
-                  context,
-                  _modelLogin,
-                  validateInput,
-                  validatePassword,
-                  onChanged,
-                  tabBarSelectChanged,
-                  showPassword,
-                  submitLogin
-                ),
-              ],
+            child: loginBody(
+              context,
+              _modelLogin,
+              validateInput,
+              validatePassword,
+              onChanged,
+              tabBarSelectChanged,
+              showPassword,
+              submitLogin,
             ),
           )
         ),

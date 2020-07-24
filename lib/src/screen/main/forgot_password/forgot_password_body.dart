@@ -1,7 +1,7 @@
 import 'package:wallet_apps/index.dart';
 
 Widget forgetPasswordBody(
-  BuildContext _context, 
+  BuildContext context, 
   ModelForgotPassword _modelForgotPassword,
   Function tabBarSelectChanged, Function validatePhoneNumber, Function validateEmail,
   Function onChanged, Function onSubmit,
@@ -11,14 +11,16 @@ Widget forgetPasswordBody(
     child: Column(
       children: <Widget>[
         containerAppBar( /* AppBar */
-          _context, 
+          context, 
           Row(
             children: <Widget>[
               iconAppBar( /* Arrow Back Button */
                 Icon(Icons.arrow_back, color: Colors.white,),
                 Alignment.centerLeft,
                 EdgeInsets.all(0),
-                popScreen,
+                (){
+                  popScreen(context);
+                },
               ),
               containerTitle("Forgot Password", double.infinity, Colors.white, FontWeight.normal)
             ],
@@ -64,7 +66,7 @@ Widget forgetPasswordBody(
                         padding: EdgeInsets.only(top: 20.0),
                         margin: EdgeInsets.only(bottom: 10),
                         child: inputField(
-                          context: _context, 
+                          context: context, 
                           labelText: "Phone number", 
                           prefixText: "${_modelForgotPassword.countryCode} ", 
                           widgetName: "forgotPasswordScreen",
@@ -81,7 +83,7 @@ Widget forgetPasswordBody(
                       Container(
                         padding: EdgeInsets.only(top: 20.0),
                         child: inputField(
-                          context: _context, 
+                          context: context, 
                           labelText: "Email",
                           widgetName: "forgotPasswordScreen",
                           textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
@@ -99,7 +101,7 @@ Widget forgetPasswordBody(
                 )
               ),
               customFlatButton(
-                _context, 
+                context, 
                 "Request Code", "forgotsScreen", AppColors.greenColor,                    
                 FontWeight.normal,
                 size18,
@@ -122,7 +124,7 @@ Widget forgetPasswordBody(
         //         Container( /* Phone number field */
         //           margin: EdgeInsets.only(bottom: 12.0),
         //           child: inputField(
-        //             context: _context, 
+        //             context: context, 
         //             labelText: "Phone number", 
         //             prefixText: "${_modelForgotPassword.countryCode} ", 
         //             widgetName: "forgotsScreen",
@@ -137,7 +139,7 @@ Widget forgetPasswordBody(
         //           ),
         //         ),
         //         customFlatButton(
-        //           _context, 
+        //           context, 
         //           "Request Code", "forgotsScreen", greenColor,                    
         //           FontWeight.normal,
         //           size18,

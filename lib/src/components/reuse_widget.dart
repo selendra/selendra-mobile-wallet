@@ -131,22 +131,23 @@ Widget customFlatButton(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(size5), boxShadow: [boxShadow]),
     child: FlatButton(
-        color: getHexaColor(buttonColor),
-        disabledTextColor: Colors.black54,
-        disabledColor: Colors.grey[700],
-        focusColor: getHexaColor("#83B6BD"),
-        textColor: Colors.white,
-        child: Text(
-          textButton,
-          style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
-        ),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
-        onPressed: action == null
-            ? null
-            : () {
-                action(context);
-              }),
+      color: getHexaColor(buttonColor),
+      disabledTextColor: Colors.black54,
+      disabledColor: Colors.grey[700],
+      focusColor: getHexaColor("#83B6BD"),
+      textColor: Colors.white,
+      child: Text(
+        textButton,
+        style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
+      ),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
+      onPressed: action == null
+        ? null
+        : () {
+          action(context);
+        }
+      ),
   );
 }
 
@@ -380,7 +381,7 @@ Widget containerTitle( String title, dynamic _height, dynamic textColor, FontWei
   );
 }
 
-Widget logoWelcomeScreen(String logoName, double width, double height) {
+Widget logoSize(String logoName, double width, double height,) {
   return Image.asset(logoName, width: width, height: height, color: Colors.white);
 }
 

@@ -8,11 +8,11 @@ Widget loginBody(
   Function onChanged,
   Function tabBarSelectChanged,
   Function showPassword,
-  Function validateAndSubmit
+  Function validateAndSubmit,
 ) {
   return Column(
     children: <Widget>[
-      logoWelcomeScreen(AppConfig.logoName, 70.0, 47.62),
+      logoSize(AppConfig.logoName, 70.0, 47.62),
       Container(
         margin: EdgeInsets.only(top: 20.0),
         child: textDisplay(
@@ -108,12 +108,12 @@ Widget loginBody(
         EdgeInsets.only(bottom: 15),
         EdgeInsets.only(top: size15, bottom: size15),
         BoxShadow(
-          color: Colors.black54.withOpacity(modelLogin.enable2 == false ? 0 : 0.3),
+          color: Colors.black54.withOpacity(modelLogin.enable == false ? 0 : 0.3),
           blurRadius: 10.0,
           spreadRadius: 2.0,
           offset: Offset(2.0, 5.0),
         ),
-        modelLogin.enable2 == false ? null : validateAndSubmit
+        modelLogin.enable == false ? null : validateAndSubmit
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -137,15 +137,18 @@ Widget loginBody(
           )
         ],
       ),
-      Container(
-        child: forgotPass(context, AppColors.blueColor, fontSize: 16.0, fontWeight: FontWeight.w600),
+      forgotPass(
+        context,
+        AppColors.blueColor, 
+        fontSize: 16.0, 
+        fontWeight: FontWeight.w600,
       ),
     ],
   );
 }
 
-Widget userLoginForm(
-  {BuildContext context,
+Widget userLoginForm({
+  BuildContext context,
   String label,
   String prefixText,
   ModelLogin modelLogin,
@@ -155,32 +158,34 @@ Widget userLoginForm(
   Function validatePassword,
   Function onChanged,
   Function showPassword,
-  Function validateAndSubmit}
-) {
+  Function validateAndSubmit
+}){
   return Column(
     children: <Widget>[
+      /* Email & Phone Number Input Field*/
       Container(
-          /* Email & Phone Number Input Field*/
-          margin: EdgeInsets.only(bottom: 13.0),
-          child: inputField(
-              context: context,
-              labelText: label,
-              prefixText: prefixText,
-              widgetName: "loginSecondScreen",
-              textInputFormatter: textInputFormatter,
-              // modelLogin.label == "email"
-              //   ?  /* If Label Equal Email Just Control Length Input Format */
-              //   : , /* Else Add Condition 0-9 Only */
-              inputType: inputType,
-              controller: modelLogin.label == "email"
-                  ? modelLogin.controlEmails
-                  : modelLogin.controlPhoneNums,
-              focusNode: modelLogin.label == "email"
-                  ? modelLogin.nodeEmails
-                  : modelLogin.nodePhoneNums,
-              validateField: validateInput,
-              onChanged: onChanged,
-              action: validateAndSubmit)),
+        margin: EdgeInsets.only(bottom: 13.0),
+        child: inputField(
+          context: context,
+          labelText: label,
+          prefixText: prefixText,
+          widgetName: "loginSecondScreen",
+          textInputFormatter: textInputFormatter,
+          // modelLogin.label == "email"
+          //   ?  /* If Label Equal Email Just Control Length Input Format */
+          //   : , /* Else Add Condition 0-9 Only */
+          inputType: inputType,
+          controller: modelLogin.label == "email"
+              ? modelLogin.controlEmails
+              : modelLogin.controlPhoneNums,
+          focusNode: modelLogin.label == "email"
+              ? modelLogin.nodeEmails
+              : modelLogin.nodePhoneNums,
+          validateField: validateInput,
+          onChanged: onChanged,
+          action: validateAndSubmit
+        )
+      ),
       Container(
         /* Password Input Field */
         margin: EdgeInsets.only(bottom: 25.0),

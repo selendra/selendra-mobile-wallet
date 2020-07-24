@@ -18,7 +18,7 @@ Widget welcomeBody(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 /* Zeetomic */
-                logoWelcomeScreen(AppConfig.logoName, 120.0, 120.0),
+                logoSize(AppConfig.logoName, 120.0, 120.0),
                 Container(
                   margin: EdgeInsets.only(top: 50.0),
                   child: textScale(

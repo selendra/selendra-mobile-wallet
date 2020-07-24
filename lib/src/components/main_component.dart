@@ -35,7 +35,7 @@ Widget toLogin(BuildContext context) { /* Back To Login Screen*/
   );
 }
 
-Widget forgotPass(BuildContext context, dynamic color, {double fontSize: 18.0, FontWeight fontWeight: FontWeight.w500}) {
+Widget forgotPass(BuildContext context, dynamic color, {double fontSize: 18.0, FontWeight fontWeight: FontWeight.w500, Function method}) {
   return InkWell(
     child: Padding(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -48,6 +48,8 @@ Widget forgotPass(BuildContext context, dynamic color, {double fontSize: 18.0, F
         )
       ),
     ),
-    onTap: () { Navigator.pushNamed(context, '/forgotPasswordScreen'); },
+    onTap: (){
+      Navigator.pushNamed(context, '/forgotPasswordScreen');
+    }
   );
 }

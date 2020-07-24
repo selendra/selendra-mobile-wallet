@@ -6,7 +6,6 @@ class AppRouting{
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
     '/': (context) => MySplashScreen(),
-    '/forgotPasswordScreen': (context) => ForgotPassword(),
     /* Home Screen */
     '/dashboardScreen': (context) => Dashboard(),
     // '/getWalletScreen': (context) => GetWalletWidget(),
@@ -16,5 +15,6 @@ class AppRouting{
     '/addDocumentScreen': (context) => AddDocuments(),
     '/signUpScreen': (context) => SignUp(),
     '/loginScreen': (context) => Login(),
+    '/forgotPasswordScreen': (context) => ForgotPassword()
   };
 }

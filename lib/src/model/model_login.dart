@@ -9,7 +9,7 @@ class ModelLogin {
 
   GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
-  bool enable1 = false, enable2 = false; bool securePassword = true;
+  bool enable = false; bool securePassword = true;
 
   String token; String phoneNumber = "", countryCode = "+855", label;
 

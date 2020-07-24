@@ -10,7 +10,7 @@ Widget signUpBody(
     // mainAxisAlignment: MainAxisAlignment.center,
     // crossAxisAlignment: CrossAxisAlignment.center, /* Stretch is fill cros axis */
     children: <Widget>[
-      logoWelcomeScreen(AppConfig.logoName, 80.0, 80.0),
+      logoSize(AppConfig.logoName, 80.0, 80.0),
       Container(
         margin: EdgeInsets.only(top: 20.0),
         child: textDisplay(

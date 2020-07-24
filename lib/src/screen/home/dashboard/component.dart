@@ -469,21 +469,13 @@ Widget bottomAppBar(
             ),
             Container(
               margin: EdgeInsets.only(right: 36.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: 70.0,
-                    child: IconButton(
-                      padding: EdgeInsets.all(0),
-                      color: Colors.white,
-                      iconSize: 30.0,
-                      icon: FaIcon(FontAwesomeIcons.qrcode),
-                      onPressed: () => _toReceiveToken(context)
-                    ),
-                  ),
-                  Text("Receive Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
-                ],
+              width: 70.0,
+              child: IconButton(
+                padding: EdgeInsets.all(0),
+                color: Colors.white,
+                iconSize: 30.0,
+                icon: FaIcon(FontAwesomeIcons.qrcode),
+                onPressed: () => _toReceiveToken(context)
               ),
             )
           ],

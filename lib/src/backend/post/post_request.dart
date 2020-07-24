@@ -30,6 +30,7 @@ class PostRequest {
       "password": passwords
     });
     _backend.response = await http.post('${AppConfig.url}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    print(_backend.response.body);
     return _backend.response;
   }
 
