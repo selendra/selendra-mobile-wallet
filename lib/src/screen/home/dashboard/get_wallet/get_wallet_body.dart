@@ -28,98 +28,51 @@ Widget getWalletBody(
       ),
       _wallet == null 
       ? Expanded(child: Center(child: Text("No Wallet", style: TextStyle(fontSize: 20.0),)),) 
-      : Flexible(
-        child: Card(
-          elevation: 2,
-          margin: EdgeInsets.only(top: 40.0, bottom: 40.0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          child: Container( /* Generate QR Code */
-            width: double.infinity,
-            padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
-            child: qrCodeGenerator(_wallet, AppConfig.logoQrEmbedded, _keyQrShare),
+      : Column(
+        children: <Widget>[
+          Card(
+            elevation: 2,
+            margin: EdgeInsets.only(top: 40.0, bottom: 40.0),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+            child: Container( /* Generate QR Code */
+              width: double.infinity,
+              padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+              child: qrCodeGenerator(_wallet, AppConfig.logoQrEmbedded, _keyQrShare),
+            )
+          ),
+          FlatButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.share, color: Colors.white,),
+                Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text("SHARE MY CODE", style: TextStyle(color: Colors.white),),
+                )
+              ],
+            ),
+            onPressed: (){
+              _function.qrShare(_keyQrShare, _wallet);
+            },
+          ),
+          FlatButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.content_copy, color: Colors.white,),
+                Container(
+                  padding: EdgeInsets.only(left: 10.0),
+                  child: Text("COPY ADDRESS", style: TextStyle(color: Colors.white),),
+                )
+              ],
+            ),
+            onPressed: (){
+              Clipboard.setData(ClipboardData(text: _wallet)); /* Copy Text */
+              _function.snackBar('Copied', _globalKey);
+            },
           )
-        ),
-      ),
-      FlatButton(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(Icons.share, color: Colors.white,),
-            Container(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Text("SHARE MY CODE", style: TextStyle(color: Colors.white),),
-            )
-          ],
-        ),
-        onPressed: (){
-          _function.qrShare(_keyQrShare, _wallet);
-        },
-      ),
-      FlatButton(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(Icons.content_copy, color: Colors.white,),
-            Container(
-              padding: EdgeInsets.only(left: 10.0),
-              child: Text("COPY ADDRESS", style: TextStyle(color: Colors.white),),
-            )
-          ],
-        ),
-        onPressed: (){
-          Clipboard.setData(ClipboardData(text: _wallet)); /* Copy Text */
-          _function.snackBar('Copied', _globalKey);
-        },
+        ],
       )
-      // Container(
-      //   color: Colors.red,
-      //   padding: EdgeInsets.only(left: 16.0, right: 16.0),
-      //   child: Column(
-      //     mainAxisSize: MainAxisSize.max,
-      //     children: <Widget>[
-      //       Card(
-      //         elevation: 2,
-      //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      //         margin: EdgeInsets.only(bottom: 10.0),
-      //         child: Container( /* Generate QR Code */
-      //           margin: EdgeInsets.only(bottom: 30.0),
-      //           child: qrCodeGenerate(_wallet, AppConfig.logoQrEmbedded),
-      //         )
-      //       ),
-      //       // FlatButton(
-      //       //   child: Row(
-      //       //     mainAxisAlignment: MainAxisAlignment.center,
-      //       //     children: <Widget>[
-      //       //       Icon(Icons.share, color: Colors.white,),
-      //       //       Container(
-      //       //         padding: EdgeInsets.only(left: 10.0),
-      //       //         child: Text("SHARE MY CODE", style: TextStyle(color: Colors.white),),
-      //       //       )
-      //       //     ],
-      //       //   ),
-      //       //   onPressed: (){
-                
-      //       //   },
-      //       // ),
-      //       // FlatButton(
-      //       //   child: Row(
-      //       //     mainAxisAlignment: MainAxisAlignment.center,
-      //       //     children: <Widget>[
-      //       //       Icon(Icons.content_copy, color: Colors.white,),
-      //       //       Container(
-      //       //         padding: EdgeInsets.only(left: 10.0),
-      //       //         child: Text("COPY ADDRESS", style: TextStyle(color: Colors.white),),
-      //       //       )
-      //       //     ],
-      //       //   ),
-      //       //   onPressed: (){
-      //       //     Clipboard.setData(ClipboardData(text: _wallet)); /* Copy Text */
-      //       //     snackBar('Copied');
-      //       //   },
-      //       // )
-      //     ],
-      //   )
-      // )
     ],
   );
 }

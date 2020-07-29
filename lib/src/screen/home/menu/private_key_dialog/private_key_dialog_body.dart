@@ -40,7 +40,7 @@ Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function u
               userCheckBox();
             }
           ),
-          Text("Already saved")
+          Text("Already copy")
         ],
       )
     ],

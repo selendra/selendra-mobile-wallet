@@ -40,9 +40,10 @@ class SetPinDialogState extends State<SetPinDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          Text("Worl"),
           _showError == '' ? Container() : Container(
             padding: EdgeInsets.all(10.0),
-            child: Text(_showError, style: TextStyle(color: Colors.red),),
+            child: Text(_showError, style: TextStyle(color: Colors.red), textAlign: TextAlign.center),
           ),
           PinPut(
             clearButtonIcon: Icon(Icons.close),

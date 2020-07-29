@@ -12,13 +12,25 @@ class ModelDashboard {
   Animation degOneTranslationAnimation;
 
   Map<String, dynamic> userData;
+
   String barcode;
+
+  /* Portfolio */
+
+  double total;
+
   List<dynamic> portfolioList = [];
+
   GlobalKey<ScaffoldState> scaffoldKey;
-  dynamic result; dynamic portFolioResponse; dynamic response;
+
+  dynamic result; dynamic portFolioResponse; List<Map<String, dynamic>> response;
+
+  /* Chart */
 
   final GlobalKey<AnimatedCircularChartState> chartKey =  new GlobalKey<AnimatedCircularChartState>();
+  
   double remainDataChart = 100;
+
   List<CircularSegmentEntry> circularChart;
 
   final RefreshController refreshController = RefreshController();

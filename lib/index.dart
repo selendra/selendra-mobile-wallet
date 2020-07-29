@@ -130,7 +130,7 @@ export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/fill_pin_dialo
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_reuse_widget.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary_body.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay_body.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/zee_chart_screen/zee_chart_body.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/chart/chart_body.dart';
 
 export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet_body.dart';
 
@@ -143,6 +143,9 @@ export 'package:wallet_apps/src/components/main_component.dart';
 export 'package:wallet_apps/src/screen/home/menu/menu.dart';
 
 export 'package:wallet_apps/src/screen/home/menu/menu_body.dart';
+
+export 'package:wallet_apps/src/screen/home/menu/add_phone/add_phone.dart';
+export 'package:wallet_apps/src/screen/home/menu/add_phone/add_phone_body.dart';
 
 // Add User Information
 export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info_body.dart';
@@ -222,4 +225,7 @@ export 'package:wallet_apps/src/model/model_change_password.dart';
 
 // Add Asset
 export 'package:wallet_apps/src/model/model_asset.dart';
+
+// Add Phone
+export 'package:wallet_apps/src/model/add_phone_number.dart';
 

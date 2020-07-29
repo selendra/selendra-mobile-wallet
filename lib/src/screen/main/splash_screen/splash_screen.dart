@@ -24,6 +24,7 @@ class MySplashScreenState extends State<MySplashScreen>{
   void tokenExpireChecker() async { /* Check For Previous Login */
     try {
       await StorageServices.fetchData("user_token").then((value) async {
+        print(value);
         if (value != null) {
           status = await _getRequest.checkExpiredToken();
           if (status == 200) { /* Check Expired Token */

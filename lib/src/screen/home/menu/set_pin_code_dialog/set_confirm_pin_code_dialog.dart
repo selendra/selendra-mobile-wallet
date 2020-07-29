@@ -31,8 +31,7 @@ class SetConfirmPinState extends State<SetConfirmPin> {
         key: _globalKey,
         body: Stack(children: <Widget>[
           AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
             title: Align(
               alignment: Alignment.center,
               child: Text("Confirm PIN"),
@@ -59,54 +58,54 @@ class SetConfirmPinState extends State<SetConfirmPin> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     RaisedButton(
-                      child: Text("Confirm",
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text("Confirm", style: TextStyle(fontWeight: FontWeight.bold)),
                       onPressed: _confirmPin == null
-                          ? null
-                          : () async {
-                              /* Loading */
-                              dialogLoading(context);
-                              try {
-                                if (_confirmPin == widget._pin) {
-                                  /* If PIN Equal Confirm PIN */
-                                  popData = {
-                                    "widget": "confirmPin",
-                                    "confirm_pin": _confirmPin,
-                                    "compare": true
-                                  };
-                                  Map<String, dynamic> _response = await _postRequest.retreiveWallet(_confirmPin); /* Request Wallet */
-                                  _response.addAll(popData);
-                                  Navigator.pop(
-                                      context); /* Close Cicular Loading */
-                                  Navigator.pop(context,
-                                      _response); /* Close Dialog And Push Back Data */
-                                } else if (_confirmPin != widget._pin) {
-                                  /* If PIN Not Equal Confirm PIN */
-                                  Navigator.pop(context);
-                                  popData = {
-                                    "widget": "confirmPin",
-                                    "compare": false
-                                  };
-                                  Navigator.pop(context, popData);
-                                }
-                              } on SocketException catch (e) {
-                                await Future.delayed(
-                                    Duration(milliseconds: 300), () {
-                                  setState(() {});
-                                });
-                                Navigator.pop(context);
-                                AppServices.mySnackBar(_globalKey, AppText.contentConnection);
-                              } catch (e) {}
-                            },
+                      ? null
+                      : () async {
+                        /* Loading */
+                        dialogLoading(context);
+                        try {
+                          /* If PIN Equal Confirm PIN */
+                          if (_confirmPin == widget._pin) {
+                            popData = {
+                              "widget": "confirmPin",
+                              "confirm_pin": _confirmPin,
+                              "compare": true
+                            };
+                            Map<String, dynamic> _response = await _postRequest.retreiveWallet(_confirmPin); /* Request Wallet */
+                            print(_response);
+                            _response.addAll(popData);
+                            /* Close Cicular Loading */
+                            Navigator.pop(context);
+                            /* Close Dialog And Push Back Data */
+                            Navigator.pop(context, _response);
+                          } else if (_confirmPin != widget._pin) {
+                            /* If PIN Not Equal Confirm PIN */
+                            Navigator.pop(context);
+                            popData = {
+                              "widget": "confirmPin",
+                              "compare": false
+                            };
+                            Navigator.pop(context, popData);
+                          }
+                        } on SocketException catch (e) {
+                          await Future.delayed(
+                              Duration(milliseconds: 300), () {
+                            setState(() {});
+                          });
+                          Navigator.pop(context);
+                          AppServices.mySnackBar(_globalKey, AppText.contentConnection);
+                        } catch (e) {}
+                      },
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10.0),
                       child: RaisedButton(
-                          child: Text('Close',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
+                        child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }
+                      ),
                     )
                   ],
                 )

@@ -26,6 +26,7 @@ class WelcomeState extends State<Welcome> {
   }
 
   void tokenExpireChecker(BuildContext context) async { /* Check For Previous Login */
+    print(status);
     if (status != null){
       dialogLoading(context);
       Timer(Duration(seconds: 1), () async {
@@ -102,7 +103,7 @@ class WelcomeState extends State<Welcome> {
   }
 
   void navigatePage(BuildContext context) {/* Navigate Login Screen */
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }
 
   Widget build(BuildContext context) {

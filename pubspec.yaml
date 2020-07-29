@@ -108,25 +108,10 @@ flutter:
   #  - images/a_dot_ham.jpeg
 
   assets:
-    - assets/images/abstract_logo_vector.png
-    - assets/images/avatar.png
-    - assets/images/zeetomic-logo-footer.png
-    - assets/images/gallery.png
-    - assets/images/zeetomic-logo-header.png
-    - assets/images/zee_for_qr.png
-    - assets/images/zeelogo.png
-    - assets/images/earthicon.png
-    - assets/images/front_picture.png
-    - assets/images/selfie.png
-    - assets/images/zeeicon.png
-    - assets/images/zeeicon_button.png
-    - assets/images/message.png
-    - assets/images/selendra.png
+    - assets/images/
 
     # Animation Flare
-    - assets/animation/check.flr
-    - assets/animation/fabs.flr
-    - assets/animation/splash_screen.flr
+    - assets/animation/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

@@ -2,7 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 Widget paddingScreenWidget(BuildContext context, Widget child) {
   return Container( /* Create Whole Screen Background Color */
-    decoration: scaffoldBGColor(AppConfig.darkBlue75, AppConfig.darkBlue75),
+    color: getHexaColor(AppConfig.darkBlue75),
     // scaffoldBGColor("#344051", "#222834"),
     constraints: BoxConstraints( /* Make Height And Widget To Fit Screen */
       maxHeight: MediaQuery.of(context).size.height,

@@ -5,12 +5,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error, " accessed before the binding was initialized " */
 
   // debugPaintSizeEnabled = true; // Enable Debug Paint
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]); // Keep Screen Portrait
+
   FlutterError.onError = (FlutterErrorDetails details) {
     /* Catch Error During Callback */
     FlutterError.dumpErrorToConsole(details);
     if (kReleaseMode) exit(1);
   };
+
   runApp(
     App()
   // DevicePreview(

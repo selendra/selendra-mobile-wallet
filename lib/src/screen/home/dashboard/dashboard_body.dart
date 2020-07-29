@@ -81,7 +81,7 @@ Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, Mode
                     margin: EdgeInsets.only(top: 19.42),
                     child: Text(
                       // "The Platform for the Issuance and Management of Digital Asset",
-                      "\$426.75",
+                      "\$${_modelDashboard.total}",
                       style: TextStyle(
                         fontSize: 20.0,
                       ),

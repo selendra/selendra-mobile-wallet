@@ -220,7 +220,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                   child: Row(
                     children: [
                       Container(
-                        width: 30.0, height: 30.0,
+                        width: 35.0, height: 35.0,
                         decoration: BoxDecoration(
                           color: Colors.black26,
                           border: Border.all(width: 1, color: Colors.transparent),
@@ -298,15 +298,18 @@ Widget buildRowList(List<dynamic> portfolioData){
 Widget portFolioItemRow(List<dynamic> portfolioData, int index){
   return rowDecorationStyle(
     child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         /* Asset Icons */
         Container(
           margin: EdgeInsets.only(right: 9.5),
-          width: 30.0,
-          height: 30.0,
+          width: 35.0,
+          height: 35.0,
           child: CircleAvatar(
-            backgroundImage: AssetImage(AppConfig.logoPortfolio,)
+            backgroundColor: Colors.black26,
+            backgroundImage: AssetImage(
+              !portfolioData[index].containsKey("asset_code") ? AppConfig.logoPortfolio : "assets/images/stellar_xlm_logo.png",
+            ),
+            foregroundColor: Colors.white,
           ),
         ),
         DbdStyle.textStylePortfolio(
@@ -363,117 +366,131 @@ Widget bottomAppBar(
       notchMargin: 10.0,
       shape: CircularNotchedRectangle(),
       child: Container(
-        height: 83.0,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
+        height: 63.0,
+        child: 
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            // Container(
+            //   margin: EdgeInsets.only(left: 36.0),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: <Widget>[
+            //       // Stack(
+            //       //   children: [
+            //       //     fabsButton(
+            //       //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+            //       //       icon: Icons.camera_alt,
+            //       //       duration: Duration(microseconds: 400),
+            //       //       visible: _modelDashboard.visible,
+            //       //       radien: 273,
+            //       //       distance: 140,
+            //       //       onPressed: () {
+            //       //         print("1");
+            //       //         // TrxOption.scanQR(context, _modelDashboard.portfolioList, resetDbdState);
+            //       //       }
+            //       //     ),
+            //       //     fabsButton(
+            //       //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+            //       //       icon: Icons.camera_alt,
+            //       //       duration: Duration(microseconds: 400),
+            //       //       visible: _modelDashboard.visible,
+            //       //       radien: 274.5,
+            //       //       distance: 100,
+            //       //       onPressed: (){
+            //       //         print(2);
+            //       //         // TrxOption.navigateFillAddress(context, _modelDashboard.portfolioList, resetDbdState);
+            //       //       },
+            //       //     ),
+            //       //     fabsButton(
+            //       //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
+            //       //       icon: Icons.camera_alt,
+            //       //       duration: Duration(microseconds: 300),
+            //       //       visible: _modelDashboard.visible,
+            //       //       radien: 280,
+            //       //       distance: 60,
+            //       //       onPressed: (){
+            //       //         print("3");
+            //       //         // TrxOption.selectContact(
+            //       //         //   context: context, 
+            //       //         //   postRequest: postRequest, 
+            //       //         //   listPortfolio: _modelDashboard.portfolioList,
+            //       //         //   resetDbdState: resetDbdState
+            //       //         // );
+            //       //       }
+            //       //     ),
+            //       //     Container(
+            //       //       width: 70.0,
+            //       //       child: IconButton(
+            //       //         padding: EdgeInsets.all(0),
+            //       //         color: Colors.white,
+            //       //         iconSize: 30.0,
+            //       //         icon: Icon(
+            //       //           OMIcons.arrowUpward,
+            //       //           color: Colors.white,
+            //       //         ),
+            //       //         onPressed: (){
+            //       //           if (_modelDashboard.animationController.isCompleted){
+            //       //             _modelDashboard.animationController.reverse();
+            //       //           } else {
+            //       //             _modelDashboard.animationController.forward();
+            //       //           }
+            //       //           opacityController(_modelDashboard.visible);
+            //       //         }
+            //       //         // _scanQR == null
+            //       //         // ? null
+            //       //         // : () async {
+            //       //         //   await _scanQR();
+            //       //         //   // await _scanQR(context, _modelDashboard, resetDbdState);
+            //       //         // }
+            //       //       ),
+            //       //     )
+            //       //   ]
+            //       // ),
+            //       Container(
+            //         width: 70.0,
+            //         child: IconButton(
+            //           padding: EdgeInsets.all(0),
+            //           color: Colors.white,
+            //           iconSize: 30.0,
+            //           icon: FaIcon(FontAwesomeIcons.telegramPlane),
+            //           // Icon(
+            //           //   ,
+            //           //   color: Colors.white,
+            //           // ),
+            //           onPressed: () async {
+            //             Navigator.push(
+            //               context, 
+            //               MaterialPageRoute(builder: (context) => SendWalletOption(_modelDashboard.portfolioList, resetDbdState))
+            //             );
+            //           }
+            //         ),
+            //       ),
+            //       // Text("Send Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
+            //     ],
+            //   ),
+            // ),
             Container(
+              alignment: Alignment.center,
               margin: EdgeInsets.only(left: 36.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  // Stack(
-                  //   children: [
-                  //     fabsButton(
-                  //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                  //       icon: Icons.camera_alt,
-                  //       duration: Duration(microseconds: 400),
-                  //       visible: _modelDashboard.visible,
-                  //       radien: 273,
-                  //       distance: 140,
-                  //       onPressed: () {
-                  //         print("1");
-                  //         // TrxOption.scanQR(context, _modelDashboard.portfolioList, resetDbdState);
-                  //       }
-                  //     ),
-                  //     fabsButton(
-                  //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                  //       icon: Icons.camera_alt,
-                  //       duration: Duration(microseconds: 400),
-                  //       visible: _modelDashboard.visible,
-                  //       radien: 274.5,
-                  //       distance: 100,
-                  //       onPressed: (){
-                  //         print(2);
-                  //         // TrxOption.navigateFillAddress(context, _modelDashboard.portfolioList, resetDbdState);
-                  //       },
-                  //     ),
-                  //     fabsButton(
-                  //       degOneTranslationAnimation: _modelDashboard.degOneTranslationAnimation,
-                  //       icon: Icons.camera_alt,
-                  //       duration: Duration(microseconds: 300),
-                  //       visible: _modelDashboard.visible,
-                  //       radien: 280,
-                  //       distance: 60,
-                  //       onPressed: (){
-                  //         print("3");
-                  //         // TrxOption.selectContact(
-                  //         //   context: context, 
-                  //         //   postRequest: postRequest, 
-                  //         //   listPortfolio: _modelDashboard.portfolioList,
-                  //         //   resetDbdState: resetDbdState
-                  //         // );
-                  //       }
-                  //     ),
-                  //     Container(
-                  //       width: 70.0,
-                  //       child: IconButton(
-                  //         padding: EdgeInsets.all(0),
-                  //         color: Colors.white,
-                  //         iconSize: 30.0,
-                  //         icon: Icon(
-                  //           OMIcons.arrowUpward,
-                  //           color: Colors.white,
-                  //         ),
-                  //         onPressed: (){
-                  //           if (_modelDashboard.animationController.isCompleted){
-                  //             _modelDashboard.animationController.reverse();
-                  //           } else {
-                  //             _modelDashboard.animationController.forward();
-                  //           }
-                  //           opacityController(_modelDashboard.visible);
-                  //         }
-                  //         // _scanQR == null
-                  //         // ? null
-                  //         // : () async {
-                  //         //   await _scanQR();
-                  //         //   // await _scanQR(context, _modelDashboard, resetDbdState);
-                  //         // }
-                  //       ),
-                  //     )
-                  //   ]
-                  // ),
-                  Container(
-                    width: 70.0,
-                    child: IconButton(
-                      padding: EdgeInsets.all(0),
-                      color: Colors.white,
-                      iconSize: 30.0,
-                      icon: FaIcon(FontAwesomeIcons.telegramPlane),
-                      // Icon(
-                      //   ,
-                      //   color: Colors.white,
-                      // ),
-                      onPressed: () async {
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context) => SendWalletOption(_modelDashboard.portfolioList, resetDbdState))
-                        );
-                      }
-                    ),
-                  ),
-                  Text("Send Token", style: TextStyle(color: Colors.white, fontSize: 13.0))
-                ],
+              child: IconButton(
+                alignment: Alignment.center,
+                color: Colors.white,
+                icon: FaIcon(FontAwesomeIcons.telegramPlane),
+                onPressed: () async {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => SendWalletOption(_modelDashboard.portfolioList, resetDbdState))
+                  );
+                }
               ),
             ),
             Container(
+              alignment: Alignment.center,
               margin: EdgeInsets.only(right: 36.0),
-              width: 70.0,
               child: IconButton(
                 padding: EdgeInsets.all(0),
                 color: Colors.white,
-                iconSize: 30.0,
                 icon: FaIcon(FontAwesomeIcons.qrcode),
                 onPressed: () => _toReceiveToken(context)
               ),

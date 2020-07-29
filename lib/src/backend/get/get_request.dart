@@ -3,65 +3,69 @@ import 'package:http/http.dart' as _http;
 
 class GetRequest{
 
-  Backend _backendComponent = Backend();
+  AppApi _appApi = AppApi();
+
+  Backend _backend = Backend();
 
   Future<Map<String, dynamic>> getUserProfile() async {
     /* Get User Profile */
-    _backendComponent.token = await Provider.fetchToken();
-    if (_backendComponent.token != null) {
-      _backendComponent.response = await _http.get("${AppConfig.url}/userprofile",
-        headers: _backendComponent.conceteHeader("authorization", "Bearer ${_backendComponent.token['token']}")
+    _backend.token = await Provider.fetchToken();
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${AppConfig.url}/userprofile",
+        headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}")
       );
-      return json.decode(_backendComponent.response.body);
+      return json.decode(_backend.response.body);
     }
     return null;
   }
 
   Future<int> checkExpiredToken() async { /* Expired Token In Welcome Screen */
-    _backendComponent.token = await Provider.fetchToken();
-    if (_backendComponent.token != null) {
-      _backendComponent.response = await _http.get("${AppConfig.url}/userprofile", headers: _backendComponent.conceteHeader("authorization", "Bearer ${_backendComponent.token['token']}"));
-      return _backendComponent.response.statusCode;
+    _backend.token = await Provider.fetchToken();
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${AppConfig.url}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return _backend.response.statusCode;
     }
     return null;
   }
 
   Future trxUserHistory() async {
     /* User History */
-    _backendComponent.token = await Provider.fetchToken();
-    if (_backendComponent.token != null) {
-      _backendComponent.response = await _http.get("${AppConfig.url}/trx-history",
-          headers: _backendComponent.conceteHeader("authorization", "Bearer ${_backendComponent.token['token']}"));
-      return json.decode(_backendComponent.response.body);
+    _backend.token = await Provider.fetchToken();
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${AppConfig.url}/trx-history",
+          headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return json.decode(_backend.response.body);
     }
     return null;
   }
 
-  Future getPortfolio() async { /* User Porfolio */
-    _backendComponent.token = await Provider.fetchToken();
-    if (_backendComponent.token != null) {
-      _backendComponent.response = await _http.get("${AppConfig.url}/portforlio", headers: _backendComponent.conceteHeader("authorization", "Bearer ${_backendComponent.token['token']}"));
-      return json.decode(_backendComponent.response.body);
+  Future<_http.Response> getPortfolio() async { /* User Porfolio */
+    _backend.token = await Provider.fetchToken();
+    print(_backend.token);
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${AppConfig.url}/portforlio", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return _backend.response;
     }
+    print(_backend.response);
     return null;
   }
 
   Future getAllBranches() async {
-    _backendComponent.token = await Provider.fetchToken();
-    if (_backendComponent.token != null) {
-      _backendComponent.response = await _http.get("${AppConfig.url}/get-all-branches",
-          headers: _backendComponent.conceteHeader("authorization", "Bearer ${_backendComponent.token['token']}"));
-      return json.decode(_backendComponent.response.body);
+    _backend.token = await Provider.fetchToken();
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${AppConfig.url}/get-all-branches",
+          headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return json.decode(_backend.response.body);
     }
     return null;
   }
 
   Future<dynamic> getReceipt() async {
-    _backendComponent.token = await Provider.fetchToken();
-    if (_backendComponent.token != null) {
-      _backendComponent.response = await _http.get("${AppConfig.url}/get-receipt",
-          headers: _backendComponent.conceteHeader("authorization", "Bearer ${_backendComponent.token['token']}"));
-      return json.decode(_backendComponent.response.body);
+    _backend.token = await Provider.fetchToken();
+    if (_backend.token != null) {
+      _backend.response = await _http.get("${AppConfig.url}/get-receipt",
+          headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return json.decode(_backend.response.body);
     }
     return null;
   }
@@ -69,28 +73,28 @@ class GetRequest{
 
   /* List Branches */
   Future<List<dynamic>> listBranches() async {
-    _backendComponent.token = await Provider.fetchToken();
-    if (_backendComponent.token != null) {
-      _backendComponent.response = await _http.get('${AppConfig.url}/listBranches', headers: {
-        HttpHeaders.authorizationHeader: "Bearer ${_backendComponent.token['TOKEN']}"
+    _backend.token = await Provider.fetchToken();
+    if (_backend.token != null) {
+      _backend.response = await _http.get('${AppConfig.url}/listBranches', headers: {
+        HttpHeaders.authorizationHeader: "Bearer ${_backend.token['TOKEN']}"
       });
-      _backendComponent.data = json.decode(_backendComponent.response.body);
-      return _backendComponent.data['message'];
+      _backend.data = json.decode(_backend.response.body);
+      return _backend.data['message'];
     }
     return null;
   }
 
   // Future<Map<String, dynamic>> submitInvoice(ModelInvoice _model) async { /* Confirm Receipt */
-  //   _backendComponent.token = await Provider.fetchToken();
-  //   if (_backendComponent.token != null){
-  //     _backendComponent.response = await _http.post(
+  //   _backend.token = await Provider.fetchToken();
+  //   if (_backend.token != null){
+  //     _backend.response = await _http.post(
   //       "${AppConfig.url}/confirmreceipt",
   //       headers: {
-  //         HttpHeaders.authorizationHeader: "Bearer ${_backendComponent.token['TOKEN']}"
+  //         HttpHeaders.authorizationHeader: "Bearer ${_backend.token['TOKEN']}"
   //       },
   //       body: _model.bodyReceipt(_model)
   //     );
-  //     return json.decode(_backendComponent.response.body);
+  //     return json.decode(_backend.response.body);
   //   }
   //   return null;
   // }

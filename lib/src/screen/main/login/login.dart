@@ -126,13 +126,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     var response;
     try {
       if (_modelLogin.label == "email") {
-        response = await _modelLogin.bloc.loginMethod(
-          context,
-          _modelLogin.controlEmails.text,
-          _modelLogin.controlPasswords.text,
-          "/loginbyemail",
-          "email"
-        );
+        await loginByEmail();
       } else {
         loginByPhone();
       }
@@ -144,17 +138,17 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
       AppServices.mySnackBar(_modelLogin.globalKey, AppText.contentConnection);
     } catch (e) {}
 
-    if (response == true) {
-      // AppServices.appLifeCycle(timer);
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => Dashboard()),
-        ModalRoute.withName('/')
-      );
-    }
+    // if (response == true) {
+    //   // AppServices.appLifeCycle(timer);
+    //   Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => Dashboard()),
+    //     ModalRoute.withName('/')
+    //   );
+    // }
   }
   
-  void loginByPhone() async {
+  Future<void> loginByPhone() async {
 
     _backend.response = await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text);
 
@@ -171,14 +165,52 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
           _backend.decode.addAll({
             "isLoggedIn": true
           });
-          await StorageServices.setData(_backend.data, 'user_token');
-          Navigator.push(
+          await StorageServices.setData(_backend.decode, 'user_token');
+        
+          Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => Dashboard())
+            MaterialPageRoute(builder: (context) => Dashboard()),
+            ModalRoute.withName('/')
           );
         } else { 
           // If Incorrect Email
-          await dialog( context, textAlignCenter(text: _backend.data["message"]), textMessage());
+          await dialog( context, textAlignCenter(text: _backend.decode["message"]), textMessage());
+        }
+      }
+    } else {
+      await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
+    }
+  }
+
+  Future<void> loginByEmail() async {
+
+    _backend.response = await _postRequest.loginByEmail(_modelLogin.controlEmails.text, _modelLogin.controlPasswords.text);
+
+    _backend.decode = json.decode(_backend.response.body);
+
+    if (_backend.response.statusCode != 502) {
+      // Close Loading
+      Navigator.pop(context);
+      if (_backend.decode.containsKey("error")) {
+        await dialog( context, textAlignCenter(text: _backend.decode['error']["message"]), textMessage());
+      } else { 
+        // If Successfully
+        if (_backend.decode.containsKey("token")) {
+          print(_backend.decode['token']);
+          _backend.decode.addAll({
+            "isLoggedIn": true
+          });
+          await StorageServices.setData(_backend.decode, 'user_token');
+          
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Dashboard()),
+            ModalRoute.withName('/')
+          );
+          
+        } else { 
+          // If Incorrect Email
+          await dialog( context, textAlignCenter(text: _backend.decode["message"]), textMessage());
         }
       }
     } else {

@@ -62,7 +62,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
     }
   }
 
-  Future<void> setPinGetWallet(BuildContext context) async { /* Set PIN Dialog */
+  Future<void> createPin(BuildContext context) async { /* Set PIN Dialog */
     _result = await showDialog(
       barrierDismissible: false,
       context: context,
@@ -91,21 +91,22 @@ class DrawerLayoutState extends State<DrawerLayout> {
         );
       }
     );
+    print("My result $_result");
     if (_result != '' && _result != null) { /* From Set PIN Widget */
       if (_result['widget'] == 'Pin'){
         _pin = _result['pin'];
-        setPinGetWallet(context); /* drawerCallBack */
+        createPin(context); /* drawerCallBack */
       } else 
       if (_result['widget'] == 'confirmPin'){ /* From Set Confirm PIN Widget */
         if (_result['compare'] == false) {
           _pin = '';
           error = "PIN does not match"; /* Enable Error Text*/
-          setPinGetWallet(context); /* drawerCallBack */
+          createPin(context); /* drawerCallBack */
         } else if (_result["compare"] == true){
           _confirmPin = _result['confirm_pin'];
           _message = _result;
           await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
-            setPinGetWallet(context); /* drawerCallBack */
+            createPin(context); /* drawerCallBack */
           });
         }
       } else { /* Success Set PIN And Push SnackBar */
@@ -139,7 +140,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
   }
 
   void navigateGetWallet() async { /* User Get Wallet */ 
-    await setPinGetWallet(context); 
+    await createPin(context); 
   }
 
   void navigateChangePIN() { 
@@ -180,11 +181,13 @@ class DrawerLayoutState extends State<DrawerLayout> {
                 dialogLoading(context, content: "Logging out");
                 AppServices.clearStorage();
                 await Future.delayed(Duration(seconds: 1), () {
-                  Navigator.pushAndRemoveUntil(
-                    context, 
-                    transitionRoute(Welcome()),
-                    ModalRoute.withName('/')
-                  );
+                  // Close Button
+                  Navigator.pop(context);
+                  // Close Dialog
+                  Navigator.pop(context);
+                  // Close Drawer
+                  Navigator.pop(context);
+                  widget.drawerCallBack('log_out');
                 });
               },
             )
@@ -235,7 +238,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
                       navigateAcivity, navigateGetWallet, 
                       navigateChangePIN, navigateChangePass,
                       navigateAddAssets, signOut, 
-                      snackBar,  setPinGetWallet, popScreen
+                      snackBar,  createPin, popScreen
                     )
                   ],
                 )

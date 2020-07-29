@@ -50,7 +50,7 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
         alignment: Alignment.center, 
         child: Container( 
           // height: 50.0, 
-          child: widget._message.containsKey('seed') ? textMessage(text: "Zeetomic Wallet") : textMessage(),
+          child: widget._message.containsKey('seed') ? textMessage(text: "SELENDRA Wallet") : textMessage(),
         )
       ),
       content: Column(
@@ -58,22 +58,34 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
         children: <Widget>[
           widget._message['message'][0] == null /* Index 0 Will Be Null If It Contains Key */
           ? checkBoxContent("${widget._message['message']["seed"]}", isCheck, isCopy, userCheckBox) /* Display Private Key */
-          : Text(widget._message['message']) /* Display Message When Index 0 As A String */
+          : Text(widget._message['message'], textAlign: TextAlign.center), /* Display Message When Index 0 As A String */
         ],
       ),
       actions: /* Button */
       widget._message['message'][0] == null /* Index 0 Will Be Null If It Contains Key */
       ? listButton(context, widget._message['message']['seed'],  isCopy, isCheck, userCopyKey) /* Display Multi Button */
       : [
-          CupertinoButton( /* Display Only Close Button */
-          padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
-          child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
-          onPressed: () {
-            Navigator.pop(context, null);
-          },
-        )
+        closeButton(context, widget._message)
       ]
     );
   }
+}
+
+Widget closeButton(BuildContext context, Map<String, dynamic> data){
+  return data.containsKey('code')
+  ? CupertinoButton( /* Display Only Close Button */
+    padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
+    child: Text('Add Phone number', style: TextStyle(fontWeight: FontWeight.bold)),
+    onPressed: (){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddPhone()));
+    },
+  )
+  : CupertinoButton( /* Display Only Close Button */
+    padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
+    child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
+    onPressed: (){
+      Navigator.pop(context, null);
+    },
+  );
 }
 

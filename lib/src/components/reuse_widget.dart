@@ -114,22 +114,22 @@ BoxShadow shadow(Color hexaCode, double blurRadius, double spreadRadius) {
 }
 
 Widget customFlatButton(
-    BuildContext context,
-    String textButton,
-    String widgetName,
-    String buttonColor,
-    FontWeight fontWeight,
-    double fontSize,
-    EdgeInsetsGeometry edgeMargin,
-    EdgeInsetsGeometry edgePadding,
-    BoxShadow boxShadow,
-    Function action) {
+  BuildContext context,
+  String textButton,
+  String widgetName,
+  String buttonColor,
+  FontWeight fontWeight,
+  double fontSize,
+  EdgeInsetsGeometry edgeMargin,
+  EdgeInsetsGeometry edgePadding,
+  BoxShadow boxShadow,
+  Function action
+){
   return Container(
     margin: edgeMargin,
     width: double.infinity,
     height: 50.0,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(size5), boxShadow: [boxShadow]),
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(size5), boxShadow: [boxShadow]),
     child: FlatButton(
       color: getHexaColor(buttonColor),
       disabledTextColor: Colors.black54,
@@ -140,14 +140,11 @@ Widget customFlatButton(
         textButton,
         style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
       ),
-      shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
-      onPressed: action == null
-        ? null
-        : () {
-          action(context);
-        }
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
+      onPressed: (){
+        action(context);
+      }
+    ),
   );
 }
 
@@ -444,7 +441,7 @@ Widget qrCodeGenerator(String _walletCode, String logoName, GlobalKey _keyQrShar
           child: new QrImage(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            embeddedImage: AssetImage('$logoName'),
+            // embeddedImage: AssetImage('$logoName'),
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(40, 40),
             ),

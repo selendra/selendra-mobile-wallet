@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/model/portfolio.dart';
 
 class Dashboard extends StatefulWidget {
   State<StatefulWidget> createState() {
@@ -16,9 +17,11 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   GetRequest _getRequest = GetRequest();
 
+  Backend _backend = Backend();
+
   PackageInfo _packageInfo;
 
-  FlareControls _flareControls = FlareControls();
+  // FlareControls _flareControls = FlareControls();
 
   String action = "no_action";
 
@@ -26,13 +29,14 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   initState() { /* Initialize State */
     _modelDashboard.result = {};
     _modelDashboard.scaffoldKey = GlobalKey<ScaffoldState>();
+    _modelDashboard.total = 0;
     _modelDashboard.circularChart = [
       CircularSegmentEntry(_modelDashboard.remainDataChart, getHexaColor("#4B525E"))
     ];
     AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
     _modelDashboard.userData = {};
-
-    getUserData(); /* User Profile */
+    /* User Profile */
+    getUserData(); 
     fetchPortfolio();
     triggerDeviceInfo();
     if (Platform.isAndroid) appPermission();
@@ -102,45 +106,37 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     if (_modelDashboard.result.containsValue("dialogPrivateKey")){
       _modelDashboard.result = {}; /* Reset Result Data To Default */
     } else { /* Initstate & Pull Refresh To Get Portfolio */
-      await _getRequest.getPortfolio().then((_response) async { /* Get Response Data */
-        print(_response);
-        _modelDashboard.portFolioResponse = _response;
-        if (_response != null) {
-          if ((_response.runtimeType.toString()) != "List<dynamic>" && _response.runtimeType.toString() != "_GrowableList<dynamic>") {
-            /* If Response DataType Not List<dynamic> */
-            if (_response.containsKey("error")) {
-              await dialog(
-                context, 
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(bottom: 10.0),
-                      child: textAlignCenter(text: "${_response['error']['message']}")
-                    ),
-                  ],
-                ), 
-                warningTitleDialog()
-              );
-              setState(() {
-                _modelDashboard.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
-              });
-            }
-          } else {
-            setState(() {
-              _modelDashboard.portfolioList = _response;
-            });
-            StorageServices.setData(_modelDashboard.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
-            resetDataPieChart(_modelDashboard.portfolioList); 
-          }
-        } else if (_response == null) {
-          setState(() {
-            _modelDashboard.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
-          });
-        }
-      });
+      /* Get Response Data */
+      _backend.response = await _getRequest.getPortfolio();
+      /* Covert String To Objects */
+      Portfolio.extractData(_backend.response);
+      if (Portfolio.list[0].containsKey('error')){
+        await dialog(
+          context, 
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 10.0),
+                child: textAlignCenter(text: "${Portfolio.list[0]['error']['message']}")
+              ),
+            ],
+          ), 
+          warningTitleDialog()
+        );
+        setState(() {
+          _modelDashboard.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
+        });
+      }  else {
+        setState(() {
+          _modelDashboard.portfolioList = Portfolio.list;
+        });
+        StorageServices.setData(_modelDashboard.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
+        resetDataPieChart(_modelDashboard.portfolioList); 
+      }
     }
   }
+  
 
   /* ------------------------Method------------------------ */
 
@@ -151,7 +147,9 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       _modelDashboard.circularChart.clear(); // Clear Pie Data
 
       for (int i = 0; i < _modelDashboard.portfolioList.length; i++){
-        _modelDashboard.remainDataChart -= json.decode(_modelDashboard.portfolioList[i]['balance']); //Decode Data And Subtract
+        // Add Total
+        _modelDashboard.total += json.decode(_modelDashboard.portfolioList[i]['balance']);
+        
         _modelDashboard.circularChart.add( //Add More Data Follow Portfolio
           CircularSegmentEntry(
             json.decode(_modelDashboard.portfolioList[i]['balance']),
@@ -159,6 +157,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           )
         );
       }
+      _modelDashboard.remainDataChart -= _modelDashboard.total;
       _modelDashboard.circularChart.add( // Add Remain Empty Data
         CircularSegmentEntry(
           _modelDashboard.remainDataChart,
@@ -175,15 +174,27 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     }
   }
   
-  void drawerCallBack(dynamic result){
-    _modelDashboard.result = result;
-    if (_modelDashboard.result.length != 0) { // If Not Empty Excecute Statement
-      if (
-        _modelDashboard.result.containsValue("dialogPrivateKey") ||
-        _modelDashboard.result.containsValue("addAssetScreen") 
-      ) 
-      fetchPortfolio();
-      getUserData();
+  void menuCallBack(dynamic result){
+
+    if (result != null){
+      if (result != 'log_out'){
+        _modelDashboard.result = result;
+        if (_modelDashboard.result.length != 0) { // If Not Empty Excecute Statement
+          if (
+            _modelDashboard.result.containsValue("dialogPrivateKey") ||
+            _modelDashboard.result.containsValue("addAssetScreen") 
+          ) 
+          fetchPortfolio();
+          getUserData();
+        }
+      }
+      // Log Out To Welcome Screen 
+      else if (result == 'log_out'){
+        Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Welcome()), 
+          // ModalRoute.withName('/')
+        );
+      }
     }
   }
 
@@ -271,7 +282,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         data: Theme.of(context).copyWith(
           canvasColor: Colors.transparent
         ),
-        child: DrawerLayout(_modelDashboard.userData, _packageInfo, drawerCallBack),
+        child: DrawerLayout(_modelDashboard.userData, _packageInfo, menuCallBack),
       ),
       body: scaffoldBGDecoration(
         left: 0.0, right: 0.0,
@@ -288,7 +299,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                     ),
                     Alignment.centerLeft,
                     EdgeInsets.all(0),
-                    (){ // Trigger To Open Drawer
+                    // Trigger To Open Drawer
+                    (){ 
                       _modelDashboard.scaffoldKey.currentState.openDrawer();
                     }
                   ),
@@ -309,7 +321,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 ],
               )
             ),
-            Expanded( /* Body Widget */
+            /* Body Widget */
+            Expanded(
               child: SmartRefresher(
                 physics: BouncingScrollPhysics(),
                 controller: _modelDashboard.refreshController,
@@ -336,19 +349,6 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // SizedBox(
-      //   width: 150.0,
-      //   height: 150.0,
-      //   child: GestureDetector(
-      //     child: CustomAnimation.flareAnimation(_flareControls, "assets/animation/fabs.flr", action),
-      //     onTap: (){
-      //       setState((){
-      //         if (action == "active") action = "deactive";
-      //         else action = "active";
-      //       });
-      //     },
-      //   )
-      // ),
       bottomNavigationBar: bottomAppBar( /* Bottom Navigation Bar */
         context,
         _modelDashboard,

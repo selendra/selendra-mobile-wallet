@@ -8,33 +8,33 @@ class AppConfig {
   /* ------------------- Logo -----------------  */
 
   // Welcome Screen, Login Screen, Sign Up Screen
-  static String logoName = "assets/images/selendra.png";
+  static String logoName = "assets/images/SalendraFV3.png";
 
   // Dashbaord Menu
   static String logoAppBar = "assets/images/zeetomic-logo-header.png";
 
   // Bottom App Bar 
-  static String logoBottomAppBar = "assets/images/selendra.png";
+  static String logoBottomAppBar = "assets/images/SalendraFV3.png";
 
   // QR Embedded
-  static String logoQrEmbedded = "assets/images/selendra.png";
+  static String logoQrEmbedded = "assets/images/selendra_mk_qr.png";
 
   // Portfolio
-  static String logoPortfolio = 'assets/images/selendra.png';
+  static String logoPortfolio = 'assets/images/SalendraFV3.png';
   
   // Transaction History
-  static String logoTrxHistory = 'assets/images/selendra.png';
+  static String logoTrxHistory = 'assets/images/SalendraFV3.png';
 
   /* Splash Screen */
   static String splashLogo = "assets/images/zeetomic-logo-header.png";
   
   /* Transaction Acivtiy */
-  static String logoTrxActivity = 'assets/images/selendra.png';
+  static String logoTrxActivity = 'assets/images/SalendraFV3.png';
 
   /* Zeetomic api user data*/
   // Main Net API
   static final url = "https://testnet-api.zeetomic.com/pub/v1";
 
-  // selendra net API 
-  // https://selendranet-api.zeetomic.com/pub/v1
+  // sld_market net API 
+  // https://sld_marketnet-api.zeetomic.com/pub/v1
 }

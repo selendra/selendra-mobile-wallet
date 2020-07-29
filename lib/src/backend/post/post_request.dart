@@ -23,14 +23,11 @@ class PostRequest {
   /* ------------------User Login-------------- */
 
   Future<http.Response> loginByPhone(String phone, String passwords) async {
-    print(phone);
-    print(passwords);
     _backend.bodyEncode = json.encode({ /* Convert to Json String */
       "phone": "+855$phone",
       "password": passwords
     });
     _backend.response = await http.post('${AppConfig.url}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
-    print(_backend.response.body);
     return _backend.response;
   }
 
@@ -54,9 +51,9 @@ class PostRequest {
     return _backend.response;
   }
 
-  Future<http.Response> registerByEmail(String _email, String passwords) async {
+  Future<http.Response> registerByEmail(String email, String passwords) async {
     _backend.bodyEncode = json.encode(/* Convert to Json Data ( String ) */
-      {"email": _email, "password": passwords}
+      {"email": email, "password": passwords}
     );
     _backend.response = await http.post('${AppConfig.url}/registerbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
@@ -85,6 +82,7 @@ class PostRequest {
   /* Post Get Wallet */
   Future<Map<String, dynamic>> retreiveWallet(String _pins) async {
     _backend.token = await Provider.fetchToken();
+    print(_backend.token);
     _backend.bodyEncode = json.encode({"pin": _pins});
     if (_backend.token != null) {
       _backend.response = await http.post(
