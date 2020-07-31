@@ -44,6 +44,8 @@ class PostRequest {
   /* -----------------User Regiser-------------- */
   
   Future<http.Response> registerByPhone(String _phone, String passwords) async {
+    print(_phone);
+    print(passwords);
     _backend.bodyEncode = json.encode(/* Convert to Json Data ( String ) */
       {"phone": "+855$_phone", "password": passwords}
     );
@@ -191,10 +193,13 @@ class PostRequest {
   // Confirm User Account By Phone Number
   Future<http.Response> confirmAccount(ModelSignUp _model) async {
     print("${_model.countryCode}${_model.controlPhoneNums.text}");
-    print(_model.code);
+    for(int i = 0; i < _model.code.length; i++){
+      _model.verifyCode += _model.code[i];
+    }
+    print("Verify ${_model.verifyCode}");
     _backend.bodyEncode = json.encode({
       "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
-      "verification_code": _model.code
+      "verification_code": _model.verifyCode
     });
     _backend.response = await http.post(
       "${AppConfig.url}/account-confirmation",

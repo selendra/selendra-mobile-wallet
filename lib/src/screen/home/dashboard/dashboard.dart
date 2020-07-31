@@ -97,52 +97,54 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     setState(() {});
   }
 
-  void fetchPortfolio() async { /* Fetch Portofolio */
+  /* Fetch Portofolio */
+  void fetchPortfolio() async { 
     await Future.delayed(Duration(milliseconds: 10),(){
       setState(() {
         _modelDashboard.portfolioList = [];
       });
     });
-    if (_modelDashboard.result.containsValue("dialogPrivateKey")){
-      _modelDashboard.result = {}; /* Reset Result Data To Default */
-    } else { /* Initstate & Pull Refresh To Get Portfolio */
-      /* Get Response Data */
-      _backend.response = await _getRequest.getPortfolio();
-      /* Covert String To Objects */
-      Portfolio.extractData(_backend.response);
-      if (Portfolio.list[0].containsKey('error')){
-        await dialog(
-          context, 
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(bottom: 10.0),
-                child: textAlignCenter(text: "${Portfolio.list[0]['error']['message']}")
-              ),
-            ],
-          ), 
-          warningTitleDialog()
-        );
-        setState(() {
-          _modelDashboard.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
-        });
-      }  else {
-        setState(() {
-          _modelDashboard.portfolioList = Portfolio.list;
-        });
-        StorageServices.setData(_modelDashboard.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
-        resetDataPieChart(_modelDashboard.portfolioList); 
-      }
+    
+    /* Get Response Data */
+    _backend.response = await _getRequest.getPortfolio();
+    print("Portfolio ${_backend.response}");
+    
+    /* Covert String To Objects */
+    Portfolio.extractData(_backend.response);
+
+    if (Portfolio.list[0].containsKey('error')){
+      await dialog(
+        context, 
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(bottom: 10.0),
+              child: textAlignCenter(text: "${Portfolio.list[0]['error']['message']}")
+            ),
+          ],
+        ), 
+        warningTitleDialog()
+      );
+      setState(() {
+        _modelDashboard.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
+      });
+    }  else {
+      setState(() {
+        _modelDashboard.portfolioList = Portfolio.list;
+      });
+      StorageServices.setData(_modelDashboard.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
+      resetDataPieChart(_modelDashboard.portfolioList); 
     }
   }
-  
 
   /* ------------------------Method------------------------ */
 
   void resetDataPieChart(List<dynamic> portfolio){
     
     if (_modelDashboard.portfolioList.length != 0){
+      
+      _modelDashboard.total = 0.0;
 
       _modelDashboard.circularChart.clear(); // Clear Pie Data
 
@@ -177,23 +179,26 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   void menuCallBack(dynamic result){
 
     if (result != null){
-      if (result != 'log_out'){
+      // Log Out
+      if (result == 'log_out'){
+        Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Welcome()), 
+          // ModalRoute.withName('/')
+        );
+      }
+      // If Get Wallet
+      else {
         _modelDashboard.result = result;
         if (_modelDashboard.result.length != 0) { // If Not Empty Excecute Statement
           if (
             _modelDashboard.result.containsValue("dialogPrivateKey") ||
             _modelDashboard.result.containsValue("addAssetScreen") 
-          ) 
-          fetchPortfolio();
+          ) {
+            _modelDashboard.result = {};
+            fetchPortfolio();
+          }
           getUserData();
         }
-      }
-      // Log Out To Welcome Screen 
-      else if (result == 'log_out'){
-        Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Welcome()), 
-          // ModalRoute.withName('/')
-        );
       }
     }
   }
@@ -310,11 +315,15 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Image.asset(
-                          AppConfig.logoAppBar,
-                          height: 25.0,
-                          color: Colors.white,
-                        ),
+                        FittedBox(
+                          fit: BoxFit.contain,
+                          child: Text("SELENDRA", style: TextStyle(fontSize: 18.0),)
+                        )
+                        // Image.asset(
+                        //   AppConfig.logoAppBar,
+                        //   height: 25.0,
+                        //   color: Colors.white,
+                        // ),
                       ],
                     ),
                   ),

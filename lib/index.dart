@@ -82,7 +82,6 @@ export  'package:wallet_apps/src/screen/main/welcome/welcome_body.dart';
 
 export 'package:wallet_apps/src/screen/main/login/login.dart';
 export 'package:wallet_apps/src/screen/main/splash_screen/splash_screen.dart';
-export 'package:wallet_apps/src/screen/main/sign_up/sign_up.dart';
 export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password.dart';
 export 'package:wallet_apps/src/screen/main/login/login_body.dart';
 export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info.dart';
@@ -111,6 +110,7 @@ export 'package:wallet_apps/src/screen/main/sign_up/user_info/user_info.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/user_info/user_info_body.dart';
 
 // Sign Up
+export 'package:wallet_apps/src/screen/main/sign_up/sign_up.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/sign_up_body.dart';
 
 /* Sms Code Verification */

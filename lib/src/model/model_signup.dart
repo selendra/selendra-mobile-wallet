@@ -14,7 +14,7 @@ class ModelSignUp {
   
   bool enable1 = false;
   bool enable2 = false;
-  bool isProgress = false, isLogedin = false, isBoth = false, isNotMatch = false;
+  bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
   bool showPassword1 = false; bool showPassword2 = false;
 
   String responsePass1, responsePass2;
@@ -41,7 +41,8 @@ class ModelSignUp {
   FocusNode nodeResetCode = FocusNode();
 
   /* Account Confirmation */
-  String code = "";
+  List<String> code = [];
+  String verifyCode = '';
   FocusNode nodeSmsCode = FocusNode();
   TextEditingController controlSmsCode = TextEditingController();
   TextEditingController controlResetCode = TextEditingController();

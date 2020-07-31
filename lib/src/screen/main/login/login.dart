@@ -123,12 +123,11 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   // Check Internet Before Validate And Finish Validate
   void submitLogin(BuildContext context) async { 
     dialogLoading(context);
-    var response;
     try {
       if (_modelLogin.label == "email") {
         await loginByEmail();
       } else {
-        loginByPhone();
+        await loginByPhone();
       }
     } on SocketException catch (e) {
       await Future.delayed(Duration(milliseconds: 300), () {

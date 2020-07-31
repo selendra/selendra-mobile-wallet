@@ -32,7 +32,7 @@ class CreatePasswordState extends State<CreatePassword> {
   void dispose() {
     widget._modelSignUp.controlPassword.clear();
     widget._modelSignUp.controlConfirmPassword.clear();
-    widget._modelSignUp.isNotMatch = false;
+    widget._modelSignUp.isMatch = true;
     widget._modelSignUp.enable2 = false;
     widget._modelSignUp.responsePass1 = null;
     widget._modelSignUp.responsePass2 = null;
@@ -47,55 +47,58 @@ class CreatePasswordState extends State<CreatePassword> {
 
   String validatePass1(String value){ /* Validate User Input And Enable Or Disable Button */
     if (widget._modelSignUp.nodePassword.hasFocus){
-      if (widget._modelSignUp.isNotMatch == true){
-        setState(() { /* Disable Not Match Text */
-          widget._modelSignUp.isNotMatch = false;
-        });
-      }
       widget._modelSignUp.responsePass1 = instanceValidate.validatePassword(value);
-      if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
-      else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
+      validateAllField();
     }
     return widget._modelSignUp.responsePass1;
   }
 
   String validatePass2(String value) {
     if (widget._modelSignUp.nodeConfirmPassword.hasFocus){
-      if (widget._modelSignUp.isNotMatch == true){
-        setState(() { /* Disable Not Match Text */
-          widget._modelSignUp.isNotMatch= false;
-        });
-      }
       widget._modelSignUp.responsePass2 = instanceValidate.validatePassword(value);
-      if (widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) enableButton();
-      else if (widget._modelSignUp.enable2 == true) setState(() => widget._modelSignUp.enable2 = false); /* Among Both Field Error Disable Button */
+      validateAllField();
     }
     return widget._modelSignUp.responsePass2;
   }
 
   void validateAllField(){
-    if (widget._modelSignUp.controlConfirmPassword.text != "" &&
-        widget._modelSignUp.controlPassword.text != "") { /* Password != Empty */
-      if (widget._modelSignUp.controlConfirmPassword.text !=
-          widget._modelSignUp.controlPassword.text) { /* If Not Match */
-        setState(() {
-          widget._modelSignUp.isNotMatch = true; /* Pop Not Match Text Below Confrim Password Field */
-        });
+
+    if ( widget._modelSignUp.responsePass1 == null && widget._modelSignUp.responsePass2 == null ) {
+
+      if (widget._modelSignUp.controlConfirmPassword.text == widget._modelSignUp.controlPassword.text) { 
+        // Disable Not Match Text
+        if (widget._modelSignUp.isMatch == false) widget._modelSignUp.isMatch = true;
+        // If Not Match
+        if (widget._modelSignUp.enable2 == false) widget._modelSignUp.enable2 = true;
+      } 
+      else {
+        if (widget._modelSignUp.controlConfirmPassword.text != '' && widget._modelSignUp.controlPassword.text != ''){
+          // Disable Button
+          if (widget._modelSignUp.enable2) widget._modelSignUp.enable2 = false;
+          // Enable Not Match Text
+          if (widget._modelSignUp.isMatch) widget._modelSignUp.isMatch = false;
+        }
       }
+    } else {
+      // Disable Button
+      if (widget._modelSignUp.enable2) widget._modelSignUp.enable2 = false;
+      // Enable Not Match Text
+      if (widget._modelSignUp.isMatch == false) widget._modelSignUp.isMatch = true;
     }
+    setState(() {});
   }
 
-  /* Validate Button */
+  // Validate Button
   void enableButton() {
     if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlConfirmPassword.text != '') setState(() => widget._modelSignUp.enable2 = true);
   }
 
-  /* Send Message After Register */
+  // Send Message After Register
   Future<http.Response> resendOtpCode() async {
     return await _postRequest.resendCode(widget._modelSignUp.controlPhoneNums.text);
   }
 
-  /* Show And Hide Passwords */
+  // Show And Hide Passwords
   void showPassword(bool showPassword){
     if (widget._modelSignUp.nodePassword.hasFocus) {
       setState(() {
@@ -108,7 +111,7 @@ class CreatePasswordState extends State<CreatePassword> {
     } 
   }
 
-  /* Submit From Keyboard */
+  // Submit From Keyboard
   void onSubmit(BuildContext context) {
     if (widget._modelSignUp.nodePassword.hasFocus) {
       FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPassword);
@@ -119,21 +122,21 @@ class CreatePasswordState extends State<CreatePassword> {
 
   /* -------------- Submit --------------- */
 
-  void submitSignUp(BuildContext context) async { /* Navigate To Fill User Info */
-    try{
-      if (widget._modelSignUp.label == "email") { /* Post Register By Email */
-        print("email");
-        registerByEmail();
-      } else { /* Post Register By Phone Number */
-        print("phone");
-        registerByPhoneNumber();
-      }
-    } catch (e){
-      print(e);
+  // Navigate To Fill User Info
+  void submitSignUp(BuildContext context) async { 
+    
+    // Post Register By Email
+    if (widget._modelSignUp.label == "email") { 
+      await registerByEmail();
     }
+    // Post Register By Phone Number
+    else { 
+      await registerByPhoneNumber();
+    }
+    await clearFocusInput();
   }
 
-  void registerByEmail() async {
+  Future<void> registerByEmail() async {
 
     dialogLoading(context);
 
@@ -143,7 +146,7 @@ class CreatePasswordState extends State<CreatePassword> {
   
       _backend.decode = json.decode(_backend.response.body);
 
-      /* Close Loading */
+      // Close Loading
       Navigator.pop(context);
 
       if (_backend.response.statusCode == 200){
@@ -171,29 +174,69 @@ class CreatePasswordState extends State<CreatePassword> {
     }
   }
 
-  void registerByPhoneNumber() async {
-    dialogLoading(context);
-    try{
-      await resendOtpCode().then((value) {
-        _backend.decode = json.decode(value.body);
-        if(value.statusCode == 200){
-          // Close Loading
-          Navigator.pop(context); 
-          Future.delayed(Duration(milliseconds: 100), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SmsCodeVerify(widget._modelSignUp, _backend.decode)
-                // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
-              )
-            );
-          });
-        }
-      });
+  Future<void> registerByPhoneNumber() async {
 
+    dialogLoading(context);
+
+    try{
+      _backend.response = await _postRequest.registerByPhone(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text);
+
+      // Close Loading
+      Navigator.pop(context);
+
+      _backend.decode = json.decode(_backend.response.body);
+
+      if (_backend.response.statusCode == 200){
+        if (_backend.decode['message'] == "Successfully registered!"){
+          await dialog(
+            context,
+            textAlignCenter(text: "${_backend.decode['message']}"),
+            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
+            Icon(
+              Icons.done_outline,
+              color: getHexaColor(AppColors.greenColor),
+            ) 
+          );
+
+          await resendOtpCode().then((value) {
+            _backend.decode = json.decode(value.body);
+            if(value.statusCode == 200){
+              // Close Loading
+              Navigator.pop(context); 
+              Future.delayed(Duration(milliseconds: 100), () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SmsCodeVerify(widget._modelSignUp, _backend.decode)
+                    // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
+                  )
+                );
+              });
+            }
+          });
+        } else {
+          await dialog(
+            context,
+            textAlignCenter(text: _backend.decode['message']),
+            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
+            Text("Message") 
+          );
+        }
+      }
     } catch (e){
-      await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
+      await dialog(context, textAlignCenter(text: _backend.decode.toString()), warningTitleDialog());
     }
+  }
+
+  Future<void> clearFocusInput() async {
+    await Future.delayed(Duration(milliseconds: 100), (){
+      FocusScope.of(context).unfocus();
+    });
+    // widget._modelSignUp.controlConfirmPassword.clear();
+    // widget._modelSignUp.controlPassword.clear();
+    // setState((){
+    //   widget._modelSignUp.enable2 = false;
+    // });
   }
   
   void popScreen() { /* Close Current Screen */

@@ -16,6 +16,8 @@ class SmsCodeVerify extends StatefulWidget{
 
 class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserver {
 
+  List<String> list = ['1', '2', '3', '4', '5'];
+
   PostRequest _postRequest = PostRequest();
 
   SmsCodeModel _smsCodeModel = SmsCodeModel();
@@ -39,18 +41,76 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
   }
   
   void onChanged(String value) async {
-    widget._modelSignUp.code += value;
-    if (_smsCodeModel.node1.hasFocus && _smsCodeModel.controller1.text != "") FocusScope.of(context).requestFocus(_smsCodeModel.node2);
-    else if (_smsCodeModel.node2.hasFocus && _smsCodeModel.controller2.text != "") FocusScope.of(context).requestFocus(_smsCodeModel.node3);
-    else if (_smsCodeModel.node3.hasFocus && _smsCodeModel.controller3.text != "") FocusScope.of(context).requestFocus(_smsCodeModel.node4);
-    else if (_smsCodeModel.node4.hasFocus && _smsCodeModel.controller4.text != "") FocusScope.of(context).requestFocus(_smsCodeModel.node5);
-    else if (_smsCodeModel.node5.hasFocus && _smsCodeModel.controller5.text != "") FocusScope.of(context).requestFocus(_smsCodeModel.node6);
+    print(value);
+    // print(list.length);
+    // print("Number 1\n");
+    // for(int i = 0; i < list.length; i ++){
+    //   print("Index $i ${list[i]}");
+    // }
+    // print('\n');
+    // print(list.length);
+    // print("Number 2");
+    // print('\n');
+    // list.removeAt(1);
+    // for(int i = 0; i < list.length; i ++){
+    //   print("Index $i ${list[i]}");
+    // }
+    // print('\n');
+    // print(list.length);
+    // print("Number 2");
+    // print('\n');
+    // list.insert(1, value);for(int i = 0; i < list.length; i ++){
+    //   print("Index $i ${list[i]}");
+    // }
+    // print(value);
+    if (_smsCodeModel.node1.hasFocus) {
+      if (widget._modelSignUp.code.length > 0) widget._modelSignUp.code.removeAt(0);
+      widget._modelSignUp.code.insert(0, value);
+      // if (widget._modelSignUp.code.length == 0) 
+      if(_smsCodeModel.controller1.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeModel.node2);
+      }
+    }
+    else if (_smsCodeModel.node2.hasFocus) {
+      
+      if (widget._modelSignUp.code.length > 1) widget._modelSignUp.code.removeAt(1);
+      widget._modelSignUp.code.insert(1, value);
+      if (_smsCodeModel.controller2.text != "") {
+        FocusScope.of(context).requestFocus(_smsCodeModel.node3);
+      }
+    }
+    else if (_smsCodeModel.node3.hasFocus) {
+      if (widget._modelSignUp.code.length > 2) widget._modelSignUp.code.removeAt(2);
+      widget._modelSignUp.code.insert(2, value);
+      if(_smsCodeModel.controller3.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeModel.node4);
+      }
+    }
+    else if (_smsCodeModel.node4.hasFocus) {
+      if (widget._modelSignUp.code.length > 3) widget._modelSignUp.code.removeAt(3);
+      widget._modelSignUp.code.insert(3, value);
+      if(_smsCodeModel.controller4.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeModel.node5);
+      }
+    }
+    else if (_smsCodeModel.node5.hasFocus) {
+      if (widget._modelSignUp.code.length > 4) widget._modelSignUp.code.removeAt(4);
+      widget._modelSignUp.code.insert(4, value);
+      if (_smsCodeModel.controller5.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeModel.node6);
+      }
+    }
     else if (_smsCodeModel.node6.hasFocus) {
+      if (widget._modelSignUp.code.length > 5) widget._modelSignUp.code.removeAt(5);
+      widget._modelSignUp.code.insert(5, value);
       await Future.delayed(Duration(milliseconds: 100), (){
         FocusScope.of(context).unfocus();
       });
 
-      sumbitOtpCode();
+      submitOtpCode();
+    }
+    for(int i = 0; i < widget._modelSignUp.code.length; i ++){
+      print("Index $i ${widget._modelSignUp.code[i]}");
     }
   }
 
@@ -105,21 +165,10 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
   }
 
   void onSubmit(BuildContext context) async{  /* Validator User Login After Check Internet */
-    // Map<String, dynamic> response = await _postRequest.resendCode();
-    // dialogLoading(context); /* Show Loading Process */
-    // await confirmAccount(widget._modelSignUp).then((_response) async { /* Response Result */
-    //   Navigator.pop(context); /* Close Loading Process */
-    //   if (!_response.containsKey("error")) { /* Successfully Confirm Account */ 
-    //     await dialog(context, Text("${_response['message']}"), Icon(Icons.done_outline, color: getHexaColor(blueColor),)); /* Pop Successfully To Dialog */
-    //     Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfo())); /* Navigate To User Information */ 
-    //   } else { /* Not Successfully Or Already Confirm Account */
-    //     await dialog(context, Text("${_response['error']['message']}"), Icon(Icons.warning, color: Colors.yellow)); /* Pop Error To Dialog */
-    //   }
-    // }).catchError((onError){
-    // });
+    if (widget._modelSignUp.enable2) submitOtpCode();
   }
 
-  void sumbitOtpCode() async {   
+  void submitOtpCode() async {   
     dialogLoading(context);
     http.Response message = await _postRequest.confirmAccount(widget._modelSignUp);
     // Decode Data From String to Object
@@ -141,6 +190,7 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
       }
       resetAllField();
     }
+    widget._modelSignUp.code = [];
   }
 
   void resetAllField(){

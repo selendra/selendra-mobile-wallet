@@ -73,12 +73,24 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
 
 Widget closeButton(BuildContext context, Map<String, dynamic> data){
   return data.containsKey('code')
-  ? CupertinoButton( /* Display Only Close Button */
-    padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
-    child: Text('Add Phone number', style: TextStyle(fontWeight: FontWeight.bold)),
-    onPressed: (){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddPhone()));
-    },
+  ? Row(
+    children: <Widget>[
+      CupertinoButton( /* Display Only Close Button */
+        padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
+        child: Text('Add phone', style: TextStyle(fontWeight: FontWeight.bold)),
+        onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddPhone()));
+        },
+      ),
+      /*Close Button */
+      CupertinoButton(
+        padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
+        child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
+        onPressed: (){
+          Navigator.pop(context);
+        },
+      )
+    ],
   )
   : CupertinoButton( /* Display Only Close Button */
     padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),

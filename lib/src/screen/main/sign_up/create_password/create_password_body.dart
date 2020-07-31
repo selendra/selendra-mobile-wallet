@@ -77,12 +77,12 @@ Widget createPasswordBody(
                       action: onSubmit
                     ),
                   ),
-                  modelSignUp.isNotMatch == false
+                  modelSignUp.isMatch == true
                   ? Container()
                   : FittedBox(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Password and confirm password does not match",
+                      "Password does not match",
                       style: TextStyle(fontSize: 18.0, color: Colors.red),
                     ),
                   ),
@@ -101,7 +101,7 @@ Widget createPasswordBody(
                       spreadRadius: 2.0, 
                       offset: Offset(2.0, 5.0),
                     ),
-                    submitRegister
+                    modelSignUp.enable2 ? submitRegister : null
                   )
                 ],
               ),
