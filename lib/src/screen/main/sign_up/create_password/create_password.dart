@@ -164,7 +164,6 @@ class CreatePasswordState extends State<CreatePassword> {
           await dialog(
             context,
             textAlignCenter(text: _backend.decode['message']),
-            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
             Text("Message") 
           );
         }
@@ -175,7 +174,6 @@ class CreatePasswordState extends State<CreatePassword> {
   }
 
   Future<void> registerByPhoneNumber() async {
-
     dialogLoading(context);
 
     try{
@@ -191,7 +189,6 @@ class CreatePasswordState extends State<CreatePassword> {
           await dialog(
             context,
             textAlignCenter(text: "${_backend.decode['message']}"),
-            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
             Icon(
               Icons.done_outline,
               color: getHexaColor(AppColors.greenColor),
@@ -207,7 +204,7 @@ class CreatePasswordState extends State<CreatePassword> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SmsCodeVerify(widget._modelSignUp, _backend.decode)
+                    builder: (context) => SmsCodeVerify(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text, _backend.decode)
                     // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
                   )
                 );
@@ -218,7 +215,6 @@ class CreatePasswordState extends State<CreatePassword> {
           await dialog(
             context,
             textAlignCenter(text: _backend.decode['message']),
-            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
             Text("Message") 
           );
         }

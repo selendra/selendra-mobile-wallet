@@ -33,23 +33,26 @@ Widget addPhoneBody(
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 12.0),
-              child: inputField( /* Asset Code Field */
-                context: context, 
-                labelText: "Add Phone", 
-                widgetName: "addPhoneScreen",
-                prefixText: "${phoneModel.countryCode} ",
-                textInputFormatter: [
-                  LengthLimitingTextInputFormatter(9),
-                  WhitelistingTextInputFormatter.digitsOnly
-                ],
-                inputType: TextInputType.phone,
-                inputAction: TextInputAction.next, 
-                controller: phoneModel.phone, 
-                focusNode: phoneModel.phoneNode, 
-                validateField: validatePhone, 
-                onChanged: onChanged, 
-                action: onSubmit
-              ),
+              child: Form(
+                key: phoneModel.formKey,
+                child: inputField( /* Asset Code Field */
+                  context: context, 
+                  labelText: "Add Phone", 
+                  widgetName: "addPhoneScreen",
+                  prefixText: "${phoneModel.countryCode} ",
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(9),
+                    WhitelistingTextInputFormatter.digitsOnly
+                  ],
+                  inputType: TextInputType.phone,
+                  inputAction: TextInputAction.next, 
+                  controller: phoneModel.phone, 
+                  focusNode: phoneModel.phoneNode, 
+                  validateField: validatePhone, 
+                  onChanged: onChanged, 
+                  action: onSubmit
+                ),
+              )
             ),
             customFlatButton( /* Add Asset Button */
               context, 

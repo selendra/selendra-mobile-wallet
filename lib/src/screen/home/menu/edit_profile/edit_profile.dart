@@ -124,7 +124,7 @@ class EditProfileState extends State<EditProfile> {
     /* Show Loading Process */
     dialogLoading(context);
     /* Post Request Submit Profile */
-    _backend.response = await _postRequest.uploadProfile(_modelUserInfo, '/userprofile'); 
+    _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
     /* Close Loading Procxess */
     Navigator.pop(context);
     _backend.decode = json.decode(_backend.response.body);

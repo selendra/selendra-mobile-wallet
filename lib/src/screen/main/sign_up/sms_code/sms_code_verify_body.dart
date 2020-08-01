@@ -8,7 +8,6 @@ Widget smsCodeVerifyBody( /* Body widget */
   BuildContext context,
   int time,
   SmsCodeModel _smsCodeModel,
-  ModelSignUp _modelSignUp,
   Map<String, dynamic> message,
   Function onChanged,
   Function onSubmit,
@@ -115,32 +114,32 @@ Widget resendBtn({int time, SmsCodeModel smsCodeModel, Function resetTimer, Func
   );
 }
 
-Widget userLoginField( /* Column of User Login */
-  BuildContext context, 
-  ModelSignUp _modelSignUp,
-  Function onChanged, Function onSubmit
-  ) {
-  return Column(
-    children: <Widget>[
-      Container( /* Password input */
-        margin: EdgeInsets.only(bottom: 25.0),
-        child: inputField(
-          context: context, 
-          labelText: "Enter SMS code", 
-          widgetName: "smsCodeScreen", 
-          obcureText: true, 
-          textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-          inputAction: TextInputAction.done,
-          controller: _modelSignUp.controlSmsCode,
-          focusNode: _modelSignUp.nodeSmsCode, 
-          validateField: instanceValidate.validateSms, 
-          onChanged: onChanged, 
-          action: onSubmit
-        )
-      ),
-    ],
-  );
-}
+// Widget userLoginField( /* Column of User Login */
+//   BuildContext context, 
+//   ModelSignUp _modelSignUp,
+//   Function onChanged, Function onSubmit
+//   ) {
+//   return Column(
+//     children: <Widget>[
+//       Container( /* Password input */
+//         margin: EdgeInsets.only(bottom: 25.0),
+//         child: inputField(
+//           context: context, 
+//           labelText: "Enter SMS code", 
+//           widgetName: "smsCodeScreen", 
+//           obcureText: true, 
+//           textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+//           inputAction: TextInputAction.done,
+//           controller: _modelSignUp.controlSmsCode,
+//           focusNode: _modelSignUp.nodeSmsCode, 
+//           validateField: instanceValidate.validateSms, 
+//           onChanged: onChanged, 
+//           action: onSubmit
+//         )
+//       ),
+//     ],
+//   );
+// }
 
 Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNode firstNode, FocusNode secondNode, Function clearAllInput, Function disableLoginButton, Function onSubmit) {
   return StreamBuilder(

@@ -4,7 +4,14 @@ class SmsCodeModel{
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  bool showResendBtn = false;
+  /* Account Confirmation */
+  List<String> code = [];
+  
+  String verifyCode = '';
+
+  bool showResendBtn = false, enable = false;
+
+  String countryCode = '+855';
 
   FocusNode node1 = FocusNode();
   FocusNode node2 = FocusNode();

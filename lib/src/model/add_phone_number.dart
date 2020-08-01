@@ -6,6 +6,8 @@ class AddPhoneModel{
 
   String countryCode = "+855";
 
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   String validateResponse;
 
   TextEditingController phone = TextEditingController();

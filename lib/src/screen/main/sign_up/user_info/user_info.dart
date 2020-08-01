@@ -2,9 +2,9 @@ import 'package:wallet_apps/index.dart';
 
 class UserInfo extends StatefulWidget {
 
-  final ModelSignUp _modelSignUp;
+  final String by; final String userAccount; final String passwords;
 
-  UserInfo(this._modelSignUp);
+  UserInfo(this.by, this.userAccount, this.passwords);
 
   @override
   State<StatefulWidget> createState() {
@@ -23,7 +23,8 @@ class UserInfoState extends State<UserInfo> {
   @override
   void initState() {
     AppServices.noInternetConnection(_modelUserInfo.globalKey);
-    getToken();
+    /* If Registering Account */
+    if (widget.passwords != null) getToken();
     super.initState();
   }
   
@@ -43,10 +44,10 @@ class UserInfoState extends State<UserInfo> {
 
   /* Get Token To Make Authentication With Add User Info */
   void getToken() async {
-    if(widget._modelSignUp.label == "email"){
-      _backend.response = await _postRequest.loginByEmail(widget._modelSignUp.controlEmails.text, widget._modelSignUp.controlPassword.text);
+    if(widget.by == "email"){
+      _backend.response = await _postRequest.loginByEmail(widget.userAccount, widget.passwords);
     } else {
-      _backend.response = await _postRequest.loginByPhone(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlPassword.text);
+      _backend.response = await _postRequest.loginByPhone(widget.userAccount, widget.passwords);
     }
     print(_backend.response.body);
     _backend.decode = json.decode(_backend.response.body);
@@ -127,29 +128,33 @@ class UserInfoState extends State<UserInfo> {
 
   /* Submit Profile User */
   void submitProfile(BuildContext context) async {
-    /* Show Loading Process */
-    dialogLoading(context); 
-    _backend.response = await _postRequest.uploadProfile(_modelUserInfo, '/userprofile'); /* Post Request Submit Profile */
-    /* Convert String To Object */
-    _backend.decode = json.decode(_backend.response.body);
-    /* Close Loading Process */
-    Navigator.pop(context);
-    if (_backend.response != null && _backend.decode['token'] == null) {
-      /* Set Profile Success */
-      await dialog(context, Text("${_backend.decode['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));
-      /* Clear Storage */
-      AppServices.clearStorage();
-      /* Remove All Screen And Push Login Screen */
-      await Future.delayed(Duration(microseconds: 500), () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => Login()),
-          ModalRoute.withName('/')
-        );
-      });
-    } else {
-      await dialog(context, Text("${_backend.decode}"), Text("Message"));
+    try{
+      /* Show Loading Process */
+      dialogLoading(context); 
+      _backend.response = await _postRequest.uploadProfile(_modelUserInfo); /* Post Request Submit Profile */
+      /* Convert String To Object */
+      _backend.decode = json.decode(_backend.response.body);
+      /* Close Loading Process */
       Navigator.pop(context);
+      if (_backend.response != null && _backend.decode['token'] == null) {
+        /* Set Profile Success */
+        await dialog(context, Text("${_backend.decode['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));
+        /* Clear Storage */
+        AppServices.clearStorage();
+        /* Remove All Screen And Push Login Screen */
+        await Future.delayed(Duration(microseconds: 500), () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Login()),
+            ModalRoute.withName('/')
+          );
+        });
+      } else {
+        await dialog(context, Text("${_backend.decode}"), Text("Message"));
+        Navigator.pop(context);
+      }
+    } catch (e){
+      await dialog(context, Text("${_backend.decode['error']}"), Text("Message"));
     }
   }
 

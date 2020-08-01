@@ -38,15 +38,6 @@ class ModelSignUp {
   TextEditingController controlPassword = TextEditingController();
   TextEditingController controlConfirmPassword = TextEditingController();
 
-  FocusNode nodeResetCode = FocusNode();
-
-  /* Account Confirmation */
-  List<String> code = [];
-  String verifyCode = '';
-  FocusNode nodeSmsCode = FocusNode();
-  TextEditingController controlSmsCode = TextEditingController();
-  TextEditingController controlResetCode = TextEditingController();
-
   TabController tabController;
 
   /* Change PIN Properties */

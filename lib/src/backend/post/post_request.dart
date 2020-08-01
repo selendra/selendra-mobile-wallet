@@ -1,5 +1,6 @@
 import 'package:wallet_apps/index.dart';
 import 'package:http/http.dart' as http;
+import 'package:wallet_apps/src/model/sms_code_model.dart';
 
 class PostRequest {
 
@@ -28,6 +29,7 @@ class PostRequest {
       "password": passwords
     });
     _backend.response = await http.post('${AppConfig.url}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    print("Login ${_backend.response.body}");
     return _backend.response;
   }
 
@@ -62,7 +64,7 @@ class PostRequest {
   }
 
   /* Post User Information */
-  Future<http.Response> uploadProfile(ModelUserInfo _model, String _endpoints) async {
+  Future<http.Response> uploadProfile(ModelUserInfo _model) async {
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({
       "first_name": _model.controlFirstName.text,
@@ -175,10 +177,8 @@ class PostRequest {
     return null;
   }
 
-  /* Sign Up & Verification */
-
+  // Sign Up & Verification
   Future<http.Response> resendCode(String phoneNumber) async {
-    print(phoneNumber);
     _backend.bodyEncode = json.encode({
       "phone": "+855$phoneNumber",
     });
@@ -191,27 +191,23 @@ class PostRequest {
   }
 
   // Confirm User Account By Phone Number
-  Future<http.Response> confirmAccount(ModelSignUp _model) async {
-    print("${_model.countryCode}${_model.controlPhoneNums.text}");
-    for(int i = 0; i < _model.code.length; i++){
-      _model.verifyCode += _model.code[i];
+  Future<http.Response> confirmAccount(String phone, SmsCodeModel _smsCode) async {
+    for(int i = 0; i < _smsCode.code.length; i++){
+      _smsCode.verifyCode += _smsCode.code[i];
     }
-    print("Verify ${_model.verifyCode}");
     _backend.bodyEncode = json.encode({
-      "phone": "${_model.countryCode}${_model.controlPhoneNums.text}",
-      "verification_code": _model.verifyCode
+      "phone": "${_smsCode.countryCode}$phone",
+      "verification_code": _smsCode.verifyCode
     });
     _backend.response = await http.post(
       "${AppConfig.url}/account-confirmation",
       headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode
     );
-    print(_backend.response.body);
     return _backend.response;
   }
 
-  Future<Map<String, dynamic>> forgetPassword(ModelForgotPassword _modelForgot, String value) async { /* Confirm User Account By Phone Number */
-    // print(_modelForgot.controllerEmail.text);
-    // print(_modelForgot.co)
+  // Confirm User Account By Phone Number
+  Future<Map<String, dynamic>> forgetPassword(ModelForgotPassword _modelForgot, String value) async { 
     _backend.bodyEncode = json.encode({
       _modelForgot.key: value,
     });
@@ -223,7 +219,8 @@ class PostRequest {
     return json.decode(_backend.response.body);
   }
 
-  Future<Map<String, dynamic>> resetPass(ModelForgotPassword _modelForgot, String value, String endpoint) async { /* Confirm User Account By Phone Number */
+  // Confirm User Account By Phone Number
+  Future<Map<String, dynamic>> resetPass(ModelForgotPassword _modelForgot, String value, String endpoint) async { 
     _backend.bodyEncode = json.encode({
       "temp_code": _modelForgot.controlResetCode.text,
       _modelForgot.key: value,
