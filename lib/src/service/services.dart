@@ -57,5 +57,9 @@ class AppServices {
   static Timer appLifeCycle(Timer timer){
     return timer;
   }
+
+  static Map<String, dynamic> emptyMapData(){
+    return Map<String, dynamic>.unmodifiable({});
+  }
 }
 

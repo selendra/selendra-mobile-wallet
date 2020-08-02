@@ -60,12 +60,14 @@ List<Widget> listButton (BuildContext context, String _privateKey, bool isCopy, 
     CupertinoButton(
       padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
       child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
-      onPressed: isCheck == true ? () {
+      onPressed: isCheck == true ? () async {
         Map<String, dynamic> popData = {
           "widget": "dialogPrivateKey",
           "message": 'You saved key successfully',
-          "isSuccess": true
+          "isSuccess": true,
         };
+        // Set Data To Storage
+        await StorageServices.setData({"get_wallet": true}, "getWallet");
         Navigator.pop(context, popData);
       } : null,
     )

@@ -84,7 +84,7 @@ class PostRequest {
   }
 
   /* Post Get Wallet */
-  Future<Map<String, dynamic>> retreiveWallet(String _pins) async {
+  Future<http.Response> retreiveWallet(String _pins) async {
     _backend.token = await Provider.fetchToken();
     print(_backend.token);
     _backend.bodyEncode = json.encode({"pin": _pins});
@@ -94,7 +94,7 @@ class PostRequest {
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
       );
-      return json.decode(_backend.response.body);
+      return _backend.response;
     }
     return null;
   }

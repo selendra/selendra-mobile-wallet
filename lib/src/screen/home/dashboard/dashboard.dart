@@ -98,7 +98,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   }
 
   /* Fetch Portofolio */
-  void fetchPortfolio() async { 
+  Future<void> fetchPortfolio() async { 
     await Future.delayed(Duration(milliseconds: 10),(){
       setState(() {
         _modelDashboard.portfolioList = [];
@@ -176,29 +176,43 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     }
   }
   
-  void menuCallBack(dynamic result){
+  void menuCallBack(Map<String, dynamic> result) async {
 
-    if (result != null){
+    _backend.decode = await StorageServices.fetchData("getWallet");
+
+    print("Callback $result");
+
+    print("Callback Fetch ${_backend.decode}");
+
+    if (result.isNotEmpty){
+      print("hello ! empty");
       // Log Out
-      if (result == 'log_out'){
+      if (result.containsKey('log_out')){
         Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Welcome()), 
-          // ModalRoute.withName('/')
         );
       }
       // If Get Wallet
       else {
-        _modelDashboard.result = result;
-        if (_modelDashboard.result.length != 0) { // If Not Empty Excecute Statement
-          if (
-            _modelDashboard.result.containsValue("dialogPrivateKey") ||
-            _modelDashboard.result.containsValue("addAssetScreen") 
-          ) {
-            _modelDashboard.result = {};
-            fetchPortfolio();
-          }
-          getUserData();
+        print("After get wallet");
+        // If Get Wallet
+        if (_backend.decode.containsKey('get_wallet') ){
+          await fetchPortfolio();
+          await StorageServices.removeKey("getWallet");
         }
+        if (result['dialog_name'] == "addAssetScreen") await fetchPortfolio();
+        // _modelDashboard.result = result;
+        // if (_modelDashboard.result.length != 0) { // If Not Empty Excecute Statement
+        //   // if (
+        //   //   _modelDashboard.result.containsValue("dialogPrivateKey") ||
+        //   //   _modelDashboard.result.containsValue("addAssetScreen") 
+        //   // ) {
+        //   //   _modelDashboard.result = {};
+        //   //   await fetchPortfolio();
+
+        //   // }
+        //   // getUserData();
+        // }
       }
     }
   }

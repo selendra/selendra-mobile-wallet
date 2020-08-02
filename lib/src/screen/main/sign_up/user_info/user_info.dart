@@ -49,7 +49,6 @@ class UserInfoState extends State<UserInfo> {
     } else {
       _backend.response = await _postRequest.loginByPhone(widget.userAccount, widget.passwords);
     }
-    print(_backend.response.body);
     _backend.decode = json.decode(_backend.response.body);
     if (_backend.decode.containsKey('token')) {
       await StorageServices.setData(_backend.decode, "user_token");
@@ -126,29 +125,38 @@ class UserInfoState extends State<UserInfo> {
     return _modelUserInfo.responseLastname;
   }
 
-  /* Submit Profile User */
+  // Submit Profile User
   void submitProfile(BuildContext context) async {
     try{
-      /* Show Loading Process */
+      // Show Loading Process
       dialogLoading(context); 
-      _backend.response = await _postRequest.uploadProfile(_modelUserInfo); /* Post Request Submit Profile */
-      /* Convert String To Object */
+      // Post Request Submit Profile
+      _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
+      // Convert String To Object
       _backend.decode = json.decode(_backend.response.body);
-      /* Close Loading Process */
+      // Close Loading Process
       Navigator.pop(context);
       if (_backend.response != null && _backend.decode['token'] == null) {
-        /* Set Profile Success */
-        await dialog(context, Text("${_backend.decode['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));
-        /* Clear Storage */
-        AppServices.clearStorage();
-        /* Remove All Screen And Push Login Screen */
-        await Future.delayed(Duration(microseconds: 500), () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => Login()),
-            ModalRoute.withName('/')
-          );
-        });
+        // Set Profile Success
+        await dialog(context, Text("${_backend.decode['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));        
+        if (widget.passwords != null) {
+          // Clear Storage
+          AppServices.clearStorage();
+          // Remove All Screen And Push Login Screen
+          await Future.delayed(Duration(microseconds: 500), () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+              ModalRoute.withName('/')
+            );
+          });
+        } else {
+          await Future.delayed(Duration(microseconds: 500), () {
+            Navigator.pop(
+              context,
+            );
+          });
+        }
       } else {
         await dialog(context, Text("${_backend.decode}"), Text("Message"));
         Navigator.pop(context);

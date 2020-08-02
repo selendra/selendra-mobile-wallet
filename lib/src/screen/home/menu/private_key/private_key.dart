@@ -62,8 +62,27 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
         ],
       ),
       actions: /* Button */
-      widget._message['message'][0] == null /* Index 0 Will Be Null If It Contains Key */
-      ? listButton(context, widget._message['message']['seed'],  isCopy, isCheck, userCopyKey) /* Display Multi Button */
+      // [
+      //   CupertinoButton(
+      //     padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
+      //     child: Text('Hello Close', style: TextStyle(fontWeight: FontWeight.bold)),
+      //     onPressed: () async {
+      //       // Map<String, dynamic> popData = {
+      //       //   "widget": "privateKey",
+      //       //   "message": 'You saved key successfully',
+      //       //   "isSuccess": true,
+      //       // };
+      //       await StorageServices.setData({"get_wallet": true}, "getWallet");
+      //       Navigator.pop(context, {
+      //         "dialog_name": "privateKey",
+      //         "message": 'You saved key successfully',
+      //         "isSuccess": true,
+      //       });
+      //     },
+      //   )
+      // ]
+      widget._message['message'].runtimeType != String /* Index 0 Will Be Null If It Is Not Contains Key */
+      ? listButton(context, widget._message['message']['seed'], isCopy, isCheck, userCopyKey) /* Display Multi Button */
       : [
         closeButton(context, widget._message)
       ]
@@ -72,7 +91,9 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
 }
 
 Widget closeButton(BuildContext context, Map<String, dynamic> data){
+  print(data);
   return data.containsKey('code')
+  // Add Phone Number
   ? Row(
     children: <Widget>[
       CupertinoButton( /* Display Only Close Button */
@@ -87,16 +108,17 @@ Widget closeButton(BuildContext context, Map<String, dynamic> data){
         padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
         child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
         onPressed: (){
-          Navigator.pop(context);
+          Navigator.pop(context, AppServices.emptyMapData());
         },
       )
     ],
   )
+  // Already Had Wallet
   : CupertinoButton( /* Display Only Close Button */
     padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
     child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
     onPressed: (){
-      Navigator.pop(context, null);
+      Navigator.pop(context, AppServices.emptyMapData());
     },
   );
 }

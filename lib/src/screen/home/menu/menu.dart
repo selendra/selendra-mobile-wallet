@@ -17,7 +17,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
   
   /* Variable */
   String error = '', _pin = '', _confirmPin = '';
-  dynamic _result; 
+  Map<String, dynamic> _result; 
   final _globalKey = GlobalKey<ScaffoldState>();
   ModelUserInfo _modelUserInfo = ModelUserInfo();
   Map<String, dynamic> _message;
@@ -91,13 +91,12 @@ class DrawerLayoutState extends State<DrawerLayout> {
         );
       }
     );
-    print("My result $_result");
-    if (_result != '' && _result != null) { /* From Set PIN Widget */
-      if (_result['widget'] == 'Pin'){
+    if (_result.isNotEmpty){/* From Set PIN Widget */
+      if (_result["dialog_name"] == 'Pin'){
         _pin = _result['pin'];
         createPin(context); /* drawerCallBack */
       } else 
-      if (_result['widget'] == 'confirmPin'){ /* From Set Confirm PIN Widget */
+      if (_result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
         if (_result['compare'] == false) {
           _pin = '';
           error = "PIN does not match"; /* Enable Error Text*/
@@ -183,11 +182,11 @@ class DrawerLayoutState extends State<DrawerLayout> {
                 await Future.delayed(Duration(seconds: 1), () {
                   // Close Button
                   Navigator.pop(context);
-                  // Close Dialog
+                  // Close Dialog Loading
                   Navigator.pop(context);
                   // Close Drawer
                   Navigator.pop(context);
-                  widget.drawerCallBack('log_out');
+                  widget.drawerCallBack({'log_out': true});
                 });
               },
             )
@@ -238,7 +237,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
                       navigateAcivity, navigateGetWallet, 
                       navigateChangePIN, navigateChangePass,
                       navigateAddAssets, signOut, 
-                      snackBar,  createPin, popScreen
+                      snackBar, createPin, popScreen
                     )
                   ],
                 )

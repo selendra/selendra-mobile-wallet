@@ -40,7 +40,6 @@ class SetPinDialogState extends State<SetPinDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text("Worl"),
           _showError == '' ? Container() : Container(
             padding: EdgeInsets.all(10.0),
             child: Text(_showError, style: TextStyle(color: Colors.red), textAlign: TextAlign.center),
@@ -68,7 +67,7 @@ class SetPinDialogState extends State<SetPinDialog> {
                 child: Text('Next', style: TextStyle(fontWeight: FontWeight.bold)),
                 onPressed: disableButton == true ? null : () {
                   Map<String, dynamic> popData = {
-                    "widget": "Pin",
+                    "dialog_name": "Pin",
                     "pin": _pin
                   };
                   Navigator.pop(context, popData);
@@ -79,7 +78,7 @@ class SetPinDialogState extends State<SetPinDialog> {
                 child: RaisedButton(
                   child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
                   onPressed: (){
-                    Navigator.pop(context);
+                    Navigator.pop(context, AppServices.emptyMapData());
                   }
                 ),
               )

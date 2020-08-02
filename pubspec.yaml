@@ -28,7 +28,7 @@ dependencies:
   rxdart: ^0.22.0
   
   # Database
-  shared_preferences: ^0.5.7
+  shared_preferences:
 
   # Backend
   http:

@@ -136,8 +136,16 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
   }
 
   void submitOtpCode() async {  
+    // Navigator.pushReplacement(
+    //   context, 
+    //   MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
+    // );
     try{
       dialogLoading(context);
+      print(widget.phoneNumber);
+      for (int i = 0; i < _smsCodeModel.code.length; i++){
+        print("Index $i ${_smsCodeModel.code[i]}");
+      }
       http.Response message = await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeModel);
       // Decode Data From String to Object
       Map<String, dynamic> decode = json.decode(message.body);

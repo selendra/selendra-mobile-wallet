@@ -174,8 +174,9 @@ class CreatePasswordState extends State<CreatePassword> {
   }
 
   Future<void> registerByPhoneNumber() async {
+    
     dialogLoading(context);
-
+    
     try{
       _backend.response = await _postRequest.registerByPhone(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text);
 

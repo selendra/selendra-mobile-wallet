@@ -28,6 +28,11 @@ class StorageServices{
     }
   }
 
+  static Future<void> removeKey(String path) async {
+    _preferences = await SharedPreferences.getInstance();
+    _preferences.remove(path);
+  }
+
   static Future<String> fetchId(String _path) async {
     _preferences = await SharedPreferences.getInstance();
     _decode = jsonDecode(_preferences.getString(_path));

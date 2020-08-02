@@ -11,7 +11,7 @@ class Welcome extends StatefulWidget {
 
 class WelcomeState extends State<Welcome> {
 
-  final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> globalKey;
 
   PackageInfo _packageInfo;
   FirebaseRemote _firebaseRemote;
@@ -21,6 +21,7 @@ class WelcomeState extends State<Welcome> {
 
   @override
   void initState() {
+    globalKey = GlobalKey<ScaffoldState>();
     AppServices.noInternetConnection(globalKey);
     super.initState();
   }

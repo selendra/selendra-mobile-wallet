@@ -184,10 +184,10 @@ export 'package:wallet_apps/src/screen/home/fill_documents_screen/take_selfie_sc
 export 'package:wallet_apps/src/screen/home/fill_documents_screen/upload_documents_screen/upload_documents.dart';
 
 // Get Wallet
-export 'package:wallet_apps/src/screen/home/menu/private_key_dialog/private_key_dialog.dart';
-export 'package:wallet_apps/src/screen/home/menu/set_pin_code_dialog/set_confirm_pin_code_dialog.dart';
-export 'package:wallet_apps/src/screen/home/menu/set_pin_code_dialog/set_pin_code_dialog.dart';
-export 'package:wallet_apps/src/screen/home/menu/private_key_dialog/private_key_dialog_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/private_key/private_key.dart';
+export 'package:wallet_apps/src/screen/home/menu/set_pin/confirm_pin.dart';
+export 'package:wallet_apps/src/screen/home/menu/set_pin/pin.dart';
+export 'package:wallet_apps/src/screen/home/menu/private_key/private_key_body.dart';
 
 // Reward From Invoice
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_info/invoice_info_body.dart';

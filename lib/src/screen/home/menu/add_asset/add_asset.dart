@@ -80,7 +80,7 @@ class AddAssetState extends State<AddAsset> {
           color: getHexaColor(AppColors.lightBlueSky,)
         )
       );
-      _modelAsset.result.addAll({"widget": "addAssetScreen"});
+      _modelAsset.result.addAll({"dialog_name": "addAssetScreen"});
       Navigator.pop(context, _modelAsset.result);
     } else {
       await dialog(context, Text(_modelAsset.result['error']['message']), warningTitleDialog());

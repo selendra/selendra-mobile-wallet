@@ -220,7 +220,8 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                   child: Row(
                     children: [
                       Container(
-                        width: 35.0, height: 35.0,
+                        width: 40.0, height: 40.0,
+                        margin: EdgeInsets.only(right: 10.0),
                         decoration: BoxDecoration(
                           color: Colors.black26,
                           border: Border.all(width: 1, color: Colors.transparent),
@@ -229,10 +230,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                         child: Icon(Icons.add, color: Colors.white)
                       ),
 
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
-                      )
+                      Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
                     ]
                   )
                 )
@@ -259,7 +257,6 @@ Widget headerPortfolio(){
               style: TextStyle(
                 color: getHexaColor("#FFFFFF"),
                 fontSize: 17.0,
-                // fontWeight: FontWeight.w400
               )
             )
           ),
@@ -301,16 +298,19 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
       children: <Widget>[
         /* Asset Icons */
         Container(
-          margin: EdgeInsets.only(right: 9.5),
+          margin: EdgeInsets.only(right: 10),
           width: 35.0,
           height: 35.0,
-          child: CircleAvatar(
-            backgroundColor: Colors.black26,
-            backgroundImage: AssetImage(
-              !portfolioData[index].containsKey("asset_code") ? AppConfig.logoPortfolio : "assets/images/stellar_xlm_logo.png",
-            ),
-            foregroundColor: Colors.white,
-          ),
+          child: Image.asset(
+            "assets/images/stellar_xlm_logo.png",
+            color: Colors.white
+          )
+          // CircleAvatar(
+          //   backgroundColor: Colors.black26,
+          //   backgroundImage: AssetImage(
+          //     portfolioData[index].containsKey("asset_code") ? AppConfig.logoPortfolio : "assets/images/stellar_xlm_logo.png",
+          //   ),
+          // )
         ),
         DbdStyle.textStylePortfolio(
           portfolioData[index].containsKey("asset_code")
@@ -330,7 +330,7 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
 Widget rowDecorationStyle({Widget child, double marginTop: 15}){
   return Container(
     margin: EdgeInsets.only(top: marginTop),
-    padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+    padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
     decoration: BoxDecoration(
       boxShadow: [
         BoxShadow(
