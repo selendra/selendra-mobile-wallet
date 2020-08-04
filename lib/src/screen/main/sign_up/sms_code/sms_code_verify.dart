@@ -1,11 +1,11 @@
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/model/sms_code_model.dart';
-import 'package:http/http.dart' as http;
 
 class SmsCodeVerify extends StatefulWidget{
 
-  final String password; final Map<String, dynamic> message;
+  
   final String phoneNumber;
+  final String password;
+  final Map<String, dynamic> message;
 
   SmsCodeVerify(this.phoneNumber, this.password, this.message);
 
@@ -18,6 +18,8 @@ class SmsCodeVerify extends StatefulWidget{
 class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserver {
 
   PostRequest _postRequest = PostRequest();
+
+  Backend _backend = Backend();
 
   SmsCodeModel _smsCodeModel = SmsCodeModel();
 
@@ -93,7 +95,6 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
       if(time == 0) {
         timer.cancel();
         setState(() {
-          print("Reset");
         _smsCodeModel.showResendBtn = true;
         });
       }
@@ -115,61 +116,62 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
     });
   }
 
-  // void checkInputAndValidate() async { /* Check Internet Before Validate And Finish Validate*/
-  //   setState(() {_smsCodeModel.isProgress = true;});  
-  //   await Future.delayed(Duration(milliseconds: 100), (){
-  //     // checkConnection(context).then((isConnect) {
-  //     //   if ( isConnect == true ) {
-  //     //     onSubmit(context);
-  //     //   } else {
-  //     //     setState(() {
-  //     //       _smsCodeModel.isProgress = false;
-  //     //       noInternet(context);
-  //     //     });
-  //     //   }
-  //     // }); 
-  //   });
-  // }
-
   void onSubmit(BuildContext context) async{  /* Validator User Login After Check Internet */
     if (_smsCodeModel.enable) submitOtpCode();
   }
 
-  void submitOtpCode() async {  
-    // Navigator.pushReplacement(
-    //   context, 
-    //   MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
-    // );
+  void submitOtpCode() async {
+    // Display Loading
+    dialogLoading(context);
     try{
-      dialogLoading(context);
-      print(widget.phoneNumber);
-      for (int i = 0; i < _smsCodeModel.code.length; i++){
-        print("Index $i ${_smsCodeModel.code[i]}");
+      // Convert Code List To String
+      for(int i = 0; i < _smsCodeModel.code.length; i++){
+        _smsCodeModel.verifyCode += _smsCodeModel.code[i];
       }
-      http.Response message = await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeModel);
-      // Decode Data From String to Object
-      Map<String, dynamic> decode = json.decode(message.body);
-      if (message.statusCode == 200){
-        Navigator.pop(context);
+      // Request API
+      _backend.response = await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeModel);
+      // Covert Data From String to Object
+      _backend.mapData = json.decode(_backend.response.body);
+      if (_backend.response.statusCode == 200){
         // Set Timer
         setState(() {
           time = 0;
         });
-        if(decode.containsKey('error')){
-          await dialog(context, Text("${decode['error']['message']}", textAlign: TextAlign.center), Text("Message"));
+        if(_backend.mapData.containsKey('error')){
+          // Close Loading
+          Navigator.pop(context);
+          await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
         } else {
-          await dialog(context, Text("${decode['message']}", textAlign: TextAlign.center), Text("Message"));
-          Navigator.pushReplacement(
-            context, 
-            MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
-          );
+          // Fetch Pin From Data Storage
+          await StorageServices.fetchData('pin').then((value) {
+            // Post Request Wallet After Verify Phone Number
+            if (value != null) requestWallet(value['pin']);
+            // Go To User Information Screen
+            else Navigator.pushReplacement(
+              context, 
+              MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
+            );
+          });
         }
-        resetAllField();
       }
-      _smsCodeModel.code = [];
+      resetAllField();
     } catch (e){
-
     }
+  }
+
+  // Post Request Wallet
+  Future<void> requestWallet(String _pin) async {
+    _backend.response = await _postRequest.retreiveWallet(_pin);
+    _backend.mapData = json.decode(_backend.response.body);
+    _backend.mapData.addAll({
+      "dialog_name": "confirmPin",
+      "confirm_pin": _pin,
+      "compare": true,
+    });
+    // Close Loading
+    Navigator.pop(context);
+
+    Navigator.pop(context, _backend.mapData);
   }
 
   void resetAllField(){
@@ -179,6 +181,8 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
     _smsCodeModel.controller4.text = "";
     _smsCodeModel.controller5.text = "";
     _smsCodeModel.controller6.text = "";
+    _smsCodeModel.code = [];
+    _smsCodeModel.verifyCode = "";
   }
 
   Widget build(BuildContext context){

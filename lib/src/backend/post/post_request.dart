@@ -29,7 +29,6 @@ class PostRequest {
       "password": passwords
     });
     _backend.response = await http.post('${AppConfig.url}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
-    print("Login ${_backend.response.body}");
     return _backend.response;
   }
 
@@ -46,8 +45,6 @@ class PostRequest {
   /* -----------------User Regiser-------------- */
   
   Future<http.Response> registerByPhone(String _phone, String passwords) async {
-    print(_phone);
-    print(passwords);
     _backend.bodyEncode = json.encode(/* Convert to Json Data ( String ) */
       {"phone": "+855$_phone", "password": passwords}
     );
@@ -86,7 +83,6 @@ class PostRequest {
   /* Post Get Wallet */
   Future<http.Response> retreiveWallet(String _pins) async {
     _backend.token = await Provider.fetchToken();
-    print(_backend.token);
     _backend.bodyEncode = json.encode({"pin": _pins});
     if (_backend.token != null) {
       _backend.response = await http.post(
@@ -190,14 +186,25 @@ class PostRequest {
     return _backend.response;
   }
 
-  // Confirm User Account By Phone Number
-  Future<http.Response> confirmAccount(String phone, SmsCodeModel _smsCode) async {
-    for(int i = 0; i < _smsCode.code.length; i++){
-      _smsCode.verifyCode += _smsCode.code[i];
-    }
+  // Add Phone To Exist Email
+  Future<http.Response> addPhone(String phone) async {
+    _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({
-      "phone": "${_smsCode.countryCode}$phone",
-      "verification_code": _smsCode.verifyCode
+      "phone": "+855$phone"
+    });
+    _backend.response = await http.post(
+      "${AppConfig.url}/add-phonenumber",
+      headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"), 
+      body: _backend.bodyEncode
+    );
+    return _backend.response;
+  }
+
+  // Confirm User Account By Phone Number
+  Future<http.Response> confirmAccount(String phone, SmsCodeModel _smsCodeModel) async {
+    _backend.bodyEncode = json.encode({
+      "phone": "${_smsCodeModel.countryCode}$phone",
+      "verification_code": _smsCodeModel.verifyCode
     });
     _backend.response = await http.post(
       "${AppConfig.url}/account-confirmation",
@@ -279,7 +286,6 @@ class PostRequest {
     }
     return null;
   }
-
 
   /* Post To Get Wallet Form Contact */
   Future<Map<String, dynamic>> getWalletFromContact(String contact) async {

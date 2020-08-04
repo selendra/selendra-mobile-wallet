@@ -127,10 +127,10 @@ class EditProfileState extends State<EditProfile> {
     _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
     /* Close Loading Procxess */
     Navigator.pop(context);
-    _backend.decode = json.decode(_backend.response.body);
+    _backend.mapData = json.decode(_backend.response.body);
     /* Set Profile Success */
-    if (_backend.decode != null) { 
-      await dialog(context, Text("${_backend.decode['message']}"), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+    if (_backend.mapData != null) { 
+      await dialog(context, Text("${_backend.mapData['message']}"), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
       Navigator.pop(context, 'edit_profile');
     }
   }

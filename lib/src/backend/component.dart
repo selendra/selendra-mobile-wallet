@@ -3,11 +3,12 @@ import 'package:http/http.dart' as http;
 class Backend{
 
   Map<String, dynamic> token = {}; 
+  
   String bodyEncode = "";
 
   http.Response response;
 
-  Map<String, dynamic> decode;
+  Map<String, dynamic> mapData;
 
   dynamic data;
 

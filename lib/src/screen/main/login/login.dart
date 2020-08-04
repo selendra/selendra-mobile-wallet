@@ -151,20 +151,20 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
     _backend.response = await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text);
 
-    _backend.decode = json.decode(_backend.response.body);
+    _backend.mapData = json.decode(_backend.response.body);
 
     if (_backend.response.statusCode != 502) {
       // Close Loading
       Navigator.pop(context);
-      if (_backend.decode.containsKey("error")) {
-        await dialog( context, textAlignCenter(text: _backend.decode['error']["message"]), textMessage());
+      if (_backend.mapData.containsKey("error")) {
+        await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
       } else { 
         // If Successfully
-        if (_backend.decode.containsKey("token")) {
-          _backend.decode.addAll({
+        if (_backend.mapData.containsKey("token")) {
+          _backend.mapData.addAll({
             "isLoggedIn": true
           });
-          await StorageServices.setData(_backend.decode, 'user_token');
+          await StorageServices.setData(_backend.mapData, 'user_token');
         
           Navigator.pushAndRemoveUntil(
             context,
@@ -173,7 +173,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
           );
         } else { 
           // If Incorrect Email
-          await dialog( context, textAlignCenter(text: _backend.decode["message"]), textMessage());
+          await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
         }
       }
     } else {
@@ -185,21 +185,20 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
     _backend.response = await _postRequest.loginByEmail(_modelLogin.controlEmails.text, _modelLogin.controlPasswords.text);
 
-    _backend.decode = json.decode(_backend.response.body);
+    _backend.mapData = json.decode(_backend.response.body);
 
     if (_backend.response.statusCode != 502) {
       // Close Loading
       Navigator.pop(context);
-      if (_backend.decode.containsKey("error")) {
-        await dialog( context, textAlignCenter(text: _backend.decode['error']["message"]), textMessage());
+      if (_backend.mapData.containsKey("error")) {
+        await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
       } else { 
         // If Successfully
-        if (_backend.decode.containsKey("token")) {
-          print(_backend.decode['token']);
-          _backend.decode.addAll({
+        if (_backend.mapData.containsKey("token")) {
+          _backend.mapData.addAll({
             "isLoggedIn": true
           });
-          await StorageServices.setData(_backend.decode, 'user_token');
+          await StorageServices.setData(_backend.mapData, 'user_token');
           
           Navigator.pushAndRemoveUntil(
             context,
@@ -209,7 +208,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
           
         } else { 
           // If Incorrect Email
-          await dialog( context, textAlignCenter(text: _backend.decode["message"]), textMessage());
+          await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
         }
       }
     } else {

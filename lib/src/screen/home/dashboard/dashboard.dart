@@ -27,21 +27,22 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   @override
   initState() { /* Initialize State */
-    _modelDashboard.result = {};
-    _modelDashboard.scaffoldKey = GlobalKey<ScaffoldState>();
-    _modelDashboard.total = 0;
-    _modelDashboard.circularChart = [
-      CircularSegmentEntry(_modelDashboard.remainDataChart, getHexaColor("#4B525E"))
-    ];
-    AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
-    _modelDashboard.userData = {};
-    /* User Profile */
-    getUserData(); 
-    fetchPortfolio();
-    triggerDeviceInfo();
-    if (Platform.isAndroid) appPermission();
-    // fabsAnimation();
-    
+    if(mounted) {
+      _modelDashboard.result = {};
+      _modelDashboard.scaffoldKey = GlobalKey<ScaffoldState>();
+      _modelDashboard.total = 0;
+      _modelDashboard.circularChart = [
+        CircularSegmentEntry(_modelDashboard.remainDataChart, getHexaColor("#4B525E"))
+      ];
+      AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
+      _modelDashboard.userData = {};
+      /* User Profile */
+      getUserData(); 
+      fetchPortfolio();
+      triggerDeviceInfo();
+      if (Platform.isAndroid) appPermission();
+      // fabsAnimation();
+    } 
     super.initState();
   }
 
@@ -107,7 +108,6 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     
     /* Get Response Data */
     _backend.response = await _getRequest.getPortfolio();
-    print("Portfolio ${_backend.response}");
     
     /* Covert String To Objects */
     Portfolio.extractData(_backend.response);
@@ -178,42 +178,24 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   
   void menuCallBack(Map<String, dynamic> result) async {
 
-    _backend.decode = await StorageServices.fetchData("getWallet");
-
-    print("Callback $result");
-
-    print("Callback Fetch ${_backend.decode}");
+    _backend.mapData = await StorageServices.fetchData("getWallet");
 
     if (result.isNotEmpty){
-      print("hello ! empty");
       // Log Out
       if (result.containsKey('log_out')){
         Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Welcome()), 
         );
       }
-      // If Get Wallet
       else {
-        print("After get wallet");
-        // If Get Wallet
-        if (_backend.decode.containsKey('get_wallet') ){
-          await fetchPortfolio();
-          await StorageServices.removeKey("getWallet");
-        }
         if (result['dialog_name'] == "addAssetScreen") await fetchPortfolio();
-        // _modelDashboard.result = result;
-        // if (_modelDashboard.result.length != 0) { // If Not Empty Excecute Statement
-        //   // if (
-        //   //   _modelDashboard.result.containsValue("dialogPrivateKey") ||
-        //   //   _modelDashboard.result.containsValue("addAssetScreen") 
-        //   // ) {
-        //   //   _modelDashboard.result = {};
-        //   //   await fetchPortfolio();
-
-        //   // }
-        //   // getUserData();
-        // }
       }
+    }
+
+    // If Get Wallet
+    if (_backend.mapData != null ){
+      await fetchPortfolio();
+      await StorageServices.removeKey("getWallet");
     }
   }
 
@@ -294,15 +276,20 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    
     final bloc = Bloc();
+
     return Scaffold(
+
       key: _modelDashboard.scaffoldKey,
+
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Colors.transparent
         ),
         child: DrawerLayout(_modelDashboard.userData, _packageInfo, menuCallBack),
       ),
+
       body: scaffoldBGDecoration(
         left: 0.0, right: 0.0,
         child: Column(
@@ -362,6 +349,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: getHexaColor("#8CC361"),
         child: Image.asset(
@@ -371,7 +359,9 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         onPressed: () async {
         },
       ),
+      
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
       bottomNavigationBar: bottomAppBar( /* Bottom Navigation Bar */
         context,
         _modelDashboard,

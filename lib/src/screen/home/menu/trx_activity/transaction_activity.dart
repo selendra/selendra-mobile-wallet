@@ -39,7 +39,6 @@ class TransactionActivityState extends State<TransactionActivity> {
         _activity = _response;
     });
     if (!mounted) return; /* Prevent SetState After Dispose */
-    print(_activity);
     setState(() {});
   }
 

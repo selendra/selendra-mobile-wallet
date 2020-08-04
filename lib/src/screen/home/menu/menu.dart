@@ -57,7 +57,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
         "label": "profile"
       };
       await StorageServices.fetchData("user_token").then((_response){ /* Fetch Token To Concete Authorization Update Profile User Info */
-        _backend.decode = _response;
+        _backend.mapData = _response;
       });
     }
   }
@@ -91,6 +91,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
         );
       }
     );
+    
     if (_result.isNotEmpty){/* From Set PIN Widget */
       if (_result["dialog_name"] == 'Pin'){
         _pin = _result['pin'];
@@ -223,7 +224,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
               physics: BouncingScrollPhysics(),
               child: Container(
                 decoration: BoxDecoration(
-                color: getHexaColor(AppConfig.darkBlue75),
+                  color: getHexaColor(AppConfig.darkBlue75),
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: Column(

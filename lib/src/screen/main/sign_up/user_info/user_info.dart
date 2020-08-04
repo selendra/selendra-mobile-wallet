@@ -49,9 +49,9 @@ class UserInfoState extends State<UserInfo> {
     } else {
       _backend.response = await _postRequest.loginByPhone(widget.userAccount, widget.passwords);
     }
-    _backend.decode = json.decode(_backend.response.body);
-    if (_backend.decode.containsKey('token')) {
-      await StorageServices.setData(_backend.decode, "user_token");
+    _backend.mapData = json.decode(_backend.response.body);
+    if (_backend.mapData.containsKey('token')) {
+      await StorageServices.setData(_backend.mapData, "user_token");
     }
   }
 
@@ -133,12 +133,12 @@ class UserInfoState extends State<UserInfo> {
       // Post Request Submit Profile
       _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
       // Convert String To Object
-      _backend.decode = json.decode(_backend.response.body);
+      _backend.mapData = json.decode(_backend.response.body);
       // Close Loading Process
       Navigator.pop(context);
-      if (_backend.response != null && _backend.decode['token'] == null) {
+      if (_backend.response != null && _backend.mapData['token'] == null) {
         // Set Profile Success
-        await dialog(context, Text("${_backend.decode['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));        
+        await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));        
         if (widget.passwords != null) {
           // Clear Storage
           AppServices.clearStorage();
@@ -158,11 +158,11 @@ class UserInfoState extends State<UserInfo> {
           });
         }
       } else {
-        await dialog(context, Text("${_backend.decode}"), Text("Message"));
+        await dialog(context, Text("${_backend.mapData}"), Text("Message"));
         Navigator.pop(context);
       }
     } catch (e){
-      await dialog(context, Text("${_backend.decode['error']}"), Text("Message"));
+      await dialog(context, Text("${_backend.mapData['error']}"), Text("Message"));
     }
   }
 

@@ -4,8 +4,9 @@ import 'package:wallet_apps/index.dart';
 class PrivateKeyDialog extends StatefulWidget{
 
   final Map<String, dynamic> _message;
+  final String pin;
 
-  PrivateKeyDialog(this._message);
+  PrivateKeyDialog(this._message, {this.pin});
   @override
   State<StatefulWidget> createState() {
     return PrivateKeyState();
@@ -17,6 +18,8 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
   bool isCheck = false, isSave = false, isCopy = false, disableButton = true;
+
+  Backend _backend = Backend();
   
   @override
   void initState() {
@@ -56,42 +59,27 @@ class PrivateKeyState extends State<PrivateKeyDialog>{
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          widget._message['message'][0] == null /* Index 0 Will Be Null If It Contains Key */
-          ? checkBoxContent("${widget._message['message']["seed"]}", isCheck, isCopy, userCheckBox) /* Display Private Key */
-          : Text(widget._message['message'], textAlign: TextAlign.center), /* Display Message When Index 0 As A String */
+          // Index 0 Will Be Null If It Contains Key
+          widget._message['message'][0] == null 
+          // Display Private Key
+          ? checkBoxContent("${widget._message['message']["seed"]}", isCheck, isCopy, userCheckBox) 
+          // Display Message When Index 0 As A String
+          : Text(widget._message['message'], textAlign: TextAlign.center), 
         ],
       ),
       actions: /* Button */
-      // [
-      //   CupertinoButton(
-      //     padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
-      //     child: Text('Hello Close', style: TextStyle(fontWeight: FontWeight.bold)),
-      //     onPressed: () async {
-      //       // Map<String, dynamic> popData = {
-      //       //   "widget": "privateKey",
-      //       //   "message": 'You saved key successfully',
-      //       //   "isSuccess": true,
-      //       // };
-      //       await StorageServices.setData({"get_wallet": true}, "getWallet");
-      //       Navigator.pop(context, {
-      //         "dialog_name": "privateKey",
-      //         "message": 'You saved key successfully',
-      //         "isSuccess": true,
-      //       });
-      //     },
-      //   )
-      // ]
-      widget._message['message'].runtimeType != String /* Index 0 Will Be Null If It Is Not Contains Key */
-      ? listButton(context, widget._message['message']['seed'], isCopy, isCheck, userCopyKey) /* Display Multi Button */
+      // Index 0 Will Be Null If It Is Not Contains Key
+      widget._message['message'].runtimeType != String 
+      // Display Multi Button
+      ? listButton(context, widget._message['message']['seed'], isCopy, isCheck, userCopyKey) 
       : [
-        closeButton(context, widget._message)
+        closeButton(context, widget._message, _backend)
       ]
     );
   }
 }
 
-Widget closeButton(BuildContext context, Map<String, dynamic> data){
-  print(data);
+Widget closeButton(BuildContext context, Map<String, dynamic> data, Backend _backend){
   return data.containsKey('code')
   // Add Phone Number
   ? Row(
@@ -99,8 +87,9 @@ Widget closeButton(BuildContext context, Map<String, dynamic> data){
       CupertinoButton( /* Display Only Close Button */
         padding: EdgeInsets.only(top: 0, bottom: 0, left: 5.0, right: 5.0),
         child: Text('Add phone', style: TextStyle(fontWeight: FontWeight.bold)),
-        onPressed: (){
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddPhone()));
+        onPressed: () async {
+          _backend.mapData = await Navigator.push(context, MaterialPageRoute(builder: (context) => AddPhone()));
+          Navigator.pop(context, _backend.mapData);
         },
       ),
       /*Close Button */

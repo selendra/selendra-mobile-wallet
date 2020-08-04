@@ -15,9 +15,6 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   void initState() {
-    // _modelForgotPassword.key = "phone";
-    // _modelForgotPassword.endpoint = "forget-password";
-    // AppServices.noInternetConnection(_modelForgotPassword.globalKey);
     super.initState();
   }
 

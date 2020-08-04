@@ -7,9 +7,6 @@ class Portfolio{
 
   Portfolio.extractData(_http.Response data){
     dynamic decode = json.decode(data.body);
-    print(decode.runtimeType);
-    print(decode);
-    print(data.runtimeType);
     if(decode.runtimeType.toString() == "List<dynamic>"){
       list = List<Map<String, dynamic>>.from(decode);
     } else {

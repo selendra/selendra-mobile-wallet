@@ -70,10 +70,6 @@ class Bloc with ValidateMixin {
     String _endpoints,
     String _label
   ) async {
-    print(_byEmailOrPhoneNums);
-    print(_passwords);
-    print(_endpoints);
-    print(_label);
     // Map<String, dynamic> response = await _postRequest.registerByPhone(_byEmailOrPhoneNums, _passwords, _endpoints, _label);
     // print(response);
     // return await _postRequest.userRegister(_byEmailOrPhoneNums, _passwords, _endpoints, _label).then((_response) async {

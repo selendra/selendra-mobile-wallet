@@ -10,10 +10,10 @@ Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function u
         padding: EdgeInsets.only(top: 5.0),
         child: Text(
           """Please keep your key secure. This secret key will only be showed to you once.\nZeetomic will not be able to help you recover it if lost.""",
-          textAlign: TextAlign.center,
         ),
       ),
-      Container( /* User Key */
+      /* User Private Key */
+      Container(
         margin: EdgeInsets.only(top: 15.0, bottom: 5.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -229,3 +229,5 @@ export 'package:wallet_apps/src/model/model_asset.dart';
 // Add Phone
 export 'package:wallet_apps/src/model/add_phone_number.dart';
 
+export 'package:wallet_apps/src/model/sms_code_model.dart';
+

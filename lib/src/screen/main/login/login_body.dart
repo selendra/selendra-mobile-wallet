@@ -55,44 +55,44 @@ Widget loginBody(
       SizedBox( /* Body login */
         height: 230.0,
         child: Form(
-            key: modelLogin.formState2,
-            child: TabBarView(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: userLoginForm( /* User Input Field */
-                    context: context,
-                    label: "Phone number",
-                    prefixText: "${modelLogin.countryCode} ",
-                    modelLogin: modelLogin,
-                    validateInput: validateInput,
-                    validatePassword: validatePassword,
-                    textInputFormatter: [
-                      LengthLimitingTextInputFormatter(9),
-                      WhitelistingTextInputFormatter.digitsOnly
-                    ],
-                    onChanged: onChanged,
-                    showPassword: showPassword,
-                    validateAndSubmit: validateAndSubmit
-                  ),
+          key: modelLogin.formState2,
+          child: TabBarView(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                margin: EdgeInsets.only(bottom: 10),
+                child: userLoginForm( /* User Input Field */
+                  context: context,
+                  label: "Phone number",
+                  prefixText: "${modelLogin.countryCode} ",
+                  modelLogin: modelLogin,
+                  validateInput: validateInput,
+                  validatePassword: validatePassword,
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(9),
+                    WhitelistingTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: onChanged,
+                  showPassword: showPassword,
+                  validateAndSubmit: validateAndSubmit
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 10, bottom: 10.0),
-                  child: userLoginForm( /* User Input Field */
-                    context: context,
-                    label: "Email",
-                    inputType: TextInputType.emailAddress,
-                    modelLogin: modelLogin,
-                    validateInput: validateInput,
-                    validatePassword: validatePassword,
-                    textInputFormatter: [
-                      LengthLimitingTextInputFormatter(TextField.noMaxLength)
-                    ],
-                    onChanged: onChanged,
-                    showPassword: showPassword,
-                    validateAndSubmit: validateAndSubmit
-                  ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 10, bottom: 10.0),
+                child: userLoginForm( /* User Input Field */
+                  context: context,
+                  label: "Email",
+                  inputType: TextInputType.emailAddress,
+                  modelLogin: modelLogin,
+                  validateInput: validateInput,
+                  validatePassword: validatePassword,
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                  ],
+                  onChanged: onChanged,
+                  showPassword: showPassword,
+                  validateAndSubmit: validateAndSubmit
+                ),
               )
             ],
           )

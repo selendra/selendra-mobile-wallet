@@ -27,7 +27,6 @@ class WelcomeState extends State<Welcome> {
   }
 
   void tokenExpireChecker(BuildContext context) async { /* Check For Previous Login */
-    print(status);
     if (status != null){
       dialogLoading(context);
       Timer(Duration(seconds: 1), () async {

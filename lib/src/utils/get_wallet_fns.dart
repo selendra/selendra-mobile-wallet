@@ -76,7 +76,6 @@ class GetWalletFunction {
       // multi("Zeetomic QR", "image", pngBytes, "My image");
       // Share.share(text)
     } catch (e) {
-      print(e);
     }
   }
 

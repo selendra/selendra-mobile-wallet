@@ -21,7 +21,6 @@ class _FingerPrintState extends State<FingerPrint> {
     bool hasFingerPrint = false;
     try{
       hasFingerPrint = await localAuth.canCheckBiometrics;
-      print(hasFingerPrint);
     } on  PlatformException catch (e){
       print (e);
     }
@@ -55,7 +54,6 @@ class _FingerPrintState extends State<FingerPrint> {
         stickyAuth: true
       );
     } on PlatformException catch (e){
-      print(e);
     }
 
     if (authenticate) {

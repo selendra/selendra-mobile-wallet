@@ -34,36 +34,36 @@ class SetConfirmPinState extends State<SetConfirmPin> {
     try {
       /* If PIN Equal Confirm PIN */
       if (_confirmPin == widget._pin) {
-        popData = {
+        // Store PIN In Database
+        StorageServices.setData({'pin': _confirmPin}, 'pin');
+        // Request Wallet
+        _backend.response = await _postRequest.retreiveWallet(_confirmPin); 
+        // Convert String To Objects
+        _backend.mapData = json.decode(_backend.response.body);
+        _backend.mapData.addAll({
           "dialog_name": "confirmPin",
           "confirm_pin": _confirmPin,
           "compare": true,
-          
-        };
-        // Post Request Api
-        _backend.response = await _postRequest.retreiveWallet(_confirmPin); /* Request Wallet */
-        // Convert String To Objects
-        _backend.decode = json.decode(_backend.response.body);
-        print("Confirm ${_backend.decode}");
-        _backend.decode.addAll(popData);
+        });
         // Close Cicular Loading
         Navigator.pop(context);
         // Throw Data & Close Dialog 
-        Navigator.pop(context, _backend.decode);
-      } else if (_confirmPin != widget._pin) {
-        // If PIN Not Equal Confirm PIN
+        Navigator.pop(context, _backend.mapData);
+      } 
+      // If PIN Not Equal Confirm PIN
+      else if (_confirmPin != widget._pin) {
         Navigator.pop(context);
-        popData = {
+        Navigator.pop(context, {
           "dialog_name": "confirmPin",
           "compare": false
-        };
-        Navigator.pop(context, popData);
+        });
       }
     } on SocketException catch (e) {
       await Future.delayed(
-          Duration(milliseconds: 300), () {
-        setState(() {});
-      });
+        Duration(milliseconds: 300), () {
+          setState(() {});
+        }
+      );
       Navigator.pop(context);
       AppServices.mySnackBar(_globalKey, AppText.contentConnection);
     } catch (e) {}

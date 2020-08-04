@@ -39,6 +39,11 @@ class CreatePasswordState extends State<CreatePassword> {
     super.dispose();
   }
 
+  /* Close Current Screen */
+  void popScreen() { 
+    Navigator.pop(context);
+  }
+
   void onChanged(String changed) {
     widget._modelSignUp.formStatePassword.currentState.validate();
   }
@@ -144,26 +149,31 @@ class CreatePasswordState extends State<CreatePassword> {
 
       _backend.response = await _postRequest.registerByEmail(widget._modelSignUp.controlEmails.text,  widget._modelSignUp.controlConfirmPassword.text);
   
-      _backend.decode = json.decode(_backend.response.body);
+      _backend.mapData = json.decode(_backend.response.body);
 
       // Close Loading
       Navigator.pop(context);
 
       if (_backend.response.statusCode == 200){
-        if (_backend.decode['message'] == "Successfully registered!"){
+        if (_backend.mapData['message'] == "Successfully registered!"){
           await dialog(
             context,
-            textAlignCenter(text: "${_backend.decode['message']} Please check your email to verify"),
+            textAlignCenter(text: "${_backend.mapData['message']} Please check your email to verify"),
             /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
             Icon(
               Icons.done_outline,
               color: getHexaColor(AppColors.greenColor),
             ) 
           );
+          Navigator.pushAndRemoveUntil(
+            context, 
+            MaterialPageRoute(builder: (context) => Login()),
+            ModalRoute.withName('/')
+          );
         } else {
           await dialog(
             context,
-            textAlignCenter(text: _backend.decode['message']),
+            textAlignCenter(text: _backend.mapData['message']),
             Text("Message") 
           );
         }
@@ -171,6 +181,7 @@ class CreatePasswordState extends State<CreatePassword> {
     } catch (e){
       await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
     }
+    clearFocusInput();
   }
 
   Future<void> registerByPhoneNumber() async {
@@ -183,13 +194,13 @@ class CreatePasswordState extends State<CreatePassword> {
       // Close Loading
       Navigator.pop(context);
 
-      _backend.decode = json.decode(_backend.response.body);
+      _backend.mapData = json.decode(_backend.response.body);
 
       if (_backend.response.statusCode == 200){
-        if (_backend.decode['message'] == "Successfully registered!"){
+        if (_backend.mapData['message'] == "Successfully registered!"){
           await dialog(
             context,
-            textAlignCenter(text: "${_backend.decode['message']}"),
+            textAlignCenter(text: "${_backend.mapData['message']}"),
             Icon(
               Icons.done_outline,
               color: getHexaColor(AppColors.greenColor),
@@ -197,7 +208,7 @@ class CreatePasswordState extends State<CreatePassword> {
           );
 
           await resendOtpCode().then((value) {
-            _backend.decode = json.decode(value.body);
+            _backend.mapData = json.decode(value.body);
             if(value.statusCode == 200){
               // Close Loading
               Navigator.pop(context); 
@@ -205,8 +216,7 @@ class CreatePasswordState extends State<CreatePassword> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SmsCodeVerify(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text, _backend.decode)
-                    // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
+                    builder: (context) => SmsCodeVerify(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text, _backend.mapData)
                   )
                 );
               });
@@ -215,29 +225,21 @@ class CreatePasswordState extends State<CreatePassword> {
         } else {
           await dialog(
             context,
-            textAlignCenter(text: _backend.decode['message']),
+            textAlignCenter(text: _backend.mapData['message']),
             Text("Message") 
           );
         }
       }
     } catch (e){
-      await dialog(context, textAlignCenter(text: _backend.decode.toString()), warningTitleDialog());
+      await dialog(context, textAlignCenter(text: _backend.mapData.toString()), warningTitleDialog());
     }
+    clearFocusInput();
   }
 
   Future<void> clearFocusInput() async {
     await Future.delayed(Duration(milliseconds: 100), (){
       FocusScope.of(context).unfocus();
     });
-    // widget._modelSignUp.controlConfirmPassword.clear();
-    // widget._modelSignUp.controlPassword.clear();
-    // setState((){
-    //   widget._modelSignUp.enable2 = false;
-    // });
-  }
-  
-  void popScreen() { /* Close Current Screen */
-    Navigator.pop(context);
   }
 
   Widget build(BuildContext context) {

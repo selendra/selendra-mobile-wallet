@@ -20,7 +20,6 @@ class _AddPhoneState extends State<AddPhone>{
   }
 
   String validatePhone(String value){
-    print(value);
     if (_phoneModel.phoneNode.hasFocus) {
       /* If Phone Number Field Has Focus */
       _phoneModel.validateResponse = instanceValidate.validatePhone(value);
@@ -28,8 +27,6 @@ class _AddPhoneState extends State<AddPhone>{
         enableButton(true);
       else if (_phoneModel.enable == true)
         enableButton(false);
-      print(_phoneModel.validateResponse);
-      print(_phoneModel.enable);
     }
     return _phoneModel.validateResponse;
   }
@@ -41,7 +38,6 @@ class _AddPhoneState extends State<AddPhone>{
   }
 
   void onChanged(String value){
-    print(value);
     _phoneModel.formKey.currentState.validate();
   }
 
@@ -51,22 +47,26 @@ class _AddPhoneState extends State<AddPhone>{
 
   void submitAddPhone(BuildContext context) async {
     try{
-      await _postRequest.resendCode(_phoneModel.phone.text).then((value) {
-        _backend.decode = json.decode(value.body);
-        if(value.statusCode == 200){
-          // Close Loading
-          Navigator.pop(context); 
-          Future.delayed(Duration(milliseconds: 100), () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SmsCodeVerify(_phoneModel.phone.text, null, _backend.decode)
-                // SmsCodeVerify(widget._modelSignUp, json.decode(value.body))
-              )
-            );
-          });
-        }
-      });
+      // Post Add Phone
+      _backend.response = await _postRequest.addPhone(_phoneModel.phone.text);
+      _backend.mapData = json.decode(_backend.response.body);
+      // Convert String To Obj From Add Phone
+      if(_backend.response.statusCode == 200 && !_backend.mapData.containsKey('error')){
+        await Future.delayed(Duration(milliseconds: 100), () async {
+          // Go To SmsCode And Wait To Get Data Back
+          _backend.mapData = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SmsCodeVerify(_phoneModel.phone.text, null, _backend.mapData)
+            )
+          );
+          Navigator.pop(context, _backend.mapData);
+        });
+      } 
+      // Add Phone Number Error
+      else {
+        await dialog(context, Text(_backend.mapData['error']['message']), Text("Message"));
+      }
     } catch (e){
       
     }

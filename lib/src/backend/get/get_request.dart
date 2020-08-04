@@ -41,12 +41,10 @@ class GetRequest{
 
   Future<_http.Response> getPortfolio() async { /* User Porfolio */
     _backend.token = await Provider.fetchToken();
-    print(_backend.token);
     if (_backend.token != null) {
       _backend.response = await _http.get("${AppConfig.url}/portforlio", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
     }
-    print(_backend.response);
     return null;
   }
 
