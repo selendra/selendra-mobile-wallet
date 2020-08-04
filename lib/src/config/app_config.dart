@@ -8,28 +8,28 @@ class AppConfig {
   /* ------------------- Logo -----------------  */
 
   // Welcome Screen, Login Screen, Sign Up Screen
-  static String logoName = "assets/images/SalendraFV3.png";
+  static String logoName = "assets/images/selendra_logo.png";
 
   // Dashbaord Menu
   static String logoAppBar = "assets/images/zeetomic-logo-header.png";
 
   // Bottom App Bar 
-  static String logoBottomAppBar = "assets/images/SalendraFV3.png";
+  static String logoBottomAppBar = "assets/images/selendra_logo.png";
 
   // QR Embedded
   static String logoQrEmbedded = "assets/images/selendra_mk_qr.png";
 
   // Portfolio
-  static String logoPortfolio = 'assets/images/SalendraFV3.png';
+  static String logoPortfolio = 'assets/images/selendra_logo.png';
   
   // Transaction History
-  static String logoTrxHistory = 'assets/images/SalendraFV3.png';
+  static String logoTrxHistory = 'assets/images/selendra_logo.png';
 
   /* Splash Screen */
   static String splashLogo = "assets/images/zeetomic-logo-header.png";
   
   /* Transaction Acivtiy */
-  static String logoTrxActivity = 'assets/images/SalendraFV3.png';
+  static String logoTrxActivity = 'assets/images/selendra_logo.png';
 
   /* Zeetomic api user data*/
   // Main Net API
