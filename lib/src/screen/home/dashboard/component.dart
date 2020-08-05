@@ -301,10 +301,11 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
           margin: EdgeInsets.only(right: 10),
           width: 35.0,
           height: 35.0,
-          child: Image.asset(
+          child: !portfolioData[index].containsKey("asset_code") ? Image.asset(
             "assets/images/stellar_xlm_logo.png",
             color: Colors.white
           )
+          : Image.asset('assets/images/stellar_xlm_logo.png')
           // CircleAvatar(
           //   backgroundColor: Colors.black26,
           //   backgroundImage: AssetImage(

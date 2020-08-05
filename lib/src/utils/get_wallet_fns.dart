@@ -18,7 +18,7 @@ class GetWalletFunction {
           if (value == false){
             await Component.messagePermission(
               context: context,
-              content: "Brightness is low that hard to scan ! Click setting and turn on to allow auto brightness mode",
+              content: "Brightness is low that hard to scan! Click setting and turn on to allow auto-brightness mode",
               method: () async {
                 await AndroidPlatform.writePermission();
 

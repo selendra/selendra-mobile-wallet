@@ -17,20 +17,20 @@ Widget profileUserBody(
 ) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[ /* User image */
+    children: <Widget>[ 
       Container(
         padding: EdgeInsets.all(20.25),
-        child:
-          Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container( /* Close Button */
+            // /* Close Button */
+            Container(
               margin: EdgeInsets.only(bottom: 26.75),
               // height: 30.0,
               alignment: Alignment.topLeft,
               child: IconButton(
                 padding: EdgeInsets.all(10.0),
-                color: getHexaColor("#97AAC3"),
+                color: Colors.white,
                 iconSize: 30.0,
                 alignment: Alignment.topRight,
                 icon: Icon(Icons.arrow_back),
@@ -99,7 +99,7 @@ Widget profileUserBody(
           ],
         )
       ),
-      customListTile(context, FontAwesomeIcons.solidEdit, "Edit Profile", navigateEditProfile),
+      customListTile(context, FontAwesomeIcons.solidEdit, "Profile", navigateEditProfile, maintenance: true),
       customListTile(context, Icons.query_builder, "Transaction History", navigateTrxHistory),
       customListTile(context, Icons.query_builder, "Activity", navigateAcivity),
       customListTile(context, Icons.account_balance_wallet, "Get Wallet", navigateGetWallet),

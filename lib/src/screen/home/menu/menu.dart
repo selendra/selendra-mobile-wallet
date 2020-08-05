@@ -208,7 +208,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
     _globalKey.currentState.showSnackBar(snackbar);
   }
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: Colors.transparent,
       key: _globalKey,
@@ -224,7 +224,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
               physics: BouncingScrollPhysics(),
               child: Container(
                 decoration: BoxDecoration(
-                  color: getHexaColor(AppConfig.darkBlue75),
+                  color: Colors.black45,
                   borderRadius: BorderRadius.circular(10)
                 ),
                 child: Column(

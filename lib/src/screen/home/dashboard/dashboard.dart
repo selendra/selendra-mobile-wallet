@@ -21,6 +21,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   PackageInfo _packageInfo;
 
+  Portfolio _portfolio = Portfolio();
+
   // FlareControls _flareControls = FlareControls();
 
   String action = "no_action";
@@ -100,6 +102,9 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   /* Fetch Portofolio */
   Future<void> fetchPortfolio() async { 
+
+    _portfolio.list = [];
+    
     await Future.delayed(Duration(milliseconds: 10),(){
       setState(() {
         _modelDashboard.portfolioList = [];
@@ -110,9 +115,9 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     _backend.response = await _getRequest.getPortfolio();
     
     /* Covert String To Objects */
-    Portfolio.extractData(_backend.response);
+    await _portfolio.extractData(_backend.response);
 
-    if (Portfolio.list[0].containsKey('error')){
+    if (_portfolio.list[0].containsKey('error')){
       await dialog(
         context, 
         Column(
@@ -120,7 +125,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 10.0),
-              child: textAlignCenter(text: "${Portfolio.list[0]['error']['message']}")
+              child: textAlignCenter(text: "${_portfolio.list[0]['error']['message']}")
             ),
           ],
         ), 
@@ -131,7 +136,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       });
     }  else {
       setState(() {
-        _modelDashboard.portfolioList = Portfolio.list;
+        _modelDashboard.portfolioList = _portfolio.list;
       });
       StorageServices.setData(_modelDashboard.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
       resetDataPieChart(_modelDashboard.portfolioList); 
@@ -357,6 +362,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
           color: Colors.white, width: 30.0, height: 30.0
         ),
         onPressed: () async {
+          _backend.mapData = await TrxOption.scanQR(context, _modelDashboard.portfolioList, resetState);
+          // if (_backend == null) Navigator.pop(context);
         },
       ),
       

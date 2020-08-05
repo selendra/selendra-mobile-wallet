@@ -23,29 +23,39 @@ class TrxComponent {
           },
           child: rowDecorationStyle(
             marginTop: 5.0,
-            child: Row( 
+            child: 
+            Row(
               children: <Widget>[
+                /* Asset Icons */
                 Container(
-                  margin: EdgeInsets.only(right: 9.5),
-                  width: 31.0, 
-                  height: 31.0,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(AppConfig.logoTrxHistory)
-                  ),
+                  margin: EdgeInsets.only(right: 10),
+                  width: 35.0,
+                  height: 35.0,
+                  child: !trx[index].containsKey("asset_code") ? Image.asset(
+                    "assets/images/stellar_xlm_logo.png",
+                    color: Colors.white
+                  )
+                  : Image.asset('assets/images/stellar_xlm_logo.png')
+                  // CircleAvatar(
+                  //   backgroundColor: Colors.black26,
+                  //   backgroundImage: AssetImage(
+                  //     portfolioData[index].containsKey("asset_code") ? AppConfig.logoPortfolio : "assets/images/stellar_xlm_logo.png",
+                  //   ),
+                  // )
                 ),
-                Expanded(
-                  flex: 2,
-                  child: trx[index].containsKey("asset_code") 
-                  ? Text(trx[index]["asset_code"], style: TextStyle(color: Colors.white))
-                  : Text("XLM", style: TextStyle(color: Colors.white)),
+
+                DbdStyle.textStylePortfolio(
+                  trx[index].containsKey("asset_code")
+                  ? trx[index]["asset_code"]
+                  : "XLM",
+                  "#EFF0F2"
                 ),
-                Expanded(
-                  flex: 0,
-                  child: trx[index].containsKey('amount') ? Text(
-                    trx[index]['amount'], 
-                    style: TextStyle(color: Colors.white),
-                  ) : Container(),
-                )
+
+                /* Asset Code */
+                Expanded(child: Container()),
+                trx[index].containsKey('amount') 
+                ? DbdStyle.textStylePortfolio(trx[index]["balance"], "#00FFE8") /* Balance */
+                : Container()
               ],
             )
           ),

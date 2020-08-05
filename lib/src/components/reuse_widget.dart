@@ -210,12 +210,13 @@ Future dialog(
   BuildContext context, 
   var text, 
   var title,
-  {FlatButton action}
+  {FlatButton action, Color bgColor}
 ) async {
   var result = await showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: bgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         title: Align(
           alignment: Alignment.center,
