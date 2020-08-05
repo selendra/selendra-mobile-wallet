@@ -4,7 +4,7 @@ import 'package:wallet_apps/src/model/sms_code_model.dart';
 
 class PostRequest {
 
-  AppApi _appApi = AppApi();
+  SelendraApi _sldApi = SelendraApi();
 
   Backend _backend = Backend();
 
@@ -13,7 +13,7 @@ class PostRequest {
     _backend.bodyEncode = json.encode({"phone": phoneNumber});
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/invite-phonenumber",
+        "${_sldApi.api}/invite-phonenumber",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
       );
@@ -28,7 +28,7 @@ class PostRequest {
       "phone": "+855$phone",
       "password": passwords
     });
-    _backend.response = await http.post('${AppConfig.url}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await http.post('${_sldApi.api}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
@@ -38,7 +38,7 @@ class PostRequest {
       "email": email,
       "password": passwords
     });
-    _backend.response = await http.post('${AppConfig.url}/loginbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await http.post('${_sldApi.api}/loginbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
@@ -48,7 +48,7 @@ class PostRequest {
     _backend.bodyEncode = json.encode(/* Convert to Json Data ( String ) */
       {"phone": "+855$_phone", "password": passwords}
     );
-    _backend.response = await http.post('${AppConfig.url}/registerbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await http.post('${_sldApi.api}/registerbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
@@ -56,7 +56,7 @@ class PostRequest {
     _backend.bodyEncode = json.encode(/* Convert to Json Data ( String ) */
       {"email": email, "password": passwords}
     );
-    _backend.response = await http.post('${AppConfig.url}/registerbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await http.post('${_sldApi.api}/registerbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
@@ -71,7 +71,7 @@ class PostRequest {
     });
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/userprofile",
+        "${_sldApi.api}/userprofile",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
       );
@@ -86,7 +86,7 @@ class PostRequest {
     _backend.bodyEncode = json.encode({"pin": _pins});
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/getwallet",
+        "${_sldApi.api}/getwallet",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
       );
@@ -103,7 +103,7 @@ class PostRequest {
     });
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/addasset",
+        "${_sldApi.api}/addasset",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -123,7 +123,7 @@ class PostRequest {
     });
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/sendpayment",
+        "${_sldApi.api}/sendpayment",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
       );
@@ -144,7 +144,7 @@ class PostRequest {
     });
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/sendpayment",
+        "${_sldApi.api}/sendpayment",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -164,7 +164,7 @@ class PostRequest {
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/addreceipt",
+        "${_sldApi.api}/addreceipt",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -179,7 +179,7 @@ class PostRequest {
       "phone": "+855$phoneNumber",
     });
     _backend.response = await http.post(
-      "${AppConfig.url}/resend-code",
+      "${_sldApi.api}/resend-code",
       headers: _backend.conceteHeader(null, null),
       body: _backend.bodyEncode
     );
@@ -193,7 +193,7 @@ class PostRequest {
       "phone": "+855$phone"
     });
     _backend.response = await http.post(
-      "${AppConfig.url}/add-phonenumber",
+      "${_sldApi.api}/add-phonenumber",
       headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"), 
       body: _backend.bodyEncode
     );
@@ -207,7 +207,7 @@ class PostRequest {
       "verification_code": _smsCodeModel.verifyCode
     });
     _backend.response = await http.post(
-      "${AppConfig.url}/account-confirmation",
+      "${_sldApi.api}/account-confirmation",
       headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode
     );
     return _backend.response;
@@ -219,7 +219,7 @@ class PostRequest {
       _modelForgot.key: value,
     });
     _backend.response = await http.post(
-      "${AppConfig.url}/${_modelForgot.endpoint}",
+      "${_sldApi.api}/${_modelForgot.endpoint}",
       headers: _backend.conceteHeader(null, null), 
       body: _backend.bodyEncode
     );
@@ -234,7 +234,7 @@ class PostRequest {
       "password": _modelForgot.controlConfirmPasswords.text
     });
     _backend.response = await http.post(
-      "${AppConfig.url}/$endpoint",
+      "${_sldApi.api}/$endpoint",
       headers: _backend.conceteHeader(null, null), 
       body: _backend.bodyEncode
     );
@@ -249,7 +249,7 @@ class PostRequest {
     });
     if (_backend.token != null) {
       _backend.response = await http.post(
-        "${AppConfig.url}/change-pin",
+        "${_sldApi.api}/change-pin",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -265,7 +265,7 @@ class PostRequest {
       "new_password": _model.controlConfirmPassword.text,
     });
     if (_backend.token != null) {
-      _backend.response = await http.post("${AppConfig.url}/change-password",
+      _backend.response = await http.post("${_sldApi.api}/change-password",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -278,7 +278,7 @@ class PostRequest {
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({"hashs": hashs});
     if (_backend.token != null) {
-      _backend.response = await http.post("${AppConfig.url}/get-rewards",
+      _backend.response = await http.post("${_sldApi.api}/get-rewards",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -295,7 +295,7 @@ class PostRequest {
     });
     if (_backend.token != null) {
       _backend.response = await http.post(
-        '${AppConfig.url}/wallet-lookup', 
+        '${_sldApi.api}/wallet-lookup', 
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -316,7 +316,7 @@ class PostRequest {
       "amount": "Grand Total(\$)",
       "trxdate": "Bill Date"
     };
-    final response = await http.post(_appApi.urlOCR, body: bodys);
+    final response = await http.post(_sldApi.urlOCR, body: bodys);
   }
 
   Future<http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
@@ -331,7 +331,7 @@ class PostRequest {
     );
     /* Make request */
     var request =
-        new http.MultipartRequest('POST', Uri.parse('${_appApi.apiPostImage}/$endpoint'));
+        new http.MultipartRequest('POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
     /* Make Form of Multipart */
     var multipartFile = new http.MultipartFile.fromBytes(
       'file',

@@ -1,4 +1,5 @@
 /* This file hold app configurations. */
+import 'package:wallet_apps/src/backend/api.dart';
 
 class AppConfig { 
 
@@ -33,8 +34,8 @@ class AppConfig {
 
   /* Zeetomic api user data*/
   // Main Net API
-  static final url = "https://testnet-api.zeetomic.com/pub/v1";
+  static final url = "https://testnet-api.selendra.com/pub/v1";
 
   // sld_market net API 
-  // https://sld_marketnet-api.zeetomic.com/pub/v1
+  // https://sld_marketnet-api.selendra.com/pub/v1
 }

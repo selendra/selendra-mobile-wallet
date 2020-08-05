@@ -3,7 +3,7 @@ import 'package:http/http.dart' as _http;
 
 class GetRequest{
 
-  AppApi _appApi = AppApi();
+  SelendraApi _sldApi = SelendraApi();
 
   Backend _backend = Backend();
 
@@ -11,7 +11,7 @@ class GetRequest{
     /* Get User Profile */
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get("${AppConfig.url}/userprofile",
+      _backend.response = await _http.get("${_sldApi.api}/userprofile",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}")
       );
       return json.decode(_backend.response.body);
@@ -22,7 +22,7 @@ class GetRequest{
   Future<int> checkExpiredToken() async { /* Expired Token In Welcome Screen */
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get("${AppConfig.url}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      _backend.response = await _http.get("${_sldApi.api}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response.statusCode;
     }
     return null;
@@ -32,7 +32,7 @@ class GetRequest{
     /* User History */
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get("${AppConfig.url}/trx-history",
+      _backend.response = await _http.get("${_sldApi.api}/trx-history",
           headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return json.decode(_backend.response.body);
     }
@@ -42,7 +42,7 @@ class GetRequest{
   Future<_http.Response> getPortfolio() async { /* User Porfolio */
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get("${AppConfig.url}/portforlio", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      _backend.response = await _http.get("${_sldApi.api}/portforlio", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return _backend.response;
     }
     return null;
@@ -51,7 +51,7 @@ class GetRequest{
   Future getAllBranches() async {
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get("${AppConfig.url}/get-all-branches",
+      _backend.response = await _http.get("${_sldApi.api}/get-all-branches",
           headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return json.decode(_backend.response.body);
     }
@@ -61,7 +61,7 @@ class GetRequest{
   Future<dynamic> getReceipt() async {
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get("${AppConfig.url}/get-receipt",
+      _backend.response = await _http.get("${_sldApi.api}/get-receipt",
           headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       return json.decode(_backend.response.body);
     }
@@ -73,7 +73,7 @@ class GetRequest{
   Future<List<dynamic>> listBranches() async {
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get('${AppConfig.url}/listBranches', headers: {
+      _backend.response = await _http.get('${_sldApi.api}/listBranches', headers: {
         HttpHeaders.authorizationHeader: "Bearer ${_backend.token['TOKEN']}"
       });
       _backend.data = json.decode(_backend.response.body);
@@ -86,7 +86,7 @@ class GetRequest{
   //   _backend.token = await Provider.fetchToken();
   //   if (_backend.token != null){
   //     _backend.response = await _http.post(
-  //       "${AppConfig.url}/confirmreceipt",
+  //       "${_sldApi.api}/confirmreceipt",
   //       headers: {
   //         HttpHeaders.authorizationHeader: "Bearer ${_backend.token['TOKEN']}"
   //       },
