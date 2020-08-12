@@ -34,18 +34,18 @@ class AddDocumentsState extends State<AddDocuments> {
   }
 
   void triggerDate(String labelText) {
-    DatePicker.showDatePicker(
-      context, 
-      showTitleActions: true,
-      minTime: DateTime(2000, 1, 1),
-      maxTime: DateTime(2050, 1, 1),
-      onChanged: (date){ },
-      onConfirm: (data){
-        resetDate(data, labelText);
-        if (labelText == "Issue Date") _modelDocument.issueDate = data.millisecondsSinceEpoch;
-        else _modelDocument.expireDate = data.millisecondsSinceEpoch;
-      }
-    );
+    // DatePicker.showDatePicker(
+    //   context, 
+    //   showTitleActions: true,
+    //   minTime: DateTime(2000, 1, 1),
+    //   maxTime: DateTime(2050, 1, 1),
+    //   onChanged: (date){ },
+    //   onConfirm: (data){
+    //     resetDate(data, labelText);
+    //     if (labelText == "Issue Date") _modelDocument.issueDate = data.millisecondsSinceEpoch;
+    //     else _modelDocument.expireDate = data.millisecondsSinceEpoch;
+    //   }
+    // );
   }
 
   /* Reset Date For Display */

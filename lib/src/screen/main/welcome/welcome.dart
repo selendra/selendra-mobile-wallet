@@ -11,9 +11,10 @@ class Welcome extends StatefulWidget {
 
 class WelcomeState extends State<Welcome> {
 
-  GlobalKey<ScaffoldState> globalKey;
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
   PackageInfo _packageInfo;
+
   FirebaseRemote _firebaseRemote;
 
   bool status; int currentVersion;

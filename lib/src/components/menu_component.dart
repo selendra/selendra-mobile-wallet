@@ -8,7 +8,7 @@ Widget customListTile(BuildContext context, IconData icon, String title, dynamic
     decoration: BoxDecoration(
       border: Border(
         top: BorderSide(
-          width: 1, color: Colors.white.withOpacity(0.1)
+          width: 1, color: Colors.white.withOpacity(0.2)
         )
       )
     ),
@@ -16,7 +16,7 @@ Widget customListTile(BuildContext context, IconData icon, String title, dynamic
       contentPadding: EdgeInsets.all(0),
       leading: Container(
         padding: EdgeInsets.all(0),
-        child: Icon(
+        child: FaIcon(
           icon,
           color: Colors.white
         ),

@@ -21,6 +21,10 @@ class DrawerLayoutState extends State<DrawerLayout> {
   final _globalKey = GlobalKey<ScaffoldState>();
   ModelUserInfo _modelUserInfo = ModelUserInfo();
   Map<String, dynamic> _message;
+  
+  MenuModel _menuModel = MenuModel();
+
+  LocalAuthentication _localAuth = LocalAuthentication();
 
   /* Login Inside Dialog */
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
@@ -33,6 +37,7 @@ class DrawerLayoutState extends State<DrawerLayout> {
     _result = {};
     AppServices.noInternetConnection(_globalKey);
     setUserInfo();
+    checkAvailableBio();
     super.initState();
   }
 
@@ -121,38 +126,82 @@ class DrawerLayoutState extends State<DrawerLayout> {
   }
   
   /* --------------------Function-------------------- */
-  void navigateEditProfile() async {
+  void editProfile() async {
     _result = await Navigator.push(context, transitionRoute(EditProfile(_modelUserInfo.userData)));
     widget.drawerCallBack(_result);
     Navigator.pop(context);
   } 
 
-  void navigateTrxHistory() {
+  void trxHistroy() {
     widget.drawerCallBack(_result);
     Navigator.pop(context);
     Navigator.push(context, transitionRoute(TrxHistory(widget._userData['wallet'])));
   }
 
-  void navigateAcivity() { 
+  void trxActivity() { 
     widget.drawerCallBack(_result);
     Navigator.pop(context);
     Navigator.push(context, transitionRoute(TransactionActivity(), sigmaX: 15.0, sigmaY: 15.0));
   }
 
-  void navigateGetWallet() async { /* User Get Wallet */ 
+  void wallet() async { /* User Get Wallet */ 
     await createPin(context); 
   }
 
-  void navigateChangePIN() { 
+  void changePin() { 
     Navigator.push(context, transitionRoute(ChangePin()));
   }
 
-  void navigateChangePass() {
+  void password() {
     Navigator.push(context, transitionRoute(ChangePassword()));
   }
 
-  void navigateAddAssets() async {
+  void addAssets() async {
     _result = await Navigator.push(context, transitionRoute(AddAsset()));
+  }
+
+  void checkAvailableBio() async {
+    await StorageServices.fetchData('biometric').then((value) {
+      if (value != null){
+        if (value['bio'] == true){
+          setState(() {
+            _menuModel.switchBio = value['bio'];
+          });
+        }
+      }
+    });
+  }
+
+  void switchBiometric(bool value) async {
+    if (value){
+      await authenticateBiometric().then((values) async {
+        if (_menuModel.authenticated){
+          _menuModel.switchBio = value;
+          await StorageServices.setData({'bio': values}, 'biometric');
+        }
+      });
+    } else {
+      await authenticateBiometric().then((values) async {
+        if(values) {
+          _menuModel.switchBio = value;
+          await StorageServices.removeKey('biometric');
+        }
+      });
+    }
+    // // Reset Switcher
+    setState(() { });
+  }
+
+  Future<bool> authenticateBiometric() async {
+    try {
+      // Trigger Authentication By Finger Print
+      _menuModel.authenticated = await _localAuth.authenticateWithBiometrics(
+        localizedReason: '',
+        useErrorDialogs: true,
+        stickyAuth: true
+      );
+    } on PlatformException catch (e){ }
+    return _menuModel.authenticated;
   }
   
   void signOut() async { // Log Out All User Input
@@ -224,23 +273,21 @@ class DrawerLayoutState extends State<DrawerLayout> {
               physics: BouncingScrollPhysics(),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black45,
-                  borderRadius: BorderRadius.circular(10)
+                  color: getHexaColor(AppColors.bgdColor),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    profileUserBody(
-                      isHaveWallet, 
-                      context, 
-                      widget._userData, 
-                      widget._packageInfo,
-                      navigateEditProfile, navigateTrxHistory,
-                      navigateAcivity, navigateGetWallet, 
-                      navigateChangePIN, navigateChangePass,
-                      navigateAddAssets, signOut, 
-                      snackBar, createPin, popScreen
-                    )
-                  ],
+                child: ProfileUserBody(
+                  isHaveWallet: isHaveWallet, 
+                  userInfo: widget._userData,
+                  model: _menuModel ,
+                  packageInfo: widget._packageInfo,
+                  editProfile: editProfile,  trxHistory: trxHistroy,
+                  trxActivity: trxActivity, wallet: wallet, 
+                  changePin: changePin, password: password,
+                  addAssets: addAssets, signOut: signOut, 
+                  snackBar: snackBar, popScreen: popScreen,
+                  switchBio: switchBiometric,
                 )
               ),
             ),

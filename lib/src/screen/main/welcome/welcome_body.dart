@@ -12,24 +12,26 @@ Widget welcomeBody(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Expanded(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                /* Zeetomic */
-                logoSize(AppConfig.logoName, 100.0, 100.0),
-                Container(
-                  margin: EdgeInsets.only(top: 50.0),
-                  child: textScale(
-                    text: "Welcome",
-                    fontSize: 30,
-                    hexaColor: "#FFFFFF"
-                  )
-                ),
-              ],
-            ),
-          ),
+          child: SlideBuilder()
+          // Container(
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     mainAxisSize: MainAxisSize.min,
+          //     children: <Widget>[
+          //       /* Zeetomic */
+          //       // logoSize(AppConfig.logoName, 100.0, 100.0),
+          //       // Container(
+          //       //   margin: EdgeInsets.only(top: 50.0),
+          //       //   child: textScale(
+          //       //     text: "Welcome",
+          //       //     fontSize: 30,
+          //       //     hexaColor: "#FFFFFF"
+          //       //   )
+          //       // ),
+                
+          //     ],
+          //   ),
+          // ),
         ),
         customFlatButton(
           context,

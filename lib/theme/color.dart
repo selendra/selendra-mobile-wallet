@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:wallet_apps/index.dart';
 
 class AppColors{
 
@@ -10,7 +10,7 @@ class AppColors{
   static const String darkGrey = "#302f34";
 
   /* Background Color */
-  static const String backgroundColor = "#12151E";
+  static const String bgdColor = AppConfig.bgdColor;
 
   /* High Then Background Color */
   static const String highThenBackgroundColor = "#1F2833"; //"#191F30";

@@ -136,15 +136,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
       Navigator.pop(context);
       AppServices.mySnackBar(_modelLogin.globalKey, AppText.contentConnection);
     } catch (e) {}
-
-    // if (response == true) {
-    //   // AppServices.appLifeCycle(timer);
-    //   Navigator.pushAndRemoveUntil(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => Dashboard()),
-    //     ModalRoute.withName('/')
-    //   );
-    // }
   }
   
   Future<void> loginByPhone() async {
@@ -153,32 +144,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
     _backend.mapData = json.decode(_backend.response.body);
 
-    if (_backend.response.statusCode != 502) {
-      // Close Loading
-      Navigator.pop(context);
-      if (_backend.mapData.containsKey("error")) {
-        await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
-      } else { 
-        // If Successfully
-        if (_backend.mapData.containsKey("token")) {
-          _backend.mapData.addAll({
-            "isLoggedIn": true
-          });
-          await StorageServices.setData(_backend.mapData, 'user_token');
-        
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => Dashboard()),
-            ModalRoute.withName('/')
-          );
-        } else { 
-          // If Incorrect Email
-          await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
-        }
-      }
-    } else {
-      await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
-    }
+    await navigator();
   }
 
   Future<void> loginByEmail() async {
@@ -187,6 +153,10 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
     _backend.mapData = json.decode(_backend.response.body);
 
+    await navigator();
+  }
+
+  Future<void> navigator() async {
     if (_backend.response.statusCode != 502) {
       // Close Loading
       Navigator.pop(context);
@@ -206,8 +176,9 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
             ModalRoute.withName('/')
           );
           
-        } else { 
-          // If Incorrect Email
+        }
+        // If Incorrect Email 
+        else { 
           await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
         }
       }

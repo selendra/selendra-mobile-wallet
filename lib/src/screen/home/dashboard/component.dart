@@ -227,7 +227,8 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                           border: Border.all(width: 1, color: Colors.transparent),
                           borderRadius: BorderRadius.circular(30.0)
                         ),
-                        child: Icon(Icons.add, color: Colors.white)
+                        alignment: Alignment.center,
+                        child: Icon(FontAwesomeIcons.plus, color: Colors.white,)
                       ),
 
                       Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
@@ -341,7 +342,7 @@ Widget rowDecorationStyle({Widget child, double marginTop: 15}){
         )
       ],
       color: getHexaColor(AppConfig.darkBlue50),
-      border: Border.all(width: 1, color: getHexaColor(AppConfig.darkBlue50)),
+      border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
       borderRadius: BorderRadius.circular(5),
     ),
     child: child
@@ -362,12 +363,11 @@ Widget bottomAppBar(
   }
 ) {
   return Container(
-    color: getHexaColor(AppConfig.darkBlue75),
+    color: getHexaColor(AppColors.bgdColor),
     child: BottomAppBar(
-      notchMargin: 10.0,
       shape: CircularNotchedRectangle(),
       child: Container(
-        height: 63.0,
+        height: 55.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

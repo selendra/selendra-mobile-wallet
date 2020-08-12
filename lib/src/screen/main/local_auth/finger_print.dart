@@ -2,20 +2,34 @@ import 'package:local_auth/local_auth.dart';
 import 'package:wallet_apps/index.dart';
 
 class FingerPrint extends StatefulWidget {
+  
+  FingerPrint();
   @override
   _FingerPrintState createState() => _FingerPrintState();
 }
 
 class _FingerPrintState extends State<FingerPrint> {
 
-  Widget screen = Login(); int status = 0;
+  Widget screen = Welcome();
 
   GetRequest _getRequest = GetRequest();
 
+  Backend _backend = Backend();
+
   final localAuth = LocalAuthentication();
+
   bool _hasFingerPrint = false;
+
   String authorNot = 'Not Authenticate';
+
   List<BiometricType> _availableBio = List<BiometricType>();
+
+  @override
+  void initState() {
+    checkExpiredToken();
+    authenticate();
+    super.initState();
+  }
 
   Future<void> checkBioSupport() async {
     bool hasFingerPrint = false;
@@ -53,11 +67,9 @@ class _FingerPrintState extends State<FingerPrint> {
         useErrorDialogs: true,
         stickyAuth: true
       );
-    } on PlatformException catch (e){
-    }
+    } on PlatformException catch (e){ }
 
     if (authenticate) {
-      // StorageServices.setData(authenticate, "bio_auth");
       Navigator.pushReplacement(
         context, 
         MaterialPageRoute(builder: (context) => screen)
@@ -66,28 +78,24 @@ class _FingerPrintState extends State<FingerPrint> {
 
   }
 
-  void tokenExpireChecker() async { /* Check For Previous Login */
+  void checkExpiredToken() async { /* Check For Previous Login */
     try {
-      await StorageServices.fetchData("user_token").then((value) async {
-        if (value != null) {
-          status = await _getRequest.checkExpiredToken();
-          if (status == 200) { /* Check Expired Token */
-            screen = Dashboard();
-          } else if (status == 401) { // Reset isLoggedIn True -> False Cause Token Expired
-            Map<String, dynamic> data = value; 
-            data.update("isLoggedIn", (value) => false);
-            StorageServices.setData(data, "user_token"); // Override Key And Value User Token
-          }
-        }
-      });
+      _backend.response = await _getRequest.checkExpiredToken();
+      // Convert String To Object
+      _backend.mapData = json.decode(_backend.response.body);
+      // Check Expired Token
+      if (_backend.response.statusCode == 200) {
+        screen = Dashboard();
+      } 
+      // Reset isLoggedIn True -> False Cause Token Expired
+      else if (_backend.response.statusCode== 401) {
+        await dialog(context, Text('${_backend.mapData['message']}'), Text("Message"));
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(builder: (context) => Login())
+        );
+      }
     } catch (err) {}
-  }
-
-  @override
-  void initState() {
-    tokenExpireChecker();
-    authenticate();
-    super.initState();
   }
 
   @override

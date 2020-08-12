@@ -19,7 +19,6 @@ export 'package:store_redirect/store_redirect.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:package_info/package_info.dart';
 export 'package:outline_material_icons/outline_material_icons.dart';
-export 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:pinput/pin_put/pin_put.dart';
 export 'package:barcode_scan/barcode_scan.dart';
@@ -74,7 +73,7 @@ export 'package:wallet_apps/src/service/storage.dart';
 
 /* ----------------------Route To Screen---------------------- */
 
-/* Main Screeen */
+// Main Screeen
 export 'package:wallet_apps/src/screen/main/welcome/welcome.dart';
 export  'package:wallet_apps/src/screen/main/welcome/welcome_body.dart';
 
@@ -113,8 +112,13 @@ export 'package:wallet_apps/src/screen/main/sign_up/user_info/user_info_body.dar
 export 'package:wallet_apps/src/screen/main/sign_up/sign_up.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/sign_up_body.dart';
 
-/* Sms Code Verification */
+// Sms Code Verification
 export 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify.dart';
+
+// Slide Screen
+export 'package:wallet_apps/src/screen/main/slide/widget/slide_dot.dart';
+export 'package:wallet_apps/src/screen/main/slide/widget/slide_item.dart';
+export 'package:wallet_apps/src/screen/main/slide/slider_builder.dart';
 
 /* Home Screen */
 
@@ -204,6 +208,7 @@ export 'package:wallet_apps/src/screen/home/menu/add_asset/add_asset_body.dart';
 export 'package:wallet_apps/src/model/model_signup.dart';
 export 'package:wallet_apps/src/model/model_user_info.dart';
 export 'package:wallet_apps/src/model/model_forgot_pass.dart';
+export 'package:wallet_apps/src/model/slide.dart';
 
 /* Home Screen */
 
@@ -216,6 +221,7 @@ export 'package:wallet_apps/src/model/model_scan_invoice.dart';
 export 'package:wallet_apps/src/model/model_get_wallet_from_contact.dart';
 
 /* Menu */
+export 'package:wallet_apps/src/model/menu.dart';
 
 // Change PIN
 export 'package:wallet_apps/src/model/model_change_pin.dart';

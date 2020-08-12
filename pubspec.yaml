@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.10.1+2
+version: 1.10.1+3
 
 environment:
   sdk: ">=2.0.0 <3.0.0"
@@ -25,7 +25,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  rxdart: ^0.22.0
+  rxdart:
   
   # Database
   shared_preferences:
@@ -37,18 +37,18 @@ dependencies:
   firebase_remote_config:
 
   # Image service
-  image_picker: ^0.6.0+17
+  image_picker:
   path_provider:
-  image: ^2.1.4
-  flutter_svg: ^0.14.0
-  intl: ^0.16.0
-  flutter_circular_chart: ^0.1.0
+  image:
+  # flutter_svg:
+  intl:
+  flutter_circular_chart:
   image_cropper:
   flutter_image_compress:
  
   # Scanner
-  barcode_scan: ^1.0.0
-  qr_flutter: ^3.0.1
+  barcode_scan:
+  qr_flutter: 
 
   # Share
   share_extend:
@@ -57,16 +57,16 @@ dependencies:
   syncfusion_flutter_charts:
   charts_flutter:
 
-  pinput: ^0.1.10
-  flutter_datetime_picker:
-  outline_material_icons: ^0.1.0
-  transparent_image: ^1.0.0
-  slider_button: ^0.2.1
-  pull_to_refresh: ^1.5.7
-  autocomplete_textfield: ^1.7.3
+  pinput:
+  # flutter_datetime_picker:
+  outline_material_icons:
+  transparent_image: 
+  slider_button:
+  pull_to_refresh:
+  autocomplete_textfield:
   date_format:
-  flutter_launcher_icons: ^0.7.5
-  device_preview: ^0.4.4
+  flutter_launcher_icons:
+  device_preview:
   store_redirect:
   fluttercontactpicker:
   share:
@@ -109,6 +109,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/images_slide/
 
     # Animation Flare
     - assets/animation/

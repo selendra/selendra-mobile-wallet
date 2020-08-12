@@ -359,7 +359,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         backgroundColor: getHexaColor("#8CC361"),
         child: Image.asset(
           AppConfig.logoBottomAppBar,
-          color: Colors.white, width: 30.0, height: 30.0
+          color: Colors.white, width: 27.0, height: 27.0
         ),
         onPressed: () async {
           _backend.mapData = await TrxOption.scanQR(context, _modelDashboard.portfolioList, resetState);

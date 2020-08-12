@@ -180,7 +180,7 @@ Widget scaffoldBGDecoration({
     width: double.infinity,
     height: double.infinity,
     padding: EdgeInsets.only(top: top, right: right, bottom: bottom, left: left),
-    decoration: scaffoldBGColor(AppConfig.darkBlue75, AppConfig.darkBlue75),
+    decoration: scaffoldBGColor(AppColors.bgdColor, AppColors.bgdColor),
     child: SafeArea(
       child: child,
     ),
@@ -442,7 +442,7 @@ Widget qrCodeGenerator(String _walletCode, String logoName, GlobalKey _keyQrShar
           child: new QrImage(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            // embeddedImage: AssetImage('$logoName'),
+            embeddedImage: AssetImage('${AppConfig.logoQrEmbedded}'),
             embeddedImageStyle: QrEmbeddedImageStyle(
               size: Size(40, 40),
             ),
