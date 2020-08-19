@@ -8,7 +8,7 @@ Widget loginBody(
   Function onChanged,
   Function tabBarSelectChanged,
   Function showPassword,
-  Function validateAndSubmit,
+  Function submtiLogin,
 ) {
   return Column(
     children: <Widget>[
@@ -38,7 +38,7 @@ Widget loginBody(
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
               width: double.infinity,
               child: Icon(
-                OMIcons.phone,
+                FontAwesomeIcons.phone,
                 size: 23.0,
               ),
             ),
@@ -74,7 +74,7 @@ Widget loginBody(
                   ],
                   onChanged: onChanged,
                   showPassword: showPassword,
-                  validateAndSubmit: validateAndSubmit
+                  submtiLogin: submtiLogin
                 ),
               ),
               Container(
@@ -91,30 +91,43 @@ Widget loginBody(
                   ],
                   onChanged: onChanged,
                   showPassword: showPassword,
-                  validateAndSubmit: validateAndSubmit
+                  submtiLogin: submtiLogin
                 ),
               )
             ],
           )
         )
       ),
-      customFlatButton(/* Button login */
-        context,
-        "Login",
-        "loginSecondScreen",
-        AppColors.blueColor,
-        FontWeight.bold,
-        size18,
-        EdgeInsets.only(bottom: 15),
-        EdgeInsets.only(top: size15, bottom: size15),
-        BoxShadow(
+
+      RaisedButton(
+        onPressed: (){
+          print("Hello world");
+        },
+      ),
+      // Button login
+      CustomFlatButton(
+        textButton: "Login",
+        widgetName: "loginSecondScreen",
+        buttonColor: AppColors.blueColor,
+        fontWeight: FontWeight.bold,
+        fontSize: size18,
+        edgeMargin: EdgeInsets.only(bottom: 15),
+        edgePadding: EdgeInsets.only(top: size15, bottom: size15),
+        boxShadow: BoxShadow(
           color: Colors.black54.withOpacity(modelLogin.enable == false ? 0 : 0.3),
           blurRadius: 10.0,
           spreadRadius: 2.0,
           offset: Offset(2.0, 5.0),
         ),
-        modelLogin.enable == false ? null : validateAndSubmit
+        // modelLogin.enable == false ? null : 
+        action: submtiLogin
       ),
+      // RaisedButton(
+      //   child: Text("Hello"),
+      //   onPressed: (){
+      //     submtiLogin(context);
+      //   },
+      // ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -158,7 +171,7 @@ Widget userLoginForm({
   Function validatePassword,
   Function onChanged,
   Function showPassword,
-  Function validateAndSubmit
+  Function submtiLogin
 }){
   return Column(
     children: <Widget>[
@@ -183,7 +196,7 @@ Widget userLoginForm({
               : modelLogin.nodePhoneNums,
           validateField: validateInput,
           onChanged: onChanged,
-          action: validateAndSubmit
+          action: submtiLogin
         )
       ),
       Container(
@@ -209,9 +222,52 @@ Widget userLoginForm({
             },
           ),
           onChanged: onChanged,
-          action: validateAndSubmit
+          action: submtiLogin
         ),
       ),
     ],
   );
+}
+
+
+class CustomFlatButton extends StatelessWidget{
+  final String textButton;
+  final String widgetName;
+  final String buttonColor;
+  final FontWeight fontWeight;
+  final double fontSize;
+  final EdgeInsetsGeometry edgeMargin;
+  final EdgeInsetsGeometry edgePadding;
+  final BoxShadow boxShadow;
+  final Function action;
+
+  CustomFlatButton({this.textButton, this.widgetName, this.buttonColor, this.fontWeight, this.fontSize, this.edgeMargin, this.edgePadding, this.boxShadow, this.action});
+
+  Widget build(BuildContext context) {
+    return  Container(
+      margin: edgeMargin,
+      width: double.infinity,
+      height: 50.0,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(size5), boxShadow: [boxShadow]),
+      child: FlatButton(
+        color: getHexaColor(buttonColor),
+        disabledTextColor: Colors.black54,
+        disabledColor: Colors.grey[700],
+        focusColor: getHexaColor("#83B6BD"),
+        textColor: Colors.white,
+        child: Text(
+          textButton,
+          style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
+        onPressed: (){
+          action(context);
+        }
+        // action == null ? null : 
+        // (){
+        //   ();
+        // }
+      ),
+    );
+  }
 }

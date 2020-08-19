@@ -1,19 +1,19 @@
 import 'dart:ui';
 import 'package:wallet_apps/index.dart';
 
-class DrawerLayout extends StatefulWidget{
+class Menu extends StatefulWidget{
 
   final Map<String, dynamic> _userData; final PackageInfo _packageInfo; final Function drawerCallBack;
 
-  DrawerLayout(this._userData, this._packageInfo, this.drawerCallBack);
+  Menu(this._userData, this._packageInfo, this.drawerCallBack);
 
   @override
   State<StatefulWidget> createState() {
-    return DrawerLayoutState();
+    return MenuState();
   }
 }
 
-class DrawerLayoutState extends State<DrawerLayout> {
+class MenuState extends State<Menu> {
   
   /* Variable */
   String error = '', _pin = '', _confirmPin = '';

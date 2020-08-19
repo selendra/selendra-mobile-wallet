@@ -9,7 +9,7 @@ Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function u
       Container(
         padding: EdgeInsets.only(top: 5.0),
         child: Text(
-          """Please keep your key secure. This secret key will only be showed to you once.\nZeetomic will not be able to help you recover it if lost.""",
+          """Please keep your key secure. This secret key will only be showed to you once.\nSelendra will not be able to help you recover it if lost.""",
         ),
       ),
       /* User Private Key */

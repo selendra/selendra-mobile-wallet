@@ -15,52 +15,50 @@ Widget buildListBody(List<dynamic> _activity,) {
               Navigator.push(context, transitionRoute(TransactionActivityDetails(_activity[index])));
             },
             child: Container(
-              margin: EdgeInsets.only(bottom: 10.5),
-              child: Container(
-                margin: EdgeInsets.only(left: 4.0),
-                padding: EdgeInsets.only(top: 20.38, bottom: 16.62),
-                decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1), width: 1.5))
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    /* Asset Icons */
-                    Container(
-                      margin: EdgeInsets.only(right: 9.5),
-                      width: 31.0, 
-                      height: 31.0,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage(
-                          AppConfig.logoTrxActivity,
+              margin: EdgeInsets.only(left: 4.0, top: 10.5),
+              padding: EdgeInsets.only(top: 20.38, bottom: 16.62),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.2), width: 1)),
+                borderRadius: BorderRadius.circular(5)
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  /* Asset Icons */
+                  Container(
+                    margin: EdgeInsets.only(right: 9.5),
+                    width: 31.0, 
+                    height: 31.0,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(
+                        AppConfig.logoTrxActivity,
+                      )
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Column( /* Asset name and date time */
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(_activity[index]['location']),
+                        // _activity[index].containsKey("asset_code") 
+                        //   ? Text(_activity[index]["asset_code"])
+                        //   : Text("XLM"),
+                        Container(
+                          child: Text(AppUtils.timeStampToDateTime(_activity[index]['created_at'])),
                         )
-                      ),
+                      ],
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Column( /* Asset name and date time */
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(_activity[index]['location']),
-                          // _activity[index].containsKey("asset_code") 
-                          //   ? Text(_activity[index]["asset_code"])
-                          //   : Text("XLM"),
-                          Container(
-                            child: Text(AppUtils.timeStampToDateTime(_activity[index]['created_at'])),
-                          )
-                        ],
-                      ),
+                  ),
+                  Expanded(
+                    flex: 0,
+                    child: Text(
+                      _activity[index]['status'], 
+                      style: TextStyle(color: getHexaColor(AppColors.greenColor)),
                     ),
-                    Expanded(
-                      flex: 0,
-                      child: Text(
-                        _activity[index]['status'], 
-                        style: TextStyle(color: getHexaColor(AppColors.greenColor)),
-                      ),
-                    )
-                  ],
-                ),
-              )
+                  )
+                ],
+              ),
             ),
           );
           // : Container();
@@ -82,14 +80,14 @@ Widget rowInformation(String title, dynamic _data) { /* Display Information By R
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text("$title", style: TextStyle(fontSize: 18.0, color: Colors.black)), /* Title */
+            Text("$title", style: TextStyle(fontSize: 18.0, color: Colors.white)), /* Title */
             Expanded(
-              child: Text("$_data", style: TextStyle(fontSize: 18.0, color: Colors.black), overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,),
+              child: Text("$_data", style: TextStyle(fontSize: 18.0, color: Colors.white), overflow: TextOverflow.ellipsis,textAlign: TextAlign.right,),
             )  /* Subtitle */
           ],
         ),
       ),
-      Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
+      Divider(height: 1, color: Colors.white.withOpacity(0.2), thickness: 1.0,),
     ],
   );
 }

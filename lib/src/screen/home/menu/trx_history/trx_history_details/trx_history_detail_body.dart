@@ -30,9 +30,16 @@ Widget trxHistoryDetailsBody(
             Container( /* Activity Information */ 
               margin: EdgeInsets.only(top: 30.0),
               decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 1, color: Colors.white),
-                borderRadius: BorderRadius.circular(2),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 2.0,
+                    offset: Offset(1.0, 1.0)
+                  )
+                ],
+                borderRadius: BorderRadius.circular(5.0),
+                border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
+                color: getHexaColor(AppConfig.darkBlue50),
               ),
               child: Column(
                 children: <Widget>[

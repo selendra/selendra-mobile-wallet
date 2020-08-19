@@ -18,19 +18,22 @@ class WelcomeState extends State<Welcome> {
   FirebaseRemote _firebaseRemote;
 
   bool status; int currentVersion;
+  
   var snackBar;
 
   @override
-  void initState() {
-    globalKey = GlobalKey<ScaffoldState>();
+  void initState() { 
+    newVersionNotifier(context);
     AppServices.noInternetConnection(globalKey);
     super.initState();
   }
 
   void tokenExpireChecker(BuildContext context) async { /* Check For Previous Login */
+    print(status);
     if (status != null){
       dialogLoading(context);
-      Timer(Duration(seconds: 1), () async {
+      print("Check expired");
+      await Future.delayed(Duration(seconds: 1), () async {
         Navigator.pop(context);
         if (status == false){
           await dialog(context, Text('Unauthorized. please login again', textAlign: TextAlign.center), null);
@@ -94,8 +97,10 @@ class WelcomeState extends State<Welcome> {
           }
         );
         tokenExpireChecker(context);
-      } else
+      } else {
+        print('2');
         tokenExpireChecker(context);
+      }
     } catch (e) {}
   }
 
@@ -108,7 +113,6 @@ class WelcomeState extends State<Welcome> {
   }
 
   Widget build(BuildContext context) {
-    newVersionNotifier(context);
     return Scaffold(
       key: globalKey,
       body: welcomeBody(context, navigatePage),

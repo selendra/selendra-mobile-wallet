@@ -23,6 +23,7 @@ class GetRequest{
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.api}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      print("Request ${_backend.response.body}");
       return _backend.response;
     }
     return null;

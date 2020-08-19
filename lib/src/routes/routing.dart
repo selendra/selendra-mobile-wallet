@@ -4,8 +4,11 @@ class AppRouting{
 
   static ModelSignUp _modelSignUp = ModelSignUp();
 
+  static PackageInfo _packageInfo = PackageInfo();
+
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
     '/': (context) => MySplashScreen(),
+    //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Dashboard(),
     // '/getWalletScreen': (context) => GetWalletWidget(),

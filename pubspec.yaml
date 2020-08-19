@@ -35,6 +35,7 @@ dependencies:
   connectivity:
   connectivity_wrapper:
   firebase_remote_config:
+  async: 
 
   # Image service
   image_picker:

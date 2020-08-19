@@ -1,8 +1,9 @@
 import 'package:wallet_apps/index.dart';
+import 'package:http/http.dart' as http;
 
 class AppServices {
 
-  static void noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {
+  static Future noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {
     try {
       Connectivity _connectivity = new Connectivity();
       final myResult = await _connectivity.checkConnectivity();
@@ -60,6 +61,17 @@ class AppServices {
 
   static Map<String, dynamic> emptyMapData(){
     return Map<String, dynamic>.unmodifiable({});
+  }
+  
+  static void timer(http.Response res, Function counter) async {
+    print("Test timer");
+    Timer.periodic(Duration(seconds: 1), (Timer timer){
+      print("My Res $res");
+      // Cancel Timer When Request Data Success
+      if (timer.tick == 5 ) timer.cancel();
+      if (timer.tick <= 10) counter(timer);
+      else if (timer.tick > 10) timer.cancel();
+    });
   }
 }
 

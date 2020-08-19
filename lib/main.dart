@@ -2,14 +2,17 @@ import 'package:wallet_apps/index.dart';
 
 void main() async {
 
-  WidgetsFlutterBinding.ensureInitialized(); /* Avoid Error, " accessed before the binding was initialized " */
+  // Avoid Error, " accessed before the binding was initialized "
+  WidgetsFlutterBinding.ensureInitialized(); 
 
-  // debugPaintSizeEnabled = true; // Enable Debug Paint
+  // Enable Debug Paint
+  // debugPaintSizeEnabled = true; 
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]); // Keep Screen Portrait
+  // Keep Screen Portrait
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]); 
 
+  // Catch Error During Callback
   FlutterError.onError = (FlutterErrorDetails details) {
-    /* Catch Error During Callback */
     FlutterError.dumpErrorToConsole(details);
     if (kReleaseMode) exit(1);
   };

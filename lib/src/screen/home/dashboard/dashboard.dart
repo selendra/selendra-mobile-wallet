@@ -206,7 +206,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   /* ------------------------Fetch Local Data Method------------------------ */
   
-  _pullUpRefresh() async { /* Refech Data User And Portfolio */
+  // Refech Data User And Portfolio
+  _pullUpRefresh() async { 
     setState(() {
       _modelDashboard.portfolioList = [];
     });
@@ -250,7 +251,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
             )
           );
           else await dialog(context, Text(onValue['error']['message']), warningTitleDialog());
-          Navigator.pop(context); /* Disable Loading Process */
+          // Disable Loading Process
+          Navigator.pop(context); 
           if (onValue.containsKey('message')) fetchPortfolio();
         }
       );
@@ -292,7 +294,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         data: Theme.of(context).copyWith(
           canvasColor: Colors.transparent
         ),
-        child: DrawerLayout(_modelDashboard.userData, _packageInfo, menuCallBack),
+        child: Menu(_modelDashboard.userData, _packageInfo, menuCallBack),
       ),
 
       body: scaffoldBGDecoration(

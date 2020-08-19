@@ -26,7 +26,6 @@ class _FingerPrintState extends State<FingerPrint> {
 
   @override
   void initState() {
-    checkExpiredToken();
     authenticate();
     super.initState();
   }
@@ -36,7 +35,7 @@ class _FingerPrintState extends State<FingerPrint> {
     try{
       hasFingerPrint = await localAuth.canCheckBiometrics;
     } on  PlatformException catch (e){
-      print (e);
+      print(e);
     }
     if (!mounted) return;
     setState(() {
@@ -49,7 +48,7 @@ class _FingerPrintState extends State<FingerPrint> {
     try{
       availableBio = await localAuth.getAvailableBiometrics();
     } on  PlatformException catch (e){
-      print (e);
+      print(e);
     }
     if (!mounted) return;
     setState(() {
@@ -67,6 +66,15 @@ class _FingerPrintState extends State<FingerPrint> {
         useErrorDialogs: true,
         stickyAuth: true
       );
+    
+      // Open Loading
+      dialogLoading(context);
+      if (authenticate){
+        await checkExpiredToken();
+      } else {
+        // Close Loading
+        Navigator.pop(context);
+      }
     } on PlatformException catch (e){ }
 
     if (authenticate) {
@@ -78,9 +86,11 @@ class _FingerPrintState extends State<FingerPrint> {
 
   }
 
-  void checkExpiredToken() async { /* Check For Previous Login */
+  Future<void> checkExpiredToken() async { /* Check For Previous Login */
     try {
       _backend.response = await _getRequest.checkExpiredToken();
+      // Close Loading
+      Navigator.pop(context);
       // Convert String To Object
       _backend.mapData = json.decode(_backend.response.body);
       // Check Expired Token
@@ -89,7 +99,7 @@ class _FingerPrintState extends State<FingerPrint> {
       } 
       // Reset isLoggedIn True -> False Cause Token Expired
       else if (_backend.response.statusCode== 401) {
-        await dialog(context, Text('${_backend.mapData['message']}'), Text("Message"));
+        await dialog(context, Text('${_backend.mapData['error']['message']}', textAlign: TextAlign.center), Text("Message"));
         Navigator.pushReplacement(
           context, 
           MaterialPageRoute(builder: (context) => Login())
@@ -106,8 +116,11 @@ class _FingerPrintState extends State<FingerPrint> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(Icons.lock, color: Colors.white),
-            Text("Authentication Required")
+            Icon(FontAwesomeIcons.fingerprint, size: 60.0, color: Colors.white),
+            Container(
+              margin: EdgeInsets.only(top: 10.0),
+              child: Text("Authentication Required", style: TextStyle(fontSize: 18.0)),
+            )
           ],
         )
       )

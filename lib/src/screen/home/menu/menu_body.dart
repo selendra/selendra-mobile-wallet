@@ -24,8 +24,6 @@ class ProfileUserBody extends StatelessWidget{
   });
 
   Widget build(BuildContext context){
-
-    print(model.switchBio);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[ 
@@ -48,27 +46,14 @@ class ProfileUserBody extends StatelessWidget{
                   onPressed: popScreen,
                 ),
               ),
-              Container( /* Avatar Image */
-                margin: EdgeInsets.only(bottom: 10.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(60.0),
-                  border: Border.all(
-                    width: 1, color: getHexaColor(AppColors.greenColor))
-                  ),
-                child: Icon(FontAwesomeIcons.solidUserCircle)
-                // Image.asset(
-                //   "assets/images/avatar.png",
-                //   width: 100,
-                //   height: 100,
-                // )
+              // Avatar Image
+              Icon(
+                FontAwesomeIcons.solidUserCircle,
+                size: 70.0,
+                color: Colors.white,
               ),
-              SwitchListTile(
-                value: model.switchBio,
-                onChanged: (value){
-                  switchBio(value);
-                },
-              ),
-              Container( /* User Name */
+              // User Name
+              Container(
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(bottom: 10.0),
                 child: 
@@ -115,6 +100,99 @@ class ProfileUserBody extends StatelessWidget{
               Text("Demo version")
               // Text("Version ${packageInfo.version ?? '0.0.0'}")
             ],
+          )
+        ),
+        // SwitchListTile(
+        //   value: model.switchBio,
+        //   onChanged: (value){
+        //     switchBio(value);
+        //   },
+        // ),
+        // Container(
+        //   // padding: EdgeInsets.only(left: 19.0, right: 19.0),
+        //   decoration: BoxDecoration(
+        //     border: Border(
+        //       top: BorderSide(
+        //         width: 1, color: Colors.white.withOpacity(0.2)
+        //       )
+        //     )
+        //   ),
+        //   child: Switch(
+        //     // title: Row(
+        //     //   children: [
+        //     //     FaIcon(
+        //     //       FontAwesomeIcons.fingerprint,
+        //     //       color: Colors.white
+        //     //     ),
+
+        //     //     Text(
+        //     //       'Finger print',
+        //     //       style: TextStyle(
+        //     //         fontWeight: FontWeight.w400,
+        //     //         color: getHexaColor("#EFF0F2")
+        //     //       ),
+        //     //     )
+        //     //   ],
+        //     // ),
+        //     value: model.switchBio,
+        //     onChanged: (value){
+        //       switchBio(value);
+        //     },
+        //   )
+          // Row(
+          //   children: [
+          //     FaIcon(
+          //       FontAwesomeIcons.fingerprint,
+          //       color: Colors.white
+          //     ),
+
+          //     Text(
+          //       'Finger print',
+          //       style: TextStyle(
+          //         fontWeight: FontWeight.w400,
+          //         color: getHexaColor("#EFF0F2")
+          //       ),
+          //     ),
+
+          //     Container(
+          //       height: 20.0,
+          //       width: 20.0,
+          //       child: SwitchListTile(
+          //         value: model.switchBio,
+          //         onChanged: (value){
+          //           switchBio(value);
+          //         },
+          //       )
+          //     )
+          //   ],
+          // ),
+        // ),
+        Container(
+          padding: EdgeInsets.only(left: 19.0),
+          child: ListTile(
+        //   // padding: EdgeInsets.only(left: 19.0, right: 19.0),
+            contentPadding: EdgeInsets.all(0),
+            leading: Container(
+              padding: EdgeInsets.all(0),
+              child: FaIcon(
+                FontAwesomeIcons.fingerprint,
+                color: Colors.white
+              ),
+            ),
+            title: Text(
+              'Finger print',
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                color: getHexaColor("#EFF0F2")
+              ),
+            ),
+            trailing: Switch(
+              value: model.switchBio,
+              onChanged: (value){
+                switchBio(value);
+              },
+            ),
+            // onTap:  
           )
         ),
         customListTile(context, FontAwesomeIcons.userEdit, "Profile", editProfile, maintenance: true),

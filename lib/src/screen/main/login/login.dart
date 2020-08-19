@@ -8,6 +8,8 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> with WidgetsBindingObserver {
+
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
   
   ModelLogin _modelLogin = ModelLogin();
 
@@ -17,7 +19,8 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    AppServices.noInternetConnection(_modelLogin.globalKey);
+    AppServices.noInternetConnection(globalKey);
+    _modelLogin.label = 'phone';
     super.initState();
   }
 
@@ -123,6 +126,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   // Check Internet Before Validate And Finish Validate
   void submitLogin(BuildContext context) async { 
     dialogLoading(context);
+    print(_modelLogin.label);
     try {
       if (_modelLogin.label == "email") {
         await loginByEmail();
@@ -134,20 +138,34 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         setState(() {});
       });
       Navigator.pop(context);
-      AppServices.mySnackBar(_modelLogin.globalKey, AppText.contentConnection);
+      AppServices.mySnackBar(globalKey, AppText.contentConnection);
     } catch (e) {}
+  }
+
+  void counter(Timer timer){
+    print("My counter ${timer.tick}");
+    if (_backend.response != null) {
+      AppServices.timer(_backend.response, counter);
+    }
   }
   
   Future<void> loginByPhone() async {
 
+    // Connection timed out
+    AppServices.timer(_backend.response, counter);
+
     _backend.response = await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text);
 
-    _backend.mapData = json.decode(_backend.response.body);
+    print(_backend.response.body);
 
-    await navigator();
+    // _backend.mapData = json.decode(_backend.response.body);
+
+    // await navigator();
   }
 
   Future<void> loginByEmail() async {
+
+
 
     _backend.response = await _postRequest.loginByEmail(_modelLogin.controlEmails.text, _modelLogin.controlPasswords.text);
 
@@ -157,6 +175,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   }
 
   Future<void> navigator() async {
+
     if (_backend.response.statusCode != 502) {
       // Close Loading
       Navigator.pop(context);
@@ -175,7 +194,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
             MaterialPageRoute(builder: (context) => Dashboard()),
             ModalRoute.withName('/')
           );
-          
         }
         // If Incorrect Email 
         else { 
@@ -189,23 +207,27 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _modelLogin.globalKey,
+      key: globalKey,
       body: DefaultTabController(
         initialIndex: 0,
         length: 2,
         child: paddingScreenWidget( /* Body Widget */
           context,
-          SafeArea(
-            child: loginBody(
-              context,
-              _modelLogin,
-              validateInput,
-              validatePassword,
-              onChanged,
-              tabBarSelectChanged,
-              showPassword,
-              submitLogin,
-            ),
+          Column(
+            children: [
+              SafeArea(
+                child: loginBody(
+                  context,
+                  _modelLogin,
+                  validateInput,
+                  validatePassword,
+                  onChanged,
+                  tabBarSelectChanged,
+                  showPassword,
+                  submitLogin,
+                ),
+              ),
+            ],
           )
         ),
       )

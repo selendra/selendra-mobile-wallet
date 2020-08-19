@@ -15,6 +15,8 @@ class MySplashScreenState extends State<MySplashScreen>{
 
   FlareControls _flareControls = FlareControls();
 
+  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+
   @override
   initState(){
     checkBiometric();
@@ -23,21 +25,36 @@ class MySplashScreenState extends State<MySplashScreen>{
   }
 
   void checkBiometric() async {
+
+    Connectivity _connectivity = new Connectivity();
+    _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+      print(result);
+      if (result == ConnectivityResult.none) {
+        AppServices.mySnackBar(_globalKey, AppText.contentConnection);
+      } 
+      // else {
+      //   globalKey.currentState.removeCurrentSnackBar();
+      // }
+    });
+    
     try{
-      await StorageServices.fetchData('biometric').then((value) {
-        print(value);
+      await StorageServices.fetchData('biometric').then((value) async {
         // value == null whenever User Not Yet Login Or User Logged Out
-        if (value != null){
-          if (value['bio'] == true){
-            Navigator.pushReplacement(
-              context, 
-              MaterialPageRoute(builder: (context) => FingerPrint())
-            );
+        await Future.delayed(Duration(seconds: 3), () async {
+          if (value != null){
+            if (value['bio'] == true){
+              print(value);
+              Navigator.pushReplacement(
+                context, 
+                MaterialPageRoute(builder: (context) => FingerPrint())
+              );
+            }
+          } else {
+      // _backend.response = await _getRequest.checkExpiredToken();
+            navigator();
           }
-        } 
-        else {
-          navigator();
-        }
+        });
+        
       });
     } catch (e) {
       await dialog(context, Text("$e", textAlign: TextAlign.center), "Message");
@@ -55,6 +72,7 @@ class MySplashScreenState extends State<MySplashScreen>{
     if (_backend.mapData != null) {
       // Get Request To Check Expired Token
       _backend.response = await _getRequest.checkExpiredToken();
+      // Convert String To Object
       _backend.mapData = json.decode(_backend.response.body);
       // Check Expired Token
       if (_backend.response.statusCode == 200) { 
@@ -67,7 +85,8 @@ class MySplashScreenState extends State<MySplashScreen>{
       }
       // Reset isLoggedIn True -> False Cause Token Expired 
       else if (_backend.response.statusCode == 401) {
-        await dialog(context, Text("${_backend.mapData['message']}"), Text("Message"));
+        await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
+        // Navigate To Login
         Navigator.pushReplacement(
           context, 
           MaterialPageRoute(builder: (context) => Login())

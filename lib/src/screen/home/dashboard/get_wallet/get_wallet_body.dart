@@ -30,14 +30,26 @@ Widget getWalletBody(
       ? Expanded(child: Center(child: Text("No Wallet", style: TextStyle(fontSize: 20.0),)),) 
       : Column(
         children: <Widget>[
-          Card(
-            elevation: 2,
-            margin: EdgeInsets.only(top: 40.0, bottom: 40.0),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
+              color: getHexaColor(AppConfig.darkBlue50),
+            ),
+            margin: EdgeInsets.only(top: 40.0, bottom: 40.0), 
             child: Container( /* Generate QR Code */
               width: double.infinity,
               padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
-              child: qrCodeGenerator(_wallet, AppConfig.logoQrEmbedded, _keyQrShare),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  qrCodeGenerator(_wallet, AppConfig.logoQrEmbedded, _keyQrShare),
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Text('$_wallet',textAlign: TextAlign.center,)
+                  )
+                ],
+              ),
             )
           ),
           FlatButton(

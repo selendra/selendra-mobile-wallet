@@ -39,6 +39,7 @@ export 'package:local_auth/local_auth.dart';
 export 'package:share_extend/share_extend.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:sms_autofill/sms_autofill.dart';
+export 'package:async/async.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
