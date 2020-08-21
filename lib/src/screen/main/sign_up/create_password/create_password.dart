@@ -24,6 +24,10 @@ class CreatePasswordState extends State<CreatePassword> {
   
   @override
   void initState() {
+
+    // Initalize Number Counter
+    AppServices.myNumCount = 0;
+
     AppServices.noInternetConnection(globalKey);
     super.initState();
   }
@@ -125,114 +129,120 @@ class CreatePasswordState extends State<CreatePassword> {
     }
   }
 
+  void timeCounter(Timer timer) async {
+    // Assign Timer Number Counter To myNumCount Variable
+    AppServices.myNumCount = timer.tick;
+    // Cancel Timer When Rest Api Successfully
+    if (_backend.response != null) timer.cancel();
+    // Display TimeOut With SnackBar When Over 10 Second
+    if (AppServices.myNumCount == 10) {
+      Navigator.pop(context);
+      globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+    }
+    setState((){});
+  }
   /* -------------- Submit --------------- */
 
   // Navigate To Fill User Info
   void submitSignUp(BuildContext context) async { 
-    
-    // Post Register By Email
-    if (widget._modelSignUp.label == "email") { 
-      await registerByEmail();
-    }
-    // Post Register By Phone Number
-    else { 
-      await registerByPhoneNumber();
-    }
-    await clearFocusInput();
-  }
 
-  Future<void> registerByEmail() async {
-
+    // Display Dialog Loading
     dialogLoading(context);
 
+    // Connection timed out
+    AppServices.timerOutHandler(_backend.response, timeCounter);
+
+    await Future.delayed(Duration(seconds: 11), (){});
+
     try{
-
-      _backend.response = await _postRequest.registerByEmail(widget._modelSignUp.controlEmails.text,  widget._modelSignUp.controlConfirmPassword.text);
-  
-      _backend.mapData = json.decode(_backend.response.body);
-
-      // Close Loading
-      Navigator.pop(context);
-
-      if (_backend.response.statusCode == 200){
-        if (_backend.mapData['message'] == "Successfully registered!"){
-          await dialog(
-            context,
-            textAlignCenter(text: "${_backend.mapData['message']} Please check your email to verify"),
-            /* Sub Title */ /* Check For Change Icon On Alert */ /* Title */
-            Icon(
-              Icons.done_outline,
-              color: getHexaColor(AppColors.greenColor),
-            ) 
-          );
-          Navigator.pushAndRemoveUntil(
-            context, 
-            MaterialPageRoute(builder: (context) => Login()),
-            ModalRoute.withName('/')
-          );
-        } else {
-          await dialog(
-            context,
-            textAlignCenter(text: _backend.mapData['message']),
-            Text("Message") 
-          );
-        }
+      // Post Register By Email
+      if (widget._modelSignUp.label == "email") { 
+        await registerByEmail();
       }
+      // Post Register By Phone Number
+      else { 
+        await registerByPhoneNumber();
+      }
+      
     } catch (e){
       await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
     }
-    clearFocusInput();
   }
 
-  Future<void> registerByPhoneNumber() async {
-    
-    dialogLoading(context);
-    
-    try{
-      _backend.response = await _postRequest.registerByPhone(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text);
+  // Register By Email
+  Future<void> registerByEmail() async {
 
-      // Close Loading
-      Navigator.pop(context);
-
-      _backend.mapData = json.decode(_backend.response.body);
-
-      if (_backend.response.statusCode == 200){
-        if (_backend.mapData['message'] == "Successfully registered!"){
-          await dialog(
-            context,
-            textAlignCenter(text: "${_backend.mapData['message']}"),
-            Icon(
-              Icons.done_outline,
-              color: getHexaColor(AppColors.greenColor),
-            ) 
-          );
-
-          await resendOtpCode().then((value) {
-            _backend.mapData = json.decode(value.body);
-            if(value.statusCode == 200){
-              // Close Loading
-              Navigator.pop(context); 
-              Future.delayed(Duration(milliseconds: 100), () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SmsCodeVerify(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text, _backend.mapData)
-                  )
-                );
-              });
-            }
-          });
-        } else {
-          await dialog(
-            context,
-            textAlignCenter(text: _backend.mapData['message']),
-            Text("Message") 
-          );
+    await _postRequest.registerByEmail(widget._modelSignUp.controlEmails.text,  widget._modelSignUp.controlConfirmPassword.text).then((value) async {
+      if (AppServices.myNumCount < 10) {
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
         }
+        // Navigator Route
+        await navigator();
       }
-    } catch (e){
-      await dialog(context, textAlignCenter(text: _backend.mapData.toString()), warningTitleDialog());
+    });
+  }
+
+  // Register By Phone Number
+  Future<void> registerByPhoneNumber() async {
+
+    await _postRequest.registerByPhone(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text).then((value) async {
+      if (AppServices.myNumCount < 10) {
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
+        }
+        // Navigator Route
+        await navigator();
+      }
+    });
+  }
+
+  // Navigator Route
+  Future<void> navigator() async {
+
+    // Close Loading
+    Navigator.pop(context);
+
+    if (_backend.response.statusCode == 200){
+      if (_backend.mapData['message'] == "Successfully registered!"){
+        await dialog(
+          context,
+          textAlignCenter(text: "${_backend.mapData['message']}"),
+          Icon(
+            Icons.done_outline,
+            color: getHexaColor(AppColors.greenColor),
+          ) 
+        );
+
+        await resendOtpCode().then((value) {
+          _backend.mapData = json.decode(value.body);
+          if(value.statusCode == 200){
+            // Close Loading
+            Navigator.pop(context); 
+            Future.delayed(Duration(milliseconds: 100), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SmsCodeVerify(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text, _backend.mapData)
+                )
+              );
+            });
+          }
+        });
+      } else {
+        await dialog(
+          context,
+          textAlignCenter(text: _backend.mapData['message']),
+          Text("Message") 
+        );
+      }
     }
+
+    // Remove All Focus Field After Click Button
     clearFocusInput();
   }
 

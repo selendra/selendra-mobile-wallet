@@ -141,11 +141,10 @@ Widget customFlatButton(
         style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
-      onPressed: action
-      // action == null ? null : 
-      // (){
-      //   ();
-      // }
+      onPressed: action == null ? null : 
+      (){
+        action(context);
+      }
     ),
   );
 }

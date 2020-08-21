@@ -98,12 +98,6 @@ Widget loginBody(
           )
         )
       ),
-
-      RaisedButton(
-        onPressed: (){
-          print("Hello world");
-        },
-      ),
       // Button login
       CustomFlatButton(
         textButton: "Login",
@@ -119,15 +113,8 @@ Widget loginBody(
           spreadRadius: 2.0,
           offset: Offset(2.0, 5.0),
         ),
-        // modelLogin.enable == false ? null : 
-        action: submtiLogin
+        action: modelLogin.enable == false ? null : submtiLogin
       ),
-      // RaisedButton(
-      //   child: Text("Hello"),
-      //   onPressed: (){
-      //     submtiLogin(context);
-      //   },
-      // ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -229,45 +216,3 @@ Widget userLoginForm({
   );
 }
 
-
-class CustomFlatButton extends StatelessWidget{
-  final String textButton;
-  final String widgetName;
-  final String buttonColor;
-  final FontWeight fontWeight;
-  final double fontSize;
-  final EdgeInsetsGeometry edgeMargin;
-  final EdgeInsetsGeometry edgePadding;
-  final BoxShadow boxShadow;
-  final Function action;
-
-  CustomFlatButton({this.textButton, this.widgetName, this.buttonColor, this.fontWeight, this.fontSize, this.edgeMargin, this.edgePadding, this.boxShadow, this.action});
-
-  Widget build(BuildContext context) {
-    return  Container(
-      margin: edgeMargin,
-      width: double.infinity,
-      height: 50.0,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(size5), boxShadow: [boxShadow]),
-      child: FlatButton(
-        color: getHexaColor(buttonColor),
-        disabledTextColor: Colors.black54,
-        disabledColor: Colors.grey[700],
-        focusColor: getHexaColor("#83B6BD"),
-        textColor: Colors.white,
-        child: Text(
-          textButton,
-          style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
-        ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
-        onPressed: (){
-          action(context);
-        }
-        // action == null ? null : 
-        // (){
-        //   ();
-        // }
-      ),
-    );
-  }
-}

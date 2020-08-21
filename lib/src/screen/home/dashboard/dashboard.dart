@@ -113,6 +113,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     
     /* Get Response Data */
     _backend.response = await _getRequest.getPortfolio();
+
+    print('Hello${_backend.response.body}');
     
     /* Covert String To Objects */
     await _portfolio.extractData(_backend.response);

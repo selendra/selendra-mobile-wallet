@@ -1,4 +1,5 @@
 import 'package:wallet_apps/index.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -125,8 +126,13 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   // Check Internet Before Validate And Finish Validate
   void submitLogin(BuildContext context) async { 
+
+    // Display Dialog Loading
     dialogLoading(context);
-    print(_modelLogin.label);
+
+    // Connection timed out
+    AppServices.timerOutHandler(_backend.response, timeCounter);
+
     try {
       if (_modelLogin.label == "email") {
         await loginByEmail();
@@ -142,67 +148,82 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     } catch (e) {}
   }
 
-  void counter(Timer timer){
-    print("My counter ${timer.tick}");
-    if (_backend.response != null) {
-      AppServices.timer(_backend.response, counter);
+  void timeCounter(Timer timer) async {
+    // Assign Timer Number Counter To myNumCount Variable
+    AppServices.myNumCount = timer.tick;
+    // Cancel Timer When Rest Api Successfully
+    if (_backend.response != null) timer.cancel();
+    // Display TimeOut With SnackBar When Over 10 Second
+    if (AppServices.myNumCount == 10) {
+      Navigator.pop(context);
+      globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
     }
+    setState((){});
   }
-  
+
   Future<void> loginByPhone() async {
+    
+    // Rest Api
+    await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text).then((value) async {
+      // Do Below Statement When Rest Api Successfully Under 10 seconds
+      if (AppServices.myNumCount < 10) {
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
+        }
+        await navigator();
+      }
+    });
 
-    // Connection timed out
-    AppServices.timer(_backend.response, counter);
-
-    _backend.response = await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text);
-
-    print(_backend.response.body);
-
-    // _backend.mapData = json.decode(_backend.response.body);
-
-    // await navigator();
   }
 
   Future<void> loginByEmail() async {
 
-
-
-    _backend.response = await _postRequest.loginByEmail(_modelLogin.controlEmails.text, _modelLogin.controlPasswords.text);
-
-    _backend.mapData = json.decode(_backend.response.body);
-
-    await navigator();
+    // Rest Api
+    await _postRequest.loginByEmail(_modelLogin.controlEmails.text, _modelLogin.controlPasswords.text).then((value) async {
+      // Do Below Statement When Rest Api Successfully Under 10 seconds
+      if (AppServices.myNumCount < 10) {
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
+        }
+        await navigator();
+      }
+    });
   }
 
   Future<void> navigator() async {
 
-    if (_backend.response.statusCode != 502) {
-      // Close Loading
-      Navigator.pop(context);
-      if (_backend.mapData.containsKey("error")) {
-        await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
-      } else { 
-        // If Successfully
-        if (_backend.mapData.containsKey("token")) {
-          _backend.mapData.addAll({
-            "isLoggedIn": true
-          });
-          await StorageServices.setData(_backend.mapData, 'user_token');
+    // Close Loading
+    Navigator.pop(context);
+
+    // if (_backend.response.statusCode != 502) {
+    //   if (_backend.mapData.containsKey("error")) {
+    //     await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
+    //   } else { 
+    //     // If Successfully
+    //     if (_backend.mapData.containsKey("token")) {
+    //       _backend.mapData.addAll({
+    //         "isLoggedIn": true
+    //       });
+    //       await StorageServices.setData(_backend.mapData, 'user_token');
           
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => Dashboard()),
-            ModalRoute.withName('/')
-          );
-        }
-        // If Incorrect Email 
-        else { 
-          await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
-        }
-      }
-    } else {
-      await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
-    }
+    //       Navigator.pushAndRemoveUntil(
+    //         context,
+    //         MaterialPageRoute(builder: (context) => Dashboard()),
+    //         ModalRoute.withName('/')
+    //       );
+    //     }
+    //     // If Incorrect Email 
+    //     else { 
+    //       await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
+    //     }
+    //   }
+    // } else {
+    //   await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
+    // }
   }
 
   Widget build(BuildContext context) {

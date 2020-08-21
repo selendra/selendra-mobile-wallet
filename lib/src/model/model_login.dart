@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wallet_apps/src/bloc/bloc.dart';
-import 'package:http/http.dart' as _http;
 
 class ModelLogin {
 
@@ -16,7 +15,7 @@ class ModelLogin {
 
   var responseEmailPhone, responsePassword;
 
-  _http.Response res;
+  int myNumCount = 0;
 
   /* User login Property*/
   FocusNode nodeEmails = FocusNode();

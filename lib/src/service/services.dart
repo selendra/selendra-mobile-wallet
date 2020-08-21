@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 
 class AppServices {
 
+  static int myNumCount;
+
   static Future noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {
     try {
       Connectivity _connectivity = new Connectivity();
@@ -63,12 +65,8 @@ class AppServices {
     return Map<String, dynamic>.unmodifiable({});
   }
   
-  static void timer(http.Response res, Function counter) async {
-    print("Test timer");
+  static void timerOutHandler(http.Response res, Function counter) async {
     Timer.periodic(Duration(seconds: 1), (Timer timer){
-      print("My Res $res");
-      // Cancel Timer When Request Data Success
-      if (timer.tick == 5 ) timer.cancel();
       if (timer.tick <= 10) counter(timer);
       else if (timer.tick > 10) timer.cancel();
     });
