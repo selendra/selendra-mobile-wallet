@@ -1,6 +1,4 @@
 /* This file hold app configurations. */
-import 'package:wallet_apps/src/backend/api.dart';
-
 class AppConfig { 
 
   /* Background Color */ 

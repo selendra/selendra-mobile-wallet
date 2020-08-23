@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class AppServices {
 
-  static int myNumCount;
+  static int myNumCount = 0;
 
   static Future noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {
     try {
@@ -71,5 +71,6 @@ class AppServices {
       else if (timer.tick > 10) timer.cancel();
     });
   }
+  
 }
 

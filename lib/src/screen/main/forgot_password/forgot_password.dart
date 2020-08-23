@@ -13,8 +13,13 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   PostRequest _postRequest = PostRequest();
 
+  Backend _backend = Backend();
+
   @override
   void initState() {
+    AppServices.myNumCount = 0;
+    _modelForgotPassword.key = "phone";
+    _modelForgotPassword.endpoint = "forget-password";
     super.initState();
   }
 
@@ -68,16 +73,50 @@ class ForgotPasswordState extends State<ForgotPassword> {
     setState(() { });
   }
 
+  // void timeCounter(Timer timer) async {
+  //   print(timer.tick);
+  //   // Assign Timer Number Counter To myNumCount Variable
+  //   AppServices.myNumCount = timer.tick;
+  //   // Cancel Timer When Rest Api Successfully
+  //   if (_backend.response != null) timer.cancel();
+  //   // Display TimeOut With SnackBar When Over 10 Second
+  //   if (AppServices.myNumCount == 10) {
+  //     Navigator.pop(context);
+  //     _modelForgotPassword.globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+  //   }
+  // }
+
   void requestCode(BuildContext context) async {
+
+    // Show Dialog Loading
     dialogLoading(context);
-    await _postRequest.forgetPassword(
-      _modelForgotPassword, 
-      _modelForgotPassword.key == "phone" ? "+855${_modelForgotPassword.controlPhoneNums.text}" : _modelForgotPassword.controllerEmail.text // Check User Request By Phone Number Or Email
-    ).then((_response) async {
-      Navigator.pop(context);
-      await dialog(context, Text(_response['message']), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor),));
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(_modelForgotPassword)));
-    });
+
+    // Time Out Handler
+    // AppServices.timerOutHandler(_backend.response, timeCounter);
+
+    await Future.delayed(Duration(seconds: 9), (){});
+    // Rest Api
+    try{
+      await _postRequest.forgetPassword(
+        _modelForgotPassword, 
+        _modelForgotPassword.key == "phone" ? "+855${_modelForgotPassword.controlPhoneNums.text}" : _modelForgotPassword.controllerEmail.text // Check User Request By Phone Number Or Email
+      ).then((value) async {
+        // Close Dialog Loading
+        Navigator.pop(context);
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
+          await dialog(context, Text(_backend.mapData['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor),));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(_modelForgotPassword)));
+        }
+        // if (AppServices.myNumCount < 10) { 
+          
+        // }
+      });
+    } catch (err){
+      await dialog(context, Text("Something gone wrong"), Text("Message"));
+    }
   }
 
   void enableButton(bool enable) {
@@ -98,7 +137,8 @@ class ForgotPasswordState extends State<ForgotPassword> {
             _modelForgotPassword, 
             tabBarSelectChanged, validatePhoneNumber, validateEmail,
             onChanged, onSubmit,
-            Component.popScreen, requestCode
+            Component.popScreen, 
+            requestCode
           )
         ),
       ),

@@ -25,9 +25,6 @@ class CreatePasswordState extends State<CreatePassword> {
   @override
   void initState() {
 
-    // Initalize Number Counter
-    AppServices.myNumCount = 0;
-
     AppServices.noInternetConnection(globalKey);
     super.initState();
   }
@@ -129,18 +126,18 @@ class CreatePasswordState extends State<CreatePassword> {
     }
   }
 
-  void timeCounter(Timer timer) async {
-    // Assign Timer Number Counter To myNumCount Variable
-    AppServices.myNumCount = timer.tick;
-    // Cancel Timer When Rest Api Successfully
-    if (_backend.response != null) timer.cancel();
-    // Display TimeOut With SnackBar When Over 10 Second
-    if (AppServices.myNumCount == 10) {
-      Navigator.pop(context);
-      globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
-    }
-    setState((){});
-  }
+  // void timeCounter(Timer timer) async {
+  //   // Assign Timer Number Counter To myNumCount Variable
+  //   AppServices.myNumCount = timer.tick;
+  //   // Cancel Timer When Rest Api Successfully
+  //   if (_backend.response != null) timer.cancel();
+  //   // Display TimeOut With SnackBar When Over 10 Second
+  //   if (AppServices.myNumCount == 10) {
+  //     Navigator.pop(context);
+  //     globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+  //   }
+  // }
+
   /* -------------- Submit --------------- */
 
   // Navigate To Fill User Info
@@ -149,10 +146,7 @@ class CreatePasswordState extends State<CreatePassword> {
     // Display Dialog Loading
     dialogLoading(context);
 
-    // Connection timed out
-    AppServices.timerOutHandler(_backend.response, timeCounter);
-
-    await Future.delayed(Duration(seconds: 11), (){});
+    // await Future.delayed(Duration(seconds: 11), (){});
 
     try{
       // Post Register By Email
@@ -163,7 +157,6 @@ class CreatePasswordState extends State<CreatePassword> {
       else { 
         await registerByPhoneNumber();
       }
-      
     } catch (e){
       await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
     }
@@ -173,15 +166,16 @@ class CreatePasswordState extends State<CreatePassword> {
   Future<void> registerByEmail() async {
 
     await _postRequest.registerByEmail(widget._modelSignUp.controlEmails.text,  widget._modelSignUp.controlConfirmPassword.text).then((value) async {
-      if (AppServices.myNumCount < 10) {
-        _backend.response = value;
-        if (_backend.response != null) {
-          // Navigator.pop(context);
-          _backend.mapData = json.decode(_backend.response.body);
-        }
-        // Navigator Route
-        await navigator();
+      // if (AppServices.myNumCount < 10) {
+        
+      // }
+      _backend.response = value;
+      if (_backend.response != null) {
+        // Navigator.pop(context);
+        _backend.mapData = json.decode(_backend.response.body);
       }
+      // Navigator Route
+      await navigator();
     });
   }
 
@@ -189,15 +183,16 @@ class CreatePasswordState extends State<CreatePassword> {
   Future<void> registerByPhoneNumber() async {
 
     await _postRequest.registerByPhone(widget._modelSignUp.controlPhoneNums.text, widget._modelSignUp.controlConfirmPassword.text).then((value) async {
-      if (AppServices.myNumCount < 10) {
-        _backend.response = value;
-        if (_backend.response != null) {
-          // Navigator.pop(context);
-          _backend.mapData = json.decode(_backend.response.body);
-        }
-        // Navigator Route
-        await navigator();
+      // if (AppServices.myNumCount < 10) {
+        
+      // }
+      _backend.response = value;
+      if (_backend.response != null) {
+        // Navigator.pop(context);
+        _backend.mapData = json.decode(_backend.response.body);
       }
+      // Navigator Route
+      await navigator();
     });
   }
 

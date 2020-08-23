@@ -35,7 +35,7 @@ Widget welcomeBody(
         ),
         customFlatButton(
           context,
-          "Login",
+          "Get start",
           "welcomeZee",
           AppColors.greenColor,
           FontWeight.bold,
@@ -50,28 +50,28 @@ Widget welcomeBody(
           ),
           navigatePage
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            textScale(
-              text: "Don't have account? ",
-              fontSize: 16,
-              hexaColor: "#FFFFFF",
-              fontWeight: FontWeight.w500
-            ),
-            textButton(
-              padding: EdgeInsets.only(left: 5, top: 10, bottom: 10),
-              context: context,
-              textColor: AppColors.greenColor,
-              text: "Sign up",
-              fontWeight: FontWeight.w600,
-              fontSize: 18,
-              onTap: () {
-                Navigator.pushReplacementNamed(context, '/signUpScreen');
-              }
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: <Widget>[
+        //     textScale(
+        //       text: "Don't have account? ",
+        //       fontSize: 16,
+        //       hexaColor: "#FFFFFF",
+        //       fontWeight: FontWeight.w500
+        //     ),
+        //     textButton(
+        //       padding: EdgeInsets.only(left: 5, top: 10, bottom: 10),
+        //       context: context,
+        //       textColor: AppColors.greenColor,
+        //       text: "Sign up",
+        //       fontWeight: FontWeight.w600,
+        //       fontSize: 18,
+        //       onTap: () {
+        //         Navigator.pushReplacementNamed(context, '/signUpScreen');
+        //       }
+        //     ),
+        //   ],
+        // ),
       ],
     )
   );

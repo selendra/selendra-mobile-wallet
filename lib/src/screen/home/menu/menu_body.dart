@@ -49,13 +49,13 @@ class ProfileUserBody extends StatelessWidget{
               // Avatar Image
               Icon(
                 FontAwesomeIcons.solidUserCircle,
-                size: 70.0,
-                color: Colors.white,
+                size: 150.0,
+                color: Colors.white.withOpacity(0.2)
               ),
               // User Name
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(bottom: 10.0),
+                margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: 
                 // userInfo.length == 0 
                 // ? 

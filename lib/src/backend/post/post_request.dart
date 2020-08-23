@@ -1,5 +1,5 @@
 import 'package:wallet_apps/index.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as _http;
 import 'package:wallet_apps/src/model/sms_code_model.dart';
 
 class PostRequest {
@@ -12,7 +12,7 @@ class PostRequest {
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({"phone": phoneNumber});
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/invite-phonenumber",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
@@ -23,45 +23,45 @@ class PostRequest {
 
   /* ------------------User Login-------------- */
 
-  Future<http.Response> loginByPhone(String phone, String passwords) async {
+  Future<_http.Response> loginByPhone(String phone, String passwords) async {
     _backend.bodyEncode = json.encode({ /* Convert to Json String */
       "phone": "+855$phone",
       "password": passwords
     });
-    _backend.response = await http.post('${_sldApi.api}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await _http.post('${_sldApi.api}/loginbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
-  Future<http.Response> loginByEmail(String email, String passwords) async {
+  Future<_http.Response> loginByEmail(String email, String passwords) async {
     /* User Login */
     _backend.bodyEncode = json.encode({ /* Convert to Json String */
       "email": email,
       "password": passwords
     });
-    _backend.response = await http.post('${_sldApi.api}/loginbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await _http.post('${_sldApi.api}/loginbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
   /* -----------------User Regiser-------------- */
   
-  Future<http.Response> registerByPhone(String _phone, String passwords) async {
+  Future<_http.Response> registerByPhone(String _phone, String passwords) async {
     _backend.bodyEncode = json.encode(/* Convert to Json Data ( String ) */
       {"phone": "+855$_phone", "password": passwords}
     );
-    _backend.response = await http.post('${_sldApi.api}/registerbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await _http.post('${_sldApi.api}/registerbyphone', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
-  Future<http.Response> registerByEmail(String email, String passwords) async {
+  Future<_http.Response> registerByEmail(String email, String passwords) async {
     _backend.bodyEncode = json.encode(/* Convert to Json Data ( String ) */
       {"email": email, "password": passwords}
     );
-    _backend.response = await http.post('${_sldApi.api}/registerbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
+    _backend.response = await _http.post('${_sldApi.api}/registerbyemail', headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode);
     return _backend.response;
   }
 
   /* Post User Information */
-  Future<http.Response> uploadProfile(ModelUserInfo _model) async {
+  Future<_http.Response> uploadProfile(ModelUserInfo _model) async {
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({
       "first_name": _model.controlFirstName.text,
@@ -70,7 +70,7 @@ class PostRequest {
       "gender": _model.gender
     });
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/userprofile",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
@@ -81,11 +81,11 @@ class PostRequest {
   }
 
   /* Post Get Wallet */
-  Future<http.Response> retreiveWallet(String _pins) async {
+  Future<_http.Response> retreiveWallet(String _pins) async {
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({"pin": _pins});
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/getwallet",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
@@ -102,7 +102,7 @@ class PostRequest {
       "asset_issuer": _model.controllerIssuer.text
     });
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/addasset",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
@@ -122,7 +122,7 @@ class PostRequest {
       "memo": _model.controlMemo.text
     });
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/sendpayment",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
@@ -143,7 +143,7 @@ class PostRequest {
       "memo": _model.controlMemo.text
     });
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/sendpayment",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
@@ -163,7 +163,7 @@ class PostRequest {
     });
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/addreceipt",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
@@ -174,11 +174,11 @@ class PostRequest {
   }
 
   // Sign Up & Verification
-  Future<http.Response> resendCode(String phoneNumber) async {
+  Future<_http.Response> resendCode(String phoneNumber) async {
     _backend.bodyEncode = json.encode({
       "phone": "+855$phoneNumber",
     });
-    _backend.response = await http.post(
+    _backend.response = await _http.post(
       "${_sldApi.api}/resend-code",
       headers: _backend.conceteHeader(null, null),
       body: _backend.bodyEncode
@@ -187,12 +187,12 @@ class PostRequest {
   }
 
   // Add Phone To Exist Email
-  Future<http.Response> addPhone(String phone) async {
+  Future<_http.Response> addPhone(String phone) async {
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({
       "phone": "+855$phone"
     });
-    _backend.response = await http.post(
+    _backend.response = await _http.post(
       "${_sldApi.api}/add-phonenumber",
       headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"), 
       body: _backend.bodyEncode
@@ -201,12 +201,12 @@ class PostRequest {
   }
 
   // Confirm User Account By Phone Number
-  Future<http.Response> confirmAccount(String phone, SmsCodeModel _smsCodeModel) async {
+  Future<_http.Response> confirmAccount(String phone, SmsCodeModel _smsCodeModel) async {
     _backend.bodyEncode = json.encode({
       "phone": "${_smsCodeModel.countryCode}$phone",
       "verification_code": _smsCodeModel.verifyCode
     });
-    _backend.response = await http.post(
+    _backend.response = await _http.post(
       "${_sldApi.api}/account-confirmation",
       headers: _backend.conceteHeader(null, null), body: _backend.bodyEncode
     );
@@ -214,31 +214,31 @@ class PostRequest {
   }
 
   // Confirm User Account By Phone Number
-  Future<Map<String, dynamic>> forgetPassword(ModelForgotPassword _modelForgot, String value) async { 
+  Future<_http.Response> forgetPassword(ModelForgotPassword _modelForgot, String value) async {
     _backend.bodyEncode = json.encode({
       _modelForgot.key: value,
     });
-    _backend.response = await http.post(
+    _backend.response = await _http.post(
       "${_sldApi.api}/${_modelForgot.endpoint}",
       headers: _backend.conceteHeader(null, null), 
       body: _backend.bodyEncode
     );
-    return json.decode(_backend.response.body);
+    return _backend.response;
   }
 
   // Confirm User Account By Phone Number
-  Future<Map<String, dynamic>> resetPass(ModelForgotPassword _modelForgot, String value, String endpoint) async { 
+  Future<_http.Response> resetPass(ModelForgotPassword _modelForgot, String value, String endpoint) async { 
     _backend.bodyEncode = json.encode({
       "temp_code": _modelForgot.controlResetCode.text,
       _modelForgot.key: value,
       "password": _modelForgot.controlConfirmPasswords.text
     });
-    _backend.response = await http.post(
+    _backend.response = await _http.post(
       "${_sldApi.api}/$endpoint",
       headers: _backend.conceteHeader(null, null), 
       body: _backend.bodyEncode
     );
-    return json.decode(_backend.response.body);
+    return _backend.response;
   }
 
   Future<Map<String, dynamic>> changePIN(ModelChangePin _model) async {
@@ -248,7 +248,7 @@ class PostRequest {
       "new_pin": _model.controllerConfirmPin.text,
     });
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         "${_sldApi.api}/change-pin",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
@@ -265,7 +265,7 @@ class PostRequest {
       "new_password": _model.controlConfirmPassword.text,
     });
     if (_backend.token != null) {
-      _backend.response = await http.post("${_sldApi.api}/change-password",
+      _backend.response = await _http.post("${_sldApi.api}/change-password",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -278,7 +278,7 @@ class PostRequest {
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({"hashs": hashs});
     if (_backend.token != null) {
-      _backend.response = await http.post("${_sldApi.api}/get-rewards",
+      _backend.response = await _http.post("${_sldApi.api}/get-rewards",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
       );
@@ -294,7 +294,7 @@ class PostRequest {
       "phone": contact
     });
     if (_backend.token != null) {
-      _backend.response = await http.post(
+      _backend.response = await _http.post(
         '${_sldApi.api}/wallet-lookup', 
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"),
         body: _backend.bodyEncode
@@ -310,16 +310,16 @@ class PostRequest {
 
   /* OCR Image */
   Future ocrImage(String imageuri) async {
-    // "https://i.ibb.co/r69pMmx/ocr.png"
+    // "_https://i.ibb.co/r69pMmx/ocr.png"
     Map<String, dynamic> bodys = {
       "imguri": imageuri,
       "amount": "Grand Total(\$)",
       "trxdate": "Bill Date"
     };
-    final response = await http.post(_sldApi.urlOCR, body: bodys);
+    final response = await _http.post(_sldApi.urlOCR, body: bodys);
   }
 
-  Future<http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
+  Future<_http.StreamedResponse> upLoadImage(File _image, String endpoint) async {
     /* Upload image to server by use multi part form*/
     _backend.token = await Provider.fetchToken();
     /* Compress image file */
@@ -331,9 +331,9 @@ class PostRequest {
     );
     /* Make request */
     var request =
-        new http.MultipartRequest('POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
+        new _http.MultipartRequest('POST', Uri.parse('${_sldApi.apiPostImage}/$endpoint'));
     /* Make Form of Multipart */
-    var multipartFile = new http.MultipartFile.fromBytes(
+    var multipartFile = new _http.MultipartFile.fromBytes(
       'file',
       compressImage,
       filename: 'image_picker.jpg',

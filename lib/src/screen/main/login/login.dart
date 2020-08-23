@@ -1,5 +1,4 @@
 import 'package:wallet_apps/index.dart';
-import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -158,7 +157,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
       Navigator.pop(context);
       globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
     }
-    setState((){});
   }
 
   Future<void> loginByPhone() async {
@@ -199,31 +197,31 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     // Close Loading
     Navigator.pop(context);
 
-    // if (_backend.response.statusCode != 502) {
-    //   if (_backend.mapData.containsKey("error")) {
-    //     await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
-    //   } else { 
-    //     // If Successfully
-    //     if (_backend.mapData.containsKey("token")) {
-    //       _backend.mapData.addAll({
-    //         "isLoggedIn": true
-    //       });
-    //       await StorageServices.setData(_backend.mapData, 'user_token');
+    if (_backend.response.statusCode != 502) {
+      if (_backend.mapData.containsKey("error")) {
+        await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
+      } else { 
+        // If Successfully
+        if (_backend.mapData.containsKey("token")) {
+          _backend.mapData.addAll({
+            "isLoggedIn": true
+          });
+          await StorageServices.setData(_backend.mapData, 'user_token');
           
-    //       Navigator.pushAndRemoveUntil(
-    //         context,
-    //         MaterialPageRoute(builder: (context) => Dashboard()),
-    //         ModalRoute.withName('/')
-    //       );
-    //     }
-    //     // If Incorrect Email 
-    //     else { 
-    //       await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
-    //     }
-    //   }
-    // } else {
-    //   await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
-    // }
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Dashboard()),
+            ModalRoute.withName('/')
+          );
+        }
+        // If Incorrect Email 
+        else { 
+          await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
+        }
+      }
+    } else {
+      await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
+    }
   }
 
   Widget build(BuildContext context) {

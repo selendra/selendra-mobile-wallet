@@ -18,11 +18,17 @@ class ResetPasswordState extends State<ResetPassword> {
 
   PostRequest _postRequest = PostRequest();
 
+  Backend _backend = Backend();
+
   @override
   void initState() {
     widget._modelForgotPassword.responseEmail = null;
     widget._modelForgotPassword.responsePhoneNumber = null;
     super.initState();
+  }
+
+  void popScreen() {
+    Navigator.pop(context);
   }
 
   void initRequestFocuse() async {
@@ -177,27 +183,52 @@ class ResetPasswordState extends State<ResetPassword> {
     });
   }
 
+  void timeCounter(Timer timer) async {
+    // Assign Timer Number Counter To myNumCount Variable
+    AppServices.myNumCount = timer.tick;
+    // Cancel Timer When Rest Api Successfully
+    if (_backend.response != null) timer.cancel();
+    // Display TimeOut With SnackBar When Over 10 Second
+    if (AppServices.myNumCount == 10) {
+      Navigator.pop(context);
+      _globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+    }
+  }
+
   void submitResetPassword(BuildContext context) async {
+
+    // Display Dialog Loading
     dialogLoading(context);
+
+    // Rest Api
     await _postRequest.resetPass(
       widget._modelForgotPassword, 
       widget._modelForgotPassword.key == "phone" 
       ? "+855${widget._modelForgotPassword.controlPhoneNums.text}"
       : widget._modelForgotPassword.controllerEmail.text,
       widget._modelForgotPassword.key == "phone" ? "reset-password" : "reset-password-by-email"
-      ).then((_response) async {
+      ).then((value) async {
+      // Close Dialog
       Navigator.pop(context);
-      if (!_response.containsKey('error')) {
-        await dialog(context, Text(_response['message']), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), ModalRoute.withName('/'));
-      } else {
-        await dialog(context, Text(_response['error']['message']), textMessage());
-      }
-    });
-  }
 
-  void popScreen() {
-    Navigator.pop(context);
+      // Condition True When Successfully 
+      if (AppServices.myNumCount < 10) {
+        // Assign Promise Data To Response Variable
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
+          // Condition And Navigator
+          if (!_backend.mapData.containsKey('error')) {
+            await dialog(context, Text(_backend.mapData['message']), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), ModalRoute.withName('/'));
+          } else {
+            await dialog(context, Text(_backend.mapData['error']['message']), textMessage());
+          }
+        }
+      }
+      
+    });
   }
 
   Widget build(BuildContext context) {

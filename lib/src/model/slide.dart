@@ -13,19 +13,19 @@ class SlideModel{
 }
 
 final slideList = [
-  SlideModel(
-    image: "assets/images/images_slide/Transfer.png", 
-    title: "Blockchain as a Customer Loyalty solution",
-    description: "Customer loyalty programs allow companies to reward customers who make purchases frequently or on a specified period"
-  ),
-  SlideModel(
-    image: "assets/images/images_slide/Card.png", 
-    title: 'Crowdfunding And Vested',
-    description: 'Our Platform enables any startup to create an asset and accept crowdfunding secured by the Zeetomic custodian account.'
-  ),
   // SlideModel(
-  //   image: "assets/images/images_slide/BitCoin.png", 
-  //   title: "API for Payment Solutions",
-  //   description: "With our robust API developers can access payment ecosystems for a more dynamic transition of value."
-  // ) 
+  //   image: "assets/images/images_slide/Transfer.png", 
+  //   title: "Blockchain as a Customer Loyalty solution",
+  //   description: ""
+  // ),
+  SlideModel(
+    image: "assets/images/images_slide/Transfer.png",
+    title: 'Transaction', 
+    description: 'Send token to each other.'
+  ),
+  SlideModel(
+    image: "assets/images/images_slide/Card.png",
+    title: "History",
+    description: "Track your transaction history and activity."
+  ) 
 ];

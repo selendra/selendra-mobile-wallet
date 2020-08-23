@@ -21,7 +21,10 @@ class GetRequest{
 
   Future<_http.Response> checkExpiredToken() async { /* Expired Token In Welcome Screen */
     _backend.token = await Provider.fetchToken();
+    print('fetching ${_backend.token['token']}');
+    print(_sldApi.api);
     if (_backend.token != null) {
+      print("hello");
       _backend.response = await _http.get("${_sldApi.api}/userprofile", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
       print("Request ${_backend.response.body}");
       return _backend.response;

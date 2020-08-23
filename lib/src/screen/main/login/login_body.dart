@@ -46,7 +46,7 @@ Widget loginBody(
               width: double.infinity,
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               alignment: Alignment.center,
-              child: Icon(OMIcons.email, size: 23.0),
+              child: Icon(FontAwesomeIcons.solidEnvelope, size: 23.0),
             )
           ],
           onTap: tabBarSelectChanged,
