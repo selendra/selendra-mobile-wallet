@@ -40,16 +40,18 @@ dependencies:
   # Image service
   image_picker:
   path_provider:
-  image:
+  # image:
+  
   # flutter_svg:
   intl:
   flutter_circular_chart:
   image_cropper:
   flutter_image_compress:
  
-  # Scanner
+  # Camera
   barcode_scan:
   qr_flutter: 
+  qr_code_scanner:
 
   # Share
   share_extend:
@@ -58,9 +60,12 @@ dependencies:
   syncfusion_flutter_charts:
   charts_flutter:
 
+  # Icons
+  outline_material_icons:
+  line_icons:
+
   pinput:
   # flutter_datetime_picker:
-  outline_material_icons:
   transparent_image: 
   slider_button:
   pull_to_refresh:

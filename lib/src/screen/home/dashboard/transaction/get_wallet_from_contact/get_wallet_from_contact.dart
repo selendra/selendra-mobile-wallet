@@ -1,4 +1,3 @@
-import 'package:wallet_apps/src/screen/home/dashboard/get_wallet_from_contact/get_wallet_from_contact_body.dart';
 import 'package:wallet_apps/index.dart';
 
 class GetWalletFromContact extends StatefulWidget{

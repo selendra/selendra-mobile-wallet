@@ -40,6 +40,8 @@ export 'package:share_extend/share_extend.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:sms_autofill/sms_autofill.dart';
 export 'package:async/async.dart';
+export 'package:line_icons/line_icons.dart';
+export 'package:qr_code_scanner/qr_code_scanner.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -127,14 +129,15 @@ export 'package:wallet_apps/src/screen/main/slide/slider_builder.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/dashboard.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/dashboard_body.dart';
 
-export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/transaction/submit_trx/submit_trx.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/send_wallet_option/send_wallet_option.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/component.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/fill_pin_dialog.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/transaction/submit_trx/fill_pin_dialog.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_reuse_widget.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary_body.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/qr_scan_pay/scan_pay_body.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/transaction/submit_trx/submit_trx_body.dart';
+export 'package:wallet_apps/src/screen/home/dashboard/transaction/get_wallet_from_contact/get_wallet_from_contact_body.dart';
 export 'package:wallet_apps/src/screen/home/dashboard/chart/chart_body.dart';
 
 export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet_body.dart';

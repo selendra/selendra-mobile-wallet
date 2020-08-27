@@ -2,19 +2,19 @@ import 'dart:ui';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:wallet_apps/index.dart';
 
-class SendPayment extends StatefulWidget {
+class SubmitTrx extends StatefulWidget {
   final String _walletKey;
   final List<dynamic> _listPortfolio;
   final bool enableInput;
 
-  SendPayment(this._walletKey, this.enableInput, this._listPortfolio);
+  SubmitTrx(this._walletKey, this.enableInput, this._listPortfolio);
   @override
   State<StatefulWidget> createState() {
-    return SendPaymentState();
+    return SubmitTrxState();
   }
 }
 
-class SendPaymentState extends State<SendPayment> {
+class SubmitTrxState extends State<SubmitTrx> {
   
   ModelScanPay _modelScanPay = ModelScanPay();
 
@@ -245,7 +245,7 @@ class SendPaymentState extends State<SendPayment> {
                   child: Center(
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      child: scanPayBody(
+                      child: submitTrxBody(
                         context,
                         widget.enableInput,
                         dialogBox,

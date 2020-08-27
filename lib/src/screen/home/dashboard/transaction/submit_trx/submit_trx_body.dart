@@ -1,6 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
-Widget scanPayBody(
+Widget submitTrxBody(
   BuildContext context,
   bool enableInput,
   dynamic dialog,

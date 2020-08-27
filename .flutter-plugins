@@ -12,6 +12,7 @@ local_auth=/home/daveat/.pub-cache/hosted/pub.dartlang.org/local_auth-0.6.2+3/
 package_info=/home/daveat/.pub-cache/hosted/pub.dartlang.org/package_info-0.4.0+18/
 path_provider=/home/daveat/.pub-cache/hosted/pub.dartlang.org/path_provider-1.6.8/
 path_provider_macos=/home/daveat/.pub-cache/hosted/pub.dartlang.org/path_provider_macos-0.0.4+2/
+qr_code_scanner=/home/daveat/.pub-cache/hosted/pub.dartlang.org/qr_code_scanner-0.0.13/
 share=/home/daveat/.pub-cache/hosted/pub.dartlang.org/share-0.6.4+3/
 share_extend=/home/daveat/.pub-cache/hosted/pub.dartlang.org/share_extend-1.1.9/
 shared_preferences=/home/daveat/.pub-cache/hosted/pub.dartlang.org/shared_preferences-0.5.7+2/

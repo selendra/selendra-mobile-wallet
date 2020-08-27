@@ -1,4 +1,5 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/home/dashboard/transaction/qr_scanner/qr_scanner.dart';
 
 
 final fontSizePort = 17.0;
@@ -91,7 +92,7 @@ class TrxOption {
         if(value['status_code'] == 200 && value.containsKey('wallet')){
           response = await Navigator.push(
             context, 
-            MaterialPageRoute(builder: (context) => SendPayment(value['wallet'], false, listPortfolio))  
+            MaterialPageRoute(builder: (context) => SubmitTrx(value['wallet'], false, listPortfolio))  
           );
           if (response["status_code"] == 200) {
             resetDbdState(null, "portfolio");
@@ -133,7 +134,7 @@ class TrxOption {
   static void navigateFillAddress(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
     var response = await Navigator.push(
       context, 
-      MaterialPageRoute(builder: (context) => SendPayment("", true, portfolioList))
+      MaterialPageRoute(builder: (context) => SubmitTrx("", true, portfolioList))
     );
     if (response['status_code'] == 200) {
       resetDbdState(null, "portfolio");
@@ -144,8 +145,8 @@ class TrxOption {
   static Future scanQR(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
     var _response;
     try {
-      String _barcode = await BarcodeScanner.scan();
-      _response = await Navigator.push(context, transitionRoute(SendPayment(_barcode, false, portfolioList)));
+      // String _barcode = await BarcodeScanner.scan();
+      Navigator.push(context, transitionRoute(QrScanner(portList: portfolioList)));
       if (_response['status_code'] == 200) {
         resetDbdState(null, "portfolio");
       }
