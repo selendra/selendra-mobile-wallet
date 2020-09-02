@@ -166,7 +166,7 @@ class DbdStyle{
   }
 }
 
-Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard _modelDashboard) { /* List Of Portfolio */
+Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard model) { /* List Of Portfolio */
   return Container(
     padding: EdgeInsets.only(top: 10.0),
     child: Column(
@@ -229,7 +229,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
                           borderRadius: BorderRadius.circular(30.0)
                         ),
                         alignment: Alignment.center,
-                        child: Icon(FontAwesomeIcons.plus, color: Colors.white,)
+                        // child: Icon(FontAwesomeIcons.plus, color: Colors.white,)
                       ),
 
                       Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
@@ -350,58 +350,62 @@ Widget rowDecorationStyle({Widget child, double marginTop: 15}){
   );
 }
 
-Widget bottomAppBar(
-  BuildContext context,
-  ModelDashboard _modelDashboard,
-  PostRequest postRequest,
-  Function _scanReceipt,
-  Function resetDbdState,
-  Function _toReceiveToken,
-  {
-    Function opacityController,
-    Function fillAddress,
-    Function contactPiker,
-  }
-) {
-  return Container(
-    color: getHexaColor(AppColors.bgdColor),
-    child: BottomAppBar(
-      shape: CircularNotchedRectangle(),
-      child: Container(
-        height: 55.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(left: 36.0),
-              child: IconButton(
+class CustomBottomAppBar extends StatelessWidget{
+  final ModelDashboard model;
+  final PostRequest postRequest;
+  final Function scanReceipt;
+  final Function resetDbdState;
+  final Function toReceiveToken;
+  final Function opacityController;
+  final Function fillAddress;
+  final Function contactPiker;
+  
+  CustomBottomAppBar({
+    this.model, this.postRequest, this.scanReceipt, this.resetDbdState,
+    this.toReceiveToken, this.opacityController, this.fillAddress, this.contactPiker
+  });
+  
+  Widget build(BuildContext context){
+    return Container(
+      color: getHexaColor(AppColors.bgdColor),
+      child: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 55.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
                 alignment: Alignment.center,
-                color: Colors.white,
-                icon: FaIcon(FontAwesomeIcons.telegramPlane),
-                onPressed: () async {
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(builder: (context) => SendWalletOption(_modelDashboard.portfolioList, resetDbdState))
-                  );
-                }
+                margin: EdgeInsets.only(left: 36.0),
+                child: IconButton(
+                  alignment: Alignment.center,
+                  color: Colors.white,
+                  icon: Icon(LineAwesomeIcons.telegram),
+                  onPressed: () async {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
+                    );
+                  }
+                ),
               ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(right: 36.0),
-              child: IconButton(
-                padding: EdgeInsets.all(0),
-                color: Colors.white,
-                icon: FaIcon(FontAwesomeIcons.qrcode),
-                onPressed: () => _toReceiveToken(context)
-              ),
-            )
-          ],
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(right: 36.0),
+                child: IconButton(
+                  padding: EdgeInsets.all(0),
+                  color: Colors.white,
+                  icon: Icon(LineAwesomeIcons.qrcode),
+                  onPressed: () => toReceiveToken(context)
+                ),
+              )
+            ],
+          ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 Widget fabsButton({

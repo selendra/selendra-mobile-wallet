@@ -16,10 +16,10 @@ Widget customListTile(BuildContext context, IconData icon, String title, dynamic
       contentPadding: EdgeInsets.all(0),
       leading: Container(
         padding: EdgeInsets.all(0),
-        child: FaIcon(
-          icon,
-          color: Colors.white
-        ),
+        // child: FaIcon(
+        //   icon,
+        //   color: Colors.white
+        // ),
       ),
       title: Text(
         title,

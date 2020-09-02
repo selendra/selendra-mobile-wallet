@@ -107,6 +107,8 @@ class MySplashScreenState extends State<MySplashScreen>{
           // Reset isLoggedIn True -> False Cause Token Expired 
           else if (_backend.response.statusCode == 401) {
             await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
+            // Remove Key Token
+            StorageServices.removeKey('user_token');
             // Navigate To Login
             Navigator.pushReplacement(
               context, 

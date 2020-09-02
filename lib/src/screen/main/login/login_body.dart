@@ -37,15 +37,13 @@ Widget loginBody(
               alignment: Alignment.center,
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
               width: double.infinity,
-              child: Icon(LineIcons.phone,
-                size: 23.0,
-              ),
+              child: Icon(LineAwesomeIcons.phone, size: 23.0,),
             ),
             Container(
               width: double.infinity,
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
               alignment: Alignment.center,
-              child: Icon(LineIcons.envelope, size: 23.0),
+              child: Icon(LineAwesomeIcons.envelope, size: 23.0),
             )
           ],
           onTap: tabBarSelectChanged,

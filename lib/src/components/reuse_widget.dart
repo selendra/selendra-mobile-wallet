@@ -173,7 +173,7 @@ BoxDecoration scaffoldBGColor(String color1, String color2) {
 Widget scaffoldBGDecoration({
   double top = 16.0,
   double right: 16.0,
-  bottom: 16.0,
+  double bottom: 16.0,
   double left: 16.0,
   Widget child
 }) {

@@ -19,7 +19,6 @@ export 'package:store_redirect/store_redirect.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:package_info/package_info.dart';
 export 'package:outline_material_icons/outline_material_icons.dart';
-export 'package:font_awesome_flutter/font_awesome_flutter.dart';
 export 'package:pinput/pin_put/pin_put.dart';
 export 'package:barcode_scan/barcode_scan.dart';
 export 'package:flutter_circular_chart/flutter_circular_chart.dart';
@@ -40,7 +39,9 @@ export 'package:share_extend/share_extend.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:sms_autofill/sms_autofill.dart';
 export 'package:async/async.dart';
-export 'package:line_icons/line_icons.dart';
+// export 'package:line_icons/line_icons.dart';
+// export 'package:line_awesome_icons/line_awesome_icons.dart';
+export 'package:line_awesome_flutter/line_awesome_flutter.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
 
 /* Local File */

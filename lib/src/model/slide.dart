@@ -19,7 +19,7 @@ final slideList = [
   //   description: ""
   // ),
   SlideModel(
-    image: "assets/images/images_slide/Transfer.png",
+    image: "assets/images/images_slide/transaction.png",
     title: 'Transaction', 
     description: 'Send token to each other.'
   ),

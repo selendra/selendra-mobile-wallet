@@ -1,3 +1,4 @@
+
 import 'package:local_auth/local_auth.dart';
 import 'package:wallet_apps/index.dart';
 
@@ -116,7 +117,7 @@ class _FingerPrintState extends State<FingerPrint> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(FontAwesomeIcons.fingerprint, size: 60.0, color: Colors.white),
+            Icon(LineAwesomeIcons.fingerprint ,size: 60.0, color: Colors.white),
             Container(
               margin: EdgeInsets.only(top: 10.0),
               child: Text("Authentication Required", style: TextStyle(fontSize: 18.0)),

@@ -277,7 +277,7 @@ class MenuState extends State<Menu> {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
                 ),
-                child: ProfileUserBody(
+                child: MenuBody(
                   isHaveWallet: isHaveWallet, 
                   userInfo: widget._userData,
                   model: _menuModel ,

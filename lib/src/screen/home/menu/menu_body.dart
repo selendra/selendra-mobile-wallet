@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:wallet_apps/index.dart';
 
-class ProfileUserBody extends StatelessWidget{
+class MenuBody extends StatelessWidget{
   
   final bool isHaveWallet; /* isHaveWallet By Default false */
   final Map<String, dynamic> userInfo;
@@ -17,7 +17,7 @@ class ProfileUserBody extends StatelessWidget{
   final Function snackBar; final Function popScreen;
   final Function switchBio;
 
-  ProfileUserBody({
+  MenuBody({
     this.isHaveWallet, this.userInfo, this.model, this.packageInfo, this.editProfile,
     this.trxHistory, this.trxActivity, this.addAssets, this.changePin, this.password, this.wallet,
     this.signOut, this.snackBar,  this.popScreen, this.switchBio
@@ -47,11 +47,11 @@ class ProfileUserBody extends StatelessWidget{
                 ),
               ),
               // Avatar Image
-              Icon(
-                FontAwesomeIcons.solidUserCircle,
-                size: 150.0,
-                color: Colors.white.withOpacity(0.2)
-              ),
+              // Icon(
+              //   FontAwesomeIcons.solidUserCircle,
+              //   size: 100.0,
+              //   color: Colors.white.withOpacity(0.2)
+              // ),
               // User Name
               Container(
                 alignment: Alignment.center,
@@ -174,10 +174,10 @@ class ProfileUserBody extends StatelessWidget{
             contentPadding: EdgeInsets.all(0),
             leading: Container(
               padding: EdgeInsets.all(0),
-              child: FaIcon(
-                FontAwesomeIcons.fingerprint,
-                color: Colors.white
-              ),
+              // child: FaIcon(
+              //   FontAwesomeIcons.fingerprint,
+              //   color: Colors.white
+              // ),
             ),
             title: Text(
               'Finger print',
@@ -195,14 +195,14 @@ class ProfileUserBody extends StatelessWidget{
             // onTap:  
           )
         ),
-        customListTile(context, FontAwesomeIcons.userEdit, "Profile", editProfile, maintenance: true),
-        customListTile(context, FontAwesomeIcons.history, "Transaction", trxHistory),
-        customListTile(context, FontAwesomeIcons.history, "Activity", trxActivity),
-        customListTile(context, FontAwesomeIcons.wallet, "Wallets", wallet),
-        customListTile(context, FontAwesomeIcons.unlock, "PIN", changePin),
-        customListTile(context, FontAwesomeIcons.lock, "Password", password),
-        customListTile(context, FontAwesomeIcons.plus, "Assets", addAssets),
-        customListTile(context, FontAwesomeIcons.signOutAlt, "Sign out", signOut)
+        // customListTile(context, FontAwesomeIcons.userEdit, "Profile", editProfile, maintenance: true),
+        // customListTile(context, FontAwesomeIcons.history, "Transaction", trxHistory),
+        // customListTile(context, FontAwesomeIcons.history, "Activity", trxActivity),
+        // customListTile(context, FontAwesomeIcons.wallet, "Wallets", wallet),
+        // customListTile(context, FontAwesomeIcons.unlock, "PIN", changePin),
+        // customListTile(context, FontAwesomeIcons.lock, "Password", password),
+        // customListTile(context, FontAwesomeIcons.plus, "Assets", addAssets),
+        // customListTile(context, FontAwesomeIcons.signOutAlt, "Sign out", signOut)
       ],
     );
   }

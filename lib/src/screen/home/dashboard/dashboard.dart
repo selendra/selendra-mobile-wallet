@@ -373,13 +373,12 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-      bottomNavigationBar: bottomAppBar( /* Bottom Navigation Bar */
-        context,
-        _modelDashboard,
-        _postRequest,
-        null, // Bottom Center Button
-        resetState,
-        toReceiveToken,
+      bottomNavigationBar: CustomBottomAppBar( /* Bottom Navigation Bar */
+        model: _modelDashboard,
+        postRequest: _postRequest,
+        scanReceipt: null, // Bottom Center Button
+        resetDbdState: resetState,
+        toReceiveToken: toReceiveToken,
         opacityController: opacityController,
       )
     );
