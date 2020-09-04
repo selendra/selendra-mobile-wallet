@@ -10,6 +10,8 @@ class AppColors{
 
   /* Background Color */
   static const String bgdColor = AppConfig.bgdColor;
+  static const String textColor = "#585D86";
+  static const String secondary = "#08B952";
 
   /* High Then Background Color */
   static const String highThenBackgroundColor = "#1F2833"; //"#191F30";
@@ -37,7 +39,4 @@ class AppColors{
   /* Card Color */
   static const String cardColor = "#4B535F";
   static const String borderColor = "#363c4e";
-
-  /* Color fade Grey */
-  static const String textColor = "#EFF0F2";
 }

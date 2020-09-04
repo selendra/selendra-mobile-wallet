@@ -70,3 +70,28 @@ class CustomFlatButton extends StatelessWidget{
     );
   }
 }
+
+class CustomText extends StatelessWidget{
+
+  final String text; final String color; final double fontSize;
+  final double top; final double right; final double bottom; final double left;
+
+  CustomText({
+    this.text, this.color = AppColors.textColor, this.fontSize = 18,
+    this.top = 0, this.right = 0, this.bottom = 0, this.left = 0
+  });
+  
+  Widget build(BuildContext context){
+    return Padding(
+      padding: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
+      child: Text(
+        this.text,
+        style: TextStyle(
+          color: Color(AppUtils.convertHexaColor(this.color)),
+          fontSize: this.fontSize
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}

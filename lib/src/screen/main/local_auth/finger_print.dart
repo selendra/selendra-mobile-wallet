@@ -19,7 +19,7 @@ class _FingerPrintState extends State<FingerPrint> {
 
   final localAuth = LocalAuthentication();
 
-  bool _hasFingerPrint = false;
+  bool _hasFingerPrint = false; bool enableText = false;
 
   String authorNot = 'Not Authenticate';
 
@@ -67,7 +67,7 @@ class _FingerPrintState extends State<FingerPrint> {
         useErrorDialogs: true,
         stickyAuth: true
       );
-    
+      
       // Open Loading
       dialogLoading(context);
       if (authenticate){
@@ -75,6 +75,9 @@ class _FingerPrintState extends State<FingerPrint> {
       } else {
         // Close Loading
         Navigator.pop(context);
+        setState(() {
+          enableText = true;
+        });
       }
     } on PlatformException catch (e){ }
 
@@ -112,18 +115,33 @@ class _FingerPrintState extends State<FingerPrint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: scaffoldBGDecoration(
-        top: 0.0, left: 0.0, right: 0.0, bottom: 0.0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(LineAwesomeIcons.fingerprint ,size: 60.0, color: Colors.white),
-            Container(
-              margin: EdgeInsets.only(top: 10.0),
-              child: Text("Authentication Required", style: TextStyle(fontSize: 18.0)),
-            )
-          ],
-        )
+      body: GestureDetector(
+        onTap: (){
+          setState(() {
+            enableText = false;
+          });
+          authenticate();
+        },
+        child: scaffoldBGDecoration(
+          top: 0.0, left: 0.0, right: 0.0, bottom: 0.0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left: 50, right: 50),
+                child: Image.asset('assets/images/illustrator/finger_print.png')
+              ),
+              CustomText(
+                top: 50.0,
+                text: 'Authentication Required'
+              ),
+              if (enableText) CustomText(
+                top: 19.0,
+                text: 'Touch screen to trigger finger print'
+              )
+            ],
+          )
+        ),
       )
     );
   }

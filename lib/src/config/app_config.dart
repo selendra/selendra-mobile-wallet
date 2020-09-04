@@ -2,7 +2,7 @@
 class AppConfig { 
 
   /* Background Color */ 
-  static const String darkBlue50 = "#344051", bgdColor = "#222834"; // App Theme using darkBlue75
+  static const String darkBlue50 = "#344051", bgdColor = "#090D28"; // App Theme using darkBlue75
 
   /* ------------------- Logo -----------------  */
 

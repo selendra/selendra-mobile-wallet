@@ -13,19 +13,19 @@ class SlideModel{
 }
 
 final slideList = [
-  // SlideModel(
-  //   image: "assets/images/images_slide/Transfer.png", 
-  //   title: "Blockchain as a Customer Loyalty solution",
-  //   description: ""
-  // ),
   SlideModel(
-    image: "assets/images/images_slide/transaction.png",
-    title: 'Transaction', 
-    description: 'Send token to each other.'
+    image: "assets/images/images_slide/transaction.png", 
+    title: "Transaction",
+    description: "Send money to each other fast and easy"
   ),
   SlideModel(
-    image: "assets/images/images_slide/Card.png",
+    image: "assets/images/images_slide/portfolio.png",
+    title: 'Portfolio', 
+    description: 'Track your portfolio'
+  ),
+  SlideModel(
+    image: "assets/images/images_slide/trx_history.png",
     title: "History",
-    description: "Track your transaction history and activity."
+    description: "Track your transaction history"
   ) 
 ];
