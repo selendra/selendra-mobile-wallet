@@ -73,11 +73,11 @@ class CustomFlatButton extends StatelessWidget{
 
 class CustomText extends StatelessWidget{
 
-  final String text; final String color; final double fontSize;
+  final String text; final String color; final double fontSize; final FontWeight fontWeight;
   final double top; final double right; final double bottom; final double left;
 
   CustomText({
-    this.text, this.color = AppColors.textColor, this.fontSize = 18,
+    this.text, this.color = AppColors.textColor, this.fontSize = 18, this.fontWeight = FontWeight.normal,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0
   });
   
@@ -87,11 +87,41 @@ class CustomText extends StatelessWidget{
       child: Text(
         this.text,
         style: TextStyle(
+          fontWeight: this.fontWeight,
           color: Color(AppUtils.convertHexaColor(this.color)),
           fontSize: this.fontSize
         ),
         textAlign: TextAlign.center,
       ),
+    );
+  }
+}
+
+class BodyScaffold extends StatelessWidget{
+
+  final Widget child;
+
+  BodyScaffold({
+    this.child,
+    Widget floatingActionButton,
+    FloatingActionButtonLocation floatingActionButtonLocation,
+    FloatingActionButtonAnimator floatingActionButtonAnimator
+  });
+  
+  Widget build(BuildContext context){
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
+              child: this.child
+            )
+          ],
+        )
+      )
     );
   }
 }

@@ -13,10 +13,17 @@ class SlideItem extends StatelessWidget{
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(bottom: 30),
+          width: 286,
+          height: 250,
           child: Image.asset(slideList[index].image, height: 285),
         ),
-        CustomText(
-          text: slideList[index].description
+        FittedBox(
+          child: SizedBox(
+            width: 224,
+            child: CustomText(
+              text: slideList[index].description
+            )
+          )
         )
       ],
     );

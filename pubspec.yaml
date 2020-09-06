@@ -62,7 +62,7 @@ dependencies:
 
   # Icons
   outline_material_icons:
-  # line_icons:
+  line_icons: ^0.2.0
   # line_awesome_icons:
   line_awesome_flutter:
 

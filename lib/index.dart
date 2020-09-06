@@ -39,7 +39,7 @@ export 'package:share_extend/share_extend.dart';
 export 'package:path_provider/path_provider.dart';
 export 'package:sms_autofill/sms_autofill.dart';
 export 'package:async/async.dart';
-// export 'package:line_icons/line_icons.dart';
+export 'package:line_icons/line_icons.dart';
 // export 'package:line_awesome_icons/line_awesome_icons.dart';
 export 'package:line_awesome_flutter/line_awesome_flutter.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -56,11 +56,14 @@ export 'package:wallet_apps/src/bloc/validator_mixin.dart';
 export 'package:wallet_apps/src/config/app_config.dart';
 export 'package:wallet_apps/src/routes/routing.dart';
 export 'package:wallet_apps/theme/style.dart';
+
+//Component
 export 'package:wallet_apps/src/components/animation.dart';
 export 'package:wallet_apps/src/utils/instance_trx_order.dart';
 export 'package:wallet_apps/src/components/trx_component.dart';
 export 'package:wallet_apps/src/components/platform_specific/android_native.dart';
 export 'package:wallet_apps/src/components/platform_specific/ios_native.dart';
+export 'package:wallet_apps/src/components/my_input.dart';
 
 /* Utils */
 export 'package:wallet_apps/src/utils/get_wallet_fns.dart';

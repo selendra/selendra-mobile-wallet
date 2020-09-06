@@ -12,6 +12,7 @@ class AppColors{
   static const String bgdColor = AppConfig.bgdColor;
   static const String textColor = "#585D86";
   static const String secondary = "#08B952";
+  static const String secondary_text = "#40FF90";
 
   /* High Then Background Color */
   static const String highThenBackgroundColor = "#1F2833"; //"#191F30";

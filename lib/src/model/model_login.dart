@@ -3,13 +3,11 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelLogin {
 
-  final formState1 = GlobalKey<FormState>();
-
-  final formState2 = GlobalKey<FormState>();
+  final formState = GlobalKey<FormState>();
 
   bool enable = false; bool securePassword = true;
 
-  String token; String phoneNumber = "", countryCode = "+855", label;
+  String token; String phoneNumber = "", prefixText = "+855", label;
 
   var colorSubmitted = Colors.transparent;
 

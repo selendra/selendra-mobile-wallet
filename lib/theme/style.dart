@@ -15,7 +15,7 @@ class AppStyle {
       bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(AppConfig.darkBlue50)),
       floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: getHexaColor(AppColors.textColor)),
       fontFamily: "Avenir",
-      scaffoldBackgroundColor: Colors.transparent
+      scaffoldBackgroundColor: Color(AppUtils.convertHexaColor(AppColors.bgdColor))
     );
   }
 }
