@@ -273,7 +273,7 @@ class MenuState extends State<Menu> {
               physics: BouncingScrollPhysics(),
               child: Container(
                 decoration: BoxDecoration(
-                  color: getHexaColor(AppColors.bgdColor),
+                  color: hexaCodeToColor(AppColors.bgdColor),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
                 ),

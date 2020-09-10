@@ -23,43 +23,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   void initState() {
     // AppServices.noInternetConnection(globalKey);
     _modelLogin.label = 'phone';
-
-    // Initialize Text Input
-    listInput.addAll({
-      MyInputField(
-        labelText: "Phone",
-        prefixText: "+855 ",
-        textInputFormatter: [
-          LengthLimitingTextInputFormatter(9),
-          WhitelistingTextInputFormatter.digitsOnly
-        ],
-        // modelLogin.label == "email"
-        //   ?  /* If Label Equal Email Just Control Length Input Format */
-        //   : , /* Else Add Condition 0-9 Only */
-        inputType: TextInputType.phone,
-        controller: _modelLogin.controlPhoneNums,
-        focusNode: _modelLogin.nodePhoneNums,
-        validateField: validateInput,
-        onChanged: onChanged,
-        action: submitLogin
-      ),
-      MyInputField(
-        labelText: "Email",
-        prefixText: null,
-        textInputFormatter: [
-          LengthLimitingTextInputFormatter(TextField.noMaxLength)
-        ],
-        // modelLogin.label == "email"
-        //   ?  /* If Label Equal Email Just Control Length Input Format */
-        //   : , /* Else Add Condition 0-9 Only */
-        inputType: TextInputType.emailAddress,
-        controller: _modelLogin.controlPhoneNums,
-        focusNode: _modelLogin.nodePhoneNums,
-        validateField: validateInput,
-        onChanged: onChanged,
-        action: submitLogin
-      )
-    });
     
     super.initState();
   }

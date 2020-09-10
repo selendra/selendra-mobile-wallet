@@ -138,7 +138,7 @@ class UserInfoState extends State<UserInfo> {
       Navigator.pop(context);
       if (_backend.response != null && _backend.mapData['token'] == null) {
         // Set Profile Success
-        await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: getHexaColor(AppColors.greenColor)));        
+        await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: hexaCodeToColor(AppColors.greenColor)));        
         if (widget.passwords != null) {
           // Clear Storage
           AppServices.clearStorage();

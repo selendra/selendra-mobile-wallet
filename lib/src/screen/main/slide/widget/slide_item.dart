@@ -20,7 +20,7 @@ class SlideItem extends StatelessWidget{
         FittedBox(
           child: SizedBox(
             width: 224,
-            child: CustomText(
+            child: MyText(
               text: slideList[index].description
             )
           )

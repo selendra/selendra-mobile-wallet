@@ -16,7 +16,7 @@ Widget signUpBody(
         child: textDisplay(
           "Sign Up", 
           TextStyle(
-            color: getHexaColor("#FFFFFF"),
+            color: hexaCodeToColor("#FFFFFF"),
             fontSize: 30.0,
             fontWeight: FontWeight.w400
           )
@@ -26,9 +26,9 @@ Widget signUpBody(
         margin: EdgeInsets.only(top: 20.0, bottom: 30.0),
         child: TabBar(
           controller: _modelSignUp.tabController,
-          unselectedLabelColor: getHexaColor("#FFFFFF"),
-          indicatorColor: getHexaColor(AppColors.greenColor),
-          labelColor: getHexaColor(AppColors.greenColor),
+          unselectedLabelColor: hexaCodeToColor("#FFFFFF"),
+          indicatorColor: hexaCodeToColor(AppColors.greenColor),
+          labelColor: hexaCodeToColor(AppColors.greenColor),
           tabs: <Widget>[
             Container(
               alignment: Alignment.center,

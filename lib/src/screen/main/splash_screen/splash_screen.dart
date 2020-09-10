@@ -131,7 +131,7 @@ class MySplashScreenState extends State<MySplashScreen>{
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: getHexaColor(AppColors.bgdColor),
+      backgroundColor: hexaCodeToColor(AppColors.bgdColor),
       body: Align(
         alignment: Alignment.center,
         child: Container(

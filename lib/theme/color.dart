@@ -10,7 +10,9 @@ class AppColors{
 
   /* Background Color */
   static const String bgdColor = AppConfig.bgdColor;
+  static const String cardColor = "#181C35";
   static const String textColor = "#585D86";
+  static const String textBtnColor = "#000000";
   static const String secondary = "#08B952";
   static const String secondary_text = "#40FF90";
 
@@ -38,6 +40,5 @@ class AppColors{
   static const String lightGreyColor = "#36363B";
 
   /* Card Color */
-  static const String cardColor = "#4B535F";
   static const String borderColor = "#363c4e";
 }

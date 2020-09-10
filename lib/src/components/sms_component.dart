@@ -26,14 +26,14 @@ class SmsComponent {
                 color: Colors.white
               ),
               /* Prefix Text */
-              filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
-              enabledBorder: outlineInput(getHexaColor("#FFFFFF").withOpacity(0.3)),
+              filled: true, fillColor: hexaCodeToColor("#FFFFFF").withOpacity(0.1),
+              enabledBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
               /* Enable Border But Not Show Error */
               border: errorOutline(),
               /* Show Error And Red Border */
-              focusedBorder: outlineInput(getHexaColor("#FFFFFF").withOpacity(0.3)),
+              focusedBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
               /* Default Focuse Border Color*/
-              focusColor: getHexaColor("#ffffff"),
+              focusColor: hexaCodeToColor("#ffffff"),
               /* Border Color When Focusing */
               contentPadding: EdgeInsets.only(top: 23,right: 5.0, bottom: 23, left: 5), // No Content Padding = -10.0 px
             ),

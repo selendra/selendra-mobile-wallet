@@ -90,6 +90,8 @@ dependencies:
   #animation
   flare_flutter:
 
+  responsive_framework: ^0.0.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

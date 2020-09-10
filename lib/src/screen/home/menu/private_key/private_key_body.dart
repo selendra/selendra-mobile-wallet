@@ -24,7 +24,7 @@ Widget checkBoxContent(String _privateKey, bool isCheck, bool isCopy, Function u
               children: <Widget>[
                 Text('Key: '),
                 Expanded(
-                  child: Text(_privateKey, style: TextStyle(color: getHexaColor(AppColors.greenColor))),
+                  child: Text(_privateKey, style: TextStyle(color: hexaCodeToColor(AppColors.greenColor))),
                 )
               ],
             )

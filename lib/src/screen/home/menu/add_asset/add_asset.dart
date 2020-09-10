@@ -77,7 +77,7 @@ class AddAssetState extends State<AddAsset> {
         Text(_modelAsset.result['message']),
         Icon(
           Icons.done_outline,
-          color: getHexaColor(AppColors.lightBlueSky,)
+          color: hexaCodeToColor(AppColors.lightBlueSky,)
         )
       );
       _modelAsset.result.addAll({"dialog_name": "addAssetScreen"});

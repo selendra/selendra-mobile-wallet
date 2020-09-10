@@ -24,151 +24,196 @@ class LoginBody extends StatelessWidget{
   });
   
   Widget build(BuildContext context) {
+
+    print(modelLogin.enable);
+
+    // Initialize Text Input
+    listInput.addAll({
+      MyInputField(
+        labelText: "Phone",
+        prefixText: "+855 ",
+        textInputFormatter: [
+          LengthLimitingTextInputFormatter(9),
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        inputType: TextInputType.phone,
+        controller: modelLogin.controlPhoneNums,
+        focusNode: modelLogin.nodePhoneNums,
+        validateField: validateInput,
+        onChanged: onChanged,
+        action: submitLogin
+      ),
+      MyInputField(
+        labelText: "Email",
+        prefixText: null,
+        textInputFormatter: [
+          LengthLimitingTextInputFormatter(TextField.noMaxLength)
+        ],
+        inputType: TextInputType.emailAddress,
+        controller: modelLogin.controlPhoneNums,
+        focusNode: modelLogin.nodePhoneNums,
+        validateField: validateInput,
+        onChanged: onChanged,
+        action: submitLogin
+      ),
+
+      MyInputField(
+        labelText: "Password",
+        prefixText: null,
+        textInputFormatter: [
+          LengthLimitingTextInputFormatter(TextField.noMaxLength)
+        ],
+        inputType: TextInputType.text,
+        controller: modelLogin.controlPasswords,
+        focusNode: modelLogin.nodePasswords,
+        validateField: validateInput,
+        onChanged: onChanged,
+        action: submitLogin,
+      )
+    });
+    
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        logoSize(AppConfig.logoName, 70.0, 47.62),
         Container(
-          margin: EdgeInsets.only(top: 20.0),
-          child: textDisplay(
-            "Login",
-            TextStyle(
-              color: getHexaColor("#FFFFFF"),
-              fontSize: 30.0,
-              fontWeight: FontWeight.w400
-            )
-          ),
-        ),
-        Container( /* User Log In Choice */
-          padding: EdgeInsets.only(top: 20.0),
-          margin: EdgeInsets.only(bottom: 5),
-          child: TabBar(
-            unselectedLabelColor: Colors.grey.withOpacity(0.5),
-            indicatorColor: getHexaColor(AppColors.blueColor),
-            labelColor: getHexaColor(AppColors.blueColor),
-            // labelStyle: TextStyle(fontSize: 30.0),
-            tabs: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
-                width: double.infinity,
-                child: Icon(LineAwesomeIcons.phone, size: 23.0,),
+          margin: EdgeInsets.only(top: 93),
+          child: Row(
+            children: [
+              MyLogo(
+                left: 46.0, 
+                // right: 16, top: 93,
+                logoPath: AppConfig.logoName,
               ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                alignment: Alignment.center,
-                child: Icon(LineAwesomeIcons.envelope, size: 23.0),
+              MyText(
+                left: 16.0,
+                text: "Login",
+                color: '#FFFFFF',
+                fontSize: 40,
               )
             ],
-            onTap: tabBarSelectChanged,
+          ) 
+        ),
+
+        Align(
+          alignment: Alignment.centerLeft,
+          child: MyText(
+            fit: BoxFit.fitWidth,
+            bottom: 49, top: 16,
+            left: 46.0,
+            text: "Please sign in to Continue",
           ),
+        ),
+
+        /* User Log In Choice */
+        Align(
+          alignment: Alignment.centerRight,
+          child: Container( 
+            margin: EdgeInsets.only(bottom: 16.0, right: 16.0),
+            decoration: BoxDecoration(
+              color: hexaCodeToColor(AppColors.cardColor),
+              borderRadius: BorderRadius.circular(8)
+            ),
+            width: 125.0,
+            height: 48,
+            child: TabBar(
+              unselectedLabelColor: hexaCodeToColor(AppColors.textColor),
+              indicatorColor: hexaCodeToColor(AppColors.secondary_text),
+              labelColor: hexaCodeToColor(AppColors.secondary_text),
+              // labelStyle: TextStyle(fontSize: 30.0),
+              tabs: <Widget>[
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
+                  width: double.infinity,
+                  child: Icon(LineAwesomeIcons.phone, size: 23.0,),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  alignment: Alignment.center,
+                  child: Icon(LineAwesomeIcons.envelope, size: 23.0),
+                )
+              ],
+              onTap: tabBarSelectChanged,
+            ),
+          )
         ),
 
         /* Email & Phone Number Input Field*/
-        SizedBox(
-          height: 230.0,
-          child: Form(
-            key: modelLogin.formState,
-            child: TabBarView(
-              children: [
-                listInput[0],
-                listInput[1]
-              ],
-            )
+        Form(
+          key: modelLogin.formState,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 100.0,
+                child: 
+                TabBarView(
+                  children: [
+                    listInput[0],
+                    listInput[1]
+                  ],
+                ),
+              ),
+              listInput[2]
+            ],
           ),
         ),
-        // Container(
-        //   margin: EdgeInsets.only(bottom: 13.0),
-        //   child: 
-        // ),
 
-        CustomFlatButton(
+        MyFlatButton(
           textButton: "Login",
-          widgetName: "loginSecondScreen",
-          buttonColor: AppColors.blueColor,
+          buttonColor: AppColors.secondary,
           fontWeight: FontWeight.bold,
           fontSize: size18,
-          edgeMargin: EdgeInsets.only(bottom: 15),
-          edgePadding: EdgeInsets.only(top: size15, bottom: size15),
-          boxShadow: BoxShadow(
-            color: Colors.black54.withOpacity(modelLogin.enable == false ? 0 : 0.3),
-            blurRadius: 10.0,
-            spreadRadius: 2.0,
-            offset: Offset(2.0, 5.0),
-          ),
-          action: modelLogin.enable == false ? null : submitLogin
-        )
+          edgeMargin: EdgeInsets.only(top: 29, left: 66, right: 66),
+          hasShadow: true,
+          action: modelLogin.enable == false ? null : submitLogin 
+        ),
 
+        InkWell(
+          onTap: () {
+            Navigator.pushReplacement(
+              context, 
+              MaterialPageRoute(builder: (context) => ForgotPassword())
+            );
+          },
+          child: MyText(
+            top: 23,
+            text: "Forgot password?",
+            color: AppColors.secondary_text,
+          )
+        ),
+
+        Expanded(
+          child: Container(),
+        ),
+
+        Container(
+          margin: EdgeInsets.only(bottom: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MyText(
+                text: "Don't have an account?"
+              ),
+              InkWell(
+                onTap: (){
+                  Navigator.pushReplacement(
+                    context, 
+                    MaterialPageRoute(builder: (context) => SignUp())
+                  );
+                },
+                child: MyText(
+                  left: 5,
+                  text: "Sign up",
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.secondary_text,
+                ),
+              )
+            ],
+          )
+        ),
+        
       ],
     );
   }
 }
-
-// Widget userLoginForm({
-//   String label,
-//   String prefixText,
-//   ModelLogin modelLogin,
-//   TextInputType inputType = TextInputType.phone,
-//   List<TextInputFormatter> textInputFormatter,
-//   Function validateInput,
-//   Function validatePassword,
-//   Function onChanged,
-//   Function showPassword,
-//   Function submtiLogin
-// }){
-//   return Column(
-//     children: <Widget>[
-//       /* Email & Phone Number Input Field*/
-//       Container(
-//         margin: EdgeInsets.only(bottom: 13.0),
-//         child: inputField(
-//           context: context,
-//           labelText: label,
-//           prefixText: prefixText,
-//           widgetName: "loginSecondScreen",
-//           textInputFormatter: textInputFormatter,
-//           // modelLogin.label == "email"
-//           //   ?  /* If Label Equal Email Just Control Length Input Format */
-//           //   : , /* Else Add Condition 0-9 Only */
-//           inputType: inputType,
-//           controller: modelLogin.label == "email"
-//               ? modelLogin.controlEmails
-//               : modelLogin.controlPhoneNums,
-//           focusNode: modelLogin.label == "email"
-//               ? modelLogin.nodeEmails
-//               : modelLogin.nodePhoneNums,
-//           validateField: validateInput,
-//           onChanged: onChanged,
-//           action: submtiLogin
-//         )
-//       ),
-//       Container(
-//         /* Password Input Field */
-//         margin: EdgeInsets.only(bottom: 25.0),
-//         child: inputField(
-//           context: context,
-//           labelText: "Password",
-//           widgetName: "loginSecondScreen",
-//           obcureText: modelLogin.securePassword,
-//           textInputFormatter: [
-//             LengthLimitingTextInputFormatter(TextField.noMaxLength)
-//           ],
-//           inputAction: TextInputAction.done,
-//           controller: modelLogin.controlPasswords,
-//           focusNode: modelLogin.nodePasswords,
-//           validateField: validatePassword,
-//           icon: IconButton(
-//             icon: Icon(modelLogin.securePassword == true ? Icons.visibility_off : Icons.visibility, color: Colors.white),
-//             onPressed: () {
-//               if (modelLogin.securePassword == false) showPassword(true);
-//               else showPassword(false);
-//             },
-//           ),
-//           onChanged: onChanged,
-//           action: submtiLogin
-//         ),
-//       ),
-//     ],
-//   );
-// }
-

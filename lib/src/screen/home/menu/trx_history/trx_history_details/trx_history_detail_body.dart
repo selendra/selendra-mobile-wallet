@@ -39,7 +39,7 @@ Widget trxHistoryDetailsBody(
                 ],
                 borderRadius: BorderRadius.circular(5.0),
                 border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
-                color: getHexaColor(AppConfig.darkBlue50),
+                color: hexaCodeToColor(AppConfig.darkBlue50),
               ),
               child: Column(
                 children: <Widget>[

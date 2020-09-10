@@ -32,9 +32,9 @@ Widget trxHistoryBody(
         Container( /* Tab Bar View */
           padding: EdgeInsets.only(top: 5.0, bottom: 20.0),
           child: TabBar(
-            unselectedLabelColor: getHexaColor("#FFFFFF"),
-            indicatorColor: getHexaColor(AppColors.greenColor),
-            labelColor: getHexaColor(AppColors.greenColor),
+            unselectedLabelColor: hexaCodeToColor("#FFFFFF"),
+            indicatorColor: hexaCodeToColor(AppColors.greenColor),
+            labelColor: hexaCodeToColor(AppColors.greenColor),
             labelStyle: TextStyle(fontSize: 18.0),
             tabs: <Widget>[
               FittedBox(child: Tab(child: Text('Send'))),

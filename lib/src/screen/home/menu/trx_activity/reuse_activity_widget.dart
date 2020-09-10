@@ -54,7 +54,7 @@ Widget buildListBody(List<dynamic> _activity,) {
                     flex: 0,
                     child: Text(
                       _activity[index]['status'], 
-                      style: TextStyle(color: getHexaColor(AppColors.greenColor)),
+                      style: TextStyle(color: hexaCodeToColor(AppColors.greenColor)),
                     ),
                   )
                 ],

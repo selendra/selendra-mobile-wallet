@@ -36,7 +36,7 @@ class InvoiceSummaryState extends State<InvoiceSummary>  {
     dialogLoading(context); /* Loading Process */
     Map<String, dynamic> _response = await _postRequest.addReceipt(widget._modelScanInvoice);
     if (!_response.containsKey("error")){ /* Display Messager To Dialog Box */
-      await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor),)); /* Show Response */
+      await dialog(context, Text(_response["message"]), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.blueColor),)); /* Show Response */
       Navigator.pop(context);
       Navigator.pushAndRemoveUntil(
         context, 

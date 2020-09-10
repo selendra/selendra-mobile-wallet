@@ -34,7 +34,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       _modelDashboard.scaffoldKey = GlobalKey<ScaffoldState>();
       _modelDashboard.total = 0;
       _modelDashboard.circularChart = [
-        CircularSegmentEntry(_modelDashboard.remainDataChart, getHexaColor("#4B525E"))
+        CircularSegmentEntry(_modelDashboard.remainDataChart, hexaCodeToColor("#4B525E"))
       ];
       AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
       _modelDashboard.userData = {};
@@ -162,7 +162,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         _modelDashboard.circularChart.add( //Add More Data Follow Portfolio
           CircularSegmentEntry(
             json.decode(_modelDashboard.portfolioList[i]['balance']),
-            getHexaColor(AppColors.greenColor)
+            hexaCodeToColor(AppColors.greenColor)
           )
         );
       }
@@ -170,7 +170,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       _modelDashboard.circularChart.add( // Add Remain Empty Data
         CircularSegmentEntry(
           _modelDashboard.remainDataChart,
-          getHexaColor("#4B525E")
+          hexaCodeToColor("#4B525E")
         )
       );
 
@@ -249,7 +249,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
             Text(onValue['message']),
             Icon(
               Icons.done_outline,
-              color: getHexaColor(AppColors.lightBlueSky,)
+              color: hexaCodeToColor(AppColors.lightBlueSky,)
             )
           );
           else await dialog(context, Text(onValue['error']['message']), warningTitleDialog());
@@ -360,7 +360,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: getHexaColor("#8CC361"),
+        backgroundColor: hexaCodeToColor("#8CC361"),
         child: Image.asset(
           AppConfig.logoBottomAppBar,
           color: Colors.white, width: 27.0, height: 27.0

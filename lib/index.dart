@@ -54,6 +54,7 @@ export 'package:wallet_apps/src/bloc/bloc.dart';
 export 'package:wallet_apps/src/bloc/bloc_provider.dart';
 export 'package:wallet_apps/src/bloc/validator_mixin.dart';
 export 'package:wallet_apps/src/config/app_config.dart';
+export 'package:wallet_apps/src/config/size_config/size_config.dart';
 export 'package:wallet_apps/src/routes/routing.dart';
 export 'package:wallet_apps/theme/style.dart';
 

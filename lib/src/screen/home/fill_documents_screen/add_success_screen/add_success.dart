@@ -21,10 +21,10 @@ Widget addSuccessBodyWidget(BuildContext context) {
           height: 122, width: 122,
           margin: EdgeInsets.only(bottom: 33.0),
           decoration: BoxDecoration(
-            color: getHexaColor(AppColors.greenColor),
+            color: hexaCodeToColor(AppColors.greenColor),
             borderRadius: BorderRadius.circular(60.0)
           ),
-          child: Icon(Icons.done, size: 90.0, color: getHexaColor(AppColors.greenColor),),
+          child: Icon(Icons.done, size: 90.0, color: hexaCodeToColor(AppColors.greenColor),),
         ),
         Container( /* Congratulation Text */
           margin: EdgeInsets.only(bottom: 17.0),

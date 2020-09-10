@@ -4,18 +4,18 @@ class AppStyle {
   static ThemeData myTheme(){
     return ThemeData(
       appBarTheme: AppBarTheme(
-        textTheme: TextTheme(bodyText2: TextStyle(color: getHexaColor(AppColors.appBarTextColor))),
+        textTheme: TextTheme(bodyText2: TextStyle(color: hexaCodeToColor(AppColors.appBarTextColor))),
         color: Colors.transparent,
-        iconTheme: IconThemeData(color: getHexaColor(AppColors.appBarTextColor))
+        iconTheme: IconThemeData(color: hexaCodeToColor(AppColors.appBarTextColor))
       ),
       /* Color All Text */
-      textTheme: TextTheme(bodyText2: TextStyle(color: getHexaColor(AppColors.textColor))),
-      canvasColor: getHexaColor("#FFFFFF"),
-      cardColor: getHexaColor(AppConfig.darkBlue50),
-      bottomAppBarTheme: BottomAppBarTheme(color: getHexaColor(AppConfig.darkBlue50)),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: getHexaColor(AppColors.textColor)),
+      textTheme: TextTheme(bodyText2: TextStyle(color: hexaCodeToColor(AppColors.textColor))),
+      canvasColor: hexaCodeToColor("#FFFFFF"),
+      cardColor: hexaCodeToColor(AppConfig.darkBlue50),
+      bottomAppBarTheme: BottomAppBarTheme(color: hexaCodeToColor(AppConfig.darkBlue50)),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: hexaCodeToColor(AppColors.textColor)),
       fontFamily: "Avenir",
-      scaffoldBackgroundColor: Color(AppUtils.convertHexaColor(AppColors.bgdColor))
+      scaffoldBackgroundColor: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
     );
   }
 }

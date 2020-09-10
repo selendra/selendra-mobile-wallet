@@ -16,7 +16,7 @@ Widget cardToken( /* Card Token Display */
 ) {
   return Container(
     decoration: BoxDecoration(
-      border: Border.all(width: size1, color: getHexaColor(AppColors.borderColor)),
+      border: Border.all(width: size1, color: hexaCodeToColor(AppColors.borderColor)),
       borderRadius: BorderRadius.circular(size5)
     ),
     child: Padding(
@@ -38,7 +38,7 @@ Widget cardToken( /* Card Token Display */
                   child: textDisplay( /* Token number */
                     tokenAmount,
                     TextStyle(
-                      color: getHexaColor(AppColors.lightBlueSky),
+                      color: hexaCodeToColor(AppColors.lightBlueSky),
                       fontWeight: FontWeight.bold,
                       fontSize: 28.0
                     )
@@ -48,7 +48,7 @@ Widget cardToken( /* Card Token Display */
                   margin: EdgeInsets.only(bottom: paddingeBottom6, left: paddingeBottom6),
                   child: Text(
                     "Token",
-                    style: TextStyle(color: getHexaColor(greenColor)),
+                    style: TextStyle(color: hexaCodeToColor(greenColor)),
                   ),
                 )
               ],
@@ -58,12 +58,12 @@ Widget cardToken( /* Card Token Display */
             children: <Widget>[
               Icon(
                 rateIcon,
-                color: getHexaColor(rateColor),
+                color: hexaCodeToColor(rateColor),
                 size: 17.0,
               ),
               Text(
                 rate,
-                style: TextStyle(color: getHexaColor(rateColor)),
+                style: TextStyle(color: hexaCodeToColor(rateColor)),
               )
             ],
           )
@@ -121,7 +121,7 @@ class TrxOption {
                 var _response = await postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
                 Navigator.pop(context); // Close Dialog Loading
                 if (_response != null) {
-                  await dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+                  await dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
                 }
               },
             )
@@ -257,7 +257,7 @@ Widget headerPortfolio(){
             alignment: Alignment.centerLeft,
             child: Text('Your assets',
               style: TextStyle(
-                color: getHexaColor("#FFFFFF"),
+                color: hexaCodeToColor("#FFFFFF"),
                 fontSize: 17.0,
               )
             )
@@ -270,7 +270,7 @@ Widget headerPortfolio(){
               child: Text('QTY',
                 style: TextStyle(
                   fontSize: fontSizePort,
-                  color: getHexaColor("#FFFFFF")
+                  color: hexaCodeToColor("#FFFFFF")
                 )
               ),
             ),
@@ -342,7 +342,7 @@ Widget rowDecorationStyle({Widget child, double marginTop: 15}){
           offset: Offset(1.0, 1.0)
         )
       ],
-      color: getHexaColor(AppConfig.darkBlue50),
+      color: hexaCodeToColor(AppConfig.darkBlue50),
       border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
       borderRadius: BorderRadius.circular(5),
     ),
@@ -367,7 +367,7 @@ class CustomBottomAppBar extends StatelessWidget{
   
   Widget build(BuildContext context){
     return Container(
-      color: getHexaColor(AppColors.bgdColor),
+      color: hexaCodeToColor(AppColors.bgdColor),
       child: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(

@@ -220,7 +220,7 @@ class ResetPasswordState extends State<ResetPassword> {
           _backend.mapData = json.decode(_backend.response.body);
           // Condition And Navigator
           if (!_backend.mapData.containsKey('error')) {
-            await dialog(context, Text(_backend.mapData['message']), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor)));
+            await dialog(context, Text(_backend.mapData['message']), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), ModalRoute.withName('/'));
           } else {
             await dialog(context, Text(_backend.mapData['error']['message']), textMessage());

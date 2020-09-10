@@ -46,17 +46,17 @@ Widget invoiceBody(
                           textSubmitted: validateLocation,
                           decoration: InputDecoration(
                             labelText: "Store Location",
-                            fillColor: getHexaColor("FFFFFF").withOpacity(0.15), filled: true,
+                            fillColor: hexaCodeToColor("FFFFFF").withOpacity(0.15), filled: true,
                             contentPadding: EdgeInsets.only(top: 25.0, bottom: 25.0, left: 24.0, right: 24.0),
                             labelStyle: TextStyle(color: Colors.white),
                             /* Border side */
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: _modelScanInvoice.controlLocation.text != "" ? getHexaColor("#95989A") : Colors.transparent, 
+                                color: _modelScanInvoice.controlLocation.text != "" ? hexaCodeToColor("#95989A") : Colors.transparent, 
                                 width: 1.0
                               ),
                             ),
-                            focusedBorder: outlineInput(getHexaColor(AppColors.borderColor)),
+                            focusedBorder: myOutlineInput(hexaCodeToColor(AppColors.borderColor)),
                             /* Error Handler */
                             border: errorOutline(),
                             focusedErrorBorder: errorOutline(),

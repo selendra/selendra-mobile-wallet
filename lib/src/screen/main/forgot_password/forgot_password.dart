@@ -107,7 +107,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
         if (_backend.response != null) {
           // Navigator.pop(context);
           _backend.mapData = json.decode(_backend.response.body);
-          await dialog(context, Text(_backend.mapData['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor),));
+          await dialog(context, Text(_backend.mapData['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor),));
           Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(_modelForgotPassword)));
         }
         // if (AppServices.myNumCount < 10) { 

@@ -16,7 +16,7 @@ Widget invoiceSummary(String storeProperties, String storeData, FontWeight fontW
         ),
         Expanded(
           flex: 3,
-          child: Text(storeData, style: TextStyle(fontSize: 20.0, fontWeight: fontWeight, color: getHexaColor(AppColors.greenColor)),),
+          child: Text(storeData, style: TextStyle(fontSize: 20.0, fontWeight: fontWeight, color: hexaCodeToColor(AppColors.greenColor)),),
         )
       ],
     ),

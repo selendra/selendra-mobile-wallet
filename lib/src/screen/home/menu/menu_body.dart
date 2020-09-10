@@ -183,7 +183,7 @@ class MenuBody extends StatelessWidget{
               'Finger print',
               style: TextStyle(
                 fontWeight: FontWeight.w400,
-                color: getHexaColor("#EFF0F2")
+                color: hexaCodeToColor("#EFF0F2")
               ),
             ),
             trailing: Switch(

@@ -2,7 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 Widget paddingScreenWidget(BuildContext context, Widget child) {
   return Container( /* Create Whole Screen Background Color */
-    color: getHexaColor(AppColors.bgdColor),
+    color: hexaCodeToColor(AppColors.bgdColor),
     // scaffoldBGColor("#344051", "#222834"),
     constraints: BoxConstraints( /* Make Height And Widget To Fit Screen */
       maxHeight: MediaQuery.of(context).size.height,
@@ -42,7 +42,7 @@ Widget forgotPass(BuildContext context, dynamic color, {double fontSize: 18.0, F
       child: textDisplay(
         "Forgot Password?",
         TextStyle(
-          color: getHexaColor(color),
+          color: hexaCodeToColor(color),
           fontSize: fontSize,
           fontWeight: fontWeight
         )

@@ -32,7 +32,7 @@ Widget smsCodeVerifyBody( /* Body widget */
 
           FittedBox(
             fit: BoxFit.contain,
-            child: Image.asset('assets/images/message.png', width: 200.0, height: 200.0, color: getHexaColor(AppColors.lightBlueSky)),
+            child: Image.asset('assets/images/message.png', width: 200.0, height: 200.0, color: hexaCodeToColor(AppColors.lightBlueSky)),
           ),
 
           Container(
@@ -105,7 +105,7 @@ Widget resendBtn({int time, SmsCodeModel smsCodeModel, Function resetTimer, Func
                 resetTimer();
                 Timer.periodic(Duration(milliseconds: 1000), runTimer);
               },
-              child: Text("Resend Code", textAlign: TextAlign.start, style: TextStyle(fontSize: 18.0, color: getHexaColor(AppColors.lightBlueSky),)),
+              child: Text("Resend Code", textAlign: TextAlign.start, style: TextStyle(fontSize: 18.0, color: hexaCodeToColor(AppColors.lightBlueSky),)),
             )
           )
         ],
@@ -161,8 +161,8 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
           labelStyle: TextStyle(color: Colors.white),
           /* Border side */
           border: errorOutline(),
-          enabledBorder: outlineInput(getHexaColor(AppColors.borderColor)),
-          focusedBorder: outlineInput(getHexaColor(AppColors.lightBlueSky)),
+          enabledBorder: myOutlineInput(hexaCodeToColor(AppColors.borderColor)),
+          focusedBorder: myOutlineInput(hexaCodeToColor(AppColors.lightBlueSky)),
           focusedErrorBorder: errorOutline(),
         ),
         onSubmitted: (value) {

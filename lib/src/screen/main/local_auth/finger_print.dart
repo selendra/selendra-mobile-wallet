@@ -131,11 +131,11 @@ class _FingerPrintState extends State<FingerPrint> {
                 padding: EdgeInsets.only(left: 50, right: 50),
                 child: Image.asset('assets/images/illustrator/finger_print.png')
               ),
-              CustomText(
+              MyText(
                 top: 50.0,
                 text: 'Authentication Required'
               ),
-              if (enableText) CustomText(
+              if (enableText) MyText(
                 top: 19.0,
                 text: 'Touch screen to trigger finger print'
               )

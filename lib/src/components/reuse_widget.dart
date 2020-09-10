@@ -22,7 +22,7 @@ const double size80 = 80.0;
 const double leftRight40 = 40.0;
 
 /* -----------------------------------Box Border and Shadow Style--------------------------------------------------- */
-Color getHexaColor(String hexaCode) {
+Color hexaCodeToColor(String hexaCode) {
   return Color(AppUtils.convertHexaColor(hexaCode));
 }
 
@@ -81,8 +81,8 @@ TextField userTextField(
       labelStyle: TextStyle(color: Colors.white),
       /* Border side */
       border: errorOutline(),
-      enabledBorder: outlineInput(getHexaColor(AppColors.borderColor)),
-      focusedBorder: outlineInput(getHexaColor(AppColors.lightBlueSky)),
+      enabledBorder: myOutlineInput(hexaCodeToColor(AppColors.borderColor)),
+      focusedBorder: myOutlineInput(hexaCodeToColor(AppColors.lightBlueSky)),
       /* Error Handler */
       focusedErrorBorder: errorOutline(),
       errorText: snapshot.hasError ? snapshot.error : null,
@@ -91,13 +91,6 @@ TextField userTextField(
 }
 
 /* ------------------Input Decoration--------------------- */
-
-/* User input Outline Border */
-OutlineInputBorder outlineInput(Color borderColor) {
-  return OutlineInputBorder(
-      borderSide: BorderSide(color: borderColor, width: size1),
-      borderRadius: BorderRadius.circular(size5));
-}
 
 OutlineInputBorder errorOutline() {
   /* User Error Input Outline Border */
@@ -131,10 +124,10 @@ Widget customFlatButton(
     height: 50.0,
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(size5), boxShadow: [boxShadow]),
     child: FlatButton(
-      color: getHexaColor(buttonColor),
+      color: hexaCodeToColor(buttonColor),
       disabledTextColor: Colors.black54,
       disabledColor: Colors.grey[700],
-      focusColor: getHexaColor("#83B6BD"),
+      focusColor: hexaCodeToColor("#83B6BD"),
       textColor: Colors.white,
       child: Text(
         textButton,
@@ -153,7 +146,7 @@ Widget customFlatButton(
 BoxDecoration borderAndBorderRadius() {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(5.0),
-    border: Border.all(width: 2.0, color: getHexaColor("#5F5F69")),
+    border: Border.all(width: 2.0, color: hexaCodeToColor("#5F5F69")),
   );
 }
 
@@ -165,7 +158,7 @@ BoxDecoration scaffoldBGColor(String color1, String color2) {
     gradient: LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [getHexaColor(color1), getHexaColor(color1)]
+      colors: [hexaCodeToColor(color1), hexaCodeToColor(color1)]
     )
   );
 }
@@ -189,7 +182,7 @@ Widget scaffoldBGDecoration({
 }
 
 /* Title gradient color */
-final Shader linearGradient = LinearGradient(colors: [getHexaColor(AppColors.lightBlueSky), getHexaColor(AppColors.greenColor)]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+final Shader linearGradient = LinearGradient(colors: [hexaCodeToColor(AppColors.lightBlueSky), hexaCodeToColor(AppColors.greenColor)]).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
 BoxDecoration signOutColor() {
   return BoxDecoration(
@@ -197,8 +190,8 @@ BoxDecoration signOutColor() {
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       colors: [
-        getHexaColor("#1D0837"),
-        getHexaColor("#0F0F11"),
+        hexaCodeToColor("#1D0837"),
+        hexaCodeToColor("#0F0F11"),
       ]
     )
   );
@@ -295,7 +288,7 @@ Widget loading() {
   return Center(
     child: CircularProgressIndicator(
       backgroundColor: Colors.transparent,
-      valueColor: AlwaysStoppedAnimation(getHexaColor(AppColors.lightBlueSky))
+      valueColor: AlwaysStoppedAnimation(hexaCodeToColor(AppColors.lightBlueSky))
     ),
   );
 }
@@ -312,7 +305,7 @@ Widget progress({String content}) {
           children: <Widget>[
             CircularProgressIndicator(
               backgroundColor: Colors.transparent,
-              valueColor: AlwaysStoppedAnimation(getHexaColor(AppColors.lightBlueSky))
+              valueColor: AlwaysStoppedAnimation(hexaCodeToColor(AppColors.lightBlueSky))
             ),
             content == null 
             ? Container() 
@@ -391,7 +384,7 @@ Widget labelUserInput(String text, String colorHexa) {
   return Text(
     text,
     style: TextStyle(
-      color: getHexaColor(colorHexa),
+      color: hexaCodeToColor(colorHexa),
       fontSize: 12.0,
       fontWeight: FontWeight.bold
     ),
@@ -477,7 +470,7 @@ Widget fieldPicker(BuildContext context, String labelText, String widgetName, Ic
           padding:
               EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0, right: 26.0),
           decoration: BoxDecoration(
-              color: getHexaColor("#FFFFFF").withOpacity(0.1),
+              color: hexaCodeToColor("#FFFFFF").withOpacity(0.1),
               borderRadius: BorderRadius.circular(size5)),
           child: Row(
             children: <Widget>[
@@ -531,28 +524,28 @@ Widget inputField({/* User Input Field */
     obscureText: obcureText,
     controller: controller,
     textInputAction: inputAction,
-    style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
+    style: TextStyle(color: hexaCodeToColor("#ffffff"), fontSize: 18.0),
     validator: validateField,
     decoration: InputDecoration(
       labelText: labelText,
       labelStyle: TextStyle(
           fontSize: 18.0,
           color: focusNode.hasFocus || controller.text != ""
-              ? getHexaColor("#FFFFF").withOpacity(0.3)
-              : getHexaColor("#ffffff")),
+              ? hexaCodeToColor("#FFFFF").withOpacity(0.3)
+              : hexaCodeToColor("#ffffff")),
       prefixText: prefixText,
       prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
       /* Prefix Text */
-      filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
-      enabledBorder: outlineInput(controller.text != ""
-          ? getHexaColor("#FFFFFF").withOpacity(0.3)
+      filled: true, fillColor: hexaCodeToColor("#FFFFFF").withOpacity(0.1),
+      enabledBorder: myOutlineInput(controller.text != ""
+          ? hexaCodeToColor("#FFFFFF").withOpacity(0.3)
           : Colors.transparent),
       /* Enable Border But Not Show Error */
       border: errorOutline(),
       /* Show Error And Red Border */
-      focusedBorder: outlineInput(getHexaColor("#FFFFFF").withOpacity(0.3)),
+      focusedBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
       /* Default Focuse Border Color*/
-      focusColor: getHexaColor("#ffffff"),
+      focusColor: hexaCodeToColor("#ffffff"),
       /* Border Color When Focusing */
       contentPadding: EdgeInsets.all(23), // No Content Padding = -10.0 px
       suffixIcon: icon
@@ -578,13 +571,13 @@ Widget customDropDown(String label, List list, dynamic _model,
   return Container(
     padding: EdgeInsets.only(top: 11.0, bottom: 11.0, left: 26.0, right: 14.0),
     decoration: BoxDecoration(
-        color: getHexaColor("#FFFFFF").withOpacity(0.1),
+        color: hexaCodeToColor("#FFFFFF").withOpacity(0.1),
         borderRadius: BorderRadius.circular(size5),
         border: Border.all(
             width: 1,
             color: label == "Gender"
                 ? Colors.transparent
-                : getHexaColor("#FFFFFF")
+                : hexaCodeToColor("#FFFFFF")
                     .withOpacity(0.3)) /* Control Border Gender Color */
         ),
     child: Row(
@@ -597,7 +590,7 @@ Widget customDropDown(String label, List list, dynamic _model,
         ),
         Theme(
           data:
-              ThemeData(canvasColor: getHexaColor("#FFFFFF").withOpacity(0.1)),
+              ThemeData(canvasColor: hexaCodeToColor("#FFFFFF").withOpacity(0.1)),
           child: PopupMenuButton(
             offset: Offset.zero,
             padding: EdgeInsets.all(12),
@@ -715,7 +708,7 @@ Widget textScale({
     child: Text(
       text,
       style: TextStyle(
-        color: getHexaColor(hexaColor),
+        color: hexaCodeToColor(hexaColor),
         decoration: underline,
         fontSize: fontSize,
         fontWeight: fontWeight

@@ -33,37 +33,60 @@ class Component {
   
 }
 
-class CustomFlatButton extends StatelessWidget{
+class MyFlatButton extends StatelessWidget{
+
   final String textButton;
-  final String widgetName;
   final String buttonColor;
   final FontWeight fontWeight;
   final double fontSize;
   final EdgeInsetsGeometry edgeMargin;
   final EdgeInsetsGeometry edgePadding;
-  final BoxShadow boxShadow;
+  final bool hasShadow;
   final Function action;
 
-  CustomFlatButton({this.textButton, this.widgetName, this.buttonColor, this.fontWeight, this.fontSize, this.edgeMargin, this.edgePadding, this.boxShadow, this.action});
+  MyFlatButton({
+    this.textButton, 
+    this.buttonColor, 
+    this.fontWeight, 
+    this.fontSize, 
+    this.edgeMargin, 
+    this.edgePadding, 
+    this.hasShadow, 
+    @required this.action,
+  });
 
+  @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
+      padding: edgePadding,
       margin: edgeMargin,
       width: double.infinity,
-      height: 50.0,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(size5), boxShadow: [boxShadow]),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(size5), 
+        boxShadow: [
+          if (hasShadow) BoxShadow(
+            color: Colors.black54.withOpacity(0.3),
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
+            offset: Offset(2.0, 5.0),
+          )
+        ]
+      ),
       child: FlatButton(
-        color: getHexaColor(buttonColor),
-        disabledTextColor: Colors.black54,
+        color: hexaCodeToColor(buttonColor),
         disabledColor: Colors.grey[700],
-        focusColor: getHexaColor("#83B6BD"),
-        textColor: Colors.white,
-        child: Text(
-          textButton,
-          style: TextStyle(fontSize: fontSize, fontWeight: fontWeight),
+        focusColor: hexaCodeToColor(AppColors.secondary),
+        child: MyText(
+          // left: 117, right: 116,
+          top: 20, bottom: 20,
+          text: textButton,
+          color: action != null ? '#FFFFFF' : AppColors.textBtnColor,
+          fontWeight: FontWeight.bold,
         ),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(size5)),
-        onPressed: action == null ? null : (){
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        onPressed: 
+        action == null ? null : 
+        (){
           action(context);
         }
       ),
@@ -71,28 +94,58 @@ class CustomFlatButton extends StatelessWidget{
   }
 }
 
-class CustomText extends StatelessWidget{
+class MyText extends StatelessWidget{
 
   final String text; final String color; final double fontSize; final FontWeight fontWeight;
   final double top; final double right; final double bottom; final double left;
+  final double width; final double height; final BoxFit fit;
 
-  CustomText({
+  MyText({
     this.text, this.color = AppColors.textColor, this.fontSize = 18, this.fontWeight = FontWeight.normal,
-    this.top = 0, this.right = 0, this.bottom = 0, this.left = 0
+    this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
+    this.width, this.height, this.fit = BoxFit.contain
   });
   
   Widget build(BuildContext context){
-    return Padding(
-      padding: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
-      child: Text(
-        this.text,
-        style: TextStyle(
-          fontWeight: this.fontWeight,
-          color: Color(AppUtils.convertHexaColor(this.color)),
-          fontSize: this.fontSize
-        ),
-        textAlign: TextAlign.center,
+    return Container(
+      margin: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
+      child: SizedBox(
+        width: this.width,
+        height: this.height,
+        child: FittedBox(
+          fit: this.fit,
+          child: Text(
+            this.text,
+            style: TextStyle(
+              fontWeight: this.fontWeight,
+              color: Color(AppUtils.convertHexaColor(this.color)),
+              fontSize: this.fontSize
+            ),
+            textAlign: TextAlign.center,
+          ),
+        )
       ),
+    );
+  }
+}
+
+class MyLogo extends StatelessWidget{
+
+  final String logoPath; final String color; final double width; final double height;
+  final double top; final double right; final double bottom; final double left;
+
+  MyLogo({
+    @required this.logoPath, 
+    this.color = "#FFFFFF", 
+    this.width, 
+    this.height,
+    this.top = 0, this.right = 0, this.bottom = 0, this.left = 0
+  });
+
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
+      child: Image.asset(logoPath, width: 60, height: 60, color: hexaCodeToColor(this.color))
     );
   }
 }
@@ -111,15 +164,11 @@ class BodyScaffold extends StatelessWidget{
   Widget build(BuildContext context){
     return SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
-              child: this.child
-            )
-          ],
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height - 20,
+          color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
+          child: this.child
         )
       )
     );

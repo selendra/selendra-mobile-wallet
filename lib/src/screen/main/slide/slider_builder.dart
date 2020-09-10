@@ -72,6 +72,7 @@ class SlideBuilderState extends State<SlideBuilder>{
                       )
                     )
                   ),
+
                   if (enableButton) Align(
                     alignment: Alignment.bottomRight,
                     child: AnimatedContainer(
@@ -86,7 +87,7 @@ class SlideBuilderState extends State<SlideBuilder>{
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              CustomText(text: 'Get Start', color: AppColors.secondary, fontWeight: FontWeight.bold),
+                              MyText(text: 'Get Start', color: AppColors.secondary, fontWeight: FontWeight.bold),
                               // Icon(LineAwesomeIcons.alternate_long_arrow_right, color: Color(AppUtils.convertHexaColor(AppColors.secondary_text)),)
                             ],
                           ),

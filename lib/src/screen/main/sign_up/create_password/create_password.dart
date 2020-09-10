@@ -209,7 +209,7 @@ class CreatePasswordState extends State<CreatePassword> {
           textAlignCenter(text: "${_backend.mapData['message']}"),
           Icon(
             Icons.done_outline,
-            color: getHexaColor(AppColors.greenColor),
+            color: hexaCodeToColor(AppColors.greenColor),
           ) 
         );
 

@@ -32,9 +32,9 @@ Widget forgetPasswordBody(
             children: <Widget>[
               Container( /* User Choice Log in */
                 child: TabBar(
-                  unselectedLabelColor: getHexaColor("#FFFFFF"),
-                  indicatorColor: getHexaColor(AppColors.blueColor),
-                  labelColor: getHexaColor(AppColors.blueColor),
+                  unselectedLabelColor: hexaCodeToColor("#FFFFFF"),
+                  indicatorColor: hexaCodeToColor(AppColors.blueColor),
+                  labelColor: hexaCodeToColor(AppColors.blueColor),
                   // labelStyle: TextStyle(fontSize: 30.0),
                   tabs: <Widget>[
                     Container(

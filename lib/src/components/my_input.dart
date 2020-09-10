@@ -3,7 +3,6 @@ import 'package:wallet_apps/index.dart';
 class MyInputField extends StatelessWidget{
 
   final Key key;
-  final BuildContext context;
   final String labelText;
   final String prefixText;
   final bool obcureText;
@@ -20,7 +19,6 @@ class MyInputField extends StatelessWidget{
 
   MyInputField({/* User Input Field */
     this.key,
-    this.context,
     this.labelText,
     this.prefixText,
     this.obcureText = false,
@@ -28,17 +26,17 @@ class MyInputField extends StatelessWidget{
     this.textInputFormatter,
     this.inputType = TextInputType.text,
     this.inputAction = TextInputAction.next,
-    this.controller,
-    this.focusNode,
+    @required this.controller,
+    @required this.focusNode,
     this.icon,
-    this.validateField,
+    @required this.validateField,
     @required this.onChanged,
     @required this.action
   });
 
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 16, right: 10),
+      padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 0, top: 2.0),
       child: TextFormField(
         key: key,
         enabled: enableInput,
@@ -47,33 +45,34 @@ class MyInputField extends StatelessWidget{
         obscureText: obcureText,
         controller: controller,
         textInputAction: inputAction,
-        style: TextStyle(color: getHexaColor("#ffffff"), fontSize: 18.0),
+        style: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontSize: 18.0),
         validator: validateField,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(
             fontSize: 18.0,
             color: focusNode.hasFocus || controller.text != ""
-            ? getHexaColor("#FFFFF").withOpacity(0.3)
-            : getHexaColor("#ffffff")
+            ? hexaCodeToColor("#FFFFF").withOpacity(0.3)
+            : hexaCodeToColor(AppColors.textColor)
           ),
           prefixText: prefixText,
-          prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
+          prefixStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontSize: 18.0),
           /* Prefix Text */
-          filled: true, fillColor: getHexaColor("#FFFFFF").withOpacity(0.1),
-          enabledBorder: outlineInput(controller.text != ""
-            ? getHexaColor("#FFFFFF").withOpacity(0.3)
+          filled: true, 
+          fillColor: hexaCodeToColor(AppColors.cardColor),
+          enabledBorder: myOutlineInput(controller.text != ""
+            ? hexaCodeToColor("#FFFFFF").withOpacity(0.3)
             : Colors.transparent
           ),
           /* Enable Border But Not Show Error */
           border: errorOutline(),
           /* Show Error And Red Border */
-          focusedBorder: outlineInput(getHexaColor("#FFFFFF").withOpacity(0.3)),
+          focusedBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
           /* Default Focuse Border Color*/
-          focusColor: getHexaColor("#ffffff"),
+          focusColor: hexaCodeToColor("#ffffff"),
           /* Border Color When Focusing */
-          contentPadding: EdgeInsets.all(23), // No Content Padding = -10.0 px
-          suffixIcon: icon
+          contentPadding: EdgeInsets.fromLTRB(21, 20, 21, 20), // No Content Padding = -10.0 px
+          suffixIcon: icon,
         ),
         inputFormatters: textInputFormatter,
         /* Limit Length Of Text Input */
@@ -84,4 +83,12 @@ class MyInputField extends StatelessWidget{
       )
     );
   }
+}
+
+/* User input Outline Border */
+OutlineInputBorder myOutlineInput(Color borderColor) {
+  return OutlineInputBorder(
+    borderSide: BorderSide(color: borderColor, width: size1),
+    borderRadius: BorderRadius.circular(8)
+  );
 }

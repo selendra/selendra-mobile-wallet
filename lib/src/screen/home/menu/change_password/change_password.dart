@@ -139,7 +139,7 @@ class ChangePINState extends State<ChangePassword> {
         await dialog(
           context, 
           Text("${_response['message']}"), 
-          Icon(Icons.done_outline, color: getHexaColor(AppColors.greenColor))
+          Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor))
         );
         Navigator.pop(context);
       } else
