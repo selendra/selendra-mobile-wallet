@@ -34,7 +34,7 @@ class CreatePasswordState extends State<CreatePassword> {
     widget._modelSignUp.controlPassword.clear();
     widget._modelSignUp.controlConfirmPassword.clear();
     widget._modelSignUp.isMatch = true;
-    widget._modelSignUp.enable2 = false;
+    widget._modelSignUp.enable = false;
     widget._modelSignUp.responsePass1 = null;
     widget._modelSignUp.responsePass2 = null;
     super.dispose();
@@ -75,19 +75,19 @@ class CreatePasswordState extends State<CreatePassword> {
         // Disable Not Match Text
         if (widget._modelSignUp.isMatch == false) widget._modelSignUp.isMatch = true;
         // If Not Match
-        if (widget._modelSignUp.enable2 == false) widget._modelSignUp.enable2 = true;
+        if (widget._modelSignUp.enable == false) widget._modelSignUp.enable = true;
       } 
       else {
         if (widget._modelSignUp.controlConfirmPassword.text != '' && widget._modelSignUp.controlPassword.text != ''){
           // Disable Button
-          if (widget._modelSignUp.enable2) widget._modelSignUp.enable2 = false;
+          if (widget._modelSignUp.enable) widget._modelSignUp.enable = false;
           // Enable Not Match Text
           if (widget._modelSignUp.isMatch) widget._modelSignUp.isMatch = false;
         }
       }
     } else {
       // Disable Button
-      if (widget._modelSignUp.enable2) widget._modelSignUp.enable2 = false;
+      if (widget._modelSignUp.enable) widget._modelSignUp.enable = false;
       // Enable Not Match Text
       if (widget._modelSignUp.isMatch == false) widget._modelSignUp.isMatch = true;
     }
@@ -96,7 +96,7 @@ class CreatePasswordState extends State<CreatePassword> {
 
   // Validate Button
   void enableButton() {
-    if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlConfirmPassword.text != '') setState(() => widget._modelSignUp.enable2 = true);
+    if (widget._modelSignUp.controlPassword.text != '' && widget._modelSignUp.controlConfirmPassword.text != '') setState(() => widget._modelSignUp.enable = true);
   }
 
   // Send Message After Register
@@ -108,11 +108,11 @@ class CreatePasswordState extends State<CreatePassword> {
   void showPassword(bool showPassword){
     if (widget._modelSignUp.nodePassword.hasFocus) {
       setState(() {
-        widget._modelSignUp.showPassword1 = showPassword;
+        widget._modelSignUp.hidePassword1 = showPassword;
       });
     } else if (widget._modelSignUp.nodeConfirmPassword.hasFocus){
       setState(() {
-        widget._modelSignUp.showPassword2 = showPassword;
+        widget._modelSignUp.hidePassword2 = showPassword;
       });
     } 
   }
@@ -122,7 +122,7 @@ class CreatePasswordState extends State<CreatePassword> {
     if (widget._modelSignUp.nodePassword.hasFocus) {
       FocusScope.of(context).requestFocus(widget._modelSignUp.nodeConfirmPassword);
     } else { /* Prevent Submit On Smart Keyboard */ 
-      if (widget._modelSignUp.enable2 == true) submitSignUp(context);
+      if (widget._modelSignUp.enable == true) submitSignUp(context);
     }
   }
 

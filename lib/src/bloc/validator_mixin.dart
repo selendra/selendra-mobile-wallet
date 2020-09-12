@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'package:wallet_apps/index.dart'; 
+
+final instanceValidate = ValidateMixin();
 
 class ValidateMixin {
+  
   /* ----------User Login & Sign Up---------- */
   String validateEmails(String value) {
     Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -109,7 +113,4 @@ class ValidateMixin {
       sink.addError('Password must be 5digit');
     else if (value.length >= 5) sink.add(value);
   });
-  
 }
-
-final instanceValidate = ValidateMixin();

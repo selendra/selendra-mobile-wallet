@@ -214,7 +214,7 @@ export 'package:wallet_apps/src/screen/home/menu/add_asset/add_asset_body.dart';
 
 /* Main Screen */
 
-export 'package:wallet_apps/src/model/model_signup.dart';
+export 'package:wallet_apps/src/model/sign_up.dart';
 export 'package:wallet_apps/src/model/model_user_info.dart';
 export 'package:wallet_apps/src/model/model_forgot_pass.dart';
 export 'package:wallet_apps/src/model/slide.dart';

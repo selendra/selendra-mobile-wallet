@@ -3,7 +3,7 @@ import 'package:wallet_apps/src/bloc/bloc.dart';
 
 class ModelSignUp {
 
-  final formStateEmailPhone = GlobalKey<FormState>();
+  final formState = GlobalKey<FormState>();
   final formStatePassword = GlobalKey<FormState>();
   final smsForm = GlobalKey<FormState>();
   final userInfoForm = GlobalKey<FormState>();
@@ -12,10 +12,9 @@ class ModelSignUp {
 
   Bloc bloc = Bloc();
   
-  bool enable1 = false;
-  bool enable2 = false;
+  bool enable = false;
   bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
-  bool showPassword1 = false; bool showPassword2 = false;
+  bool hidePassword1 = true; bool hidePassword2 = true;
 
   String responsePass1, responsePass2;
   String token, countryCode = "+855", label;

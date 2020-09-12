@@ -5,7 +5,7 @@ class ModelLogin {
 
   final formState = GlobalKey<FormState>();
 
-  bool enable = false; bool securePassword = true;
+  bool enable = false; bool securePassword = true; bool hidePassword = true;
 
   String token; String phoneNumber = "", prefixText = "+855", label;
 

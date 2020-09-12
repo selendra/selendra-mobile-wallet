@@ -2,21 +2,21 @@ import 'package:wallet_apps/index.dart';
 
 class LoginBody extends StatelessWidget{
 
-  final List<MyInputField> listInput;
   final ModelLogin modelLogin;
   final Function validateInput;
   final Function validatePassword;
   final Function onChanged;
+  final Function onSubmit;
   final Function tabBarSelectChanged;
   final Function showPassword;
   final Function submitLogin;
 
   LoginBody({
-    this.listInput,
     this.modelLogin,
     this.validateInput,
     this.validatePassword,
     this.onChanged,
+    this.onSubmit,
     this.tabBarSelectChanged,
     this.showPassword,
     this.submitLogin,
@@ -25,10 +25,8 @@ class LoginBody extends StatelessWidget{
   
   Widget build(BuildContext context) {
 
-    print(modelLogin.enable);
-
     // Initialize Text Input
-    listInput.addAll({
+    List<MyInputField> listInput = [
       MyInputField(
         labelText: "Phone",
         prefixText: "+855 ",
@@ -41,7 +39,7 @@ class LoginBody extends StatelessWidget{
         focusNode: modelLogin.nodePhoneNums,
         validateField: validateInput,
         onChanged: onChanged,
-        action: submitLogin
+        onSubmit: onSubmit
       ),
       MyInputField(
         labelText: "Email",
@@ -50,11 +48,11 @@ class LoginBody extends StatelessWidget{
           LengthLimitingTextInputFormatter(TextField.noMaxLength)
         ],
         inputType: TextInputType.emailAddress,
-        controller: modelLogin.controlPhoneNums,
-        focusNode: modelLogin.nodePhoneNums,
+        controller: modelLogin.controlEmails,
+        focusNode: modelLogin.nodeEmails,
         validateField: validateInput,
         onChanged: onChanged,
-        action: submitLogin
+        onSubmit: onSubmit
       ),
 
       MyInputField(
@@ -66,11 +64,16 @@ class LoginBody extends StatelessWidget{
         inputType: TextInputType.text,
         controller: modelLogin.controlPasswords,
         focusNode: modelLogin.nodePasswords,
-        validateField: validateInput,
+        validateField: validatePassword,
+        obcureText: modelLogin.hidePassword,
+        icon: IconButton(
+          icon: Icon(modelLogin.hidePassword == true ? Icons.visibility_off : Icons.visibility, color: hexaCodeToColor(AppColors.textColor)),
+          onPressed: showPassword,
+        ),
         onChanged: onChanged,
-        action: submitLogin,
+        onSubmit: onSubmit,
       )
-    });
+    ];
     
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -164,14 +167,14 @@ class LoginBody extends StatelessWidget{
           buttonColor: AppColors.secondary,
           fontWeight: FontWeight.bold,
           fontSize: size18,
-          edgeMargin: EdgeInsets.only(top: 29, left: 66, right: 66),
+          edgeMargin: EdgeInsets.only(top: 40, left: 66, right: 66),
           hasShadow: true,
           action: modelLogin.enable == false ? null : submitLogin 
         ),
 
         InkWell(
           onTap: () {
-            Navigator.pushReplacement(
+            Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => ForgotPassword())
             );

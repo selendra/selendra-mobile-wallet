@@ -7,7 +7,7 @@ class AppRouting{
   static PackageInfo _packageInfo = PackageInfo();
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => Login(),
+    '/': (context) => SignUp(),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Dashboard(),

@@ -17,8 +17,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   Backend _backend = Backend();
 
-  List<MyInputField> listInput = [];
-
   @override
   void initState() {
     // AppServices.noInternetConnection(globalKey);
@@ -83,9 +81,10 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     }
   }
 
-  void showPassword(bool securePassword){
+  void showPassword(){
     setState(() {
-      _modelLogin.securePassword = securePassword;
+      if (_modelLogin.hidePassword == false) _modelLogin.hidePassword = true;
+      else _modelLogin.hidePassword = false;
     });
   }
 
@@ -116,7 +115,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     setState(() {});
   }
 
-  void focusRequest(){
+  void onSubmit(){
     if (_modelLogin.nodeEmails.hasFocus || _modelLogin.nodePhoneNums.hasFocus) {
       FocusScope.of(context).requestFocus(_modelLogin.nodePasswords);
     } else if (_modelLogin.enable) {
@@ -234,7 +233,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
           initialIndex: 0,
           length: 2,
           child: LoginBody(
-            listInput: listInput,
             modelLogin: _modelLogin,
             validateInput: validateInput,
             validatePassword:validatePassword,

@@ -5,6 +5,7 @@ class MyInputField extends StatelessWidget{
   final Key key;
   final String labelText;
   final String prefixText;
+  final double pLeft, pTop, pRight, pBottom;
   final bool obcureText;
   final bool enableInput;
   final List<TextInputFormatter> textInputFormatter;
@@ -15,12 +16,13 @@ class MyInputField extends StatelessWidget{
   final IconButton icon;
   final Function validateField;
   final Function onChanged;
-  final Function action;  
+  final Function onSubmit;  
 
   MyInputField({/* User Input Field */
     this.key,
     this.labelText,
     this.prefixText,
+    this.pLeft: 16.0, this.pTop: 5.0, this.pRight: 16.0, this.pBottom: 0,
     this.obcureText = false,
     this.enableInput = true,
     this.textInputFormatter,
@@ -31,12 +33,12 @@ class MyInputField extends StatelessWidget{
     this.icon,
     @required this.validateField,
     @required this.onChanged,
-    @required this.action
+    @required this.onSubmit
   });
 
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 0, top: 2.0),
+      padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
       child: TextFormField(
         key: key,
         enabled: enableInput,
@@ -71,14 +73,14 @@ class MyInputField extends StatelessWidget{
           /* Default Focuse Border Color*/
           focusColor: hexaCodeToColor("#ffffff"),
           /* Border Color When Focusing */
-          contentPadding: EdgeInsets.fromLTRB(21, 20, 21, 20), // No Content Padding = -10.0 px
+          contentPadding: EdgeInsets.fromLTRB(21, 23, 21, 23), // Default padding = -10.0 px
           suffixIcon: icon,
         ),
         inputFormatters: textInputFormatter,
         /* Limit Length Of Text Input */
         onChanged: onChanged,
         onFieldSubmitted: (value) {
-          action(context);
+          onSubmit();
         },
       )
     );

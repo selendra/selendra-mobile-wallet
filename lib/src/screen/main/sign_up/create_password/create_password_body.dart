@@ -37,7 +37,7 @@ Widget createPasswordBody(
                       context: context,
                       labelText: "Password",
                       widgetName: "createPasswordScreen",
-                      obcureText: !modelSignUp.showPassword1,
+                      obcureText: !modelSignUp.hidePassword1,
                       textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       inputAction: TextInputAction.next,
                       controller: modelSignUp.controlPassword,
@@ -45,9 +45,9 @@ Widget createPasswordBody(
                       validateField: validatePass1, 
                       onChanged: onChanged, 
                       icon: IconButton(
-                        icon: Icon(modelSignUp.showPassword1 == true ? Icons.visibility : Icons.visibility_off, color: Colors.white),
+                        icon: Icon(modelSignUp.hidePassword1 == true ? Icons.visibility : Icons.visibility_off, color: Colors.white),
                         onPressed: () {
-                          if (modelSignUp.showPassword1 == false) showPassword(true);
+                          if (modelSignUp.hidePassword1 == false) showPassword(true);
                           else showPassword(false);
                         },
                       ),
@@ -60,7 +60,7 @@ Widget createPasswordBody(
                       context: context,
                       labelText: "Confirm Password",
                       widgetName: "createPasswordScreen",
-                      obcureText: !modelSignUp.showPassword2,
+                      obcureText: !modelSignUp.hidePassword2,
                       textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
                       inputAction: TextInputAction.done,
                       controller: modelSignUp.controlConfirmPassword,
@@ -68,9 +68,9 @@ Widget createPasswordBody(
                       validateField: validatePass2, 
                       onChanged: onChanged, 
                       icon: IconButton(
-                        icon: Icon(modelSignUp.showPassword2 == true ? Icons.visibility : Icons.visibility_off, color: Colors.white),
+                        icon: Icon(modelSignUp.hidePassword2 == true ? Icons.visibility : Icons.visibility_off, color: Colors.white),
                         onPressed: () {
-                          if (modelSignUp.showPassword2 == false) showPassword(true);
+                          if (modelSignUp.hidePassword2 == false) showPassword(true);
                           else showPassword(false);
                         },
                       ),
@@ -96,12 +96,12 @@ Widget createPasswordBody(
                     EdgeInsets.only(top: size10, bottom: size10),
                     EdgeInsets.only(top: size15, bottom: size15),
                     BoxShadow(
-                      color: Colors.black54.withOpacity(modelSignUp.enable2 == false ? 0 : 0.3), 
+                      color: Colors.black54.withOpacity(modelSignUp.enable == false ? 0 : 0.3), 
                       blurRadius: 10.0, 
                       spreadRadius: 2.0, 
                       offset: Offset(2.0, 5.0),
                     ),
-                    modelSignUp.enable2 ? submitRegister : null
+                    modelSignUp.enable ? submitRegister : null
                   )
                 ],
               ),
