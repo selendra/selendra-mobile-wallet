@@ -1,10 +1,10 @@
-# ZEETOMIC Mobile Application
+# SELENDRA Wallet
 
 
 
-### Welcome To ZEETOMIC 
+### Welcome To SELENDRA 
 
-Zeetomic is a new generation of trusted global solutions for creating a digital asset. Customer Loyalty, Real Estate, Vested Shares and Payment.
+Selendra is a new generation of trusted global solutions for creating a digital asset. Customer Loyalty, Real Estate, Vested Shares and Payment.
 
 
 

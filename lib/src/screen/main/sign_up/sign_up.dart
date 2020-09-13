@@ -69,7 +69,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     if (_modelSignUp.nodePassword.hasFocus){
       _modelSignUp.responsePass1 = instanceValidate.validatePassword(value);
       validateAllField();
-    }
+    }     
     return _modelSignUp.responsePass1;
   }
 
