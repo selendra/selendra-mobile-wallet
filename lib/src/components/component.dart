@@ -150,6 +150,49 @@ class MyLogo extends StatelessWidget{
   }
 }
 
+class MyAppBar extends StatelessWidget{
+
+  final double  pLeft; final double pTop; final double pRight; final double pBottom;
+  final String title;
+  final Function action;
+
+  MyAppBar({
+    this.pLeft = 0,
+    this.pTop = 0,
+    this.pRight = 0,
+    this.pBottom = 0,
+    @required this.title,
+    this.action
+  });
+  
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
+      height: 65.0, 
+      width: MediaQuery.of(context).size.width, 
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IconButton(
+            /* Menu Icon */
+            alignment: Alignment.center,
+            // padding: edgePadding,
+            padding: EdgeInsets.only(left: 30),
+            iconSize: 40.0,
+            icon: Icon(LineAwesomeIcons.arrow_left, color: Colors.white, size: 30),
+            onPressed: action,
+          ),
+          MyText(
+            text: title,
+            left: 15,
+            fontSize: 20,
+          )
+        ],
+      )
+    );
+  }
+}
+
 class BodyScaffold extends StatelessWidget{
 
   final Widget child;

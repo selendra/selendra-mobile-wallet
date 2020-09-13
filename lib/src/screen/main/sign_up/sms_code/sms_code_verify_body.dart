@@ -2,85 +2,101 @@ import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/components/sms_component.dart';
 import 'package:wallet_apps/src/model/sms_code_model.dart';
 
-SmsComponent smsComponent = SmsComponent();
+class SmsBody extends StatelessWidget{
 
-Widget smsCodeVerifyBody( /* Body widget */
-  BuildContext context,
-  int time,
-  SmsCodeModel _smsCodeModel,
-  Map<String, dynamic> message,
-  Function onChanged,
-  Function onSubmit,
-  Function runTimer, Function resetTimer,
-) {
-  return SafeArea(
-    child: SingleChildScrollView(
-      child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.center, /* Stretch Is Fill Cross Axis */
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+  final int time;
+  final SmsCodeModel smsCodeModel;
+  final Map<String, dynamic> message;
+  final Function onChanged;
+  final Function onSubmit;
+  final Function runTimer; 
+  final Function resetTimer;
 
-          Align(
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white,),
-              onPressed: (){
-                Navigator.pop(context);
-              },
+  SmsBody({
+    @required this.time,
+    @required this.smsCodeModel,
+    @required this.message,
+    @required this.onChanged,
+    @required this.onSubmit,
+    @required this.runTimer, 
+    @required this.resetTimer
+  });
+
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+
+        MyAppBar(
+          title: "Verification",
+          action: (){
+            Navigator.pop(context);
+          }
+        ),
+        
+
+        FittedBox(
+          fit: BoxFit.contain,
+          child: Image.asset('assets/images/sms.png', width: 293, height: 216),
+        ),
+
+        MyText(
+          text: "Verification Code"
+        ), 
+        // Container(
+        //   padding: EdgeInsets.only(bottom: 15.0),
+        //   child: FittedBox(
+        //     fit: BoxFit.contain,
+        //     child: Text("", style: TextStyle(fontSize: 18))
+        //   ),
+        // ),
+
+        Container(
+          padding: EdgeInsets.only(bottom: 15.0),
+          child: Text("${message['message']}", textAlign: TextAlign.center),
+        ),
+
+        Form(
+          key: smsCodeModel.formKey,
+          child: Row(
+            children: <Widget>[
+              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node1, controller: smsCodeModel.controller1),
+              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node2, controller: smsCodeModel.controller2),
+              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node3, controller: smsCodeModel.controller3),
+              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node4, controller: smsCodeModel.controller4),
+              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node5, controller: smsCodeModel.controller5),
+              SmsBox(onChanged: onChanged, focusNode: smsCodeModel.node6, controller: smsCodeModel.controller6),
+            ],
+          )
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            MyText(
+              text: !smsCodeModel.showResendBtn 
+              ? "Resend Code in $time s" 
+              : "Didn't receive a code?",
             ),
-          ),
-
-          FittedBox(
-            fit: BoxFit.contain,
-            child: Image.asset('assets/images/message.png', width: 200.0, height: 200.0, color: hexaCodeToColor(AppColors.lightBlueSky)),
-          ),
-
-          Container(
-            padding: EdgeInsets.only(bottom: 15.0),
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Text("Verification Code", style: TextStyle(fontSize: 18))
-            ),
-          ),
-
-          Container(
-            padding: EdgeInsets.only(bottom: 15.0),
-            child: Text("${message['message']}", textAlign: TextAlign.center),
-          ),
-
-          Form(
-            key: _smsCodeModel.formKey,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node1, controller: _smsCodeModel.controller1),
-                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node2, controller: _smsCodeModel.controller2),
-                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node3, controller: _smsCodeModel.controller3),
-                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node4, controller: _smsCodeModel.controller4),
-                SmsComponent.boxCode(right: 5.0, onChanged: onChanged, focusNode: _smsCodeModel.node5, controller: _smsCodeModel.controller5),
-                SmsComponent.boxCode(onChanged: onChanged, focusNode: _smsCodeModel.node6, controller: _smsCodeModel.controller6),
-              ],
+            !smsCodeModel.showResendBtn ? Container() 
+            : Padding(
+              padding: EdgeInsets.only(left: 10.0),
+              child: InkWell(
+                onTap: (){
+                  resetTimer();
+                  Timer.periodic(Duration(milliseconds: 1000), runTimer);
+                },
+                child: MyText(
+                  text: "Resend Code",
+                  color: AppColors.secondary_text,
+                ),
+              )
             )
-          ),
-
-          // customFlatButton( /* Button login */
-          //   context,
-          //   "Sign Up", "smsCodeScreen", AppColors.greenColor,
-          //   FontWeight.bold,
-          //   size18,
-          //   EdgeInsets.only(top: size10, bottom: 0),
-          //   EdgeInsets.only(top: size15, bottom: size15),
-          //   BoxShadow(
-          //     color: Color.fromRGBO(0,0,0,0.54),
-          //     blurRadius: 5.0
-          //   ),
-          //   onSubmit
-          // ),
-          resendBtn(time: time, smsCodeModel: _smsCodeModel, resetTimer: resetTimer, runTimer: runTimer),
-        ],
-      ),
-    ),
-  );
+          ],
+        )
+        // resendBtn(time: time, smsCodeModel: smsCodeModel, resetTimer: resetTimer, runTimer: runTimer),
+      ],
+    );
+  }
 }
 
 Widget resendBtn({int time, SmsCodeModel smsCodeModel, Function resetTimer, Function runTimer}){

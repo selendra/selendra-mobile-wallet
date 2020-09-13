@@ -1,7 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
 class SmsCodeVerify extends StatefulWidget{
-
   
   final String phoneNumber;
   final String password;
@@ -187,14 +186,15 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
 
   Widget build(BuildContext context){
     return Scaffold(
-      body: scaffoldBGDecoration(
-        child: smsCodeVerifyBody(
-          context, 
-          time, 
-          _smsCodeModel,
-          widget.message, 
-          onChanged, onSubmit, 
-          runTimer, resetTimer
+      body: BodyScaffold(
+        child: SmsBody(
+          time: time, 
+          smsCodeModel: _smsCodeModel,
+          message: widget.message, 
+          onChanged: onChanged, 
+          onSubmit: onSubmit, 
+          runTimer: runTimer, 
+          resetTimer: resetTimer
         )
       )
     );

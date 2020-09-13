@@ -1,18 +1,29 @@
 import 'package:wallet_apps/index.dart';
 
-class SmsComponent {
-  static Widget boxCode({
-    double left: 0.0, double right: 0.0,
-    FocusNode focusNode,
-    TextEditingController controller,
-    Function onChanged,
-  }){
+class SmsBox extends StatelessWidget {
+
+  final double left;
+  final double right;
+  final FocusNode focusNode;
+  final TextEditingController controller;
+  final Function onChanged;
+
+  SmsBox({
+    this.left,
+    this.right,
+    this.focusNode,
+    this.controller,
+    this.onChanged
+  });
+
+  Widget build(BuildContext context){
     return FittedBox(
       fit: BoxFit.contain,
       child: Container(
-        margin: EdgeInsets.only(left: left, right: right),
+        // margin: EdgeInsets.only(left: left, right: right),
         child: SizedBox(
-          width: 50.0,
+          width: 49,
+          height: 69,
           child: TextFormField(
             controller: controller,
             focusNode: focusNode,
@@ -26,8 +37,8 @@ class SmsComponent {
                 color: Colors.white
               ),
               /* Prefix Text */
-              filled: true, fillColor: hexaCodeToColor("#FFFFFF").withOpacity(0.1),
-              enabledBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
+              filled: true, fillColor: hexaCodeToColor(AppColors.cardColor),
+              // enabledBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
               /* Enable Border But Not Show Error */
               border: errorOutline(),
               /* Show Error And Red Border */
@@ -37,10 +48,7 @@ class SmsComponent {
               /* Border Color When Focusing */
               contentPadding: EdgeInsets.only(top: 23,right: 5.0, bottom: 23, left: 5), // No Content Padding = -10.0 px
             ),
-            onChanged: (String value){
-              // print(value);
-              onChanged(value);
-            },
+            onChanged: onChanged,
           )
         ),
       ),

@@ -337,7 +337,7 @@ void dialogLoading(BuildContext context, {String content}) {
 Widget containerAppBar(BuildContext context, Widget subAppBar, {left: 16.0, right: 16.0}) {
   return Container(
     padding: EdgeInsets.only(left: left, right: right),
-    height: 41.0, 
+    height: 65.0, 
     width: MediaQuery.of(context).size.width, 
     child: FittedBox(
       alignment: Alignment.centerLeft,

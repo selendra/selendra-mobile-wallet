@@ -106,7 +106,6 @@ class SignUpBody extends StatelessWidget{
             children: [
               MyLogo(
                 left: 46.0, 
-                // right: 16, top: 93,
                 logoPath: AppConfig.logoName,
               ),
               MyText(
