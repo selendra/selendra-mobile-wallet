@@ -16,11 +16,9 @@ class ModelSignUp {
   bool isProgress = false, isLogedin = false, isBoth = false, isMatch = true;
   bool hidePassword1 = true; bool hidePassword2 = true;
 
-  String responsePass1, responsePass2;
+  String responseInput, responsePass1, responsePass2;
   String token, countryCode = "+855", label;
   String wallet;
-
-  var response;
   
   var colorSubmitted = Colors.transparent;
 

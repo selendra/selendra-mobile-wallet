@@ -89,7 +89,7 @@ class SignUpBody extends StatelessWidget{
         validateField: validateCfPassword,
         obcureText: modelSignUp.hidePassword2,
         icon: IconButton(
-          icon: Icon(modelSignUp.hidePassword1 == true ? Icons.visibility_off : Icons.visibility, color: hexaCodeToColor(AppColors.textColor)),
+          icon: Icon(modelSignUp.hidePassword2 == true ? Icons.visibility_off : Icons.visibility, color: hexaCodeToColor(AppColors.textColor)),
           onPressed: showPassword,
         ),
         onChanged: onChanged,

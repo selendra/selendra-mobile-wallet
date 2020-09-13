@@ -49,26 +49,23 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   }
 
   String validateInput(String value){ /* Initial Validate */
-    if (_modelSignUp.label == "email"){
-      _modelSignUp.response = instanceValidate.validateEmails(value);
-      setState(() {
-        if (_modelSignUp.response == null) _modelSignUp.enable = true; 
-        else _modelSignUp.enable = false;
-      });
-    } else {
-      _modelSignUp.response = instanceValidate.validatePhone(value);
-      setState(() {
-        if (_modelSignUp.response == null) _modelSignUp.enable = true; 
-        else _modelSignUp.enable = false;
-      });
+
+    if (_modelSignUp.nodePhoneNums.hasFocus){
+      _modelSignUp.responseInput = instanceValidate.validatePhone(value);
+      validateAllField();
+    } else if (_modelSignUp.nodeEmails.hasFocus){
+      _modelSignUp.responseInput = instanceValidate.validateEmails(value);
+      validateAllField();
     }
-    return _modelSignUp.response;
+    return _modelSignUp.responseInput;
   }
 
   String validatePass1(String value){ /* Validate User Input And Enable Or Disable Button */
     if (_modelSignUp.nodePassword.hasFocus){
       _modelSignUp.responsePass1 = instanceValidate.validatePassword(value);
       validateAllField();
+      // Compare Password If Both Field Doesn't Empty 
+      if (_modelSignUp.responsePass1 == null && _modelSignUp.responsePass2 != null) comparePassword();
     }     
     return _modelSignUp.responsePass1;
   }
@@ -83,44 +80,54 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
 
   void validateAllField(){
 
-    if ( _modelSignUp.responsePass1 == null && _modelSignUp.responsePass2 == null ) {
-
-      if (_modelSignUp.controlConfirmPassword.text == _modelSignUp.controlPassword.text) { 
-        // Disable Not Match Text
-        if (_modelSignUp.isMatch == false) _modelSignUp.isMatch = true;
-        // If Not Match
-        if (_modelSignUp.enable == false) _modelSignUp.enable = true;
-      } 
-      else {
-        if (_modelSignUp.controlConfirmPassword.text != '' && _modelSignUp.controlPassword.text != ''){
-          // Disable Button
-          if (_modelSignUp.enable) _modelSignUp.enable = false;
-          // Enable Not Match Text
-          if (_modelSignUp.isMatch) _modelSignUp.isMatch = false;
-        }
+    // Check All Field Have No Error
+    if ( _modelSignUp.responseInput == null &&  _modelSignUp.responsePass1 == null && _modelSignUp.responsePass2 == null ) {
+      // Check All Field Is Not Empty
+      if ( 
+        (_modelSignUp.controlPhoneNums.text.isNotEmpty || _modelSignUp.controlEmails.text.isNotEmpty) &&
+        _modelSignUp.controlConfirmPassword.text.isNotEmpty &&
+        _modelSignUp.controlConfirmPassword.text.isNotEmpty
+      ) {
+        comparePassword();
       }
+    }
+    // Disable Button
+    else {
+      if (_modelSignUp.enable) setState(() => _modelSignUp.enable = false);
+    }
+  }
+
+  void comparePassword(){
+    if (_modelSignUp.controlConfirmPassword.text == _modelSignUp.controlPassword.text) { 
+      _modelSignUp.responsePass2 = null;
+      // Enable Button
+      if (_modelSignUp.enable == false) setState(() => _modelSignUp.enable = true);
     } else {
       // Disable Button
-      if (_modelSignUp.enable) _modelSignUp.enable = false;
-      // Enable Not Match Text
-      if (_modelSignUp.isMatch == false) _modelSignUp.isMatch = true;
+      _modelSignUp.responsePass2 = "Password does not match";
+      if (_modelSignUp.enable == true) setState(() => _modelSignUp.enable = false);
     }
-    setState(() {});
   }
 
   // Show And Hide Passwords
   void showPassword(){
-    if (_modelSignUp.nodePassword.hasFocus) {
-      setState(() {
-        if (_modelSignUp.hidePassword1 == false) _modelSignUp.hidePassword1 = true;
-        else _modelSignUp.hidePassword1 = false;
-      });
-    } else if (_modelSignUp.nodeConfirmPassword.hasFocus){
-      setState(() {
-        if (_modelSignUp.hidePassword2 == false) _modelSignUp.hidePassword2 = true;
-        else _modelSignUp.hidePassword2 = false;
-      });
-    } 
+    Timer(
+      Duration(milliseconds: 200), (){
+        if (_modelSignUp.nodePassword.hasFocus) {
+          print("Password");
+          setState(() {
+            if (_modelSignUp.hidePassword1 == false) _modelSignUp.hidePassword1 = true;
+            else _modelSignUp.hidePassword1 = false;
+          });
+        } else if (_modelSignUp.nodeConfirmPassword.hasFocus){
+          print("Confirm Password");
+          setState(() {
+            if (_modelSignUp.hidePassword2 == false) _modelSignUp.hidePassword2 = true;
+            else _modelSignUp.hidePassword2 = false;
+          });
+        } 
+      }
+    );
   }
 
   void tabBarSelectChanged(int index) {
