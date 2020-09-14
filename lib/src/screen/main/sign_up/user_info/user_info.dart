@@ -2,9 +2,9 @@ import 'package:wallet_apps/index.dart';
 
 class UserInfo extends StatefulWidget {
 
-  final String by; final String userAccount; final String passwords;
+  final String registerBy; final String userAccount; final String passwords;
 
-  UserInfo(this.by, this.userAccount, this.passwords);
+  UserInfo(this.registerBy, this.userAccount, this.passwords);
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +24,7 @@ class UserInfoState extends State<UserInfo> {
   void initState() {
     AppServices.noInternetConnection(_modelUserInfo.globalKey);
     /* If Registering Account */
-    if (widget.passwords != null) getToken();
+    // if (widget.passwords != null) getToken();
     super.initState();
   }
   
@@ -44,7 +44,7 @@ class UserInfoState extends State<UserInfo> {
 
   /* Get Token To Make Authentication With Add User Info */
   void getToken() async {
-    if(widget.by == "email"){
+    if(widget.registerBy == "email"){
       _backend.response = await _postRequest.loginByEmail(widget.userAccount, widget.passwords);
     } else {
       _backend.response = await _postRequest.loginByPhone(widget.userAccount, widget.passwords);
@@ -57,11 +57,14 @@ class UserInfoState extends State<UserInfo> {
 
   /* Change Select Gender */
   void changeGender(String gender) async {
+    print(gender);
     _modelUserInfo.genderLabel = gender;
-    if (gender == "Male")
-      _modelUserInfo.gender = "M";
-    else
-      _modelUserInfo.gender = "F";
+    setState((){
+      if (gender == "Male")
+        _modelUserInfo.gender = "M";
+      else
+        _modelUserInfo.gender = "F";
+    });
     await Future.delayed(Duration(milliseconds: 100), () {
       setState(() {
         /* Unfocus All Field */
@@ -74,7 +77,7 @@ class UserInfoState extends State<UserInfo> {
     });
   }
 
-  void onSubmit(BuildContext context) {
+  void onSubmit() {
     if (_modelUserInfo.nodeFirstName.hasFocus) {
       FocusScope.of(context).requestFocus(_modelUserInfo.nodeMidName);
     } else if (_modelUserInfo.nodeMidName.hasFocus) {
@@ -178,19 +181,18 @@ class UserInfoState extends State<UserInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _modelUserInfo.globalKey,
-      body: scaffoldBGDecoration(
-        child: userInfoBody(
-          context,
-          _modelUserInfo,
-          onSubmit,
-          onChanged,
-          changeGender,
-          validateFirstName,
-          validateMidName,
-          validateLastName,
-          submitProfile,
-          popScreen,
-          item
+      body: BodyScaffold(
+        child: UserInfoBody(
+          modelUserInfo: _modelUserInfo,
+          onSubmit: onSubmit,
+          onChanged: onChanged,
+          changeGender: changeGender,
+          validateFirstName: validateFirstName,
+          validateMidName: validateMidName,
+          validateLastName: validateLastName,
+          submitProfile: submitProfile,
+          popScreen: popScreen,
+          item: item
         )
       ),
     );

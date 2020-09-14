@@ -56,7 +56,7 @@ Widget invoiceBody(
                                 width: 1.0
                               ),
                             ),
-                            focusedBorder: myOutlineInput(hexaCodeToColor(AppColors.borderColor)),
+                            focusedBorder: myTextInputBorder(hexaCodeToColor(AppColors.borderColor)),
                             /* Error Handler */
                             border: errorOutline(),
                             focusedErrorBorder: errorOutline(),

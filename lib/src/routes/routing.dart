@@ -7,7 +7,7 @@ class AppRouting{
   static PackageInfo _packageInfo = PackageInfo();
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => SmsCodeVerify("", "", {"message": "Nothing"}),
+    '/': (context) => UserInfo('phone', "+85515894139", "123456"),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Dashboard(),

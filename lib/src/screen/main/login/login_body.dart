@@ -100,7 +100,6 @@ class LoginBody extends StatelessWidget{
         Align(
           alignment: Alignment.centerLeft,
           child: MyText(
-            fit: BoxFit.fitWidth,
             bottom: 49, top: 16,
             left: 46.0,
             text: "Please sign in to Continue",

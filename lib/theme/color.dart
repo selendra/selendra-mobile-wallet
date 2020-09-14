@@ -15,6 +15,7 @@ class AppColors{
   static const String textBtnColor = "#000000";
   static const String secondary = "#08B952";
   static const String secondary_text = "#40FF90";
+  static const String selected = "#00642A";
 
   /* High Then Background Color */
   static const String highThenBackgroundColor = "#1F2833"; //"#191F30";

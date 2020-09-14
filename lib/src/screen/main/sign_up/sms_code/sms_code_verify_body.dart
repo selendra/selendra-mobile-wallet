@@ -28,46 +28,45 @@ class SmsBody extends StatelessWidget{
 
         MyAppBar(
           title: "Verification",
+          margin: EdgeInsets.only(bottom: 16.0),
           action: (){
             Navigator.pop(context);
           }
         ),
-        
 
-        FittedBox(
-          fit: BoxFit.contain,
-          child: Image.asset('assets/images/sms.png', width: 293, height: 216),
+        Container(
+          margin: EdgeInsets.only(bottom: 60.0),
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: SvgPicture.asset('assets/sms.svg', width: 293, height: 216),
+          )
         ),
 
         MyText(
-          text: "Verification Code"
-        ), 
-        // Container(
-        //   padding: EdgeInsets.only(bottom: 15.0),
-        //   child: FittedBox(
-        //     fit: BoxFit.contain,
-        //     child: Text("", style: TextStyle(fontSize: 18))
-        //   ),
-        // ),
+          bottom: 60.0,
+          width: 300.0,
+          text: "We send you a verify code with your phone number +85515894139"
+        ),
 
         Container(
-          padding: EdgeInsets.only(bottom: 15.0),
-          child: Text("${message['message']}", textAlign: TextAlign.center),
-        ),
-
-        Form(
-          key: smsCodeModel.formKey,
-          child: Row(
-            children: <Widget>[
-              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node1, controller: smsCodeModel.controller1),
-              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node2, controller: smsCodeModel.controller2),
-              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node3, controller: smsCodeModel.controller3),
-              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node4, controller: smsCodeModel.controller4),
-              SmsBox(right: 5.0, onChanged: onChanged, focusNode: smsCodeModel.node5, controller: smsCodeModel.controller5),
-              SmsBox(onChanged: onChanged, focusNode: smsCodeModel.node6, controller: smsCodeModel.controller6),
-            ],
+          margin: EdgeInsets.only(bottom: 60),
+          child: Form(
+            key: smsCodeModel.formKey,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SmsBox(onChanged: onChanged, focusNode: smsCodeModel.node1, controller: smsCodeModel.controller1),
+                SmsBox(onChanged: onChanged, focusNode: smsCodeModel.node2, controller: smsCodeModel.controller2),
+                SmsBox(onChanged: onChanged, focusNode: smsCodeModel.node3, controller: smsCodeModel.controller3),
+                SmsBox(onChanged: onChanged, focusNode: smsCodeModel.node4, controller: smsCodeModel.controller4),
+                SmsBox(onChanged: onChanged, focusNode: smsCodeModel.node5, controller: smsCodeModel.controller5),
+                SmsBox(right: 16.0, onChanged: onChanged, focusNode: smsCodeModel.node6, controller: smsCodeModel.controller6),
+              ],
+            )
           )
         ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,7 +74,7 @@ class SmsBody extends StatelessWidget{
             MyText(
               text: !smsCodeModel.showResendBtn 
               ? "Resend Code in $time s" 
-              : "Didn't receive a code?",
+              : "Didn't receive code?",
             ),
             !smsCodeModel.showResendBtn ? Container() 
             : Padding(
@@ -177,8 +176,8 @@ Widget passwordField(Bloc bloc, TextEditingController controlPasswords, FocusNod
           labelStyle: TextStyle(color: Colors.white),
           /* Border side */
           border: errorOutline(),
-          enabledBorder: myOutlineInput(hexaCodeToColor(AppColors.borderColor)),
-          focusedBorder: myOutlineInput(hexaCodeToColor(AppColors.lightBlueSky)),
+          enabledBorder: myTextInputBorder(hexaCodeToColor(AppColors.borderColor)),
+          focusedBorder: myTextInputBorder(hexaCodeToColor(AppColors.lightBlueSky)),
           focusedErrorBorder: errorOutline(),
         ),
         onSubmitted: (value) {

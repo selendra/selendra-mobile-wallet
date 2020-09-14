@@ -46,12 +46,12 @@ class MyFlatButton extends StatelessWidget{
 
   MyFlatButton({
     this.textButton, 
-    this.buttonColor, 
-    this.fontWeight, 
-    this.fontSize, 
-    this.edgeMargin, 
-    this.edgePadding, 
-    this.hasShadow, 
+    this.buttonColor = AppColors.secondary, 
+    this.fontWeight =  FontWeight.bold, 
+    this.fontSize = 18, 
+    this.edgeMargin = const EdgeInsets.fromLTRB(0, 0, 0, 0),
+    this.edgePadding = const EdgeInsets.fromLTRB(0, 0, 0, 0), 
+    this.hasShadow = false, 
     @required this.action,
   });
 
@@ -81,7 +81,7 @@ class MyFlatButton extends StatelessWidget{
           top: 20, bottom: 20,
           text: textButton,
           color: action != null ? '#FFFFFF' : AppColors.textBtnColor,
-          fontWeight: FontWeight.bold,
+          fontWeight: fontWeight,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         onPressed: 
@@ -98,12 +98,12 @@ class MyText extends StatelessWidget{
 
   final String text; final String color; final double fontSize; final FontWeight fontWeight;
   final double top; final double right; final double bottom; final double left;
-  final double width; final double height; final BoxFit fit;
+  final double width; final double height;
 
   MyText({
     this.text, this.color = AppColors.textColor, this.fontSize = 18, this.fontWeight = FontWeight.normal,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
-    this.width, this.height, this.fit = BoxFit.contain
+    this.width, this.height
   });
   
   Widget build(BuildContext context){
@@ -112,9 +112,7 @@ class MyText extends StatelessWidget{
       child: SizedBox(
         width: this.width,
         height: this.height,
-        child: FittedBox(
-          fit: this.fit,
-          child: Text(
+        child: Text(
             this.text,
             style: TextStyle(
               fontWeight: this.fontWeight,
@@ -122,8 +120,7 @@ class MyText extends StatelessWidget{
               fontSize: this.fontSize
             ),
             textAlign: TextAlign.center,
-          ),
-        )
+          )
       ),
     );
   }
@@ -150,9 +147,44 @@ class MyLogo extends StatelessWidget{
   }
 }
 
+class MyIllustrate extends StatelessWidget{
+  
+  final EdgeInsetsGeometry margin;
+  final EdgeInsetsGeometry padding;
+  final String imagePath;
+  final double widthImage;
+  final double heightImage;
+  final double width;
+  final double height;
+  final BoxDecoration decoration;
+
+  MyIllustrate({
+    this.margin = const EdgeInsets.fromLTRB(0, 16.0, 0, 24.0),
+    this.padding = const EdgeInsets.fromLTRB(0, 0, 0, 0),
+    this.imagePath,
+    this.widthImage = 290,
+    this.heightImage = 210,
+    this.width = 290,
+    this.height = 290,
+    this.decoration
+  });
+
+  Widget build(BuildContext context) {
+    return Container(
+      // margin: margin,
+      width: width,
+      height: height,
+      padding: padding,
+      decoration: decoration,
+      child: SvgPicture.asset(imagePath, width: widthImage, height: heightImage,)
+    );
+  }
+}
+
 class MyAppBar extends StatelessWidget{
 
   final double  pLeft; final double pTop; final double pRight; final double pBottom;
+  final EdgeInsetsGeometry margin;
   final String title;
   final Function action;
 
@@ -161,15 +193,16 @@ class MyAppBar extends StatelessWidget{
     this.pTop = 0,
     this.pRight = 0,
     this.pBottom = 0,
+    this.margin = const EdgeInsets.fromLTRB(0, 12, 0, 0),
     @required this.title,
     this.action
   });
   
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
       height: 65.0, 
       width: MediaQuery.of(context).size.width, 
+      margin: margin,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -183,6 +216,7 @@ class MyAppBar extends StatelessWidget{
             onPressed: action,
           ),
           MyText(
+            color: "#FFFFFF",
             text: title,
             left: 15,
             fontSize: 20,
@@ -205,10 +239,12 @@ class BodyScaffold extends StatelessWidget{
   });
   
   Widget build(BuildContext context){
+    print(MediaQuery.of(context).size.width);
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
+          // Minus 20 Pixel For Make Safe Area Bottom
           height: MediaQuery.of(context).size.height - 20,
           color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
           child: this.child

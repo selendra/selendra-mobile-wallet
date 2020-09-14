@@ -62,14 +62,14 @@ class MyInputField extends StatelessWidget{
           /* Prefix Text */
           filled: true, 
           fillColor: hexaCodeToColor(AppColors.cardColor),
-          enabledBorder: myOutlineInput(controller.text != ""
+          enabledBorder: myTextInputBorder(controller.text != ""
             ? hexaCodeToColor("#FFFFFF").withOpacity(0.3)
             : Colors.transparent
           ),
           /* Enable Border But Not Show Error */
           border: errorOutline(),
           /* Show Error And Red Border */
-          focusedBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
+          focusedBorder: myTextInputBorder(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
           /* Default Focuse Border Color*/
           focusColor: hexaCodeToColor("#ffffff"),
           /* Border Color When Focusing */
@@ -88,7 +88,7 @@ class MyInputField extends StatelessWidget{
 }
 
 /* User input Outline Border */
-OutlineInputBorder myOutlineInput(Color borderColor) {
+OutlineInputBorder myTextInputBorder(Color borderColor) {
   return OutlineInputBorder(
     borderSide: BorderSide(color: borderColor, width: size1),
     borderRadius: BorderRadius.circular(8)

@@ -81,8 +81,8 @@ TextField userTextField(
       labelStyle: TextStyle(color: Colors.white),
       /* Border side */
       border: errorOutline(),
-      enabledBorder: myOutlineInput(hexaCodeToColor(AppColors.borderColor)),
-      focusedBorder: myOutlineInput(hexaCodeToColor(AppColors.lightBlueSky)),
+      enabledBorder: myTextInputBorder(hexaCodeToColor(AppColors.borderColor)),
+      focusedBorder: myTextInputBorder(hexaCodeToColor(AppColors.lightBlueSky)),
       /* Error Handler */
       focusedErrorBorder: errorOutline(),
       errorText: snapshot.hasError ? snapshot.error : null,
@@ -537,13 +537,13 @@ Widget inputField({/* User Input Field */
       prefixStyle: TextStyle(color: Colors.white, fontSize: 18.0),
       /* Prefix Text */
       filled: true, fillColor: hexaCodeToColor("#FFFFFF").withOpacity(0.1),
-      enabledBorder: myOutlineInput(controller.text != ""
+      enabledBorder: myTextInputBorder(controller.text != ""
           ? hexaCodeToColor("#FFFFFF").withOpacity(0.3)
           : Colors.transparent),
       /* Enable Border But Not Show Error */
       border: errorOutline(),
       /* Show Error And Red Border */
-      focusedBorder: myOutlineInput(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
+      focusedBorder: myTextInputBorder(hexaCodeToColor("#FFFFFF").withOpacity(0.3)),
       /* Default Focuse Border Color*/
       focusColor: hexaCodeToColor("#ffffff"),
       /* Border Color When Focusing */
