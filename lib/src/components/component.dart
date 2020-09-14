@@ -46,11 +46,11 @@ class MyFlatButton extends StatelessWidget{
 
   MyFlatButton({
     this.textButton, 
-    this.buttonColor, 
-    this.fontWeight, 
+    this.buttonColor = AppColors.secondary, 
+    this.fontWeight =  FontWeight.bold, 
     this.fontSize = 18, 
-    this.edgeMargin, 
-    this.edgePadding, 
+    this.edgeMargin = const EdgeInsets.fromLTRB(0, 0, 0, 0),
+    this.edgePadding = const EdgeInsets.fromLTRB(0, 0, 0, 0), 
     this.hasShadow = false, 
     @required this.action,
   });
@@ -81,7 +81,7 @@ class MyFlatButton extends StatelessWidget{
           top: 20, bottom: 20,
           text: textButton,
           color: action != null ? '#FFFFFF' : AppColors.textBtnColor,
-          fontWeight: FontWeight.bold,
+          fontWeight: fontWeight,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         onPressed: 
