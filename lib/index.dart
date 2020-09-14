@@ -33,7 +33,7 @@ export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';
 export 'package:http_parser/http_parser.dart';
 export 'package:flutter_image_compress/flutter_image_compress.dart';
-export 'package:flutter_svg/svg.dart';
+export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flare_flutter/flare_controls.dart';
 export 'package:local_auth/local_auth.dart';
 export 'package:share_extend/share_extend.dart';
