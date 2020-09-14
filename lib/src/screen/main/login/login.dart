@@ -240,6 +240,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
             showPassword: showPassword,
             submitLogin: submitLogin,
             onChanged: onChanged,
+            onSubmit: onSubmit,
           ),
         )
       ),
