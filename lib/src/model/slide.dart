@@ -14,17 +14,17 @@ class SlideModel{
 
 final slideList = [
   SlideModel(
-    image: "assets/images/images_slide/transaction.png", 
+    image: "assets/images/images_slide/transaction.svg", 
     title: "Transaction",
     description: "Send money to each other fast and easy"
   ),
   SlideModel(
-    image: "assets/images/images_slide/portfolio.png",
+    image: "assets/images/images_slide/portfolio.svg",
     title: 'Portfolio', 
     description: 'Track your portfolio'
   ),
   SlideModel(
-    image: "assets/images/images_slide/trx_history.png",
+    image: "assets/images/images_slide/trx_history.svg",
     title: "History",
     description: "Track your transaction history"
   ) 

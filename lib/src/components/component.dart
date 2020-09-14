@@ -142,7 +142,7 @@ class MyLogo extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
-      child: Image.asset(logoPath, width: 60, height: 60, color: hexaCodeToColor(this.color))
+      child: SvgPicture.asset(logoPath, width: 60, height: 60, color: hexaCodeToColor(this.color))
     );
   }
 }

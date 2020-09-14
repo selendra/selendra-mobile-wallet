@@ -198,20 +198,6 @@ class SignUpBody extends StatelessWidget{
           action: modelSignUp.enable == false ? null : submit 
         ),
 
-        InkWell(
-          onTap: () {
-            Navigator.pushReplacement(
-              context, 
-              MaterialPageRoute(builder: (context) => ForgotPassword())
-            );
-          },
-          child: MyText(
-            top: 23,
-            text: "Forgot password?",
-            color: AppColors.secondary_text,
-          )
-        ),
-
         Expanded(
           child: Container(),
         ),
@@ -222,18 +208,18 @@ class SignUpBody extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MyText(
-                text: "Don't have an account?"
+                text: "Have an account?"
               ),
               InkWell(
                 onTap: (){
                   Navigator.pushReplacement(
                     context, 
-                    MaterialPageRoute(builder: (context) => SignUp())
+                    MaterialPageRoute(builder: (context) => Login())
                   );
                 },
                 child: MyText(
                   left: 5,
-                  text: "Sign up",
+                  text: "Login",
                   fontWeight: FontWeight.bold,
                   color: AppColors.secondary_text,
                 ),

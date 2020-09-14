@@ -119,7 +119,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/images_slide/
-    - assets/images/illustrator/
     - assets/
 
     # Animation Flare

@@ -7,7 +7,7 @@ class AppConfig {
   /* ------------------- Logo -----------------  */
 
   // Welcome Screen, Login Screen, Sign Up Screen
-  static String logoName = "assets/images/sld_logo.png";
+  static String logoName = "assets/sld_logo.svg";
 
   // Dashbaord Menu
   static String logoAppBar = "assets/images/zeetomic-logo-header.png";

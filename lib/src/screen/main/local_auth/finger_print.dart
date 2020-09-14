@@ -127,10 +127,14 @@ class _FingerPrintState extends State<FingerPrint> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left: 50, right: 50),
-                child: Image.asset('assets/images/illustrator/finger_print.png')
+              // Padding(
+              //   padding: EdgeInsets.only(left: 50, right: 50),
+              //   child: Image.asset('assets/images/illustrator/finger_print.pfing')
+              // ),
+              MyIllustrate(
+                imagePath: "assets/finger_print.svg",
               ),
+              
               MyText(
                 top: 50.0,
                 text: 'Authentication Required'

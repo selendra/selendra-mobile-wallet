@@ -82,7 +82,7 @@ class SlideBuilderState extends State<SlideBuilder>{
                         padding: EdgeInsets.only(bottom: 30), 
                         child: InkWell(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
