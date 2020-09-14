@@ -1,0 +1,40 @@
+{
+	"project_info": {
+		"project_number": "582647234698",
+		"firebase_url": "https://yinkok-update-notify.firebaseio.com",
+		"project_id": "yinkok-update-notify",
+		"storage_bucket": "yinkok-update-notify.appspot.com"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:582647234698:android:2a2e689ebf62d906552d73",
+				"android_client_info": {
+					"package_name": "com.selendra.wallet"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "582647234698-ch1mvcj4hsh14c1jfnll3bvm8hs83j30.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyC3zdAqeo5njoSVfxiGZ_o_tH5WnG2Q1Ro"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "582647234698-ch1mvcj4hsh14c1jfnll3bvm8hs83j30.apps.googleusercontent.com",
+							"client_type": 3
+						}
+					]
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
+}

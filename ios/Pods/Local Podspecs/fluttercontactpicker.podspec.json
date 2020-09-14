@@ -1,0 +1,31 @@
+{
+  "name": "fluttercontactpicker",
+  "version": "2.1.2",
+  "summary": "Interact with native OS contact pickers using Flutter",
+  "description": "Interact with native OS contact pickers using Flutter",
+  "homepage": "https://github.com/DRSchlaubi/contact_picker",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Michael Rittmeister": "mik@rittmeister.in"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "dependencies": {
+    "Flutter": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+  },
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
+}
