@@ -298,7 +298,7 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
           width: 35.0,
           height: 35.0,
           child: !portfolioData[index].containsKey("asset_code") ? Image.asset(
-            "assets/images/stellar_xlm_logo.png",
+            "assets/stellar.svg",
             color: Colors.white
           )
           : MyIllustrate(
@@ -383,27 +383,67 @@ class CustomBottomAppBar extends StatelessWidget{
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(left: 36.0),
-                child: IconButton(
-                  alignment: Alignment.center,
-                  color: Colors.white,
-                  icon: Icon(LineAwesomeIcons.telegram),
+              // Container(
+              //   alignment: Alignment.center,
+              //   margin: EdgeInsets.only(left: 36.0),
+              //   child: IconButton(
+              //     alignment: Alignment.center,
+              //     color: Colors.white,
+              //     icon: Icon(LineAwesomeIcons.telegram),
+              //     onPressed: () async {
+              //       Navigator.push(
+              //         context, 
+              //         MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
+              //       );
+              //     }
+              //   ),
+              // ),
+              Expanded(
+                child: MyIconButton(
+                  icon: LineAwesomeIcons.telegram,
+                  onPressed: () async {
+                    showModalBottomSheet(
+                      context: context, 
+                      builder: (context) {
+                      return Container(
+                        height: 153,
+                      );
+                    });
+                    //   Navigator.push(
+                    //   context, 
+                    //   MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
+                    // );
+                  },
+                )
+              ),
+
+              Expanded(
+                child: MyIconButton(
+                  icon: LineAwesomeIcons.qrcode,
                   onPressed: () async {
                     Navigator.push(
                       context, 
                       MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
                     );
-                  }
-                ),
+                  },
+                )
               ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(right: 36.0),
+
+              Expanded(child: Container()),
+
+              Expanded(
                 child: MyIconButton(
-                  icon: LineAwesomeIcons.qrcode,
-                  onPressed: () => toReceiveToken(context)
+                  icon: LineAwesomeIcons.bar_chart_1,
+                  onPressed: () async {
+                  },
+                )
+              ),
+
+              Expanded(
+                child: MyIconButton(
+                  icon: LineAwesomeIcons.list,
+                  onPressed: () async {
+                  },
                 ),
               )
             ],

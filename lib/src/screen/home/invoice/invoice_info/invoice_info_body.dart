@@ -60,7 +60,7 @@ Widget invoiceBody(
                             /* Error Handler */
                             border: errorOutline(),
                             focusedErrorBorder: errorOutline(),
-                            suffixIcon: Icon(OMIcons.search, color: AppColors.whiteNormalColor,)
+                            suffixIcon: Icon(Icons.search, color: AppColors.whiteNormalColor,)
                           ),
                         )
                         // Theme(a
@@ -89,7 +89,7 @@ Widget invoiceBody(
                       child: IconButton( 
                         iconSize: 24.0,
                         color: AppColors.whiteNormalColor,
-                        icon: Icon(OMIcons.close),
+                        icon: Icon(Icons.close),
                         onPressed: () {
                           _modelScanInvoice.controlLocation.clear();
                           validateAllField();

@@ -19,6 +19,8 @@ class HomeBody extends StatelessWidget{
       child: Column(
         children: <Widget>[
 
+          // SvgPicture.asset('assets/sld_qr.svg', width: 30, height: 30),
+
           MyHomeAppBar(
             title: "SELENDRA", 
             // margin: const EdgeInsets.fromLTRB(0, 12, 0, 24)
@@ -65,11 +67,11 @@ class HomeBody extends StatelessWidget{
           //   child: cardTokenAndProfit(),
           // ),
           /* Zeetomic token chart */
-          Container(
-            padding: EdgeInsets.only(left: 16.0, right: 16.0),
-            width: double.infinity,
-            child: portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
-          ),
+          // Container(
+          //   padding: EdgeInsets.only(left: 16.0, right: 16.0),
+          //   width: double.infinity,
+          //   child: portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
+          // ),
         ],
       )
     );

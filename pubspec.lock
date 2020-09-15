@@ -324,13 +324,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  line_icons:
-    dependency: "direct main"
-    description:
-      name: line_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   local_auth:
     dependency: "direct main"
     description:
@@ -366,13 +359,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
-  outline_material_icons:
-    dependency: "direct main"
-    description:
-      name: outline_material_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   package_info:
     dependency: "direct main"
     description:

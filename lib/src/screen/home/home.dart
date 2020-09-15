@@ -308,19 +308,16 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         ),
       ),
 
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: hexaCodeToColor(AppColors.secondary),
-        child: Container(
-          width: 64, height: 64
-        ),
-        // Image.asset(
-        //   AppConfig.logoBottomAppBar,
-        //   color: Colors.white, width: 27.0, height: 27.0
-        // ),
-        onPressed: () async {
-          _backend.mapData = await TrxOption.scanQR(context, _homeModel.portfolioList, resetState);
-          // if (_backend == null) Navigator.pop(context);
-        },
+      floatingActionButton: SizedBox(
+        width: 64, height: 64,
+        child: FloatingActionButton(
+          backgroundColor: hexaCodeToColor(AppColors.secondary),
+          child: SvgPicture.asset('assets/sld_qr.svg', width: 30, height: 30),
+          onPressed: () async {
+            _backend.mapData = await TrxOption.scanQR(context, _homeModel.portfolioList, resetState);
+            // if (_backend == null) Navigator.pop(context);
+          },
+        )
       ),
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

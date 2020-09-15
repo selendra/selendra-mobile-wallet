@@ -42,7 +42,7 @@ Widget forgetPasswordBody(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                       width: double.infinity,
                       child: Icon(
-                        OMIcons.phone,
+                        Icons.phone,
                         size: 23.0,
                       ),
                     ),
@@ -50,7 +50,7 @@ Widget forgetPasswordBody(
                       width: double.infinity,
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                       alignment: Alignment.center,
-                      child: Icon(OMIcons.email, size: 23.0),
+                      child: Icon(Icons.email, size: 23.0),
                     )
                   ],
                   onTap: tabBarSelectChanged,
