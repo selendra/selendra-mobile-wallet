@@ -1,5 +1,4 @@
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/screen/home/dashboard/transaction/qr_scanner/qr_scanner.dart';
 
 
 final fontSizePort = 17.0;
@@ -166,7 +165,7 @@ class DbdStyle{
   }
 }
 
-Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, ModelDashboard model) { /* List Of Portfolio */
+Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, HomeModel model) { /* List Of Portfolio */
   return Container(
     padding: EdgeInsets.only(top: 10.0),
     child: Column(
@@ -174,9 +173,10 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
         Container( /* Portfolio Title */
           padding: EdgeInsets.only(bottom: 26.0),
           alignment: Alignment.centerLeft,
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 25.0),
+          child: MyText(
+            text: title,
+            fontSize: 20,
+            color: "#FFFFFF",
           )
         ),
         SingleChildScrollView(
@@ -255,11 +255,8 @@ Widget headerPortfolio(){
           child: Container(
             margin: EdgeInsets.only(left: 1.5),
             alignment: Alignment.centerLeft,
-            child: Text('Your assets',
-              style: TextStyle(
-                color: hexaCodeToColor("#FFFFFF"),
-                fontSize: 17.0,
-              )
+            child: MyText(
+              text: "Your assets"
             )
           ),
         ),
@@ -267,11 +264,8 @@ Widget headerPortfolio(){
           child: Container(
             child: Align(
               alignment: Alignment.centerRight,
-              child: Text('QTY',
-                style: TextStyle(
-                  fontSize: fontSizePort,
-                  color: hexaCodeToColor("#FFFFFF")
-                )
+              child: MyText(
+                text: "QTY"
               ),
             ),
           ),
@@ -307,7 +301,21 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
             "assets/images/stellar_xlm_logo.png",
             color: Colors.white
           )
-          : Image.asset('assets/images/stellar_xlm_logo.png')
+          : MyIllustrate(
+            decoration: BoxDecoration(
+              color: hexaCodeToColor(AppColors.secondary),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black54.withOpacity(0.3), 
+                  blurRadius: 40.0, 
+                  spreadRadius: 2.0, 
+                  offset: Offset(2.0, 5.0),
+                )
+              ],
+              borderRadius: BorderRadius.circular(40)
+            ),
+            imagePath: 'assets/stellar.svg',
+          )
           // CircleAvatar(
           //   backgroundColor: Colors.black26,
           //   backgroundImage: AssetImage(
@@ -334,6 +342,7 @@ Widget rowDecorationStyle({Widget child, double marginTop: 15}){
   return Container(
     margin: EdgeInsets.only(top: marginTop),
     padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+    height: 60,
     decoration: BoxDecoration(
       boxShadow: [
         BoxShadow(
@@ -342,16 +351,15 @@ Widget rowDecorationStyle({Widget child, double marginTop: 15}){
           offset: Offset(1.0, 1.0)
         )
       ],
-      color: hexaCodeToColor(AppConfig.darkBlue50),
-      border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
-      borderRadius: BorderRadius.circular(5),
+      color: hexaCodeToColor(AppColors.cardColor),
+      borderRadius: BorderRadius.circular(8),
     ),
     child: child
   );
 }
 
 class CustomBottomAppBar extends StatelessWidget{
-  final ModelDashboard model;
+  final HomeModel model;
   final PostRequest postRequest;
   final Function scanReceipt;
   final Function resetDbdState;
@@ -371,7 +379,7 @@ class CustomBottomAppBar extends StatelessWidget{
       child: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(
-          height: 55.0,
+          height: 60,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -393,10 +401,8 @@ class CustomBottomAppBar extends StatelessWidget{
               Container(
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(right: 36.0),
-                child: IconButton(
-                  padding: EdgeInsets.all(0),
-                  color: Colors.white,
-                  icon: Icon(LineAwesomeIcons.qrcode),
+                child: MyIconButton(
+                  icon: LineAwesomeIcons.qrcode,
                   onPressed: () => toReceiveToken(context)
                 ),
               )
@@ -422,5 +428,156 @@ Widget fabsButton({
         onPressed: onPressed,
       ),
     ),
+  );
+}
+
+class MyHomeAppBar extends StatelessWidget{
+
+  final double  pLeft; final double pTop; final double pRight; final double pBottom;
+  final EdgeInsetsGeometry margin;
+  final String title;
+  final Function action;
+
+  MyHomeAppBar({
+    this.pLeft = 0,
+    this.pTop = 0,
+    this.pRight = 0,
+    this.pBottom = 0,
+    this.margin = const EdgeInsets.fromLTRB(0, 12, 0, 0),
+    @required this.title,
+    this.action
+  });
+  
+  Widget build(BuildContext context) {
+    return Container(
+      height: 65.0, 
+      width: MediaQuery.of(context).size.width, 
+      margin: margin,
+      padding: EdgeInsets.only(left: 24, right: 24),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          MyLogo(
+            width: 30, height: 30,
+            logoPath: "assets/sld_logo.svg",
+          ),
+
+          MyText(
+            color: "#FFFFFF",
+            text: title,
+            left: 15,
+            fontSize: 20,
+          ),
+          
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Icon(
+                LineAwesomeIcons.bell,
+                color: hexaCodeToColor(AppColors.textColor),
+                size: 30,
+              ),
+            )
+          )
+        ],
+      )
+    );
+  }
+}
+
+LineChartData mainData() {
+
+  List<Color> gradientColors = [
+    hexaCodeToColor(AppColors.secondary),
+  ];
+
+  return LineChartData(
+    gridData: FlGridData(
+      show: true,
+      drawVerticalLine: true,
+      getDrawingHorizontalLine: (value) {
+        return FlLine(
+          color: const Color(0xff37434d),
+          strokeWidth: 1,
+        );
+      },
+      getDrawingVerticalLine: (value) {
+        return FlLine(
+          color: const Color(0xff37434d),
+          strokeWidth: 1,
+        );
+      },
+    ),
+    titlesData: FlTitlesData(
+      show: true,
+      bottomTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 22,
+        textStyle:
+            const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
+        getTitles: (value) {
+          switch (value.toInt()) {
+            case 2:
+              return 'MAR';
+            case 5:
+              return 'JUN';
+            case 8:
+              return 'SEP';
+          }
+          return '';
+        },
+        margin: 8,
+      ),
+      leftTitles: SideTitles(
+        showTitles: true,
+        textStyle: const TextStyle(
+          color: Color(0xff67727d),
+          fontWeight: FontWeight.bold,
+          fontSize: 15,
+        ),
+        getTitles: (value) {
+          switch (value.toInt()) {
+            case 1:
+              return '10k';
+            case 3:
+              return '30k';
+            case 5:
+              return '50k';
+          }
+          return '';
+        },
+        reservedSize: 28,
+        margin: 12,
+      ),
+    ),
+    borderData: FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
+    minX: 0,
+    maxX: 11,
+    minY: 0,
+    maxY: 6,
+    lineBarsData: [
+      LineChartBarData(
+        spots: [
+          FlSpot(0, 3),
+          FlSpot(2.6, 2),
+          FlSpot(4.9, 5),
+          FlSpot(6.8, 3.1),
+          FlSpot(8, 4),
+          FlSpot(9.5, 3),
+          FlSpot(11, 4),
+        ],
+        isCurved: true,
+        colors: gradientColors,
+        barWidth: 5,
+        isStrokeCapRound: true,
+        dotData: FlDotData(
+          show: false,
+        ),
+        belowBarData: BarAreaData(
+          show: true,
+          colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+        ),
+      ),
+    ],
   );
 }

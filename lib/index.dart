@@ -44,6 +44,7 @@ export 'package:line_icons/line_icons.dart';
 // export 'package:line_awesome_icons/line_awesome_icons.dart';
 export 'package:line_awesome_flutter/line_awesome_flutter.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
+export 'package:fl_chart/fl_chart.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -132,24 +133,28 @@ export 'package:wallet_apps/src/screen/main/slide/slider_builder.dart';
 /* Home Screen */
 
 // Dashbaord
-export 'package:wallet_apps/src/screen/home/dashboard/dashboard.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/dashboard_body.dart';
+export 'package:wallet_apps/src/screen/home/home.dart';
+export 'package:wallet_apps/src/screen/home/home_body.dart';
 
-export 'package:wallet_apps/src/screen/home/dashboard/transaction/submit_trx/submit_trx.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/send_wallet_option/send_wallet_option.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/component.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/transaction/submit_trx/fill_pin_dialog.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_reuse_widget.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary_body.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/transaction/submit_trx/submit_trx_body.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/transaction/get_wallet_from_contact/get_wallet_from_contact_body.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/chart/chart_body.dart';
+export 'package:wallet_apps/src/screen/home/transaction/submit_trx/submit_trx.dart';
+export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet.dart';
+export 'package:wallet_apps/src/screen/home/send_wallet_option/send_wallet_option.dart';
+export 'package:wallet_apps/src/screen/home/home.dart';
+export 'package:wallet_apps/src/screen/home/home_body.dart';
+export 'package:wallet_apps/src/screen/home/transaction/submit_trx/fill_pin_dialog.dart';
+export 'package:wallet_apps/src/screen/home/invoice/invoice_summary/invoice_reuse_widget.dart';
+export 'package:wallet_apps/src/screen/home/invoice/invoice_summary/invoice_summary_body.dart';
+export 'package:wallet_apps/src/screen/home/transaction/submit_trx/submit_trx_body.dart';
+export 'package:wallet_apps/src/screen/home/transaction/get_wallet_from_contact/get_wallet_from_contact_body.dart';
+export 'package:wallet_apps/src/screen/home/chart/chart_body.dart';
 
-export 'package:wallet_apps/src/screen/home/dashboard/get_wallet/get_wallet_body.dart';
+export 'package:wallet_apps/src/screen/home/transaction/qr_scanner/qr_scanner.dart';
+
+export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet_body.dart';
 
 /* Component File */
 export 'package:wallet_apps/src/components/component.dart';
+export 'package:wallet_apps/src/components/home_c.dart';
 export 'package:wallet_apps/src/components/menu_component.dart';
 export 'package:wallet_apps/src/components/main_component.dart';
 
@@ -204,8 +209,8 @@ export 'package:wallet_apps/src/screen/home/menu/set_pin/pin.dart';
 export 'package:wallet_apps/src/screen/home/menu/private_key/private_key_body.dart';
 
 // Reward From Invoice
-export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_info/invoice_info_body.dart';
-export 'package:wallet_apps/src/screen/home/dashboard/invoice/invoice_summary/invoice_summary.dart';
+export 'package:wallet_apps/src/screen/home/invoice/invoice_info/invoice_info_body.dart';
+export 'package:wallet_apps/src/screen/home/invoice/invoice_summary/invoice_summary.dart';
 
 // Add Assets
 export 'package:wallet_apps/src/screen/home/menu/add_asset/add_asset.dart';
@@ -225,7 +230,7 @@ export 'package:wallet_apps/src/model/slide.dart';
 // Dashboard
 export 'package:wallet_apps/src/model/model_login.dart';
 export 'package:wallet_apps/src/model/model_document.dart';
-export 'package:wallet_apps/src/model/model_dashboard.dart';
+export 'package:wallet_apps/src/model/home_model.dart';
 export 'package:wallet_apps/src/model/model_scan_pay.dart';
 export 'package:wallet_apps/src/model/model_scan_invoice.dart';
 export 'package:wallet_apps/src/model/model_get_wallet_from_contact.dart';

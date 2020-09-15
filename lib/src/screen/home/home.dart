@@ -1,4 +1,3 @@
-import 'package:flare_flutter/flare_controls.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/model/portfolio.dart';
@@ -11,7 +10,7 @@ class Dashboard extends StatefulWidget {
 
 class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
-  ModelDashboard _modelDashboard = ModelDashboard();
+  HomeModel _homeModel = HomeModel();
   
   PostRequest _postRequest = PostRequest();
 
@@ -30,14 +29,14 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   @override
   initState() { /* Initialize State */
     if(mounted) {
-      _modelDashboard.result = {};
-      _modelDashboard.scaffoldKey = GlobalKey<ScaffoldState>();
-      _modelDashboard.total = 0;
-      _modelDashboard.circularChart = [
-        CircularSegmentEntry(_modelDashboard.remainDataChart, hexaCodeToColor("#4B525E"))
+      _homeModel.result = {};
+      _homeModel.scaffoldKey = GlobalKey<ScaffoldState>();
+      _homeModel.total = 0;
+      _homeModel.circularChart = [
+        CircularSegmentEntry(_homeModel.remainDataChart, hexaCodeToColor(AppColors.cardColor))
       ];
-      AppServices.noInternetConnection(_modelDashboard.scaffoldKey);
-      _modelDashboard.userData = {};
+      AppServices.noInternetConnection(_homeModel.scaffoldKey);
+      _homeModel.userData = {};
       /* User Profile */
       getUserData(); 
       fetchPortfolio();
@@ -50,10 +49,10 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   // Initialize Fabs Animation
   void fabsAnimation(){ 
-    _modelDashboard.animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
-    _modelDashboard.degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_modelDashboard.animationController);
+    _homeModel.animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+    _homeModel.degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_homeModel.animationController);
     setState((){});
-    _modelDashboard.animationController.addListener(() {
+    _homeModel.animationController.addListener(() {
       setState(() {
         
       });
@@ -63,9 +62,9 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   void opacityController(bool visible){
     setState(() {
       if (visible){ 
-        _modelDashboard.visible = false;
+        _homeModel.visible = false;
       } else  if (visible == false) {
-        _modelDashboard.visible = true;
+        _homeModel.visible = true;
       }
     });
   }
@@ -89,9 +88,9 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   void getUserData() async { /* Fetch User Data From Memory */
     await _getRequest.getUserProfile().then((data) {
       if (data == null)
-        _modelDashboard.userData = {};
+        _homeModel.userData = {};
       else
-        _modelDashboard.userData = data;
+        _homeModel.userData = data;
     });
   }
 
@@ -107,14 +106,12 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     
     await Future.delayed(Duration(milliseconds: 10),(){
       setState(() {
-        _modelDashboard.portfolioList = [];
+        _homeModel.portfolioList = [];
       });
     });
     
     /* Get Response Data */
     _backend.response = await _getRequest.getPortfolio();
-
-    print('Hello${_backend.response.body}');
     
     /* Covert String To Objects */
     await _portfolio.extractData(_backend.response);
@@ -134,14 +131,14 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         warningTitleDialog()
       );
       setState(() {
-        _modelDashboard.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
+        _homeModel.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
       });
     }  else {
       setState(() {
-        _modelDashboard.portfolioList = _portfolio.list;
+        _homeModel.portfolioList = _portfolio.list;
       });
-      StorageServices.setData(_modelDashboard.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
-      resetDataPieChart(_modelDashboard.portfolioList); 
+      StorageServices.setData(_homeModel.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
+      resetDataPieChart(_homeModel.portfolioList); 
     }
   }
 
@@ -149,37 +146,37 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   void resetDataPieChart(List<dynamic> portfolio){
     
-    if (_modelDashboard.portfolioList.length != 0){
+    if (_homeModel.portfolioList.length != 0){
       
-      _modelDashboard.total = 0.0;
+      _homeModel.total = 0.0;
 
-      _modelDashboard.circularChart.clear(); // Clear Pie Data
+      _homeModel.circularChart.clear(); // Clear Pie Data
 
-      for (int i = 0; i < _modelDashboard.portfolioList.length; i++){
+      for (int i = 0; i < _homeModel.portfolioList.length; i++){
         // Add Total
-        _modelDashboard.total += json.decode(_modelDashboard.portfolioList[i]['balance']);
+        _homeModel.total += json.decode(_homeModel.portfolioList[i]['balance']);
         
-        _modelDashboard.circularChart.add( //Add More Data Follow Portfolio
+        _homeModel.circularChart.add( //Add More Data Follow Portfolio
           CircularSegmentEntry(
-            json.decode(_modelDashboard.portfolioList[i]['balance']),
-            hexaCodeToColor(AppColors.greenColor)
+            json.decode(_homeModel.portfolioList[i]['balance']),
+            hexaCodeToColor(AppColors.secondary)
           )
         );
       }
-      _modelDashboard.remainDataChart -= _modelDashboard.total;
-      _modelDashboard.circularChart.add( // Add Remain Empty Data
+      _homeModel.remainDataChart -= _homeModel.total;
+      _homeModel.circularChart.add( // Add Remain Empty Data
         CircularSegmentEntry(
-          _modelDashboard.remainDataChart,
-          hexaCodeToColor("#4B525E")
+          _homeModel.remainDataChart,
+          hexaCodeToColor(AppColors.cardColor)
         )
       );
 
-      _modelDashboard.chartKey.currentState.updateData([
-        CircularStackEntry(_modelDashboard.circularChart
+      _homeModel.chartKey.currentState.updateData([
+        CircularStackEntry(_homeModel.circularChart
         )
       ]);
 
-      _modelDashboard.remainDataChart = 100.0; // Reset Remain Pie Data
+      _homeModel.remainDataChart = 100.0; // Reset Remain Pie Data
     }
   }
   
@@ -211,11 +208,11 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   // Refech Data User And Portfolio
   _pullUpRefresh() async { 
     setState(() {
-      _modelDashboard.portfolioList = [];
+      _homeModel.portfolioList = [];
     });
     fetchPortfolio();
     getUserData();
-    _modelDashboard.refreshController.refreshCompleted();
+    _homeModel.refreshController.refreshCompleted();
   }
 
   Future<dynamic> cropImageCamera(BuildContext context) async {
@@ -263,7 +260,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
 
   void resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
     setState(() {
-      _modelDashboard.portfolioList = [];
+      _homeModel.portfolioList = [];
     });
     fetchPortfolio();
     getUserData();
@@ -273,8 +270,8 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => GetWallet(
-        _modelDashboard.userData.containsKey('wallet')
-          ? _modelDashboard.userData['wallet']
+        _homeModel.userData.containsKey('wallet')
+          ? _homeModel.userData['wallet']
           : null
         )
       )
@@ -289,84 +286,39 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     final bloc = Bloc();
 
     return Scaffold(
-
-      key: _modelDashboard.scaffoldKey,
-
+      key: _homeModel.scaffoldKey,
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Colors.transparent
         ),
-        child: Menu(_modelDashboard.userData, _packageInfo, menuCallBack),
+        child: Menu(_homeModel.userData, _packageInfo, menuCallBack),
       ),
 
-      body: scaffoldBGDecoration(
-        left: 0.0, right: 0.0,
-        child: Column(
-          children: <Widget>[
-            containerAppBar( /* AppBar */
-              context,
-              Row( /* Sub AppBar */
-                children: <Widget>[
-                  iconAppBar( /* Menu Button */
-                    Icon(
-                      Icons.sort,
-                      color: Colors.white,
-                    ),
-                    Alignment.centerLeft,
-                    EdgeInsets.all(0),
-                    // Trigger To Open Drawer
-                    (){ 
-                      _modelDashboard.scaffoldKey.currentState.openDrawer();
-                    }
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text("SELENDRA", style: TextStyle(fontSize: 18.0),)
-                        )
-                        // Image.asset(
-                        //   AppConfig.logoAppBar,
-                        //   height: 25.0,
-                        //   color: Colors.white,
-                        // ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            ),
-            /* Body Widget */
-            Expanded(
-              child: SmartRefresher(
-                physics: BouncingScrollPhysics(),
-                controller: _modelDashboard.refreshController,
-                child: dashboardBody(
-                  context,
-                  bloc,
-                  _modelDashboard.chartKey,
-                  _modelDashboard.portfolioList,
-                  _modelDashboard
-                ),
-                onRefresh: _pullUpRefresh,
-              ),
-            )
-          ],
+      body: BodyScaffold(
+        child: SmartRefresher(
+          physics: BouncingScrollPhysics(),
+          controller: _homeModel.refreshController,
+          child: HomeBody(
+            bloc: bloc,
+            chartKey: _homeModel.chartKey,
+            portfolioData: _homeModel.portfolioList,
+            homeModel: _homeModel
+          ),
+          onRefresh: _pullUpRefresh,
         ),
       ),
 
       floatingActionButton: FloatingActionButton(
-        backgroundColor: hexaCodeToColor("#8CC361"),
-        child: Image.asset(
-          AppConfig.logoBottomAppBar,
-          color: Colors.white, width: 27.0, height: 27.0
+        backgroundColor: hexaCodeToColor(AppColors.secondary),
+        child: Container(
+          width: 64, height: 64
         ),
+        // Image.asset(
+        //   AppConfig.logoBottomAppBar,
+        //   color: Colors.white, width: 27.0, height: 27.0
+        // ),
         onPressed: () async {
-          _backend.mapData = await TrxOption.scanQR(context, _modelDashboard.portfolioList, resetState);
+          _backend.mapData = await TrxOption.scanQR(context, _homeModel.portfolioList, resetState);
           // if (_backend == null) Navigator.pop(context);
         },
       ),
@@ -374,7 +326,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       bottomNavigationBar: CustomBottomAppBar( /* Bottom Navigation Bar */
-        model: _modelDashboard,
+        model: _homeModel,
         postRequest: _postRequest,
         scanReceipt: null, // Bottom Center Button
         resetDbdState: resetState,

@@ -84,8 +84,7 @@ class MyFlatButton extends StatelessWidget{
           fontWeight: fontWeight,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        onPressed: 
-        action == null ? null : 
+        onPressed:action == null ? null : 
         (){
           action(context);
         }
@@ -142,7 +141,7 @@ class MyLogo extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
-      child: SvgPicture.asset(logoPath, width: 60, height: 60, color: hexaCodeToColor(this.color))
+      child: SvgPicture.asset(logoPath, width: width, height: height, color: hexaCodeToColor(this.color))
     );
   }
 }
@@ -186,7 +185,7 @@ class MyAppBar extends StatelessWidget{
   final double  pLeft; final double pTop; final double pRight; final double pBottom;
   final EdgeInsetsGeometry margin;
   final String title;
-  final Function action;
+  final Function onPressed;
 
   MyAppBar({
     this.pLeft = 0,
@@ -195,7 +194,7 @@ class MyAppBar extends StatelessWidget{
     this.pBottom = 0,
     this.margin = const EdgeInsets.fromLTRB(0, 12, 0, 0),
     @required this.title,
-    this.action
+    this.onPressed
   });
   
   Widget build(BuildContext context) {
@@ -213,7 +212,7 @@ class MyAppBar extends StatelessWidget{
             padding: EdgeInsets.only(left: 30),
             iconSize: 40.0,
             icon: Icon(LineAwesomeIcons.arrow_left, color: Colors.white, size: 30),
-            onPressed: action,
+            onPressed: onPressed,
           ),
           MyText(
             color: "#FFFFFF",
@@ -233,9 +232,9 @@ class BodyScaffold extends StatelessWidget{
 
   BodyScaffold({
     this.child,
-    Widget floatingActionButton,
-    FloatingActionButtonLocation floatingActionButtonLocation,
-    FloatingActionButtonAnimator floatingActionButtonAnimator
+    Widget floatingonPressedButton,
+    FloatingActionButtonLocation floatingonPressedButtonLocation,
+    FloatingActionButtonAnimator floatingonPressedButtonAnimator
   });
   
   Widget build(BuildContext context){
@@ -250,6 +249,28 @@ class BodyScaffold extends StatelessWidget{
           child: this.child
         )
       )
+    );
+  }
+}
+
+class MyIconButton extends StatelessWidget{
+
+  final IconData icon;
+  final Function onPressed;
+
+  MyIconButton({
+    this.icon,
+    this.onPressed
+  });
+
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        this.icon,
+        size: 30.0,
+        color: Colors.white
+      ),
+      onPressed: onPressed,
     );
   }
 }

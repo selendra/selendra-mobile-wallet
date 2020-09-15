@@ -1,7 +1,7 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
-class ModelDashboard {
+class HomeModel {
 
   bool isProgress = false, isQueried = false, loadingHome = true;
 

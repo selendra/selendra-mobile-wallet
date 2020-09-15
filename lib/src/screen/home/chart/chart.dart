@@ -2,7 +2,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
 class ZeeChart extends StatefulWidget {
-  final ModelDashboard _modelDashboard;
+  final HomeModel _modelDashboard;
 
   ZeeChart(this._modelDashboard);
 
@@ -39,7 +39,7 @@ class ZeeChartState extends State<ZeeChart> {
     // );
   }
 
-  void resetState(String barcodeValue, String executeName, ModelDashboard _model, Function toReceiveToken) {
+  void resetState(String barcodeValue, String executeName, HomeModel _model, Function toReceiveToken) {
     setState(() {
       if (executeName == "portfolio") {
         _model.portfolioList = null;

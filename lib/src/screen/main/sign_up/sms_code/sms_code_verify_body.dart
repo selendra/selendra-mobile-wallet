@@ -29,7 +29,7 @@ class SmsBody extends StatelessWidget{
         MyAppBar(
           title: "Verification",
           margin: EdgeInsets.only(bottom: 16.0),
-          action: (){
+          onPressed: (){
             Navigator.pop(context);
           }
         ),

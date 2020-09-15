@@ -32,7 +32,7 @@ class UserInfoBody extends StatelessWidget{
 
         MyAppBar(
           title: "User Information",
-          action: (){
+          onPressed: (){
             Navigator.pop(context);
           },
         ),
@@ -147,23 +147,6 @@ class UserInfoBody extends StatelessWidget{
                 hasShadow: modelUserInfo.enable,
                 action: modelUserInfo.enable == false ? null : submitProfile
               )
-              // customFlatButton(/* Submit Button */
-              //   context,
-              //   "Submit",
-              //   "userInfoScreen",
-              //   AppColors.greenColor,
-              //   FontWeight.normal,
-              //   size18,
-              //   EdgeInsets.only(top: 15.0, bottom: size10),
-              //   EdgeInsets.only(top: size15, bottom: size15),
-              //   BoxShadow(
-              //     color: Colors.black54.withOpacity(modelUserInfo.enable == false ? 0 : 0.3), 
-              //     blurRadius: 10.0, 
-              //     spreadRadius: 2.0, 
-              //     offset: Offset(2.0, 5.0),
-              //   ),
-              //   modelUserInfo.enable == false ? null : submitProfile
-              // )
             ],
           ),
         )

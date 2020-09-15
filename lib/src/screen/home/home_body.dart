@@ -1,18 +1,94 @@
 import 'package:wallet_apps/index.dart';
 
+class HomeBody extends StatelessWidget{
+
+  final Bloc bloc;
+  final GlobalKey<AnimatedCircularChartState> chartKey;
+  final List<dynamic> portfolioData;
+  final HomeModel homeModel;
+
+  HomeBody({
+    this.bloc,
+    this.chartKey,
+    this.portfolioData,
+    this.homeModel
+  });
+  
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+
+          MyHomeAppBar(
+            title: "SELENDRA", 
+            // margin: const EdgeInsets.fromLTRB(0, 12, 0, 24)
+          ),
+
+          Container(
+            margin: EdgeInsets.only(bottom: 24.0),
+            child: AnimatedCircularChart(
+              holeRadius: 70.0,
+              key: chartKey,
+              duration: Duration(seconds: 1),
+              // startAngle: 125.0,
+              size: Size(300.0, 250.0),
+              percentageValues: true,
+              holeLabel: "${homeModel.total}",
+              labelStyle:TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              edgeStyle: SegmentEdgeStyle.flat,
+              initialChartData: <CircularStackEntry>[
+                CircularStackEntry(
+                  homeModel.circularChart,
+                  rankKey: 'progress',
+                ),
+              ],
+              chartType: CircularChartType.Radial,
+            )
+          ),
+
+          Container(
+            margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+            padding: EdgeInsets.only(left: 16.0, top: 32, bottom: 16.0, right: 32.0),
+            width: double.infinity,
+            height: 222,
+            decoration: BoxDecoration(
+              color: hexaCodeToColor(AppColors.cardColor),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: LineChart(
+              mainData()
+            ),
+          ),
+          /* Token & Profit */
+          // Container(
+          //   margin: EdgeInsets.only(top: 16.0),
+          //   child: cardTokenAndProfit(),
+          // ),
+          /* Zeetomic token chart */
+          Container(
+            padding: EdgeInsets.only(left: 16.0, right: 16.0),
+            width: double.infinity,
+            child: portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
+          ),
+        ],
+      )
+    );
+  }
+}
+
 Widget dashboardBody(
   BuildContext context,
   Bloc bloc,
   GlobalKey<AnimatedCircularChartState> _chartKey,
   List<dynamic> portfolioData,
-  ModelDashboard _modelDashboard
+  HomeModel _homeModel
 ) {
   return SingleChildScrollView(
     child: Column(
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(top: 10.0),
-          child: dashBoardCardHeader(_chartKey, _modelDashboard),
+          child: dashBoardCardHeader(_chartKey, _homeModel),
         ),
         /* Token & Profit */
         // Container(
@@ -23,14 +99,14 @@ Widget dashboardBody(
         Container(
           padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
           width: double.infinity,
-          child: portfolioList(context, "Portfolios", portfolioData, true, _modelDashboard),
+          child: portfolioList(context, "Portfolios", portfolioData, true, _homeModel),
         ),
       ],
     ),
   );
 }
 
-Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, ModelDashboard _modelDashboard) { /* Card Header */
+Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, HomeModel _homeModel) { /* Card Header */
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(5.0),
@@ -45,26 +121,6 @@ Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, Mode
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container( /* Pie Chart */ /* Investment rate */
-            child: FittedBox(
-              child: AnimatedCircularChart(
-                holeRadius: 45.0,
-                key: _chartKey,
-                duration: Duration(seconds: 1),
-                // startAngle: 125.0,
-                size: Size(190.0, 120),
-                percentageValues: true,
-                holeLabel: "S",
-                labelStyle:TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-                edgeStyle: SegmentEdgeStyle.flat,
-                initialChartData: <CircularStackEntry>[
-                  CircularStackEntry(
-                    _modelDashboard.circularChart,
-                    rankKey: 'progress',
-                  ),
-                ],
-                chartType: CircularChartType.Radial,
-              ),
-            ),
           ),
           Expanded(
             child: Container(
@@ -84,7 +140,7 @@ Widget dashBoardCardHeader(GlobalKey<AnimatedCircularChartState> _chartKey, Mode
                     margin: EdgeInsets.only(top: 19.42),
                     child: Text(
                       // "The Platform for the Issuance and Management of Digital Asset",
-                      "\$${_modelDashboard.total}",
+                      "\$${_homeModel.total}",
                       style: TextStyle(
                         fontSize: 20.0,
                       ),

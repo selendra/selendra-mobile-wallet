@@ -44,7 +44,6 @@ dependencies:
   
   flutter_svg: ^0.19.0
   intl:
-  flutter_circular_chart:
   image_cropper:
   flutter_image_compress:
  
@@ -57,8 +56,10 @@ dependencies:
   share_extend:
 
   # Chart
+  flutter_circular_chart:
   syncfusion_flutter_charts:
   charts_flutter:
+  fl_chart:
 
   # Icons
   outline_material_icons:
