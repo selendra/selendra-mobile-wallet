@@ -4,19 +4,20 @@
 
 ### Welcome To SELENDRA 
 
-Selendra is a new generation of trusted global solutions for creating a digital asset. Customer Loyalty, Real Estate, Vested Shares and Payment.
+Selendra is a multi-use cases blockchain super-app for the Internet 2.0 for identity management, ownership of assets distribution & management, decentralized e-commerce, finance, decentralized computing and storage, and IoT applications and more. 
 
 
+### Features:
 
-# Features:
+- [x] Register vai SMS. 
+- [x] Register vai email Account.
+- [ ] Register vai Others social media account.
+- [x] Send to token by QR Code.
+- [x] Send to token from contact.
+- [x] View trandaction histroy.
+- [x] Adding others asset.
+- [X] Collect token for customer loyalty.
 
-* Transaction wallet by (QR Scan, Fill Wallet, Contact Picker).
-
-* Track Transaction History.
-
-* Add Others Asset.
-
-  
 
 ## Prerequisite: 
 
@@ -28,4 +29,3 @@ Utils = For Function Throughout Apps
 ## Usage:
 
 Use this command `flutter run` on your terminal.
-
