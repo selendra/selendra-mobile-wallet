@@ -2,13 +2,13 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/model/portfolio.dart';
 
-class Dashboard extends StatefulWidget {
+class Home extends StatefulWidget {
   State<StatefulWidget> createState() {
-    return DashboardState();
+    return HomeState();
   }
 }
 
-class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
+class HomeState extends State<Home> with TickerProviderStateMixin {
 
   HomeModel _homeModel = HomeModel();
   
@@ -38,12 +38,13 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       AppServices.noInternetConnection(_homeModel.scaffoldKey);
       _homeModel.userData = {};
       /* User Profile */
-      getUserData(); 
+      getUserData();
       fetchPortfolio();
       triggerDeviceInfo();
       if (Platform.isAndroid) appPermission();
       // fabsAnimation();
     } 
+
     super.initState();
   }
 
@@ -322,7 +323,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-      bottomNavigationBar: CustomBottomAppBar( /* Bottom Navigation Bar */
+      bottomNavigationBar: MyBottomAppBar( /* Bottom Navigation Bar */
         model: _homeModel,
         postRequest: _postRequest,
         scanReceipt: null, // Bottom Center Button

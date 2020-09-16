@@ -11,15 +11,19 @@ class SlideItem extends StatelessWidget{
       // horizontal).
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        MyIllustrate(
-          imagePath: slideList[index].image,
-        ),
-        FittedBox(
-          child: SizedBox(
-            width: 224,
-            child: MyText(
-              text: slideList[index].description
-            )
+        Container(
+          margin: EdgeInsets.only(bottom: 35),
+          child: SvgPicture.asset(
+            slideList[index].image, 
+            width: 286, 
+            height: 250
+          ),
+        ), 
+
+        SizedBox(
+          width: 224,
+          child: MyText(
+            text: slideList[index].description
           )
         )
       ],

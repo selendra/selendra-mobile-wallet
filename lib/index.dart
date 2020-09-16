@@ -126,9 +126,9 @@ export 'package:wallet_apps/src/screen/main/sign_up/sign_up_body.dart';
 export 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify.dart';
 
 // Slide Screen
-export 'package:wallet_apps/src/screen/main/slide/widget/slide_dot.dart';
-export 'package:wallet_apps/src/screen/main/slide/widget/slide_item.dart';
-export 'package:wallet_apps/src/screen/main/slide/slider_builder.dart';
+export 'package:wallet_apps/src/screen/main/carousel/widget/slide_dot.dart';
+export 'package:wallet_apps/src/screen/main/carousel/widget/slide_item.dart';
+export 'package:wallet_apps/src/screen/main/carousel/slider_builder.dart';
 
 /* Home Screen */
 

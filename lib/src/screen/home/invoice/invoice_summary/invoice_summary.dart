@@ -40,7 +40,7 @@ class InvoiceSummaryState extends State<InvoiceSummary>  {
       Navigator.pop(context);
       Navigator.pushAndRemoveUntil(
         context, 
-        MaterialPageRoute(builder: (context) => Dashboard()), 
+        MaterialPageRoute(builder: (context) => Home()), 
         ModalRoute.withName('/')
       );
     } else { /* Display Error To Dialog Box */

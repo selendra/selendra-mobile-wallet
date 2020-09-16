@@ -99,7 +99,7 @@ class _FingerPrintState extends State<FingerPrint> {
       _backend.mapData = json.decode(_backend.response.body);
       // Check Expired Token
       if (_backend.response.statusCode == 200) {
-        screen = Dashboard();
+        screen = Home();
       } 
       // Reset isLoggedIn True -> False Cause Token Expired
       else if (_backend.response.statusCode== 401) {
@@ -131,7 +131,7 @@ class _FingerPrintState extends State<FingerPrint> {
               //   padding: EdgeInsets.only(left: 50, right: 50),
               //   child: Image.asset('assets/images/illustrator/finger_print.pfing')
               // ),
-              MyIllustrate(
+              MyCircularImage(
                 imagePath: "assets/finger_print.svg",
               ),
               

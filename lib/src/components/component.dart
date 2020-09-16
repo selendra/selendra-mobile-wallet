@@ -128,13 +128,14 @@ class MyText extends StatelessWidget{
 class MyLogo extends StatelessWidget{
 
   final String logoPath; final String color; final double width; final double height;
+
   final double top; final double right; final double bottom; final double left;
 
   MyLogo({
     @required this.logoPath, 
     this.color = "#FFFFFF", 
-    this.width, 
-    this.height,
+    this.width = 60, 
+    this.height = 60,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0
   });
 
@@ -146,36 +147,47 @@ class MyLogo extends StatelessWidget{
   }
 }
 
-class MyIllustrate extends StatelessWidget{
+class MyCircularImage extends StatelessWidget{
   
+  final String boxColor;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry padding;
   final String imagePath;
-  final double widthImage;
-  final double heightImage;
   final double width;
   final double height;
+  final bool enableShadow;
   final BoxDecoration decoration;
 
-  MyIllustrate({
-    this.margin = const EdgeInsets.fromLTRB(0, 16.0, 0, 24.0),
+  MyCircularImage({
+    this.boxColor = AppColors.secondary,
+    this.margin = const EdgeInsets.fromLTRB(0, 16.0, 0, 0),
     this.padding = const EdgeInsets.fromLTRB(0, 0, 0, 0),
     this.imagePath,
-    this.widthImage = 290,
-    this.heightImage = 210,
-    this.width = 290,
-    this.height = 290,
+    this.width,
+    this.height,
+    this.enableShadow,
     this.decoration
   });
 
   Widget build(BuildContext context) {
     return Container(
-      // margin: margin,
+      margin: margin,
       width: width,
       height: height,
       padding: padding,
-      decoration: decoration,
-      child: SvgPicture.asset(imagePath, width: widthImage, height: heightImage,)
+      decoration: BoxDecoration(
+        color: hexaCodeToColor(boxColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black54.withOpacity(0.3), 
+            blurRadius: 40.0, 
+            spreadRadius: 2.0, 
+            offset: Offset(2.0, 5.0),
+          )
+        ],
+        borderRadius: BorderRadius.circular(40)
+      ),
+      child: SvgPicture.asset(imagePath, color: Colors.white)
     );
   }
 }

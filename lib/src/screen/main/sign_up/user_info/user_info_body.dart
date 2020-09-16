@@ -37,7 +37,7 @@ class UserInfoBody extends StatelessWidget{
           },
         ),
 
-        MyIllustrate(
+        MyCircularImage(
           imagePath: 'assets/user_info.svg',
         ),
 
@@ -67,6 +67,7 @@ class UserInfoBody extends StatelessWidget{
                 onChanged: onChanged, 
                 onSubmit: onSubmit
               ),
+              
               MyInputField(
                 pBottom: 16.0,
                 labelText: "Last name",
@@ -85,7 +86,7 @@ class UserInfoBody extends StatelessWidget{
                     onTap: (){
                       changeGender("Male");
                     },
-                    child: MyIllustrate(
+                    child: MyCircularImage(
                       width: 70, height: 70,
                       padding: const EdgeInsets.all(10),  
                       decoration: BoxDecoration(
@@ -94,7 +95,7 @@ class UserInfoBody extends StatelessWidget{
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black54.withOpacity(modelUserInfo.enable == false ? 0 : 0.3), 
+                            color: Colors.black54.withOpacity(0.3), 
                             blurRadius: 40.0, 
                             spreadRadius: 2.0, 
                             offset: Offset(2.0, 5.0),
@@ -102,7 +103,6 @@ class UserInfoBody extends StatelessWidget{
                         ],
                         borderRadius: BorderRadius.circular(40)
                       ),
-                      widthImage: 60, heightImage: 60,
                       imagePath: "assets/male_avatar.svg"
                     )
                   ),
@@ -117,7 +117,7 @@ class UserInfoBody extends StatelessWidget{
                     onTap: (){
                       changeGender("Female");
                     },
-                    child: MyIllustrate(
+                    child: MyCircularImage(
                       width: 70, height: 70,
                       padding: const EdgeInsets.all(10),  
                       decoration: BoxDecoration(
@@ -134,7 +134,6 @@ class UserInfoBody extends StatelessWidget{
                         ],
                         borderRadius: BorderRadius.circular(40)
                       ),
-                      widthImage: 60, heightImage: 60,
                       imagePath: "assets/female_avatar.svg"
                     )
                   )

@@ -212,7 +212,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
           
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => Dashboard()),
+            MaterialPageRoute(builder: (context) => Home()),
             ModalRoute.withName('/')
           );
         }

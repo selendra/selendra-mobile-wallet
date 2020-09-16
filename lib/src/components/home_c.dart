@@ -170,6 +170,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
     padding: EdgeInsets.only(top: 10.0),
     child: Column(
       children: <Widget>[
+
         Container( /* Portfolio Title */
           padding: EdgeInsets.only(bottom: 26.0),
           alignment: Alignment.centerLeft,
@@ -179,65 +180,61 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
             color: "#FFFFFF",
           )
         ),
-        SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            children: <Widget>[
-              headerPortfolio(),
-              portfolioData == null
-              ? Container(/* Retreive Porfolio Null => Have No List */
-                width: double.infinity,
-                padding: EdgeInsets.only(bottom: 11.5),
-                margin: EdgeInsets.only(left: 4.0, top: 10.5),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.white.withOpacity(0.1),
-                      width: 1.5
-                    )
-                  )
-                ),
-                child: Row(
-                  children: <Widget>[Text("You have no wallet yet")],
-                ),
-              )
-              : portfolioData.length == 0
-              ? Padding(
-                padding: EdgeInsets.all(10.0),
-                child: loading()
-              ) /* Show Loading Process At Portfolio List When Requesting Data */
-              : buildRowList(portfolioData),
-              
-              // Add Asset
-              portfolioData == null || portfolioData.length == 0 ? Container()
-              : GestureDetector(
-                onTap: (){
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(builder: (context) => AddAsset())
-                  );
-                },
-                child: rowDecorationStyle(
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 40.0, height: 40.0,
-                        margin: EdgeInsets.only(right: 10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.black26,
-                          border: Border.all(width: 1, color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(30.0)
-                        ),
-                        alignment: Alignment.center,
-                        // child: Icon(FontAwesomeIcons.plus, color: Colors.white,)
-                      ),
 
-                      Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
-                    ]
-                  )
-                )
+        headerPortfolio(),
+
+        portfolioData == null
+        ? Container(/* Retreive Porfolio Null => Have No List */
+          width: double.infinity,
+          padding: EdgeInsets.only(bottom: 11.5),
+          margin: EdgeInsets.only(left: 4.0, top: 10.5),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.white.withOpacity(0.1),
+                width: 1.5
               )
-            ],
+            )
+          ),
+          child: Row(
+            children: <Widget>[Text("You have no wallet yet")],
+          ),
+        )
+        
+        : portfolioData.length == 0
+        ? Padding(
+          padding: EdgeInsets.all(10.0),
+          child: loading()
+        ) /* Show Loading Process At Portfolio List When Requesting Data */
+        : buildRowList(portfolioData),
+        
+        // Add Asset
+        portfolioData == null || portfolioData.length == 0 ? Container()
+        : GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => AddAsset())
+            );
+          },
+          child: rowDecorationStyle(
+            child: Row(
+              children: [
+                Container(
+                  width: 40.0, height: 40.0,
+                  margin: EdgeInsets.only(right: 10.0),
+                  decoration: BoxDecoration(
+                    color: hexaCodeToColor(AppColors.secondary),
+                    border: Border.all(width: 1, color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(40.0)
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(LineAwesomeIcons.plus, color: Colors.white,)
+                ),
+
+                Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
+              ]
+            )
           )
         )
       ],
@@ -293,44 +290,33 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
     child: Row(
       children: <Widget>[
         /* Asset Icons */
-        Container(
-          margin: EdgeInsets.only(right: 10),
-          width: 35.0,
-          height: 35.0,
-          child: !portfolioData[index].containsKey("asset_code") ? Image.asset(
-            "assets/stellar.svg",
-            color: Colors.white
-          )
-          : MyIllustrate(
-            decoration: BoxDecoration(
-              color: hexaCodeToColor(AppColors.secondary),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black54.withOpacity(0.3), 
-                  blurRadius: 40.0, 
-                  spreadRadius: 2.0, 
-                  offset: Offset(2.0, 5.0),
-                )
-              ],
-              borderRadius: BorderRadius.circular(40)
-            ),
-            imagePath: 'assets/stellar.svg',
-          )
-          // CircleAvatar(
-          //   backgroundColor: Colors.black26,
-          //   backgroundImage: AssetImage(
-          //     portfolioData[index].containsKey("asset_code") ? AppConfig.logoPortfolio : "assets/images/stellar_xlm_logo.png",
-          //   ),
-          // )
+        !portfolioData[index].containsKey("asset_code") ? 
+        MyCircularImage(
+          padding: EdgeInsets.all(6),
+          margin: EdgeInsets.only(right: 16),
+          imagePath: 'assets/stellar.svg',
+          width: 40,
+          height: 40
+        )
+
+        : MyCircularImage(
+          padding: EdgeInsets.all(6),
+          boxColor: AppColors.secondary,
+          imagePath: 'assets/stellar.svg',
+          width: 40,
+          height: 40
         ),
+
         DbdStyle.textStylePortfolio(
           portfolioData[index].containsKey("asset_code")
           ? portfolioData[index]["asset_code"]
           : "XLM",
           "#EFF0F2"
         ),
+
         /* Asset Code */
         Expanded(child: Container()),
+
         DbdStyle.textStylePortfolio(portfolioData[index]["balance"], "#00FFE8") /* Balance */
       ],
     )
@@ -341,8 +327,8 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
 Widget rowDecorationStyle({Widget child, double marginTop: 15}){
   return Container(
     margin: EdgeInsets.only(top: marginTop),
-    padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-    height: 60,
+    padding: EdgeInsets.fromLTRB(15, 9, 15, 9 ),
+    height: 70,
     decoration: BoxDecoration(
       boxShadow: [
         BoxShadow(
@@ -358,7 +344,7 @@ Widget rowDecorationStyle({Widget child, double marginTop: 15}){
   );
 }
 
-class CustomBottomAppBar extends StatelessWidget{
+class MyBottomAppBar extends StatelessWidget{
   final HomeModel model;
   final PostRequest postRequest;
   final Function scanReceipt;
@@ -368,7 +354,7 @@ class CustomBottomAppBar extends StatelessWidget{
   final Function fillAddress;
   final Function contactPiker;
   
-  CustomBottomAppBar({
+  MyBottomAppBar({
     this.model, this.postRequest, this.scanReceipt, this.resetDbdState,
     this.toReceiveToken, this.opacityController, this.fillAddress, this.contactPiker
   });
@@ -406,7 +392,64 @@ class CustomBottomAppBar extends StatelessWidget{
                       context: context, 
                       builder: (context) {
                       return Container(
+                        decoration: BoxDecoration(
+                          color: hexaCodeToColor(AppColors.bgdColor)
+                        ),
                         height: 153,
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: MyText(
+                                color: "#FFFFFF",
+                                top: 20,
+                                bottom: 33,
+                                text: "Transaction options",
+                              ),
+                            ),
+                            
+                            Row(
+                              children: [
+
+                                Expanded(
+                                  child: MyIconButton(
+                                    icon: LineAwesomeIcons.qrcode,
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context, 
+                                        MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
+                                      );
+                                    },
+                                  )
+                                ),
+
+                                Expanded(
+                                  child: MyIconButton(
+                                    icon: LineAwesomeIcons.qrcode,
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context, 
+                                        MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
+                                      );
+                                    },
+                                  )
+                                ),
+
+                                Expanded(
+                                  child: MyIconButton(
+                                    icon: LineAwesomeIcons.qrcode,
+                                    onPressed: () async {
+                                      Navigator.push(
+                                        context, 
+                                        MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
+                                      );
+                                    },
+                                  )
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       );
                     });
                     //   Navigator.push(
@@ -514,7 +557,7 @@ class MyHomeAppBar extends StatelessWidget{
               alignment: Alignment.centerRight,
               child: Icon(
                 LineAwesomeIcons.bell,
-                color: hexaCodeToColor(AppColors.textColor),
+                color: Colors.white,
                 size: 30,
               ),
             )
@@ -553,8 +596,7 @@ LineChartData mainData() {
       bottomTitles: SideTitles(
         showTitles: true,
         reservedSize: 22,
-        textStyle:
-            const TextStyle(color: Color(0xff68737d), fontWeight: FontWeight.bold, fontSize: 16),
+        textStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
         getTitles: (value) {
           switch (value.toInt()) {
             case 2:
@@ -570,8 +612,8 @@ LineChartData mainData() {
       ),
       leftTitles: SideTitles(
         showTitles: true,
-        textStyle: const TextStyle(
-          color: Color(0xff67727d),
+        textStyle: TextStyle(
+          color: hexaCodeToColor(AppColors.textColor),
           fontWeight: FontWeight.bold,
           fontSize: 15,
         ),
