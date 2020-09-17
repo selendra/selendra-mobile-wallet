@@ -66,8 +66,8 @@ class SendWalletOption extends StatelessWidget {
                               offset: Offset(2.0, 5.0),
                             ),
                             (context) async {
-                              response = await TrxOption.scanQR(context, _portfolioList, _resetDbdState);
-                              if (response == null) Navigator.pop(context);
+                              // response = await TrxOptionMethod.scanQR(context, _portfolioList, _resetDbdState);
+                              // if (response == null) Navigator.pop(context);
                             },
                           ),
                         ),
@@ -90,7 +90,7 @@ class SendWalletOption extends StatelessWidget {
                               offset: Offset(2.0, 5.0),
                             ),
                             (context) async {
-                              TrxOption.navigateFillAddress(context, this._portfolioList, this._resetDbdState);
+                              TrxOptionMethod.navigateFillAddress(context, this._portfolioList, this._resetDbdState);
                             },
                           ),
                         )
@@ -111,7 +111,7 @@ class SendWalletOption extends StatelessWidget {
                             offset: Offset(2.0, 5.0),
                           ),
                           (context) async {
-                            TrxOption.selectContact(context, _postRequest,this._portfolioList, this._resetDbdState);
+                            // TrxOptionMethod.selectContact(context, _postRequest,this._portfolioList, this._resetDbdState);
                           },
                         ),
                       )

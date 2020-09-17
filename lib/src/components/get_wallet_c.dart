@@ -1,7 +1,7 @@
 import 'package:wallet_apps/index.dart';
 import 'dart:ui';
 
-class GetWalletFunction {
+class GetWalletMethod {
 
   void platformChecker(BuildContext context){
     if(Platform.isAndroid) androidHighBright(context);

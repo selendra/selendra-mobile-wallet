@@ -267,7 +267,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     getUserData();
   }
 
-  void toReceiveToken(BuildContext context) async { /* Navigate Receive Token */
+  void toReceiveToken() async { /* Navigate Receive Token */
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => GetWallet(
@@ -315,8 +315,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           backgroundColor: hexaCodeToColor(AppColors.secondary),
           child: SvgPicture.asset('assets/sld_qr.svg', width: 30, height: 30),
           onPressed: () async {
-            _backend.mapData = await TrxOption.scanQR(context, _homeModel.portfolioList, resetState);
-            // if (_backend == null) Navigator.pop(context);
+            TrxOptionMethod.scanQR(context, _homeModel.portfolioList, resetState);
           },
         )
       ),

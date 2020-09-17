@@ -268,18 +268,23 @@ class BodyScaffold extends StatelessWidget{
 class MyIconButton extends StatelessWidget{
 
   final IconData icon;
+  final double iconSize;
   final Function onPressed;
+  final EdgeInsetsGeometry padding;
 
   MyIconButton({
     this.icon,
+    this.iconSize = 30,
+    this.padding = const EdgeInsets.all(0),
     this.onPressed
   });
 
   Widget build(BuildContext context) {
     return IconButton(
+      padding: padding,
       icon: Icon(
         this.icon,
-        size: 30.0,
+        size: iconSize,
         color: Colors.white
       ),
       onPressed: onPressed,

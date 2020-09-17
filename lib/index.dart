@@ -62,14 +62,11 @@ export 'package:wallet_apps/theme/style.dart';
 
 //Component
 export 'package:wallet_apps/src/components/animation.dart';
-export 'package:wallet_apps/src/utils/instance_trx_order.dart';
+export 'package:wallet_apps/src/components/get_wallet_c.dart';
 export 'package:wallet_apps/src/components/trx_component.dart';
 export 'package:wallet_apps/src/components/platform_specific/android_native.dart';
 export 'package:wallet_apps/src/components/platform_specific/ios_native.dart';
 export 'package:wallet_apps/src/components/my_input.dart';
-
-/* Utils */
-export 'package:wallet_apps/src/utils/get_wallet_fns.dart';
 
 // Backend
 export 'package:wallet_apps/src/backend/api.dart';
@@ -138,7 +135,8 @@ export 'package:wallet_apps/src/screen/home/home_body.dart';
 
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/submit_trx.dart';
 export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet.dart';
-export 'package:wallet_apps/src/screen/home/send_wallet_option/send_wallet_option.dart';
+export 'package:wallet_apps/src/screen/home/trx_option/send_wallet_option.dart';
+export 'package:wallet_apps/src/screen/home/trx_option/trx_option.dart';
 export 'package:wallet_apps/src/screen/home/home.dart';
 export 'package:wallet_apps/src/screen/home/home_body.dart';
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/fill_pin_dialog.dart';
@@ -154,6 +152,7 @@ export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet_body.dart';
 
 /* Component File */
 export 'package:wallet_apps/src/components/component.dart';
+export 'package:wallet_apps/src/components/trx_option_c.dart';
 export 'package:wallet_apps/src/components/home_c.dart';
 export 'package:wallet_apps/src/components/menu_component.dart';
 export 'package:wallet_apps/src/components/main_component.dart';
@@ -251,4 +250,7 @@ export 'package:wallet_apps/src/model/model_asset.dart';
 export 'package:wallet_apps/src/model/add_phone_number.dart';
 
 export 'package:wallet_apps/src/model/sms_code_model.dart';
+
+/* ---------------------Util------------------------ */
+export 'package:wallet_apps/src/utils/instance_trx_order.dart';
 

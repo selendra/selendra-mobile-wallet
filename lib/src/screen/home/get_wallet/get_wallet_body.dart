@@ -1,90 +1,127 @@
 import 'package:wallet_apps/index.dart';
 
+class GetWalletBody extends StatelessWidget{
+
+  final GlobalKey keyQrShare;
+  final GlobalKey<ScaffoldState> globalKey;
+  final String wallet;
+  final GetWalletMethod method;
+
+  GetWalletBody({
+    this.keyQrShare,
+    this.globalKey,
+    this.wallet,
+    this.method
+  });
+  
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+
+        MyAppBar(
+          title: "Receive token",
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+
+        wallet == null 
+        ? Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset('assets/not_found.svg', width: 285, height: 278),
+              MyText(
+                top: 10,
+                text: "No wallet"
+              )
+            ],
+          )
+        )
+        : Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: hexaCodeToColor(AppColors.cardColor),
+                ),
+                margin: EdgeInsets.only(bottom: 45.0, left: 16.0, right: 16.0), 
+                child: Container( /* Generate QR Code */
+                  width: double.infinity,
+                  padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      qrCodeGenerator(wallet, AppConfig.logoQrEmbedded, keyQrShare),
+                      MyText(
+                        top: 27,
+                        width: 327,
+                        text: '$wallet',
+                        color: AppColors.secondary_text,
+                      )
+                    ],
+                  ),
+                )
+              ),
+
+              Container(
+                margin: EdgeInsets.only(bottom: 21),
+                child: FlatButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.share, color: Colors.white, size: 30),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: MyText(
+                          text: "SHARE MY CODE",
+                          color: "#FFFFFF"
+                        ),
+                      )
+                    ],
+                  ),
+                  onPressed: (){
+                    method.qrShare(keyQrShare, wallet);
+                  },
+                )
+              ),
+              FlatButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.content_copy, color: Colors.white, size: 30),
+                    Container(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: MyText(
+                        text: "COPY ADDRESS",
+                          color: "#FFFFFF"
+                      )
+                    )
+                  ],
+                ),
+                onPressed: (){
+                  Clipboard.setData(ClipboardData(text: wallet)); /* Copy Text */
+                  method.snackBar('Copied', globalKey);
+                },
+              )
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+
+
 Widget getWalletBody(
   BuildContext context,
-  GlobalKey<ScaffoldState> _globalKey,
-  GlobalKey _keyQrShare,
-  String _wallet,
-  GetWalletFunction _function
+  GlobalKey<ScaffoldState> globalKey,
+  GlobalKey keyQrShare,
+  String wallet,
+  GetWalletMethod method
 ){
-  return Column(
-    children: <Widget>[
-      containerAppBar( /* AppBar */
-        context, 
-        Row(
-          children: <Widget>[
-            iconAppBar( /* Arrow Back Button */
-              Icon(Icons.arrow_back, color: Colors.white,),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              (){
-                _function.popScreen(context);
-              },
-              context: context
-            ),
-            containerTitle("Receive Token", double.infinity, Colors.white, FontWeight.w400)
-          ],
-        )
-      ),
-      _wallet == null 
-      ? Expanded(child: Center(child: Text("No Wallet", style: TextStyle(fontSize: 20.0),)),) 
-      : Column(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5.0),
-              border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
-              color: hexaCodeToColor(AppConfig.darkBlue50),
-            ),
-            margin: EdgeInsets.only(top: 40.0, bottom: 40.0), 
-            child: Container( /* Generate QR Code */
-              width: double.infinity,
-              padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  qrCodeGenerator(_wallet, AppConfig.logoQrEmbedded, _keyQrShare),
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text('$_wallet',textAlign: TextAlign.center,)
-                  )
-                ],
-              ),
-            )
-          ),
-          FlatButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.share, color: Colors.white,),
-                Container(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text("SHARE MY CODE", style: TextStyle(color: Colors.white),),
-                )
-              ],
-            ),
-            onPressed: (){
-              _function.qrShare(_keyQrShare, _wallet);
-            },
-          ),
-          FlatButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.content_copy, color: Colors.white,),
-                Container(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text("COPY ADDRESS", style: TextStyle(color: Colors.white),),
-                )
-              ],
-            ),
-            onPressed: (){
-              Clipboard.setData(ClipboardData(text: _wallet)); /* Copy Text */
-              _function.snackBar('Copied', _globalKey);
-            },
-          )
-        ],
-      )
-    ],
-  );
+  ;
 }

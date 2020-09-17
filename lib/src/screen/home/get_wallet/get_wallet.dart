@@ -15,26 +15,32 @@ class GetWalletState extends State<GetWallet>{
   
   String _brightnessLevel = "Unkown brigtness level";
 
-  final _globalKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _globalKey;
 
   GlobalKey _keyQrShare = GlobalKey();
 
   dynamic result;
 
-  GetWalletFunction _function = GetWalletFunction();
+  GetWalletMethod _method = GetWalletMethod();
 
   @override
   void initState() {
+    _globalKey = GlobalKey<ScaffoldState>();
     AppServices.noInternetConnection(_globalKey);
-    _function.platformChecker(context);
+    _method.platformChecker(context);
     super.initState();
   }
   
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      body: scaffoldBGDecoration(
-        child: getWalletBody(context, _globalKey, _keyQrShare, widget.wallet, _function)
+      body: BodyScaffold(
+        child: GetWalletBody(
+          keyQrShare: _keyQrShare,
+          globalKey: _globalKey,
+          wallet: widget.wallet,
+          method: _method,
+        )
       ),
     );
   }
