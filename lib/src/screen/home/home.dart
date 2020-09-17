@@ -281,6 +281,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     else await IOSPlatform.resetBrightness(IOSPlatform.defaultBrightnessLvl);
   }
 
+  void openMyDrawer(){
+    _homeModel.scaffoldKey.currentState.openDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -329,6 +333,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         resetDbdState: resetState,
         toReceiveToken: toReceiveToken,
         opacityController: opacityController,
+        openDrawer: openMyDrawer,
       )
     );
   }

@@ -261,6 +261,7 @@ Widget rowDecorationStyle({Widget child, double marginTop: 15}){
 }
 
 class MyBottomAppBar extends StatelessWidget{
+
   final HomeModel model;
   final PostRequest postRequest;
   final Function scanReceipt;
@@ -269,15 +270,17 @@ class MyBottomAppBar extends StatelessWidget{
   final Function opacityController;
   final Function fillAddress;
   final Function contactPiker;
+  final Function openDrawer;
   
   MyBottomAppBar({
     this.model, this.postRequest, this.scanReceipt, this.resetDbdState,
-    this.toReceiveToken, this.opacityController, this.fillAddress, this.contactPiker
+    this.toReceiveToken, this.opacityController, this.fillAddress, this.contactPiker,
+    this.openDrawer
   });
   
   Widget build(BuildContext context){
     return Container(
-      color: hexaCodeToColor(AppColors.bgdColor),
+      color: Colors.transparent,
       child: BottomAppBar(
         shape: CircularNotchedRectangle(),
         child: Container(
@@ -285,30 +288,11 @@ class MyBottomAppBar extends StatelessWidget{
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              // Container(
-              //   alignment: Alignment.center,
-              //   margin: EdgeInsets.only(left: 36.0),
-              //   child: IconButton(
-              //     alignment: Alignment.center,
-              //     color: Colors.white,
-              //     icon: Icon(LineAwesomeIcons.telegram),
-              //     onPressed: () async {
-              //       Navigator.push(
-              //         context, 
-              //         MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
-              //       );
-              //     }
-              //   ),
-              // ),
               Expanded(
                 child: MyIconButton(
                   icon: LineAwesomeIcons.telegram,
                   onPressed: () async {
                     MyBottomSheet().bottomSheet(context: context, portfolioList: model.portfolioList, resetHomeData: resetDbdState);
-                    //   Navigator.push(
-                    //   context, 
-                    //   MaterialPageRoute(builder: (context) => SendWalletOption(model.portfolioList, resetDbdState))
-                    // );
                   },
                 )
               ),
@@ -335,8 +319,7 @@ class MyBottomAppBar extends StatelessWidget{
               Expanded(
                 child: MyIconButton(
                   icon: LineAwesomeIcons.list,
-                  onPressed: () async {
-                  },
+                  onPressed: openDrawer,
                 ),
               )
             ],
