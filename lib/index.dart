@@ -154,7 +154,7 @@ export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet_body.dart';
 export 'package:wallet_apps/src/components/component.dart';
 export 'package:wallet_apps/src/components/trx_option_c.dart';
 export 'package:wallet_apps/src/components/home_c.dart';
-export 'package:wallet_apps/src/components/menu_component.dart';
+export 'package:wallet_apps/src/components/menu_c.dart';
 export 'package:wallet_apps/src/components/main_component.dart';
 
 /* Menu Screen */
@@ -175,10 +175,10 @@ export 'package:wallet_apps/src/screen/home/menu/edit_profile/edit_profile_body.
 
 // Transaction Activiity
 export 'package:wallet_apps/src/screen/home/menu/trx_activity/reuse_activity_widget.dart';
-export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity.dart';
-export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity_details/transaction_activity_details.dart';
-export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity_body.dart';
-export 'package:wallet_apps/src/screen/home/menu/trx_activity/transaction_activity_details/transaction_activity_details_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/trx_activity.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/trx_activity_details/transaction_activity_details.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/trx_activity_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/trx_activity/trx_activity_details/transaction_activity_details_body.dart';
 
 // Transaction History
 export 'package:wallet_apps/src/screen/home/menu/trx_history/tab_bars_list/all_trx.dart';
@@ -235,7 +235,7 @@ export 'package:wallet_apps/src/model/model_scan_invoice.dart';
 export 'package:wallet_apps/src/model/model_get_wallet_from_contact.dart';
 
 /* Menu */
-export 'package:wallet_apps/src/model/menu.dart';
+export 'package:wallet_apps/src/model/menu_m.dart';
 
 // Change PIN
 export 'package:wallet_apps/src/model/model_change_pin.dart';

@@ -1,14 +1,14 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
-class TransactionActivity extends StatefulWidget {
+class TrxActivity extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return TransactionActivityState();
+    return TrxActivityState();
   }
 }
 
-class TransactionActivityState extends State<TransactionActivity> {
+class TrxActivityState extends State<TrxActivity> {
 
   final RefreshController _refreshController = RefreshController();
 

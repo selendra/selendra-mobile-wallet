@@ -141,7 +141,7 @@ class MenuState extends State<Menu> {
   void trxActivity() { 
     widget.drawerCallBack(_result);
     Navigator.pop(context);
-    Navigator.push(context, transitionRoute(TransactionActivity(), sigmaX: 15.0, sigmaY: 15.0));
+    Navigator.push(context, transitionRoute(TrxActivity(), sigmaX: 15.0, sigmaY: 15.0));
   }
 
   void wallet() async { /* User Get Wallet */ 
@@ -260,7 +260,19 @@ class MenuState extends State<Menu> {
   Widget build(BuildContext context){
     return Drawer(
       child: Container(
-        color: hexaCodeToColor(AppColors.bgdColor)
+        color: hexaCodeToColor(AppColors.bgdColor),
+        child: MenuBody(
+          isHaveWallet: isHaveWallet, 
+          userInfo: widget._userData,
+          model: _menuModel ,
+          packageInfo: widget._packageInfo,
+          editProfile: editProfile,  trxHistory: trxHistroy,
+          trxActivity: trxActivity, wallet: wallet, 
+          changePin: changePin, password: password,
+          addAssets: addAssets, signOut: signOut, 
+          snackBar: snackBar, popScreen: popScreen,
+          switchBio: switchBiometric,
+        ),
       ),
     );
   //   Scaffold(
