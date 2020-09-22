@@ -14,11 +14,13 @@ class MenuBody extends StatelessWidget{
   final Function addAssets; final Function signOut;
   final Function snackBar; final Function popScreen;
   final Function switchBio;
+  final Function callBack;
 
   MenuBody({
     this.isHaveWallet, this.userInfo, this.model, this.packageInfo, this.editProfile,
     this.trxHistory, this.trxActivity, this.addAssets, this.changePin, this.password, this.wallet,
-    this.signOut, this.snackBar,  this.popScreen, this.switchBio
+    this.signOut, this.snackBar,  this.popScreen, this.switchBio,
+    this.callBack
   });
 
   Widget build(BuildContext context){
@@ -27,20 +29,13 @@ class MenuBody extends StatelessWidget{
 
         MenuHeader(),
 
-        MyText(
-          text: 'User name'
-        ),
-
-        MyText(
-          text: "username@gmail.com"
-        ),
-
+        // History
         MenuSubTitle(index: 0),
 
         MyListTile(
           index: 0,
           subIndex: 0,
-          onTap: (){
+          onTap: () {
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => TrxHistory("hello"))
@@ -51,7 +46,9 @@ class MenuBody extends StatelessWidget{
         MyListTile(
           index: 0,
           subIndex: 1,
-          onTap: (){
+          onTap: () {
+            // callBack(_result);
+            Navigator.pop(context);
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => TrxActivity())
@@ -59,6 +56,7 @@ class MenuBody extends StatelessWidget{
           },
         ),
 
+        // Wallet
         MenuSubTitle(index: 1),
 
         MyListTile(
@@ -70,7 +68,100 @@ class MenuBody extends StatelessWidget{
         MyListTile(
           index: 1,
           subIndex: 1,
-          onTap: (){},
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => AddAsset())
+            );
+          },
+        ),
+
+        // Security
+        MenuSubTitle(index: 2),
+
+        MyListTile(
+          index: 2,
+          subIndex: 0,
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => ChangePin())
+            );
+          },
+        ),
+
+        MyListTile(
+          index: 2,
+          subIndex: 1,
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => ChangePassword())
+            );
+          },
+        ),
+
+        MyListTile(
+          enable: false,
+          index: 2,
+          subIndex: 2,
+          trailing: Switch(
+            value: model.switchBio,
+            onChanged: switchBio,
+          ),
+          onTap: null,
+        ),
+
+        // Account
+        MenuSubTitle(index: 3),
+
+        MyListTile(
+          index: 3,
+          subIndex: 0,
+          onTap: () async {
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                  title: Center(
+                    child: textScale(
+                      text: "Are you sure you want to exit?",
+                      hexaColor: "#000000",
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  actions: [
+                    FlatButton(
+                      child: Text("No"),
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                    ),
+                    FlatButton(
+                      child: Text("Yes"),
+                      onPressed: () async {
+                        dialogLoading(context, content: "Logging out");
+                        AppServices.clearStorage();
+                        await Future.delayed(Duration(seconds: 1), () {
+                          // Close Button
+                          Navigator.pop(context);
+                          // Close Dialog Loading
+                          Navigator.pop(context);
+                          // Close Drawer
+                          Navigator.pop(context);
+                          callBack({'log_out': true});
+                        });
+                      },
+                    )
+                  ],
+                );
+              }
+            );
+          },
         ),
       ]
     );

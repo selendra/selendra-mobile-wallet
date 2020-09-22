@@ -45,7 +45,17 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       // fabsAnimation();
     } 
 
+    login();
+
     super.initState();
+  }
+
+  void login() async {
+    _backend.response = await _postRequest.loginByPhone("15894139", "123456");
+
+    _backend.mapData = json.decode(_backend.response.body);
+
+    await StorageServices.setData(_backend.mapData, 'user_token');
   }
 
   // Initialize Fabs Animation
@@ -300,6 +310,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ),
 
       body: BodyScaffold(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: SmartRefresher(
           physics: BouncingScrollPhysics(),
           controller: _homeModel.refreshController,

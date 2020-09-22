@@ -263,6 +263,8 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     return Scaffold(
       key: _modelSignUp.globalKey,
       body: BodyScaffold(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: DefaultTabController(
           initialIndex: 0,
           length: 2,

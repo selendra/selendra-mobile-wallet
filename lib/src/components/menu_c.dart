@@ -4,83 +4,85 @@ import 'package:wallet_apps/index.dart';
 
 class MenuHeader extends StatelessWidget{
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-          width: 92,
-            height: 92,
-            decoration: BoxDecoration(
-              color: hexaCodeToColor(AppColors.cardColor),
-              borderRadius: BorderRadius.circular(60),
-            ),
-          )
-        ),
-
-        Align(
-          alignment: Alignment.topCenter,
-          child: GestureDetector(
-            onTap: (){
-            },
+    return SizedBox(
+      height: 138,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
             child: Container(
-              width: 30,
-              height: 30,
+              width: 92,
+              height: 92,
               decoration: BoxDecoration(
-                color: hexaCodeToColor(AppColors.secondary),
-                borderRadius: BorderRadius.circular(40)
+                color: hexaCodeToColor(AppColors.cardColor),
+                borderRadius: BorderRadius.circular(60),
               ),
-              child: Icon(LineAwesomeIcons.edit, color: Colors.white),
-            ),
+            )
+          ),
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyText(
+                text: 'User name'
+              ),
+
+              MyText(
+                text: "username@gmail.com"
+              ),
+            ],
           )
-        ),
-      ],
+        ],
+      )
     );
   }
 }
 
 class MenuSubTitle extends StatelessWidget{
-
-  // final String title;
-  // final String subTitle;
-  // final IconData icon;
+  
   final int index;
 
   MenuSubTitle({
-    // this.title,
-    // this.subTitle,
-    // this.icon
     this.index
   });
 
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Divider(
-          color: hexaCodeToColor(AppColors.textColor),
-        ),
-        MyText(
-          text: MenuModel.listTile[index]['title'],
-          color: AppColors.secondary_text,
-        ),
-      ],
+    return Container(
+      // margin: EdgeInsets.only(),
+      padding: EdgeInsets.only(left: 16.0),
+      color: hexaCodeToColor(AppColors.cardColor),
+      height: 35,
+      width: double.infinity,
+      alignment: Alignment.centerLeft,
+      child: MyText(
+        text: MenuModel.listTile[index]['title'],
+        color: AppColors.secondary_text,
+        textAlign: TextAlign.start,
+      ),
     );
   }
 }
 
 class MyListTile extends StatelessWidget{
 
-  Function onTap;
-  final int index; final int subIndex;
+  final Function onTap;
+  final int index; 
+  final int subIndex;
+  final Widget trailing;
+  final bool enable;
 
   MyListTile({
     @required this.index,
     @required this.subIndex,
+    this.enable = true,
+    this.trailing,
     @required this.onTap
   });
 
   Widget build(BuildContext context) {
     return ListTile(
+      enabled: enable,
       onTap: onTap,
       leading: Icon(
         MenuModel.listTile[index]['sub'][subIndex]['icon'], 
@@ -90,8 +92,10 @@ class MyListTile extends StatelessWidget{
       title: MyText(
         left: 17,
         text: MenuModel.listTile[index]['sub'][subIndex]['subTitle'],
-        color: "#FFFFFF"
+        color: "#FFFFFF",
+        textAlign: TextAlign.left,
       ),
+      trailing: trailing,
     );
   }
 }

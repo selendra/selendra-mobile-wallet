@@ -36,6 +36,8 @@ class SlideBuilderState extends State<SlideBuilder>{
   Widget build(BuildContext context){
     return Scaffold(
       body: BodyScaffold(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
             PageView.builder(

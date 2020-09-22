@@ -97,12 +97,12 @@ class MyText extends StatelessWidget{
 
   final String text; final String color; final double fontSize; final FontWeight fontWeight;
   final double top; final double right; final double bottom; final double left;
-  final double width; final double height;
+  final double width; final double height; final TextAlign textAlign;
 
   MyText({
     this.text, this.color = AppColors.textColor, this.fontSize = 18, this.fontWeight = FontWeight.normal,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
-    this.width, this.height
+    this.width, this.height, this.textAlign = TextAlign.center
   });
   
   Widget build(BuildContext context){
@@ -118,7 +118,7 @@ class MyText extends StatelessWidget{
               color: Color(AppUtils.convertHexaColor(this.color)),
               fontSize: this.fontSize
             ),
-            textAlign: TextAlign.center,
+            textAlign: this.textAlign
           )
       ),
     );
@@ -241,22 +241,22 @@ class MyAppBar extends StatelessWidget{
 class BodyScaffold extends StatelessWidget{
 
   final Widget child;
+  final double width;
+  final double height;
 
   BodyScaffold({
     this.child,
-    Widget floatingonPressedButton,
-    FloatingActionButtonLocation floatingonPressedButtonLocation,
-    FloatingActionButtonAnimator floatingonPressedButtonAnimator
+    this.height,
+    this.width
   });
   
   Widget build(BuildContext context){
-    print(MediaQuery.of(context).size.width);
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.width,
+          width: width,
           // Minus 20 Pixel For Make Safe Area Bottom
-          height: MediaQuery.of(context).size.height - 20,
+          height: height - 20,
           color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
           child: this.child
         )

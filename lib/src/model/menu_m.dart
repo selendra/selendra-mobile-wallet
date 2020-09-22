@@ -24,7 +24,8 @@ class MenuModel {
       'title': "Security",
       'sub': [
         {'icon': LineAwesomeIcons.history, 'subTitle': 'PIN'},
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Password'}
+        {'icon': LineAwesomeIcons.history, 'subTitle': 'Password'},
+        {'icon': LineAwesomeIcons.history, 'subTitle': 'Finger print'}
       ]
     },
     {
