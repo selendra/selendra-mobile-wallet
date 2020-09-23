@@ -1,6 +1,5 @@
 import 'package:wallet_apps/index.dart';
 import 'package:http/http.dart' as _http;
-import 'package:wallet_apps/src/model/sms_code_model.dart';
 
 class PostRequest {
 

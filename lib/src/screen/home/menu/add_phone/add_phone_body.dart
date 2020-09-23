@@ -1,5 +1,4 @@
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/model/add_phone_number.dart';
 
 Widget addPhoneBody(
   BuildContext context,

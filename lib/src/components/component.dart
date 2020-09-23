@@ -254,9 +254,9 @@ class BodyScaffold extends StatelessWidget{
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
-          width: width,
+          width: MediaQuery.of(context).size.width,
           // Minus 20 Pixel For Make Safe Area Bottom
-          height: height - 20,
+          height: MediaQuery.of(context).size.height - 20,
           color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
           child: this.child
         )
@@ -288,6 +288,71 @@ class MyIconButton extends StatelessWidget{
         color: Colors.white
       ),
       onPressed: onPressed,
+    );
+  }
+}
+
+class MyCircularChart extends StatelessWidget{
+
+  final String amount;
+  final GlobalKey<AnimatedCircularChartState> chartKey;
+  final EdgeInsetsGeometry margin;
+  final List<CircularSegmentEntry> listChart;
+  final Alignment alignment;
+
+  MyCircularChart({
+    this.amount,
+    this.chartKey,
+    this.margin = const EdgeInsets.only(bottom: 24.0),
+    this.alignment,
+    this.listChart
+  });
+
+  Widget build(BuildContext context) {
+    return Container(
+      margin: margin,
+      alignment: alignment,
+      child: AnimatedCircularChart(
+        holeRadius: 70.0,
+        key: chartKey,
+        duration: Duration(seconds: 1),
+        // startAngle: 125.0,
+        size: Size(300.0, 250.0),
+        percentageValues: true,
+        holeLabel: amount,
+        labelStyle:TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+        edgeStyle: SegmentEdgeStyle.flat,
+        initialChartData: <CircularStackEntry>[
+          CircularStackEntry(
+            listChart,
+            rankKey: 'progress',
+          ),
+        ],
+        chartType: CircularChartType.Radial,
+      )
+    );
+  }
+}
+
+class MyRowBuilder extends StatelessWidget{
+
+  final List<dynamic> data;
+  final EdgeInsetsGeometry margin;
+
+  MyRowBuilder({@required this.data, this.margin});
+  
+  Widget build(BuildContext context){
+    return Container(
+      margin: margin,
+      child: ListView.builder(
+        padding: EdgeInsets.all(0),
+        shrinkWrap: true,
+        itemCount: data.length,
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return portFolioItemRow(data, index);
+        },
+      )
     );
   }
 }

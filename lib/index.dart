@@ -51,7 +51,6 @@ export 'package:wallet_apps/src/service/services.dart';
 export 'package:wallet_apps/theme/string.dart';
 export 'package:wallet_apps/src/utils/app_utils.dart';
 export 'package:wallet_apps/theme/color.dart';
-export 'package:wallet_apps/src/components/reuse_widget.dart';
 export 'package:wallet_apps/src/bloc/bloc.dart';
 export 'package:wallet_apps/src/bloc/bloc_provider.dart';
 export 'package:wallet_apps/src/bloc/validator_mixin.dart';
@@ -67,6 +66,9 @@ export 'package:wallet_apps/src/components/trx_component.dart';
 export 'package:wallet_apps/src/components/platform_specific/android_native.dart';
 export 'package:wallet_apps/src/components/platform_specific/ios_native.dart';
 export 'package:wallet_apps/src/components/my_input.dart';
+export 'package:wallet_apps/src/components/bottom_sheet.dart';
+export 'package:wallet_apps/src/components/sms_component.dart';
+export 'package:wallet_apps/src/components/reuse_widget.dart';
 
 // Backend
 export 'package:wallet_apps/src/backend/api.dart';
@@ -128,15 +130,14 @@ export 'package:wallet_apps/src/screen/main/carousel/widget/slide_item.dart';
 export 'package:wallet_apps/src/screen/main/carousel/slider_builder.dart';
 
 /* Home Screen */
-
-// Dashbaord
 export 'package:wallet_apps/src/screen/home/home.dart';
 export 'package:wallet_apps/src/screen/home/home_body.dart';
+export 'package:wallet_apps/src/screen/home/portfolio/portfolio.dart';
+export 'package:wallet_apps/src/screen/home/portfolio/portfolio_body.dart';
 
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/submit_trx.dart';
 export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet.dart';
 export 'package:wallet_apps/src/screen/home/trx_option/send_wallet_option.dart';
-export 'package:wallet_apps/src/screen/home/trx_option/trx_option.dart';
 export 'package:wallet_apps/src/screen/home/home.dart';
 export 'package:wallet_apps/src/screen/home/home_body.dart';
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/fill_pin_dialog.dart';
@@ -219,37 +220,40 @@ export 'package:wallet_apps/src/screen/home/menu/add_asset/add_asset_body.dart';
 
 /* Main Screen */
 
-export 'package:wallet_apps/src/model/sign_up.dart';
-export 'package:wallet_apps/src/model/model_user_info.dart';
-export 'package:wallet_apps/src/model/model_forgot_pass.dart';
-export 'package:wallet_apps/src/model/slide.dart';
+export 'package:wallet_apps/src/models/sign_up.dart';
+export 'package:wallet_apps/src/models/model_user_info.dart';
+export 'package:wallet_apps/src/models/model_forgot_pass.dart';
+export 'package:wallet_apps/src/models/slide.dart';
+export 'package:wallet_apps/src/models/sms_code_model.dart';
 
 /* Home Screen */
+export 'package:wallet_apps/src/models/portfolio_m.dart';
 
 // Dashboard
-export 'package:wallet_apps/src/model/model_login.dart';
-export 'package:wallet_apps/src/model/model_document.dart';
-export 'package:wallet_apps/src/model/home_model.dart';
-export 'package:wallet_apps/src/model/model_scan_pay.dart';
-export 'package:wallet_apps/src/model/model_scan_invoice.dart';
-export 'package:wallet_apps/src/model/model_get_wallet_from_contact.dart';
+export 'package:wallet_apps/src/models/model_login.dart';
+export 'package:wallet_apps/src/models/model_document.dart';
+export 'package:wallet_apps/src/models/home_m.dart';
+export 'package:wallet_apps/src/models/model_scan_pay.dart';
+export 'package:wallet_apps/src/models/model_scan_invoice.dart';
+export 'package:wallet_apps/src/models/model_get_wallet_from_contact.dart';
 
 /* Menu */
-export 'package:wallet_apps/src/model/menu_m.dart';
+export 'package:wallet_apps/src/models/menu_m.dart';
+import 'package:wallet_apps/src/models/add_phone_number.dart';
 
 // Change PIN
-export 'package:wallet_apps/src/model/model_change_pin.dart';
+export 'package:wallet_apps/src/models/model_change_pin.dart';
 
 // Change Password
-export 'package:wallet_apps/src/model/model_change_password.dart';
+export 'package:wallet_apps/src/models/model_change_password.dart';
 
 // Add Asset
-export 'package:wallet_apps/src/model/model_asset.dart';
+export 'package:wallet_apps/src/models/model_asset.dart';
 
 // Add Phone
-export 'package:wallet_apps/src/model/add_phone_number.dart';
+export 'package:wallet_apps/src/models/add_phone_number.dart';
 
-export 'package:wallet_apps/src/model/sms_code_model.dart';
+export 'package:wallet_apps/src/models/sms_code_model.dart';
 
 /* ---------------------Util------------------------ */
 export 'package:wallet_apps/src/utils/instance_trx_order.dart';

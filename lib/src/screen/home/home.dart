@@ -1,6 +1,5 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/model/portfolio.dart';
 
 class Home extends StatefulWidget {
   State<StatefulWidget> createState() {
@@ -20,7 +19,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   PackageInfo _packageInfo;
 
-  Portfolio _portfolio = Portfolio();
+  PortfolioM _portfolio = PortfolioM();
 
   // FlareControls _flareControls = FlareControls();
 
@@ -33,7 +32,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       _homeModel.scaffoldKey = GlobalKey<ScaffoldState>();
       _homeModel.total = 0;
       _homeModel.circularChart = [
-        CircularSegmentEntry(_homeModel.remainDataChart, hexaCodeToColor(AppColors.cardColor))
+        CircularSegmentEntry(_homeModel.emptyChartData, hexaCodeToColor(AppColors.cardColor))
       ];
       AppServices.noInternetConnection(_homeModel.scaffoldKey);
       _homeModel.userData = {};
@@ -174,20 +173,19 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           )
         );
       }
-      _homeModel.remainDataChart -= _homeModel.total;
+      _homeModel.emptyChartData -= _homeModel.total;
       _homeModel.circularChart.add( // Add Remain Empty Data
         CircularSegmentEntry(
-          _homeModel.remainDataChart,
+          _homeModel.emptyChartData,
           hexaCodeToColor(AppColors.cardColor)
         )
       );
 
       _homeModel.chartKey.currentState.updateData([
-        CircularStackEntry(_homeModel.circularChart
-        )
+        CircularStackEntry(_homeModel.circularChart)
       ]);
 
-      _homeModel.remainDataChart = 100.0; // Reset Remain Pie Data
+      _homeModel.emptyChartData = 100.0; // Reset Remain Pie Data
     }
   }
   

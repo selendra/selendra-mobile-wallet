@@ -237,6 +237,7 @@ class MenuState extends State<Menu> {
             snackBar: snackBar, 
             popScreen: popScreen,
             switchBio: switchBiometric,
+            createPin: createPin,
             callBack: widget.callBack
           ),
         ),

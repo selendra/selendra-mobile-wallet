@@ -31,6 +31,7 @@ class MenuModel {
     {
       'title': "Account",
       'sub': [
+        {'icon': LineAwesomeIcons.history, 'subTitle': 'Profile'},
         {'icon': LineAwesomeIcons.history, 'subTitle': 'Log out'},
       ]
     },

@@ -3,38 +3,47 @@
 import 'package:wallet_apps/index.dart';
 
 class MenuHeader extends StatelessWidget{
+
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 138,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              width: 92,
-              height: 92,
-              decoration: BoxDecoration(
-                color: hexaCodeToColor(AppColors.cardColor),
-                borderRadius: BorderRadius.circular(60),
-              ),
+    return Container(
+      margin: EdgeInsets.only(left: 16),
+      child: SizedBox(
+        height: 138,
+        child: Row(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: 60,
+                height: 60,
+                margin: EdgeInsets.only(right: 5),
+                decoration: BoxDecoration(
+                  color: hexaCodeToColor(AppColors.cardColor),
+                  borderRadius: BorderRadius.circular(60),
+                ),
+                child: SvgPicture.asset('assets/male_avatar.svg'),
+              )
+            ),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MyText(
+                  text: 'User name',
+                  color: "#FFFFFF",
+                  fontSize: 16,
+                ),
+
+                MyText(
+                  text: "username@gmail.com",
+                  fontSize: 16,
+                ),
+              ],
             )
-          ),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MyText(
-                text: 'User name'
-              ),
-
-              MyText(
-                text: "username@gmail.com"
-              ),
-            ],
-          )
-        ],
-      )
+          ],
+        )
+      ),
     );
   }
 }
@@ -49,13 +58,13 @@ class MenuSubTitle extends StatelessWidget{
 
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(),
-      padding: EdgeInsets.only(left: 16.0),
+      padding: EdgeInsets.only(left: 16.0, top: 8, bottom: 8),
       color: hexaCodeToColor(AppColors.cardColor),
       height: 35,
       width: double.infinity,
       alignment: Alignment.centerLeft,
       child: MyText(
+        fontSize: 16,
         text: MenuModel.listTile[index]['title'],
         color: AppColors.secondary_text,
         textAlign: TextAlign.start,
@@ -82,6 +91,7 @@ class MyListTile extends StatelessWidget{
 
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.only(left: 30),
       enabled: enable,
       onTap: onTap,
       leading: Icon(
@@ -90,10 +100,10 @@ class MyListTile extends StatelessWidget{
         size: 30,
       ),
       title: MyText(
-        left: 17,
         text: MenuModel.listTile[index]['sub'][subIndex]['subTitle'],
         color: "#FFFFFF",
         textAlign: TextAlign.left,
+        fontSize: 16,
       ),
       trailing: trailing,
     );

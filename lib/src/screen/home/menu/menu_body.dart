@@ -14,12 +14,14 @@ class MenuBody extends StatelessWidget{
   final Function addAssets; final Function signOut;
   final Function snackBar; final Function popScreen;
   final Function switchBio;
+  final Function createPin;
   final Function callBack;
 
   MenuBody({
     this.isHaveWallet, this.userInfo, this.model, this.packageInfo, this.editProfile,
     this.trxHistory, this.trxActivity, this.addAssets, this.changePin, this.password, this.wallet,
     this.signOut, this.snackBar,  this.popScreen, this.switchBio,
+    this.createPin,
     this.callBack
   });
 
@@ -62,7 +64,9 @@ class MenuBody extends StatelessWidget{
         MyListTile(
           index: 1,
           subIndex: 0,
-          onTap: (){},
+          onTap: (){
+            createPin(context);
+          },
         ),
 
         MyListTile(
@@ -117,10 +121,22 @@ class MenuBody extends StatelessWidget{
 
         // Account
         MenuSubTitle(index: 3),
-
+        
         MyListTile(
           index: 3,
           subIndex: 0,
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => ChangePassword())
+            );
+          },
+        ),
+
+        MyListTile(
+          index: 3,
+          subIndex: 1,
           onTap: () async {
             await showDialog(
               context: context,

@@ -70,61 +70,54 @@ class SetConfirmPinState extends State<SetConfirmPin> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _globalKey,
-      body: Stack(
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+      title: Align(
+        alignment: Alignment.center,
+        child: Text("Confirm PIN"),
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-            title: Align(
-              alignment: Alignment.center,
-              child: Text("Confirm PIN"),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                PinPut(
-                  clearButtonIcon: Icon(Icons.close),
-                  pasteButtonIcon: Icon(Icons.close),
-                  isTextObscure: true,
-                  fieldsCount: 4,
-                  onSubmit: (String pins) {
-                    _confirmPin = pins;
-                    disableButton = false;
-                    setState(() {});
-                  },
-                  onClear: (clear) {
-                    _confirmPin = null;
-                    disableButton = true;
-                  },
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text("Confirm", style: TextStyle(fontWeight: FontWeight.bold)),
-                      onPressed: _confirmPin == null
-                      ? null
-                      : () async {
-                        await getWallet();
-                      },
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10.0),
-                      child: RaisedButton(
-                        child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
-                        onPressed: () {
-                          Navigator.pop(context, AppServices.emptyMapData());
-                        }
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
+          PinPut(
+            clearButtonIcon: Icon(Icons.close),
+            pasteButtonIcon: Icon(Icons.close),
+            isTextObscure: true,
+            fieldsCount: 4,
+            onSubmit: (String pins) {
+              _confirmPin = pins;
+              disableButton = false;
+              setState(() {});
+            },
+            onClear: (clear) {
+              _confirmPin = null;
+              disableButton = true;
+            },
           ),
-        ]
-      )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                child: Text("Confirm", style: TextStyle(fontWeight: FontWeight.bold)),
+                onPressed: _confirmPin == null
+                ? null
+                : () async {
+                  await getWallet();
+                },
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 10.0),
+                child: RaisedButton(
+                  child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
+                  onPressed: () {
+                    Navigator.pop(context, AppServices.emptyMapData());
+                  }
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }

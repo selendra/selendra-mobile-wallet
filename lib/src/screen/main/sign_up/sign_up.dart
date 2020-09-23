@@ -259,7 +259,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     });
   }
   
-  build(BuildContext context) { /* User Sign Up Build */
+  Widget build(BuildContext context) { /* User Sign Up Build */
     return Scaffold(
       key: _modelSignUp.globalKey,
       body: BodyScaffold(

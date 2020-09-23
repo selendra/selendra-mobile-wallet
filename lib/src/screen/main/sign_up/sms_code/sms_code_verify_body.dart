@@ -1,6 +1,4 @@
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/components/sms_component.dart';
-import 'package:wallet_apps/src/model/sms_code_model.dart';
 
 class SmsBody extends StatelessWidget{
 

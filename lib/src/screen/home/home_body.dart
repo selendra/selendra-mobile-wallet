@@ -22,30 +22,14 @@ class HomeBody extends StatelessWidget{
           MyHomeAppBar(
             title: "SELENDRA", 
             action: () {
-
+              MyBottomSheet().notification(context: context);
             },
           ),
 
-          Container(
-            margin: EdgeInsets.only(bottom: 24.0),
-            child: AnimatedCircularChart(
-              holeRadius: 70.0,
-              key: chartKey,
-              duration: Duration(seconds: 1),
-              // startAngle: 125.0,
-              size: Size(300.0, 250.0),
-              percentageValues: true,
-              holeLabel: "${homeModel.total}",
-              labelStyle:TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              edgeStyle: SegmentEdgeStyle.flat,
-              initialChartData: <CircularStackEntry>[
-                CircularStackEntry(
-                  homeModel.circularChart,
-                  rankKey: 'progress',
-                ),
-              ],
-              chartType: CircularChartType.Radial,
-            )
+          MyCircularChart(
+            amount: "\$ ${homeModel.total}",
+            chartKey: chartKey,
+            listChart: homeModel.circularChart,
           ),
 
           Container(

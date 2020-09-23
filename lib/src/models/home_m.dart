@@ -29,7 +29,7 @@ class HomeModel {
 
   final GlobalKey<AnimatedCircularChartState> chartKey =  new GlobalKey<AnimatedCircularChartState>();
   
-  double remainDataChart = 100;
+  double emptyChartData = 100;
 
   List<CircularSegmentEntry> circularChart;
 

@@ -288,11 +288,12 @@ class MyBottomAppBar extends StatelessWidget{
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+
               Expanded(
                 child: MyIconButton(
                   icon: LineAwesomeIcons.telegram,
                   onPressed: () async {
-                    MyBottomSheet().bottomSheet(context: context, portfolioList: model.portfolioList, resetHomeData: resetDbdState);
+                    MyBottomSheet().trxOptions(context: context, portfolioList: model.portfolioList, resetHomeData: resetDbdState);
                   },
                 )
               ),
@@ -312,6 +313,10 @@ class MyBottomAppBar extends StatelessWidget{
                 child: MyIconButton(
                   icon: LineAwesomeIcons.bar_chart_1,
                   onPressed: () async {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => Portfolio(listData: model.portfolioList, listChart: model.circularChart,))
+                    );
                   },
                 )
               ),
@@ -329,6 +334,7 @@ class MyBottomAppBar extends StatelessWidget{
     );
   }
 }
+
 
 Widget fabsButton({
   Animation degOneTranslationAnimation,
@@ -388,10 +394,15 @@ class MyHomeAppBar extends StatelessWidget{
           Expanded(
             child: Align(
               alignment: Alignment.centerRight,
-              child: Icon(
-                LineAwesomeIcons.bell,
-                color: Colors.white,
-                size: 30,
+              child: GestureDetector(
+                onTap: (){
+                  action();
+                },
+                child: Icon(
+                  LineAwesomeIcons.bell,
+                  color: Colors.white,
+                  size: 30,
+                ),
               ),
             )
           )

@@ -4,13 +4,14 @@ class MyBottomSheet{
 
   dynamic response;
   
-  Future<dynamic> bottomSheet({
+  Future<dynamic> trxOptions({
     BuildContext context,
     List portfolioList,
     Function resetHomeData
   }) {
     return showModalBottomSheet(
       context: context, 
+      isScrollControlled: true,
       builder: (context) {
       return Container(
         decoration: BoxDecoration(
@@ -68,5 +69,41 @@ class MyBottomSheet{
         ),
       );
     });
+  }
+
+  Future<dynamic> notification({
+    BuildContext context
+  }) {
+    return showModalBottomSheet(
+      context: context, 
+      isScrollControlled: true,
+      builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: hexaCodeToColor(AppColors.bgdColor)
+        ),
+        height: MediaQuery.of(context).size.height - 107,
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: MyText(
+                color: "#FFFFFF",
+                top: 20,
+                bottom: 33,
+                text: "Notification",
+              ),
+            ),
+
+            Expanded(
+              child: Center(
+                child: SvgPicture.asset('assets/not_found.svg', width: 285, height: 278)
+              ),
+            )
+          ],
+        ),
+      );
+    },
+    );
   }
 }
