@@ -299,12 +299,16 @@ class MyCircularChart extends StatelessWidget{
   final EdgeInsetsGeometry margin;
   final List<CircularSegmentEntry> listChart;
   final Alignment alignment;
+  final double width;
+  final double height;
 
   MyCircularChart({
     this.amount,
     this.chartKey,
     this.margin = const EdgeInsets.only(bottom: 24.0),
     this.alignment,
+    this.width = 300.0,
+    this.height = 250.0,
     this.listChart
   });
 
@@ -317,7 +321,7 @@ class MyCircularChart extends StatelessWidget{
         key: chartKey,
         duration: Duration(seconds: 1),
         // startAngle: 125.0,
-        size: Size(300.0, 250.0),
+        size: Size(width, height),
         percentageValues: true,
         holeLabel: amount,
         labelStyle:TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),

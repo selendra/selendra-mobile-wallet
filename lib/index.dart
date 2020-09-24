@@ -44,7 +44,6 @@ export 'package:async/async.dart';
 // export 'package:line_awesome_icons/line_awesome_icons.dart';
 export 'package:line_awesome_flutter/line_awesome_flutter.dart';
 export 'package:qr_code_scanner/qr_code_scanner.dart';
-export 'package:fl_chart/fl_chart.dart';
 
 /* Local File */
 export 'package:wallet_apps/src/service/services.dart';
@@ -239,7 +238,7 @@ export 'package:wallet_apps/src/models/model_get_wallet_from_contact.dart';
 
 /* Menu */
 export 'package:wallet_apps/src/models/menu_m.dart';
-import 'package:wallet_apps/src/models/add_phone_number.dart';
+export 'package:wallet_apps/src/models/add_phone_number.dart';
 
 // Change PIN
 export 'package:wallet_apps/src/models/model_change_pin.dart';

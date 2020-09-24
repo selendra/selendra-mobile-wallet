@@ -60,6 +60,7 @@ dependencies:
   syncfusion_flutter_charts:
   charts_flutter:
   fl_chart:
+  pie_chart: 4.0.1
 
   # Icons
   # outline_material_icons:
