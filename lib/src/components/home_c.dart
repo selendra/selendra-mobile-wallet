@@ -99,7 +99,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
           )
         ),
 
-        headerPortfolio(),
+        MyRowHeader(),
 
         portfolioData == null
         ? Container(/* Retreive Porfolio Null => Have No List */
@@ -158,35 +158,7 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
   );
 }
 
-Widget headerPortfolio(){
-  return Container(
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(left: 1.5),
-            alignment: Alignment.centerLeft,
-            child: MyText(
-              text: "Your assets"
-            )
-          ),
-        ),
-        Expanded(
-          child: Container(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: MyText(
-                text: "QTY"
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
+
 
 /* Build Portfolio If Have List Of Portfolio */
 Widget buildRowList(List<dynamic> portfolioData){
@@ -242,7 +214,7 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
 // Portfolow Row Decoration
 Widget rowDecorationStyle({Widget child, double marginTop: 15}){
   return Container(
-    margin: EdgeInsets.only(top: marginTop),
+    margin: EdgeInsets.only(top: marginTop, left: 16, right: 16),
     padding: EdgeInsets.fromLTRB(15, 9, 15, 9 ),
     height: 70,
     decoration: BoxDecoration(

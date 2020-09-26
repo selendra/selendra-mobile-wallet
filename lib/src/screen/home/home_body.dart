@@ -47,11 +47,7 @@ class HomeBody extends StatelessWidget{
             ),
           ),
           
-          Container(
-            padding: EdgeInsets.only(left: 16.0, right: 16.0),
-            width: double.infinity,
-            child: portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
-          ),
+          portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
         ],
       )
     );

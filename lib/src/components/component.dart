@@ -338,12 +338,12 @@ class MyCircularChart extends StatelessWidget{
   }
 }
 
-class MyRowBuilder extends StatelessWidget{
+class MyColumnBuilder extends StatelessWidget{
 
   final List<dynamic> data;
   final EdgeInsetsGeometry margin;
 
-  MyRowBuilder({@required this.data, this.margin});
+  MyColumnBuilder({@required this.data, this.margin});
   
   Widget build(BuildContext context){
     return Container(
@@ -357,6 +357,40 @@ class MyRowBuilder extends StatelessWidget{
           return portFolioItemRow(data, index);
         },
       )
+    );
+  }
+}
+
+class MyRowHeader extends StatelessWidget{
+
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 16, right: 16),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 1.5),
+              alignment: Alignment.centerLeft,
+              child: MyText(
+                text: "Your assets"
+              )
+            ),
+          ),
+          Expanded(
+            child: Container(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: MyText(
+                  text: "QTY"
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

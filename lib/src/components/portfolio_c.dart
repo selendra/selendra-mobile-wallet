@@ -50,3 +50,33 @@ class MyPieChartRow extends StatelessWidget{
     );
   }
 }
+
+class MyPercentText extends StatelessWidget{
+
+  final String value;
+
+  MyPercentText({
+    this.value
+  });
+
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          MyText(
+            text: value,
+            fontSize: 40,
+            color: "#FFFFFF",
+          ),
+
+          MyText(
+            text: "%",
+            fontSize: 25,
+          )
+        ],
+      ),
+    );
+  }
+}

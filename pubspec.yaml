@@ -62,6 +62,9 @@ dependencies:
   fl_chart:
   pie_chart: 4.0.1
 
+  #Indecator
+  percent_indicator:
+
   # Icons
   # outline_material_icons:
   # line_icons: ^0.2.0

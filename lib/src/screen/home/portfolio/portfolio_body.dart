@@ -15,6 +15,9 @@ class  PortfolioBody extends StatelessWidget{
   });
 
   Widget build(BuildContext context) {
+
+    final List<String> months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
     Map<String, double> dataMap = {
       "FLutter": 5,
       "React": 3,
@@ -26,7 +29,7 @@ class  PortfolioBody extends StatelessWidget{
       hexaCodeToColor("#08B952"),
       hexaCodeToColor("#40FF90"),
       hexaCodeToColor("#00FFF0"),
-      hexaCodeToColor("#000000")
+      hexaCodeToColor(AppColors.cardColor)
     ];
 
     return Column(
@@ -40,14 +43,14 @@ class  PortfolioBody extends StatelessWidget{
         ),
 
         Container(
-          margin: EdgeInsets.only(left: 16, right: 16),
+          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
           padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
           width: double.infinity,
           height: 200,
-          decoration: BoxDecoration(
-            color: hexaCodeToColor(AppColors.cardColor),
-            borderRadius: BorderRadius.circular(8)
-          ),
+          // decoration: BoxDecoration(
+          //   color: hexaCodeToColor(AppColors.cardColor),
+          //   borderRadius: BorderRadius.circular(8)
+          // ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -63,7 +66,7 @@ class  PortfolioBody extends StatelessWidget{
                       dataMap: dataMap,
                       chartType: ChartType.ring,
                       colorList: pieColorList,
-                      centerText: "15%",
+                      centerText: "10%",
                       legendOptions: LegendOptions(
                         showLegends: false,
                       ),
@@ -113,17 +116,99 @@ class  PortfolioBody extends StatelessWidget{
             ],
           )
         ),
+        
+        Container(
+          height: 150,
+          margin: EdgeInsets.only(bottom: 16),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    
+                    MyText(
+                      bottom: 16,
+                      text: "Wallet"
+                    ),
 
-        Align(
-          alignment: Alignment.centerLeft,
-          child: MyText(
-            text: "Assets",
-            color: "#FFFFFF",
+                    MyPercentText(
+                      value: "+10.5",
+                    ),
+
+                    LinearPercentIndicator(
+                      alignment: MainAxisAlignment.center,
+                      width: 100.0,
+                      lineHeight: 5.0,
+                      percent: 0.5,
+                      backgroundColor: hexaCodeToColor(AppColors.cardColor),
+                      progressColor: hexaCodeToColor(AppColors.secondary_text),
+                      animation: true,
+                    )
+                  ],
+                ),
+              ),
+
+              VerticalDivider(
+                thickness: 2,
+                color: hexaCodeToColor(AppColors.cardColor),
+              ),
+
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    MyText(
+                      bottom: 16,
+                      text: "Market"
+                    ),
+
+                    MyPercentText(
+                      value: "0.0",
+                    ),
+
+                    LinearPercentIndicator(
+                      alignment: MainAxisAlignment.center,
+                      width: 100.0,
+                      lineHeight: 5.0,
+                      percent: 0.5,
+                      backgroundColor: hexaCodeToColor(AppColors.cardColor),
+                      progressColor: hexaCodeToColor("#00FFF0"),
+                      animation: true,
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
         ),
 
-        MyRowBuilder(
-          margin: EdgeInsets.only(left: 16, right: 16),
+        Container(
+          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+          height: 50,
+          child: ListView.builder(
+            itemCount: months.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (BuildContext context, int i){
+              return Align(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  child: MyText(
+                    width: 60,
+                    text: "${months[i]}"
+                  ),
+                )
+              );
+            }
+          )
+        ),
+
+        MyRowHeader(),
+
+        MyColumnBuilder(
           data: listData
         )
       ],
