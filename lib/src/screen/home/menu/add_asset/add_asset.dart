@@ -16,6 +16,7 @@ class AddAssetState extends State<AddAsset> {
   @override
   void initState() {
     _modelAsset.result = {};
+    _modelAsset.globalKey = new GlobalKey<ScaffoldState>();
     AppServices.noInternetConnection(_modelAsset.globalKey);
     super.initState();
   }
@@ -63,11 +64,11 @@ class AddAssetState extends State<AddAsset> {
     if (_modelAsset.nodeAssetCode.hasFocus){
       FocusScope.of(context).requestFocus(_modelAsset.nodeIssuer);
     } else if (_modelAsset.nodeIssuer.hasFocus){
-      if (_modelAsset.enable) submitAddAsset(context);
+      if (_modelAsset.enable) submitAsset(context);
     }
   }
 
-  void submitAddAsset(BuildContext context) async {
+  void submitAsset(BuildContext context) async {
     dialogLoading(context); // Loading
     _modelAsset.result = await _postRequest.addAsset(_modelAsset);
     Navigator.pop(context); // Close Loading
@@ -95,12 +96,15 @@ class AddAssetState extends State<AddAsset> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: scaffoldBGDecoration(
-        child: addAssetBody(
-          context, 
-          _modelAsset, 
-          validateAssetCode, validateIssuer,
-          popScreen, onChanged, submitAddAsset, onSubmit
+      body: BodyScaffold(
+        child: AddAssetBody(
+          assetM: _modelAsset,
+          validateAssetCode: validateAssetCode,
+          validateIssuer: validateIssuer,
+          popScreen: popScreen, 
+          onChanged: onChanged, 
+          onSubmit: onSubmit, 
+          submitAsset: submitAsset, 
         ),
       )
     );

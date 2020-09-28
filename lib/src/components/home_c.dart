@@ -90,9 +90,10 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
       children: <Widget>[
 
         Container( /* Portfolio Title */
-          padding: EdgeInsets.only(bottom: 26.0),
           alignment: Alignment.centerLeft,
           child: MyText(
+            bottom: 26,
+            left: 16,
             text: title,
             fontSize: 20,
             color: "#FFFFFF",

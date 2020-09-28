@@ -8,14 +8,18 @@ class AppServices {
   static Future noInternetConnection(GlobalKey<ScaffoldState> globalKey) async {
     try {
       Connectivity _connectivity = new Connectivity();
+
       final myResult = await _connectivity.checkConnectivity();
+      
       _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
+        print(result);
         if (result == ConnectivityResult.none) {
           mySnackBar(globalKey, AppText.contentConnection);
         } else {
           globalKey.currentState.removeCurrentSnackBar();
         }
       });
+
       if (myResult == ConnectivityResult.none) {
         mySnackBar(globalKey, AppText.contentConnection);
       }
