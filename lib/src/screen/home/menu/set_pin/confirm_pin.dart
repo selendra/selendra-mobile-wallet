@@ -65,7 +65,7 @@ class SetConfirmPinState extends State<SetConfirmPin> {
         }
       );
       Navigator.pop(context);
-      AppServices.mySnackBar(_globalKey, AppText.contentConnection);
+      AppServices.openSnackBar(_globalKey, AppText.contentConnection);
     } catch (e) {}
   }
 

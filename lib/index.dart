@@ -56,7 +56,7 @@ export 'package:wallet_apps/src/bloc/bloc_provider.dart';
 export 'package:wallet_apps/src/bloc/validator_mixin.dart';
 export 'package:wallet_apps/src/config/app_config.dart';
 export 'package:wallet_apps/src/config/size_config/size_config.dart';
-export 'package:wallet_apps/src/routes/routing.dart';
+export 'package:wallet_apps/src/route.dart';
 export 'package:wallet_apps/theme/style.dart';
 
 //Component
@@ -239,19 +239,19 @@ export 'package:wallet_apps/src/models/model_get_wallet_from_contact.dart';
 
 /* Menu */
 export 'package:wallet_apps/src/models/menu_m.dart';
-export 'package:wallet_apps/src/models/add_phone_number.dart';
+export 'package:wallet_apps/src/models/add_phone_m.dart';
 
 // Change PIN
-export 'package:wallet_apps/src/models/model_change_pin.dart';
+export 'package:wallet_apps/src/models/pin_m.dart';
 
 // Change Password
-export 'package:wallet_apps/src/models/model_change_password.dart';
+export 'package:wallet_apps/src/models/password_m.dart';
 
 // Add Asset
-export 'package:wallet_apps/src/models/model_asset.dart';
+export 'package:wallet_apps/src/models/asset_m.dart';
 
 // Add Phone
-export 'package:wallet_apps/src/models/add_phone_number.dart';
+export 'package:wallet_apps/src/models/add_phone_m.dart';
 
 export 'package:wallet_apps/src/models/sms_code_model.dart';
 

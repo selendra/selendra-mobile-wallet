@@ -5,8 +5,8 @@ class TrxComponent {
   static Widget trxTitle(List trx){
     return Container(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(bottom: 15.0, top: 15.0),
-      child: trx.length != 0 ? Text(trx[0]['date']) : Text("Empty"),
+      padding: EdgeInsets.only(top: 24, left: 16),
+      child: trx.length != 0 ? MyText(text: trx[0]['date'], color: "#FFFFFF") : MyText(text: "Empty", color: "#FFFFFF"),
     );
   }
 
@@ -22,26 +22,23 @@ class TrxComponent {
             Navigator.push(context, transitionRoute(TrxHistoryDetails(trx[index], tab)));
           },
           child: rowDecorationStyle(
-            marginTop: 5.0,
-            child: 
-            Row(
+            child: Row(
               children: <Widget>[
                 /* Asset Icons */
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  width: 35.0,
-                  height: 35.0,
-                  child: !trx[index].containsKey("asset_code") ? Image.asset(
-                    "assets/images/stellar_xlm_logo.png",
-                    color: Colors.white
-                  )
-                  : Image.asset('assets/images/stellar_xlm_logo.png')
-                  // CircleAvatar(
-                  //   backgroundColor: Colors.black26,
-                  //   backgroundImage: AssetImage(
-                  //     portfolioData[index].containsKey("asset_code") ? AppConfig.logoPortfolio : "assets/images/stellar_xlm_logo.png",
-                  //   ),
-                  // )
+                !trx[index].containsKey("asset_code") 
+                ? MyCircularImage(
+                  padding: EdgeInsets.all(6),
+                  margin: EdgeInsets.only(right: 16),
+                  imagePath: 'assets/stellar.svg',
+                  width: 40,
+                  height: 40
+                )
+                : MyCircularImage(
+                  padding: EdgeInsets.all(6),
+                  boxColor: AppColors.secondary,
+                  imagePath: 'assets/stellar.svg',
+                  width: 40,
+                  height: 40
                 ),
 
                 DbdStyle.textStylePortfolio(
@@ -67,7 +64,10 @@ class TrxComponent {
   static Widget trxListByMonth(List trx, {String tab}){
     return trx.length != 0 ? Column( // Prevent The Month Have Have No Trx
       children: <Widget>[
-        Divider(color: Colors.grey, height: 1.0),
+        Container(
+          margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+          child: Divider(color: hexaCodeToColor(AppColors.textColor), height: 1.0),
+        ),
         TrxComponent.trxTitle(trx),
         TrxComponent.trxList(trx, tab: tab),
       ],

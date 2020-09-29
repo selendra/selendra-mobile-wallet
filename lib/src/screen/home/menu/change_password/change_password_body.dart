@@ -1,120 +1,111 @@
 import 'package:wallet_apps/index.dart';
 
-Widget changePasswordBody(
-  BuildContext _context, ModelChangePassword _model,
-  Function validateOldPass, Function validateNewPass, Function validateConfirmPass,
-  Function onSubmitted, Function onChanged, 
-  Function submitPassword, Function popScreen
-) {
-  return Column(
-    children: <Widget>[
-      containerAppBar( /* AppBar */
-        _context,
-        Row(
-          children: <Widget>[
-            iconAppBar( /* Arrow Back Button */
-              Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              popScreen,
-            ),
-            containerTitle(
-              "Change Password", 
-              double.infinity, 
-              Colors.white,
-              FontWeight.normal
-            )
-          ],
-        )
-      ),
-      Form( /* Body Change Password */
-        key: _model.formStateChangePassword,
-        child: Expanded( 
-          child: Container(
-            margin: EdgeInsets.only(left: 27.0, right: 27.0, top: 27.0),
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    /* Old Password */
-                    margin: EdgeInsets.only(bottom: 12.0, top: 10.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "Old Password",
-                      prefixText: "",
-                      widgetName: "changePasswordScreen",
-                      obcureText: true,
-                      textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      inputAction: TextInputAction.next,
-                      controller: _model.controlOldPassword,
-                      focusNode: _model.nodeOldPassword,
-                      validateField: validateOldPass, 
-                      onChanged: onChanged, 
-                      action: onSubmitted
-                    ),
-                  ),
-                  Container( /* New Password */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "New Password",
-                      prefixText: "",
-                      widgetName: "changePasswordScreen",
-                      obcureText: true,
-                      textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      inputAction: TextInputAction.next,
-                      controller: _model.controlNewPassword,
-                      focusNode: _model.nodeNewPassword,
-                      validateField: validateNewPass, 
-                      onChanged: onChanged, 
-                      action: onSubmitted
-                    ),
-                  ),
-                  Container( /* Old Password */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "Confirm Password",
-                      prefixText: "",
-                      widgetName: "changePasswordScreen",
-                      obcureText: true,
-                      textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      inputAction: TextInputAction.done,
-                      controller: _model.controlConfirmPassword,
-                      focusNode: _model.nodeConfirmPassword,
-                      validateField: validateConfirmPass, 
-                      onChanged: onChanged, 
-                      action: onSubmitted
-                    ),
-                  ),
-                  customFlatButton(
-                    _context,
-                    "Change Now",
-                    "changePasswordScreen",
-                    AppColors.blueColor,
-                    FontWeight.normal,
-                    size18,
-                    EdgeInsets.only(top: 15.0),
-                    EdgeInsets.only(top: size15, bottom: size15),
-                    BoxShadow(
-                      color: Color.fromRGBO(
-                        0, 0, 0, _model.enable == false ? 0 : 0.54
-                      ), 
-                      blurRadius: 5.0
-                    ),
-                    _model.enable == false ? null : submitPassword
-                  )
-                ],
-              ),
-            )
-          )
+class ChangePasswordBody extends StatelessWidget{
+
+  final ModelChangePassword model;
+  final Function validateOldPass; 
+  final Function validateNewPass; 
+  final Function validateConfirmPass;
+  final Function onSubmitted; 
+  final Function onChanged; 
+  final Function submitPassword; 
+  final Function popScreen;
+
+  ChangePasswordBody({
+    this.model,
+    this.validateOldPass,
+    this.validateNewPass,
+    this.validateConfirmPass,
+    this.onSubmitted,
+    this.onChanged,
+    this.submitPassword,
+    this.popScreen,
+  });
+  
+  Widget build(BuildContext context){
+    return Column(
+      children: <Widget>[
+        MyAppBar(
+          title: "Change password",
         ),
-      )
-    ],
-  );
+
+
+        Form( /* Body Change Password */
+          key: model.formStateChangePassword,
+          child: Expanded( 
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+
+                Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: SvgPicture.asset('assets/password.svg', width: 450, height: 316)
+                ),
+
+                MyInputField(
+                  pBottom: 16,
+                  labelText: "Old password",
+                  prefixText: null,
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                  ],
+                  inputType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  controller: model.controlOldPassword,
+                  focusNode: model.nodeOldPassword,
+                  validateField: validateOldPass,
+                  onChanged: onChanged,
+                  onSubmit: onSubmitted,
+                ),
+
+                MyInputField(
+                  pBottom: 16,
+                  labelText: "New password",
+                  prefixText: null,
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                  ],
+                  inputType: TextInputType.text,
+                  inputAction: TextInputAction.next,
+                  controller: model.controlNewPassword,
+                  focusNode: model.nodeNewPassword,
+                  validateField: validateNewPass,
+                  onChanged: onChanged,
+                  onSubmit: onSubmitted,
+                ),
+                
+                MyInputField(
+                  pBottom: 29,
+                  labelText: "Confrim password",
+                  prefixText: null,
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                  ],
+                  inputType: TextInputType.text,
+                  inputAction: TextInputAction.done,
+                  controller: model.controlConfirmPassword,
+                  focusNode: model.nodeConfirmPassword,
+                  validateField: validateConfirmPass,
+                  onChanged: onChanged,
+                  onSubmit: onSubmitted,
+                ),
+
+                MyFlatButton(
+                  textButton: "Submit",
+                  buttonColor: AppColors.secondary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: size18,
+                  edgeMargin: EdgeInsets.only(left: 66, right: 66),
+                  hasShadow: true,
+                  action: model.enable == false ? null : submitPassword
+                )
+
+              ],
+            )
+          ),
+        )
+      ],
+    );
+  }
 }

@@ -14,20 +14,30 @@ class AppServices {
       _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
         print(result);
         if (result == ConnectivityResult.none) {
-          mySnackBar(globalKey, AppText.contentConnection);
+          openSnackBar(globalKey, AppText.contentConnection);
         } else {
           globalKey.currentState.removeCurrentSnackBar();
         }
       });
 
       if (myResult == ConnectivityResult.none) {
-        mySnackBar(globalKey, AppText.contentConnection);
+        openSnackBar(globalKey, AppText.contentConnection);
       }
     } catch (e) {}
   }
 
-  static void mySnackBar(GlobalKey<ScaffoldState> globalKey, String content) {
-    globalKey.currentState.showSnackBar(SnackBar(
+  static void openSnackBar(GlobalKey<ScaffoldState> globalKey, String content) {
+    globalKey.currentState.showSnackBar(snackBarBody(content, globalKey));
+  }
+
+  static void closeSnackBar(GlobalKey<ScaffoldState> globalKey, String content) async { 
+    // await globalKey.currentState.showSnackBar(snackBarBody(content, globalKey)).closed.then((value) => 
+    //   print("value $value")
+    // );
+  }
+
+  static SnackBar snackBarBody(String content, globalKey){
+    return SnackBar(
       behavior: SnackBarBehavior.floating,
       duration: Duration(days: 365),
       backgroundColor: Colors.red,
@@ -43,7 +53,7 @@ class AppServices {
           globalKey.currentState.removeCurrentSnackBar();
         },
       ),
-    ));
+    );
   }
 
   static void clearStorage() async {

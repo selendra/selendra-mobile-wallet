@@ -1,122 +1,108 @@
 import 'package:wallet_apps/index.dart';
 
-Widget changePinBody(
-  BuildContext _context,
-  ModelChangePin _modelChangePin,
-  Function validateOldPin,
-  Function validateNewPin,
-  Function validateConfirmPin,
-  Function onChanged,
-  Function onSubmit,
-  Function submitPin,
-  Function popScreen
-){
-  return Column(
-    children: <Widget>[
-      containerAppBar( /* AppBar */
-        _context,
-        Row(
-          children: <Widget>[
-            iconAppBar( /* Arrow Back Button */
-              Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              popScreen,
-            ),
-            containerTitle(
-              "Change PIN", 
-              double.infinity, 
-              Colors.white, 
-              FontWeight.normal
-            )
-          ],
-        )
-      ),
-      Form( /* Body Change Pin */
-        key: _modelChangePin.formStateChangePin,
-        child: Expanded(
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Container(
-              margin: EdgeInsets.only(left: 27.0, right: 27.0, top: 27.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container( /* Old PIN */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "Old PIN", 
-                      prefixText: "", 
-                      widgetName: "changePinScreen",
-                      obcureText: true,
-                      textInputFormatter: [LengthLimitingTextInputFormatter(4)],
-                      inputType: TextInputType.number,
-                      controller: _modelChangePin.controllerOldPin,
-                      focusNode: _modelChangePin.nodeOldPin,
-                      validateField: validateOldPin,
-                      onChanged: onChanged,
-                      action: onSubmit
-                    ),
-                  ),
-                  Container( /* New PIN */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "New PIN", 
-                      prefixText: "", 
-                      widgetName: "changePinScreen",
-                      obcureText: true,
-                      textInputFormatter: [LengthLimitingTextInputFormatter(4)],
-                      inputType: TextInputType.number,
-                      controller: _modelChangePin.controllerNewPin,
-                      focusNode: _modelChangePin.nodeNewPin,
-                      validateField: validateNewPin,
-                      onChanged: onChanged,
-                      action: onSubmit
-                    ),
-                  ),
-                  Container( /* Old PIN */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "Confirm PIN", 
-                      prefixText: "", 
-                      widgetName: "changePinScreen",
-                      obcureText: true,
-                      textInputFormatter: [LengthLimitingTextInputFormatter(4)],
-                      inputType: TextInputType.number,
-                      inputAction: TextInputAction.done,
-                      controller: _modelChangePin.controllerConfirmPin,
-                      focusNode: _modelChangePin.nodeConfirmPin,
-                      validateField: validateConfirmPin,
-                      onChanged: onChanged,
-                      action: onSubmit
-                    ),
-                  ),
-                  customFlatButton(
-                    _context,
-                    "Change Now", "changePinScreen", AppColors.blueColor,
-                    FontWeight.normal,
-                    size18,
-                    EdgeInsets.only(top: 15.0),
-                    EdgeInsets.only(top: size15, bottom: size15),
-                    BoxShadow(
-                      color: Color.fromRGBO(
-                        0, 0, 0, _modelChangePin.enable == false ? 0 : 0.54
-                      ),
-                      blurRadius: 5.0),
-                    _modelChangePin.enable == false ? null : submitPin
-                  )
-                ],
-              ),
-            ),
-          )
+class ChangePinBody extends StatelessWidget{
+
+  final ModelChangePin modelChangePin;
+  final Function validateOldPin;
+  final Function validateNewPin;
+  final Function validateConfirmPin;
+  final Function onChanged;
+  final Function onSubmit;
+  final Function submitPin;
+  final Function popScreen;
+
+  ChangePinBody({
+    this.modelChangePin,
+    this.validateOldPin,
+    this.validateNewPin,
+    this.validateConfirmPin,
+    this.onChanged,
+    this.onSubmit,
+    this.submitPin,
+    this.popScreen,
+  });
+  
+  Widget build(BuildContext context){
+    return Column(
+      children: <Widget>[
+        MyAppBar(
+          title: "Change pin",
         ),
-      )
-    ],
-  );
+
+        Form( /* Body Change Pin */
+          key: modelChangePin.formStateChangePin,
+          child: Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+
+                Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: SvgPicture.asset('assets/password.svg', width: 450, height: 316)
+                ),
+
+                MyInputField(
+                  pBottom: 16,
+                  labelText: "Old pin", 
+                  prefixText: null, 
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                  ],
+                  inputAction: TextInputAction.next,
+                  inputType: TextInputType.number,
+                  controller: modelChangePin.controllerOldPin,
+                  focusNode: modelChangePin.nodeOldPin,
+                  validateField: validateOldPin,
+                  onChanged: onChanged,
+                  onSubmit: onSubmit,
+                ),
+
+                MyInputField(
+                  pBottom: 16,
+                  labelText: "New pin",
+                  prefixText: null,
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                  ],
+                  inputAction: TextInputAction.next,
+                  inputType: TextInputType.number,
+                  controller: modelChangePin.controllerNewPin,
+                  focusNode: modelChangePin.nodeNewPin,
+                  validateField: validateNewPin,
+                  onChanged: onChanged,
+                  onSubmit: onSubmit,
+                ),
+                
+                MyInputField(
+                  pBottom: 29,
+                  labelText: "Confrim password",
+                  prefixText: null,
+                  textInputFormatter: [
+                    LengthLimitingTextInputFormatter(TextField.noMaxLength)
+                  ],
+                  inputType: TextInputType.number,
+                  inputAction: TextInputAction.done,
+                  controller: modelChangePin.controllerConfirmPin,
+                  focusNode: modelChangePin.nodeConfirmPin,
+                  validateField: validateConfirmPin,
+                  onChanged: onChanged,
+                  onSubmit: onSubmit,
+                ),
+
+                MyFlatButton(
+                  textButton: "Submit",
+                  buttonColor: AppColors.secondary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: size18,
+                  edgeMargin: EdgeInsets.only(left: 66, right: 66),
+                  hasShadow: true,
+                  action: modelChangePin.enable == false ? null : submitPin
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
 }

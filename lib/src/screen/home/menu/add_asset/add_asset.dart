@@ -13,11 +13,12 @@ class AddAssetState extends State<AddAsset> {
 
   PostRequest _postRequest = PostRequest();
 
+  GlobalKey<ScaffoldState> globalKey = new GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     _modelAsset.result = {};
-    _modelAsset.globalKey = new GlobalKey<ScaffoldState>();
-    AppServices.noInternetConnection(_modelAsset.globalKey);
+    AppServices.noInternetConnection(globalKey);
     super.initState();
   }
 
@@ -96,6 +97,7 @@ class AddAssetState extends State<AddAsset> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       body: BodyScaffold(
         child: AddAssetBody(
           assetM: _modelAsset,

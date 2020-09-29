@@ -167,13 +167,16 @@ class ChangePinState extends State<ChangePin> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _modelChangePin.globalKey,
-      body: scaffoldBGDecoration(
-        child: changePinBody(
-          context,
-          _modelChangePin,
-          validateOldPin, validateNewPin, validateConfirmPin,
-          onChanged, onSubmit,
-          submitPIN, popScreen
+      body: BodyScaffold(
+        child: ChangePinBody(
+          modelChangePin: _modelChangePin,
+          validateOldPin: validateOldPin, 
+          validateNewPin: validateNewPin, 
+          validateConfirmPin: validateConfirmPin,
+          onChanged: onChanged, 
+          onSubmit: onSubmit,
+          submitPin: submitPIN, 
+          popScreen: popScreen
         ),
       )
     );

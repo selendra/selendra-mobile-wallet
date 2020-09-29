@@ -12,5 +12,5 @@ class AddPhoneModel{
 
   TextEditingController phone = TextEditingController();
 
-  FocusNode phoneNode = FocusNode();
+  FocusNode nodePhone = FocusNode();
 }

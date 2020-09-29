@@ -145,7 +145,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         setState(() {});
       });
       Navigator.pop(context);
-      AppServices.mySnackBar(globalKey, AppText.contentConnection);
+      AppServices.openSnackBar(globalKey, AppText.contentConnection);
     } catch (e) {}
   }
 

@@ -150,13 +150,16 @@ class ChangePINState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _modelChangePassword.globalKey,
-      body: scaffoldBGDecoration(
-        child: changePasswordBody(
-          context, 
-          _modelChangePassword, 
-          validateOldPass, validateNewPass, validateConfirmPass,
-          onSubmit, onChanged, 
-          submitPassword, popScreen
+      body: BodyScaffold(
+        child: ChangePasswordBody(
+          model: _modelChangePassword, 
+          validateOldPass: validateOldPass, 
+          validateNewPass: validateNewPass, 
+          validateConfirmPass: validateConfirmPass,
+          onSubmitted: onSubmit, 
+          onChanged: onChanged, 
+          submitPassword: submitPassword, 
+          popScreen: popScreen
         ),
       )
     );

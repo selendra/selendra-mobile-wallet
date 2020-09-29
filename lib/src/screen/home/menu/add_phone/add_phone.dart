@@ -20,7 +20,7 @@ class _AddPhoneState extends State<AddPhone>{
   }
 
   String validatePhone(String value){
-    if (_phoneModel.phoneNode.hasFocus) {
+    if (_phoneModel.nodePhone.hasFocus) {
       /* If Phone Number Field Has Focus */
       _phoneModel.validateResponse = instanceValidate.validatePhone(value);
       if (_phoneModel.validateResponse == null)
@@ -74,15 +74,14 @@ class _AddPhoneState extends State<AddPhone>{
 
   Widget build(BuildContext context){
     return Scaffold(
-      body: scaffoldBGDecoration(
-        child: addPhoneBody(
-          context, 
-          _phoneModel, 
-          validatePhone,
-          onChanged,
-          onSubmit,
-          submitAddPhone,
-          popScreen
+      body: BodyScaffold(
+        child: AddPhoneBody(
+          phoneModel: _phoneModel, 
+          validatePhone: validatePhone,
+          onChanged: onChanged,
+          onSubmit: onSubmit,
+          submitAddPhone: submitAddPhone,
+          popScreen: popScreen
         )
       ),
     );
