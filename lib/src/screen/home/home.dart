@@ -308,8 +308,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ),
 
       body: BodyScaffold(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
         child: SmartRefresher(
           physics: BouncingScrollPhysics(),
           controller: _homeModel.refreshController,
@@ -336,15 +334,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-      bottomNavigationBar: MyBottomAppBar( /* Bottom Navigation Bar */
-        model: _homeModel,
-        postRequest: _postRequest,
-        scanReceipt: null, // Bottom Center Button
-        resetDbdState: resetState,
-        toReceiveToken: toReceiveToken,
-        opacityController: opacityController,
-        openDrawer: openMyDrawer,
-      )
+      // bottomNavigationBar: MyBottomAppBar( /* Bottom Navigation Bar */
+      //   model: _homeModel,
+      //   postRequest: _postRequest,
+      //   scanReceipt: null, // Bottom Center Button
+      //   resetDbdState: resetState,
+      //   toReceiveToken: toReceiveToken,
+      //   opacityController: opacityController,
+      //   openDrawer: openMyDrawer,
+      // )
     );
   }
 }

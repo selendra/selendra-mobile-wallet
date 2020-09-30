@@ -252,15 +252,15 @@ class BodyScaffold extends StatelessWidget{
   
   Widget build(BuildContext context){
     return SafeArea(
-      child: SingleChildScrollView(
+      // child: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
           // Minus 20 Pixel For Make Safe Area Bottom
-          height: MediaQuery.of(context).size.height - 20,
+          // height: MediaQuery.of(context).size.height - 20,
           color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
           child: this.child
         ),
-      )
+      // )
     );
   }
 }

@@ -16,40 +16,55 @@ class HomeBody extends StatelessWidget{
   });
   
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
+    return Column(
+      children: <Widget>[
 
-          MyHomeAppBar(
-            title: "SELENDRA", 
-            action: () {
-              MyBottomSheet().notification(context: context);
-            },
-          ),
+        MyHomeAppBar(
+          title: "SELENDRA", 
+          action: () {
+            MyBottomSheet().notification(context: context);
+          },
+        ),
 
-          MyCircularChart(
-            amount: "\$ ${homeModel.total}",
-            chartKey: chartKey,
-            listChart: homeModel.circularChart,
-          ),
+        MyCircularChart(
+          amount: "\$ ${homeModel.total}",
+          chartKey: chartKey, 
+          listChart: homeModel.circularChart,
+        ),
 
-          Container(
-            margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-            padding: EdgeInsets.only(left: 16.0, top: 32, bottom: 16.0, right: 32.0),
-            width: double.infinity,
-            height: 222,
-            decoration: BoxDecoration(
-              color: hexaCodeToColor(AppColors.cardColor),
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: LineChart(
-              mainData()
-            ),
+        Container(
+          margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+          padding: EdgeInsets.only(left: 16.0, top: 32, bottom: 16.0, right: 32.0),
+          width: double.infinity,
+          height: 222,
+          decoration: BoxDecoration(
+            color: hexaCodeToColor(AppColors.cardColor),
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          
-          portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
-        ],
-      )
+          child: LineChart(
+            mainData()
+          ),
+        ),
+
+        Container( /* Portfolio Title */
+          alignment: Alignment.centerLeft,
+          child: MyText(
+            bottom: 26,
+            left: 16,
+            text: "Portfolioes",
+            fontSize: 20,
+            color: "#FFFFFF",
+          )
+        ),
+
+        MyRowHeader(),
+        
+        Expanded(
+          child: buildRowList(portfolioData),
+        )
+        
+        // portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
+      ],
     );
   }
 }

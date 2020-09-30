@@ -221,64 +221,29 @@ class MenuState extends State<Menu> {
         child: Container(
           width: 305,
           color: hexaCodeToColor(AppColors.bgdColor),
-          child: MenuBody(
-            isHaveWallet: isHaveWallet, 
-            userInfo: widget._userData,
-            model: _menuModel ,
-            packageInfo: widget._packageInfo,
-            editProfile: editProfile,  
-            trxHistory: trxHistroy,
-            trxActivity: trxActivity, 
-            wallet: wallet, 
-            changePin: changePin, 
-            password: password,
-            addAssets: addAssets, 
-            signOut: signOut, 
-            snackBar: snackBar, 
-            popScreen: popScreen,
-            switchBio: switchBiometric,
-            createPin: createPin,
-            callBack: widget.callBack
+          child: SingleChildScrollView(
+            child: MenuBody(
+              isHaveWallet: isHaveWallet, 
+              userInfo: widget._userData,
+              model: _menuModel ,
+              packageInfo: widget._packageInfo,
+              editProfile: editProfile,  
+              trxHistory: trxHistroy,
+              trxActivity: trxActivity, 
+              wallet: wallet, 
+              changePin: changePin, 
+              password: password,
+              addAssets: addAssets, 
+              signOut: signOut, 
+              snackBar: snackBar, 
+              popScreen: popScreen,
+              switchBio: switchBiometric,
+              createPin: createPin,
+              callBack: widget.callBack
+            ),
           ),
         ),
       ),
     );
-  //   Scaffold(
-  //     backgroundColor: Colors.transparent,
-  //     key: _globalKey,
-  //     body: BackdropFilter( // Fill Blur Background
-  //       filter: ImageFilter.blur(
-  //         sigmaX: 5.0,
-  //         sigmaY: 5.0,
-  //       ),
-  //       child: Container(
-  //         padding: EdgeInsets.all(19), 
-  //         child: SafeArea(
-  //           child: SingleChildScrollView(
-  //             physics: BouncingScrollPhysics(),
-  //             child: Container(
-  //               decoration: BoxDecoration(
-  //                 color: hexaCodeToColor(AppColors.bgdColor),
-  //                 borderRadius: BorderRadius.circular(10),
-  //                 border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
-  //               ),
-  //               child: MenuBody(
-  //                 isHaveWallet: isHaveWallet, 
-  //                 userInfo: widget._userData,
-  //                 model: _menuModel ,
-  //                 packageInfo: widget._packageInfo,
-  //                 editProfile: editProfile,  trxHistory: trxHistroy,
-  //                 trxActivity: trxActivity, wallet: wallet, 
-  //                 changePin: changePin, password: password,
-  //                 addAssets: addAssets, signOut: signOut, 
-  //                 snackBar: snackBar, popScreen: popScreen,
-  //                 switchBio: switchBiometric,
-  //               )
-  //             ),
-  //           ),
-  //         )
-  //       )
-  //     ),
-  //   );
   }
 }

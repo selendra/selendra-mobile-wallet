@@ -120,10 +120,11 @@ class MySplashScreenState extends State<MySplashScreen>{
       
     } else {
       // No Previous Login Or Token Expired
+      print("Logged out");
       await Future.delayed(Duration(seconds: 4), (){
         Navigator.pushReplacement(
           context, 
-          MaterialPageRoute(builder: (context) => Welcome())
+          MaterialPageRoute(builder: (context) => SlideBuilder())
         );
       });
     }

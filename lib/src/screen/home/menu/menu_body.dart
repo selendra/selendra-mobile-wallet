@@ -164,12 +164,19 @@ class MenuBody extends StatelessWidget{
                         AppServices.clearStorage();
                         await Future.delayed(Duration(seconds: 1), () {
                           // Close Button
-                          Navigator.pop(context);
-                          // Close Dialog Loading
-                          Navigator.pop(context);
-                          // Close Drawer
-                          Navigator.pop(context);
-                          callBack({'log_out': true});
+                          // Navigator.pop(context);
+                          // // Close Dialog Loading
+                          // Navigator.pop(context);
+                          // // Close Drawer
+                          // Navigator.pop(context);
+                          // callBack({'log_out': true});
+                          Navigator.pushAndRemoveUntil(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (context) => SlideBuilder()
+                            ),
+                            ModalRoute.withName('/')
+                          );
                         });
                       },
                     )

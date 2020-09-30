@@ -84,78 +84,61 @@ class DbdStyle{
 }
 
 Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, HomeModel model) { /* List Of Portfolio */
-  return Container(
-    padding: EdgeInsets.only(top: 10.0),
-    child: Column(
-      children: <Widget>[
-
-        Container( /* Portfolio Title */
-          alignment: Alignment.centerLeft,
-          child: MyText(
-            bottom: 26,
-            left: 16,
-            text: title,
-            fontSize: 20,
-            color: "#FFFFFF",
+  return Column(
+    children: <Widget>[
+      portfolioData == null
+      ? Container(/* Retreive Porfolio Null => Have No List */
+        width: double.infinity,
+        padding: EdgeInsets.only(bottom: 11.5),
+        margin: EdgeInsets.only(left: 4.0, top: 10.5),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.white.withOpacity(0.1),
+              width: 1.5
+            )
           )
         ),
-
-        MyRowHeader(),
-
-        portfolioData == null
-        ? Container(/* Retreive Porfolio Null => Have No List */
-          width: double.infinity,
-          padding: EdgeInsets.only(bottom: 11.5),
-          margin: EdgeInsets.only(left: 4.0, top: 10.5),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.white.withOpacity(0.1),
-                width: 1.5
-              )
-            )
-          ),
-          child: SvgPicture.asset('assets/undraw.svg', width: 270, height: 250),
-        )
-        
-        : portfolioData.length == 0
-        ? Padding(
-          padding: EdgeInsets.all(10.0),
-          child: loading()
-        ) /* Show Loading Process At Portfolio List When Requesting Data */
-        : buildRowList(portfolioData),
-        
-        // Add Asset
-        portfolioData == null || portfolioData.length == 0 ? Container()
-        : GestureDetector(
-          onTap: (){
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => AddAsset())
-            );
-          },
-          child: rowDecorationStyle(
-            child: Row(
-              children: [
-                Container(
-                  width: 40.0, height: 40.0,
-                  margin: EdgeInsets.only(right: 10.0),
-                  decoration: BoxDecoration(
-                    color: hexaCodeToColor(AppColors.secondary),
-                    border: Border.all(width: 1, color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(40.0)
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(LineAwesomeIcons.plus, color: Colors.white,)
+        child: SvgPicture.asset('assets/undraw.svg', width: 270, height: 250),
+      )
+      
+      : portfolioData.length == 0
+      ? Padding(
+        padding: EdgeInsets.all(10.0),
+        child: loading()
+      ) /* Show Loading Process At Portfolio List When Requesting Data */
+      : buildRowList(portfolioData),
+      
+      // Add Asset
+      portfolioData == null || portfolioData.length == 0 ? Container()
+      : GestureDetector(
+        onTap: (){
+          Navigator.push(
+            context, 
+            MaterialPageRoute(builder: (context) => AddAsset())
+          );
+        },
+        child: rowDecorationStyle(
+          child: Row(
+            children: [
+              Container(
+                width: 40.0, height: 40.0,
+                margin: EdgeInsets.only(right: 10.0),
+                decoration: BoxDecoration(
+                  color: hexaCodeToColor(AppColors.secondary),
+                  border: Border.all(width: 1, color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(40.0)
                 ),
+                alignment: Alignment.center,
+                child: Icon(LineAwesomeIcons.plus, color: Colors.white,)
+              ),
 
-                Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
-              ]
-            )
+              Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
+            ]
           )
         )
-      ],
-    ),
+      )
+    ],
   );
 }
 
@@ -163,14 +146,17 @@ Widget portfolioList(BuildContext context, String title, List<dynamic> portfolio
 
 /* Build Portfolio If Have List Of Portfolio */
 Widget buildRowList(List<dynamic> portfolioData){
-  return ListView.builder(
-    padding: EdgeInsets.all(0),
-    shrinkWrap: true,
-    itemCount: portfolioData.length,
-    physics: BouncingScrollPhysics(),
-    itemBuilder: (BuildContext context, int index) {
-      return portFolioItemRow(portfolioData, index);
-    },
+  return SizedBox(
+    height: 208.39,
+    child: ListView.builder(
+      padding: EdgeInsets.all(0),
+      shrinkWrap: true,
+      itemCount: portfolioData.length,
+      physics: BouncingScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        return portFolioItemRow(portfolioData, index);
+      },
+    ),
   );
 }
 
