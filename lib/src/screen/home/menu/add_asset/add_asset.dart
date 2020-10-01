@@ -99,6 +99,7 @@ class AddAssetState extends State<AddAsset> {
     return Scaffold(
       key: globalKey,
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: AddAssetBody(
           assetM: _modelAsset,
           validateAssetCode: validateAssetCode,
