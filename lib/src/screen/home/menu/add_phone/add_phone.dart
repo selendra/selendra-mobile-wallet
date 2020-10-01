@@ -75,6 +75,7 @@ class _AddPhoneState extends State<AddPhone>{
   Widget build(BuildContext context){
     return Scaffold(
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: AddPhoneBody(
           phoneModel: _phoneModel, 
           validatePhone: validatePhone,
