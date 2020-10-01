@@ -33,11 +33,8 @@ class SmsBody extends StatelessWidget{
         ),
 
         Container(
-          margin: EdgeInsets.only(bottom: 60.0),
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: SvgPicture.asset('assets/sms.svg', width: 293, height: 216),
-          )
+          margin: EdgeInsets.only(bottom: 30.0),
+          child: SvgPicture.asset('assets/sms.svg', width: 300, height: 250)
         ),
 
         MyText(
