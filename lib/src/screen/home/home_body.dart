@@ -58,12 +58,28 @@ class HomeBody extends StatelessWidget{
         ),
 
         MyRowHeader(),
+
+        if (portfolioData == null) SvgPicture.asset('assets/undraw.svg', width: 270, height: 250),
         
-        Expanded(
+        if (portfolioData.length == 0) Padding(
+          padding: EdgeInsets.all(10.0),
+          child: loading()
+        ) 
+
+        // Build List
+        else Container(
+          constraints: BoxConstraints(
+            minHeight: 30,
+            maxHeight: 300
+          ),
           child: buildRowList(portfolioData),
-        )
-        
-        // portfolioList(context, "Portfolioes", portfolioData, true, homeModel),
+        ),
+
+        if(portfolioData.length != 0) AddAssetRowButton(),
+        if(portfolioData.length != 0) AddAssetRowButton(),
+        if(portfolioData.length != 0) AddAssetRowButton(),
+        if(portfolioData.length != 0) AddAssetRowButton(),
+        if(portfolioData.length != 0) AddAssetRowButton(),
       ],
     );
   }

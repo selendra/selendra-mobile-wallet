@@ -240,6 +240,7 @@ class MyAppBar extends StatelessWidget{
 
 class BodyScaffold extends StatelessWidget{
 
+  final double bottom;
   final Widget child;
   final double width;
   final double height;
@@ -247,20 +248,23 @@ class BodyScaffold extends StatelessWidget{
   BodyScaffold({
     this.child,
     this.height,
-    this.width
+    this.width,
+    this.bottom = 0,
   });
   
   Widget build(BuildContext context){
     return SafeArea(
-      // child: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
           // Minus 20 Pixel For Make Safe Area Bottom
           // height: MediaQuery.of(context).size.height - 20,
+          height: height,
           color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
+          padding: EdgeInsets.only(bottom: bottom),
           child: this.child
         ),
-      // )
+      )
     );
   }
 }

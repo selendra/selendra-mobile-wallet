@@ -15,13 +15,14 @@ Widget zeeChartBody(BuildContext context, List<dynamic> _portfolioData, HomeMode
             ),
           ),
         ),
-        portfolioList(context, "Trading Portfolio", _portfolioData, false, _homeModel)
+        // portfolioList(context, "Trading Portfolio", _portfolioData, false, _homeModel)
       ],
     ),
   );
 }
 
 class PointsLineChart extends StatelessWidget {
+  
   final List<charts.Series> seriesList;
   final bool animate;
 
@@ -45,7 +46,7 @@ class PointsLineChart extends StatelessWidget {
     );
   }
 
-  /// Create one series with sample hard coded data.
+  // Create one series with sample hard coded data.
   static List<charts.Series<LinearSales, int>> _createSampleData() {
     final data = [
       new LinearSales(0, 5),

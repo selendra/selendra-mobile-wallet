@@ -41,17 +41,23 @@ class TrxComponent {
                   height: 40
                 ),
 
-                DbdStyle.textStylePortfolio(
-                  trx[index].containsKey("asset_code")
+                MyText(
+                  text: trx[index].containsKey("asset_code")
                   ? trx[index]["asset_code"]
                   : "XLM",
-                  "#EFF0F2"
+                  color: "#EFF0F2",
+                  fontSize: 16,
                 ),
 
                 /* Asset Code */
                 Expanded(child: Container()),
+
                 trx[index].containsKey('amount') 
-                ? DbdStyle.textStylePortfolio(trx[index]["balance"], "#00FFE8") /* Balance */
+                ? MyText(
+                  text: trx[index]["balance"], 
+                  color: "#00FFE8",
+                  fontSize: 16,
+                ) /* Balance */
                 : Container()
               ],
             )

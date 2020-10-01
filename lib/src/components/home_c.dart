@@ -72,91 +72,50 @@ Widget cardToken( /* Card Token Display */
   );
 }
 
-// Dashboard Style
-class DbdStyle{
-  static Widget textStylePortfolio(String text, String hexaColor) {
-    /* Style Text Inside Portfolio List */
-    return Container(
-      margin: EdgeInsets.only(top: 5.0),
-      child: Text(text, style: TextStyle(color: Colors.white)),
-    );
-  }
-}
-
-Widget portfolioList(BuildContext context, String title, List<dynamic> portfolioData, bool enable, HomeModel model) { /* List Of Portfolio */
-  return Column(
-    children: <Widget>[
-      portfolioData == null
-      ? Container(/* Retreive Porfolio Null => Have No List */
-        width: double.infinity,
-        padding: EdgeInsets.only(bottom: 11.5),
-        margin: EdgeInsets.only(left: 4.0, top: 10.5),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: Colors.white.withOpacity(0.1),
-              width: 1.5
-            )
-          )
-        ),
-        child: SvgPicture.asset('assets/undraw.svg', width: 270, height: 250),
-      )
-      
-      : portfolioData.length == 0
-      ? Padding(
-        padding: EdgeInsets.all(10.0),
-        child: loading()
-      ) /* Show Loading Process At Portfolio List When Requesting Data */
-      : buildRowList(portfolioData),
-      
-      // Add Asset
-      portfolioData == null || portfolioData.length == 0 ? Container()
-      : GestureDetector(
-        onTap: (){
-          Navigator.push(
-            context, 
-            MaterialPageRoute(builder: (context) => AddAsset())
-          );
-        },
-        child: rowDecorationStyle(
-          child: Row(
-            children: [
-              Container(
-                width: 40.0, height: 40.0,
-                margin: EdgeInsets.only(right: 10.0),
-                decoration: BoxDecoration(
-                  color: hexaCodeToColor(AppColors.secondary),
-                  border: Border.all(width: 1, color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(40.0)
-                ),
-                alignment: Alignment.center,
-                child: Icon(LineAwesomeIcons.plus, color: Colors.white,)
+class AddAssetRowButton extends StatelessWidget{
+  Widget build(BuildContext context) { 
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => AddAsset())
+        );
+      },
+      child: rowDecorationStyle(
+        child: Row(
+          children: [
+            Container(
+              width: 40.0, height: 40.0,
+              margin: EdgeInsets.only(right: 10.0),
+              decoration: BoxDecoration(
+                color: hexaCodeToColor(AppColors.secondary),
+                border: Border.all(width: 1, color: Colors.transparent),
+                borderRadius: BorderRadius.circular(40.0)
               ),
+              alignment: Alignment.center,
+              child: Icon(LineAwesomeIcons.plus, color: Colors.white,)
+            ),
 
-              Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
-            ]
-          )
+            Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
+          ]
         )
       )
-    ],
-  );
+    );
+  }
 }
 
 
 
 /* Build Portfolio If Have List Of Portfolio */
 Widget buildRowList(List<dynamic> portfolioData){
-  return SizedBox(
-    height: 208.39,
-    child: ListView.builder(
-      padding: EdgeInsets.all(0),
-      shrinkWrap: true,
-      itemCount: portfolioData.length,
-      physics: BouncingScrollPhysics(),
-      itemBuilder: (BuildContext context, int index) {
-        return portFolioItemRow(portfolioData, index);
-      },
-    ),
+  return ListView.builder(
+    padding: EdgeInsets.all(0),
+    shrinkWrap: true,
+    itemCount: portfolioData.length,
+    physics: BouncingScrollPhysics(),
+    itemBuilder: (BuildContext context, int index) {
+      return portFolioItemRow(portfolioData, index);
+    },
   );
 }
 
@@ -164,8 +123,9 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
   return rowDecorationStyle(
     child: Row(
       children: <Widget>[
-        /* Asset Icons */
-        !portfolioData[index].containsKey("asset_code") ? 
+
+        /* Stellar Icons */
+        ! portfolioData[index].containsKey("asset_code") ? 
         MyCircularImage(
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: 16),
@@ -174,25 +134,28 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
           height: 40
         )
 
+        // Another Crypto Images
         : MyCircularImage(
           padding: EdgeInsets.all(6),
+          margin: EdgeInsets.only(right: 16),
           boxColor: AppColors.secondary,
           imagePath: 'assets/stellar.svg',
           width: 40,
           height: 40
         ),
 
-        DbdStyle.textStylePortfolio(
-          portfolioData[index].containsKey("asset_code")
+        MyText(
+          text: portfolioData[index].containsKey("asset_code")
           ? portfolioData[index]["asset_code"]
           : "XLM",
-          "#EFF0F2"
+          color: "#EFF0F2",
+          fontSize: 16,
         ),
 
         /* Asset Code */
         Expanded(child: Container()),
 
-        DbdStyle.textStylePortfolio(portfolioData[index]["balance"], "#00FFE8") /* Balance */
+        MyText(text: portfolioData[0]["balance"], color: "#FFFFFF", fontSize: 16,) /* Balance */
       ],
     )
   );
@@ -314,9 +277,9 @@ Widget fabsButton({
 
 class MyHomeAppBar extends StatelessWidget{
 
-  final double  pLeft; final double pTop; final double pRight; final double pBottom;
+  final double pLeft; final double pTop; final double pRight; final double pBottom;
   final EdgeInsetsGeometry margin;
-  final String title;
+  final String title; 
   final Function action;
 
   MyHomeAppBar({

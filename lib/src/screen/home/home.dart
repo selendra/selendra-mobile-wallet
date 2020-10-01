@@ -41,6 +41,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       fetchPortfolio();
       triggerDeviceInfo();
       if (Platform.isAndroid) appPermission();
+      login();
       // fabsAnimation();
     } 
 
@@ -55,6 +56,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     _backend.mapData = json.decode(_backend.response.body);
 
     await StorageServices.setData(_backend.mapData, 'user_token');
+
+    setState(() {
+      
+    });
   }
 
   // Initialize Fabs Animation
@@ -181,11 +186,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         )
       );
 
-      _homeModel.chartKey.currentState.updateData([
-        CircularStackEntry(_homeModel.circularChart)
-      ]);
+      // _homeModel.chartKey.currentState.updateData([
+      //   CircularStackEntry(_homeModel.circularChart)
+      // ]);
 
-      _homeModel.emptyChartData = 100.0; // Reset Remain Pie Data
+      // _homeModel.emptyChartData = 100.0; // Reset Remain Pie Data
     }
   }
   
@@ -308,17 +313,18 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ),
 
       body: BodyScaffold(
-        child: SmartRefresher(
-          physics: BouncingScrollPhysics(),
-          controller: _homeModel.refreshController,
+        bottom: 16.0,
+        // child: SmartRefresher(
+        //   physics: BouncingScrollPhysics(),
+        //   controller: _homeModel.refreshController,
           child: HomeBody(
             bloc: bloc,
             chartKey: _homeModel.chartKey,
             portfolioData: _homeModel.portfolioList,
             homeModel: _homeModel
           ),
-          onRefresh: _pullUpRefresh,
-        ),
+        //   onRefresh: _pullUpRefresh,
+        // ),
       ),
 
       floatingActionButton: SizedBox(
@@ -334,15 +340,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-      // bottomNavigationBar: MyBottomAppBar( /* Bottom Navigation Bar */
-      //   model: _homeModel,
-      //   postRequest: _postRequest,
-      //   scanReceipt: null, // Bottom Center Button
-      //   resetDbdState: resetState,
-      //   toReceiveToken: toReceiveToken,
-      //   opacityController: opacityController,
-      //   openDrawer: openMyDrawer,
-      // )
+      bottomNavigationBar: MyBottomAppBar( /* Bottom Navigation Bar */
+        model: _homeModel,
+        postRequest: _postRequest,
+        scanReceipt: null, // Bottom Center Button
+        resetDbdState: resetState,
+        toReceiveToken: toReceiveToken,
+        opacityController: opacityController,
+        openDrawer: openMyDrawer,
+      )
     );
   }
 }
