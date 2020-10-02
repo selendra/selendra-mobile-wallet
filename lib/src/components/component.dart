@@ -278,6 +278,7 @@ class MyIconButton extends StatelessWidget{
     return Container(
       padding: padding,
       child: GestureDetector(
+        onTap: onPressed,
         child: SvgPicture.asset(
           'assets/icons/$icon', 
           width: 30, 
