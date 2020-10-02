@@ -219,91 +219,45 @@ class SubmitTrxState extends State<SubmitTrx> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _modelScanPay.globalKey,
-      body: Stack(
-        children: <Widget>[
-          scaffoldBGDecoration(
-            child: Column(
-              children: <Widget>[
-                containerAppBar( /* AppBar */
-                  context,
-                  Row(
-                    children: <Widget>[
-                      iconAppBar( /* Arrow Back Button */
-                        Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                        Alignment.centerLeft,
-                        EdgeInsets.all(0),
-                        popScreen,
-                      ),
-                      containerTitle("Send wallet", double.infinity, Colors.white, FontWeight.normal)
-                    ],
-                  )
-                ),
-                Flexible(
-                  child: Center(
-                    child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: submitTrxBody(
-                        context,
-                        widget.enableInput,
-                        dialogBox,
-                        _modelScanPay,
-                        validateWallet, validateAmount, validateMemo,
-                        onChanged,
-                        onSubmit,
-                        payProgres,
-                        validateInput,
-                        clickSend,
-                        resetAssetsDropDown,
-                        item
-                      ), /* Scan Pay Body Widget */
-                    ),
-                  ),
-                ),
-                
-              ],
-            )
-          ),
-          _modelScanPay.isPay == false
-          ? Container()
-          : BackdropFilter( // Fill Blur Background
-            filter: ImageFilter.blur(
-              sigmaX: 5.0,
-              sigmaY: 5.0,
+      body: BodyScaffold(
+        child: Stack(
+          children: <Widget>[
+            SubmitTrxBody(
+              enableInput: widget.enableInput,
+              dialog: dialogBox,
+              scanPayM: _modelScanPay,
+              validateWallet: validateWallet, 
+              validateAmount: validateAmount, 
+              validateMemo: validateMemo,
+              onChanged: onChanged,
+              onSubmit: onSubmit,
+              payProgress: payProgres,
+              validateInput: validateInput,
+              clickSend: clickSend,
+              resetAssetsDropDown: resetAssetsDropDown,
+              item: item
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: CustomAnimation.flareAnimation(flareController, "assets/animation/check.flr", "Checkmark")
-                )
-              ],
-            )
-            // disable == false ? Center(
-            //   child: FittedBox(
-            //     child: Column(
-            //       mainAxisSize: MainAxisSize.min,
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       crossAxisAlignment: CrossAxisAlignment.center,
-            //       children: <Widget>[
-            //         Container(
-            //           padding: EdgeInsets.only(bottom: 10.0),
-            //           child: CircularProgressIndicator()
-            //         ),
-            //         Text(
-            //           'Your payment is being processing',
-            //           style: TextStyle(fontSize: 16.0, color: getHexaColor(AppColors.lightBlueSky),),
-            //         )
-            //       ],
-            //     // Animation Check Mark
-            //     ) 
-            //   ),
-            // ) : 
-          ),
-        ],
+            _modelScanPay.isPay == false
+            ? Container()
+            : BackdropFilter( // Fill Blur Background
+              filter: ImageFilter.blur(
+                sigmaX: 5.0,
+                sigmaY: 5.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: CustomAnimation.flareAnimation(flareController, "assets/animation/check.flr", "Checkmark")
+                  )
+                ],
+              )
+            ),
+          ],
+        ),
       )
     );
   }
 }
+
+

@@ -157,6 +157,7 @@ class MyCircularImage extends StatelessWidget{
   final double height;
   final bool enableShadow;
   final BoxDecoration decoration;
+  final Color colorImage;
 
   MyCircularImage({
     this.boxColor = AppColors.secondary,
@@ -166,7 +167,8 @@ class MyCircularImage extends StatelessWidget{
     this.width,
     this.height,
     this.enableShadow,
-    this.decoration
+    this.decoration,
+    this.colorImage
   });
 
   Widget build(BuildContext context) {
@@ -175,19 +177,8 @@ class MyCircularImage extends StatelessWidget{
       width: width,
       height: height,
       padding: padding,
-      decoration: BoxDecoration(
-        color: hexaCodeToColor(boxColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black54.withOpacity(0.3), 
-            blurRadius: 40.0, 
-            spreadRadius: 2.0, 
-            offset: Offset(2.0, 5.0),
-          )
-        ],
-        borderRadius: BorderRadius.circular(40)
-      ),
-      child: SvgPicture.asset(imagePath, color: Colors.white)
+      decoration: decoration,
+      child: SvgPicture.asset(imagePath, color: colorImage,)
     );
   }
 }
@@ -240,16 +231,16 @@ class MyAppBar extends StatelessWidget{
 
 class BodyScaffold extends StatelessWidget{
 
-  final double bottom;
+  final double left, top, right, bottom;
   final Widget child;
   final double width;
   final double height;
 
   BodyScaffold({
+    this.left = 0, this.top = 0, this.right = 0, this.bottom = 0,
     this.child,
     this.height,
     this.width,
-    this.bottom = 0,
   });
   
   Widget build(BuildContext context){
@@ -258,10 +249,9 @@ class BodyScaffold extends StatelessWidget{
         child: Container(
           width: MediaQuery.of(context).size.width,
           // Minus 20 Pixel For Make Safe Area Bottom
-          // height: MediaQuery.of(context).size.height - 20,
-          height: height,
+          height: MediaQuery.of(context).size.height - 20,
           color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
-          padding: EdgeInsets.only(bottom: bottom),
+          padding: EdgeInsets.fromLTRB(left, top, right, bottom),
           child: this.child
         ),
       )
@@ -395,6 +385,53 @@ class MyRowHeader extends StatelessWidget{
           ),
         ],
       ),
+    );
+  }
+}
+
+class MyTabBar extends StatelessWidget{
+
+  final List<Widget> listWidget;
+  final Function onTap;
+
+  MyTabBar({
+    @required this.listWidget,
+    @required this.onTap
+  });
+
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container( 
+        margin: EdgeInsets.only(bottom: 16.0, right: 16.0),
+        decoration: BoxDecoration(
+          color: hexaCodeToColor(AppColors.cardColor),
+          borderRadius: BorderRadius.circular(8)
+        ),
+        width: 125.0,
+        height: 48,
+        child: TabBar(
+          unselectedLabelColor: hexaCodeToColor(AppColors.textColor),
+          indicatorColor: hexaCodeToColor(AppColors.secondary_text),
+          labelColor: hexaCodeToColor(AppColors.secondary_text),
+          // labelStyle: TextStyle(fontSize: 30.0),
+          tabs: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
+              width: double.infinity,
+              child: Icon(LineAwesomeIcons.phone, size: 23.0,),
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              alignment: Alignment.center,
+              child: Icon(LineAwesomeIcons.envelope, size: 23.0),
+            )
+          ],
+          onTap: onTap,
+        ),
+      )
     );
   }
 }

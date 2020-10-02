@@ -69,17 +69,11 @@ class HomeBody extends StatelessWidget{
         // Build List
         else Container(
           constraints: BoxConstraints(
-            minHeight: 30,
+            minHeight: 20,
             maxHeight: 300
           ),
           child: buildRowList(portfolioData),
         ),
-
-        if(portfolioData.length != 0) AddAssetRowButton(),
-        if(portfolioData.length != 0) AddAssetRowButton(),
-        if(portfolioData.length != 0) AddAssetRowButton(),
-        if(portfolioData.length != 0) AddAssetRowButton(),
-        if(portfolioData.length != 0) AddAssetRowButton(),
       ],
     );
   }

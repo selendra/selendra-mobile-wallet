@@ -128,20 +128,22 @@ class ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _modelForgotPassword.globalKey,
-      body: DefaultTabController(
-        initialIndex: 0,
-        length: 2,
-        child: scaffoldBGDecoration(
-          child: forgetPasswordBody(
-            context, 
-            _modelForgotPassword, 
-            tabBarSelectChanged, validatePhoneNumber, validateEmail,
-            onChanged, onSubmit,
-            Component.popScreen, 
-            requestCode
-          )
+      body: BodyScaffold(
+        child: DefaultTabController(
+          initialIndex: 0,
+          length: 2,
+          child: ForgetPasswordBody(
+            forgetM: _modelForgotPassword, 
+            tabBarSelectChanged: tabBarSelectChanged, 
+            validatePhoneNumber: validatePhoneNumber, 
+            validateEmail: validateEmail,
+            onChanged: onChanged, 
+            onSubmit: onSubmit,
+            popScreen: Component.popScreen, 
+            requestCode: requestCode
+          ),
         ),
-      ),
+      )
     );
   }
 }

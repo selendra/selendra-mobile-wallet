@@ -1,94 +1,132 @@
 import 'package:wallet_apps/index.dart';
 
-Widget submitTrxBody(
-  BuildContext context,
-  bool enableInput,
-  dynamic dialog,
-  ModelScanPay _modelScanPay,
-  Function validateWallet, Function validateAmount, Function validateMemo,
-  Function onChanged, Function onSubmit,
-  Function payProgress, Function validateInput, Function clickSend, Function resetAssetsDropDown,
-  PopupMenuItem Function(Map<String, dynamic>) item
-) {
-  return Form(
-    key: _modelScanPay.formStateKey,
-    child: Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: 20.0),
-          child: inputField(
-            context: context, 
-            labelText: "Receiver address", 
-            widgetName: 'sendTokenScreen',
-            textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)], 
-            inputType: TextInputType.number, 
-            controller: _modelScanPay.controlReceiverAddress, 
-            focusNode: _modelScanPay.nodeReceiverAddress, 
-            validateField: validateWallet, 
-            onChanged: onChanged, 
-            enableInput: enableInput,
-            action: onSubmit
-          )
+class SubmitTrxBody extends StatelessWidget{
+
+  final bool enableInput;
+  final dynamic dialog;
+  final ModelScanPay scanPayM;
+  final Function validateWallet; 
+  final Function validateAmount; 
+  final Function validateMemo;
+  final Function onChanged; 
+  final Function onSubmit;
+  final Function payProgress; 
+  final Function validateInput; 
+  final Function clickSend; 
+  final Function resetAssetsDropDown;
+  final PopupMenuItem Function(Map<String, dynamic>) item;
+
+  SubmitTrxBody({
+    this.enableInput,
+    this.dialog,
+    this.scanPayM,
+    this.validateWallet,
+    this.validateAmount,
+    this.validateMemo,
+    this.onChanged,
+    this.onSubmit,
+    this.payProgress,
+    this.validateInput,
+    this.clickSend,
+    this.resetAssetsDropDown,
+    this.item,
+  });
+  
+  Widget build(BuildContext context) {
+
+    List<MyInputField> listInput = [
+      MyInputField(
+        pBottom: 16,
+        labelText: "Receiver addres",
+        prefixText: null,
+        textInputFormatter: [
+          LengthLimitingTextInputFormatter(9),
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        inputType: TextInputType.phone,
+        controller: scanPayM.controlReceiverAddress,
+        focusNode: scanPayM.nodeReceiverAddress,
+        validateField: validateWallet,
+        onChanged: onChanged,
+        onSubmit: onSubmit
+      ),
+      MyInputField(
+        pBottom: 16,
+        labelText: "Amount",
+        prefixText: null,
+        textInputFormatter: [
+          LengthLimitingTextInputFormatter(TextField.noMaxLength)
+        ],
+        inputType: TextInputType.emailAddress,
+        controller: scanPayM.controlAmount,
+        focusNode: scanPayM.nodeAmount,
+        validateField: validateAmount,
+        onChanged: onChanged,
+        onSubmit: onSubmit
+      ),
+
+      MyInputField(
+        pBottom: 16,
+        labelText: "Memo",
+        prefixText: null,
+        textInputFormatter: [
+          LengthLimitingTextInputFormatter(TextField.noMaxLength)
+        ],
+        inputType: TextInputType.emailAddress,
+        controller: scanPayM.controlMemo,
+        focusNode: scanPayM.nodeMemo,
+        validateField: validateMemo,
+        onChanged: onChanged,
+        onSubmit: onSubmit
+      )
+    ];
+
+    return Column(
+      children: [
+
+        MyAppBar(
+          title: "Send wallet",
+          onPressed: (){
+            Navigator.pop(context);
+          },
         ),
-        Container( /* Type of payment */
-          margin: EdgeInsets.only(top: 20.0),
-          child: customDropDown(
-            _modelScanPay.asset != null ? _modelScanPay.asset : "Asset name", 
-            _modelScanPay.portfolio, 
-            _modelScanPay, 
-            resetAssetsDropDown,
-            item
-          ),
-        ),
-        /* User Fill Out Amount */
-        Container(
-          margin: EdgeInsets.only(top: 20.0),
-          child: inputField(
-            context: context, 
-            labelText: "Amount", 
-            widgetName: 'sendTokenScreen',
-            textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)], 
-            inputType: TextInputType.number, 
-            controller: _modelScanPay.controlAmount, 
-            focusNode: _modelScanPay.nodeAmount, 
-            validateField: validateAmount, 
-            onChanged: onChanged, 
-            action: onSubmit
-          )
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 20.0),
-          child: inputField(
-            context: context, 
-            labelText: "Memo",
-            widgetName: "sendTokenScreen", 
-            textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)], 
-            inputAction: TextInputAction.done,
-            controller: _modelScanPay.controlMemo, 
-            focusNode: _modelScanPay.nodeMemo, 
-            validateField: validateMemo, 
-            onChanged: onChanged, 
-            action: onSubmit
-          ),
-        ),
-        /* Button Send */
-        Container(
-          margin: EdgeInsets.only(top: 20.0),
-          child: customFlatButton(
-            context, 
-            "Send", "sendTokenScreen", AppColors.blueColor, 
-            FontWeight.bold,
-            size18,
-            EdgeInsets.only(top: size10, bottom: size10),
-            EdgeInsets.only(top: size15, bottom: size15),
-            BoxShadow(
-              color: Color.fromRGBO(0,0,0,0.0),
-              blurRadius: 0.0
-            ), 
-            _modelScanPay.enable == false ? null : clickSend
+
+        Form(
+          key: scanPayM.formStateKey,
+          child: Column(
+            children: <Widget>[
+              
+              listInput[0],
+
+              Container( /* Type of payment */
+                margin: EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
+                child: customDropDown(
+                  scanPayM.asset != null ? scanPayM.asset : "Asset name", 
+                  scanPayM.portfolio, 
+                  scanPayM, 
+                  resetAssetsDropDown,
+                  item
+                ),
+              ),
+
+              listInput[1],
+
+              listInput[2],
+
+              MyFlatButton(
+                textButton: "Request code",
+                buttonColor: AppColors.secondary,
+                fontWeight: FontWeight.bold,
+                fontSize: size18,
+                edgeMargin: EdgeInsets.only(top: 40, left: 66, right: 66),
+                hasShadow: true,
+                action: scanPayM.enable == false ? null : clickSend
+              ),
+            ],
           ),
         )
       ],
-    ),
-  );
+    );
+  }
 }
+

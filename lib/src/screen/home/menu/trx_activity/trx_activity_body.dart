@@ -1,31 +1,27 @@
 import 'package:wallet_apps/index.dart';
 
-Widget trxActivityBody( BuildContext context, List<dynamic> _activityList, Function _popScreen) {
-  return Container(
-    margin: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
-    child: Column(
+class TrxActivityBody extends StatelessWidget{
+
+  final List<dynamic> activityList;
+  final Function popScreen;
+
+  TrxActivityBody({
+    this.activityList,
+    this.popScreen
+  });
+
+  Widget build(BuildContext context) {
+    return Column(
       children: <Widget>[
-        containerAppBar( /* AppBar */
-          context,
-          Row(
-            children: <Widget>[
-              iconAppBar( /* Arrow Back Button */
-                Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
-                Alignment.centerLeft,
-                EdgeInsets.all(0),
-                _popScreen,
-              ),
-              containerTitle("My Activity", double.infinity, Colors.white, FontWeight.normal),
-            ],
-          )
+        MyAppBar(
+          title: "My activity",
+          onPressed: popScreen,
         ),
         Expanded(
-          child: buildListBody(_activityList),
+          child: buildListBody(activityList),
         )
       ],
-    ),
-  );
+    );
+  }
+
 }

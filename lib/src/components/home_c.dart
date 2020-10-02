@@ -129,9 +129,14 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
         MyCircularImage(
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: 16),
+          decoration: BoxDecoration(
+            color: hexaCodeToColor(AppColors.secondary),
+            borderRadius: BorderRadius.circular(40)
+          ),
           imagePath: 'assets/stellar.svg',
           width: 40,
-          height: 40
+          height: 40,
+          colorImage: Colors.white,
         )
 
         // Another Crypto Images
@@ -139,9 +144,14 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: 16),
           boxColor: AppColors.secondary,
+          decoration: BoxDecoration(
+            color: hexaCodeToColor(AppColors.secondary),
+            borderRadius: BorderRadius.circular(40)
+          ),
           imagePath: 'assets/stellar.svg',
           width: 40,
-          height: 40
+          height: 40,
+          colorImage: Colors.white,
         ),
 
         MyText(

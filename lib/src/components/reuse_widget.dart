@@ -565,32 +565,30 @@ Widget inputField({/* User Input Field */
   );
 }
 
-Widget customDropDown(String label, List list, dynamic _model,
-    Function changeValue, PopupMenuItem Function(Map<String, dynamic>) item) {
+Widget customDropDown(String label, List list, dynamic _model, Function changeValue, PopupMenuItem Function(Map<String, dynamic>) item) {
   /* Custom DropDown */
   return Container(
     padding: EdgeInsets.only(top: 11.0, bottom: 11.0, left: 26.0, right: 14.0),
     decoration: BoxDecoration(
-        color: hexaCodeToColor("#FFFFFF").withOpacity(0.1),
+        color: hexaCodeToColor(AppColors.cardColor),
         borderRadius: BorderRadius.circular(size5),
-        border: Border.all(
-            width: 1,
-            color: label == "Gender"
-                ? Colors.transparent
-                : hexaCodeToColor("#FFFFFF")
-                    .withOpacity(0.3)) /* Control Border Gender Color */
-        ),
+        // border: Border.all(
+        //     width: 1,
+        //     color: label == "Gender"
+        //         ? Colors.transparent
+        //         : hexaCodeToColor("#FFFFFF")
+        //             .withOpacity(0.3)) /* Control Border Gender Color */
+    ),
     child: Row(
       children: <Widget>[
         Expanded(
-          child: Text(
-            label,
-            style: TextStyle(color: Colors.white, fontSize: 18.0),
+          child: MyText(
+            text: label,
+            textAlign: TextAlign.left,
           ),
         ),
         Theme(
-          data:
-              ThemeData(canvasColor: hexaCodeToColor("#FFFFFF").withOpacity(0.1)),
+          data: ThemeData(canvasColor: hexaCodeToColor("#FFFFFF").withOpacity(0.1)),
           child: PopupMenuButton(
             offset: Offset.zero,
             padding: EdgeInsets.all(12),
@@ -611,64 +609,6 @@ Widget customDropDown(String label, List list, dynamic _model,
       ],
     ),
   );
-  // Column(
-  //   crossAxisAlignment: CrossAxisAlignment.start,
-  //   children: <Widget>[
-  //     /* Text Field */
-  //     Container(
-  //       padding: EdgeInsets.only(top: 23.0, bottom: 23.0, left: 26.0, right: 26.0),
-  //       width: double.infinity,
-  //       decoration: BoxDecoration(
-  //         border: Border.all(width: size1, color: getHexaColor(AppColors.borderColor)),
-  //         borderRadius: BorderRadius.circular(size5),
-  //         color: black38
-  //       ),
-  //       child: Theme(
-  //         data: ThemeData(canvasColor: getHexaColor(lightGreyColor)),
-  //         child:
-  //         // DropdownButtonHideUnderline(
-  //         //   child: DropdownButton(
-  //         //     isExpanded: false,
-  //         //     icon: Align( /* Arrow Down Icon */
-  //         //       alignment: Alignment.centerRight,
-  //         //       child: Icon(Icons.keyboard_arrow_down),
-  //         //     ),
-  //         //     style: TextStyle(color: Colors.white),
-  //         //     items: list.map((text){
-  //         //       return DropdownMenuItem(
-  //         //         value: text,
-  //         //         child: textDropDown(text),
-  //         //       );
-  //         //     }).toList(),
-  //         //     // /* If Gender */
-  //         //     // label == "Gender"
-  //         //     //   ? genderList.map((text) {
-  //         //     //     return DropdownMenuItem(
-  //         //     //       value: text,
-  //         //     //       child: textDropDown(text),
-  //         //     //     );
-  //         //     //   }).toList()
-  //         //     // /* If Document Type Id */
-  //         //     //   : documentIdList.map((mapData) {
-  //         //     //     return DropdownMenuItem(
-  //         //     //       value: mapData['id'],
-  //         //     //       child: Text(mapData['document_name']),
-  //         //     //     );
-  //         //     //   }).toList(),
-  //         //     // value: label == "Gender" ? _model.gender : _modelDocument.documentTypeId,
-  //         //     onChanged: (changed) {
-  //         //       // if (label == "Gender") {
-  //         //       //   setGender(changed);
-  //         //       // } else if ( label == "Document Type") {
-  //         //       //   setDocumentName(changed);
-  //         //       // }
-  //         //     },
-  //         //   ),
-  //         // ),
-  //       )
-  //     )
-  //   ],
-  // );
 }
 
 Widget textButton({

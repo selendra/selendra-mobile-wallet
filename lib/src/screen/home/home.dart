@@ -186,11 +186,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         )
       );
 
-      // _homeModel.chartKey.currentState.updateData([
-      //   CircularStackEntry(_homeModel.circularChart)
-      // ]);
+      _homeModel.chartKey.currentState.updateData([
+        CircularStackEntry(_homeModel.circularChart)
+      ]);
 
-      // _homeModel.emptyChartData = 100.0; // Reset Remain Pie Data
+      _homeModel.emptyChartData = 100.0; // Reset Remain Pie Data
     }
   }
   
@@ -314,17 +314,18 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
       body: BodyScaffold(
         bottom: 16.0,
-        // child: SmartRefresher(
-        //   physics: BouncingScrollPhysics(),
-        //   controller: _homeModel.refreshController,
+        height: MediaQuery.of(context).size.height,
+        child: SmartRefresher(
+          physics: BouncingScrollPhysics(),
+          controller: _homeModel.refreshController,
           child: HomeBody(
             bloc: bloc,
             chartKey: _homeModel.chartKey,
             portfolioData: _homeModel.portfolioList,
             homeModel: _homeModel
           ),
-        //   onRefresh: _pullUpRefresh,
-        // ),
+          onRefresh: _pullUpRefresh,
+        ),
       ),
 
       floatingActionButton: SizedBox(

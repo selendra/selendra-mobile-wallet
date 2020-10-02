@@ -59,7 +59,7 @@ class AddAssetBody extends StatelessWidget{
                 ),
                 
                 MyInputField(
-                  pBottom: 29,
+                  pBottom: 30,
                   labelText: "Issuer",
                   prefixText: null,
                   textInputFormatter: [

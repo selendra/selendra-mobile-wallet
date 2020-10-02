@@ -101,11 +101,7 @@ export 'package:wallet_apps/src/screen/main/forgot_password/reset_password_scree
 export 'package:wallet_apps/src/screen/main/forgot_password/reset_password_screen/reset_password_body.dart';
 
 // Forgot Password
-export 'package:wallet_apps/src/screen/main/sign_up/create_password/create_password.dart';
 export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password_body.dart';
-
-// Create Password
-export 'package:wallet_apps/src/screen/main/sign_up/create_password/create_password_body.dart'; 
 
 // Reset Code
 export 'package:wallet_apps/src/screen/main/forgot_password/reset_code/reset_code_body.dart';
@@ -127,7 +123,7 @@ export 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify.dar
 // Slide Screen
 export 'package:wallet_apps/src/screen/main/carousel/widget/slide_dot.dart';
 export 'package:wallet_apps/src/screen/main/carousel/widget/slide_item.dart';
-export 'package:wallet_apps/src/screen/main/carousel/slider_builder.dart';
+export 'package:wallet_apps/src/screen/main/carousel/carousel.dart';
 
 /* Home Screen */
 export 'package:wallet_apps/src/screen/home/home.dart';

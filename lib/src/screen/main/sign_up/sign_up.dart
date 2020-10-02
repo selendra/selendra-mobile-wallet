@@ -28,11 +28,6 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     Navigator.pop(context);
   }
 
-  void navigatePage(BuildContext context) { /* Navigate To Second Sign Up */
-    /* Prevent Submit On Smart Keyboard */
-    if (_modelSignUp.enable == true) Navigator.push(context, MaterialPageRoute(builder: (context) => CreatePassword(_modelSignUp)));
-  }
-
   void onChanged(String onchanged) { /* Input Field Value Change */
     _modelSignUp.formState.currentState.validate();
   }

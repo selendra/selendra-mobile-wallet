@@ -69,8 +69,11 @@ class TrxActivityState extends State<TrxActivity> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      body: SafeArea(
-        child: trxActivityBody(context, _activity, popScreen),
+      body: BodyScaffold(
+        child: TrxActivityBody(
+          activityList: _activity, 
+          popScreen: popScreen
+        ),
       )
     );
   }

@@ -125,12 +125,13 @@ class MenuBody extends StatelessWidget{
         MyListTile(
           index: 3,
           subIndex: 0,
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.push(
-              context, 
-              MaterialPageRoute(builder: (context) => ChangePassword())
-            );
+          onTap: () async{
+            await dialog(context, MyText(text: "Under reconstruction", color: "#000000"), Text("Message"));
+            // Navigator.pop(context);
+            // Navigator.push(
+            //   context, 
+            //   MaterialPageRoute(builder: (context) => ChangePassword())
+            // );
           },
         ),
 
@@ -173,7 +174,7 @@ class MenuBody extends StatelessWidget{
                           Navigator.pushAndRemoveUntil(
                             context, 
                             MaterialPageRoute(
-                              builder: (context) => SlideBuilder()
+                              builder: (context) => Login()
                             ),
                             ModalRoute.withName('/')
                           );
