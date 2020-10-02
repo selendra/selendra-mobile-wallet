@@ -59,20 +59,22 @@ class HomeBody extends StatelessWidget{
 
         MyRowHeader(),
 
-        if (portfolioData == null) SvgPicture.asset('assets/undraw.svg', width: 270, height: 250),
+        if (portfolioData == null) Expanded(
+          child: SvgPicture.asset('assets/undraw.svg', width: 270, height: 250),
+        ),
         
-        if (portfolioData.length == 0) Padding(
-          padding: EdgeInsets.all(10.0),
-          child: loading()
-        ) 
+        if (portfolioData.length == 0) Expanded(
+          child: loading(),
+        )
 
-        // Build List
-        else Container(
-          constraints: BoxConstraints(
-            minHeight: 20,
-            maxHeight: 300
-          ),
-          child: buildRowList(portfolioData),
+        else Expanded(
+          child: Container(
+            constraints: BoxConstraints(
+              minHeight: 300,
+              maxHeight: 300
+            ),
+            child: buildRowList(portfolioData),
+          )
         ),
       ],
     );

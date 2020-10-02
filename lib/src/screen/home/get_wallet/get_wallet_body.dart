@@ -30,7 +30,7 @@ class GetWalletBody extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('assets/not_found.svg', width: 285, height: 278),
+              SvgPicture.asset('assets/no_data.svg', width: 285, height: 278),
               MyText(
                 top: 10,
                 text: "No wallet"

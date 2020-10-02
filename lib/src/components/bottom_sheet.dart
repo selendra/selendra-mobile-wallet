@@ -97,7 +97,7 @@ class MyBottomSheet{
 
             Expanded(
               child: Center(
-                child: SvgPicture.asset('assets/not_found.svg', width: 285, height: 278)
+                child: SvgPicture.asset('assets/no_data.svg', width: 285, height: 278)
               ),
             )
           ],
