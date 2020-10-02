@@ -1,5 +1,3 @@
-import 'package:wallet_apps/index.dart';
-
 class MenuModel {
 
   bool switchBio = false;
@@ -9,30 +7,30 @@ class MenuModel {
     {
       'title': "History",
       'sub': [
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'History'},
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Activity'}
+        {'icon': "assets/icons/history.svg", 'subTitle': 'History'},
+        {'icon': "assets/icons/history.svg", 'subTitle': 'Activity'}
       ]
     },
     {
       'title': "Wallet",
       'sub': [
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Wallet'},
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Asset'}
+        {'icon': "assets/icons/wallet.svg", 'subTitle': 'Wallet'},
+        {'icon': "assets/icons/plus.svg", 'subTitle': 'Asset'}
       ]
     },
     {
       'title': "Security",
       'sub': [
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'PIN'},
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Password'},
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Finger print'}
+        {'icon': "assets/icons/pin_code.svg", 'subTitle': 'PIN'},
+        {'icon': "assets/icons/password.svg", 'subTitle': 'Password'},
+        {'icon': "assets/icons/finger_print.svg", 'subTitle': 'Finger print'}
       ]
     },
     {
       'title': "Account",
       'sub': [
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Profile'},
-        {'icon': LineAwesomeIcons.history, 'subTitle': 'Log out'},
+        {'icon': "assets/icons/edit_user.svg", 'subTitle': 'Profile'},
+        {'icon': "assets/icons/logout.svg", 'subTitle': 'Log out'},
       ]
     },
   ];

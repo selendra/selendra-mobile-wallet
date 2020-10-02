@@ -125,6 +125,7 @@ flutter:
     - assets/images/
     - assets/images/images_slide/
     - assets/
+    - assets/icons/
 
     # Animation Flare
     - assets/animation/

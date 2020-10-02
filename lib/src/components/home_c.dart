@@ -223,7 +223,7 @@ class MyBottomAppBar extends StatelessWidget{
 
               Expanded(
                 child: MyIconButton(
-                  icon: LineAwesomeIcons.telegram,
+                  icon: 'telegram.svg',
                   onPressed: () async {
                     MyBottomSheet().trxOptions(context: context, portfolioList: model.portfolioList, resetHomeData: resetDbdState);
                   },
@@ -232,7 +232,7 @@ class MyBottomAppBar extends StatelessWidget{
 
               Expanded(
                 child: MyIconButton(
-                  icon: LineAwesomeIcons.qrcode,
+                  icon: 'qr_code.svg',
                   onPressed: () async {
                     toReceiveToken();
                   },
@@ -243,7 +243,7 @@ class MyBottomAppBar extends StatelessWidget{
 
               Expanded(
                 child: MyIconButton(
-                  icon: LineAwesomeIcons.bar_chart_1,
+                  icon: 'combo_chart.svg',
                   onPressed: () async {
                     Navigator.push(
                       context, 
@@ -255,7 +255,7 @@ class MyBottomAppBar extends StatelessWidget{
 
               Expanded(
                 child: MyIconButton(
-                  icon: LineAwesomeIcons.list,
+                  icon: 'menu.svg',
                   onPressed: openDrawer,
                 ),
               )

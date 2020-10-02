@@ -312,11 +312,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         child: Menu(_homeModel.userData, _packageInfo, menuCallBack),
       ),
 
-      body: 
-      // SmartRefresher(
-      //   physics: BouncingScrollPhysics(),
-      //   controller: _homeModel.refreshController,
-        // child: 
+      body: SmartRefresher(
+        physics: BouncingScrollPhysics(),
+        controller: _homeModel.refreshController,
+        child: 
         BodyScaffold(
           bottom: 16.0,
           child: HomeBody(
@@ -326,8 +325,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             homeModel: _homeModel
           )
         ),
-      //   onRefresh: _pullUpRefresh,
-      // ),
+        onRefresh: _pullUpRefresh,
+      ),
 
       floatingActionButton: SizedBox(
         width: 64, height: 64,

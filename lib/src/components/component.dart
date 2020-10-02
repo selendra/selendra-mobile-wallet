@@ -1,3 +1,4 @@
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
 class Component {
@@ -261,7 +262,7 @@ class BodyScaffold extends StatelessWidget{
 
 class MyIconButton extends StatelessWidget{
 
-  final IconData icon;
+  final String icon;
   final double iconSize;
   final Function onPressed;
   final EdgeInsetsGeometry padding;
@@ -274,15 +275,26 @@ class MyIconButton extends StatelessWidget{
   });
 
   Widget build(BuildContext context) {
-    return IconButton(
+    return Container(
       padding: padding,
-      icon: Icon(
-        this.icon,
-        size: iconSize,
-        color: Colors.white
+      child: GestureDetector(
+        child: SvgPicture.asset(
+          'assets/icons/$icon', 
+          width: 30, 
+          height: 30, 
+          color: Colors.white
+        ),
       ),
-      onPressed: onPressed,
     );
+    // IconButton(
+    //   padding: padding,
+    //   icon: Icon(
+    //     this.icon,
+    //     size: iconSize,
+    //     color: Colors.white
+    //   ),
+    //   onPressed: onPressed,
+    // );
   }
 }
 

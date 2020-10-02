@@ -25,8 +25,12 @@ class ChangePinBody extends StatelessWidget{
   Widget build(BuildContext context){
     return Column(
       children: <Widget>[
+        
         MyAppBar(
           title: "Change pin",
+          onPressed: (){
+            Navigator.pop(context);
+          },
         ),
 
         Form( /* Body Change Pin */

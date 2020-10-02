@@ -28,6 +28,9 @@ class ChangePasswordBody extends StatelessWidget{
         
         MyAppBar(
           title: "Change password",
+          onPressed: (){
+            Navigator.pop(context);
+          },
         ),
 
 

@@ -94,10 +94,10 @@ class MyListTile extends StatelessWidget{
       contentPadding: EdgeInsets.only(left: 30),
       enabled: enable,
       onTap: onTap,
-      leading: Icon(
+      leading: SvgPicture.asset(
         MenuModel.listTile[index]['sub'][subIndex]['icon'], 
         color: Colors.white,
-        size: 30,
+        width: 30, height: 30
       ),
       title: MyText(
         text: MenuModel.listTile[index]['sub'][subIndex]['subTitle'],
