@@ -50,7 +50,7 @@ class MenuBody extends StatelessWidget{
           subIndex: 1,
           onTap: () {
             // callBack(_result);
-            Navigator.pop(context);
+            Navigator.pop(context, '');
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => TrxActivity())
@@ -73,7 +73,7 @@ class MenuBody extends StatelessWidget{
           index: 1,
           subIndex: 1,
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pop(context, '');
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => AddAsset())
@@ -88,7 +88,7 @@ class MenuBody extends StatelessWidget{
           index: 2,
           subIndex: 0,
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pop(context, '');
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => ChangePin())
@@ -100,7 +100,7 @@ class MenuBody extends StatelessWidget{
           index: 2,
           subIndex: 1,
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pop(context, '');
             Navigator.push(
               context, 
               MaterialPageRoute(builder: (context) => ChangePassword())
@@ -126,12 +126,13 @@ class MenuBody extends StatelessWidget{
           index: 3,
           subIndex: 0,
           onTap: () async{
-            await dialog(context, MyText(text: "Under reconstruction", color: "#000000"), Text("Message"));
+            // await dialog(context, MyText(text: "Under reconstruction", color: "#000000"), Text("Message"));
             // Navigator.pop(context);
             // Navigator.push(
             //   context, 
-            //   MaterialPageRoute(builder: (context) => ChangePassword())
+            //   MaterialPageRoute(builder: (context) => EditProfile())
             // );
+            editProfile();
           },
         ),
 

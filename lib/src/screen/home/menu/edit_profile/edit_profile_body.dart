@@ -1,129 +1,156 @@
 import 'package:wallet_apps/index.dart';
 
-Widget editProfileBody(
-  BuildContext _context,
-  ModelUserInfo _modelUserInfo,
-  Function onSubmit,
-  Function onChanged,
-  Function changeGender,
-  Function validateFirstName,
-  Function validateMidName,
-  Function validateLastName,
-  Function submitProfile,
-  Function popScreen,
-  PopupMenuItem Function(Map<String, dynamic>) item,
-) {
-  return Column(
-    children: <Widget>[
-      containerAppBar( /* AppBar */
-        _context,
-        Row(
-          children: <Widget>[
-            iconAppBar( /* Arrow Back Button */
-              Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              popScreen,
-            ),
-            containerTitle(
-              "User Information", 
-              double.infinity,
-              Colors.white, 
-              FontWeight.normal
-            )
-          ],
-        )
-      ),
-      Form(
-        key: _modelUserInfo.formStateAddUserInfo,
-        child: Expanded( /* Body Change Pin */
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Container(
-              margin: EdgeInsets.only(left: 27.0, right: 27.0, top: 27.0),
-              child: Column(
-                children: <Widget>[
-                  Container( /* First Name Field */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "First Name", 
-                      widgetName: "userInfoScreen",
-                      textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      inputAction: TextInputAction.next,
-                      controller: _modelUserInfo.controlFirstName,
-                      focusNode: _modelUserInfo.nodeFirstName,
-                      validateField: validateFirstName,
-                      onChanged: onChanged,
-                      action: onSubmit
-                    ),
-                  ),
-                  Container( /* Mid Name Field */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "Mid Name", 
-                      widgetName: "userInfoScreen",
-                      textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      controller: _modelUserInfo.controlMidName,
-                      focusNode: _modelUserInfo.nodeMidName,
-                      validateField: validateMidName,
-                      onChanged: onChanged,
-                      action: onSubmit
-                    ),
-                  ),
-                  Container( /* Last Name Field */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: inputField(
-                      context: _context,
-                      labelText: "Last Name",
-                      widgetName: "userInfoScreen",
-                      textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                      inputAction: TextInputAction.done,
-                      controller: _modelUserInfo.controlLastName,
-                      focusNode: _modelUserInfo.nodeLastName,
-                      validateField: validateLastName,
-                      onChanged: onChanged,
-                      action: onSubmit
-                    ),
-                  ),
-                  Container( /* Gender Picker */
-                    margin: EdgeInsets.only(bottom: 12.0),
-                    child: customDropDown(
-                      _modelUserInfo.genderLabel,
-                      [
-                        {"gender": "Male"},
-                        {"gender": "Female"}
-                      ],
-                      _modelUserInfo,
-                      changeGender,
-                      item
-                    ),
-                  ),
-                  customFlatButton(/* Submit Button */
-                    _context,
-                    "Submit",
-                    "userInfoScreen",
-                    AppColors.greenColor,
-                    FontWeight.normal,
-                    size18,
-                    EdgeInsets.only(top: 15.0, bottom: size10),
-                    EdgeInsets.only(top: size15, bottom: size15),
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.54),
-                      blurRadius: 5.0
-                    ),
-                    _modelUserInfo.enable == false ? null : submitProfile
-                  )
-                ],
-              ),
+class EditProfileBody extends StatelessWidget{
+
+  final ModelUserInfo modelUserInfo;
+  final Function onSubmit;
+  final Function onChanged;
+  final Function changeGender;
+  final Function validateFirstName;
+  final Function validateMidName;
+  final Function validateLastName;
+  final Function submitProfile;
+  final PopupMenuItem Function(Map<String, dynamic>) item;
+
+  EditProfileBody({
+    this.modelUserInfo,
+    this.onSubmit,
+    this.onChanged,
+    this.changeGender,
+    this.validateFirstName,
+    this.validateMidName,
+    this.validateLastName,
+    this.submitProfile,
+    this.item
+  });
+
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        MyAppBar(
+          title: "User information",
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+
+        Expanded(
+          child: SvgPicture.asset('assets/user_info.svg'),
+        ),
+
+        Expanded(
+          child: Form(
+            key: modelUserInfo.formStateAddUserInfo,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+
+                MyInputField(
+                  pBottom: 16.0,
+                  labelText: "First name",
+                  textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                  controller: modelUserInfo.controlFirstName, 
+                  focusNode: modelUserInfo.nodeFirstName, 
+                  validateField: validateFirstName, 
+                  onChanged: onChanged, 
+                  onSubmit: onSubmit
+                ),
+                
+                MyInputField(
+                  pBottom: 16.0,
+                  labelText: "Mid name",
+                  textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                  controller: modelUserInfo.controlMidName, 
+                  focusNode: modelUserInfo.nodeMidName, 
+                  validateField: validateMidName, 
+                  onChanged: onChanged, 
+                  onSubmit: onSubmit
+                ),
+                
+                MyInputField(
+                  pBottom: 16.0,
+                  labelText: "Last name",
+                  textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                  controller: modelUserInfo.controlLastName ,
+                  focusNode: modelUserInfo.nodeLastName, 
+                  validateField: validateLastName, 
+                  onChanged: onChanged, 
+                  onSubmit: onSubmit
+                ),
+              ],
             ),
           ),
         ),
-      )
-    ],
-  );
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: (){
+                changeGender("Male");
+              },
+              child: MyCircularImage(
+                width: 70, height: 70,
+                padding: const EdgeInsets.all(10),  
+                decoration: BoxDecoration(
+                  color: hexaCodeToColor(
+                    modelUserInfo.gender == 'M' ? AppColors.selected : AppColors.cardColor 
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54.withOpacity(0.3), 
+                      blurRadius: 40.0, 
+                      spreadRadius: 2.0, 
+                      offset: Offset(2.0, 5.0),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(40)
+                ),
+                imagePath: "assets/male_avatar.svg"
+              )
+            ),
+            MyText(
+              left: 30, right: 30,
+              width: 100,
+              height: 21,
+              text: modelUserInfo.genderLabel
+            ), 
+
+            GestureDetector(
+              onTap: (){
+                changeGender("Female");
+              },
+              child: MyCircularImage(
+                width: 70, height: 70,
+                padding: const EdgeInsets.all(10),  
+                decoration: BoxDecoration(
+                  color: hexaCodeToColor(
+                    modelUserInfo.gender == 'F' ? AppColors.selected : AppColors.cardColor 
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black54.withOpacity(modelUserInfo.enable == false ? 0 : 0.3), 
+                      blurRadius: 40.0, 
+                      spreadRadius: 2.0, 
+                      offset: Offset(2.0, 5.0),
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(40)
+                ),
+                imagePath: "assets/female_avatar.svg"
+              )
+            )
+          ],
+        ),
+
+        MyFlatButton(
+          textButton: "Submit",
+          edgeMargin: EdgeInsets.only(top: 29, left: 66, right: 66),
+          hasShadow: modelUserInfo.enable,
+          action: modelUserInfo.enable == false ? null : submitProfile
+        )
+      ],
+    );
+  }
+
 }

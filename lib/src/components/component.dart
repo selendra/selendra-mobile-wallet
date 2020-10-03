@@ -238,7 +238,7 @@ class BodyScaffold extends StatelessWidget{
   final double height;
 
   BodyScaffold({
-    this.left = 0, this.top = 0, this.right = 0, this.bottom = 0,
+    this.left = 0, this.top = 0, this.right = 0, this.bottom = 16,
     this.child,
     this.height,
     this.width,

@@ -36,10 +36,6 @@ class EditProfileState extends State<EditProfile> {
     super.dispose();
   }
 
-  void popScreen() {
-    Navigator.pop(context, '');
-  }
-
   void replaceDataToController() {/* Replace Data From Profile Screen After Push User Informtaion Screen */
     _modelUserInfo.controlFirstName.text = widget._userData['first_name'];
     _modelUserInfo.controlMidName.text = widget._userData['mid_name'];
@@ -130,8 +126,8 @@ class EditProfileState extends State<EditProfile> {
     _backend.mapData = json.decode(_backend.response.body);
     /* Set Profile Success */
     if (_backend.mapData != null) { 
-      await dialog(context, Text("${_backend.mapData['message']}"), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
-      Navigator.pop(context, 'edit_profile');
+      await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
+      Navigator.pop(context, {'dialog_name': 'edit_profile'});
     }
   }
 
@@ -147,19 +143,18 @@ class EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _modelUserInfo.globalKey,
-      body: scaffoldBGDecoration(
-        child: editProfileBody(
-          context,
-          _modelUserInfo,
-          onSubmit,
-          onChanged,
-          changeGender,
-          validateFirstName,
-          validateMidName,
-          validateLastName,
-          submitProfile,
-          popScreen,
-          item
+      body: BodyScaffold(
+        bottom: 16,
+        child: EditProfileBody(
+          modelUserInfo: _modelUserInfo,
+          onSubmit: onSubmit,
+          onChanged: onChanged,
+          changeGender: changeGender,
+          validateFirstName: validateFirstName,
+          validateMidName: validateMidName,
+          validateLastName: validateLastName,
+          submitProfile: submitProfile,
+          item: item
         )
       ),
     );

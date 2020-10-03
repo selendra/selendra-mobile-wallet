@@ -100,12 +100,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   /* ---------------------------Rest Api--------------------------- */
-  void getUserData() async { /* Fetch User Data From Memory */
+  Future<void> getUserData() async { /* Fetch User Data From Memory */
     await _getRequest.getUserProfile().then((data) {
-      if (data == null)
-        _homeModel.userData = {};
-      else
-        _homeModel.userData = data;
+      setState(() {  
+        print(data);
+        if (data == null)
+          _homeModel.userData = {};
+        else
+          _homeModel.userData = data;
+      });
     });
   }
 
@@ -196,24 +199,33 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   
   void menuCallBack(Map<String, dynamic> result) async {
 
-    _backend.mapData = await StorageServices.fetchData("getWallet");
+    print("Call back $result");
 
-    if (result.isNotEmpty){
-      // Log Out
-      if (result.containsKey('log_out')){
-        Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Welcome()), 
-        );
-      }
-      else {
-        if (result['dialog_name'] == "addAssetScreen") await fetchPortfolio();
-      }
-    }
+    if (result != null){
+      _backend.mapData = await StorageServices.fetchData("getWallet");
 
-    // If Get Wallet
-    if (_backend.mapData != null ){
-      await fetchPortfolio();
-      await StorageServices.removeKey("getWallet");
+      if (result.isNotEmpty){
+        // Log Out
+        if (result.containsKey('log_out')){
+          Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Welcome()), 
+          );
+        }
+        else if (result['dialog_name'] == "addAssetScreen") {
+          print("1");
+          await fetchPortfolio();
+        }
+        else if (result['dialog_name'] == 'edit_profile') {
+          print("2");
+          await getUserData();
+        }
+      }
+
+      // If Get Wallet
+      if (_backend.mapData != null ){
+        await fetchPortfolio();
+        await StorageServices.removeKey("getWallet");
+      }
     }
   }
 

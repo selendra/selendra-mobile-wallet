@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:wallet_apps/index.dart';
 
 class Menu extends StatefulWidget{
@@ -38,6 +37,8 @@ class MenuState extends State<Menu> {
     AppServices.noInternetConnection(_globalKey);
     setUserInfo();
     checkAvailableBio();
+
+    print("user profile ${widget._userData}");
     super.initState();
   }
 
@@ -127,14 +128,23 @@ class MenuState extends State<Menu> {
   
   /* --------------------Function-------------------- */
   void editProfile() async {
-    _result = await Navigator.push(context, transitionRoute(EditProfile(_modelUserInfo.userData)));
-    widget.callBack(_result);
-    Navigator.pop(context);
+    // _result = await Navigator.push(context, MaterialPageRoute(
+    //     builder: (context) => EditProfile(_modelUserInfo.userData)
+    //   )
+    // );
+    // widget.callBack(_result);
+    // Navigator.pop(context);
+    _result = await Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => EditProfile(_modelUserInfo.userData))
+    );
+    widget.callBack( _result ?? Map<String, dynamic>.from({}));
+    Navigator.pop(context, {});
   } 
 
   void trxHistroy() {
     widget.callBack(_result);
-    Navigator.pop(context);
+    Navigator.pop(context, _result);
     Navigator.push(context, transitionRoute(TrxHistory(widget._userData['wallet'])));
   }
 

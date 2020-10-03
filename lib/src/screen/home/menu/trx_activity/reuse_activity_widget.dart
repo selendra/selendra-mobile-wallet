@@ -67,7 +67,7 @@ Widget buildListBody(List<dynamic> _activity,) {
     : loading()  /* Show Loading If History Length = 0 */
   : Align(
     alignment: Alignment.center,
-    child: Text("No activity", style: TextStyle(fontSize: 18.0),),
+    child: SvgPicture.asset('assets/no_data.svg'),
   ); /* Show Text (No activity) If Respoonse Length = 0 */
 }
 
