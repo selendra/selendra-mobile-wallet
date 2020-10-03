@@ -37,7 +37,7 @@ class MyBottomSheet{
                 Expanded(
                   child: MyBottomSheetItem(
                     subTitle: "Scan wallet",
-                    isIconButton: false,
+                    icon: "sld_qr.svg",
                     action: () async {
                       TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
                     },
@@ -46,7 +46,7 @@ class MyBottomSheet{
 
                 Expanded(
                   child: MyBottomSheetItem(
-                    icon: LineAwesomeIcons.add_to_shopping_cart,
+                    icon: "icons/form.svg",
                     subTitle: "Fill wallet", 
                     action: () {
                       TrxOptionMethod.navigateFillAddress(context, portfolioList, resetHomeData);
@@ -56,7 +56,7 @@ class MyBottomSheet{
 
                 Expanded(
                   child: MyBottomSheetItem(
-                    icon: LineAwesomeIcons.phone,
+                    icon: "icons/contact.svg",
                     subTitle: "Invite friend", 
                     action: () {
                       TrxOptionMethod.selectContact(context, portfolioList, resetHomeData);

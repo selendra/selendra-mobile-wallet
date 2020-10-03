@@ -2,6 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 import 'package:wallet_apps/src/components/portfolio_c.dart';
+import 'package:wallet_apps/src/screen/home/portfolio/chart/bar_chart.dart';
 
 class  PortfolioBody extends StatelessWidget{
 
@@ -47,10 +48,10 @@ class  PortfolioBody extends StatelessWidget{
           padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
           width: double.infinity,
           height: 200,
-          // decoration: BoxDecoration(
-          //   color: hexaCodeToColor(AppColors.cardColor),
-          //   borderRadius: BorderRadius.circular(8)
-          // ),
+          decoration: BoxDecoration(
+            color: hexaCodeToColor(AppColors.cardColor),
+            borderRadius: BorderRadius.circular(8)
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -182,6 +183,17 @@ class  PortfolioBody extends StatelessWidget{
                 ),
               )
             ],
+          ),
+        ),
+
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+            child: SizedBox(
+              width: double.infinity,
+              height: 300,
+              child: GroupedBarChart.withSampleData()
+            ),
           ),
         ),
 

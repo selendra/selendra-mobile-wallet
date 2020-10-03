@@ -3,31 +3,22 @@ import 'package:wallet_apps/index.dart';
 class MyBottomSheetItem extends StatelessWidget {
 
   final String subTitle;
-  final bool isIconButton;
-  final IconData icon;
+  final String icon;
   final Function action;
 
   MyBottomSheetItem({
     @required this.subTitle,
-    this.isIconButton = true,
-    this.icon,
+    @required this.icon,
     @required this.action
   });
 
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print(subTitle);
-        action();
-      },
+      onTap: action,
       child: Column(
         children: [
-          // For Only Icon 
-          isIconButton 
-          ? Icon(icon, size: 30, color: Colors.white)
-
-          // For Only Selendra Qr
-          : SvgPicture.asset('assets/sld_qr.svg', width: 30, height: 30),
+          
+          SvgPicture.asset('assets/$icon', width: 30, height: 30, color: Colors.white),
 
           MyText(
             top: 6,

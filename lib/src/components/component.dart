@@ -287,15 +287,6 @@ class MyIconButton extends StatelessWidget{
         ),
       ),
     );
-    // IconButton(
-    //   padding: padding,
-    //   icon: Icon(
-    //     this.icon,
-    //     size: iconSize,
-    //     color: Colors.white
-    //   ),
-    //   onPressed: onPressed,
-    // );
   }
 }
 
