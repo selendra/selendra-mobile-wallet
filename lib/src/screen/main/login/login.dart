@@ -228,12 +228,11 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BodyScaffold(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: DefaultTabController(
-          initialIndex: 0,
-          length: 2,
+      body: DefaultTabController(
+        initialIndex: 0,
+        length: 2,
+        child: BodyScaffold(
+          width: MediaQuery.of(context).size.width,
           child: LoginBody(
             modelLogin: _modelLogin,
             validateInput: validateInput,
@@ -243,9 +242,10 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
             submitLogin: submitLogin,
             onChanged: onChanged,
             onSubmit: onSubmit,
-          ),
-        )
-      ),
+          )
+        ),
+      )
+      ,
     );
   }
 }
