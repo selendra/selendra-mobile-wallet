@@ -250,7 +250,7 @@ class BodyScaffold extends StatelessWidget{
         child: Container(
           width: MediaQuery.of(context).size.width,
           // Minus 20 Pixel For Make Safe Area Bottom
-          height: MediaQuery.of(context).size.height - 20,
+          // height: MediaQuery.of(context).size.height - 20,
           color: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
           padding: EdgeInsets.fromLTRB(left, top, right, bottom),
           child: this.child

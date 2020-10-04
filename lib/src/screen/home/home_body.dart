@@ -63,18 +63,14 @@ class HomeBody extends StatelessWidget{
           child: SvgPicture.asset('assets/undraw.svg', width: 270, height: 250),
         ),
         
-        if (portfolioData.length == 0) Expanded(
-          child: loading(),
-        )
+        if (portfolioData.length == 0) loading()
 
-        else Expanded(
-          child: Container(
-            constraints: BoxConstraints(
-              minHeight: 300,
-              maxHeight: 300
-            ),
-            child: buildRowList(portfolioData),
-          )
+        else Container(
+          constraints: BoxConstraints(
+            minHeight: 70,
+            maxHeight: 300
+          ),
+          child: buildRowList(portfolioData),
         ),
       ],
     );

@@ -156,7 +156,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         _homeModel.portfolioList = _portfolio.list;
       });
       StorageServices.setData(_homeModel.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
-      resetDataPieChart(_homeModel.portfolioList); 
+      // resetDataPieChart(_homeModel.portfolioList); 
     }
   }
 
@@ -327,8 +327,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       body: SmartRefresher(
         physics: BouncingScrollPhysics(),
         controller: _homeModel.refreshController,
-        child: 
-        BodyScaffold(
+        child: BodyScaffold(
           bottom: 16.0,
           child: HomeBody(
             bloc: bloc,

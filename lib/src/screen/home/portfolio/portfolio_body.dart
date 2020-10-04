@@ -186,20 +186,15 @@ class  PortfolioBody extends StatelessWidget{
           ),
         ),
 
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: hexaCodeToColor(AppColors.cardColor),
-              borderRadius: BorderRadius.circular(8)
-            ),
-            child: SizedBox(
-              width: double.infinity,
-              height: 300,
-              child: GroupedBarChart.withSampleData()
-            ),
+        Container(
+          height: 250,
+          margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: hexaCodeToColor(AppColors.cardColor),
+            borderRadius: BorderRadius.circular(8)
           ),
+          child: GroupedBarChart.withSampleData(),
         ),
 
         Container(

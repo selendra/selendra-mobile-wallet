@@ -32,7 +32,6 @@ class PortfolioState extends State<Portfolio>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: BodyScaffold(
-        bottom: 16,
         child: PortfolioBody(
           listData: widget.listData,
           portfolioM: _portfolioM,
