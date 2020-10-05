@@ -182,6 +182,7 @@ class UserInfoState extends State<UserInfo> {
     return Scaffold(
       key: _modelUserInfo.globalKey,
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: UserInfoBody(
           modelUserInfo: _modelUserInfo,
           onSubmit: onSubmit,

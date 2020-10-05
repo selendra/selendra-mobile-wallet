@@ -2,12 +2,10 @@ import 'package:wallet_apps/index.dart';
 
 class AppRouting{
 
-  static ModelSignUp _modelSignUp = ModelSignUp();
-
-  static PackageInfo _packageInfo = PackageInfo();
+  static ForgetModel model = ForgetModel();
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => UserInfo("", "", ""),
+    '/': (context) => ResetPassword(model),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Home(),
@@ -18,6 +16,6 @@ class AppRouting{
     '/addDocumentScreen': (context) => AddDocuments(),
     '/signUpScreen': (context) => SignUp(),
     '/loginScreen': (context) => Login(),
-    '/forgotPasswordScreen': (context) => ForgotPassword()
+    '/forgotPasswordScreen': (context) => ForgetPassword()
   };
 }

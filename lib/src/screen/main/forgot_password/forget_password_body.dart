@@ -2,7 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 class ForgetPasswordBody extends StatelessWidget{
 
-  final ModelForgotPassword forgetM;
+  final ForgetModel forgetM;
   final Function tabBarSelectChanged; 
   final Function validatePhoneNumber; 
   final Function validateEmail;

@@ -37,49 +37,47 @@ class UserInfoBody extends StatelessWidget{
           },
         ),
 
-        SvgPicture.asset('assets/user_info.svg', width: 300, height: 250),
+        SvgPicture.asset('assets/user_info.svg', width: 300, height: 300),
 
-        Expanded(
-          child: Form(
-            key: modelUserInfo.formStateAddUserInfo,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+        Form(
+          key: modelUserInfo.formStateAddUserInfo,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
 
-                MyInputField(
-                  pBottom: 16.0,
-                  labelText: "First name",
-                  textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                  controller: modelUserInfo.controlFirstName, 
-                  focusNode: modelUserInfo.nodeFirstName, 
-                  validateField: validateFirstName, 
-                  onChanged: onChanged, 
-                  onSubmit: onSubmit
-                ),
-                
-                MyInputField(
-                  pBottom: 16.0,
-                  labelText: "Mid name",
-                  textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                  controller: modelUserInfo.controlMidName, 
-                  focusNode: modelUserInfo.nodeMidName, 
-                  validateField: validateMidName, 
-                  onChanged: onChanged, 
-                  onSubmit: onSubmit
-                ),
-                
-                MyInputField(
-                  pBottom: 16.0,
-                  labelText: "Last name",
-                  textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
-                  controller: modelUserInfo.controlLastName ,
-                  focusNode: modelUserInfo.nodeLastName, 
-                  validateField: validateLastName, 
-                  onChanged: onChanged, 
-                  onSubmit: onSubmit
-                ),
-              ],
-            ),
+              MyInputField(
+                pBottom: 16.0,
+                labelText: "First name",
+                textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                controller: modelUserInfo.controlFirstName, 
+                focusNode: modelUserInfo.nodeFirstName, 
+                validateField: validateFirstName, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit
+              ),
+              
+              MyInputField(
+                pBottom: 16.0,
+                labelText: "Mid name",
+                textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                controller: modelUserInfo.controlMidName, 
+                focusNode: modelUserInfo.nodeMidName, 
+                validateField: validateMidName, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit
+              ),
+              
+              MyInputField(
+                pBottom: 16.0,
+                labelText: "Last name",
+                textInputFormatter: [LengthLimitingTextInputFormatter(TextField.noMaxLength)],
+                controller: modelUserInfo.controlLastName ,
+                focusNode: modelUserInfo.nodeLastName, 
+                validateField: validateLastName, 
+                onChanged: onChanged, 
+                onSubmit: onSubmit
+              ),
+            ],
           ),
         ),
 

@@ -174,7 +174,7 @@ class LoginBody extends StatelessWidget{
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => ForgotPassword())
+              MaterialPageRoute(builder: (context) => ForgetPassword())
             );
           },
           child: MyText(

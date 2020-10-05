@@ -90,7 +90,7 @@ export  'package:wallet_apps/src/screen/main/welcome/welcome_body.dart';
 
 export 'package:wallet_apps/src/screen/main/login/login.dart';
 export 'package:wallet_apps/src/screen/main/splash_screen/splash_screen.dart';
-export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password.dart';
+export 'package:wallet_apps/src/screen/main/forgot_password/forget_password.dart';
 export 'package:wallet_apps/src/screen/main/login/login_body.dart';
 export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info.dart';
 export 'package:wallet_apps/src/screen/home/fill_documents_screen/fill_documents.dart';
@@ -101,10 +101,7 @@ export 'package:wallet_apps/src/screen/main/forgot_password/reset_password_scree
 export 'package:wallet_apps/src/screen/main/forgot_password/reset_password_screen/reset_password_body.dart';
 
 // Forgot Password
-export 'package:wallet_apps/src/screen/main/forgot_password/forgot_password_body.dart';
-
-// Reset Code
-export 'package:wallet_apps/src/screen/main/forgot_password/reset_code/reset_code_body.dart';
+export 'package:wallet_apps/src/screen/main/forgot_password/forget_password_body.dart';
 
 //SMS verify
 export 'package:wallet_apps/src/screen/main/sign_up/sms_code/sms_code_verify_body.dart';
@@ -218,7 +215,7 @@ export 'package:wallet_apps/src/screen/home/menu/add_asset/add_asset_body.dart';
 
 export 'package:wallet_apps/src/models/sign_up.dart';
 export 'package:wallet_apps/src/models/model_user_info.dart';
-export 'package:wallet_apps/src/models/model_forgot_pass.dart';
+export 'package:wallet_apps/src/models/forget_m.dart';
 export 'package:wallet_apps/src/models/slide.dart';
 export 'package:wallet_apps/src/models/sms_code_model.dart';
 

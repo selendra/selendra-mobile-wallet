@@ -2,7 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 class ResetPassword extends StatefulWidget{
 
-  final ModelForgotPassword _modelForgotPassword;
+  final ForgetModel _modelForgotPassword;
 
   ResetPassword(this._modelForgotPassword);
 
@@ -234,14 +234,19 @@ class ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      body: scaffoldBGDecoration(
-        child: resetPasswordBody(
-          context, 
-          widget._modelForgotPassword, 
-          validatePhoneNumber, validateEmail, validateNewPassword, 
-          validateConfirmPassword, validateResetCode,
-          onChanged, onSubmit,
-          submitResetPassword , popScreen
+      body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
+        child: ResetPasswordBody(
+          forgetM: widget._modelForgotPassword, 
+          validatePhoneNumber: validatePhoneNumber, 
+          validateEmail: validateEmail, 
+          validateNewPassword: validateNewPassword, 
+          validateConfirmPassword: validateConfirmPassword, 
+          validateResetCode: validateResetCode,
+          onChanged: onChanged, 
+          onSubmit: onSubmit,
+          submitResetPassword: submitResetPassword, 
+          popScreen: popScreen
         )
       ),
     );
