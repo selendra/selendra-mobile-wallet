@@ -257,12 +257,10 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) { /* User Sign Up Build */
     return Scaffold(
       key: _modelSignUp.globalKey,
-      body: BodyScaffold(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: DefaultTabController(
-          initialIndex: 0,
-          length: 2,
+      body: DefaultTabController(
+        initialIndex: 0,
+        length: 2,
+        child: BodyScaffold(
           child: SignUpBody(
             modelSignUp: _modelSignUp,
             validateInput: validateInput,

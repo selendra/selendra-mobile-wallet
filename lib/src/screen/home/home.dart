@@ -199,8 +199,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   
   void menuCallBack(Map<String, dynamic> result) async {
 
-    print("Call back $result");
-
     if (result != null){
       _backend.mapData = await StorageServices.fetchData("getWallet");
 

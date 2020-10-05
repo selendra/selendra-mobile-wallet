@@ -37,9 +37,7 @@ class UserInfoBody extends StatelessWidget{
           },
         ),
 
-        Expanded(
-          child: SvgPicture.asset('assets/user_info.svg'),
-        ),
+        SvgPicture.asset('assets/user_info.svg', width: 300, height: 250),
 
         Expanded(
           child: Form(

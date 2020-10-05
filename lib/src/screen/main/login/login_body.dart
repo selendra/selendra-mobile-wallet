@@ -184,8 +184,10 @@ class LoginBody extends StatelessWidget{
           )
         ),
 
-        Expanded(
-          child: Container(),
+        Container(
+          constraints: BoxConstraints(
+            minHeight: 150,
+          ),
         ),
 
         Container(

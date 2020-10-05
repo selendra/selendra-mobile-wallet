@@ -182,7 +182,6 @@ class UserInfoState extends State<UserInfo> {
     return Scaffold(
       key: _modelUserInfo.globalKey,
       body: BodyScaffold(
-        bottom: 16.0,
         child: UserInfoBody(
           modelUserInfo: _modelUserInfo,
           onSubmit: onSubmit,

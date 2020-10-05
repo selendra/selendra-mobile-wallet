@@ -187,7 +187,6 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
   Widget build(BuildContext context){
     return Scaffold(
       body: BodyScaffold(
-        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: SmsBody(
           time: time, 

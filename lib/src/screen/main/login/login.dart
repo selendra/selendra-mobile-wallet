@@ -232,8 +232,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         initialIndex: 0,
         length: 2,
         child: BodyScaffold(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
           child: LoginBody(
             modelLogin: _modelLogin,
             validateInput: validateInput,
