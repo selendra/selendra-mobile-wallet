@@ -16,7 +16,6 @@ class SlideBuilderState extends State<SlideBuilder>{
   final GlobalKey global = new GlobalKey<ScaffoldState>();
   
   void onChanged(int value){
-    print(value);
     setState((){
       if (value == 2){
         enableButton = true;
@@ -36,11 +35,12 @@ class SlideBuilderState extends State<SlideBuilder>{
   Widget build(BuildContext context){
     return Scaffold(
       body: BodyScaffold(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              PageView.builder(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          children: [
+
+            Expanded(
+              child: PageView.builder(
                 scrollDirection: Axis.horizontal,
                 controller: _pageController,
                 itemCount: slideList.length,
@@ -49,61 +49,70 @@ class SlideBuilderState extends State<SlideBuilder>{
                   return SlideItem(index);
                 }
               ),
-              // Slider Dot And Arrow Forward
-              Padding(
-                padding: EdgeInsets.only(left: 16, right: 16),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 30),
-                        child: SizedBox(
-                          height: 30,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              for(int i =  0; i < slideList.length; i++)
-                                if ( i == _currentPage)
-                                  SlideDot(true)
-                                else 
-                                  SlideDot(false),
-                            ],
-                          ),
-                        )
-                      )
-                    ),
+            ),
 
-                    if (enableButton) Align(
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+
+                  Expanded(
+                    child: !enableButton ? AnimatedContainer(
+                      alignment: Alignment.bottomLeft,
+                      duration: Duration(milliseconds: 700),
+                      curve: Curves.bounceIn,
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                        },
+                        child: MyText(text: 'Skip', textAlign: TextAlign.left, color: "#FFFFFF", fontWeight: FontWeight.bold),
+                      ),
+                    ) : Container(),
+                  ),
+
+                  Expanded(
+                    child: SizedBox(
+                      height: 30,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          for(int i =  0; i < slideList.length; i++)
+                            if ( i == _currentPage)
+                              SlideDot(true)
+                            else 
+                              SlideDot(false),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                    child: enableButton ? AnimatedContainer(
                       alignment: Alignment.bottomRight,
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 700),
-                        curve: Curves.bounceIn,
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 30), 
-                          child: InkWell(
-                            onTap: (){
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                MyText(text: 'Get Start', color: AppColors.secondary, fontWeight: FontWeight.bold),
-                                // Icon(LineAwesomeIcons.alternate_long_arrow_right, color: Color(AppUtils.convertHexaColor(AppColors.secondary_text)),)
-                              ],
-                            ),
-                          )
+                      duration: Duration(milliseconds: 700),
+                      curve: Curves.bounceIn,
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            MyText(text: 'Get Start', textAlign: TextAlign.right, color: AppColors.secondary, fontWeight: FontWeight.bold),
+                            // Icon(LineAwesomeIcons.alternate_long_arrow_right, color: Color(AppUtils.convertHexaColor(AppColors.secondary_text)),)
+                          ],
                         ),
-                      )
-                    )
-                  ] 
-                ),
-              )
-            ]
-          )
+                      ),
+                    ) : Container(),
+                  )
+                ] 
+              ),
+            )
+          ],
         ),
-      ),
+      )
     );
   }
 }

@@ -213,7 +213,6 @@ class LoginBody extends StatelessWidget{
             ],
           )
         ),
-        
       ],
     );
   }

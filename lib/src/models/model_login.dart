@@ -25,4 +25,5 @@ class ModelLogin {
   TextEditingController controlPhoneNums = TextEditingController();
 
   Bloc bloc = Bloc();
+  
 }
