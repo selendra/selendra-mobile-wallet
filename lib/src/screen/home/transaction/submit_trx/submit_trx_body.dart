@@ -91,38 +91,41 @@ class SubmitTrxBody extends StatelessWidget{
           },
         ),
 
-        Form(
-          key: scanPayM.formStateKey,
-          child: Column(
-            children: <Widget>[
-              
-              listInput[0],
+        Expanded(
+          child: Form(
+            key: scanPayM.formStateKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                
+                listInput[0],
 
-              Container( /* Type of payment */
-                margin: EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
-                child: customDropDown(
-                  scanPayM.asset != null ? scanPayM.asset : "Asset name", 
-                  scanPayM.portfolio, 
-                  scanPayM, 
-                  resetAssetsDropDown,
-                  item
+                Container( /* Type of payment */
+                  margin: EdgeInsets.only(bottom: 16.0, left: 16, right: 16),
+                  child: customDropDown(
+                    scanPayM.asset != null ? scanPayM.asset : "Asset name", 
+                    scanPayM.portfolio, 
+                    scanPayM, 
+                    resetAssetsDropDown,
+                    item
+                  ),
                 ),
-              ),
 
-              listInput[1],
+                listInput[1],
 
-              listInput[2],
+                listInput[2],
 
-              MyFlatButton(
-                textButton: "Request code",
-                buttonColor: AppColors.secondary,
-                fontWeight: FontWeight.bold,
-                fontSize: size18,
-                edgeMargin: EdgeInsets.only(top: 40, left: 66, right: 66),
-                hasShadow: true,
-                action: scanPayM.enable == false ? null : clickSend
-              ),
-            ],
+                MyFlatButton(
+                  textButton: "Request code",
+                  buttonColor: AppColors.secondary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: size18,
+                  edgeMargin: EdgeInsets.only(top: 40, left: 66, right: 66),
+                  hasShadow: true,
+                  action: scanPayM.enable == false ? null : clickSend
+                ),
+              ],
+            ),
           ),
         )
       ],

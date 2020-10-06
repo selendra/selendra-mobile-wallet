@@ -2,10 +2,8 @@ import 'package:wallet_apps/index.dart';
 
 class AppRouting{
 
-  static ForgetModel model = ForgetModel();
-
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => ResetPassword(model),
+    '/': (context) => FromContact(),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Home(),

@@ -113,15 +113,3 @@ class GetWalletBody extends StatelessWidget{
     );
   }
 }
-
-
-
-Widget getWalletBody(
-  BuildContext context,
-  GlobalKey<ScaffoldState> globalKey,
-  GlobalKey keyQrShare,
-  String wallet,
-  GetWalletMethod method
-){
-  ;
-}

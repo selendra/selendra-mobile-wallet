@@ -112,7 +112,7 @@ class ResetPasswordBody extends StatelessWidget{
 
                     MyInputField(
                       pBottom: 29,
-                      labelText: "Reset code",
+                      labelText: "Submit",
                       prefixText: null,
                       textInputFormatter: [
                         LengthLimitingTextInputFormatter(6),

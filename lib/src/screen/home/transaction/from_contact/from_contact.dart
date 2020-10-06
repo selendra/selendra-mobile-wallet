@@ -1,17 +1,15 @@
 import 'package:wallet_apps/index.dart';
 
-class GetWalletFromContact extends StatefulWidget{
-
-  GetWalletFromContact();
+class FromContact extends StatefulWidget{
 
   @override
   State<StatefulWidget> createState() {
-    return GetWalletFromContactState();
+    return FromContactState();
   }
 
 }
 
-class GetWalletFromContactState extends State<GetWalletFromContact>{
+class FromContactState extends State<FromContact>{
 
   ModelGetWalletFromContact _modelGetWalletFromContact;
 
@@ -19,6 +17,13 @@ class GetWalletFromContactState extends State<GetWalletFromContact>{
   initState(){
     _modelGetWalletFromContact = ModelGetWalletFromContact();
     super.initState();
+  }
+
+  @override
+  dispose(){
+    _modelGetWalletFromContact.controllerToContact.clear();
+    _modelGetWalletFromContact.nodeToContact.unfocus();
+    super.dispose();
   }
   
   String validatePhoneNumber(String value){
@@ -64,42 +69,24 @@ class GetWalletFromContactState extends State<GetWalletFromContact>{
     // print("Hello");
   }
 
-  @override
-  dispose(){
-    _modelGetWalletFromContact.controllerToContact.clear();
-    _modelGetWalletFromContact.nodeToContact.unfocus();
-    super.dispose();
-  }
   Widget build(BuildContext context){
     return Scaffold(
       body: scaffoldBGDecoration(
           child: Column(
             children: <Widget>[
-              containerAppBar( /* AppBar */
-                context,
-                Row(
-                  children: <Widget>[
-                    iconAppBar( /* Arrow Back Button */
-                      Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      Alignment.centerLeft,
-                      EdgeInsets.all(0),
-                      (){
-                        Navigator.pop(context);
-                      },
-                    ),
-                    containerTitle("Wallet look up", 50.0, Colors.white, FontWeight.normal)
-                  ],
-                )
+
+              MyAppBar(
+                title: "Wallet look up",
+                onPressed: (){
+                  Navigator.pop(context);
+                },
               ),
+              
               Flexible(
                 child: Center(
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
-                    child: getWalletFromContactBody(
-                      context: context,
+                    child: FromContactBody(
                       modelGetWalletFromContact: _modelGetWalletFromContact,
                       validatePhoneNumber: validatePhoneNumber,
                       onChanged: onChanged,

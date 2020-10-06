@@ -220,6 +220,7 @@ class SubmitTrxState extends State<SubmitTrx> {
     return Scaffold(
       key: _modelScanPay.globalKey,
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: Stack(
           children: <Widget>[
             SubmitTrxBody(

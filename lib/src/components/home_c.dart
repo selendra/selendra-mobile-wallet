@@ -108,6 +108,7 @@ class AddAssetRowButton extends StatelessWidget{
 
 /* Build Portfolio If Have List Of Portfolio */
 Widget buildRowList(List<dynamic> portfolioData){
+  print(portfolioData);
   return ListView.builder(
     padding: EdgeInsets.all(0),
     shrinkWrap: true,

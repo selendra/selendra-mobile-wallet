@@ -35,7 +35,6 @@ class GetWalletState extends State<GetWallet>{
     return Scaffold(
       key: _globalKey,
       body: BodyScaffold(
-        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: GetWalletBody(
           keyQrShare: _keyQrShare,

@@ -137,10 +137,12 @@ export 'package:wallet_apps/src/screen/home/transaction/submit_trx/fill_pin_dial
 export 'package:wallet_apps/src/screen/home/invoice/invoice_summary/invoice_reuse_widget.dart';
 export 'package:wallet_apps/src/screen/home/invoice/invoice_summary/invoice_summary_body.dart';
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/submit_trx_body.dart';
-export 'package:wallet_apps/src/screen/home/transaction/get_wallet_from_contact/get_wallet_from_contact_body.dart';
+export 'package:wallet_apps/src/screen/home/transaction/get_wallet_from_contact/from_contact_body.dart';
 export 'package:wallet_apps/src/screen/home/chart/chart_body.dart';
 
 export 'package:wallet_apps/src/screen/home/transaction/qr_scanner/qr_scanner.dart';
+
+export 'package:wallet_apps/src/screen/home/transaction/from_contact/from_contact.dart';
 
 export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet_body.dart';
 

@@ -326,7 +326,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         physics: BouncingScrollPhysics(),
         controller: _homeModel.refreshController,
         child: BodyScaffold(
-          bottom: 16.0,
           child: HomeBody(
             bloc: bloc,
             chartKey: _homeModel.chartKey,
