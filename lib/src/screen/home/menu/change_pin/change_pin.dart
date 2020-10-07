@@ -168,6 +168,7 @@ class ChangePinState extends State<ChangePin> {
     return Scaffold(
       key: _modelChangePin.globalKey,
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: ChangePinBody(
           modelChangePin: _modelChangePin,
           validateOldPin: validateOldPin, 

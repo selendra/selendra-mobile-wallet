@@ -151,6 +151,7 @@ class ChangePINState extends State<ChangePassword> {
     return Scaffold(
       key: _modelChangePassword.globalKey,
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: ChangePasswordBody(
           model: _modelChangePassword, 
           validateOldPass: validateOldPass, 

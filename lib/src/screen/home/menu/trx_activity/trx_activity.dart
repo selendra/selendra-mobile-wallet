@@ -70,6 +70,7 @@ class TrxActivityState extends State<TrxActivity> {
     return Scaffold(
       key: _globalKey,
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: TrxActivityBody(
           activityList: _activity, 
           popScreen: popScreen

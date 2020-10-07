@@ -42,7 +42,7 @@ class ChangePinBody extends StatelessWidget{
 
                 Container(
                   margin: EdgeInsets.only(bottom: 20),
-                  child: SvgPicture.asset('assets/password.svg', width: 450, height: 316)
+                  child: SvgPicture.asset('assets/password.svg', width: 300, height: 300)
                 ),
 
                 MyInputField(

@@ -144,6 +144,7 @@ class EditProfileState extends State<EditProfile> {
     return Scaffold(
       key: _modelUserInfo.globalKey,
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         bottom: 16,
         child: EditProfileBody(
           modelUserInfo: _modelUserInfo,

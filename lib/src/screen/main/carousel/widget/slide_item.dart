@@ -15,8 +15,8 @@ class SlideItem extends StatelessWidget{
           margin: EdgeInsets.only(bottom: 35),
           child: SvgPicture.asset(
             slideList[index].image, 
-            width: 286, 
-            height: 250
+            width: 200, 
+            height: 200
           ),
         ), 
 

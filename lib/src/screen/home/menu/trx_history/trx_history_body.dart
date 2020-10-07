@@ -45,6 +45,7 @@ class TrxHistoryBody extends StatelessWidget{
             ],
           ),
         ),
+        
         Expanded( /* Tabbar body */
           child: TabBarView(
             children: <Widget>[

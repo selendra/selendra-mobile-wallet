@@ -116,7 +116,8 @@ class TrxHistoryState extends State<TrxHistory>{
       length: 3,
       child: Scaffold(
         key: _globalKey,
-        body: SafeArea(
+        body: BodyScaffold(
+          height: MediaQuery.of(context).size.height,
           child: TrxHistoryBody(
             trxSend: _trxSend,
             trxHistory: _trxHistory,
