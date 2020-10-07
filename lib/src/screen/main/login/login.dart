@@ -145,7 +145,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         setState(() {});
       });
       Navigator.pop(context);
-      AppServices.mySnackBar(globalKey, AppText.contentConnection);
+      AppServices.openSnackBar(globalKey, AppText.contentConnection);
     } catch (e) {}
   }
 
@@ -212,7 +212,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
           
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => Dashboard()),
+            MaterialPageRoute(builder: (context) => Home()),
             ModalRoute.withName('/')
           );
         }
@@ -228,10 +228,11 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BodyScaffold(
-        child: DefaultTabController(
-          initialIndex: 0,
-          length: 2,
+      body: DefaultTabController(
+        initialIndex: 0,
+        length: 2,
+        child: BodyScaffold(
+          height: MediaQuery.of(context).size.height,
           child: LoginBody(
             modelLogin: _modelLogin,
             validateInput: validateInput,
@@ -241,9 +242,10 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
             submitLogin: submitLogin,
             onChanged: onChanged,
             onSubmit: onSubmit,
-          ),
-        )
-      ),
+          )
+        ),
+      )
+      ,
     );
   }
 }

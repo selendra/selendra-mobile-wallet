@@ -12,8 +12,8 @@ class AppStyle {
       textTheme: TextTheme(bodyText2: TextStyle(color: hexaCodeToColor(AppColors.textColor))),
       canvasColor: hexaCodeToColor("#FFFFFF"),
       cardColor: hexaCodeToColor(AppConfig.darkBlue50),
-      bottomAppBarTheme: BottomAppBarTheme(color: hexaCodeToColor(AppConfig.darkBlue50)),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: hexaCodeToColor(AppColors.textColor)),
+      bottomAppBarTheme: BottomAppBarTheme(color: hexaCodeToColor(AppColors.cardColor)),
+      // floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: hexaCodeToColor(AppColors.textColor)),
       fontFamily: "Avenir",
       scaffoldBackgroundColor: Color(AppUtils.convertHexaColor(AppColors.bgdColor)),
     );

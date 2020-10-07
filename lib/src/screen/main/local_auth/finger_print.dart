@@ -99,7 +99,7 @@ class _FingerPrintState extends State<FingerPrint> {
       _backend.mapData = json.decode(_backend.response.body);
       // Check Expired Token
       if (_backend.response.statusCode == 200) {
-        screen = Dashboard();
+        screen = Home();
       } 
       // Reset isLoggedIn True -> False Cause Token Expired
       else if (_backend.response.statusCode== 401) {
@@ -115,36 +115,31 @@ class _FingerPrintState extends State<FingerPrint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(
-        onTap: (){
-          setState(() {
-            enableText = false;
-          });
-          authenticate();
-        },
-        child: scaffoldBGDecoration(
-          top: 0.0, left: 0.0, right: 0.0, bottom: 0.0,
+      body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
+        child: GestureDetector(
+          onTap: (){
+            setState(() {
+              enableText = false;
+            });
+            authenticate();
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Padding(
-              //   padding: EdgeInsets.only(left: 50, right: 50),
-              //   child: Image.asset('assets/images/illustrator/finger_print.pfing')
-              // ),
-              MyIllustrate(
-                imagePath: "assets/finger_print.svg",
-              ),
+              SvgPicture.asset("assets/finger_print.svg", width: 300, height: 300),
               
               MyText(
                 top: 50.0,
                 text: 'Authentication Required'
               ),
-              if (enableText) MyText(
+              
+              MyText(
                 top: 19.0,
                 text: 'Touch screen to trigger finger print'
               )
             ],
-          )
+          ),
         ),
       )
     );

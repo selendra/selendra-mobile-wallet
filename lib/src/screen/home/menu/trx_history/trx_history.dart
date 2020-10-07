@@ -27,18 +27,30 @@ class TrxHistoryState extends State<TrxHistory>{
 
   GetRequest _getRequest = GetRequest();
 
+  PostRequest _postRequest = PostRequest();
+  Backend _backend = Backend();
+
   InstanceTrxOrder _instanceTrxAllOrder;
   InstanceTrxOrder _instanceTrxSendOrder;
   InstanceTrxOrder _instanceTrxReceivedOrder;
 
   @override
   void initState() {
+    login();
     _instanceTrxAllOrder = InstanceTrxOrder();
     _instanceTrxSendOrder = InstanceTrxOrder();
     _instanceTrxReceivedOrder = InstanceTrxOrder();
     AppServices.noInternetConnection(_globalKey);
     fetchHistoryUser();
     super.initState();
+  }
+  
+  void login() async {
+    _backend.response = await _postRequest.loginByPhone("15894139", "123456");
+
+    _backend.mapData = json.decode(_backend.response.body);
+
+    await StorageServices.setData(_backend.mapData, 'user_token');
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
@@ -104,17 +116,17 @@ class TrxHistoryState extends State<TrxHistory>{
       length: 3,
       child: Scaffold(
         key: _globalKey,
-        body: SafeArea(
-          child: trxHistoryBody(
-            context,  
-            _trxSend,
-            _trxHistory,
-            _trxReceived,
-            _instanceTrxSendOrder,
-            _instanceTrxAllOrder,
-            _instanceTrxReceivedOrder,
-            widget._walletKey, 
-            popScreen
+        body: BodyScaffold(
+          height: MediaQuery.of(context).size.height,
+          child: TrxHistoryBody(
+            trxSend: _trxSend,
+            trxHistory: _trxHistory,
+            trxReceived: _trxReceived,
+            instanceTrxSendOrder: _instanceTrxSendOrder,
+            instanceTrxAllOrder: _instanceTrxAllOrder,
+            instanceTrxReceivedOrder: _instanceTrxReceivedOrder,
+            walletKey: widget._walletKey, 
+            popScreen: popScreen
           ),
         ),
       ),

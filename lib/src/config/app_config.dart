@@ -16,7 +16,7 @@ class AppConfig {
   static String logoBottomAppBar = "assets/images/sld_qr.png";
 
   // QR Embedded
-  static String logoQrEmbedded = "assets/images/SalendraQR3(1).png";
+  static String logoQrEmbedded = "assets/sld_stroke.svg";
 
   // Portfolio
   static String logoPortfolio = 'assets/images/sld_logo.png';

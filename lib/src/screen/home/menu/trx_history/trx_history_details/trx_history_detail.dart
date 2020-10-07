@@ -42,7 +42,13 @@ class TrxHistoryDetailsState extends State<TrxHistoryDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      body: trxHistoryDetailsBody(widget._title, context, widget._trxInfo, popScreen),
+      body: BodyScaffold(
+        child: TrxHistoryDetailsBody(
+          title: widget._title, 
+          trxInfo: widget._trxInfo, 
+          popScreen: popScreen
+        ),
+      ),
     );
   }
 }

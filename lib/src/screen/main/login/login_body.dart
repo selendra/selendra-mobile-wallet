@@ -84,7 +84,6 @@ class LoginBody extends StatelessWidget{
             children: [
               MyLogo(
                 left: 46.0, 
-                // right: 16, top: 93,
                 logoPath: AppConfig.logoName,
               ),
               MyText(
@@ -175,7 +174,7 @@ class LoginBody extends StatelessWidget{
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => ForgotPassword())
+              MaterialPageRoute(builder: (context) => ForgetPassword())
             );
           },
           child: MyText(
@@ -186,7 +185,11 @@ class LoginBody extends StatelessWidget{
         ),
 
         Expanded(
-          child: Container(),
+          child: Container(
+            constraints: BoxConstraints(
+              minHeight: 150,
+            ),
+          ),
         ),
 
         Container(
@@ -214,7 +217,6 @@ class LoginBody extends StatelessWidget{
             ],
           )
         ),
-        
       ],
     );
   }

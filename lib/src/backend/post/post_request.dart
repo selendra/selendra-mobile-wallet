@@ -1,6 +1,5 @@
 import 'package:wallet_apps/index.dart';
 import 'package:http/http.dart' as _http;
-import 'package:wallet_apps/src/model/sms_code_model.dart';
 
 class PostRequest {
 
@@ -214,12 +213,12 @@ class PostRequest {
   }
 
   // Confirm User Account By Phone Number
-  Future<_http.Response> forgetPassword(ModelForgotPassword _modelForgot, String value) async {
+  Future<_http.Response> forgetPassword(ForgetModel forgetM, String value) async {
     _backend.bodyEncode = json.encode({
-      _modelForgot.key: value,
+      forgetM.key: value,
     });
     _backend.response = await _http.post(
-      "${_sldApi.api}/${_modelForgot.endpoint}",
+      "${_sldApi.api}/${forgetM.endpoint}",
       headers: _backend.conceteHeader(null, null), 
       body: _backend.bodyEncode
     );
@@ -227,11 +226,11 @@ class PostRequest {
   }
 
   // Confirm User Account By Phone Number
-  Future<_http.Response> resetPass(ModelForgotPassword _modelForgot, String value, String endpoint) async { 
+  Future<_http.Response> resetPass(ForgetModel forgetM, String value, String endpoint) async { 
     _backend.bodyEncode = json.encode({
-      "temp_code": _modelForgot.controlResetCode.text,
-      _modelForgot.key: value,
-      "password": _modelForgot.controlConfirmPasswords.text
+      "temp_code": forgetM.controlResetCode.text,
+      forgetM.key: value,
+      "password": forgetM.controlConfirmPasswords.text
     });
     _backend.response = await _http.post(
       "${_sldApi.api}/$endpoint",

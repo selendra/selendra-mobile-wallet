@@ -1,11 +1,10 @@
-import 'dart:ui';
 import 'package:wallet_apps/index.dart';
 
 class Menu extends StatefulWidget{
 
-  final Map<String, dynamic> _userData; final PackageInfo _packageInfo; final Function drawerCallBack;
+  final Map<String, dynamic> _userData; final PackageInfo _packageInfo; final Function callBack;
 
-  Menu(this._userData, this._packageInfo, this.drawerCallBack);
+  Menu(this._userData, this._packageInfo, this.callBack);
 
   @override
   State<StatefulWidget> createState() {
@@ -38,17 +37,19 @@ class MenuState extends State<Menu> {
     AppServices.noInternetConnection(_globalKey);
     setUserInfo();
     checkAvailableBio();
+
+    print("user profile ${widget._userData}");
     super.initState();
   }
 
   @override
   void dispose(){
-    widget.drawerCallBack(_result);
+    widget.callBack(_result);
     super.dispose();
   }
 
   void popScreen() {
-    widget.drawerCallBack(_result);
+    widget.callBack(_result);
     Navigator.pop(context);
   }
 
@@ -100,18 +101,18 @@ class MenuState extends State<Menu> {
     if (_result.isNotEmpty){/* From Set PIN Widget */
       if (_result["dialog_name"] == 'Pin'){
         _pin = _result['pin'];
-        createPin(context); /* drawerCallBack */
+        createPin(context); /* callBack */
       } else 
       if (_result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
         if (_result['compare'] == false) {
           _pin = '';
           error = "PIN does not match"; /* Enable Error Text*/
-          createPin(context); /* drawerCallBack */
+          createPin(context); /* callBack */
         } else if (_result["compare"] == true){
           _confirmPin = _result['confirm_pin'];
           _message = _result;
           await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
-            createPin(context); /* drawerCallBack */
+            createPin(context); /* callBack */
           });
         }
       } else { /* Success Set PIN And Push SnackBar */
@@ -127,21 +128,27 @@ class MenuState extends State<Menu> {
   
   /* --------------------Function-------------------- */
   void editProfile() async {
-    _result = await Navigator.push(context, transitionRoute(EditProfile(_modelUserInfo.userData)));
-    widget.drawerCallBack(_result);
-    Navigator.pop(context);
+    // _result = await Navigator.push(context, MaterialPageRoute(
+    //     builder: (context) => EditProfile(_modelUserInfo.userData)
+    //   )
+    // );
+    // widget.callBack(_result);
+    // Navigator.pop(context);
+    _result = await Navigator.push(
+      context, 
+      MaterialPageRoute(builder: (context) => EditProfile(_modelUserInfo.userData))
+    );
+    widget.callBack( _result ?? Map<String, dynamic>.from({}));
+    Navigator.pop(context, {});
   } 
 
   void trxHistroy() {
-    widget.drawerCallBack(_result);
-    Navigator.pop(context);
+    widget.callBack(_result);
+    Navigator.pop(context, _result);
     Navigator.push(context, transitionRoute(TrxHistory(widget._userData['wallet'])));
   }
 
   void trxActivity() { 
-    widget.drawerCallBack(_result);
-    Navigator.pop(context);
-    Navigator.push(context, transitionRoute(TransactionActivity(), sigmaX: 15.0, sigmaY: 15.0));
   }
 
   void wallet() async { /* User Get Wallet */ 
@@ -205,45 +212,6 @@ class MenuState extends State<Menu> {
   }
   
   void signOut() async { // Log Out All User Input
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Center(
-            child: textScale(
-              text: "Are you sure you want to exit?",
-              hexaColor: "#000000",
-              fontWeight: FontWeight.w500
-            ),
-          ),
-          actions: [
-            FlatButton(
-              child: Text("No"),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
-            FlatButton(
-              child: Text("Yes"),
-              onPressed: () async {
-                dialogLoading(context, content: "Logging out");
-                AppServices.clearStorage();
-                await Future.delayed(Duration(seconds: 1), () {
-                  // Close Button
-                  Navigator.pop(context);
-                  // Close Dialog Loading
-                  Navigator.pop(context);
-                  // Close Drawer
-                  Navigator.pop(context);
-                  widget.drawerCallBack({'log_out': true});
-                });
-              },
-            )
-          ],
-        );
-      }
-    );
   }
 
   /* ----------------------Side Bar -------------------------*/
@@ -258,41 +226,33 @@ class MenuState extends State<Menu> {
   }
 
   Widget build(BuildContext context){
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      key: _globalKey,
-      body: BackdropFilter( // Fill Blur Background
-        filter: ImageFilter.blur(
-          sigmaX: 5.0,
-          sigmaY: 5.0,
-        ),
+    return Drawer(
+      child: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(19), 
-          child: SafeArea(
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: hexaCodeToColor(AppColors.bgdColor),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
-                ),
-                child: MenuBody(
-                  isHaveWallet: isHaveWallet, 
-                  userInfo: widget._userData,
-                  model: _menuModel ,
-                  packageInfo: widget._packageInfo,
-                  editProfile: editProfile,  trxHistory: trxHistroy,
-                  trxActivity: trxActivity, wallet: wallet, 
-                  changePin: changePin, password: password,
-                  addAssets: addAssets, signOut: signOut, 
-                  snackBar: snackBar, popScreen: popScreen,
-                  switchBio: switchBiometric,
-                )
-              ),
+          width: 305,
+          color: hexaCodeToColor(AppColors.bgdColor),
+          child: SingleChildScrollView(
+            child: MenuBody(
+              isHaveWallet: isHaveWallet, 
+              userInfo: widget._userData,
+              model: _menuModel ,
+              packageInfo: widget._packageInfo,
+              editProfile: editProfile,  
+              trxHistory: trxHistroy,
+              trxActivity: trxActivity, 
+              wallet: wallet, 
+              changePin: changePin, 
+              password: password,
+              addAssets: addAssets, 
+              signOut: signOut, 
+              snackBar: snackBar, 
+              popScreen: popScreen,
+              switchBio: switchBiometric,
+              createPin: createPin,
+              callBack: widget.callBack
             ),
-          )
-        )
+          ),
+        ),
       ),
     );
   }

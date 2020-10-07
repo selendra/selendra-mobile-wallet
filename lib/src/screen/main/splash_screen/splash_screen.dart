@@ -100,7 +100,7 @@ class MySplashScreenState extends State<MySplashScreen>{
             await Future.delayed(Duration(seconds: 4), (){
               Navigator.pushReplacement(
                 context, 
-                MaterialPageRoute(builder: (context) => Dashboard())
+                MaterialPageRoute(builder: (context) => Home())
               );
             });
           }
@@ -123,7 +123,7 @@ class MySplashScreenState extends State<MySplashScreen>{
       await Future.delayed(Duration(seconds: 4), (){
         Navigator.pushReplacement(
           context, 
-          MaterialPageRoute(builder: (context) => Welcome())
+          MaterialPageRoute(builder: (context) => SlideBuilder())
         );
       });
     }
@@ -137,7 +137,7 @@ class MySplashScreenState extends State<MySplashScreen>{
         child: Container(
           width: 200.0,
           height: 200.0,
-          child: Image.asset('assets/images/sld_logo.png', color: Colors.white,)
+          child: SvgPicture.asset('assets/sld_logo.svg')
           // CustomAnimation.flareAnimation(_flareControls, "assets/animation/splash_screen.flr", "splash_screen"),
         )
       )

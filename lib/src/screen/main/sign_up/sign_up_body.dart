@@ -198,8 +198,10 @@ class SignUpBody extends StatelessWidget{
           action: modelSignUp.enable == false ? null : submit 
         ),
 
-        Expanded(
-          child: Container(),
+        Container(
+          constraints: BoxConstraints(
+            minHeight: 150,
+          ),
         ),
 
         Container(

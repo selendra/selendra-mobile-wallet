@@ -1,6 +1,4 @@
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/components/sms_component.dart';
-import 'package:wallet_apps/src/model/sms_code_model.dart';
 
 class SmsBody extends StatelessWidget{
 
@@ -29,17 +27,14 @@ class SmsBody extends StatelessWidget{
         MyAppBar(
           title: "Verification",
           margin: EdgeInsets.only(bottom: 16.0),
-          action: (){
+          onPressed: (){
             Navigator.pop(context);
           }
         ),
 
         Container(
-          margin: EdgeInsets.only(bottom: 60.0),
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: SvgPicture.asset('assets/sms.svg', width: 293, height: 216),
-          )
+          margin: EdgeInsets.only(bottom: 30.0),
+          child: SvgPicture.asset('assets/sms.svg', width: 300, height: 250)
         ),
 
         MyText(
