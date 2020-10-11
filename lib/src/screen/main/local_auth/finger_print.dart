@@ -115,15 +115,15 @@ class _FingerPrintState extends State<FingerPrint> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BodyScaffold(
-        height: MediaQuery.of(context).size.height,
-        child: GestureDetector(
-          onTap: (){
-            setState(() {
-              enableText = false;
-            });
-            authenticate();
-          },
+      body: GestureDetector(
+        onTap: (){
+          setState(() {
+            enableText = false;
+          });
+          authenticate();
+        },
+        child: BodyScaffold(
+          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

@@ -1,9 +1,12 @@
 import 'package:wallet_apps/index.dart';
 
 class GetWallet extends StatefulWidget{
-  final String wallet;
+  
+  final HomeModel homeM;
 
-  GetWallet(this.wallet);
+  GetWallet({
+    this.homeM
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -25,6 +28,7 @@ class GetWalletState extends State<GetWallet>{
 
   @override
   void initState() {
+    print(widget.homeM.userData);
     _globalKey = GlobalKey<ScaffoldState>();
     AppServices.noInternetConnection(_globalKey);
     _method.platformChecker(context);
@@ -39,7 +43,7 @@ class GetWalletState extends State<GetWallet>{
         child: GetWalletBody(
           keyQrShare: _keyQrShare,
           globalKey: _globalKey,
-          wallet: widget.wallet,
+          homeM: widget.homeM,
           method: _method,
         )
       ),

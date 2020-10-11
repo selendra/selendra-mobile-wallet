@@ -414,35 +414,32 @@ Future<File> camera() async {
 }
 
 /* QR Code Generate Function */
-Widget qrCodeGenerator(String _walletCode, String logoName, GlobalKey _keyQrShare){
+Widget qrCodeGenerator(HomeModel homeM, String logoName, GlobalKey _keyQrShare){
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Container(
         margin: EdgeInsets.only(bottom: 36.0),
-        child: Text('Wallet',
-          style: TextStyle(
-            fontSize: 20.0,
-            color: Colors.white,
-          )
+        child: MyText(
+          text: 'Wallet',
+          fontSize: 20.0,
+          color: "#FFFFFF",
         )
       ),
+      
       Container(
         width: 200.0,
         height: 200.0,
-        child: RepaintBoundary(
-          key: _keyQrShare,
-          child: new QrImage(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-            embeddedImage: AssetImage('${AppConfig.logoQrEmbedded}'),
-            embeddedImageStyle: QrEmbeddedImageStyle(
-              size: Size(40, 40),
-            ),
-            // version: QrVersions.auto,
-            data: _walletCode,
+        child: QrImage(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          embeddedImage: AssetImage('${AppConfig.logoQrEmbedded}'),
+          embeddedImageStyle: QrEmbeddedImageStyle(
+            size: Size(40, 40),
           ),
+          // version: QrVersions.auto,
+          data: homeM.userData['wallet'],
         )
       ),
     ],

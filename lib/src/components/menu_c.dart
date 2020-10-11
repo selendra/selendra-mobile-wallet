@@ -4,6 +4,12 @@ import 'package:wallet_apps/index.dart';
 
 class MenuHeader extends StatelessWidget{
 
+  final Map<String, dynamic> userInfo;
+
+  MenuHeader({
+    this.userInfo
+  });
+
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 16),
@@ -30,7 +36,7 @@ class MenuHeader extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 MyText(
-                  text: 'User name',
+                  text: "${userInfo['first_name'] ?? "User"} ${userInfo['mid_name'] ?? ""} ${userInfo['last_name'] ?? "name"}",
                   color: "#FFFFFF",
                   fontSize: 16,
                 ),

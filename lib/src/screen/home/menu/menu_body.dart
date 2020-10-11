@@ -29,7 +29,7 @@ class MenuBody extends StatelessWidget{
     return Column(
       children: [
 
-        MenuHeader(),
+        MenuHeader(userInfo: userInfo),
 
         // History
         MenuSubTitle(index: 0),

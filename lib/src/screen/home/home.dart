@@ -210,11 +210,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           );
         }
         else if (result['dialog_name'] == "addAssetScreen") {
-          print("1");
           await fetchPortfolio();
         }
         else if (result['dialog_name'] == 'edit_profile') {
-          print("2");
           await getUserData();
         }
       }
@@ -293,11 +291,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   void toReceiveToken() async { /* Navigate Receive Token */
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => GetWallet(
-        _homeModel.userData.containsKey('wallet')
-          ? _homeModel.userData['wallet']
-          : null
-        )
+        builder: (context) => GetWallet(homeM: _homeModel)
       )
     );
     if(Platform.isAndroid) await AndroidPlatform.resetBrightness();

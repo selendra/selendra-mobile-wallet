@@ -4,13 +4,13 @@ class GetWalletBody extends StatelessWidget{
 
   final GlobalKey keyQrShare;
   final GlobalKey<ScaffoldState> globalKey;
-  final String wallet;
+  final HomeModel homeM;
   final GetWalletMethod method;
 
   GetWalletBody({
     this.keyQrShare,
     this.globalKey,
-    this.wallet,
+    this.homeM,
     this.method
   });
   
@@ -25,7 +25,7 @@ class GetWalletBody extends StatelessWidget{
           },
         ),
 
-        wallet == null 
+        homeM.userData['wallet'] == null 
         ? Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -43,27 +43,37 @@ class GetWalletBody extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: hexaCodeToColor(AppColors.cardColor),
-                ),
-                margin: EdgeInsets.only(bottom: 45.0, left: 16.0, right: 16.0), 
-                child: Container( /* Generate QR Code */
-                  width: double.infinity,
-                  padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      qrCodeGenerator(wallet, AppConfig.logoQrEmbedded, keyQrShare),
-                      MyText(
-                        top: 27,
-                        width: 327,
-                        text: '$wallet',
-                        color: AppColors.secondary_text,
-                      )
-                    ],
+                margin: EdgeInsets.only(bottom: 45.0, left: 16.0, right: 16.0,),
+                width: double.infinity,
+                child: RepaintBoundary(
+                  key: keyQrShare,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: hexaCodeToColor(AppColors.cardColor),
+                    ), 
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+
+                        qrCodeGenerator(homeM, AppConfig.logoQrEmbedded, keyQrShare),
+
+                        MyText(
+                          text: "${homeM.userData['first_name']} ${homeM.userData['mid_name']} ${homeM.userData['last_name']}",
+                          bottom: 16,
+                          top: 16,
+                          color: "#FFFFFF",
+                        ),
+
+                        MyText(
+                          text: "Scan the qr code to perform transaction",
+                          fontSize: 16,
+                        ),
+                      ],
+                    )
                   ),
-                )
+                ),
               ),
 
               Container(
@@ -83,7 +93,7 @@ class GetWalletBody extends StatelessWidget{
                     ],
                   ),
                   onPressed: (){
-                    method.qrShare(keyQrShare, wallet);
+                    method.qrShare(keyQrShare, homeM.userData['wallet']);
                   },
                 )
               ),
@@ -102,7 +112,7 @@ class GetWalletBody extends StatelessWidget{
                   ],
                 ),
                 onPressed: (){
-                  Clipboard.setData(ClipboardData(text: wallet)); /* Copy Text */
+                  Clipboard.setData(ClipboardData(text: homeM.userData['wallet'])); /* Copy Text */
                   method.snackBar('Copied', globalKey);
                 },
               )
