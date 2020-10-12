@@ -141,10 +141,8 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         await loginByPhone();
       }
     } on SocketException catch (e) {
-      await Future.delayed(Duration(milliseconds: 300), () {
-      });
-      // Navigator.pop(context);
-      AppServices.openSnackBar(globalKey, AppText.contentConnection);
+      await Future.delayed(Duration(milliseconds: 300), () { });
+      AppServices.openSnackBar(globalKey, e.message);
     } catch (e) {}
   }
 
@@ -197,8 +195,6 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
     // Close Loading
     Navigator.pop(context);
-
-    print(_backend.response);
 
     if (_backend.response.statusCode != 502) {
       if (_backend.mapData.containsKey("error")) {

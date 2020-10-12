@@ -29,12 +29,12 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   initState() { /* Initialize State */
     if(mounted) {
       _homeModel.result = {};
-      _homeModel.scaffoldKey = GlobalKey<ScaffoldState>();
+      _homeModel.globalKey = GlobalKey<ScaffoldState>();
       _homeModel.total = 0;
       _homeModel.circularChart = [
         CircularSegmentEntry(_homeModel.emptyChartData, hexaCodeToColor(AppColors.cardColor))
       ];
-      AppServices.noInternetConnection(_homeModel.scaffoldKey);
+      AppServices.noInternetConnection(_homeModel.globalKey);
       _homeModel.userData = {};
       /* User Profile */
       getUserData();
@@ -277,7 +277,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           if (onValue.containsKey('message')) fetchPortfolio();
         }
       );
-    } on PlatformException catch (e) {} on FormatException {} catch (e) {}
+    } catch (e) {
+      await Future.delayed(Duration(milliseconds: 300), () { });
+      AppServices.openSnackBar(_homeModel.globalKey, e.message);
+    }
   }
 
   void resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
@@ -299,7 +302,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void openMyDrawer(){
-    _homeModel.scaffoldKey.currentState.openDrawer();
+    _homeModel.globalKey.currentState.openDrawer();
   }
 
   @override
@@ -308,7 +311,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     final bloc = Bloc();
 
     return Scaffold(
-      key: _homeModel.scaffoldKey,
+      key: _homeModel.globalKey,
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Colors.transparent

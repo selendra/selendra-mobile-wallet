@@ -21,17 +21,17 @@ class HomeModel {
 
   List<dynamic> portfolioList = [];
 
-  GlobalKey<ScaffoldState> scaffoldKey;
-
   dynamic result; dynamic portFolioResponse; List<Map<String, dynamic>> response;
 
   /* Chart */
 
-  final GlobalKey<AnimatedCircularChartState> chartKey =  new GlobalKey<AnimatedCircularChartState>();
+  GlobalKey<AnimatedCircularChartState> chartKey =  new GlobalKey<AnimatedCircularChartState>();
+
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
   
   double emptyChartData = 100;
 
   List<CircularSegmentEntry> circularChart;
 
-  final RefreshController refreshController = RefreshController();
+  RefreshController refreshController = RefreshController();
 }

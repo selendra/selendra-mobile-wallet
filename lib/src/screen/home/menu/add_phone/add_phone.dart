@@ -67,8 +67,8 @@ class _AddPhoneState extends State<AddPhone>{
       else {
         await dialog(context, Text(_backend.mapData['error']['message']), Text("Message"));
       }
-    } catch (e){
-      
+    } on SocketException catch (e){
+      await dialog(context, Text("${e.message}"), Text("Message"));
     }
   }
 

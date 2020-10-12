@@ -32,14 +32,18 @@ class TrxActivityState extends State<TrxActivity> {
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
-    await _getRequest.getReceipt().then((_response) {
-      if (List<dynamic>.from(_response).length == 0)
-        _activity = null; /* Assign TransactionActivity Variable With NUll If Reponse Empty Data */
-      else
-        _activity = _response;
-    });
-    if (!mounted) return; /* Prevent SetState After Dispose */
-    setState(() {});
+    try {
+      await _getRequest.getReceipt().then((_response) {
+        if (List<dynamic>.from(_response).length == 0)
+          _activity = null; /* Assign TransactionActivity Variable With NUll If Reponse Empty Data */
+        else
+          _activity = _response;
+      });
+      if (!mounted) return; /* Prevent SetState After Dispose */
+      setState(() {});
+    } catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
+    } 
   }
 
   void sortByDate(List _trxHistory){

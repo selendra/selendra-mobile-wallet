@@ -128,12 +128,6 @@ class MenuState extends State<Menu> {
   
   /* --------------------Function-------------------- */
   void editProfile() async {
-    // _result = await Navigator.push(context, MaterialPageRoute(
-    //     builder: (context) => EditProfile(_modelUserInfo.userData)
-    //   )
-    // );
-    // widget.callBack(_result);
-    // Navigator.pop(context);
     _result = await Navigator.push(
       context, 
       MaterialPageRoute(builder: (context) => EditProfile(_modelUserInfo.userData))
@@ -180,23 +174,27 @@ class MenuState extends State<Menu> {
   }
 
   void switchBiometric(bool value) async {
-    if (value){
-      await authenticateBiometric().then((values) async {
-        if (_menuModel.authenticated){
-          _menuModel.switchBio = value;
-          await StorageServices.setData({'bio': values}, 'biometric');
-        }
-      });
-    } else {
-      await authenticateBiometric().then((values) async {
-        if(values) {
-          _menuModel.switchBio = value;
-          await StorageServices.removeKey('biometric');
-        }
-      });
+    try {
+      if (value){
+        await authenticateBiometric().then((values) async {
+          if (_menuModel.authenticated){
+            _menuModel.switchBio = value;
+            await StorageServices.setData({'bio': values}, 'biometric');
+          }
+        });
+      } else {
+        await authenticateBiometric().then((values) async {
+          if(values) {
+            _menuModel.switchBio = value;
+            await StorageServices.removeKey('biometric');
+          }
+        });
+      }
+      // // Reset Switcher
+      setState(() { });
+    } catch (e) {
+      
     }
-    // // Reset Switcher
-    setState(() { });
   }
 
   Future<bool> authenticateBiometric() async {

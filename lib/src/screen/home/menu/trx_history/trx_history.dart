@@ -54,24 +54,28 @@ class TrxHistoryState extends State<TrxHistory>{
   }
 
   void fetchHistoryUser() async { /* Request Transaction History */
-    await _getRequest.trxUserHistory().then((_response) async { /* Get Response Data */
-      if ( (_response.runtimeType.toString()) != "List<dynamic>" && (_response.runtimeType.toString()) != "_GrowableList<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
-        if (_response.containsKey("error")){
-          if (this.mounted){ /* Prevent Future SetState */
+    try {
+      await _getRequest.trxUserHistory().then((_response) async { /* Get Response Data */
+        if ( (_response.runtimeType.toString()) != "List<dynamic>" && (_response.runtimeType.toString()) != "_GrowableList<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
+          if (_response.containsKey("error")){
+            if (this.mounted){ /* Prevent Future SetState */
+              setState(() {
+                _trxHistory = null; /* Set Portfolio Equal Null To Close Loading Process */
+              });
+            }
+          }
+        } else {
+          if (this.mounted) { /* Prevent Future SetState */
+            collectByTrxType(_response);
             setState(() {
-              _trxHistory = null; /* Set Portfolio Equal Null To Close Loading Process */
+              _trxHistory = _response;
             });
           }
-        }
-      } else {
-        if (this.mounted) { /* Prevent Future SetState */
-          collectByTrxType(_response);
-          setState(() {
-            _trxHistory = _response;
-          });
-        }
-      } 
-    });
+        } 
+      });
+    } catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
+    }
   }
 
   void collectByTrxType(List _trxHistory){ // Collect Transaction By Type "Send", And Received

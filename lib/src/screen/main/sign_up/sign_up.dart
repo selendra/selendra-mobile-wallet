@@ -162,7 +162,8 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
         await registerByPhoneNumber();
       }
     } catch (e){
-      await dialog(context, textAlignCenter(text: 'Something goes wrong !'), warningTitleDialog());
+      await Future.delayed(Duration(milliseconds: 300), () { });
+      AppServices.openSnackBar(_modelSignUp.globalKey, e.message);
     }
   }
 

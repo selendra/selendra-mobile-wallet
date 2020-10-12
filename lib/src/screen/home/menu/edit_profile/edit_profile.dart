@@ -120,14 +120,18 @@ class EditProfileState extends State<EditProfile> {
     /* Show Loading Process */
     dialogLoading(context);
     /* Post Request Submit Profile */
-    _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
-    /* Close Loading Procxess */
-    Navigator.pop(context);
-    _backend.mapData = json.decode(_backend.response.body);
-    /* Set Profile Success */
-    if (_backend.mapData != null) { 
-      await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
-      Navigator.pop(context, {'dialog_name': 'edit_profile'});
+    try {
+      _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
+      /* Close Loading Procxess */
+      Navigator.pop(context);
+      _backend.mapData = json.decode(_backend.response.body);
+      /* Set Profile Success */
+      if (_backend.mapData != null) { 
+        await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
+        Navigator.pop(context, {'dialog_name': 'edit_profile'});
+      }
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
     }
   }
 

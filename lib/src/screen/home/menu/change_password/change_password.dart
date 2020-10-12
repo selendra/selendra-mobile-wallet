@@ -133,18 +133,22 @@ class ChangePINState extends State<ChangePassword> {
 
   void submitPassword(BuildContext context) async {
     dialogLoading(context); /* Show Loading Process */
-    await _postRequest.changePassword(_modelChangePassword).then((_response) async {
-      Navigator.pop(context); /* Close Loading Process */
-      if (!_response.containsKey("error")) { /* Check Response Not Error */
-        await dialog(
-          context, 
-          Text("${_response['message']}"), 
-          Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor))
-        );
-        Navigator.pop(context);
-      } else
-        await dialog(context, Text("${_response['error']['message']}"), textMessage());
-    });
+    try {
+      await _postRequest.changePassword(_modelChangePassword).then((_response) async {
+        Navigator.pop(context); /* Close Loading Process */
+        if (!_response.containsKey("error")) { /* Check Response Not Error */
+          await dialog(
+            context, 
+            Text("${_response['message']}"), 
+            Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor))
+          );
+          Navigator.pop(context);
+        } else
+          await dialog(context, Text("${_response['error']['message']}"), textMessage());
+      });
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
+    }
   }
 
   Widget build(BuildContext context) {

@@ -201,34 +201,37 @@ class ResetPasswordState extends State<ResetPassword> {
     dialogLoading(context);
 
     // Rest Api
-    await _postRequest.resetPass(
-      widget._modelForgotPassword, 
-      widget._modelForgotPassword.key == "phone" 
-      ? "+855${widget._modelForgotPassword.controlPhoneNums.text}"
-      : widget._modelForgotPassword.controllerEmail.text,
-      widget._modelForgotPassword.key == "phone" ? "reset-password" : "reset-password-by-email"
-      ).then((value) async {
-      // Close Dialog
-      Navigator.pop(context);
+    try{
+      await _postRequest.resetPass(
+        widget._modelForgotPassword, 
+        widget._modelForgotPassword.key == "phone" 
+        ? "+855${widget._modelForgotPassword.controlPhoneNums.text}"
+        : widget._modelForgotPassword.controllerEmail.text,
+        widget._modelForgotPassword.key == "phone" ? "reset-password" : "reset-password-by-email"
+        ).then((value) async {
+        // Close Dialog
+        Navigator.pop(context);
 
-      // Condition True When Successfully 
-      if (AppServices.myNumCount < 10) {
-        // Assign Promise Data To Response Variable
-        _backend.response = value;
-        if (_backend.response != null) {
-          // Navigator.pop(context);
-          _backend.mapData = json.decode(_backend.response.body);
-          // Condition And Navigator
-          if (!_backend.mapData.containsKey('error')) {
-            await dialog(context, Text(_backend.mapData['message']), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), ModalRoute.withName('/'));
-          } else {
-            await dialog(context, Text(_backend.mapData['error']['message']), textMessage());
+        // Condition True When Successfully 
+        if (AppServices.myNumCount < 10) {
+          // Assign Promise Data To Response Variable
+          _backend.response = value;
+          if (_backend.response != null) {
+            // Navigator.pop(context);
+            _backend.mapData = json.decode(_backend.response.body);
+            // Condition And Navigator
+            if (!_backend.mapData.containsKey('error')) {
+              await dialog(context, Text(_backend.mapData['message']), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login()), ModalRoute.withName('/'));
+            } else {
+              await dialog(context, Text(_backend.mapData['error']['message']), textMessage());
+            }
           }
         }
-      }
-      
-    });
+      });
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
+    }
   }
 
   Widget build(BuildContext context) {

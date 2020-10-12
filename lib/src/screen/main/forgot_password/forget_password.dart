@@ -114,8 +114,8 @@ class ForgetPasswordState extends State<ForgetPassword> {
           
         // }
       });
-    } catch (err){
-      await dialog(context, Text("Something gone wrong"), Text("Message"));
+    } on SocketException catch (e){
+      await dialog(context, Text("${e.message}"), Text("Message"));
     }
   }
 

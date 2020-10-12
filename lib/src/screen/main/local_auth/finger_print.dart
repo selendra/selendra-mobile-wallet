@@ -109,7 +109,9 @@ class _FingerPrintState extends State<FingerPrint> {
           MaterialPageRoute(builder: (context) => Login())
         );
       }
-    } catch (err) {}
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
+    }
   }
 
   @override

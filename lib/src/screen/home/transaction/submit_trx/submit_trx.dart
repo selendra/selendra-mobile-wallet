@@ -178,16 +178,20 @@ class SubmitTrxState extends State<SubmitTrx> {
     }); 
     _modelScanPay.pin = await dialogBox();
     payProgres();
-    var _response = await _postRequest.sendPayment(_modelScanPay);
-    if (_response["status_code"] == 200) {
-      if (!_response.containsKey('error')) {
-        await enableAnimation(_response);
-        // await dialog(context, textAlignCenter(text: _response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor)));
+    try {
+      var _response = await _postRequest.sendPayment(_modelScanPay);
+      if (_response["status_code"] == 200) {
+        if (!_response.containsKey('error')) {
+          await enableAnimation(_response);
+          // await dialog(context, textAlignCenter(text: _response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor)));
+        } else {
+          await dialog(context, textAlignCenter(text: _response["error"]['message']), warningTitleDialog());
+        }
       } else {
-        await dialog(context, textAlignCenter(text: _response["error"]['message']), warningTitleDialog());
+        await dialog(context, textAlignCenter(text: 'Something goes wrong'), warningTitleDialog());
       }
-    } else {
-      await dialog(context, textAlignCenter(text: 'Something goes wrong'), warningTitleDialog());
+    } catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
     }
     await Future.delayed(Duration(milliseconds: 50), () {
       removeAllFocus();

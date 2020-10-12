@@ -55,8 +55,8 @@ class MySplashScreenState extends State<MySplashScreen>{
         });
         
       });
-    } catch (e) {
-      await dialog(context, Text("$e", textAlign: TextAlign.center), "Message");
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
     }
   }
 

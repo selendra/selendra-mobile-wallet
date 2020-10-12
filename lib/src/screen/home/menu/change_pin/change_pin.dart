@@ -135,23 +135,27 @@ class ChangePinState extends State<ChangePin> {
   void submitPIN(BuildContext context) async { /* Submit Pin */
     removeAllFocus();
     dialogLoading(context); /* Show Loading Process */
-    await _postRequest.changePIN(_modelChangePin).then((_response) async {
-      Navigator.pop(context); /* Close Loading Process */
-      if (!_response.containsKey("error")) { /* Check Response Not Error */
-        await dialog(
-          context, 
-          Text("${_response['message']}"), 
-          Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor),)
-        );
-        Navigator.pop(context);
-      } else {
-        await dialog(
-          context, 
-          Text("${_response['error']['message']}"),
-          warningTitleDialog()
-        );
-      }
-    });
+    try {
+      await _postRequest.changePIN(_modelChangePin).then((_response) async {
+        Navigator.pop(context); /* Close Loading Process */
+        if (!_response.containsKey("error")) { /* Check Response Not Error */
+          await dialog(
+            context, 
+            Text("${_response['message']}"), 
+            Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor),)
+          );
+          Navigator.pop(context);
+        } else {
+          await dialog(
+            context, 
+            Text("${_response['error']['message']}"),
+            warningTitleDialog()
+          );
+        }
+      });
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message"));
+    }
   }
 
   void removeAllFocus(){

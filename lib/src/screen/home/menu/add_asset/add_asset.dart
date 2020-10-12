@@ -71,22 +71,26 @@ class AddAssetState extends State<AddAsset> {
 
   void submitAsset(BuildContext context) async {
     dialogLoading(context); // Loading
-    _modelAsset.result = await _postRequest.addAsset(_modelAsset);
-    Navigator.pop(context); // Close Loading
-    if (_modelAsset.result.containsKey('message')){
-      await dialog(
-        context,
-        Text(_modelAsset.result['message']),
-        Icon(
-          Icons.done_outline,
-          color: hexaCodeToColor(AppColors.lightBlueSky,)
-        )
-      );
-      _modelAsset.result.addAll({"dialog_name": "addAssetScreen"});
-      Navigator.pop(context, _modelAsset.result);
-    } else {
-      await dialog(context, Text(_modelAsset.result['error']['message']), warningTitleDialog());
-      Navigator.pop(context, {}); /* Disable Loading Process */
+    try {
+      _modelAsset.result = await _postRequest.addAsset(_modelAsset);
+      Navigator.pop(context); // Close Loading
+      if (_modelAsset.result.containsKey('message')){
+        await dialog(
+          context,
+          Text(_modelAsset.result['message']),
+          Icon(
+            Icons.done_outline,
+            color: hexaCodeToColor(AppColors.lightBlueSky,)
+          )
+        );
+        _modelAsset.result.addAll({"dialog_name": "addAssetScreen"});
+        Navigator.pop(context, _modelAsset.result);
+      } else {
+        await dialog(context, Text(_modelAsset.result['error']['message']), warningTitleDialog());
+        Navigator.pop(context, {}); /* Disable Loading Process */
+      }
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message")); 
     }
         
   }
