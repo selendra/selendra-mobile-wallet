@@ -259,9 +259,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   void scanReceipt() async { /* Receipt Scan Pay Process */
     try {
-      String _barcode = await BarcodeScanner.scan();
+      var _barcode = await BarcodeScanner.scan();
       dialogLoading(context); /* Enable Loading Process */
-      await _postRequest.getReward(_barcode).then((onValue) async {
+      await _postRequest.getReward(_barcode.rawContent).then((onValue) async {
         if (onValue.containsKey('message'))
           await dialog(
             context,

@@ -80,19 +80,19 @@ class SetConfirmPinState extends State<SetConfirmPin> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           PinPut(
-            clearButtonIcon: Icon(Icons.close),
-            pasteButtonIcon: Icon(Icons.close),
-            isTextObscure: true,
-            fieldsCount: 4,
-            onSubmit: (String pins) {
-              _confirmPin = pins;
-              disableButton = false;
-              setState(() {});
-            },
-            onClear: (clear) {
-              _confirmPin = null;
-              disableButton = true;
-            },
+            // clearButtonIcon: Icon(Icons.close),
+            // pasteButtonIcon: Icon(Icons.close),
+            // isTextObscure: true,
+            // fieldsCount: 4,
+            // onSubmit: (String pins) {
+            //   _confirmPin = pins;
+            //   disableButton = false;
+            //   setState(() {});
+            // },
+            // onClear: (clear) {
+            //   _confirmPin = null;
+            //   disableButton = true;
+            // },
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

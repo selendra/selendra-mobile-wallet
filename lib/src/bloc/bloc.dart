@@ -18,13 +18,13 @@ class Bloc with ValidateMixin {
   get emailObservable => _email.stream.transform(validateEmail);
   get phoneNumsObservable => _phoneNums.stream.transform(validatePhoneNums);
   get passwordObservable => _password.stream.transform(validatePasswords);
-  get submit => Observable.combineLatest2(emailObservable, passwordObservable, (email, password) {
-    if (email != null && password != null) {
-      return true;
-    }
-      return null;
-    }
-  );
+  // get submit => Observable.combineLatest2(emailObservable, passwordObservable, (email, password) {
+  //   if (email != null && password != null) {
+  //     return true;
+  //   }
+  //     return null;
+  //   }
+  // );
 
   /* User Sign Up */
   get emailSignUp => _usersignup.stream.transform(validateEmail);

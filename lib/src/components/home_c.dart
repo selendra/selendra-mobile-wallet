@@ -336,7 +336,7 @@ class MyHomeAppBar extends StatelessWidget{
                   color: Colors.white,
                   size: 30,
                 ),
-              ),
+              )
             )
           )
         ],
@@ -373,7 +373,7 @@ LineChartData mainData() {
       bottomTitles: SideTitles(
         showTitles: true,
         reservedSize: 22,
-        textStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
+        // textStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
         getTitles: (value) {
           switch (value.toInt()) {
             case 2:
@@ -389,11 +389,11 @@ LineChartData mainData() {
       ),
       leftTitles: SideTitles(
         showTitles: true,
-        textStyle: TextStyle(
-          color: hexaCodeToColor(AppColors.textColor),
-          fontWeight: FontWeight.bold,
-          fontSize: 15,
-        ),
+        // textStyle: TextStyle(
+        //   color: hexaCodeToColor(AppColors.textColor),
+        //   fontWeight: FontWeight.bold,
+        //   fontSize: 15,
+        // ),
         getTitles: (value) {
           switch (value.toInt()) {
             case 1:

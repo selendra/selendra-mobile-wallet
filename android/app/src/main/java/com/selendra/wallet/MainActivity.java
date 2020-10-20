@@ -3,7 +3,6 @@ package com.selendra.wallet;
 import android.os.Build;
 import android.os.Bundle;
 
-import io.flutter.app.FlutterActivity;
 import io.flutter.app.FlutterFragmentActivity;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -14,19 +13,19 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.FlutterEngine;
 
-public class MainActivity extends FlutterFragmentActivity {
+public class MainActivity extends FlutterActivity {
 
   private  static final String CHANNEL = "daveat/brightness";
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-
-    super.onCreate(savedInstanceState);
+  public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
     
-    GeneratedPluginRegistrant.registerWith(this);
+    GeneratedPluginRegistrant.registerWith(flutterEngine);
 
-    new MethodChannel(getFlutterView(), CHANNEL).setMethodCallHandler(
+    new MethodChannel(flutterEngine.getDartExecutor(), CHANNEL).setMethodCallHandler(
 
       new MethodChannel.MethodCallHandler() {
 

@@ -25,16 +25,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  rxdart:
+  rxdart: ^0.24.1
   
   # Database
-  shared_preferences:
+  shared_preferences: ^0.5.12+2
 
   # Backend
   http:
   connectivity:
   connectivity_wrapper:
-  firebase_remote_config:
+  firebase_remote_config: ^0.4.0+2
   async: 
 
   # Image service
@@ -59,7 +59,7 @@ dependencies:
   flutter_circular_chart:
   syncfusion_flutter_charts:
   charts_flutter:
-  fl_chart:
+  fl_chart: ^0.12.0
   pie_chart: 4.0.1
 
   #Indecator
@@ -71,7 +71,7 @@ dependencies:
   # line_awesome_icons:
   line_awesome_flutter:
 
-  pinput:
+  pinput: ^0.2.0
   # flutter_datetime_picker:
   transparent_image: 
   slider_button:
@@ -81,7 +81,7 @@ dependencies:
   flutter_launcher_icons:
   device_preview:
   store_redirect:
-  fluttercontactpicker:
+  # fluttercontactpicker: ^3.1.0
   share:
 
   # Apps Configuration
@@ -89,7 +89,7 @@ dependencies:
   package_info: 
 
   #Authenticatioin & Verification
-  local_auth:
+  local_auth: ^0.6.2+3
   sms_autofill:
   
   #animation

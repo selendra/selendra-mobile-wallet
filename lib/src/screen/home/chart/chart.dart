@@ -1,18 +1,18 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
-class ZeeChart extends StatefulWidget {
+class SelendraChart extends StatefulWidget {
   final HomeModel _modelDashboard;
 
-  ZeeChart(this._modelDashboard);
+  SelendraChart(this._modelDashboard);
 
   @override
   State<StatefulWidget> createState() {
-    return ZeeChartState();
+    return SelendraChartState();
   }
 }
 
-class ZeeChartState extends State<ZeeChart> {
+class SelendraChartState extends State<SelendraChart> {
 
   RefreshController _refreshController = RefreshController();
 

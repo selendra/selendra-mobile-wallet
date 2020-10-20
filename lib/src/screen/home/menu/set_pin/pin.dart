@@ -45,20 +45,20 @@ class SetPinDialogState extends State<SetPinDialog> {
             child: Text(_showError, style: TextStyle(color: Colors.red), textAlign: TextAlign.center),
           ),
           PinPut(
-            clearButtonIcon: Icon(Icons.close),
-            pasteButtonIcon: Icon(Icons.close),
-            isTextObscure: true,
-            fieldsCount: 4,
-            onSubmit: (String pins) {
-              setState(() {
-                disableButton = false;
-                _pin = pins;
-              });
-            },
-            onClear: (clear) {
-              _pin = null;
-              disableButton = true;
-            },
+            // clearButtonIcon: Icon(Icons.close),
+            // pasteButtonIcon: Icon(Icons.close),
+            // isTextObscure: true,
+            // fieldsCount: 4,
+            // onSubmit: (String pins) {
+            //   setState(() {
+            //     disableButton = false;
+            //     _pin = pins;
+            //   });
+            // },
+            // onClear: (clear) {
+            //   _pin = null;
+            //   disableButton = true;
+            // },
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

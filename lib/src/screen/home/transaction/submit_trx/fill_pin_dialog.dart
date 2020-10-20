@@ -18,14 +18,14 @@ class FillPinState extends State<FillPin> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             PinPut(
-              isTextObscure: true,
-              fieldsCount: 4,
-              onSubmit: (String dataSubmit){
-                Navigator.pop(context, dataSubmit);
-              },
-              onClear: (String clear){
+              // isTextObscure: true,
+              // fieldsCount: 4,
+              // onSubmit: (String dataSubmit){
+              //   Navigator.pop(context, dataSubmit);
+              // },
+              // onClear: (String clear){
 
-              },
+              // },
             )
           ],
         ),
