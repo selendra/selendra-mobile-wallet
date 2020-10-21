@@ -51,7 +51,7 @@ class ResetPasswordBody extends StatelessWidget{
                       prefixText: "${forgetM.countryCode} ",
                       textInputFormatter: [
                         LengthLimitingTextInputFormatter(9),
-                        WhitelistingTextInputFormatter.digitsOnly
+                        FilteringTextInputFormatter.digitsOnly
                       ],
                       inputType: TextInputType.number,
                       inputAction: TextInputAction.next,
@@ -116,7 +116,7 @@ class ResetPasswordBody extends StatelessWidget{
                       prefixText: null,
                       textInputFormatter: [
                         LengthLimitingTextInputFormatter(6),
-                        WhitelistingTextInputFormatter.digitsOnly
+                        FilteringTextInputFormatter.digitsOnly
                       ],
                       inputAction: TextInputAction.next,
                       inputType: TextInputType.number,

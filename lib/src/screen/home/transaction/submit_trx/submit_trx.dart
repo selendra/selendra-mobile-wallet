@@ -3,6 +3,7 @@ import 'package:flare_flutter/flare_controls.dart';
 import 'package:wallet_apps/index.dart';
 
 class SubmitTrx extends StatefulWidget {
+  
   final String _walletKey;
   final List<dynamic> _listPortfolio;
   final bool enableInput;
@@ -173,6 +174,7 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   void clickSend(BuildContext context) async { /* Send payment */
+    // Navigator.push(context, MaterialPageRoute(builder: (contxt) => FillPin()));
     await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
       unFocusAllField();
     }); 

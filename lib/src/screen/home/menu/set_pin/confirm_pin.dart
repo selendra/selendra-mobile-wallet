@@ -12,7 +12,6 @@ class SetConfirmPin extends StatefulWidget {
 
 class SetConfirmPinState extends State<SetConfirmPin> {
 
-  String _confirmPin;
   bool disableButton = true, isProgress = false;
   Map<String, dynamic> popData;
 
@@ -22,8 +21,21 @@ class SetConfirmPinState extends State<SetConfirmPin> {
   
   PostRequest _postRequest = PostRequest();
 
+  TextEditingController _pinPutController = TextEditingController();
+
+  FocusNode _pinNode = FocusNode();
+
+  BoxDecoration get _pinPutDecoration {
+    return BoxDecoration(
+      // border: Border.all(color: Colors.deepPurpleAccent),
+      borderRadius: BorderRadius.circular(10.0),
+      color: Colors.grey.withOpacity(0.5)
+    );
+  }
+
   @override
   initState() {
+    _pinNode.requestFocus();
     AppServices.noInternetConnection(_globalKey);
     super.initState();
   }
@@ -33,16 +45,16 @@ class SetConfirmPinState extends State<SetConfirmPin> {
     dialogLoading(context);
     try {
       /* If PIN Equal Confirm PIN */
-      if (_confirmPin == widget._pin) {
+      if (_pinPutController.text == widget._pin) {
         // Store PIN In Database
-        StorageServices.setData({'pin': _confirmPin}, 'pin');
+        StorageServices.setData({'pin': _pinPutController.text}, 'pin');
         // Request Wallet
-        _backend.response = await _postRequest.retreiveWallet(_confirmPin); 
+        _backend.response = await _postRequest.retreiveWallet(_pinPutController.text); 
         // Convert String To Objects
         _backend.mapData = json.decode(_backend.response.body);
         _backend.mapData.addAll({
           "dialog_name": "confirmPin",
-          "confirm_pin": _confirmPin,
+          "confirm_pin": _pinPutController.text,
           "compare": true,
         });
         // Close Cicular Loading
@@ -51,7 +63,7 @@ class SetConfirmPinState extends State<SetConfirmPin> {
         Navigator.pop(context, _backend.mapData);
       } 
       // If PIN Not Equal Confirm PIN
-      else if (_confirmPin != widget._pin) {
+      else if (_pinPutController.text != widget._pin) {
         Navigator.pop(context);
         Navigator.pop(context, {
           "dialog_name": "confirmPin",
@@ -80,26 +92,21 @@ class SetConfirmPinState extends State<SetConfirmPin> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           PinPut(
-            // clearButtonIcon: Icon(Icons.close),
-            // pasteButtonIcon: Icon(Icons.close),
-            // isTextObscure: true,
-            // fieldsCount: 4,
-            // onSubmit: (String pins) {
-            //   _confirmPin = pins;
-            //   disableButton = false;
-            //   setState(() {});
-            // },
-            // onClear: (clear) {
-            //   _confirmPin = null;
-            //   disableButton = true;
-            // },
+            focusNode: _pinNode,
+            controller: _pinPutController,
+            fieldsCount: 4,
+            selectedFieldDecoration: _pinPutDecoration,
+            submittedFieldDecoration: _pinPutDecoration.copyWith(
+              color: Colors.grey.withOpacity(0.5)
+            ),
+            followingFieldDecoration: _pinPutDecoration,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               RaisedButton(
                 child: Text("Confirm", style: TextStyle(fontWeight: FontWeight.bold)),
-                onPressed: _confirmPin == null
+                onPressed: _pinPutController.text == null
                 ? null
                 : () async {
                   await getWallet();

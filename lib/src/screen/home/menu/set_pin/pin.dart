@@ -20,8 +20,22 @@ class SetPinDialogState extends State<SetPinDialog> {
   String _pin;
   String _showError;
 
+  TextEditingController _pinPutController = TextEditingController();
+
+  FocusNode _pinNode = FocusNode();
+
+  BoxDecoration get _pinPutDecoration {
+    return BoxDecoration(
+      // border: Border.all(color: Colors.deepPurpleAccent),
+      borderRadius: BorderRadius.circular(10.0),
+      color: Colors.grey.withOpacity(0.5)
+    );
+  }
+
   @override
   initState() {
+    
+    _pinNode.requestFocus();
 
     AppServices.noInternetConnection(_globalKey);
 
@@ -45,20 +59,14 @@ class SetPinDialogState extends State<SetPinDialog> {
             child: Text(_showError, style: TextStyle(color: Colors.red), textAlign: TextAlign.center),
           ),
           PinPut(
-            // clearButtonIcon: Icon(Icons.close),
-            // pasteButtonIcon: Icon(Icons.close),
-            // isTextObscure: true,
-            // fieldsCount: 4,
-            // onSubmit: (String pins) {
-            //   setState(() {
-            //     disableButton = false;
-            //     _pin = pins;
-            //   });
-            // },
-            // onClear: (clear) {
-            //   _pin = null;
-            //   disableButton = true;
-            // },
+            focusNode: _pinNode,
+            controller: _pinPutController,
+            fieldsCount: 4,
+            selectedFieldDecoration: _pinPutDecoration,
+            submittedFieldDecoration: _pinPutDecoration.copyWith(
+              color: Colors.grey.withOpacity(0.5)
+            ),
+            followingFieldDecoration: _pinPutDecoration,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +76,7 @@ class SetPinDialogState extends State<SetPinDialog> {
                 onPressed: disableButton == true ? null : () {
                   Map<String, dynamic> popData = {
                     "dialog_name": "Pin",
-                    "pin": _pin
+                    "pin": _pinPutController.text
                   };
                   Navigator.pop(context, popData);
                 },

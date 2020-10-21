@@ -197,26 +197,26 @@ class  PortfolioBody extends StatelessWidget{
           child: GroupedBarChart.withSampleData(),
         ),
 
-        Container(
-          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          height: 50,
-          child: ListView.builder(
-            itemCount: months.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int i){
-              return Align(
-                alignment: Alignment.center,
-                child: GestureDetector(
-                  child: MyText(
-                    width: 60,
-                    text: "${months[i]}"
-                  ),
-                )
-              );
-            }
-          )
-        ),
+        // Container(
+        //   margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+        //   height: 50,
+        //   child: ListView.builder(
+        //     itemCount: months.length,
+        //     shrinkWrap: true,
+        //     scrollDirection: Axis.horizontal,
+        //     itemBuilder: (BuildContext context, int i){
+        //       return Align(
+        //         alignment: Alignment.center,
+        //         child: GestureDetector(
+        //           child: MyText(
+        //             width: 60,
+        //             text: "${months[i]}"
+        //           ),
+        //         )
+        //       );
+        //     }
+        //   )
+        // ),
 
         MyRowHeader(),
 

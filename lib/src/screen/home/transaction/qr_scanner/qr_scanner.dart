@@ -29,48 +29,13 @@ class QrScannerState extends State<QrScanner>{
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: scaffoldBGDecoration(
-        left: 0, right: 0,
-        bottom: 0,
+      body: BodyScaffold(
         child: Column(
           children: [
-            containerAppBar( /* AppBar */
-              context,
-              Row( /* Sub AppBar */
-                children: <Widget>[
-                  iconAppBar( /* Menu Button */
-                    Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                    Alignment.centerLeft,
-                    EdgeInsets.all(0),
-                    // Trigger To Open Drawer
-                    (){ 
-                      Navigator.pop(context);
-                    }
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        FittedBox(
-                          fit: BoxFit.contain,
-                          child: Text("Transaction", style: TextStyle(fontSize: 18.0),)
-                        )
-                        // Image.asset(
-                        //   AppConfig.logoAppBar,
-                        //   height: 25.0,
-                        //   color: Colors.white,
-                        // ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
+            MyAppBar(
+              title: "Transaction",
             ),
+
             Expanded(
               flex: 5,
               child: QRView(
@@ -84,7 +49,7 @@ class QrScannerState extends State<QrScanner>{
               )
             ),
           ],
-        )
+        ),
       )
     );
   }

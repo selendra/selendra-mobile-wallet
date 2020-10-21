@@ -25,7 +25,7 @@ class SmsBox extends StatelessWidget {
         child: TextFormField(
           controller: controller,
           focusNode: focusNode,
-          inputFormatters: [LengthLimitingTextInputFormatter(1), WhitelistingTextInputFormatter.digitsOnly],
+          inputFormatters: [LengthLimitingTextInputFormatter(1), FilteringTextInputFormatter.digitsOnly],
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.bold),

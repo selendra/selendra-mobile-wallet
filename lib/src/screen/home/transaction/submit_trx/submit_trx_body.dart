@@ -40,10 +40,9 @@ class SubmitTrxBody extends StatelessWidget{
         labelText: "Receiver addres",
         prefixText: null,
         textInputFormatter: [
-          LengthLimitingTextInputFormatter(9),
-          WhitelistingTextInputFormatter.digitsOnly
+          LengthLimitingTextInputFormatter(TextField.noMaxLength),
         ],
-        inputType: TextInputType.phone,
+        inputType: TextInputType.text,
         controller: scanPayM.controlReceiverAddress,
         focusNode: scanPayM.nodeReceiverAddress,
         validateField: validateWallet,
@@ -57,7 +56,7 @@ class SubmitTrxBody extends StatelessWidget{
         textInputFormatter: [
           LengthLimitingTextInputFormatter(TextField.noMaxLength)
         ],
-        inputType: TextInputType.emailAddress,
+        inputType: TextInputType.number,
         controller: scanPayM.controlAmount,
         focusNode: scanPayM.nodeAmount,
         validateField: validateAmount,
@@ -72,7 +71,7 @@ class SubmitTrxBody extends StatelessWidget{
         textInputFormatter: [
           LengthLimitingTextInputFormatter(TextField.noMaxLength)
         ],
-        inputType: TextInputType.emailAddress,
+        inputType: TextInputType.text,
         controller: scanPayM.controlMemo,
         focusNode: scanPayM.nodeMemo,
         validateField: validateMemo,

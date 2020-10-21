@@ -34,7 +34,7 @@ class SignUpBody extends StatelessWidget{
         prefixText: "+855 ",
         textInputFormatter: [
           LengthLimitingTextInputFormatter(9),
-          WhitelistingTextInputFormatter.digitsOnly
+          FilteringTextInputFormatter.digitsOnly
         ],
         inputType: TextInputType.phone,
         controller: modelSignUp.controlPhoneNums,
