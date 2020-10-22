@@ -50,7 +50,7 @@ class SetPinDialogState extends State<SetPinDialog> {
     return AlertDialog(
       key: _globalKey,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      title: Align(alignment: Alignment.center, child: Text("Set PIN")),
+      title: Align(alignment: Alignment.center, child: Text("Set pin")),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -67,33 +67,49 @@ class SetPinDialogState extends State<SetPinDialog> {
               color: Colors.grey.withOpacity(0.5)
             ),
             followingFieldDecoration: _pinPutDecoration,
+            onSubmit: (String value){
+              setState(() {
+                disableButton = false;
+              });
+            },
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                child: Text('Next', style: TextStyle(fontWeight: FontWeight.bold)),
-                onPressed: disableButton == true ? null : () {
-                  Map<String, dynamic> popData = {
-                    "dialog_name": "Pin",
-                    "pin": _pinPutController.text
-                  };
-                  Navigator.pop(context, popData);
-                },
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10.0),
-                child: RaisedButton(
-                  child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: (){
-                    Navigator.pop(context, AppServices.emptyMapData());
-                  }
-                ),
-              )
-            ],
-          )
         ],
-      )
+      ),
+      actions: [
+        GestureDetector(
+          onTap: (){
+            _pinPutController.clear();
+          },
+          child: MyText(
+            right: 5,
+            text: "Clear"
+          ),
+        ),
+
+        GestureDetector(
+          onTap: disableButton == true ? null : () {
+            Map<String, dynamic> popData = {
+              "dialog_name": "Pin",
+              "pin": _pinPutController.text
+            };
+            Navigator.pop(context, popData);
+          },
+          child: MyText(
+            right: 5,
+            text: "Next",
+          ),
+        ),
+
+        GestureDetector(
+          child: MyText(
+            right: 5,
+            text: "Close",
+          ),
+          onTap: (){
+            Navigator.pop(context, AppServices.emptyMapData());
+          },
+        )
+      ],
     );
   }
 }

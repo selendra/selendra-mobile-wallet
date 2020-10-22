@@ -101,30 +101,41 @@ class SetConfirmPinState extends State<SetConfirmPin> {
             ),
             followingFieldDecoration: _pinPutDecoration,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                child: Text("Confirm", style: TextStyle(fontWeight: FontWeight.bold)),
-                onPressed: _pinPutController.text == null
-                ? null
-                : () async {
-                  await getWallet();
-                },
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10.0),
-                child: RaisedButton(
-                  child: Text('Close', style: TextStyle(fontWeight: FontWeight.bold)),
-                  onPressed: () {
-                    Navigator.pop(context, AppServices.emptyMapData());
-                  }
-                ),
-              )
-            ],
-          )
         ],
       ),
+      actions: [
+        GestureDetector(
+          onTap: (){
+            _pinPutController.clear();
+          },
+          child: MyText(
+            right: 5,
+            text: "Clear"
+          ),
+        ),
+
+        GestureDetector(
+          onTap: _pinPutController.text == null
+            ? null
+            : () async {
+              await getWallet();
+          },
+          child: MyText(
+            right: 5,
+            text: "Submit",
+          ),
+        ),
+
+        GestureDetector(
+          child: MyText(
+            right: 5,
+            text: "Close",
+          ),
+          onTap: (){
+            Navigator.pop(context, AppServices.emptyMapData());
+          },
+        )
+      ],
     );
   }
 }
