@@ -8,6 +8,8 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
+  
+  MenuModel menuModel = MenuModel();
 
   HomeModel _homeModel = HomeModel();
   
@@ -43,9 +45,13 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       if (Platform.isAndroid) appPermission();
       login();
       // fabsAnimation();
-    } 
+    }
 
-    login();
+    menuModel.result.addAll({
+      "pin": '',
+      "confirm": '',
+      "error": ''
+    });
 
     super.initState();
   }
@@ -102,8 +108,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   /* ---------------------------Rest Api--------------------------- */
   Future<void> getUserData() async { /* Fetch User Data From Memory */
     await _getRequest.getUserProfile().then((data) {
-      setState(() {  
-        print(data);
+      setState(() {
         if (data == null)
           _homeModel.userData = {};
         else
@@ -127,14 +132,26 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         _homeModel.portfolioList = [];
       });
     });
-    
-    /* Get Response Data */
-    _backend.response = await _getRequest.getPortfolio();
-    
-    /* Covert String To Objects */
-    await _portfolio.extractData(_backend.response);
 
-    if (_portfolio.list[0].containsKey('error')){
+    try {
+      /* Get Response Data */
+      _backend.response = await _getRequest.getPortfolio();
+
+      /* Covert String To Objects */
+      await _portfolio.extractData(_backend.response);
+      print(_backend.response.runtimeType);
+      
+      // Error Handling
+      if (_portfolio.list[0].containsKey('error')){
+        throw AssertionError(_portfolio.list[0]['error']['message']);
+      }
+
+      setState(() {
+        _homeModel.portfolioList = _portfolio.list;
+      });
+      StorageServices.setData(_homeModel.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
+      resetDataPieChart(_homeModel.portfolioList); 
+    } catch (e){
       await dialog(
         context, 
         Column(
@@ -142,21 +159,16 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 10.0),
-              child: textAlignCenter(text: "${_portfolio.list[0]['error']['message']}")
+              child: textAlignCenter(text: "${e.message}")
             ),
           ],
         ), 
         warningTitleDialog()
       );
+      print("Null");
       setState(() {
         _homeModel.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
       });
-    }  else {
-      setState(() {
-        _homeModel.portfolioList = _portfolio.list;
-      });
-      StorageServices.setData(_homeModel.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
-      // resetDataPieChart(_homeModel.portfolioList); 
     }
   }
 
@@ -283,6 +295,63 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     }
   }
 
+  Future<void> createPin(BuildContext context) async { /* Set PIN Dialog */
+    menuModel.result = await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: 
+      menuModel.result['pin'] == '' ? /* If PIN Not Yet Set */
+      (BuildContext context) {
+        return Material(
+          color: Colors.transparent,
+          child: disableNativePopBackButton(SetPinDialog(menuModel.result['error']))
+        );
+      } :
+      menuModel.result['confirm'] == '' ? /* Set PIN Done And Then Set Confirm Pin */
+      (BuildContext context) {
+        return Material(
+          color: Colors.transparent,
+          child: disableNativePopBackButton(SetConfirmPin(menuModel.result['pin'])),
+        );
+      } :
+      (BuildContext context) { /* Comfirm PIN Success Shower Dialog Of Private Key */
+        return Material(
+          color: Colors.transparent,
+          child: WillPopScope(
+            onWillPop: () async => await Future(() => false),
+            child: disableNativePopBackButton(PrivateKeyDialog(Map<String, dynamic>.from(menuModel.result))),
+          ),
+        );
+      }
+    );
+    
+    if (menuModel.result['response'].isNotEmpty){/* From Set PIN Widget */
+      if (menuModel.result["dialog_name"] == 'Pin'){
+        // menuModel.result['pin'] = menuModel.['pin'];
+        createPin(context); /* callBack */
+      } else 
+      if (menuModel.result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
+        if (menuModel.result['compare'] == false) {
+          menuModel.result['pin'] = '';
+          menuModel.result['error'] = "PIN does not match"; /* Enable Error Text*/
+          createPin(context); /* callBack */
+        } else if (menuModel.result["compare"] == true){
+          menuModel.result['confirm'] = '';
+          await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
+            createPin(context); /* callBack */
+          });
+        }
+      } else { /* Success Set PIN And Push SnackBar */
+        menuModel.result['pin'] = ""; /* Reset Pin Confirm PIN And Result To Empty */
+        menuModel.result['confirm'] = "";
+        snackBar(menuModel.globalKey, menuModel.result['message']); /* Copy Private Key Success And Show Message From Bottom */
+      }
+    } else { /* Reset Pin Confirm PIN And Result To Empty */
+      menuModel.result['pin'] = "";  
+      menuModel.result['confirm'] = "";
+    }
+  }
+
   void resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
     setState(() {
       _homeModel.portfolioList = [];
@@ -327,7 +396,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             bloc: bloc,
             chartKey: _homeModel.chartKey,
             portfolioData: _homeModel.portfolioList,
-            homeModel: _homeModel
+            homeModel: _homeModel,
+            getWallet: createPin,
           )
         ),
         onRefresh: _pullUpRefresh,

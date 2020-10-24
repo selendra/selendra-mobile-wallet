@@ -42,7 +42,6 @@ class AppState extends State<App> {
         return OrientationBuilder(
           builder: (context, orientation){
             SizeConfig().init(constraints, orientation);
-            print(orientation);
             return Provider(
               child: MaterialApp(
                 initialRoute: '/',

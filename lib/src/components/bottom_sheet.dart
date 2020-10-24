@@ -39,7 +39,11 @@ class MyBottomSheet{
                     subTitle: "Scan wallet",
                     icon: "sld_qr.svg",
                     action: () async {
-                      TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
+                      try {
+                        TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
+                      } catch (e){
+                        print(e.message);
+                      }
                     },
                   ),
                 ),

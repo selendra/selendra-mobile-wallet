@@ -109,13 +109,11 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     Timer(
       Duration(milliseconds: 200), (){
         if (_modelSignUp.nodePassword.hasFocus) {
-          print("Password");
           setState(() {
             if (_modelSignUp.hidePassword1 == false) _modelSignUp.hidePassword1 = true;
             else _modelSignUp.hidePassword1 = false;
           });
         } else if (_modelSignUp.nodeConfirmPassword.hasFocus){
-          print("Confirm Password");
           setState(() {
             if (_modelSignUp.hidePassword2 == false) _modelSignUp.hidePassword2 = true;
             else _modelSignUp.hidePassword2 = false;

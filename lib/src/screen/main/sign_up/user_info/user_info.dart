@@ -57,7 +57,6 @@ class UserInfoState extends State<UserInfo> {
 
   /* Change Select Gender */
   void changeGender(String gender) async {
-    print(gender);
     _modelUserInfo.genderLabel = gender;
     setState((){
       if (gender == "Male")

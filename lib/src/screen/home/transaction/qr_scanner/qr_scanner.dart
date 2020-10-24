@@ -18,7 +18,6 @@ class QrScannerState extends State<QrScanner>{
 
   void _onQrViewCreated(QRViewController controller){
     controller.scannedDataStream.listen((scanData) async {
-      print("Listening $scanData");
     //   qrData = scanData;
       controller.pauseCamera();
       await Future.delayed(Duration(seconds: 2), (){

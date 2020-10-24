@@ -100,6 +100,7 @@ class SignUpBody extends StatelessWidget{
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        
         Container(
           margin: EdgeInsets.only(top: 93),
           child: Row(
@@ -212,6 +213,7 @@ class SignUpBody extends StatelessWidget{
               MyText(
                 text: "Have an account?"
               ),
+              
               InkWell(
                 onTap: (){
                   Navigator.pushReplacement(

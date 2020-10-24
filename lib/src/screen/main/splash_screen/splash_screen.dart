@@ -42,7 +42,6 @@ class MySplashScreenState extends State<MySplashScreen>{
         await Future.delayed(Duration(seconds: 3), () async {
           if (value != null){
             if (value['bio'] == true){
-              print(value);
               Navigator.pushReplacement(
                 context, 
                 MaterialPageRoute(builder: (context) => FingerPrint())

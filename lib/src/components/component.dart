@@ -438,3 +438,12 @@ class MyTabBar extends StatelessWidget{
     );
   }
 }
+
+/* Trigger Snack Bar Function */
+void snackBar(GlobalKey<ScaffoldState> globalKey, String contents) {
+  final snackbar = SnackBar(
+    duration: Duration(seconds: 2),
+    content: Text(contents),
+  );
+  globalKey.currentState.showSnackBar(snackbar);
+}

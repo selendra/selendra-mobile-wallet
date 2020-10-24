@@ -29,10 +29,8 @@ class WelcomeState extends State<Welcome> {
   }
 
   void tokenExpireChecker(BuildContext context) async { /* Check For Previous Login */
-    print(status);
     if (status != null){
       dialogLoading(context);
-      print("Check expired");
       await Future.delayed(Duration(seconds: 1), () async {
         Navigator.pop(context);
         if (status == false){
@@ -98,7 +96,6 @@ class WelcomeState extends State<Welcome> {
         );
         tokenExpireChecker(context);
       } else {
-        print('2');
         tokenExpireChecker(context);
       }
     } catch (e) {}

@@ -17,7 +17,6 @@ class MenuState extends State<Menu> {
   /* Variable */
   String error = '', _pin = '', _confirmPin = '';
   Map<String, dynamic> _result; 
-  final _globalKey = GlobalKey<ScaffoldState>();
   ModelUserInfo _modelUserInfo = ModelUserInfo();
   Map<String, dynamic> _message;
   
@@ -34,11 +33,9 @@ class MenuState extends State<Menu> {
   @override
   void initState() {
     _result = {};
-    AppServices.noInternetConnection(_globalKey);
+    AppServices.noInternetConnection(_menuModel.globalKey);
     setUserInfo();
     checkAvailableBio();
-
-    print("user profile ${widget._userData}");
     super.initState();
   }
 
@@ -118,7 +115,7 @@ class MenuState extends State<Menu> {
       } else { /* Success Set PIN And Push SnackBar */
         _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
         _confirmPin = "";
-        snackBar(_result['message']); /* Copy Private Key Success And Show Message From Bottom */
+        snackBar(_menuModel.globalKey,_result['message']); /* Copy Private Key Success And Show Message From Bottom */
       }
     } else { /* Reset Pin Confirm PIN And Result To Empty */
       _pin = "";  
@@ -213,15 +210,6 @@ class MenuState extends State<Menu> {
   }
 
   /* ----------------------Side Bar -------------------------*/
-
-  /* Trigger Snack Bar Function */
-  void snackBar(String contents) {
-    final snackbar = SnackBar(
-      duration: Duration(seconds: 2),
-      content: Text(contents),
-    );
-    _globalKey.currentState.showSnackBar(snackbar);
-  }
 
   Widget build(BuildContext context){
     return Drawer(

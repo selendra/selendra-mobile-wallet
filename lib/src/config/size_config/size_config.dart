@@ -30,8 +30,8 @@ class SizeConfig{
     imageSizeMultiplier = _blockSizeHorizontal;
     heightMultiplier = _blockSizeVertical;
 
-    print(_blockSizeHorizontal);
-    print(_blockSizeVertical);
+    // print(_blockSizeHorizontal);
+    // print(_blockSizeVertical);
 
   }
 

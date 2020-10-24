@@ -12,7 +12,6 @@ class AppServices {
       final myResult = await _connectivity.checkConnectivity();
       
       _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
-        print(result);
         if (result == ConnectivityResult.none) {
           openSnackBar(globalKey, AppText.contentConnection);
         } else {

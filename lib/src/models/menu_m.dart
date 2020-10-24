@@ -1,7 +1,13 @@
+import 'package:wallet_apps/index.dart';
+
 class MenuModel {
 
   bool switchBio = false;
   bool authenticated;
+
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+
+  Map result = Map();
 
   static const List listTile = [
     {
