@@ -1,13 +1,13 @@
 import 'package:wallet_apps/index.dart';
 
-class GetWalletBody extends StatelessWidget{
+class ReceiveWalletBody extends StatelessWidget{
 
   final GlobalKey keyQrShare;
   final GlobalKey<ScaffoldState> globalKey;
   final HomeModel homeM;
   final GetWalletMethod method;
 
-  GetWalletBody({
+  ReceiveWalletBody({
     this.keyQrShare,
     this.globalKey,
     this.homeM,
@@ -19,7 +19,7 @@ class GetWalletBody extends StatelessWidget{
       children: <Widget>[
 
         MyAppBar(
-          title: "Receive token",
+          title: "Receive wallet",
           onPressed: () {
             Navigator.pop(context);
           },

@@ -295,62 +295,62 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     }
   }
 
-  Future<void> createPin(BuildContext context) async { /* Set PIN Dialog */
-    menuModel.result = await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: 
-      menuModel.result['pin'] == '' ? /* If PIN Not Yet Set */
-      (BuildContext context) {
-        return Material(
-          color: Colors.transparent,
-          child: disableNativePopBackButton(SetPinDialog(menuModel.result['error']))
-        );
-      } :
-      menuModel.result['confirm'] == '' ? /* Set PIN Done And Then Set Confirm Pin */
-      (BuildContext context) {
-        return Material(
-          color: Colors.transparent,
-          child: disableNativePopBackButton(SetConfirmPin(menuModel.result['pin'])),
-        );
-      } :
-      (BuildContext context) { /* Comfirm PIN Success Shower Dialog Of Private Key */
-        return Material(
-          color: Colors.transparent,
-          child: WillPopScope(
-            onWillPop: () async => await Future(() => false),
-            child: disableNativePopBackButton(PrivateKeyDialog(Map<String, dynamic>.from(menuModel.result))),
-          ),
-        );
-      }
-    );
+  // Future<void> createPin(BuildContext context) async { /* Set PIN Dialog */
+  //   menuModel.result = await showDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: 
+  //     menuModel.result['pin'] == '' ? /* If PIN Not Yet Set */
+  //     (BuildContext context) {
+  //       return Material(
+  //         color: Colors.transparent,
+  //         child: disableNativePopBackButton(SetPinDialog(menuModel.result['error']))
+  //       );
+  //     } :
+  //     menuModel.result['confirm'] == '' ? /* Set PIN Done And Then Set Confirm Pin */
+  //     (BuildContext context) {
+  //       return Material(
+  //         color: Colors.transparent,
+  //         child: disableNativePopBackButton(SetConfirmPin(menuModel.result['pin'])),
+  //       );
+  //     } :
+  //     (BuildContext context) { /* Comfirm PIN Success Shower Dialog Of Private Key */
+  //       return Material(
+  //         color: Colors.transparent,
+  //         child: WillPopScope(
+  //           onWillPop: () async => await Future(() => false),
+  //           child: disableNativePopBackButton(PrivateKeyDialog(Map<String, dynamic>.from(menuModel.result))),
+  //         ),
+  //       );
+  //     }
+  //   );
     
-    if (menuModel.result['response'].isNotEmpty){/* From Set PIN Widget */
-      if (menuModel.result["dialog_name"] == 'Pin'){
-        // menuModel.result['pin'] = menuModel.['pin'];
-        createPin(context); /* callBack */
-      } else 
-      if (menuModel.result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
-        if (menuModel.result['compare'] == false) {
-          menuModel.result['pin'] = '';
-          menuModel.result['error'] = "PIN does not match"; /* Enable Error Text*/
-          createPin(context); /* callBack */
-        } else if (menuModel.result["compare"] == true){
-          menuModel.result['confirm'] = '';
-          await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
-            createPin(context); /* callBack */
-          });
-        }
-      } else { /* Success Set PIN And Push SnackBar */
-        menuModel.result['pin'] = ""; /* Reset Pin Confirm PIN And Result To Empty */
-        menuModel.result['confirm'] = "";
-        snackBar(menuModel.globalKey, menuModel.result['message']); /* Copy Private Key Success And Show Message From Bottom */
-      }
-    } else { /* Reset Pin Confirm PIN And Result To Empty */
-      menuModel.result['pin'] = "";  
-      menuModel.result['confirm'] = "";
-    }
-  }
+  //   if (menuModel.result['response'].isNotEmpty){/* From Set PIN Widget */
+  //     if (menuModel.result["dialog_name"] == 'Pin'){
+  //       // menuModel.result['pin'] = menuModel.['pin'];
+  //       createPin(context); /* callBack */
+  //     } else 
+  //     if (menuModel.result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
+  //       if (menuModel.result['compare'] == false) {
+  //         menuModel.result['pin'] = '';
+  //         menuModel.result['error'] = "PIN does not match"; /* Enable Error Text*/
+  //         createPin(context); /* callBack */
+  //       } else if (menuModel.result["compare"] == true){
+  //         menuModel.result['confirm'] = '';
+  //         await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
+  //           createPin(context); /* callBack */
+  //         });
+  //       }
+  //     } else { /* Success Set PIN And Push SnackBar */
+  //       menuModel.result['pin'] = ""; /* Reset Pin Confirm PIN And Result To Empty */
+  //       menuModel.result['confirm'] = "";
+  //       snackBar(menuModel.globalKey, menuModel.result['message']); /* Copy Private Key Success And Show Message From Bottom */
+  //     }
+  //   } else { /* Reset Pin Confirm PIN And Result To Empty */
+  //     menuModel.result['pin'] = "";  
+  //     menuModel.result['confirm'] = "";
+  //   }
+  // }
 
   void resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
     setState(() {
@@ -363,7 +363,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   void toReceiveToken() async { /* Navigate Receive Token */
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => GetWallet(homeM: _homeModel)
+        builder: (context) => ReceiveWallet(homeM: _homeModel)
       )
     );
     if(Platform.isAndroid) await AndroidPlatform.resetBrightness();
@@ -397,7 +397,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             chartKey: _homeModel.chartKey,
             portfolioData: _homeModel.portfolioList,
             homeModel: _homeModel,
-            getWallet: createPin,
+            // getWallet: createPin,
           )
         ),
         onRefresh: _pullUpRefresh,

@@ -1,20 +1,20 @@
 import 'package:wallet_apps/index.dart';
 
-class GetWallet extends StatefulWidget{
+class ReceiveWallet extends StatefulWidget{
   
   final HomeModel homeM;
 
-  GetWallet({
+  ReceiveWallet({
     this.homeM
   });
 
   @override
   State<StatefulWidget> createState() {
-    return GetWalletState();
+    return ReceiveWalletState();
   }
 }
 
-class GetWalletState extends State<GetWallet>{
+class ReceiveWalletState extends State<ReceiveWallet>{
   
   String _brightnessLevel = "Unkown brigtness level";
 
@@ -40,7 +40,7 @@ class GetWalletState extends State<GetWallet>{
       key: _globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
-        child: GetWalletBody(
+        child: ReceiveWalletBody(
           keyQrShare: _keyQrShare,
           globalKey: _globalKey,
           homeM: widget.homeM,

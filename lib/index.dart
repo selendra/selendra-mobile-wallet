@@ -62,7 +62,7 @@ export 'package:wallet_apps/theme/style.dart';
 
 //Component
 export 'package:wallet_apps/src/components/animation.dart';
-export 'package:wallet_apps/src/components/get_wallet_c.dart';
+export 'package:wallet_apps/src/components/receive_wallet_c.dart';
 export 'package:wallet_apps/src/components/trx_component.dart';
 export 'package:wallet_apps/src/components/platform_specific/android_native.dart';
 export 'package:wallet_apps/src/components/platform_specific/ios_native.dart';
@@ -130,7 +130,7 @@ export 'package:wallet_apps/src/screen/home/portfolio/portfolio.dart';
 export 'package:wallet_apps/src/screen/home/portfolio/portfolio_body.dart';
 
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/submit_trx.dart';
-export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet.dart';
+export 'package:wallet_apps/src/screen/home/receive_wallet/receive_wallet.dart';
 export 'package:wallet_apps/src/screen/home/trx_option/send_wallet_option.dart';
 export 'package:wallet_apps/src/screen/home/home.dart';
 export 'package:wallet_apps/src/screen/home/home_body.dart';
@@ -142,7 +142,7 @@ export 'package:wallet_apps/src/screen/home/chart/chart_body.dart';
 
 export 'package:wallet_apps/src/screen/home/transaction/qr_scanner/qr_scanner.dart';
 
-export 'package:wallet_apps/src/screen/home/get_wallet/get_wallet_body.dart';
+export 'package:wallet_apps/src/screen/home/receive_wallet/receive_wallet_body.dart';
 
 /* Component File */
 export 'package:wallet_apps/src/components/component.dart';
@@ -158,6 +158,9 @@ export 'package:wallet_apps/src/screen/home/menu/menu_body.dart';
 
 export 'package:wallet_apps/src/screen/home/menu/add_phone/add_phone.dart';
 export 'package:wallet_apps/src/screen/home/menu/add_phone/add_phone_body.dart';
+
+export 'package:wallet_apps/src/screen/home/menu/get_wallet/pin/pin_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/get_wallet/pin/pin.dart';
 
 // Add User Information
 export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info_body.dart';
@@ -197,8 +200,8 @@ export 'package:wallet_apps/src/screen/home/fill_documents_screen/upload_documen
 
 // Get Wallet
 export 'package:wallet_apps/src/screen/home/menu/private_key/private_key.dart';
-export 'package:wallet_apps/src/screen/home/menu/set_pin/confirm_pin.dart';
-export 'package:wallet_apps/src/screen/home/menu/set_pin/pin.dart';
+export 'package:wallet_apps/src/screen/home/menu/set_pin/confirm_pin1.dart';
+export 'package:wallet_apps/src/screen/home/menu/set_pin/pin1.dart';
 export 'package:wallet_apps/src/screen/home/menu/private_key/private_key_body.dart';
 
 // Reward From Invoice
@@ -232,6 +235,7 @@ export 'package:wallet_apps/src/models/model_scan_invoice.dart';
 /* Menu */
 export 'package:wallet_apps/src/models/menu_m.dart';
 export 'package:wallet_apps/src/models/add_phone_m.dart';
+export 'package:wallet_apps/src/models/get_wallet_m.dart';
 
 // Change PIN
 export 'package:wallet_apps/src/models/pin_m.dart';
