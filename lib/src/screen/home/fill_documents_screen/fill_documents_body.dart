@@ -9,19 +9,8 @@ Widget fillDocumentBodyWidget(
 ) {
   return Column(
     children: <Widget>[
-      containerAppBar( /* AppBar */
-        context, 
-        Row(
-          children: <Widget>[
-            iconAppBar( /* Arrow Back Button */
-              Icon(Icons.arrow_back, color: Colors.white,),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              popScreen,
-            ),
-            containerTitle("Fill Documents", double.infinity, Colors.white, FontWeight.normal)
-          ],
-        )
+      MyAppBar(
+        title: "Upload Documents"
       ),
       Expanded( /* Field User Input */
         child: SingleChildScrollView(

@@ -159,8 +159,12 @@ export 'package:wallet_apps/src/screen/home/menu/menu_body.dart';
 export 'package:wallet_apps/src/screen/home/menu/add_phone/add_phone.dart';
 export 'package:wallet_apps/src/screen/home/menu/add_phone/add_phone_body.dart';
 
+// Get wallet
 export 'package:wallet_apps/src/screen/home/menu/get_wallet/pin/pin_body.dart';
 export 'package:wallet_apps/src/screen/home/menu/get_wallet/pin/pin.dart';
+export 'package:wallet_apps/src/screen/home/menu/get_wallet/confirm_pin/confirm_pin_body.dart';
+export 'package:wallet_apps/src/screen/home/menu/get_wallet/confirm_pin/confirm_pin.dart';
+export 'package:wallet_apps/src/screen/home/menu/get_wallet/private_key/private_key.dart';
 
 // Add User Information
 export 'package:wallet_apps/src/screen/home/add_user_info/add_user_info_body.dart';

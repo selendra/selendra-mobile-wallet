@@ -11,19 +11,8 @@ Widget invoiceSummaryBody(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        containerAppBar( /* App Bar */
-          _context, 
-          Row( /* Sub AppBar */
-            children: <Widget>[
-              iconAppBar( /* Menu Button */
-                Icon(Icons.arrow_back, color: Colors.white,),
-                Alignment.centerLeft,
-                EdgeInsets.all(0),
-                popScreen
-              ),
-              containerTitle("Invoice Summary", double.infinity, Colors.white, FontWeight.normal), /* Title AppBar */
-            ],
-          )
+        MyAppBar(
+          title: "Invoice Summary"
         ),
         Card( /* Summary Invoice */
           margin: EdgeInsets.only(top: 34.0, left: 0, right: 0, bottom: 0),

@@ -9,19 +9,8 @@ Widget invoiceBody(
 ) {
   return Column(
     children: <Widget>[
-      containerAppBar( /* App Bar */
-        _context, 
-        Row( /* Sub AppBar */
-          children: <Widget>[
-            iconAppBar( /* Menu Button */
-              Icon(Icons.arrow_back, color: Colors.white,),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              popScreen
-            ),
-            containerTitle("Invoice Information", double.infinity, Colors.white, FontWeight.normal), /* Title AppBar */
-          ],
-        )
+      MyAppBar(
+        title: "Transaction option"
       ),
       Form(
         key: _modelScanInvoice.formState1,

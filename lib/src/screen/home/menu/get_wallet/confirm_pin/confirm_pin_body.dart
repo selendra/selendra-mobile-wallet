@@ -1,17 +1,15 @@
 import 'package:wallet_apps/index.dart';
 
-class PinBody extends StatelessWidget{
+class ConfirmPinBody extends StatelessWidget{
 
   final GetWalletModel getWalletM;
   final Function onSubmit;
   final Function submit;
-  final Function clearField;
 
-  PinBody({
+  ConfirmPinBody({
     this.getWalletM,
     this.onSubmit,
-    this.submit,
-    this.clearField,
+    this.submit
   });
 
   Widget build(BuildContext context) {
@@ -30,18 +28,11 @@ class PinBody extends StatelessWidget{
             margin: EdgeInsets.only(bottom: 30.0),
             child: SvgPicture.asset('assets/pin.svg', width: 300, height: 250)
           ),
-          
-          // Display when pin and confirm does not match
-          if (getWalletM.error) MyText(
-            bottom: 30.0,
-            width: 300.0,
-            text: "Pin does not match",
-          ),
 
           MyText(
             bottom: 60.0,
             width: 300.0,
-            text: "Please fill your pin"
+            text: "Please fill your confirm pin"
           ),
 
           Container(
@@ -49,9 +40,9 @@ class PinBody extends StatelessWidget{
             child: Column(
               children: [
                 MyPinput(
+                  focusNode: getWalletM.confirmPinNode,
+                  controller: getWalletM.confirmPinController,
                   getWalletM: getWalletM,
-                  controller: getWalletM.pinController,
-                  focusNode: getWalletM.pinNode,
                   onSubmit: onSubmit,
                 ),
 
@@ -63,7 +54,6 @@ class PinBody extends StatelessWidget{
                       child: Align(
                         alignment: Alignment.center,
                         child: GestureDetector(
-                          onTap: clearField,
                           child: MyText(
                             text: "Clear",
                             color: "#FFFFFF",
@@ -76,7 +66,8 @@ class PinBody extends StatelessWidget{
 
                     Expanded(
                       child: MyFlatButton(
-                        textButton: "Next",
+                        // width: 150,
+                        textButton: "Submit",
                         buttonColor: AppColors.secondary,
                         fontWeight: FontWeight.bold,
                         fontSize: size18,

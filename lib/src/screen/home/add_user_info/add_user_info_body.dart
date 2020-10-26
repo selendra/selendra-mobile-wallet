@@ -11,20 +11,20 @@ Widget addUserInfobody(
   ) {
   return Column(
     children: <Widget>[
-      containerAppBar( /* AppBar */
-        context, 
-        Row(
-          children: <Widget>[
-            iconAppBar( /* Arrow Back Button */
-              Icon(Icons.arrow_back, color: Colors.white,),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              popScreen,
-            ),
-            containerTitle("Add Assets", double.infinity, Colors.white, FontWeight.normal)
-          ],
-        )
-      ),
+      // containerAppBar( /* AppBar */
+      //   context, 
+      //   Row(
+      //     children: <Widget>[
+      //       iconAppBar( /* Arrow Back Button */
+      //         Icon(Icons.arrow_back, color: Colors.white,),
+      //         Alignment.centerLeft,
+      //         EdgeInsets.all(0),
+      //         popScreen,
+      //       ),
+      //       containerTitle("Add Assets", double.infinity, Colors.white, FontWeight.normal)
+      //     ],
+      //   )
+      // ),
       Expanded(
         child: SingleChildScrollView(
           child: Container(

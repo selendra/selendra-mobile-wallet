@@ -99,34 +99,8 @@ class SelendraChartState extends State<SelendraChart> {
           children: <Widget>[
             Column(
               children: <Widget>[
-                containerAppBar( /* AppBar */
-                  context,
-                  Row( /* Sub AppBar */
-                    children: <Widget>[
-                      iconAppBar( /* Menu Button */
-                        Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        ),
-                        Alignment.centerLeft,
-                        EdgeInsets.all(0),
-                        popScreen
-                      ),
-                      containerTitle("Zee Chart", double.infinity, Colors.white, FontWeight.normal), /* Title AppBar */
-                      Expanded( child: Container(), ),
-                      iconAppBar( /* Earth Icon */
-                        Image.asset(
-                          'assets/earthicon.png',
-                          width: 20.0,
-                          height: 20.0,
-                          color: Colors.white,
-                        ),
-                        Alignment.centerRight,
-                        EdgeInsets.only(right: 11, left: 0, top: 0, bottom: 0),
-                        null
-                      ),
-                    ],
-                  )
+                MyAppBar(
+                  title: "Selendra chart"
                 ),
                 Expanded(
                   child: SmartRefresher(

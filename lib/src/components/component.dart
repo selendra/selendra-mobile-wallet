@@ -44,6 +44,8 @@ class MyFlatButton extends StatelessWidget{
   final EdgeInsetsGeometry edgePadding;
   final bool hasShadow;
   final Function action;
+  final double width;
+  final double height;
 
   MyFlatButton({
     this.textButton, 
@@ -53,6 +55,8 @@ class MyFlatButton extends StatelessWidget{
     this.edgeMargin = const EdgeInsets.fromLTRB(0, 0, 0, 0),
     this.edgePadding = const EdgeInsets.fromLTRB(0, 0, 0, 0), 
     this.hasShadow = false, 
+    this.width = double.infinity,
+    this.height = 58,
     @required this.action,
   });
 
@@ -61,7 +65,8 @@ class MyFlatButton extends StatelessWidget{
     return Container(
       padding: edgePadding,
       margin: edgeMargin,
-      width: double.infinity,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(size5), 
         boxShadow: [
@@ -85,10 +90,7 @@ class MyFlatButton extends StatelessWidget{
           fontWeight: fontWeight,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        onPressed:action == null ? null : 
-        (){
-          action(context);
-        }
+        onPressed: action
       ),
     );
   }
@@ -446,4 +448,50 @@ void snackBar(GlobalKey<ScaffoldState> globalKey, String contents) {
     content: Text(contents),
   );
   globalKey.currentState.showSnackBar(snackbar);
+}
+
+class MyPinput extends StatelessWidget {
+
+  final GetWalletModel getWalletM;
+  final Function onSubmit;
+  final TextEditingController controller;
+  final FocusNode focusNode;
+
+  MyPinput({
+    this.getWalletM,
+    this.onSubmit,
+    this.controller,
+    this.focusNode
+  });
+
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width - 100,
+      margin: EdgeInsets.only(bottom: 30),
+      child: PinPut(
+        focusNode: focusNode,
+        controller: controller,
+        fieldsCount: 4,
+        selectedFieldDecoration: getWalletM.error 
+        ? getWalletM.pinPutDecoration.copyWith(
+          border: Border.all(width: 1, color: Colors.red)
+        ) 
+        : getWalletM.pinPutDecoration.copyWith(
+          color: Colors.grey.withOpacity(0.2)
+        ),
+        submittedFieldDecoration: getWalletM.pinPutDecoration,
+        followingFieldDecoration: getWalletM.error 
+        ? getWalletM.pinPutDecoration.copyWith(
+          border: Border.all(width: 1, color: Colors.red)
+        )
+        : getWalletM.pinPutDecoration,
+        eachFieldConstraints: getWalletM.boxConstraint,
+        textStyle: TextStyle(
+          fontSize: 18,
+          color: Colors.white
+        ),
+        onSubmit: onSubmit,
+      ),
+    );
+  }
 }

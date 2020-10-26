@@ -8,19 +8,8 @@ Widget documentsBodyWidget(
 ) {
   return Column(
     children: <Widget>[
-      containerAppBar( /* AppBar */
-        context, 
-        Row(
-          children: <Widget>[
-            iconAppBar( /* Arrow Back Button */
-              Icon(Icons.arrow_back, color: Colors.white,),
-              Alignment.centerLeft,
-              EdgeInsets.all(0),
-              popScreen,
-            ),
-            containerTitle("Upload Documents", double.infinity, Colors.white, FontWeight.normal)
-          ],
-        )
+      MyAppBar(
+        title: "Upload Documents",
       ),
       Expanded(
         child: Container(

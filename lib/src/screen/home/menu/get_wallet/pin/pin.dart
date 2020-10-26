@@ -20,7 +20,31 @@ class PinState extends State<Pin>{
 
   void onSubmit(String value){
     setState(() {
-      getWalletM.disableButton = false;
+      getWalletM.disableButton1 = false;
+    });
+    if (getWalletM.error) getWalletM.error = false;
+  }
+
+  void submit () async {
+    // Map<String, dynamic> popData = {
+    //   "dialog_name": "Pin",
+    //   "pin": getWalletM.pinController.text
+    // };
+    var response = await Navigator.push(
+      context,
+      transitionRoute(ConfirmPin(getWalletM: getWalletM,))
+    );
+
+    if (response == false){
+      setState((){
+        getWalletM.error = true;
+      });
+    }
+  }
+
+  void clearField(){
+    setState((){
+      getWalletM.pinController.text = '';
     });
   }
 
@@ -31,6 +55,8 @@ class PinState extends State<Pin>{
         child: PinBody(
           getWalletM: getWalletM,
           onSubmit: onSubmit,
+          submit: submit,
+          clearField: clearField
         ),
       ),
     );

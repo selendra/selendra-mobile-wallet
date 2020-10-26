@@ -332,46 +332,6 @@ void dialogLoading(BuildContext context, {String content}) {
     });
 }
 
-/* -----------------------------------App Bar--------------------------------------------------- */
-
-Widget containerAppBar(BuildContext context, Widget subAppBar, {left: 16.0, right: 16.0}) {
-  return Container(
-    padding: EdgeInsets.only(left: left, right: right),
-    height: 65.0, 
-    width: MediaQuery.of(context).size.width, 
-    child: FittedBox(
-      alignment: Alignment.centerLeft,
-      child: subAppBar
-    )
-  );
-}
-
-Widget iconAppBar(Widget icon, Alignment alignment,EdgeInsetsGeometry edgePadding, Function action, {BuildContext context}) {
-  return IconButton(
-    /* Menu Icon */
-    alignment: alignment,
-    padding: edgePadding,
-    iconSize: 40.0,
-    icon: icon,
-    onPressed: action,
-  );
-}
-
-Widget containerTitle( String title, dynamic _height, dynamic textColor, FontWeight _fontWeight, {double fontSize = 25.0}) {
-  return Container(
-    alignment: Alignment.center,
-    margin: EdgeInsets.only(left: 8.0),
-    child: Text(
-      title,
-      style: TextStyle(
-        fontSize: fontSize,
-        color: textColor,
-        fontWeight: _fontWeight,
-      ),
-      textAlign: TextAlign.center,
-    )
-  );
-}
 
 Widget logoSize(String logoName, double width, double height,) {
   return Image.asset(logoName, width: width, height: height, color: Colors.white);

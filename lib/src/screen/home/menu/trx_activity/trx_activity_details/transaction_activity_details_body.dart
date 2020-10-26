@@ -11,19 +11,8 @@ Widget transactionActivityDetailsBody(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          containerAppBar( /* AppBar */
-            _context, 
-            Row(
-              children: <Widget>[
-                iconAppBar( /* Arrow Back Button */
-                  Icon(Icons.arrow_back, color: Colors.white,),
-                  Alignment.centerLeft,
-                  EdgeInsets.all(0),
-                  _popScreen,
-                ),
-                containerTitle("My Activity Details", double.infinity, Colors.white, FontWeight.normal),
-              ],
-            )
+          MyAppBar(
+            title: "Activity details"
           ),
           Container( /* Activity Information */ 
             margin: EdgeInsets.only(top: 30.0),

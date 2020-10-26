@@ -3,10 +3,15 @@ import 'package:wallet_apps/index.dart';
 class GetWalletModel {
 
   TextEditingController pinController = TextEditingController();
+  TextEditingController confirmPinController = TextEditingController();
 
   FocusNode pinNode = FocusNode();
+  FocusNode confirmPinNode = FocusNode();
   
-  bool disableButton;
+  bool disableButton1 = true;
+  bool disableButton2 = true;
+  bool error = false;
+  bool copy = false;
 
   BoxDecoration get pinPutDecoration {
     return BoxDecoration(
