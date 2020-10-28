@@ -3,12 +3,14 @@ import 'package:wallet_apps/index.dart';
 class PinBody extends StatelessWidget{
 
   final GetWalletModel getWalletM;
+  final Function onChanged;
   final Function onSubmit;
   final Function submit;
   final Function clearField;
 
   PinBody({
     this.getWalletM,
+    this.onChanged,
     this.onSubmit,
     this.submit,
     this.clearField,
@@ -48,10 +50,12 @@ class PinBody extends StatelessWidget{
             margin: EdgeInsets.only(left: 81, right: 81),
             child: Column(
               children: [
+
                 MyPinput(
                   getWalletM: getWalletM,
                   controller: getWalletM.pinController,
                   focusNode: getWalletM.pinNode,
+                  onChanged: onChanged,
                   onSubmit: onSubmit,
                 ),
 

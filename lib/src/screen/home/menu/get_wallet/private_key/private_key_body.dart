@@ -3,12 +3,16 @@ import 'package:wallet_apps/index.dart';
 class PrivateKeyBody extends StatelessWidget {
 
   final bool copy;
+  final bool check;
+  final Function copyPress;
   final Function onChanged;
 
   // final Map data;
 
   PrivateKeyBody({
     this.copy,
+    this.check,
+    this.copyPress,
     this.onChanged
   //   // this.data
   });
@@ -36,7 +40,7 @@ class PrivateKeyBody extends StatelessWidget {
             ),
 
             Container(
-              width: 350.0,
+              width: 400.0,
               padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -44,13 +48,13 @@ class PrivateKeyBody extends StatelessWidget {
                 children: [
                   Checkbox(
                     checkColor: Colors.red,
-                    value: copy,
-                    onChanged: onChanged
+                    value: check,
+                    onChanged: copy ? onChanged : null,
                     // isCopy == false ? null : (data) {
                     //   userCheckBox();
                     // }
                   ),
-                  MyText(text: "Already copy", color: "#FFFFFF",)
+                  MyText(text: "Accept copied", color: "#FFFFFF",)
                 ],
               ),
             ),
@@ -61,14 +65,14 @@ class PrivateKeyBody extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
                   Expanded(
                     child: Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
-                        onTap: (){
-                        },
+                        onTap: copyPress,
                         child: MyText(
-                          text: "Copy",
+                          text: copy ? "Copied" : "Copy",
                           color: "#FFFFFF",
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -84,7 +88,9 @@ class PrivateKeyBody extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: size18,
                       hasShadow: true,
-                      action: (){}
+                      action: !check ? null : (){
+                        Navigator.pop(context, {"success": true});
+                      }
                     )
                   )
                 ],

@@ -61,7 +61,7 @@ class AddAssetState extends State<AddAsset> {
     validateAllFieldNotEmpty();
   }
 
-  void onSubmit(BuildContext context) {
+  void onSubmit() {
     if (_modelAsset.nodeAssetCode.hasFocus){
       FocusScope.of(context).requestFocus(_modelAsset.nodeIssuer);
     } else if (_modelAsset.nodeIssuer.hasFocus){

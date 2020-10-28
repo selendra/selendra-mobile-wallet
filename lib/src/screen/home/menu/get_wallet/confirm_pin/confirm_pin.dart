@@ -18,13 +18,16 @@ class ConfirmPinState extends State<ConfirmPin>{
 
   @override
   void initState() {
-    widget.getWalletM.confirmPinNode.requestFocus();
+    widget.getWalletM.confirmPinController = TextEditingController();
+    widget.getWalletM.confirmPinNode = FocusNode();
+    Timer(Duration(milliseconds: 500), (){
+      widget.getWalletM.confirmPinNode.requestFocus();
+    });
     super.initState();
   }
 
   @override
   void dispose(){
-    widget.getWalletM.confirmPinController.clear();
     super.dispose();
   }
 
@@ -34,15 +37,23 @@ class ConfirmPinState extends State<ConfirmPin>{
     });
   }
 
-  void submit () {
-    if (widget.getWalletM.pinController.text != widget.getWalletM.confirmPinController.text){
-      Navigator.pop(context, false);
-    }
-    // Map<String, dynamic> popData = {
-    //   "dialog_name": "ConfirmPin",
-    //   "Confirmpin": widget.getWalletM.ConfirmpinController.text
-    // };
-    // Navigator.pop(context, popData);
+  void clearInput(){
+    setState((){
+      widget.getWalletM.confirmPinController.text = '';
+    });
+  }
+
+  void submit () async {
+    widget.getWalletM.confirmPinNode.unfocus();
+    Timer(Duration(milliseconds: 300), () async{ 
+      if (widget.getWalletM.pinController.text != widget.getWalletM.confirmPinController.text){
+        Navigator.pop(context, {"response": false});
+      } else {
+        await Future.delayed(Duration(seconds: 1), (){
+          Navigator.pop(context, {"response": true, "message": {"seed": "Hello world"}});
+        });
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -51,6 +62,7 @@ class ConfirmPinState extends State<ConfirmPin>{
         height: MediaQuery.of(context).size.height,
         child: ConfirmPinBody(
           getWalletM: widget.getWalletM,
+          onClear: clearInput,
           onSubmit: onSubmit,
           submit: submit
         ),

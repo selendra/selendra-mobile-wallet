@@ -29,7 +29,7 @@ class ForgetPasswordState extends State<ForgetPassword> {
   }
 
   void onSubmit(BuildContext context) {
-    if (_forgetModel.enable1) requestCode(context); // If True Execute
+    if (_forgetModel.enable1) requestCode(); // If True Execute
   }
 
   String validatePhoneNumber(String value){
@@ -86,7 +86,7 @@ class ForgetPasswordState extends State<ForgetPassword> {
   //   }
   // }
 
-  void requestCode(BuildContext context) async {
+  void requestCode() async {
 
     // Show Dialog Loading
     dialogLoading(context);

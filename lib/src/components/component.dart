@@ -56,7 +56,7 @@ class MyFlatButton extends StatelessWidget{
     this.edgePadding = const EdgeInsets.fromLTRB(0, 0, 0, 0), 
     this.hasShadow = false, 
     this.width = double.infinity,
-    this.height = 58,
+    this.height,
     @required this.action,
   });
 
@@ -83,8 +83,8 @@ class MyFlatButton extends StatelessWidget{
         disabledColor: Colors.grey[700],
         focusColor: hexaCodeToColor(AppColors.secondary),
         child: MyText(
-          // left: 117, right: 116,
-          top: 20, bottom: 20,
+          pTop: 20,
+          pBottom: 20,
           text: textButton,
           color: action != null ? '#FFFFFF' : AppColors.textBtnColor,
           fontWeight: fontWeight,
@@ -100,29 +100,32 @@ class MyText extends StatelessWidget{
 
   final String text; final String color; final double fontSize; final FontWeight fontWeight;
   final double top; final double right; final double bottom; final double left;
+  final double pTop; final double pRight; final double pBottom; final double pLeft;
   final double width; final double height; final TextAlign textAlign;
 
   MyText({
     this.text, this.color = AppColors.textColor, this.fontSize = 18, this.fontWeight = FontWeight.normal,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
+    this.pLeft = 0, this.pRight = 0, this.pTop = 0, this.pBottom = 0,
     this.width, this.height, this.textAlign = TextAlign.center
   });
   
   Widget build(BuildContext context){
     return Container(
       margin: EdgeInsets.fromLTRB(this.left, this.top, this.right, this.bottom),
+      padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
       child: SizedBox(
         width: this.width,
         height: this.height,
         child: Text(
-            this.text,
-            style: TextStyle(
-              fontWeight: this.fontWeight,
-              color: Color(AppUtils.convertHexaColor(this.color)),
-              fontSize: this.fontSize
-            ),
-            textAlign: this.textAlign
-          )
+          this.text,
+          style: TextStyle(
+            fontWeight: this.fontWeight,
+            color: Color(AppUtils.convertHexaColor(this.color)),
+            fontSize: this.fontSize
+          ),
+          textAlign: this.textAlign
+        )
       ),
     );
   }
@@ -453,15 +456,17 @@ void snackBar(GlobalKey<ScaffoldState> globalKey, String contents) {
 class MyPinput extends StatelessWidget {
 
   final GetWalletModel getWalletM;
-  final Function onSubmit;
   final TextEditingController controller;
   final FocusNode focusNode;
+  final Function onChanged;
+  final Function onSubmit;
 
   MyPinput({
     this.getWalletM,
-    this.onSubmit,
     this.controller,
-    this.focusNode
+    this.focusNode,
+    this.onChanged,
+    this.onSubmit,
   });
 
   Widget build(BuildContext context) {
@@ -472,24 +477,29 @@ class MyPinput extends StatelessWidget {
         focusNode: focusNode,
         controller: controller,
         fieldsCount: 4,
-        selectedFieldDecoration: getWalletM.error 
+
+        selectedFieldDecoration: getWalletM.pinPutDecoration.copyWith(
+          color: Colors.grey.withOpacity(0.2)
+        ),
+
+        submittedFieldDecoration: getWalletM.error 
         ? getWalletM.pinPutDecoration.copyWith(
           border: Border.all(width: 1, color: Colors.red)
         ) 
-        : getWalletM.pinPutDecoration.copyWith(
-          color: Colors.grey.withOpacity(0.2)
-        ),
-        submittedFieldDecoration: getWalletM.pinPutDecoration,
+        : getWalletM.pinPutDecoration,
+
         followingFieldDecoration: getWalletM.error 
         ? getWalletM.pinPutDecoration.copyWith(
           border: Border.all(width: 1, color: Colors.red)
         )
         : getWalletM.pinPutDecoration,
+
         eachFieldConstraints: getWalletM.boxConstraint,
         textStyle: TextStyle(
           fontSize: 18,
           color: Colors.white
         ),
+        onChanged: onChanged,
         onSubmit: onSubmit,
       ),
     );

@@ -3,11 +3,13 @@ import 'package:wallet_apps/index.dart';
 class ConfirmPinBody extends StatelessWidget{
 
   final GetWalletModel getWalletM;
+  final Function onClear;
   final Function onSubmit;
   final Function submit;
 
   ConfirmPinBody({
     this.getWalletM,
+    this.onClear,
     this.onSubmit,
     this.submit
   });
@@ -54,6 +56,7 @@ class ConfirmPinBody extends StatelessWidget{
                       child: Align(
                         alignment: Alignment.center,
                         child: GestureDetector(
+                          onTap: onClear,
                           child: MyText(
                             text: "Clear",
                             color: "#FFFFFF",
@@ -72,9 +75,7 @@ class ConfirmPinBody extends StatelessWidget{
                         fontWeight: FontWeight.bold,
                         fontSize: size18,
                         hasShadow: true,
-                        action: getWalletM.disableButton1 == true ? null : (){
-                          submit();
-                        }
+                        action: getWalletM.disableButton2 == true ? null : submit
                       )
                     )
                   ],

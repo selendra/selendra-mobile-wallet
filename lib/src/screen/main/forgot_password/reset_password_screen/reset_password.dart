@@ -162,7 +162,7 @@ class ResetPasswordState extends State<ResetPassword> {
       else if (widget._modelForgotPassword.nodeConfirmPasswords.hasFocus) FocusScope.of(context).requestFocus(widget._modelForgotPassword.nodeResetCode);
       else {
         if (widget._modelForgotPassword.enable2) { // If Button Enable To Request
-          submitResetPassword(context);
+          submit();
         }
       }
     } else if ( widget._modelForgotPassword.key == "email" ) { // Check User Request By Email
@@ -171,7 +171,7 @@ class ResetPasswordState extends State<ResetPassword> {
       else if (widget._modelForgotPassword.nodeConfirmPasswords.hasFocus) FocusScope.of(context).requestFocus(widget._modelForgotPassword.nodeResetCode);
       else {
         if (widget._modelForgotPassword.enable2) { // If Button Enable To Request
-          submitResetPassword(context);
+          submit();
         }
       }
     }
@@ -195,7 +195,7 @@ class ResetPasswordState extends State<ResetPassword> {
     }
   }
 
-  void submitResetPassword(BuildContext context) async {
+  void submit() async {
 
     // Display Dialog Loading
     dialogLoading(context);
@@ -248,7 +248,7 @@ class ResetPasswordState extends State<ResetPassword> {
           validateResetCode: validateResetCode,
           onChanged: onChanged, 
           onSubmit: onSubmit,
-          submitResetPassword: submitResetPassword, 
+          submitResetPassword: submit, 
           popScreen: popScreen
         )
       ),

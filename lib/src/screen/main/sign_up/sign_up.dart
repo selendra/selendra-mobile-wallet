@@ -39,7 +39,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     } else if (_modelSignUp.nodePassword.hasFocus) {
       FocusScope.of(context).requestFocus(_modelSignUp.nodeConfirmPassword);
     } else { /* Prevent Submit On Smart Keyboard */ 
-      if (_modelSignUp.enable == true) submit(context);
+      if (_modelSignUp.enable == true) submit();
     }
   }
 
@@ -145,7 +145,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   /* -------------- Submit --------------- */
 
   // Navigate To Fill User Info
-  void submit(BuildContext context) async { 
+  void submit() async { 
 
     // Display Dialog Loading
     dialogLoading(context);

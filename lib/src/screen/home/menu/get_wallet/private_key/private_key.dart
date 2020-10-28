@@ -15,11 +15,17 @@ class PrivateKey extends StatefulWidget {
 
 class _PrivateKeyState extends State<PrivateKey> {
 
-  bool copy = false;
+  bool copy = false; bool check = false;
 
   void onChanged(bool value){
     setState(() {
-      copy = value;
+      check = value;
+    });
+  }
+
+  void copyPress(){
+    setState(() {
+      copy = true;
     });
   }
 
@@ -34,6 +40,8 @@ class _PrivateKeyState extends State<PrivateKey> {
         height: MediaQuery.of(context).size.height,
         child: PrivateKeyBody(
           copy: copy,
+          check: check,
+          copyPress: copyPress,
           onChanged: onChanged
           // data: widget.data
         )

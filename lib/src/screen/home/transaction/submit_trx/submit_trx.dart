@@ -110,7 +110,7 @@ class SubmitTrxState extends State<SubmitTrx> {
     } else if (_modelScanPay.nodeAmount.hasFocus) {
       FocusScope.of(context).requestFocus(_modelScanPay.nodeMemo);
     } else {
-      if (_modelScanPay.enable == true) clickSend(context);
+      if (_modelScanPay.enable == true) clickSend();
     }
   }
 
@@ -173,7 +173,7 @@ class SubmitTrxState extends State<SubmitTrx> {
     enableButton();
   }
 
-  void clickSend(BuildContext context) async { /* Send payment */
+  void clickSend() async { /* Send payment */
     // Navigator.push(context, MaterialPageRoute(builder: (contxt) => FillPin()));
     await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
       unFocusAllField();

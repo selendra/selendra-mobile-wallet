@@ -128,7 +128,7 @@ class UserInfoState extends State<UserInfo> {
   }
 
   // Submit Profile User
-  void submitProfile(BuildContext context) async {
+  void submitProfile() async {
     try{
       // Show Loading Process
       dialogLoading(context); 

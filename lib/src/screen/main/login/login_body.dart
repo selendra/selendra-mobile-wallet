@@ -165,7 +165,7 @@ class LoginBody extends StatelessWidget{
           buttonColor: AppColors.secondary,
           fontWeight: FontWeight.bold,
           fontSize: size18,
-          edgeMargin: EdgeInsets.only(top: 40, left: 66, right: 66),
+          edgeMargin: EdgeInsets.only(top: 40, left: 66, right: 66, bottom: 16),
           hasShadow: true,
           action: modelLogin.enable == false ? null : submitLogin 
         ),

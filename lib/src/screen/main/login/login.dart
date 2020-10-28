@@ -9,7 +9,7 @@ class Login extends StatefulWidget {
 
 class LoginState extends State<Login> with WidgetsBindingObserver {
 
-  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> globalKey;
   
   ModelLogin _modelLogin = ModelLogin();
 
@@ -20,6 +20,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   @override
   void initState() {
     // AppServices.noInternetConnection(globalKey);
+    globalKey = GlobalKey<ScaffoldState>();
     _modelLogin.label = 'phone';
     
     super.initState();
@@ -119,17 +120,19 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     if (_modelLogin.nodeEmails.hasFocus || _modelLogin.nodePhoneNums.hasFocus) {
       FocusScope.of(context).requestFocus(_modelLogin.nodePasswords);
     } else if (_modelLogin.enable) {
-      submitLogin(context);
+      submitLogin();
     }
   }
 
   /* -----------------------Login Method-------------------- */
 
   // Check Internet Before Validate And Finish Validate
-  void submitLogin(BuildContext context) async { 
+  void submitLogin() async { 
 
     // Display Dialog Loading
     dialogLoading(context);
+
+    _modelLogin.nodePasswords.unfocus();
 
     // Connection timed out
     AppServices.timerOutHandler(_backend.response, timeCounter);
@@ -141,6 +144,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         await loginByPhone();
       }
     } on SocketException catch (e) {
+      print("Error ${e.message}");
       await Future.delayed(Duration(milliseconds: 300), () { });
       AppServices.openSnackBar(globalKey, e.message);
     } catch (e) {}
@@ -154,14 +158,18 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     // Display TimeOut With SnackBar When Over 10 Second
     if (AppServices.myNumCount == 10) {
       Navigator.pop(context);
-      globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+      // globalKey.currentState.showSnackBar();
+      snackBar(globalKey, "Connection timed out");
     }
   }
 
   Future<void> loginByPhone() async {
+
+    print(AppServices.myNumCount);
     
     // Rest Api
     await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text).then((value) async {
+      print("Requesting");
       // Do Below Statement When Rest Api Successfully Under 10 seconds
       if (AppServices.myNumCount < 10) {
         _backend.response = value;
@@ -225,6 +233,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       body: DefaultTabController(
         initialIndex: 0,
         length: 2,

@@ -42,7 +42,7 @@ class ChangePINState extends State<ChangePassword> {
     } else if (_modelChangePassword.nodeNewPassword.hasFocus){
       FocusScope.of(context).requestFocus(_modelChangePassword.nodeConfirmPassword);
     } else {
-      if (_modelChangePassword.enable == true) submitPassword(context);
+      if (_modelChangePassword.enable == true) submitPassword();
     }
   }
 
@@ -131,7 +131,7 @@ class ChangePINState extends State<ChangePassword> {
     _modelChangePassword.nodeConfirmPassword.unfocus();
   }
 
-  void submitPassword(BuildContext context) async {
+  void submitPassword() async {
     dialogLoading(context); /* Show Loading Process */
     try {
       await _postRequest.changePassword(_modelChangePassword).then((_response) async {

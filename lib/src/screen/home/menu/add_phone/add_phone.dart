@@ -42,10 +42,10 @@ class _AddPhoneState extends State<AddPhone>{
   }
 
   void onSubmit(){
-    submitAddPhone(context);
+    submitAddPhone();
   }
 
-  void submitAddPhone(BuildContext context) async {
+  void submitAddPhone() async {
     try{
       // Post Add Phone
       _backend.response = await _postRequest.addPhone(_phoneModel.phone.text);

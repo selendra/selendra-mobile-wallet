@@ -33,6 +33,7 @@ class MenuState extends State<Menu> {
   @override
   void initState() {
     _result = {};
+    _menuModel.globalKey = GlobalKey<ScaffoldState>();
     AppServices.noInternetConnection(_menuModel.globalKey);
     setUserInfo();
     checkAvailableBio();
@@ -66,61 +67,71 @@ class MenuState extends State<Menu> {
   }
 
   Future<void> createPin(BuildContext context) async { /* Set PIN Dialog */
-    _result = await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: 
-      _pin == '' ? /* If PIN Not Yet Set */
-      (BuildContext context) {
-        return Material(
-          color: Colors.transparent,
-          child: disableNativePopBackButton(SetPinDialog(error))
-        );
-      } :
-      _confirmPin == '' ? /* Set PIN Done And Then Set Confirm Pin */
-      (BuildContext context) {
-        return Material(
-          color: Colors.transparent,
-          child: disableNativePopBackButton(SetConfirmPin(_pin)),
-        );
-      } :
-      (BuildContext context) { /* Comfirm PIN Success Shower Dialog Of Private Key */
-        return Material(
-          color: Colors.transparent,
-          child: WillPopScope(
-            onWillPop: () async => await Future(() => false),
-            child: disableNativePopBackButton(PrivateKeyDialog(_message)),
-          ),
-        );
-      }
+    _result = await Navigator.push(
+      context, MaterialPageRoute(
+        builder: (context) => Pin()
+      )
     );
-    
-    if (_result.isNotEmpty){/* From Set PIN Widget */
-      if (_result["dialog_name"] == 'Pin'){
-        _pin = _result['pin'];
-        createPin(context); /* callBack */
-      } else 
-      if (_result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
-        if (_result['compare'] == false) {
-          _pin = '';
-          error = "PIN does not match"; /* Enable Error Text*/
-          createPin(context); /* callBack */
-        } else if (_result["compare"] == true){
-          _confirmPin = _result['confirm_pin'];
-          _message = _result;
-          await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
-            createPin(context); /* callBack */
-          });
-        }
-      } else { /* Success Set PIN And Push SnackBar */
-        _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
-        _confirmPin = "";
-        snackBar(_menuModel.globalKey,_result['message']); /* Copy Private Key Success And Show Message From Bottom */
-      }
-    } else { /* Reset Pin Confirm PIN And Result To Empty */
-      _pin = "";  
-      _confirmPin = "";
+
+    if (_result != null){
+      snackBar(_menuModel.globalKey, "Successfully copy!Please keep your private key to safe place");
     }
+
+    // _result = await showDialog(
+    //   barrierDismissible: false,
+    //   context: context,
+    //   builder: 
+    //   _pin == '' ? /* If PIN Not Yet Set */
+    //   (BuildContext context) {
+    //     return Material(
+    //       color: Colors.transparent,
+          // child: disableNativePopBackButton(SetPinDialog(error))
+    //     );
+    //   } :
+    //   _confirmPin == '' ? /* Set PIN Done And Then Set Confirm Pin */
+    //   (BuildContext context) {
+    //     return Material(
+    //       color: Colors.transparent,
+    //       child: disableNativePopBackButton(SetConfirmPin(_pin)),
+    //     );
+    //   } :
+    //   (BuildContext context) { /* Comfirm PIN Success Shower Dialog Of Private Key */
+    //     return Material(
+    //       color: Colors.transparent,
+    //       child: WillPopScope(
+    //         onWillPop: () async => await Future(() => false),
+    //         child: disableNativePopBackButton(PrivateKeyDialog(_message)),
+    //       ),
+    //     );
+    //   }
+    // );
+    
+    // if (_result.isNotEmpty){/* From Set PIN Widget */
+    //   if (_result["dialog_name"] == 'Pin'){
+    //     _pin = _result['pin'];
+    //     createPin(context); /* callBack */
+    //   } else 
+    //   if (_result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
+    //     if (_result['compare'] == false) {
+    //       _pin = '';
+    //       error = "PIN does not match"; /* Enable Error Text*/
+    //       createPin(context); /* callBack */
+    //     } else if (_result["compare"] == true){
+    //       _confirmPin = _result['confirm_pin'];
+    //       _message = _result;
+    //       await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
+    //         createPin(context); /* callBack */
+    //       });
+    //     }
+    //   } else { /* Success Set PIN And Push SnackBar */
+    //     _pin = ""; /* Reset Pin Confirm PIN And Result To Empty */
+    //     _confirmPin = "";
+    //     snackBar(_menuModel.globalKey,_result['message']); /* Copy Private Key Success And Show Message From Bottom */
+    //   }
+    // } else { /* Reset Pin Confirm PIN And Result To Empty */
+    //   _pin = "";  
+    //   _confirmPin = "";
+    // }
   }
   
   /* --------------------Function-------------------- */
@@ -212,34 +223,43 @@ class MenuState extends State<Menu> {
   /* ----------------------Side Bar -------------------------*/
 
   Widget build(BuildContext context){
-    return Drawer(
-      child: SafeArea(
-        child: Container(
-          width: 305,
-          color: hexaCodeToColor(AppColors.bgdColor),
-          child: SingleChildScrollView(
-            child: MenuBody(
-              isHaveWallet: isHaveWallet, 
-              userInfo: widget._userData,
-              model: _menuModel ,
-              packageInfo: widget._packageInfo,
-              editProfile: editProfile,  
-              trxHistory: trxHistroy,
-              trxActivity: trxActivity, 
-              wallet: wallet, 
-              changePin: changePin, 
-              password: password,
-              addAssets: addAssets, 
-              signOut: signOut, 
-              snackBar: snackBar, 
-              popScreen: popScreen,
-              switchBio: switchBiometric,
-              createPin: createPin,
-              callBack: widget.callBack
+    return Scaffold(
+      key: _menuModel.globalKey,
+      backgroundColor: Colors.transparent,
+      body: GestureDetector(
+        onTap: (){
+          print("Tap");
+        },
+        child: Drawer(
+          child: SafeArea(
+            child: Container(
+              width: 305,
+              color: hexaCodeToColor(AppColors.bgdColor),
+              child: SingleChildScrollView(
+                child: MenuBody(
+                  isHaveWallet: isHaveWallet, 
+                  userInfo: widget._userData,
+                  model: _menuModel ,
+                  packageInfo: widget._packageInfo,
+                  editProfile: editProfile,  
+                  trxHistory: trxHistroy,
+                  trxActivity: trxActivity, 
+                  wallet: wallet, 
+                  changePin: changePin, 
+                  password: password,
+                  addAssets: addAssets, 
+                  signOut: signOut, 
+                  snackBar: snackBar, 
+                  popScreen: popScreen,
+                  switchBio: switchBiometric,
+                  createPin: createPin,
+                  callBack: widget.callBack
+                ),
+              ),
             ),
           ),
         ),
-      ),
+      )
     );
   }
 }

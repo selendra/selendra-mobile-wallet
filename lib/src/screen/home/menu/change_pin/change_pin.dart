@@ -125,14 +125,14 @@ class ChangePinState extends State<ChangePin> {
     } else if (_modelChangePin.nodeNewPin.hasFocus){
       _modelChangePin.nodeNewPin.unfocus();
       FocusScope.of(context).requestFocus(_modelChangePin.nodeConfirmPin);
-    } else if (_modelChangePin.enable == true) submitPIN(context);
+    } else if (_modelChangePin.enable == true) submitPIN();
   }
 
   void onChanged(String changed) {
     _modelChangePin.formStateChangePin.currentState.validate();
   }
 
-  void submitPIN(BuildContext context) async { /* Submit Pin */
+  void submitPIN() async { /* Submit Pin */
     removeAllFocus();
     dialogLoading(context); /* Show Loading Process */
     try {

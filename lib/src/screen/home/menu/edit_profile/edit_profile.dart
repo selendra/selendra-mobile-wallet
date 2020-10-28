@@ -116,7 +116,7 @@ class EditProfileState extends State<EditProfile> {
   }
 
   /* Submit Profile User */
-  void submitProfile(BuildContext context) async {
+  void submitProfile() async {
     /* Show Loading Process */
     dialogLoading(context);
     /* Post Request Submit Profile */
