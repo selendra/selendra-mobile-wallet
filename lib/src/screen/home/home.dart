@@ -39,11 +39,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       AppServices.noInternetConnection(_homeModel.globalKey);
       _homeModel.userData = {};
       /* User Profile */
-      getUserData();
-      fetchPortfolio();
+      // getUserData();
+      // fetchPortfolio();
       triggerDeviceInfo();
       if (Platform.isAndroid) appPermission();
-      login();
       // fabsAnimation();
     }
 
@@ -392,6 +391,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         physics: BouncingScrollPhysics(),
         controller: _homeModel.refreshController,
         child: BodyScaffold(
+          height: MediaQuery.of(context).size.height,
           child: HomeBody(
             bloc: bloc,
             chartKey: _homeModel.chartKey,

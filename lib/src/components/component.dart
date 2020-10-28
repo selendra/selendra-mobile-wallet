@@ -353,7 +353,7 @@ class MyColumnBuilder extends StatelessWidget{
       child: ListView.builder(
         padding: EdgeInsets.all(0),
         shrinkWrap: true,
-        itemCount: data.length,
+        itemCount: 10,//data.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return portFolioItemRow(data, index);
@@ -367,7 +367,7 @@ class MyRowHeader extends StatelessWidget{
 
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 16, right: 16),
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,

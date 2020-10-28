@@ -21,117 +21,110 @@ class HomeBody extends StatelessWidget{
     return Column(
       children: [
 
-        // MyHomeAppBar(
-        //   title: "SELENDRA", 
-        //   action: () {
-        //     MyBottomSheet().notification(context: context);
-        //   },
-        // ),
+        MyHomeAppBar(
+          title: "SELENDRA", 
+          action: () {
+            MyBottomSheet().notification(context: context);
+          },
+        ),
 
-        Stack(
-          children: [
+        Expanded(
+          child: Stack(
+            children: [
 
-            if (portfolioData == null) Container(
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+              // if (portfolioData == null) Container(
+              //   height: MediaQuery.of(context).size.height,
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
 
-                  Flexible(
-                    flex: 0,
-                    child: MyHomeAppBar(
-                      title: "SELENDRA", 
-                      action: () {
-                        MyBottomSheet().notification(context: context);
-                      },
+              //       Expanded(
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: [
+              //             SvgPicture.asset('assets/no_data.svg', width: 200, height: 200),
+                    
+              //             GestureDetector(
+              //               onTap: (){
+              //                 getWallet(context);
+              //               },
+              //               child: MyText(
+              //                 text: "Get wallet",
+              //                 fontSize: 25,
+              //                 color: AppColors.secondary_text,
+              //                 fontWeight: FontWeight.bold,
+              //               ),
+              //             )
+              //           ],
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // )
+
+              // else if (portfolioData.length == 0) loading()
+
+              // else 
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+
+                    MyCircularChart(
+                      amount: "12",//"\$ ${homeModel.total}",
+                      chartKey: chartKey, 
+                      listChart: homeModel.circularChart,
                     ),
-                  ),
 
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/no_data.svg', width: 200, height: 200),
-                  
-                        GestureDetector(
-                          onTap: (){
-                            getWallet(context);
-                          },
-                          child: MyText(
-                            text: "Get wallet",
-                            fontSize: 25,
-                            color: AppColors.secondary_text,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
+                    Container(
+                      margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+                      // padding: EdgeInsets.all(16.0),
+                      width: double.infinity,
+                      height: 222,
+                      decoration: BoxDecoration(
+                        color: hexaCodeToColor(AppColors.cardColor),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: LineChart(
+                        mainData(),
+                        swapAnimationDuration: Duration(seconds: 1),
+                      ),
                     ),
-                  )
-                ],
-              ),
-            )
 
-            else if (portfolioData.length == 0) Container(
-              height: MediaQuery.of(context).size.height,
-              child: loading(),
-            )
+                    Container( /* Portfolio Title */
+                      alignment: Alignment.centerLeft,
+                      child: MyText(
+                        bottom: 26,
+                        left: 16,
+                        text: "Portfolioes",
+                        fontSize: 20,
+                        color: "#FFFFFF",
+                      )
+                    ),
 
-            else Column(
-              children: <Widget>[
+                    MyRowHeader(),
 
-                MyCircularChart(
-                  amount: "\$ ${homeModel.total}",
-                  chartKey: chartKey, 
-                  listChart: homeModel.circularChart,
+                    Container(
+                      constraints: BoxConstraints(
+                        minHeight: 70,
+                        maxHeight: 300
+                      ),
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (context) => Portfolio(listData: homeModel.portfolioList, listChart: homeModel.circularChart),
+                            )
+                          );
+                        },
+                        child: buildRowList(portfolioData)
+                      ),
+                    )
+                  ],
                 ),
-
-                Container(
-                  margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-                  padding: EdgeInsets.only(left: 16.0, top: 32, bottom: 16.0, right: 32.0),
-                  width: double.infinity,
-                  height: 222,
-                  decoration: BoxDecoration(
-                    color: hexaCodeToColor(AppColors.cardColor),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: LineChart(
-                    mainData()
-                  ),
-                ),
-
-                Container( /* Portfolio Title */
-                  alignment: Alignment.centerLeft,
-                  child: MyText(
-                    bottom: 26,
-                    left: 16,
-                    text: "Portfolioes",
-                    fontSize: 20,
-                    color: "#FFFFFF",
-                  )
-                ),
-
-                MyRowHeader(),
-
-                Container(
-                  constraints: BoxConstraints(
-                    minHeight: 70,
-                    maxHeight: 300
-                  ),
-                  child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                        context, 
-                        MaterialPageRoute(
-                          builder: (context) => Portfolio(listData: homeModel.portfolioList, listChart: homeModel.circularChart),
-                        )
-                      );
-                    },
-                    child: buildRowList(portfolioData)
-                  ),
-                )
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         )
       ],
     );

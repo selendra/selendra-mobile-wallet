@@ -4,6 +4,117 @@ import 'package:fl_chart/fl_chart.dart';
 final fontSizePort = 17.0;
 final fontColorPort = Colors.white;
 
+List<Color> gradientColors = [
+  hexaCodeToColor(AppColors.secondary),
+];
+
+final portfolioChart = LineChartData(
+  borderData: FlBorderData(
+    show: false
+  ),
+  gridData: FlGridData(
+    show: false,
+    drawVerticalLine: false,
+    getDrawingHorizontalLine: (value) {
+      return FlLine(
+        color: const Color(0xff37434d),
+        strokeWidth: 0.3,
+      );
+    },
+    getDrawingVerticalLine: (value) {
+      return FlLine(
+        color: const Color(0xff37434d),
+        strokeWidth: 0.3,
+      );
+    },
+  ),
+  titlesData: FlTitlesData(
+    show: true,
+    bottomTitles: SideTitles(
+      // showTitles: true,
+      reservedSize: 6,
+      // textStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
+      getTitles: (value) {
+        switch (value.toInt()) {
+          case 0: 
+            return '';
+          case 1:
+            return '2h';
+          case 2:
+            return '4h';
+          case 3:
+            return '6h';
+          case 4:
+            return '8h';
+          case 5:
+            return '10h';
+        }
+        return '12h';
+      },
+      margin: 0,
+    ),
+    leftTitles: SideTitles(
+      // showTitles: true,
+      // textStyle: TextStyle(
+      //   color: hexaCodeToColor(AppColors.textColor),
+      //   fontWeight: FontWeight.bold,
+      //   fontSize: 15,
+      // ),
+      getTitles: (value) {
+        switch (value.toInt()) {
+          case 0:
+            return '';
+          case 1:
+            return '50';
+          case 2:
+            return '100';
+          case 3:
+            return '150';
+        }
+        return '200';
+      },
+      reservedSize: 3,
+      margin: 0,
+    ),
+  ),
+  // borderData: FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
+  minX: 0,
+  maxX: 6,
+  minY: 0,
+  maxY: 4,
+  lineBarsData: [
+    LineChartBarData(
+      spots: [
+
+        FlSpot(0, 0),
+        FlSpot(0.5, 0.5),
+        FlSpot(1, 1),
+        FlSpot(1.5, 2),
+        FlSpot(2, 2.5),
+        FlSpot(2.5, 3),
+        FlSpot(3, 3),
+        FlSpot(3.5, 3),
+        FlSpot(4, 4),
+        FlSpot(4.5, 3.5),
+        FlSpot(5, 2),
+        FlSpot(5.5, 2),
+        FlSpot(6, 1),
+      ],
+      isCurved: true,
+      colors: gradientColors,
+      barWidth: 2.5,
+      // isStrokeCapRound: true,
+      dotData: FlDotData(
+        show: false,
+      ),
+      belowBarData: BarAreaData(
+        show: false,
+        colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+      ),
+    ),
+  ],
+);
+
 Widget cardToken( /* Card Token Display */
   String title,
   String tokenAmount,
@@ -111,7 +222,7 @@ Widget buildRowList(List<dynamic> portfolioData){
   return ListView.builder(
     padding: EdgeInsets.all(0),
     shrinkWrap: true,
-    itemCount: portfolioData.length,
+    itemCount: 10,//portfolioData.length,
     physics: BouncingScrollPhysics(),
     itemBuilder: (BuildContext context, int index) {
       return portFolioItemRow(portfolioData, index);
@@ -125,22 +236,23 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
       children: <Widget>[
 
         /* Stellar Icons */
-        ! portfolioData[index].containsKey("asset_code") ? 
-        MyCircularImage(
-          padding: EdgeInsets.all(6),
-          margin: EdgeInsets.only(right: 16),
-          decoration: BoxDecoration(
-            color: hexaCodeToColor(AppColors.secondary),
-            borderRadius: BorderRadius.circular(40)
-          ),
-          imagePath: 'assets/stellar.svg',
-          width: 40,
-          height: 40,
-          colorImage: Colors.white,
-        )
+        // ! portfolioData[index].containsKey("asset_code") ? 
+        // MyCircularImage(
+        //   padding: EdgeInsets.all(6),
+        //   margin: EdgeInsets.only(right: 16),
+        //   decoration: BoxDecoration(
+        //     color: hexaCodeToColor(AppColors.secondary),
+        //     borderRadius: BorderRadius.circular(40)
+        //   ),
+        //   imagePath: 'assets/stellar.svg',
+        //   width: 40,
+        //   height: 40,
+        //   colorImage: Colors.white,
+        // )
 
-        // Another Crypto Images
-        : MyCircularImage(
+        // // Another Crypto Images
+        // : 
+        MyCircularImage(
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: 16),
           boxColor: AppColors.secondary,
@@ -154,27 +266,50 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
           colorImage: Colors.white,
         ),
 
-        MyText(
-          text: portfolioData[index].containsKey("asset_code")
-          ? portfolioData[index]["asset_code"]
-          : "XLM",
-          color: "#EFF0F2",
-          fontSize: 16,
+        Flexible(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: MyText(
+              text: "XLM",//portfolioData[index].containsKey("asset_code")
+              // ? portfolioData[index]["asset_code"]
+              // : "XLM",
+              color: "#EFF0F2",
+              fontSize: 16,
+            )
+          )
+        ),
+
+        Expanded(
+          flex: 1, 
+          child: Container(
+            margin: EdgeInsets.only(right: 16),
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: 25,
+              child: LineChart(
+                portfolioChart
+              ),
+            ),
+          )
         ),
 
         /* Asset Code */
-        Expanded(child: Container()),
+        // Expanded(child: Container()),
 
-        MyText(text: portfolioData[0]["balance"], color: "#FFFFFF", fontSize: 16,) /* Balance */
+        MyText(
+          text: "100",//portfolioData[0]["balance"], 
+          color: "#FFFFFF", 
+          fontSize: 16,
+        ) /* Balance */
       ],
     )
   );
 }
 
 // Portfolow Row Decoration
-Widget rowDecorationStyle({Widget child, double marginTop: 15}){
+Widget rowDecorationStyle({Widget child, double mTop: 0, double mBottom = 16}){
   return Container(
-    margin: EdgeInsets.only(top: marginTop, left: 16, right: 16),
+    margin: EdgeInsets.only(top: mTop, left: 16, right: 16, bottom: 16),
     padding: EdgeInsets.fromLTRB(15, 9, 15, 9 ),
     height: 70,
     decoration: BoxDecoration(
@@ -346,48 +481,54 @@ class MyHomeAppBar extends StatelessWidget{
 
 LineChartData mainData() {
 
-  List<Color> gradientColors = [
-    hexaCodeToColor(AppColors.secondary),
-  ];
-
   return LineChartData(
+    borderData: FlBorderData(
+      show: false
+    ),
     gridData: FlGridData(
       show: true,
       drawVerticalLine: true,
+      drawHorizontalLine: true,
       getDrawingHorizontalLine: (value) {
         return FlLine(
           color: const Color(0xff37434d),
-          strokeWidth: 1,
+          strokeWidth: 0.3,
         );
       },
       getDrawingVerticalLine: (value) {
         return FlLine(
           color: const Color(0xff37434d),
-          strokeWidth: 1,
+          strokeWidth: 0.3,
         );
       },
     ),
     titlesData: FlTitlesData(
       show: true,
       bottomTitles: SideTitles(
-        showTitles: true,
-        reservedSize: 22,
+        // showTitles: true,
+        reservedSize: 6,
         // textStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
         getTitles: (value) {
           switch (value.toInt()) {
+            case 0: 
+              return '';
+            case 1:
+              return '2h';
             case 2:
-              return 'MAR';
+              return '4h';
+            case 3:
+              return '6h';
+            case 4:
+              return '8h';
             case 5:
-              return 'JUN';
-            case 8:
-              return 'SEP';
+              return '10h';
           }
-          return '';
+          return '12h';
         },
-        margin: 8,
+        margin: 0,
       ),
       leftTitles: SideTitles(
-        showTitles: true,
+        // showTitles: true,
         // textStyle: TextStyle(
         //   color: hexaCodeToColor(AppColors.textColor),
         //   fontWeight: FontWeight.bold,
@@ -395,41 +536,50 @@ LineChartData mainData() {
         // ),
         getTitles: (value) {
           switch (value.toInt()) {
+            case 0:
+              return '';
             case 1:
-              return '10k';
+              return '50';
+            case 2:
+              return '100';
             case 3:
-              return '30k';
-            case 5:
-              return '50k';
+              return '150';
           }
-          return '';
+          return '200';
         },
-        reservedSize: 28,
-        margin: 12,
+        reservedSize: 3,
+        margin: 0,
       ),
     ),
-    borderData: FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
+    // borderData: FlBorderData(show: true, border: Border.all(color: const Color(0xff37434d), width: 1)),
     minX: 0,
-    maxX: 11,
+    maxX: 6,
     minY: 0,
-    maxY: 6,
+    maxY: 4,
     lineBarsData: [
       LineChartBarData(
         spots: [
+
           FlSpot(0, 3),
-          FlSpot(2.6, 2),
-          FlSpot(4.9, 5),
-          FlSpot(6.8, 3.1),
-          FlSpot(8, 4),
-          FlSpot(9.5, 3),
-          FlSpot(11, 4),
+          FlSpot(0.5, 2.5),
+          FlSpot(1, 1),
+          FlSpot(1.5, 2),
+          FlSpot(2, 2.5),
+          FlSpot(2.5, 3),
+          FlSpot(3, 3),
+          FlSpot(3.5, 3),
+          FlSpot(4, 2),
+          FlSpot(4.5, 3.5),
+          FlSpot(5, 2),
+          FlSpot(5.5, 2),
+          FlSpot(6, 1),
         ],
-        isCurved: true,
+        // isCurved: true,
         colors: gradientColors,
-        barWidth: 5,
-        isStrokeCapRound: true,
+        barWidth: 3,
+        // isStrokeCapRound: true,
         dotData: FlDotData(
-          show: false,
+          show: true,
         ),
         belowBarData: BarAreaData(
           show: true,
