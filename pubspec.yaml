@@ -89,8 +89,10 @@ dependencies:
   package_info: 
 
   #Authenticatioin & Verification
-  local_auth: ^0.6.2+3
+  local_auth: ^0.6.3+3
   sms_autofill:
+  contacts_service: ^0.4.6 
+  permission_handler: ^5.0.1+1
   
   #animation
   flare_flutter:

@@ -77,7 +77,7 @@ class HomeBody extends StatelessWidget{
 
                     Container(
                       margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-                      // padding: EdgeInsets.all(16.0),
+                      padding: EdgeInsets.all(16.0),
                       width: double.infinity,
                       height: 222,
                       decoration: BoxDecoration(

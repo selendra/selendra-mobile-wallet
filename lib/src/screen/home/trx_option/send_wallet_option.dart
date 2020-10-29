@@ -98,7 +98,7 @@ class SendWalletOption extends StatelessWidget {
                             // TrxOptionMethod.selectContact(context, _postRequest,this._portfolioList, this._resetDbdState);
                           },
                         ),
-                      )
+                      ) 
                     ]
                   ),
                 ),

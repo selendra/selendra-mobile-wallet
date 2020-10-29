@@ -6,6 +6,7 @@ final fontColorPort = Colors.white;
 
 List<Color> gradientColors = [
   hexaCodeToColor(AppColors.secondary),
+  hexaCodeToColor("#00ff6b")
 ];
 
 final portfolioChart = LineChartData(
@@ -28,6 +29,7 @@ final portfolioChart = LineChartData(
       );
     },
   ),
+  
   titlesData: FlTitlesData(
     show: true,
     bottomTitles: SideTitles(
@@ -503,11 +505,11 @@ LineChartData mainData() {
       },
     ),
     titlesData: FlTitlesData(
-      show: true,
+      // show: true,
       bottomTitles: SideTitles(
         // showTitles: true,
         reservedSize: 6,
-        // textStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
+        // getTextStyles: (value) => TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
         getTitles: (value) {
           switch (value.toInt()) {
             case 0: 
@@ -574,7 +576,7 @@ LineChartData mainData() {
           FlSpot(5.5, 2),
           FlSpot(6, 1),
         ],
-        // isCurved: true,
+        isCurved: true,
         colors: gradientColors,
         barWidth: 3,
         // isStrokeCapRound: true,

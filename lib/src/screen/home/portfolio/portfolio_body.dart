@@ -30,7 +30,7 @@ class  PortfolioBody extends StatelessWidget{
       hexaCodeToColor("#08B952"),
       hexaCodeToColor("#40FF90"),
       hexaCodeToColor("#00FFF0"),
-      hexaCodeToColor(AppColors.cardColor)
+      hexaCodeToColor(AppColors.bgdColor)
     ];
 
     return Column(
@@ -97,7 +97,7 @@ class  PortfolioBody extends StatelessWidget{
                     MyPieChartRow(
                       color: pieColorList[1],
                       centerText: "XML",
-                      endText: "35%",
+                      endText: "50%",
                     ),
 
                     MyPieChartRow(
@@ -109,7 +109,7 @@ class  PortfolioBody extends StatelessWidget{
                     MyPieChartRow(
                       color: pieColorList[3],
                       centerText: "Emp",
-                      endText: "50%",
+                      endText: "0%",
                     ),
                   ],
                 )
@@ -186,16 +186,16 @@ class  PortfolioBody extends StatelessWidget{
           ),
         ),
 
-        Container(
-          height: 250,
-          margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: hexaCodeToColor(AppColors.cardColor),
-            borderRadius: BorderRadius.circular(8)
-          ),
-          child: GroupedBarChart.withSampleData(),
-        ),
+        // Container(
+        //   height: 250,
+        //   margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
+        //   padding: EdgeInsets.all(16),
+        //   decoration: BoxDecoration(
+        //     color: hexaCodeToColor(AppColors.cardColor),
+        //     borderRadius: BorderRadius.circular(8)
+        //   ),
+        //   child: GroupedBarChart.withSampleData(),
+        // ),
 
         // Container(
         //   margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
@@ -220,8 +220,14 @@ class  PortfolioBody extends StatelessWidget{
 
         MyRowHeader(),
 
-        MyColumnBuilder(
-          data: listData
+        Container(
+          constraints: BoxConstraints(
+            minHeight: 70,
+            maxHeight: 500
+          ),
+          child: MyColumnBuilder(
+            data: listData
+          ),
         )
       ],
     );
