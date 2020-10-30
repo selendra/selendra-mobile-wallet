@@ -4,6 +4,7 @@ import 'package:wallet_apps/index.dart';
 
 class MenuBody extends StatelessWidget{
   
+  final GlobalKey<ScaffoldState> globalKey;
   final bool isHaveWallet; /* isHaveWallet By Default false */
   final Map<String, dynamic> userInfo;
   final MenuModel model;
@@ -18,6 +19,7 @@ class MenuBody extends StatelessWidget{
   final Function callBack;
 
   MenuBody({
+    this.globalKey,
     this.isHaveWallet, this.userInfo, this.model, this.packageInfo, this.editProfile,
     this.trxHistory, this.trxActivity, this.addAssets, this.changePin, this.password, this.wallet,
     this.signOut, this.snackBar,  this.popScreen, this.switchBio,
@@ -126,6 +128,14 @@ class MenuBody extends StatelessWidget{
           index: 3,
           subIndex: 0,
           onTap: () async{
+            snackBar(globalKey, "Invite friend feature under construction");
+          },
+        ),
+        
+        MyListTile(
+          index: 3,
+          subIndex: 1,
+          onTap: () async{
             // await dialog(context, MyText(text: "Under reconstruction", color: "#000000"), Text("Message"));
             // Navigator.pop(context);
             // Navigator.push(
@@ -138,7 +148,7 @@ class MenuBody extends StatelessWidget{
 
         MyListTile(
           index: 3,
-          subIndex: 1,
+          subIndex: 2,
           onTap: () async {
             await showDialog(
               context: context,

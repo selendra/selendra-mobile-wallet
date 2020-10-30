@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:contacts_service/contacts_service.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wallet_apps/index.dart';
 
@@ -51,15 +52,13 @@ class TrxOptionMethod {
     if (await Permission.contacts.request().isGranted){
       String number = '';
       var response;
-      final Contact _contact = await ContactsService.openDeviceContactPicker();
-      // Get Contact And Asign To Number Variable 
-      _contact.phones.forEach((element) async {
-        number = element.value;
-      });
+      final PhoneContact _contact = await FlutterContactPicker.pickPhoneContact();
+      // final Contact _contact = await ContactsService.openDeviceContactPicker();
+      //Get Contact And Asign To Number Variable 
       
       if (_contact != null) {
         await _postRequest.getWalletFromContact(
-          "+855${number.replaceFirst("0", "", 0)  }" // Replace 0 At The First Index To Empty
+          "+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)  }" // Replace 0 At The First Index To Empty
         ).then((value) async {
           if(value['status_code'] == 200 && value.containsKey('wallet')){
             response = await Navigator.push(
@@ -80,7 +79,7 @@ class TrxOptionMethod {
                   textAlignCenter(text: value['message']),
                   Container(
                     margin: EdgeInsets.only(top: 5.0),
-                    child: textAlignCenter(text: "Do you want to invite this number 0${number.replaceFirst("0", "", 0)}?")
+                    child: textAlignCenter(text: "Do you want to invite this number 0${_contact.phoneNumber.number.replaceFirst("0", "", 0)}?")
                   )
                 ],
               ), 
@@ -90,7 +89,7 @@ class TrxOptionMethod {
                 onPressed: () async {
                   Navigator.pop(context); // Close Dialog Invite
                   dialogLoading(context); // Process Loading
-                  var _response = await _postRequest.inviteFriend("+855${number.replaceFirst("0", "", 0)}");
+                  var _response = await _postRequest.inviteFriend("+855${_contact.phoneNumber.number.replaceFirst("0", "", 0)}");
                   Navigator.pop(context); // Close Dialog Loading
                   if (_response != null) {
                     await dialog(context, Text(_response['message'], textAlign: TextAlign.center,), Icon(Icons.done_outline, color: hexaCodeToColor(AppColors.greenColor)));
@@ -118,7 +117,6 @@ class TrxOptionMethod {
   static Future scanQR(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
     
     var _response = await Navigator.push(context, transitionRoute(QrScanner(portList: portfolioList)));
-    // await TrxOptionMethod.scanQR(context, _portfolioList, _resetDbdState);
     if (_response != null){
       if (_response['status_code'] == 200) {
         resetDbdState(null, "portfolio");

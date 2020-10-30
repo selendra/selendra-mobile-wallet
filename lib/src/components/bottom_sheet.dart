@@ -40,7 +40,7 @@ class MyBottomSheet{
                     icon: "sld_qr.svg",
                     action: () async {
                       try {
-                        TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
+                        await TrxOptionMethod.scanQR(context, portfolioList, resetHomeData);
                       } catch (e){
                         print(e.message);
                       }

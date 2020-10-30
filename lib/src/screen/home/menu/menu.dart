@@ -237,6 +237,7 @@ class MenuState extends State<Menu> {
               color: hexaCodeToColor(AppColors.bgdColor),
               child: SingleChildScrollView(
                 child: MenuBody(
+                  globalKey: _menuModel.globalKey,
                   isHaveWallet: isHaveWallet, 
                   userInfo: widget._userData,
                   model: _menuModel ,

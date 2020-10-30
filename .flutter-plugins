@@ -9,6 +9,7 @@ firebase_core_web=/home/daveat/.pub-cache/hosted/pub.dartlang.org/firebase_core_
 firebase_remote_config=/home/daveat/.pub-cache/hosted/pub.dartlang.org/firebase_remote_config-0.4.0+2/
 flutter_image_compress=/home/daveat/.pub-cache/hosted/pub.dartlang.org/flutter_image_compress-0.7.0/
 flutter_plugin_android_lifecycle=/home/daveat/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-1.0.11/
+fluttercontactpicker=/home/daveat/.pub-cache/hosted/pub.dartlang.org/fluttercontactpicker-3.1.0/
 image_cropper=/home/daveat/.pub-cache/hosted/pub.dartlang.org/image_cropper-1.3.1/
 image_picker=/home/daveat/.pub-cache/hosted/pub.dartlang.org/image_picker-0.6.7+12/
 local_auth=/home/daveat/.pub-cache/hosted/pub.dartlang.org/local_auth-0.6.3+3/

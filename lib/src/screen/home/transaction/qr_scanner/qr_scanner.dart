@@ -35,6 +35,9 @@ class QrScannerState extends State<QrScanner>{
           children: [
             MyAppBar(
               title: "Transaction",
+              onPressed: (){
+                Navigator.pop(context);
+              },
             ),
 
             Expanded(

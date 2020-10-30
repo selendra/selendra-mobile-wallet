@@ -9,9 +9,9 @@ Selendra is a multi-use cases blockchain super-app for the Internet 2.0 for iden
 
 ### Features:
 
-- [x] Register vai SMS. 
-- [x] Register vai email Account.
-- [ ] Register vai Others social media account.
+- [x] Register via SMS. 
+- [x] Register via email Account.
+- [ ] Register via Others social media account.
 - [x] Send to token by QR Code.
 - [x] Send to token from contact.
 - [x] View trandaction histroy.

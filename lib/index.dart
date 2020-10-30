@@ -130,7 +130,6 @@ export 'package:wallet_apps/src/screen/home/portfolio/portfolio_body.dart';
 
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/submit_trx.dart';
 export 'package:wallet_apps/src/screen/home/receive_wallet/receive_wallet.dart';
-export 'package:wallet_apps/src/screen/home/trx_option/send_wallet_option.dart';
 export 'package:wallet_apps/src/screen/home/home.dart';
 export 'package:wallet_apps/src/screen/home/home_body.dart';
 export 'package:wallet_apps/src/screen/home/transaction/submit_trx/fill_pin_dialog.dart';
