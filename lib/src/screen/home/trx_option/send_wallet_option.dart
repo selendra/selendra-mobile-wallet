@@ -50,8 +50,7 @@ class SendWalletOption extends StatelessWidget {
                               offset: Offset(2.0, 5.0),
                             ),
                             (context) async {
-                              // response = await TrxOptionMethod.scanQR(context, _portfolioList, _resetDbdState);
-                              // if (response == null) Navigator.pop(context);
+                              await TrxOptionMethod.scanQR(context, _portfolioList, _resetDbdState);
                             },
                           ),
                         ),

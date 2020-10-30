@@ -29,6 +29,8 @@ class QrScannerState extends State<QrScanner>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
+        bottom: 0,
         child: Column(
           children: [
             MyAppBar(

@@ -115,12 +115,14 @@ class TrxOptionMethod {
   }
 
   /* Scan QR Code */
-  static void scanQR(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
+  static Future scanQR(BuildContext context, List<dynamic> portfolioList, Function resetDbdState) async {
     
     var _response = await Navigator.push(context, transitionRoute(QrScanner(portList: portfolioList)));
-
-    if (_response['status_code'] == 200) {
-      resetDbdState(null, "portfolio");
+    // await TrxOptionMethod.scanQR(context, _portfolioList, _resetDbdState);
+    if (_response != null){
+      if (_response['status_code'] == 200) {
+        resetDbdState(null, "portfolio");
+      }
     }
   }
   

@@ -409,7 +409,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           backgroundColor: hexaCodeToColor(AppColors.secondary),
           child: SvgPicture.asset('assets/sld_qr.svg', width: 30, height: 30),
           onPressed: () async {
-            TrxOptionMethod.scanQR(context, _homeModel.portfolioList, resetState);
+            await TrxOptionMethod.scanQR(context, _homeModel.portfolioList, resetState);
           },
         )
       ),
