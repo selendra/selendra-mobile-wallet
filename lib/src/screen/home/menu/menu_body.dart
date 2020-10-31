@@ -12,7 +12,7 @@ class MenuBody extends StatelessWidget{
   final Function editProfile; final Function trxHistory;
   final Function trxActivity; final Function wallet;
   final Function changePin; final Function password;
-  final Function addAssets; final Function signOut;
+  final Function addAssets;
   final Function snackBar; final Function popScreen;
   final Function switchBio;
   final Function createPin;
@@ -22,7 +22,7 @@ class MenuBody extends StatelessWidget{
     this.globalKey,
     this.isHaveWallet, this.userInfo, this.model, this.packageInfo, this.editProfile,
     this.trxHistory, this.trxActivity, this.addAssets, this.changePin, this.password, this.wallet,
-    this.signOut, this.snackBar,  this.popScreen, this.switchBio,
+    this.snackBar,  this.popScreen, this.switchBio,
     this.createPin,
     this.callBack
   });

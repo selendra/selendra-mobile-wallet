@@ -1,51 +1,42 @@
 package com.selendra.wallet;
 
 import android.os.Build;
-import android.os.Bundle;
-
-import io.flutter.app.FlutterFragmentActivity;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugins.GeneratedPluginRegistrant;
-
 import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import io.flutter.embedding.android.FlutterActivity;
-import io.flutter.embedding.engine.FlutterEngine;
 
-public class MainActivity extends FlutterActivity {
+
+ import androidx.annotation.NonNull;
+ import io.flutter.embedding.android.FlutterActivity;
+ import io.flutter.embedding.android.FlutterFragmentActivity;
+ import io.flutter.embedding.engine.FlutterEngine;
+ import io.flutter.plugin.common.MethodChannel;
+ import io.flutter.plugins.GeneratedPluginRegistrant;
+
+public class MainActivity extends FlutterFragmentActivity {
 
   private  static final String CHANNEL = "daveat/brightness";
 
   @Override
   public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
-    
-    GeneratedPluginRegistrant.registerWith(flutterEngine);
-
-    new MethodChannel(flutterEngine.getDartExecutor(), CHANNEL).setMethodCallHandler(
-
-      new MethodChannel.MethodCallHandler() {
-
+  GeneratedPluginRegistrant.registerWith(flutterEngine);
+  new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL).setMethodCallHandler(
+      (call, result) -> {
         Object defaultMode = getBrightnessMode();
 
-        @Override
-        public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+        Object brightnessLevel;
 
-          Object brightnessLevel;
+        Object brightnessMode;
 
-          Object brightnessMode;
+        if(call.method.equals("writePermission")){
+          allowWritePermission();
+          result.success(canWrite());
+        } else if (call.method.equals("getPermission")){
+          result.success(canWrite());
+        }
 
-          if(call.method.equals("writePermission")){
-            allowWritePermission();
-            result.success(canWrite());
-          } else if (call.method.equals("getPermission")){
-            result.success(canWrite());
-          }
-
-          if (call.method.equals("getBrightnessMode")){
+        if (call.method.equals("getBrightnessMode")){
             result.success(getBrightnessMode());
           } else if (call.method.equals("getBrightnessLevel")){
             int value = getBrightnessLevel();
@@ -74,11 +65,10 @@ public class MainActivity extends FlutterActivity {
 //                else {
 //                  result.notImplemented();
 //                }
-        }
       }
     );
-
   }
+
 
   boolean canWrite(){
     if(Build.VERSION.SDK_INT >= VERSION_CODES.M){

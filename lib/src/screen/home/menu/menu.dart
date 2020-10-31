@@ -22,7 +22,7 @@ class MenuState extends State<Menu> {
   
   MenuModel _menuModel = MenuModel();
 
-  LocalAuthentication _localAuth = LocalAuthentication();
+  LocalAuthentication _localAuth;
 
   /* Login Inside Dialog */
   bool isProgress = false, isFetch = false, isTick = false, isSuccessPin = false, isHaveWallet = false;
@@ -182,42 +182,47 @@ class MenuState extends State<Menu> {
   }
 
   void switchBiometric(bool value) async {
-    try {
-      if (value){
-        await authenticateBiometric().then((values) async {
-          if (_menuModel.authenticated){
-            _menuModel.switchBio = value;
-            await StorageServices.setData({'bio': values}, 'biometric');
-          }
-        });
+    _localAuth = LocalAuthentication();
+    await _localAuth.canCheckBiometrics.then((value) async {
+      if (value == false){
+        snackBar(_menuModel.globalKey, "Your device doesn't have finger print");
       } else {
-        await authenticateBiometric().then((values) async {
-          if(values) {
-            _menuModel.switchBio = value;
-            await StorageServices.removeKey('biometric');
+        try {
+          if (value){
+            await authenticateBiometric(_localAuth).then((values) async {
+              if (_menuModel.authenticated){
+                _menuModel.switchBio = value;
+                await StorageServices.setData({'bio': values}, 'biometric');
+              }
+            });
+          } else {
+            await authenticateBiometric(_localAuth).then((values) async {
+              if(values) {
+                _menuModel.switchBio = value;
+                await StorageServices.removeKey('biometric');
+              }
+            });
           }
-        });
+          // // Reset Switcher
+          setState(() { });
+        } catch (e) {
+          
+        }
       }
-      // // Reset Switcher
-      setState(() { });
-    } catch (e) {
-      
-    }
+    });
   }
 
-  Future<bool> authenticateBiometric() async {
+  Future<bool> authenticateBiometric(LocalAuthentication _localAuth) async {
     try {
       // Trigger Authentication By Finger Print
       _menuModel.authenticated = await _localAuth.authenticateWithBiometrics(
-        localizedReason: '',
+        localizedReason: 'Scan your fingerprint to authenticate',
         useErrorDialogs: true,
         stickyAuth: true
       );
+      print(_menuModel.authenticated);
     } on PlatformException catch (e){ }
     return _menuModel.authenticated;
-  }
-  
-  void signOut() async { // Log Out All User Input
   }
 
   /* ----------------------Side Bar -------------------------*/
@@ -237,7 +242,7 @@ class MenuState extends State<Menu> {
               color: hexaCodeToColor(AppColors.bgdColor),
               child: SingleChildScrollView(
                 child: MenuBody(
-                  globalKey: _menuModel.globalKey,
+                  globalKey: _menuModel.globalKey ,
                   isHaveWallet: isHaveWallet, 
                   userInfo: widget._userData,
                   model: _menuModel ,
@@ -248,8 +253,7 @@ class MenuState extends State<Menu> {
                   wallet: wallet, 
                   changePin: changePin, 
                   password: password,
-                  addAssets: addAssets, 
-                  signOut: signOut, 
+                  addAssets: addAssets,
                   snackBar: snackBar, 
                   popScreen: popScreen,
                   switchBio: switchBiometric,
