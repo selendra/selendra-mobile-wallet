@@ -11,7 +11,7 @@ class SignUp extends StatefulWidget {
 
 class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
 
-  ModelSignUp _modelSignUp = ModelSignUp();
+  ModelSignUp _signUpM = ModelSignUp();
 
   PostRequest _postRequest = PostRequest();
 
@@ -19,9 +19,9 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
 
   @override
   void initState() {
-    AppServices.noInternetConnection(_modelSignUp.globalKey);
+    AppServices.noInternetConnection(_signUpM.globalKey);
     super.initState();
-    _modelSignUp.tabController = new TabController(length: 2, vsync: this); /* Initialize Variable TabController */
+    _signUpM.tabController = new TabController(length: 2, vsync: this); /* Initialize Variable TabController */
   }
 
   void popScreen() { /* Pop Current Screen */
@@ -29,78 +29,78 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   }
 
   void onChanged(String onchanged) { /* Input Field Value Change */
-    _modelSignUp.formState.currentState.validate();
+    _signUpM.formState.currentState.validate();
   }
 
    // Submit From Keyboard
   void onSubmit() {
-    if (_modelSignUp.nodeEmails.hasFocus || _modelSignUp.nodePhoneNums.hasFocus){
-      FocusScope.of(context).requestFocus(_modelSignUp.nodePassword);
-    } else if (_modelSignUp.nodePassword.hasFocus) {
-      FocusScope.of(context).requestFocus(_modelSignUp.nodeConfirmPassword);
+    if (_signUpM.nodeEmails.hasFocus || _signUpM.nodePhoneNums.hasFocus){
+      FocusScope.of(context).requestFocus(_signUpM.nodePassword);
+    } else if (_signUpM.nodePassword.hasFocus) {
+      FocusScope.of(context).requestFocus(_signUpM.nodeConfirmPassword);
     } else { /* Prevent Submit On Smart Keyboard */ 
-      if (_modelSignUp.enable == true) submit();
+      if (_signUpM.enable == true) submit();
     }
   }
 
   String validateInput(String value){ /* Initial Validate */
 
-    if (_modelSignUp.nodePhoneNums.hasFocus){
-      _modelSignUp.responseInput = instanceValidate.validatePhone(value);
+    if (_signUpM.nodePhoneNums.hasFocus){
+      _signUpM.responseInput = instanceValidate.validatePhone(value);
       validateAllField();
-    } else if (_modelSignUp.nodeEmails.hasFocus){
-      _modelSignUp.responseInput = instanceValidate.validateEmails(value);
+    } else if (_signUpM.nodeEmails.hasFocus){
+      _signUpM.responseInput = instanceValidate.validateEmails(value);
       validateAllField();
     }
-    return _modelSignUp.responseInput;
+    return _signUpM.responseInput;
   }
 
   String validatePass1(String value){ /* Validate User Input And Enable Or Disable Button */
-    if (_modelSignUp.nodePassword.hasFocus){
-      _modelSignUp.responsePass1 = instanceValidate.validatePassword(value);
+    if (_signUpM.nodePassword.hasFocus){
+      _signUpM.responsePass1 = instanceValidate.validatePassword(value);
       validateAllField();
       // Compare Password If Both Field Doesn't Empty 
-      if (_modelSignUp.responsePass1 == null && _modelSignUp.responsePass2 != null) comparePassword();
+      if (_signUpM.responsePass1 == null && _signUpM.responsePass2 != null) comparePassword();
     }     
-    return _modelSignUp.responsePass1;
+    return _signUpM.responsePass1;
   }
 
   String validatePass2(String value) {
-    if (_modelSignUp.nodeConfirmPassword.hasFocus){
-      _modelSignUp.responsePass2 = instanceValidate.validatePassword(value);
+    if (_signUpM.nodeConfirmPassword.hasFocus){
+      _signUpM.responsePass2 = instanceValidate.validatePassword(value);
       validateAllField();
     }
-    return _modelSignUp.responsePass2;
+    return _signUpM.responsePass2;
   }
 
   void validateAllField(){
 
     // Check All Field Have No Error
-    if ( _modelSignUp.responseInput == null &&  _modelSignUp.responsePass1 == null && _modelSignUp.responsePass2 == null ) {
+    if ( _signUpM.responseInput == null &&  _signUpM.responsePass1 == null && _signUpM.responsePass2 == null ) {
       // Check All Field Is Not Empty
       if ( 
-        (_modelSignUp.controlPhoneNums.text.isNotEmpty || _modelSignUp.controlEmails.text.isNotEmpty) &&
-        _modelSignUp.controlConfirmPassword.text.isNotEmpty &&
-        _modelSignUp.controlConfirmPassword.text.isNotEmpty
+        (_signUpM.controlPhoneNums.text.isNotEmpty || _signUpM.controlEmails.text.isNotEmpty) &&
+        _signUpM.controlConfirmPassword.text.isNotEmpty &&
+        _signUpM.controlConfirmPassword.text.isNotEmpty
       ) {
         comparePassword();
       }
     }
     // Disable Button
     else {
-      if (_modelSignUp.enable) setState(() => _modelSignUp.enable = false);
+      if (_signUpM.enable) setState(() => _signUpM.enable = false);
     }
   }
 
   void comparePassword(){
-    if (_modelSignUp.controlConfirmPassword.text == _modelSignUp.controlPassword.text) { 
-      _modelSignUp.responsePass2 = null;
+    if (_signUpM.controlConfirmPassword.text == _signUpM.controlPassword.text) { 
+      _signUpM.responsePass2 = null;
       // Enable Button
-      if (_modelSignUp.enable == false) setState(() => _modelSignUp.enable = true);
+      if (_signUpM.enable == false) setState(() => _signUpM.enable = true);
     } else {
       // Disable Button
-      _modelSignUp.responsePass2 = "Password does not match";
-      if (_modelSignUp.enable == true) setState(() => _modelSignUp.enable = false);
+      _signUpM.responsePass2 = "Password does not match";
+      if (_signUpM.enable == true) setState(() => _signUpM.enable = false);
     }
   }
 
@@ -108,15 +108,15 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   void showPassword(){
     Timer(
       Duration(milliseconds: 200), (){
-        if (_modelSignUp.nodePassword.hasFocus) {
+        if (_signUpM.nodePassword.hasFocus) {
           setState(() {
-            if (_modelSignUp.hidePassword1 == false) _modelSignUp.hidePassword1 = true;
-            else _modelSignUp.hidePassword1 = false;
+            if (_signUpM.hidePassword1 == false) _signUpM.hidePassword1 = true;
+            else _signUpM.hidePassword1 = false;
           });
-        } else if (_modelSignUp.nodeConfirmPassword.hasFocus){
+        } else if (_signUpM.nodeConfirmPassword.hasFocus){
           setState(() {
-            if (_modelSignUp.hidePassword2 == false) _modelSignUp.hidePassword2 = true;
-            else _modelSignUp.hidePassword2 = false;
+            if (_signUpM.hidePassword2 == false) _signUpM.hidePassword2 = true;
+            else _signUpM.hidePassword2 = false;
           });
         } 
       }
@@ -125,75 +125,97 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
 
   void tabBarSelectChanged(int index) {
     if ( index == 1 ){
-      _modelSignUp.controlPhoneNums.clear();
-      _modelSignUp.nodePhoneNums.unfocus();
+      _signUpM.controlPhoneNums.clear();
+      _signUpM.nodePhoneNums.unfocus();
       setState(() { /* Disable Button */
-        _modelSignUp.enable = false;
+        _signUpM.enable = false;
       });
-      _modelSignUp.label = "email";
+      _signUpM.label = "email";
     } else {
-      _modelSignUp.controlEmails.clear();
-      _modelSignUp.nodeEmails.unfocus();
+      _signUpM.controlEmails.clear();
+      _signUpM.nodeEmails.unfocus();
       setState(() { /* Disable Button */
-        _modelSignUp.enable = false;
+        _signUpM.enable = false;
       });
-      _modelSignUp.label = "phone";
+      _signUpM.label = "phone";
     }
     setState(() {});
+  }
+
+  void timeCounter(Timer timer) async {
+    // Assign Timer Number Counter To myNumCount Variable
+    AppServices.myNumCount = timer.tick;
+    // Cancel Timer When Rest Api Successfully
+    if (_backend.response != null) timer.cancel();
+    // Display TimeOut With SnackBar When Over 10 Second
+    if (AppServices.myNumCount == 10) {
+      Navigator.pop(context);
+      // globalKey.currentState.showSnackBar();
+      snackBar(_signUpM.globalKey, "Connection timed out");
+    }
   }
 
   /* -------------- Submit --------------- */
 
   // Navigate To Fill User Info
   void submit() async { 
+    
+    // Time Out Handler
+    AppServices.timerOutHandler(_backend.response, timeCounter);
 
     // Display Dialog Loading
     dialogLoading(context);
 
     try{
       // Post Register By Email
-      if (_modelSignUp.label == "email") { 
+      if (_signUpM.label == "email") { 
         await registerByEmail();
       }
       // Post Register By Phone Number
       else { 
         await registerByPhoneNumber();
       }
-    } catch (e){
-      await Future.delayed(Duration(milliseconds: 300), () { });
-      AppServices.openSnackBar(_modelSignUp.globalKey, e.message);
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+    } catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
     }
   }
 
   // Register By Email
   Future<void> registerByEmail() async {
 
-    await _postRequest.registerByEmail(_modelSignUp.controlEmails.text,  _modelSignUp.controlConfirmPassword.text).then((value) async {
+    await _postRequest.registerByEmail(_signUpM.controlEmails.text,  _signUpM.controlConfirmPassword.text).then((value) async {
 
-      _backend.response = value;
-      if (_backend.response != null) {
-        // Navigator.pop(context);
-        _backend.mapData = json.decode(_backend.response.body);
-      }
-      // Navigator Route
-      await navigator();
+      if (AppServices.myNumCount < 10) { 
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
+        }
+        // Navigator Route
+        await navigator();
+      } 
+      
     });
   }
 
   // Register By Phone Number
   Future<void> registerByPhoneNumber() async {
 
-    await _postRequest.registerByPhone(_modelSignUp.controlPhoneNums.text, _modelSignUp.controlConfirmPassword.text).then((value) async {
-      // if (AppServices.myNumCount < 10) {
+    await _postRequest.registerByPhone(_signUpM.controlPhoneNums.text, _signUpM.controlConfirmPassword.text).then((value) async {
+      if (AppServices.myNumCount < 10) {
+        if (AppServices.myNumCount < 10) { 
+          _backend.response = value;
+          if (_backend.response != null) {
+            // Navigator.pop(context);
+            _backend.mapData = json.decode(_backend.response.body);
+          }
+          // Navigator Route
+          await navigator();
+        } 
         
-      // }
-      _backend.response = value;
-      if (_backend.response != null) {
-        // Navigator.pop(context);
-        _backend.mapData = json.decode(_backend.response.body);
       }
-      // Navigator Route
-      await navigator();
     });
   }
 
@@ -223,7 +245,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SmsCodeVerify(_modelSignUp.controlPhoneNums.text, _modelSignUp.controlConfirmPassword.text, _backend.mapData)
+                  builder: (context) => SmsCodeVerify(_signUpM.controlPhoneNums.text, _signUpM.controlConfirmPassword.text, _backend.mapData)
                 )
               );
             });
@@ -244,7 +266,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
 
   // Send Message After Register
   Future<http.Response> resendOtpCode() async {
-    return await _postRequest.resendCode(_modelSignUp.controlPhoneNums.text);
+    return await _postRequest.resendCode(_signUpM.controlPhoneNums.text);
   }
 
   Future<void> clearFocusInput() async {
@@ -255,13 +277,13 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   
   Widget build(BuildContext context) { /* User Sign Up Build */
     return Scaffold(
-      key: _modelSignUp.globalKey,
+      key: _signUpM.globalKey,
       body: DefaultTabController(
         initialIndex: 0,
         length: 2,
         child: BodyScaffold(
           child: SignUpBody(
-            modelSignUp: _modelSignUp,
+            modelSignUp: _signUpM,
             validateInput: validateInput,
             validatePassword: validatePass1,
             validateCfPassword: validatePass2,

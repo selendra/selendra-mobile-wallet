@@ -56,6 +56,8 @@ class MySplashScreenState extends State<MySplashScreen>{
       });
     } on SocketException catch (e) {
       await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+    } catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
     }
   }
 
@@ -66,34 +68,40 @@ class MySplashScreenState extends State<MySplashScreen>{
     } catch (err) {}
   }
 
+  // Time Out Handler Method
   void timeCounter(Timer timer) async {
+    
     // Assign Timer Number Counter To myNumCount Variable
     AppServices.myNumCount = timer.tick;
+
     // Cancel Timer When Rest Api Successfully
     if (_backend.response != null) timer.cancel();
+
     // Display TimeOut With SnackBar When Over 10 Second
     if (AppServices.myNumCount == 10) {
-      await dialog(context, Text("Connection timed out", textAlign: TextAlign.center), Text("Message"));
-
-      Navigator.pushReplacement(
-        context, 
-        MaterialPageRoute(builder: (context) => Login())
-      );
+      Navigator.pop(context);
+      _globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
     }
   }
 
   Future<void> navigator() async {
-    if (_backend.mapData != null) {
 
-      AppServices.timerOutHandler(_backend.response, timeCounter);    
-      // Get Request To Check Expired Token
-      await _getRequest.checkExpiredToken().then((value) async {
-        // Execute Statement If Rest Api Under 10 Second
-        if (AppServices.myNumCount < 10){
-          // Assign Promise Data To Vairable
-          _backend.response = value;
-          // Convert String To Object
+    // Processing Time Out Handler Method
+    AppServices.timerOutHandler(_backend.response, timeCounter);
+
+    await _getRequest.checkExpiredToken().then((value) async {
+
+      // Execute Statement If Rest Api Under 10 Second
+      if (AppServices.myNumCount < 10){
+
+        // Assign Promise Data To Vairable
+        _backend.response = value;
+
+        // Convert String To Object
+        if (_backend.response != null){
+          
           _backend.mapData = json.decode(_backend.response.body);
+
           // Check Expired Token
           if (_backend.response.statusCode == 200) { 
             await Future.delayed(Duration(seconds: 4), (){
@@ -103,6 +111,7 @@ class MySplashScreenState extends State<MySplashScreen>{
               );
             });
           }
+
           // Reset isLoggedIn True -> False Cause Token Expired 
           else if (_backend.response.statusCode == 401) {
             await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
@@ -114,22 +123,30 @@ class MySplashScreenState extends State<MySplashScreen>{
               MaterialPageRoute(builder: (context) => Login())
             );
           }
+        // No Previous Login Or Token Expired
+        }  else {
+          await Future.delayed(Duration(seconds: 4), (){
+            Navigator.pushReplacement(
+              context, 
+              MaterialPageRoute(builder: (context) => SlideBuilder())
+            );
+          });
         }
-      });
-      
-    } else {
       // No Previous Login Or Token Expired
-      await Future.delayed(Duration(seconds: 4), (){
+      } else {
+        await dialog(context, Text("Something wrong with connection"), Text("Message"));
+
         Navigator.pushReplacement(
           context, 
           MaterialPageRoute(builder: (context) => SlideBuilder())
-        );
-      });
-    }
+        );      }
+    });
+    
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _globalKey,
       backgroundColor: hexaCodeToColor(AppColors.bgdColor),
       body: Align(
         alignment: Alignment.center,

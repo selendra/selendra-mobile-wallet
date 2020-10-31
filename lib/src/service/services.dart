@@ -78,9 +78,9 @@ class AppServices {
     return Map<String, dynamic>.unmodifiable({});
   }
   
-  static void timerOutHandler(http.Response res, Function counter) async {
+  static void timerOutHandler(http.Response res, Function timeCounter) async {
     Timer.periodic(Duration(seconds: 1), (Timer timer){
-      if (timer.tick <= 10) counter(timer);
+      if (timer.tick <= 10) timeCounter(timer);
       else if (timer.tick > 10) timer.cancel();
     });
   }

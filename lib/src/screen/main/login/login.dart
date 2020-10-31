@@ -144,10 +144,11 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         await loginByPhone();
       }
     } on SocketException catch (e) {
-      print("Error ${e.message}");
       await Future.delayed(Duration(milliseconds: 300), () { });
       AppServices.openSnackBar(globalKey, e.message);
-    } catch (e) {}
+    } catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+    }
   }
 
   void timeCounter(Timer timer) async {
@@ -164,12 +165,9 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   }
 
   Future<void> loginByPhone() async {
-
-    print(AppServices.myNumCount);
     
     // Rest Api
     await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text).then((value) async {
-      print("Requesting");
       // Do Below Statement When Rest Api Successfully Under 10 seconds
       if (AppServices.myNumCount < 10) {
         _backend.response = value;

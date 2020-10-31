@@ -14,7 +14,7 @@ class UserInfo extends StatefulWidget {
 
 class UserInfoState extends State<UserInfo> {
   
-  ModelUserInfo _modelUserInfo = ModelUserInfo();
+  ModelUserInfo _userInfoM = ModelUserInfo();
 
   PostRequest _postRequest = PostRequest();
 
@@ -22,7 +22,7 @@ class UserInfoState extends State<UserInfo> {
 
   @override
   void initState() {
-    AppServices.noInternetConnection(_modelUserInfo.globalKey);
+    AppServices.noInternetConnection(_userInfoM.globalKey);
     /* If Registering Account */
     // if (widget.passwords != null) getToken();
     super.initState();
@@ -31,10 +31,10 @@ class UserInfoState extends State<UserInfo> {
   @override
   void dispose() {
     /* Clear Everything When Pop Screen */
-    _modelUserInfo.controlFirstName.clear();
-    _modelUserInfo.controlMidName.clear();
-    _modelUserInfo.controlLastName.clear();
-    _modelUserInfo.enable = false;
+    _userInfoM.controlFirstName.clear();
+    _userInfoM.controlMidName.clear();
+    _userInfoM.controlLastName.clear();
+    _userInfoM.enable = false;
     super.dispose();
   }
 
@@ -57,115 +57,148 @@ class UserInfoState extends State<UserInfo> {
 
   /* Change Select Gender */
   void changeGender(String gender) async {
-    _modelUserInfo.genderLabel = gender;
+    _userInfoM.genderLabel = gender;
     setState((){
       if (gender == "Male")
-        _modelUserInfo.gender = "M";
+        _userInfoM.gender = "M";
       else
-        _modelUserInfo.gender = "F";
+        _userInfoM.gender = "F";
     });
     await Future.delayed(Duration(milliseconds: 100), () {
       setState(() {
         /* Unfocus All Field */
-        if (_modelUserInfo.gender != null)
+        if (_userInfoM.gender != null)
           enableButton(); /* Enable Button If User Set Gender */
-        _modelUserInfo.nodeFirstName.unfocus();
-        _modelUserInfo.nodeMidName.unfocus();
-        _modelUserInfo.nodeLastName.unfocus();
+        _userInfoM.nodeFirstName.unfocus();
+        _userInfoM.nodeMidName.unfocus();
+        _userInfoM.nodeLastName.unfocus();
       });
     });
   }
 
   void onSubmit() {
-    if (_modelUserInfo.nodeFirstName.hasFocus) {
-      FocusScope.of(context).requestFocus(_modelUserInfo.nodeMidName);
-    } else if (_modelUserInfo.nodeMidName.hasFocus) {
-      FocusScope.of(context).requestFocus(_modelUserInfo.nodeLastName);
+    if (_userInfoM.nodeFirstName.hasFocus) {
+      FocusScope.of(context).requestFocus(_userInfoM.nodeMidName);
+    } else if (_userInfoM.nodeMidName.hasFocus) {
+      FocusScope.of(context).requestFocus(_userInfoM.nodeLastName);
     } else {
-      _modelUserInfo.nodeFirstName.unfocus();
-      _modelUserInfo.nodeMidName.unfocus();
-      _modelUserInfo.nodeLastName.unfocus();
+      _userInfoM.nodeFirstName.unfocus();
+      _userInfoM.nodeMidName.unfocus();
+      _userInfoM.nodeLastName.unfocus();
     }
   }
 
   void onChanged(String value) {
-    _modelUserInfo.formStateAddUserInfo.currentState.validate();
+    _userInfoM.formStateAddUserInfo.currentState.validate();
   }
 
   String validateFirstName(String value) {
-    if (_modelUserInfo.nodeFirstName.hasFocus) {
-      _modelUserInfo.responseFirstname =
+    if (_userInfoM.nodeFirstName.hasFocus) {
+      _userInfoM.responseFirstname =
           instanceValidate.validateUserInfo(value);
-      if (_modelUserInfo.responseFirstname == null)
+      if (_userInfoM.responseFirstname == null)
         return null;
       else
-        _modelUserInfo.responseFirstname += "first name";
+        _userInfoM.responseFirstname += "first name";
     }
-    return _modelUserInfo.responseFirstname;
+    return _userInfoM.responseFirstname;
   }
 
   String validateMidName(String value) {
-    if (_modelUserInfo.nodeMidName.hasFocus) {
-      _modelUserInfo.responseMidname = instanceValidate.validateUserInfo(value);
-      if (_modelUserInfo.responseMidname == null)
+    if (_userInfoM.nodeMidName.hasFocus) {
+      _userInfoM.responseMidname = instanceValidate.validateUserInfo(value);
+      if (_userInfoM.responseMidname == null)
         return null;
       else
-        _modelUserInfo.responseMidname += "mid name";
+        _userInfoM.responseMidname += "mid name";
     }
-    return _modelUserInfo.responseMidname;
+    return _userInfoM.responseMidname;
   }
 
   String validateLastName(String value) {
-    if (_modelUserInfo.nodeLastName.hasFocus) {
-      _modelUserInfo.responseLastname =
+    if (_userInfoM.nodeLastName.hasFocus) {
+      _userInfoM.responseLastname =
           instanceValidate.validateUserInfo(value);
-      if (_modelUserInfo.responseLastname == null)
+      if (_userInfoM.responseLastname == null)
         return null;
       else
-        _modelUserInfo.responseLastname += "last name";
+        _userInfoM.responseLastname += "last name";
     }
-    return _modelUserInfo.responseLastname;
+    return _userInfoM.responseLastname;
+  }
+
+  // Time Out Handler Method
+  void timeCounter(Timer timer) async {
+    
+    // Assign Timer Number Counter To myNumCount Variable
+    AppServices.myNumCount = timer.tick;
+
+    // Cancel Timer When Rest Api Successfully
+    if (_backend.response != null) timer.cancel();
+
+    // Display TimeOut With SnackBar When Over 10 Second
+    if (AppServices.myNumCount == 10) {
+      Navigator.pop(context);
+      _userInfoM.globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+    }
   }
 
   // Submit Profile User
   void submitProfile() async {
+
+    // Processing Time Out Handler Method
+    AppServices.timerOutHandler(_backend.response, timeCounter);
+
+    // Show Loading Process
+    dialogLoading(context); 
+
     try{
-      // Show Loading Process
-      dialogLoading(context); 
       // Post Request Submit Profile
-      _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
-      // Convert String To Object
-      _backend.mapData = json.decode(_backend.response.body);
-      // Close Loading Process
-      Navigator.pop(context);
-      if (_backend.response != null && _backend.mapData['token'] == null) {
-        // Set Profile Success
-        await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: hexaCodeToColor(AppColors.greenColor)));        
-        if (widget.passwords != null) {
-          // Clear Storage
-          AppServices.clearStorage();
-          // Remove All Screen And Push Login Screen
-          await Future.delayed(Duration(microseconds: 500), () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => Login()),
-              ModalRoute.withName('/')
-            );
-          });
-        } else {
-          await Future.delayed(Duration(microseconds: 500), () {
-            Navigator.pop(
-              context,
-            );
-          });
+      await _postRequest.uploadProfile(_userInfoM).then((value) async {
+
+        if (AppServices.myNumCount < 10){
+          _backend.response = value;
+
+          if (_backend.response != null){
+
+            // Convert String To Object
+            _backend.mapData = json.decode(_backend.response.body);
+
+            // Close Loading Process
+            Navigator.pop(context);
+            if (_backend.response != null && _backend.mapData['token'] == null) {
+              // Set Profile Success
+              await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: hexaCodeToColor(AppColors.greenColor)));        
+              if (widget.passwords != null) {
+                // Clear Storage
+                AppServices.clearStorage();
+                // Remove All Screen And Push Login Screen
+                await Future.delayed(Duration(microseconds: 500), () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                    ModalRoute.withName('/')
+                  );
+                });
+              } else {
+                await Future.delayed(Duration(microseconds: 500), () {
+                  Navigator.pop(context);
+                });
+              }
+            } else {
+              await dialog(context, Text("${_backend.mapData}"), Text("Message"));
+              Navigator.pop(context);
+            }
+
+          }
         }
-      } else {
-        await dialog(context, Text("${_backend.mapData}"), Text("Message"));
-        Navigator.pop(context);
-      }
+      });
+    }  on SocketException catch (e){
+      await Future.delayed(Duration(milliseconds: 300), () { });
+      AppServices.openSnackBar(_userInfoM.globalKey, e.message);
     } catch (e){
-      await dialog(context, Text("${_backend.mapData['error']}"), Text("Message"));
-    }
+      await dialog(context, Text("${e.message}"), Text("Message"));
+    } 
   }
 
   PopupMenuItem item(Map<String, dynamic> list) {
@@ -175,15 +208,15 @@ class UserInfoState extends State<UserInfo> {
     );
   }
 
-  void enableButton() => _modelUserInfo.enable = true;
+  void enableButton() => _userInfoM.enable = true;
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _modelUserInfo.globalKey,
+      key: _userInfoM.globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: UserInfoBody(
-          modelUserInfo: _modelUserInfo,
+          modelUserInfo: _userInfoM,
           onSubmit: onSubmit,
           onChanged: onChanged,
           changeGender: changeGender,

@@ -11,7 +11,7 @@ class FingerPrint extends StatefulWidget {
 
 class _FingerPrintState extends State<FingerPrint> {
 
-  Widget screen = Welcome();
+  Widget screen = SlideBuilder();
 
   GetRequest _getRequest = GetRequest();
 
@@ -25,8 +25,11 @@ class _FingerPrintState extends State<FingerPrint> {
 
   List<BiometricType> _availableBio = List<BiometricType>();
 
+  GlobalKey<ScaffoldState> globalkey;
+
   @override
   void initState() {
+    globalkey = GlobalKey<ScaffoldState>();
     authenticate();
     super.initState();
   }
@@ -71,7 +74,7 @@ class _FingerPrintState extends State<FingerPrint> {
       // Open Loading
       dialogLoading(context);
       if (authenticate){
-        await checkExpiredToken();
+        await tokenChecker();
       } else {
         // Close Loading
         Navigator.pop(context);
@@ -81,42 +84,101 @@ class _FingerPrintState extends State<FingerPrint> {
       }
     } on PlatformException catch (e){ }
 
-    if (authenticate) {
-      Navigator.pushReplacement(
-        context, 
-        MaterialPageRoute(builder: (context) => screen)
-      );
-    }
+    // if (authenticate) {
+    //   print("Hello navigation");
+    //   Navigator.pushReplacement(
+    //     context, 
+    //     MaterialPageRoute(builder: (context) => screen)
+    //   );
+    // }
 
   }
 
-  Future<void> checkExpiredToken() async { /* Check For Previous Login */
-    try {
-      _backend.response = await _getRequest.checkExpiredToken();
-      // Close Loading
+  // Time Out Handler Method
+  void timeCounter(Timer timer) async {
+
+    print(timer.tick);
+    
+    // Assign Timer Number Counter To myNumCount Variable
+    AppServices.myNumCount = timer.tick;
+
+    // Cancel Timer When Rest Api Successfully
+    if (_backend.response != null) timer.cancel();
+
+    // Display TimeOut With SnackBar When Over 10 Second
+    if (AppServices.myNumCount == 10) {
       Navigator.pop(context);
-      // Convert String To Object
-      _backend.mapData = json.decode(_backend.response.body);
-      // Check Expired Token
-      if (_backend.response.statusCode == 200) {
-        screen = Home();
-      } 
-      // Reset isLoggedIn True -> False Cause Token Expired
-      else if (_backend.response.statusCode== 401) {
-        await dialog(context, Text('${_backend.mapData['error']['message']}', textAlign: TextAlign.center), Text("Message"));
+      globalkey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+    }
+  }
+
+  Future<void> tokenChecker() async {
+
+    // Processing Time Out Handler Method
+    AppServices.timerOutHandler(_backend.response, timeCounter);
+
+    await _getRequest.checkExpiredToken().then((value) async {
+
+      print(value);
+
+      // Execute Statement If Rest Api Under 10 Second
+      if (AppServices.myNumCount < 10){
+
+        // Assign Promise Data To Vairable
+        _backend.response = value;
+
+        // Convert String To Object
+        if (_backend.response != null){
+          
+          _backend.mapData = json.decode(_backend.response.body);
+
+          // Check Expired Token
+          if (_backend.response.statusCode == 200) { 
+            await Future.delayed(Duration(seconds: 4), (){
+              Navigator.pushReplacement(
+                context, 
+                MaterialPageRoute(builder: (context) => Home())
+              );
+            });
+          }
+
+          // Reset isLoggedIn True -> False Cause Token Expired 
+          else if (_backend.response.statusCode == 401) {
+            await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
+            // Remove Key Token
+            StorageServices.removeKey('user_token');
+            // Navigate To Login
+            Navigator.pushReplacement(
+              context, 
+              MaterialPageRoute(builder: (context) => Login())
+            );
+          }
+        // No Previous Login Or Token Expired
+        }  else {
+          await Future.delayed(Duration(seconds: 4), (){
+            Navigator.pushReplacement(
+              context, 
+              MaterialPageRoute(builder: (context) => SlideBuilder())
+            );
+          });
+        }
+      // No Previous Login Or Token Expired
+      } else {
+        await dialog(context, Text("Something wrong with connection"), Text("Message"));
+
         Navigator.pushReplacement(
           context, 
-          MaterialPageRoute(builder: (context) => Login())
-        );
+          MaterialPageRoute(builder: (context) => SlideBuilder())
+        );      
       }
-    } on SocketException catch (e) {
-      await dialog(context, Text("${e.message}"), Text("Message"));
-    }
+    });
+    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalkey,
       body: GestureDetector(
         onTap: (){
           setState(() {

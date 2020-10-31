@@ -32,40 +32,46 @@ class HomeBody extends StatelessWidget{
           child: Stack(
             children: [
 
-              // if (portfolioData == null) Container(
-              //   height: MediaQuery.of(context).size.height,
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
+              if (portfolioData == null) Container(
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
 
-              //       Expanded(
-              //         child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: [
-              //             SvgPicture.asset('assets/no_data.svg', width: 200, height: 200),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/no_data.svg', width: 200, height: 200),
+                          
+                          MyFlatButton(
+                            edgeMargin: EdgeInsets.only(top: 50),
+                            width: 200,
+                            textButton: "Get wallet",
+                            action: getWallet,
+                          )
                     
-              //             GestureDetector(
-              //               onTap: (){
-              //                 getWallet(context);
-              //               },
-              //               child: MyText(
-              //                 text: "Get wallet",
-              //                 fontSize: 25,
-              //                 color: AppColors.secondary_text,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             )
-              //           ],
-              //         ),
-              //       )
-              //     ],
-              //   ),
-              // )
+                          // GestureDetector(
+                          //   onTap: (){
+                          //     getWallet();
+                          //   },
+                          //   child: MyText(
+                          //     text: "Get wallet",
+                          //     fontSize: 25,
+                          //     color: AppColors.secondary_text,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
 
-              // else if (portfolioData.length == 0) loading()
+              else if (portfolioData.length == 0) loading()
 
-              // else 
-              SingleChildScrollView(
+              else SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
 

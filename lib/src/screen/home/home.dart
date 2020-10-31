@@ -11,7 +11,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   
   MenuModel menuModel = MenuModel();
 
-  HomeModel _homeModel = HomeModel();
+  HomeModel _homeM = HomeModel();
   
   PostRequest _postRequest = PostRequest();
 
@@ -29,15 +29,16 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   initState() { /* Initialize State */
+    _homeM.portfolioList = null;
     if(mounted) {
-      _homeModel.result = {};
-      _homeModel.globalKey = GlobalKey<ScaffoldState>();
-      _homeModel.total = 0;
-      _homeModel.circularChart = [
-        CircularSegmentEntry(_homeModel.emptyChartData, hexaCodeToColor(AppColors.cardColor))
+      _homeM.result = {};
+      _homeM.globalKey = GlobalKey<ScaffoldState>();
+      _homeM.total = 0;
+      _homeM.circularChart = [
+        CircularSegmentEntry(_homeM.emptyChartData, hexaCodeToColor(AppColors.cardColor))
       ];
-      AppServices.noInternetConnection(_homeModel.globalKey);
-      _homeModel.userData = {};
+      AppServices.noInternetConnection(_homeM.globalKey);
+      _homeM.userData = {};
       /* User Profile */
       // getUserData();
       // fetchPortfolio();
@@ -69,10 +70,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   // Initialize Fabs Animation
   void fabsAnimation(){ 
-    _homeModel.animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
-    _homeModel.degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_homeModel.animationController);
+    _homeM.animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+    _homeM.degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_homeM.animationController);
     setState((){});
-    _homeModel.animationController.addListener(() {
+    _homeM.animationController.addListener(() {
       setState(() {
         
       });
@@ -82,9 +83,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   void opacityController(bool visible){
     setState(() {
       if (visible){ 
-        _homeModel.visible = false;
+        _homeM.visible = false;
       } else  if (visible == false) {
-        _homeModel.visible = true;
+        _homeM.visible = true;
       }
     });
   }
@@ -109,9 +110,9 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     await _getRequest.getUserProfile().then((data) {
       setState(() {
         if (data == null)
-          _homeModel.userData = {};
+          _homeM.userData = {};
         else
-          _homeModel.userData = data;
+          _homeM.userData = data;
       });
     });
   }
@@ -128,7 +129,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     
     await Future.delayed(Duration(milliseconds: 10),(){
       setState(() {
-        _homeModel.portfolioList = [];
+        _homeM.portfolioList = [];
       });
     });
 
@@ -146,10 +147,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       }
 
       setState(() {
-        _homeModel.portfolioList = _portfolio.list;
+        _homeM.portfolioList = _portfolio.list;
       });
-      StorageServices.setData(_homeModel.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
-      resetDataPieChart(_homeModel.portfolioList); 
+      StorageServices.setData(_homeM.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
+      resetDataPieChart(_homeM.portfolioList); 
     } catch (e){
       await dialog(
         context, 
@@ -166,7 +167,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       );
       print("Null");
       setState(() {
-        _homeModel.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
+        _homeM.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
       });
     }
   }
@@ -175,36 +176,36 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   void resetDataPieChart(List<dynamic> portfolio){
     
-    if (_homeModel.portfolioList.length != 0){
+    if (_homeM.portfolioList.length != 0){
       
-      _homeModel.total = 0.0;
+      _homeM.total = 0.0;
 
-      _homeModel.circularChart.clear(); // Clear Pie Data
+      _homeM.circularChart.clear(); // Clear Pie Data
 
-      for (int i = 0; i < _homeModel.portfolioList.length; i++){
+      for (int i = 0; i < _homeM.portfolioList.length; i++){
         // Add Total
-        _homeModel.total += json.decode(_homeModel.portfolioList[i]['balance']);
+        _homeM.total += json.decode(_homeM.portfolioList[i]['balance']);
         
-        _homeModel.circularChart.add( //Add More Data Follow Portfolio
+        _homeM.circularChart.add( //Add More Data Follow Portfolio
           CircularSegmentEntry(
-            json.decode(_homeModel.portfolioList[i]['balance']),
+            json.decode(_homeM.portfolioList[i]['balance']),
             hexaCodeToColor(AppColors.secondary)
           )
         );
       }
-      _homeModel.emptyChartData -= _homeModel.total;
-      _homeModel.circularChart.add( // Add Remain Empty Data
+      _homeM.emptyChartData -= _homeM.total;
+      _homeM.circularChart.add( // Add Remain Empty Data
         CircularSegmentEntry(
-          _homeModel.emptyChartData,
+          _homeM.emptyChartData,
           hexaCodeToColor(AppColors.cardColor)
         )
       );
 
-      _homeModel.chartKey.currentState.updateData([
-        CircularStackEntry(_homeModel.circularChart)
+      _homeM.chartKey.currentState.updateData([
+        CircularStackEntry(_homeM.circularChart)
       ]);
 
-      _homeModel.emptyChartData = 100.0; // Reset Remain Pie Data
+      _homeM.emptyChartData = 100.0; // Reset Remain Pie Data
     }
   }
   
@@ -241,11 +242,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   // Refech Data User And Portfolio
   _pullUpRefresh() async { 
     setState(() {
-      _homeModel.portfolioList = [];
+      _homeM.portfolioList = [];
     });
     fetchPortfolio();
     getUserData();
-    _homeModel.refreshController.refreshCompleted();
+    _homeM.refreshController.refreshCompleted();
   }
 
   Future<dynamic> cropImageCamera(BuildContext context) async {
@@ -290,70 +291,25 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       );
     } catch (e) {
       await Future.delayed(Duration(milliseconds: 300), () { });
-      AppServices.openSnackBar(_homeModel.globalKey, e.message);
+      AppServices.openSnackBar(_homeM.globalKey, e.message);
     }
   }
 
-  // Future<void> createPin(BuildContext context) async { /* Set PIN Dialog */
-  //   menuModel.result = await showDialog(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: 
-  //     menuModel.result['pin'] == '' ? /* If PIN Not Yet Set */
-  //     (BuildContext context) {
-  //       return Material(
-  //         color: Colors.transparent,
-  //         child: disableNativePopBackButton(SetPinDialog(menuModel.result['error']))
-  //       );
-  //     } :
-  //     menuModel.result['confirm'] == '' ? /* Set PIN Done And Then Set Confirm Pin */
-  //     (BuildContext context) {
-  //       return Material(
-  //         color: Colors.transparent,
-  //         child: disableNativePopBackButton(SetConfirmPin(menuModel.result['pin'])),
-  //       );
-  //     } :
-  //     (BuildContext context) { /* Comfirm PIN Success Shower Dialog Of Private Key */
-  //       return Material(
-  //         color: Colors.transparent,
-  //         child: WillPopScope(
-  //           onWillPop: () async => await Future(() => false),
-  //           child: disableNativePopBackButton(PrivateKeyDialog(Map<String, dynamic>.from(menuModel.result))),
-  //         ),
-  //       );
-  //     }
-  //   );
-    
-  //   if (menuModel.result['response'].isNotEmpty){/* From Set PIN Widget */
-  //     if (menuModel.result["dialog_name"] == 'Pin'){
-  //       // menuModel.result['pin'] = menuModel.['pin'];
-  //       createPin(context); /* callBack */
-  //     } else 
-  //     if (menuModel.result["dialog_name"] == 'confirmPin'){ /* From Set Confirm PIN Widget */
-  //       if (menuModel.result['compare'] == false) {
-  //         menuModel.result['pin'] = '';
-  //         menuModel.result['error'] = "PIN does not match"; /* Enable Error Text*/
-  //         createPin(context); /* callBack */
-  //       } else if (menuModel.result["compare"] == true){
-  //         menuModel.result['confirm'] = '';
-  //         await Future.delayed(Duration(milliseconds: 200), () { /* Wait A Bit and Call setPinGetWallet Function Again */
-  //           createPin(context); /* callBack */
-  //         });
-  //       }
-  //     } else { /* Success Set PIN And Push SnackBar */
-  //       menuModel.result['pin'] = ""; /* Reset Pin Confirm PIN And Result To Empty */
-  //       menuModel.result['confirm'] = "";
-  //       snackBar(menuModel.globalKey, menuModel.result['message']); /* Copy Private Key Success And Show Message From Bottom */
-  //     }
-  //   } else { /* Reset Pin Confirm PIN And Result To Empty */
-  //     menuModel.result['pin'] = "";  
-  //     menuModel.result['confirm'] = "";
-  //   }
-  // }
+  Future<void> createPin() async { /* Set PIN Dialog */
+    _homeM.result = await Navigator.push(
+      context, MaterialPageRoute(
+        builder: (context) => Pin()
+      )
+    );
+
+    if (_homeM.result != null){
+      snackBar(_homeM.globalKey, "Successfully copy!Please keep your private key to safe place");
+    }
+  }
 
   void resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
     setState(() {
-      _homeModel.portfolioList = [];
+      _homeM.portfolioList = [];
     });
     fetchPortfolio();
     getUserData();
@@ -362,7 +318,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   void toReceiveToken() async { /* Navigate Receive Token */
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ReceiveWallet(homeM: _homeModel)
+        builder: (context) => ReceiveWallet(homeM: _homeM)
       )
     );
     if(Platform.isAndroid) await AndroidPlatform.resetBrightness();
@@ -370,7 +326,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void openMyDrawer(){
-    _homeModel.globalKey.currentState.openDrawer();
+    _homeM.globalKey.currentState.openDrawer();
   }
 
   @override
@@ -379,24 +335,25 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     final bloc = Bloc();
 
     return Scaffold(
-      key: _homeModel.globalKey,
+      key: _homeM.globalKey,
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Colors.transparent
         ),
-        child: Menu(_homeModel.userData, _packageInfo, menuCallBack),
+        child: Menu(_homeM.userData, _packageInfo, menuCallBack),
       ),
 
       body: SmartRefresher(
         physics: BouncingScrollPhysics(),
-        controller: _homeModel.refreshController,
+        controller: _homeM.refreshController,
         child: BodyScaffold(
           height: MediaQuery.of(context).size.height,
           child: HomeBody(
             bloc: bloc,
-            chartKey: _homeModel.chartKey,
-            portfolioData: _homeModel.portfolioList,
-            homeModel: _homeModel,
+            chartKey: _homeM.chartKey,
+            portfolioData: _homeM.portfolioList,
+            getWallet: createPin,
+            homeModel: _homeM,
             // getWallet: createPin,
           )
         ),
@@ -409,7 +366,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           backgroundColor: hexaCodeToColor(AppColors.secondary),
           child: SvgPicture.asset('assets/sld_qr.svg', width: 30, height: 30),
           onPressed: () async {
-            await TrxOptionMethod.scanQR(context, _homeModel.portfolioList, resetState);
+            await TrxOptionMethod.scanQR(context, _homeM.portfolioList, resetState);
           },
         )
       ),
@@ -417,7 +374,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       bottomNavigationBar: MyBottomAppBar( /* Bottom Navigation Bar */
-        model: _homeModel,
+        model: _homeM,
         postRequest: _postRequest,
         scanReceipt: null, // Bottom Center Button
         resetDbdState: resetState,

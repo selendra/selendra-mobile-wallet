@@ -3,6 +3,7 @@ import 'package:wallet_apps/index.dart';
 class SmsCodeModel{
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
   /* Account Confirmation */
   List<String> code = [];

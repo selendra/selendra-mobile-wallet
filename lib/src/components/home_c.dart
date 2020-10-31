@@ -238,23 +238,22 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
       children: <Widget>[
 
         /* Stellar Icons */
-        // ! portfolioData[index].containsKey("asset_code") ? 
-        // MyCircularImage(
-        //   padding: EdgeInsets.all(6),
-        //   margin: EdgeInsets.only(right: 16),
-        //   decoration: BoxDecoration(
-        //     color: hexaCodeToColor(AppColors.secondary),
-        //     borderRadius: BorderRadius.circular(40)
-        //   ),
-        //   imagePath: 'assets/stellar.svg',
-        //   width: 40,
-        //   height: 40,
-        //   colorImage: Colors.white,
-        // )
-
-        // // Another Crypto Images
-        // : 
+        ! portfolioData[index].containsKey("asset_code") ? 
         MyCircularImage(
+          padding: EdgeInsets.all(6),
+          margin: EdgeInsets.only(right: 16),
+          decoration: BoxDecoration(
+            color: hexaCodeToColor(AppColors.secondary),
+            borderRadius: BorderRadius.circular(40)
+          ),
+          imagePath: 'assets/stellar.svg',
+          width: 40,
+          height: 40,
+          colorImage: Colors.white,
+        )
+
+        // Another Crypto Images
+        : MyCircularImage(
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: 16),
           boxColor: AppColors.secondary,
@@ -272,9 +271,9 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
           child: Align(
             alignment: Alignment.centerLeft,
             child: MyText(
-              text: "XLM",//portfolioData[index].containsKey("asset_code")
-              // ? portfolioData[index]["asset_code"]
-              // : "XLM",
+              text: portfolioData[index].containsKey("asset_code")
+              ? portfolioData[index]["asset_code"]
+              : "XLM",
               color: "#EFF0F2",
               fontSize: 16,
             )

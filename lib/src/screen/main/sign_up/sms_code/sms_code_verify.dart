@@ -20,12 +20,13 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
 
   Backend _backend = Backend();
 
-  SmsCodeModel _smsCodeModel = SmsCodeModel();
+  SmsCodeModel _smsCodeM = SmsCodeModel();
 
   int time = 30;
 
   @override
   void initState() {
+    _smsCodeM.node1.requestFocus();
     WidgetsBinding.instance.addObserver(this);
     Timer.periodic(Duration(milliseconds: 1000), runTimer);
     super.initState();
@@ -33,53 +34,53 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
 
   @override
   void dispose() {
-    // _smsCodeModel.nodeSmsCodeVerify.dispose();
+    // _smsCodeM.nodeSmsCodeVerify.dispose();
     WidgetsBinding.instance.removeObserver(this);
     resetAllField();
     super.dispose();
   }
   
   void onChanged(String value) async {
-    if (_smsCodeModel.node1.hasFocus) {
-      if (_smsCodeModel.code.length > 0) _smsCodeModel.code.removeAt(0);
-      _smsCodeModel.code.insert(0, value);
-      // if (_smsCodeModel.code.length == 0) 
-      if(_smsCodeModel.controller1.text != ""){
-        FocusScope.of(context).requestFocus(_smsCodeModel.node2);
+    if (_smsCodeM.node1.hasFocus) {
+      if (_smsCodeM.code.length > 0) _smsCodeM.code.removeAt(0);
+      _smsCodeM.code.insert(0, value);
+      // if (_smsCodeM.code.length == 0) 
+      if(_smsCodeM.controller1.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeM.node2);
       }
     }
-    else if (_smsCodeModel.node2.hasFocus) {
+    else if (_smsCodeM.node2.hasFocus) {
       
-      if (_smsCodeModel.code.length > 1) _smsCodeModel.code.removeAt(1);
-      _smsCodeModel.code.insert(1, value);
-      if (_smsCodeModel.controller2.text != "") {
-        FocusScope.of(context).requestFocus(_smsCodeModel.node3);
+      if (_smsCodeM.code.length > 1) _smsCodeM.code.removeAt(1);
+      _smsCodeM.code.insert(1, value);
+      if (_smsCodeM.controller2.text != "") {
+        FocusScope.of(context).requestFocus(_smsCodeM.node3);
       }
     }
-    else if (_smsCodeModel.node3.hasFocus) {
-      if (_smsCodeModel.code.length > 2) _smsCodeModel.code.removeAt(2);
-      _smsCodeModel.code.insert(2, value);
-      if(_smsCodeModel.controller3.text != ""){
-        FocusScope.of(context).requestFocus(_smsCodeModel.node4);
+    else if (_smsCodeM.node3.hasFocus) {
+      if (_smsCodeM.code.length > 2) _smsCodeM.code.removeAt(2);
+      _smsCodeM.code.insert(2, value);
+      if(_smsCodeM.controller3.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeM.node4);
       }
     }
-    else if (_smsCodeModel.node4.hasFocus) {
-      if (_smsCodeModel.code.length > 3) _smsCodeModel.code.removeAt(3);
-      _smsCodeModel.code.insert(3, value);
-      if(_smsCodeModel.controller4.text != ""){
-        FocusScope.of(context).requestFocus(_smsCodeModel.node5);
+    else if (_smsCodeM.node4.hasFocus) {
+      if (_smsCodeM.code.length > 3) _smsCodeM.code.removeAt(3);
+      _smsCodeM.code.insert(3, value);
+      if(_smsCodeM.controller4.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeM.node5);
       }
     }
-    else if (_smsCodeModel.node5.hasFocus) {
-      if (_smsCodeModel.code.length > 4) _smsCodeModel.code.removeAt(4);
-      _smsCodeModel.code.insert(4, value);
-      if (_smsCodeModel.controller5.text != ""){
-        FocusScope.of(context).requestFocus(_smsCodeModel.node6);
+    else if (_smsCodeM.node5.hasFocus) {
+      if (_smsCodeM.code.length > 4) _smsCodeM.code.removeAt(4);
+      _smsCodeM.code.insert(4, value);
+      if (_smsCodeM.controller5.text != ""){
+        FocusScope.of(context).requestFocus(_smsCodeM.node6);
       }
     }
-    else if (_smsCodeModel.node6.hasFocus) {
-      if (_smsCodeModel.code.length > 5) _smsCodeModel.code.removeAt(5);
-      _smsCodeModel.code.insert(5, value);
+    else if (_smsCodeM.node6.hasFocus) {
+      if (_smsCodeM.code.length > 5) _smsCodeM.code.removeAt(5);
+      _smsCodeM.code.insert(5, value);
       await Future.delayed(Duration(milliseconds: 100), (){
         FocusScope.of(context).unfocus();
       });
@@ -94,7 +95,7 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
       if(time == 0) {
         timer.cancel();
         setState(() {
-        _smsCodeModel.showResendBtn = true;
+        _smsCodeM.showResendBtn = true;
         });
       }
       else {
@@ -110,51 +111,82 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
   void resetTimer() async {
     await _postRequest.resendCode(widget.phoneNumber);
     setState(() {
-      _smsCodeModel.showResendBtn = false;
+      _smsCodeM.showResendBtn = false;
       time = 30;
     });
   }
 
   void onSubmit(BuildContext context) async{  /* Validator User Login After Check Internet */
-    if (_smsCodeModel.enable) submitOtpCode();
+    if (_smsCodeM.enable) submitOtpCode();
+  }
+
+  // Time Out Handler Method
+  void timeCounter(Timer timer) async {
+    print(timer.tick);
+    // Assign Timer Number Counter To myNumCount Variable
+    AppServices.myNumCount = timer.tick;
+    // Cancel Timer When Rest Api Successfully
+    if (_backend.response != null) timer.cancel();
+    // Display TimeOut With SnackBar When Over 10 Second
+    if (AppServices.myNumCount == 10) {
+      Navigator.pop(context);
+      _smsCodeM.globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+    }
   }
 
   void submitOtpCode() async {
+
+    // Processing Time Out Handler Method
+    AppServices.timerOutHandler(_backend.response, timeCounter);
+
     // Display Loading
     dialogLoading(context);
+
     try{
+      
       // Convert Code List To String
-      for(int i = 0; i < _smsCodeModel.code.length; i++){
-        _smsCodeModel.verifyCode += _smsCodeModel.code[i];
+      for(int i = 0; i < _smsCodeM.code.length; i++){
+        _smsCodeM.verifyCode += _smsCodeM.code[i];
       }
+
       // Request API
-      _backend.response = await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeModel);
-      // Covert Data From String to Object
-      _backend.mapData = json.decode(_backend.response.body);
-      if (_backend.response.statusCode == 200){
-        // Set Timer
-        setState(() {
-          time = 0;
-        });
-        if(_backend.mapData.containsKey('error')){
-          // Close Loading
-          Navigator.pop(context);
-          await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
-        } else {
-          // Fetch Pin From Data Storage
-          await StorageServices.fetchData('pin').then((value) {
-            // Post Request Wallet After Verify Phone Number
-            if (value != null) requestWallet(value['pin']);
-            // Go To User Information Screen
-            else Navigator.pushReplacement(
-              context, 
-              MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
-            );
-          });
+      await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeM).then((value) async {
+        if (AppServices.myNumCount < 10) { 
+          _backend.response = value;
+          if (_backend.response != null) {
+            // Navigator.pop(context);
+            _backend.mapData = json.decode(_backend.response.body);
+            if (_backend.response.statusCode == 200){
+              // Set Timer
+              setState(() {
+                time = 0;
+              });
+              if(_backend.mapData.containsKey('error')){
+                // Close Loading
+                Navigator.pop(context);
+                await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
+              } else {
+                // Fetch Pin From Data Storage
+                await StorageServices.fetchData('pin').then((value) {
+                  // Post Request Wallet After Verify Phone Number
+                  if (value != null) requestWallet(value['pin']);
+                  // Go To User Information Screen
+                  else Navigator.pushReplacement(
+                    context, 
+                    MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
+                  );
+                });
+              }
+            }
+            resetAllField();
+
+          }
         }
-      }
-      resetAllField();
-    } catch (e){
+      });
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+    } catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
     }
   }
 
@@ -167,6 +199,7 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
       "confirm_pin": _pin,
       "compare": true,
     });
+
     // Close Loading
     Navigator.pop(context);
 
@@ -174,23 +207,24 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
   }
 
   void resetAllField(){
-    _smsCodeModel.controller1.text = "";
-    _smsCodeModel.controller2.text = "";
-    _smsCodeModel.controller3.text = "";
-    _smsCodeModel.controller4.text = "";
-    _smsCodeModel.controller5.text = "";
-    _smsCodeModel.controller6.text = "";
-    _smsCodeModel.code = [];
-    _smsCodeModel.verifyCode = "";
+    _smsCodeM.controller1.text = "";
+    _smsCodeM.controller2.text = "";
+    _smsCodeM.controller3.text = "";
+    _smsCodeM.controller4.text = "";
+    _smsCodeM.controller5.text = "";
+    _smsCodeM.controller6.text = "";
+    _smsCodeM.code = [];
+    _smsCodeM.verifyCode = "";
   }
 
   Widget build(BuildContext context){
     return Scaffold(
+      key: _smsCodeM.globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: SmsBody(
           time: time, 
-          smsCodeModel: _smsCodeModel,
+          smsCodeModel: _smsCodeM,
           message: widget.message, 
           onChanged: onChanged, 
           onSubmit: onSubmit, 

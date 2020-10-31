@@ -25,7 +25,7 @@ class SmsBody extends StatelessWidget{
       children: <Widget>[
 
         MyAppBar(
-          title: "Verification",
+          title: "Verify sms",
           margin: EdgeInsets.only(bottom: 16.0),
           onPressed: (){
             Navigator.pop(context);
