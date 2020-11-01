@@ -41,9 +41,12 @@ class TrxActivityState extends State<TrxActivity> {
       });
       if (!mounted) return; /* Prevent SetState After Dispose */
       setState(() {});
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message")); 
+      snackBar(_globalKey, e.message.toString());
     } catch (e) {
-      await dialog(context, Text("${e.message}"), Text("Message"));
-    } 
+      await dialog(context, Text(e.message.toString()), Text("Message")); 
+    }
   }
 
   void sortByDate(List _trxHistory){

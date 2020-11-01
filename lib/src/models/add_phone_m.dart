@@ -8,6 +8,8 @@ class AddPhoneModel{
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+
   String validateResponse;
 
   TextEditingController phone = TextEditingController();

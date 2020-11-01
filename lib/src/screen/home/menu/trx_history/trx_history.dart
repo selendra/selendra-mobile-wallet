@@ -73,8 +73,11 @@ class TrxHistoryState extends State<TrxHistory>{
           }
         } 
       });
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message")); 
+      snackBar(_globalKey, e.message.toString());
     } catch (e) {
-      await dialog(context, Text("${e.message}"), Text("Message"));
+      await dialog(context, Text(e.message.toString()), Text("Message")); 
     }
   }
 

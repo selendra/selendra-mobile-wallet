@@ -17,7 +17,7 @@ class SubmitTrx extends StatefulWidget {
 
 class SubmitTrxState extends State<SubmitTrx> {
   
-  ModelScanPay _modelScanPay = ModelScanPay();
+  ModelScanPay _scanPayM = ModelScanPay();
 
   FlareControls flareController = FlareControls();
 
@@ -27,9 +27,9 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   @override
   void initState() {
-    AppServices.noInternetConnection(_modelScanPay.globalKey);
-    _modelScanPay.controlReceiverAddress.text = widget._walletKey;
-    _modelScanPay.portfolio = widget._listPortfolio;
+    AppServices.noInternetConnection(_scanPayM.globalKey);
+    _scanPayM.controlReceiverAddress.text = widget._walletKey;
+    _scanPayM.portfolio = widget._listPortfolio;
     super.initState();
   }
 
@@ -39,16 +39,16 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   void removeAllFocus() {
-    _modelScanPay.nodeAmount.unfocus();
-    _modelScanPay.nodeMemo.unfocus();
+    _scanPayM.nodeAmount.unfocus();
+    _scanPayM.nodeMemo.unfocus();
   }
 
   Future<bool> validateInput() { /* Check User Fill Out ALL */
-    if (_modelScanPay.controlAmount.text != null &&
-        _modelScanPay.controlAmount.text != "" &&
-        _modelScanPay.controlReceiverAddress != null &&
-        _modelScanPay.controlReceiverAddress.text.isNotEmpty &&
-        _modelScanPay.asset != null) {
+    if (_scanPayM.controlAmount.text != null &&
+        _scanPayM.controlAmount.text != "" &&
+        _scanPayM.controlReceiverAddress != null &&
+        _scanPayM.controlReceiverAddress.text.isNotEmpty &&
+        _scanPayM.asset != null) {
       return Future.delayed(Duration(milliseconds: 50), () {
         return true;
       });
@@ -71,54 +71,54 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   String validateWallet(String value){
-    if (_modelScanPay.nodeAmount.hasFocus) {
-      _modelScanPay.responseAmount = instanceValidate.validateSendToken(value);
+    if (_scanPayM.nodeAmount.hasFocus) {
+      _scanPayM.responseAmount = instanceValidate.validateSendToken(value);
       enableButton();
-      if (_modelScanPay.responseAmount != null)
-        return _modelScanPay.responseAmount += "wallet";
+      if (_scanPayM.responseAmount != null)
+        return _scanPayM.responseAmount += "wallet";
     }
-    return _modelScanPay.responseWallet;
+    return _scanPayM.responseWallet;
   }
 
   String validateAmount(String value) {
-    if (_modelScanPay.nodeAmount.hasFocus) {
-      _modelScanPay.responseAmount = instanceValidate.validateSendToken(value);
+    if (_scanPayM.nodeAmount.hasFocus) {
+      _scanPayM.responseAmount = instanceValidate.validateSendToken(value);
       enableButton();
-      if (_modelScanPay.responseAmount != null)
-        return _modelScanPay.responseAmount += "amount";
+      if (_scanPayM.responseAmount != null)
+        return _scanPayM.responseAmount += "amount";
     }
-    return _modelScanPay.responseAmount;
+    return _scanPayM.responseAmount;
   }
 
   String validateMemo(String value) {
-    if (_modelScanPay.nodeMemo.hasFocus) {
-      _modelScanPay.responseMemo = instanceValidate.validateSendToken(value);
+    if (_scanPayM.nodeMemo.hasFocus) {
+      _scanPayM.responseMemo = instanceValidate.validateSendToken(value);
       enableButton();
-      if (_modelScanPay.responseMemo != null)
-        return _modelScanPay.responseMemo += "memo";
+      if (_scanPayM.responseMemo != null)
+        return _scanPayM.responseMemo += "memo";
     }
-    return _modelScanPay.responseMemo;
+    return _scanPayM.responseMemo;
   }
 
   void onChanged(String value) {
-    _modelScanPay.formStateKey.currentState.validate();
+    _scanPayM.formStateKey.currentState.validate();
   }
 
   void onSubmit(BuildContext context) {
-    if (_modelScanPay.nodeReceiverAddress.hasFocus){
-      FocusScope.of(context).requestFocus(_modelScanPay.nodeAmount);
-    } else if (_modelScanPay.nodeAmount.hasFocus) {
-      FocusScope.of(context).requestFocus(_modelScanPay.nodeMemo);
+    if (_scanPayM.nodeReceiverAddress.hasFocus){
+      FocusScope.of(context).requestFocus(_scanPayM.nodeAmount);
+    } else if (_scanPayM.nodeAmount.hasFocus) {
+      FocusScope.of(context).requestFocus(_scanPayM.nodeMemo);
     } else {
-      if (_modelScanPay.enable == true) clickSend();
+      if (_scanPayM.enable == true) clickSend();
     }
   }
 
   void enableButton() {
-    if (_modelScanPay.controlAmount.text != '' && _modelScanPay.asset != null)
-      setState(() => _modelScanPay.enable = true);
-    else if (_modelScanPay.enable == true)
-      setState(() => _modelScanPay.enable = false);
+    if (_scanPayM.controlAmount.text != '' && _scanPayM.asset != null)
+      setState(() => _scanPayM.enable = true);
+    else if (_scanPayM.enable == true)
+      setState(() => _scanPayM.enable = false);
   }
 
   Future enableAnimation(var _response) async {
@@ -131,7 +131,7 @@ class SubmitTrxState extends State<SubmitTrx> {
       //   disable = false;
       // });
       // setState(() {
-      //   _modelScanPay.isPay = false;
+      //   _scanPayM.isPay = false;
       // });
       Navigator.pop(context, _response);
     });
@@ -139,24 +139,24 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   void payProgres() { /* Loading For User Pay */
     setState(() {
-      _modelScanPay.isPay = true;
+      _scanPayM.isPay = true;
     });
     processingSubmit();
   }
 
   void processingSubmit() async { /* Loading Processing Animation */
     int perioud = 500;
-    while (_modelScanPay.isPay == true) {
+    while (_scanPayM.isPay == true) {
       await Future.delayed(Duration(milliseconds: perioud), () {
-        if (this.mounted) setState(() => _modelScanPay.loadingDot = ".");
+        if (this.mounted) setState(() => _scanPayM.loadingDot = ".");
         perioud = 300;
       });
       await Future.delayed(Duration(milliseconds: perioud), () {
-        if (this.mounted) setState(() => _modelScanPay.loadingDot = ". .");
+        if (this.mounted) setState(() => _scanPayM.loadingDot = ". .");
         perioud = 300;
       });
       await Future.delayed(Duration(milliseconds: perioud), () {
-        if (this.mounted) setState(() => _modelScanPay.loadingDot = ". . .");
+        if (this.mounted) setState(() => _scanPayM.loadingDot = ". . .");
         perioud = 300;
       });
     }
@@ -168,7 +168,7 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   void resetAssetsDropDown(String data) { /* Reset Asset */
     setState(() {
-      _modelScanPay.asset = data;
+      _scanPayM.asset = data;
     });
     enableButton();
   }
@@ -178,10 +178,10 @@ class SubmitTrxState extends State<SubmitTrx> {
     await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
       unFocusAllField();
     }); 
-    _modelScanPay.pin = await dialogBox();
+    _scanPayM.pin = await dialogBox();
     payProgres();
     try {
-      var _response = await _postRequest.sendPayment(_modelScanPay);
+      var _response = await _postRequest.sendPayment(_scanPayM);
       if (_response["status_code"] == 200) {
         if (!_response.containsKey('error')) {
           await enableAnimation(_response);
@@ -192,8 +192,11 @@ class SubmitTrxState extends State<SubmitTrx> {
       } else {
         await dialog(context, textAlignCenter(text: 'Something goes wrong'), warningTitleDialog());
       }
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message")); 
+      snackBar(_scanPayM.globalKey, e.message.toString());
     } catch (e) {
-      await dialog(context, Text("${e.message}"), Text("Message"));
+      await dialog(context, Text(e.message.toString()), Text("Message")); 
     }
     await Future.delayed(Duration(milliseconds: 50), () {
       removeAllFocus();
@@ -201,9 +204,9 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   void unFocusAllField(){
-    _modelScanPay.nodeAmount.unfocus();
-    _modelScanPay.nodeMemo.unfocus();
-    _modelScanPay.nodeReceiverAddress.unfocus();
+    _scanPayM.nodeAmount.unfocus();
+    _scanPayM.nodeMemo.unfocus();
+    _scanPayM.nodeReceiverAddress.unfocus();
   }
 
   PopupMenuItem item(Map<String, dynamic> list) { /* Display Drop Down List */
@@ -224,7 +227,7 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _modelScanPay.globalKey,
+      key: _scanPayM.globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -232,7 +235,7 @@ class SubmitTrxState extends State<SubmitTrx> {
             SubmitTrxBody(
               enableInput: widget.enableInput,
               dialog: dialogBox,
-              scanPayM: _modelScanPay,
+              scanPayM: _scanPayM,
               validateWallet: validateWallet, 
               validateAmount: validateAmount, 
               validateMemo: validateMemo,
@@ -244,7 +247,7 @@ class SubmitTrxState extends State<SubmitTrx> {
               resetAssetsDropDown: resetAssetsDropDown,
               item: item
             ),
-            _modelScanPay.isPay == false
+            _scanPayM.isPay == false
             ? Container()
             : BackdropFilter( // Fill Blur Background
               filter: ImageFilter.blur(

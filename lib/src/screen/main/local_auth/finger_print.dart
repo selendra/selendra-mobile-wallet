@@ -98,6 +98,8 @@ class _FingerPrintState extends State<FingerPrint> {
   void timeCounter(Timer timer) async {
 
     print(timer.tick);
+
+    print(_backend.response); 
     
     // Assign Timer Number Counter To myNumCount Variable
     AppServices.myNumCount = timer.tick;
@@ -108,7 +110,11 @@ class _FingerPrintState extends State<FingerPrint> {
     // Display TimeOut With SnackBar When Over 10 Second
     if (AppServices.myNumCount == 10) {
       Navigator.pop(context);
-      globalkey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+      await dialog(context, Text("Connection timeout", textAlign: TextAlign.center), Text("Mesage"));
+      Navigator.pushReplacement(
+        context, 
+        MaterialPageRoute(builder: (context) => SlideBuilder())
+      );
     }
   }
 
@@ -153,14 +159,6 @@ class _FingerPrintState extends State<FingerPrint> {
               MaterialPageRoute(builder: (context) => Login())
             );
           }
-        // No Previous Login Or Token Expired
-        }  else {
-          await Future.delayed(Duration(seconds: 4), (){
-            Navigator.pushReplacement(
-              context, 
-              MaterialPageRoute(builder: (context) => SlideBuilder())
-            );
-          });
         }
       // No Previous Login Or Token Expired
       } else {

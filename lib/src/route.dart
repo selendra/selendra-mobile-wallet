@@ -3,7 +3,7 @@ import 'package:wallet_apps/index.dart';
 class AppRouting{
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => FingerPrint(),
+    '/': (context) => Home(),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Home(),

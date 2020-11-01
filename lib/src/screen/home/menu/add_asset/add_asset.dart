@@ -91,6 +91,9 @@ class AddAssetState extends State<AddAsset> {
       }
     } on SocketException catch (e) {
       await dialog(context, Text("${e.message}"), Text("Message")); 
+      snackBar(globalKey, e.message.toString());
+    } catch (e) {
+      await dialog(context, Text(e.message.toString()), Text("Message")); 
     }
         
   }

@@ -14,7 +14,7 @@ class EditProfile extends StatefulWidget {
 
 class EditProfileState extends State<EditProfile> {
 
-  ModelUserInfo _modelUserInfo = ModelUserInfo();
+  ModelUserInfo _editInfoM = ModelUserInfo();
 
   PostRequest _postRequest = PostRequest();
 
@@ -22,97 +22,97 @@ class EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    AppServices.noInternetConnection(_modelUserInfo.globalKey);
+    AppServices.noInternetConnection(_editInfoM.globalKey);
     replaceDataToController();
     super.initState();
   }
   
   @override
   void dispose() { /* Clear Everything When Pop Screen */
-    _modelUserInfo.controlFirstName.clear();
-    _modelUserInfo.controlMidName.clear();
-    _modelUserInfo.controlLastName.clear();
-    _modelUserInfo.enable = false;
+    _editInfoM.controlFirstName.clear();
+    _editInfoM.controlMidName.clear();
+    _editInfoM.controlLastName.clear();
+    _editInfoM.enable = false;
     super.dispose();
   }
 
   void replaceDataToController() {/* Replace Data From Profile Screen After Push User Informtaion Screen */
-    _modelUserInfo.controlFirstName.text = widget._userData['first_name'];
-    _modelUserInfo.controlMidName.text = widget._userData['mid_name'];
-    _modelUserInfo.controlLastName.text = widget._userData['last_name'];
-    _modelUserInfo.genderLabel = widget._userData['gender'];
-    if (_modelUserInfo.genderLabel == "Male")
-      _modelUserInfo.gender = "M";
+    _editInfoM.controlFirstName.text = widget._userData['first_name'];
+    _editInfoM.controlMidName.text = widget._userData['mid_name'];
+    _editInfoM.controlLastName.text = widget._userData['last_name'];
+    _editInfoM.genderLabel = widget._userData['gender'];
+    if (_editInfoM.genderLabel == "Male")
+      _editInfoM.gender = "M";
     else
-      _modelUserInfo.gender = "F";
+      _editInfoM.gender = "F";
     enableButton();
   }
 
   void changeGender(String gender) async {/* Change Select Gender */
-    _modelUserInfo.genderLabel = gender;
+    _editInfoM.genderLabel = gender;
     if (gender == "Male")
-      _modelUserInfo.gender = "M";
+      _editInfoM.gender = "M";
     else
-      _modelUserInfo.gender = "F";
+      _editInfoM.gender = "F";
     await Future.delayed(Duration(milliseconds: 100), () {
       setState(() { /* Unfocus All Field */
-        if (_modelUserInfo.gender != null) enableButton(); /* Enable Button If User Set Gender */
-        _modelUserInfo.nodeFirstName.unfocus();
-        _modelUserInfo.nodeMidName.unfocus();
-        _modelUserInfo.nodeLastName.unfocus();
+        if (_editInfoM.gender != null) enableButton(); /* Enable Button If User Set Gender */
+        _editInfoM.nodeFirstName.unfocus();
+        _editInfoM.nodeMidName.unfocus();
+        _editInfoM.nodeLastName.unfocus();
       });
     });
   }
 
   void onSubmit(BuildContext context) {
-    if (_modelUserInfo.nodeFirstName.hasFocus) {
-      FocusScope.of(context).requestFocus(_modelUserInfo.nodeMidName);
-    } else if (_modelUserInfo.nodeMidName.hasFocus) {
-      FocusScope.of(context).requestFocus(_modelUserInfo.nodeLastName);
+    if (_editInfoM.nodeFirstName.hasFocus) {
+      FocusScope.of(context).requestFocus(_editInfoM.nodeMidName);
+    } else if (_editInfoM.nodeMidName.hasFocus) {
+      FocusScope.of(context).requestFocus(_editInfoM.nodeLastName);
     } else {
-      _modelUserInfo.nodeFirstName.unfocus();
-      _modelUserInfo.nodeMidName.unfocus();
-      _modelUserInfo.nodeLastName.unfocus();
+      _editInfoM.nodeFirstName.unfocus();
+      _editInfoM.nodeMidName.unfocus();
+      _editInfoM.nodeLastName.unfocus();
     }
   }
 
   void onChanged(String value) {
-    _modelUserInfo.formStateAddUserInfo.currentState.validate();
+    _editInfoM.formStateAddUserInfo.currentState.validate();
   }
 
   String validateFirstName(String value) {
-    if (_modelUserInfo.nodeFirstName.hasFocus) {
-      _modelUserInfo.responseFirstname =
+    if (_editInfoM.nodeFirstName.hasFocus) {
+      _editInfoM.responseFirstname =
           instanceValidate.validateUserInfo(value);
-      if (_modelUserInfo.responseFirstname == null)
+      if (_editInfoM.responseFirstname == null)
         return null;
       else
-        _modelUserInfo.responseFirstname += "first name";
+        _editInfoM.responseFirstname += "first name";
     }
-    return _modelUserInfo.responseFirstname;
+    return _editInfoM.responseFirstname;
   }
 
   String validateMidName(String value) {
-    if (_modelUserInfo.nodeMidName.hasFocus) {
-      _modelUserInfo.responseMidname = instanceValidate.validateUserInfo(value);
-      if (_modelUserInfo.responseMidname == null)
+    if (_editInfoM.nodeMidName.hasFocus) {
+      _editInfoM.responseMidname = instanceValidate.validateUserInfo(value);
+      if (_editInfoM.responseMidname == null)
         return null;
       else
-        _modelUserInfo.responseMidname += "mid name";
+        _editInfoM.responseMidname += "mid name";
     }
-    return _modelUserInfo.responseMidname;
+    return _editInfoM.responseMidname;
   }
 
   String validateLastName(String value) {
-    if (_modelUserInfo.nodeLastName.hasFocus) {
-      _modelUserInfo.responseLastname =
+    if (_editInfoM.nodeLastName.hasFocus) {
+      _editInfoM.responseLastname =
           instanceValidate.validateUserInfo(value);
-      if (_modelUserInfo.responseLastname == null)
+      if (_editInfoM.responseLastname == null)
         return null;
       else
-        _modelUserInfo.responseLastname += "last name";
+        _editInfoM.responseLastname += "last name";
     }
-    return _modelUserInfo.responseLastname;
+    return _editInfoM.responseLastname;
   }
 
   /* Submit Profile User */
@@ -121,7 +121,7 @@ class EditProfileState extends State<EditProfile> {
     dialogLoading(context);
     /* Post Request Submit Profile */
     try {
-      _backend.response = await _postRequest.uploadProfile(_modelUserInfo); 
+      _backend.response = await _postRequest.uploadProfile(_editInfoM); 
       /* Close Loading Procxess */
       Navigator.pop(context);
       _backend.mapData = json.decode(_backend.response.body);
@@ -131,7 +131,10 @@ class EditProfileState extends State<EditProfile> {
         Navigator.pop(context, {'dialog_name': 'edit_profile'});
       }
     } on SocketException catch (e) {
-      await dialog(context, Text("${e.message}"), Text("Message"));
+      await dialog(context, Text("${e.message}"), Text("Message")); 
+      snackBar(_editInfoM.globalKey, e.message.toString());
+    } catch (e) {
+      await dialog(context, Text(e.message.toString()), Text("Message")); 
     }
   }
 
@@ -142,16 +145,16 @@ class EditProfileState extends State<EditProfile> {
     );
   }
 
-  void enableButton() => _modelUserInfo.enable = true;
+  void enableButton() => _editInfoM.enable = true;
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _modelUserInfo.globalKey,
+      key: _editInfoM.globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         bottom: 16,
         child: EditProfileBody(
-          modelUserInfo: _modelUserInfo,
+          modelUserInfo: _editInfoM,
           onSubmit: onSubmit,
           onChanged: onChanged,
           changeGender: changeGender,

@@ -9,7 +9,7 @@ class AddPhone extends StatefulWidget{
 
 class _AddPhoneState extends State<AddPhone>{
 
-  AddPhoneModel _phoneModel = AddPhoneModel();
+  AddPhoneModel _phoneM = AddPhoneModel();
 
   PostRequest _postRequest = PostRequest();
 
@@ -20,25 +20,25 @@ class _AddPhoneState extends State<AddPhone>{
   }
 
   String validatePhone(String value){
-    if (_phoneModel.nodePhone.hasFocus) {
+    if (_phoneM.nodePhone.hasFocus) {
       /* If Phone Number Field Has Focus */
-      _phoneModel.validateResponse = instanceValidate.validatePhone(value);
-      if (_phoneModel.validateResponse == null)
+      _phoneM.validateResponse = instanceValidate.validatePhone(value);
+      if (_phoneM.validateResponse == null)
         enableButton(true);
-      else if (_phoneModel.enable == true)
+      else if (_phoneM.enable == true)
         enableButton(false);
     }
-    return _phoneModel.validateResponse;
+    return _phoneM.validateResponse;
   }
 
   void enableButton(bool enable){
     setState(() {
-      _phoneModel.enable = enable;
+      _phoneM.enable = enable;
     });
   }
 
   void onChanged(String value){
-    _phoneModel.formKey.currentState.validate();
+    _phoneM.formKey.currentState.validate();
   }
 
   void onSubmit(){
@@ -48,7 +48,7 @@ class _AddPhoneState extends State<AddPhone>{
   void submitAddPhone() async {
     try{
       // Post Add Phone
-      _backend.response = await _postRequest.addPhone(_phoneModel.phone.text);
+      _backend.response = await _postRequest.addPhone(_phoneM.phone.text);
       _backend.mapData = json.decode(_backend.response.body);
       // Convert String To Obj From Add Phone
       if(_backend.response.statusCode == 200 && !_backend.mapData.containsKey('error')){
@@ -57,7 +57,7 @@ class _AddPhoneState extends State<AddPhone>{
           _backend.mapData = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SmsCodeVerify(_phoneModel.phone.text, null, _backend.mapData)
+              builder: (context) => SmsCodeVerify(_phoneM.phone.text, null, _backend.mapData)
             )
           );
           Navigator.pop(context, _backend.mapData);
@@ -67,17 +67,21 @@ class _AddPhoneState extends State<AddPhone>{
       else {
         await dialog(context, Text(_backend.mapData['error']['message']), Text("Message"));
       }
-    } on SocketException catch (e){
-      await dialog(context, Text("${e.message}"), Text("Message"));
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}"), Text("Message")); 
+      snackBar(_phoneM.globalKey, e.message.toString());
+    } catch (e) {
+      await dialog(context, Text(e.message.toString()), Text("Message")); 
     }
   }
 
   Widget build(BuildContext context){
     return Scaffold(
+      key: _phoneM.globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: AddPhoneBody(
-          phoneModel: _phoneModel, 
+          phoneModel: _phoneM, 
           validatePhone: validatePhone,
           onChanged: onChanged,
           onSubmit: onSubmit,

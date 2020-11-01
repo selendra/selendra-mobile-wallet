@@ -80,7 +80,11 @@ class MySplashScreenState extends State<MySplashScreen>{
     // Display TimeOut With SnackBar When Over 10 Second
     if (AppServices.myNumCount == 10) {
       Navigator.pop(context);
-      _globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
+      await dialog(context, Text("Connection timeout", textAlign: TextAlign.center), Text("Mesage"));
+      Navigator.pushReplacement(
+        context, 
+        MaterialPageRoute(builder: (context) => SlideBuilder())
+      );
     }
   }
 
@@ -123,14 +127,6 @@ class MySplashScreenState extends State<MySplashScreen>{
               MaterialPageRoute(builder: (context) => Login())
             );
           }
-        // No Previous Login Or Token Expired
-        }  else {
-          await Future.delayed(Duration(seconds: 4), (){
-            Navigator.pushReplacement(
-              context, 
-              MaterialPageRoute(builder: (context) => SlideBuilder())
-            );
-          });
         }
       // No Previous Login Or Token Expired
       } else {
@@ -139,7 +135,8 @@ class MySplashScreenState extends State<MySplashScreen>{
         Navigator.pushReplacement(
           context, 
           MaterialPageRoute(builder: (context) => SlideBuilder())
-        );      }
+        );      
+      }
     });
     
   }

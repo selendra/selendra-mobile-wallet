@@ -9,134 +9,134 @@ class ChangePin extends StatefulWidget {
 
 class ChangePinState extends State<ChangePin> {
   
-  ModelChangePin _modelChangePin = ModelChangePin();
+  ModelChangePin _changePinM = ModelChangePin();
 
   PostRequest _postRequest = PostRequest();
 
   @override
   initState(){
-    AppServices.noInternetConnection(_modelChangePin.globalKey);
+    AppServices.noInternetConnection(_changePinM.globalKey);
     super.initState();
   }
 
   @override
   void dispose() {
     removeAllFocus();
-    _modelChangePin.controllerOldPin.clear();
-    _modelChangePin.controllerNewPin.clear();
-    _modelChangePin.controllerConfirmPin.clear();
+    _changePinM.controllerOldPin.clear();
+    _changePinM.controllerNewPin.clear();
+    _changePinM.controllerConfirmPin.clear();
     super.dispose();
   }
 
   // Validator Field
 
   String validateOldPin(String value) {
-    if (_modelChangePin.nodeOldPin.hasFocus) {
-      _modelChangePin.responseOldPin = instanceValidate.validateChangePin(value);
-      if (_modelChangePin.controllerOldPin.text.isEmpty) _modelChangePin.responseOldPin += "old pin";
+    if (_changePinM.nodeOldPin.hasFocus) {
+      _changePinM.responseOldPin = instanceValidate.validateChangePin(value);
+      if (_changePinM.controllerOldPin.text.isEmpty) _changePinM.responseOldPin += "old pin";
       validateAllFieldNotEmpty(); /* Check All Field To Enable Button */
     }
-    return _modelChangePin.responseOldPin;
+    return _changePinM.responseOldPin;
   }
 
   String validateNewPin(String value) {
-    if (_modelChangePin.nodeNewPin.hasFocus) {
-      _modelChangePin.responseNewPin = instanceValidate.validateChangePin(value);
-      if (_modelChangePin.controllerNewPin.text.isEmpty) _modelChangePin.responseNewPin += "new pin"; 
-      else if ( _modelChangePin.responseNewPin == null ) { // check New And Confirm PIN Match Or Not
-        _modelChangePin.responseConfirmPin = newPinIsMatch();
+    if (_changePinM.nodeNewPin.hasFocus) {
+      _changePinM.responseNewPin = instanceValidate.validateChangePin(value);
+      if (_changePinM.controllerNewPin.text.isEmpty) _changePinM.responseNewPin += "new pin"; 
+      else if ( _changePinM.responseNewPin == null ) { // check New And Confirm PIN Match Or Not
+        _changePinM.responseConfirmPin = newPinIsMatch();
       }
-      else if (_modelChangePin.responseConfirmPin == "Confirm PIN does not match"){
-        _modelChangePin.responseConfirmPin = null;
+      else if (_changePinM.responseConfirmPin == "Confirm PIN does not match"){
+        _changePinM.responseConfirmPin = null;
       }
       validateAllFieldNotEmpty(); /* Check All Field To Enable Button */
     }
-    return _modelChangePin.responseNewPin;
+    return _changePinM.responseNewPin;
   }
 
   String validateConfirmPin(String value) {
-    if (_modelChangePin.nodeConfirmPin.hasFocus) {
-      _modelChangePin.responseConfirmPin = instanceValidate.validateChangePin(value);
-      if (_modelChangePin.controllerConfirmPin.text.isEmpty) _modelChangePin.responseConfirmPin += "confirm pin";
-      else if ( _modelChangePin.responseConfirmPin == null ) { // Check New And Confirm PIN Match Or Not
-        _modelChangePin.responseConfirmPin = confirmPinIsMatch();
+    if (_changePinM.nodeConfirmPin.hasFocus) {
+      _changePinM.responseConfirmPin = instanceValidate.validateChangePin(value);
+      if (_changePinM.controllerConfirmPin.text.isEmpty) _changePinM.responseConfirmPin += "confirm pin";
+      else if ( _changePinM.responseConfirmPin == null ) { // Check New And Confirm PIN Match Or Not
+        _changePinM.responseConfirmPin = confirmPinIsMatch();
       }
       validateAllFieldNotEmpty(); /* Check All Field To Enable Button */
     }
-    return _modelChangePin.responseConfirmPin;
+    return _changePinM.responseConfirmPin;
   }
 
   void validateAllFieldNotEmpty() { /* Validate To Enable Button */
     if (
-      _modelChangePin.controllerOldPin.text.length == 4 &&
-      _modelChangePin.controllerNewPin.text.length == 4 &&
-      _modelChangePin.controllerConfirmPin.text.length == 4
+      _changePinM.controllerOldPin.text.length == 4 &&
+      _changePinM.controllerNewPin.text.length == 4 &&
+      _changePinM.controllerConfirmPin.text.length == 4
     ) validateAllFieldNoError();
-    else if (_modelChangePin.enable == true) enableButton(false);
+    else if (_changePinM.enable == true) enableButton(false);
   }
 
   void validateAllFieldNoError(){
     if (
-      _modelChangePin.responseOldPin == null &&
-      _modelChangePin.responseNewPin == null &&
-      _modelChangePin.responseConfirmPin == null
+      _changePinM.responseOldPin == null &&
+      _changePinM.responseNewPin == null &&
+      _changePinM.responseConfirmPin == null
     ) enableButton(true);
-    else if (_modelChangePin.enable == true) enableButton(false);
+    else if (_changePinM.enable == true) enableButton(false);
   }
 
   String newPinIsMatch(){ // Execute When Confirm New Pin Field Not Empty And No Error
     if (
-      _modelChangePin.controllerConfirmPin.text.length == 4
+      _changePinM.controllerConfirmPin.text.length == 4
     ){
-      if (_modelChangePin.controllerNewPin.text == _modelChangePin.controllerConfirmPin.text){
+      if (_changePinM.controllerNewPin.text == _changePinM.controllerConfirmPin.text){
         enableButton(true);
-        _modelChangePin.responseConfirmPin = null;
+        _changePinM.responseConfirmPin = null;
       } else {
-        if (_modelChangePin.enable) enableButton(false); // Once Disable When Button Enable
-        _modelChangePin.responseConfirmPin = "Confirm PIN does not match";
+        if (_changePinM.enable) enableButton(false); // Once Disable When Button Enable
+        _changePinM.responseConfirmPin = "Confirm PIN does not match";
       } 
     }
-    return _modelChangePin.responseConfirmPin;
+    return _changePinM.responseConfirmPin;
   }
 
   String confirmPinIsMatch(){ // Execute When New Pin Field Not Empty And No Error
-    if ( _modelChangePin.controllerNewPin.text.length == 4) {
-      if (_modelChangePin.controllerNewPin.text == _modelChangePin.controllerConfirmPin.text){
+    if ( _changePinM.controllerNewPin.text.length == 4) {
+      if (_changePinM.controllerNewPin.text == _changePinM.controllerConfirmPin.text){
         enableButton(true);
-        _modelChangePin.responseConfirmPin = null;
+        _changePinM.responseConfirmPin = null;
       } else {
-        if (_modelChangePin.enable) enableButton(false); // Once Disable When Button Enable
-        _modelChangePin.responseConfirmPin = "Confirm PIN does not match";
+        if (_changePinM.enable) enableButton(false); // Once Disable When Button Enable
+        _changePinM.responseConfirmPin = "Confirm PIN does not match";
       }
     }
-    return _modelChangePin.responseConfirmPin;
+    return _changePinM.responseConfirmPin;
   }
 
   void enableButton(bool enable){
-    setState(() => _modelChangePin.enable = enable);
+    setState(() => _changePinM.enable = enable);
   }
 
   // On Action
 
   void onSubmit(BuildContext context) async {
-    if (_modelChangePin.nodeOldPin.hasFocus){
-      _modelChangePin.nodeOldPin.unfocus();
-      FocusScope.of(context).requestFocus(_modelChangePin.nodeNewPin);
-    } else if (_modelChangePin.nodeNewPin.hasFocus){
-      _modelChangePin.nodeNewPin.unfocus();
-      FocusScope.of(context).requestFocus(_modelChangePin.nodeConfirmPin);
-    } else if (_modelChangePin.enable == true) submitPIN();
+    if (_changePinM.nodeOldPin.hasFocus){
+      _changePinM.nodeOldPin.unfocus();
+      FocusScope.of(context).requestFocus(_changePinM.nodeNewPin);
+    } else if (_changePinM.nodeNewPin.hasFocus){
+      _changePinM.nodeNewPin.unfocus();
+      FocusScope.of(context).requestFocus(_changePinM.nodeConfirmPin);
+    } else if (_changePinM.enable == true) submitPIN();
   }
 
   void onChanged(String changed) {
-    _modelChangePin.formStateChangePin.currentState.validate();
+    _changePinM.formStateChangePin.currentState.validate();
   }
 
   void submitPIN() async { /* Submit Pin */
     removeAllFocus();
     dialogLoading(context); /* Show Loading Process */
     try {
-      await _postRequest.changePIN(_modelChangePin).then((_response) async {
+      await _postRequest.changePIN(_changePinM).then((_response) async {
         Navigator.pop(context); /* Close Loading Process */
         if (!_response.containsKey("error")) { /* Check Response Not Error */
           await dialog(
@@ -154,14 +154,17 @@ class ChangePinState extends State<ChangePin> {
         }
       });
     } on SocketException catch (e) {
-      await dialog(context, Text("${e.message}"), Text("Message"));
+      await dialog(context, Text("${e.message}"), Text("Message")); 
+      snackBar(_changePinM.globalKey, e.message.toString());
+    } catch (e) {
+      await dialog(context, Text(e.message.toString()), Text("Message")); 
     }
   }
 
   void removeAllFocus(){
-    _modelChangePin.nodeOldPin.unfocus();
-    _modelChangePin.nodeNewPin.unfocus();
-    _modelChangePin.nodeConfirmPin.unfocus();
+    _changePinM.nodeOldPin.unfocus();
+    _changePinM.nodeNewPin.unfocus();
+    _changePinM.nodeConfirmPin.unfocus();
   }
 
   void popScreen() { /* Close Screen */
@@ -170,11 +173,11 @@ class ChangePinState extends State<ChangePin> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _modelChangePin.globalKey,
+      key: _changePinM.globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: ChangePinBody(
-          modelChangePin: _modelChangePin,
+          modelChangePin: _changePinM,
           validateOldPin: validateOldPin, 
           validateNewPin: validateNewPin, 
           validateConfirmPin: validateConfirmPin,
