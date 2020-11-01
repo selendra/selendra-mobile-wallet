@@ -119,25 +119,8 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
   void onSubmit(BuildContext context) async{  /* Validator User Login After Check Internet */
     if (_smsCodeM.enable) submitOtpCode();
   }
-
-  // Time Out Handler Method
-  void timeCounter(Timer timer) async {
-    print(timer.tick);
-    // Assign Timer Number Counter To myNumCount Variable
-    AppServices.myNumCount = timer.tick;
-    // Cancel Timer When Rest Api Successfully
-    if (_backend.response != null) timer.cancel();
-    // Display TimeOut With SnackBar When Over 10 Second
-    if (AppServices.myNumCount == 10) {
-      Navigator.pop(context);
-      _smsCodeM.globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
-    }
-  }
-
+  
   void submitOtpCode() async {
-
-    // Processing Time Out Handler Method
-    AppServices.timerOutHandler(_backend.response, timeCounter);
 
     // Display Loading
     dialogLoading(context);
@@ -151,36 +134,34 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
 
       // Request API
       await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeM).then((value) async {
-        if (AppServices.myNumCount < 10) { 
-          _backend.response = value;
-          if (_backend.response != null) {
-            // Navigator.pop(context);
-            _backend.mapData = json.decode(_backend.response.body);
-            if (_backend.response.statusCode == 200){
-              // Set Timer
-              setState(() {
-                time = 0;
+        _backend.response = value;
+        if (_backend.response != null) {
+          // Navigator.pop(context);
+          _backend.mapData = json.decode(_backend.response.body);
+          if (_backend.response.statusCode == 200){
+            // Set Timer
+            setState(() {
+              time = 0;
+            });
+            if(_backend.mapData.containsKey('error')){
+              // Close Loading
+              Navigator.pop(context);
+              await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
+            } else {
+              // Fetch Pin From Data Storage
+              await StorageServices.fetchData('pin').then((value) {
+                // Post Request Wallet After Verify Phone Number
+                if (value != null) requestWallet(value['pin']);
+                // Go To User Information Screen
+                else Navigator.pushReplacement(
+                  context, 
+                  MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
+                );
               });
-              if(_backend.mapData.containsKey('error')){
-                // Close Loading
-                Navigator.pop(context);
-                await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
-              } else {
-                // Fetch Pin From Data Storage
-                await StorageServices.fetchData('pin').then((value) {
-                  // Post Request Wallet After Verify Phone Number
-                  if (value != null) requestWallet(value['pin']);
-                  // Go To User Information Screen
-                  else Navigator.pushReplacement(
-                    context, 
-                    MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
-                  );
-                });
-              }
             }
-            resetAllField();
-
           }
+          resetAllField();
+
         }
       });
     } on SocketException catch (e) {

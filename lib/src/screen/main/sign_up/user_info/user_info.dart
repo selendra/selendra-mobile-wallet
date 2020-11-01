@@ -127,27 +127,8 @@ class UserInfoState extends State<UserInfo> {
     return _userInfoM.responseLastname;
   }
 
-  // Time Out Handler Method
-  void timeCounter(Timer timer) async {
-    
-    // Assign Timer Number Counter To myNumCount Variable
-    AppServices.myNumCount = timer.tick;
-
-    // Cancel Timer When Rest Api Successfully
-    if (_backend.response != null) timer.cancel();
-
-    // Display TimeOut With SnackBar When Over 10 Second
-    if (AppServices.myNumCount == 10) {
-      Navigator.pop(context);
-      _userInfoM.globalKey.currentState.showSnackBar(SnackBar(content: Text('Connection timed out'),));
-    }
-  }
-
   // Submit Profile User
   void submitProfile() async {
-
-    // Processing Time Out Handler Method
-    AppServices.timerOutHandler(_backend.response, timeCounter);
 
     // Show Loading Process
     dialogLoading(context); 
@@ -156,41 +137,39 @@ class UserInfoState extends State<UserInfo> {
       // Post Request Submit Profile
       await _postRequest.uploadProfile(_userInfoM).then((value) async {
 
-        if (AppServices.myNumCount < 10){
-          _backend.response = value;
+        _backend.response = value;
 
-          if (_backend.response != null){
+        if (_backend.response != null){
 
-            // Convert String To Object
-            _backend.mapData = json.decode(_backend.response.body);
+          // Convert String To Object
+          _backend.mapData = json.decode(_backend.response.body);
 
-            // Close Loading Process
-            Navigator.pop(context);
-            if (_backend.response != null && _backend.mapData['token'] == null) {
-              // Set Profile Success
-              await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: hexaCodeToColor(AppColors.greenColor)));        
-              if (widget.passwords != null) {
-                // Clear Storage
-                AppServices.clearStorage();
-                // Remove All Screen And Push Login Screen
-                await Future.delayed(Duration(microseconds: 500), () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                    ModalRoute.withName('/')
-                  );
-                });
-              } else {
-                await Future.delayed(Duration(microseconds: 500), () {
-                  Navigator.pop(context);
-                });
-              }
+          // Close Loading Process
+          Navigator.pop(context);
+          if (_backend.response != null && _backend.mapData['token'] == null) {
+            // Set Profile Success
+            await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: hexaCodeToColor(AppColors.greenColor)));        
+            if (widget.passwords != null) {
+              // Clear Storage
+              AppServices.clearStorage();
+              // Remove All Screen And Push Login Screen
+              await Future.delayed(Duration(microseconds: 500), () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                  ModalRoute.withName('/')
+                );
+              });
             } else {
-              await dialog(context, Text("${_backend.mapData}"), Text("Message"));
-              Navigator.pop(context);
+              await Future.delayed(Duration(microseconds: 500), () {
+                Navigator.pop(context);
+              });
             }
-
+          } else {
+            await dialog(context, Text("${_backend.mapData}"), Text("Message"));
+            Navigator.pop(context);
           }
+
         }
       });
     }  on SocketException catch (e){

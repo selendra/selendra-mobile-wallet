@@ -142,26 +142,10 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     setState(() {});
   }
 
-  void timeCounter(Timer timer) async {
-    // Assign Timer Number Counter To myNumCount Variable
-    AppServices.myNumCount = timer.tick;
-    // Cancel Timer When Rest Api Successfully
-    if (_backend.response != null) timer.cancel();
-    // Display TimeOut With SnackBar When Over 10 Second
-    if (AppServices.myNumCount == 10) {
-      Navigator.pop(context);
-      // globalKey.currentState.showSnackBar();
-      snackBar(_signUpM.globalKey, "Connection timed out");
-    }
-  }
-
   /* -------------- Submit --------------- */
 
   // Navigate To Fill User Info
   void submit() async { 
-    
-    // Time Out Handler
-    AppServices.timerOutHandler(_backend.response, timeCounter);
 
     // Display Dialog Loading
     dialogLoading(context);
@@ -187,15 +171,12 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
 
     await _postRequest.registerByEmail(_signUpM.controlEmails.text,  _signUpM.controlConfirmPassword.text).then((value) async {
 
-      if (AppServices.myNumCount < 10) { 
-        _backend.response = value;
-        if (_backend.response != null) {
-          // Navigator.pop(context);
-          _backend.mapData = json.decode(_backend.response.body);
-        }
-        // Navigator Route
-        await navigator();
-      } 
+      if (_backend.response != null) {
+        // Navigator.pop(context);
+        _backend.mapData = json.decode(_backend.response.body);
+      }
+      // Navigator Route
+      await navigator();
       
     });
   }
@@ -204,18 +185,13 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   Future<void> registerByPhoneNumber() async {
 
     await _postRequest.registerByPhone(_signUpM.controlPhoneNums.text, _signUpM.controlConfirmPassword.text).then((value) async {
-      if (AppServices.myNumCount < 10) {
-        if (AppServices.myNumCount < 10) { 
-          _backend.response = value;
-          if (_backend.response != null) {
-            // Navigator.pop(context);
-            _backend.mapData = json.decode(_backend.response.body);
-          }
-          // Navigator Route
-          await navigator();
-        } 
-        
+      _backend.response = value;
+      if (_backend.response != null) {
+        // Navigator.pop(context);
+        _backend.mapData = json.decode(_backend.response.body);
       }
+      // Navigator Route
+      await navigator();
     });
   }
 

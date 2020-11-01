@@ -82,7 +82,12 @@ class _FingerPrintState extends State<FingerPrint> {
           enableText = true;
         });
       }
-    } on PlatformException catch (e){ }
+    } on SocketException catch (e) {
+      await Future.delayed(Duration(milliseconds: 300), () { });
+      AppServices.openSnackBar(globalkey, e.message);
+    } catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+    }
 
     // if (authenticate) {
     //   print("Hello navigation");
