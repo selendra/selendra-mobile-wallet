@@ -206,6 +206,11 @@ export 'package:wallet_apps/src/screen/home/menu/set_pin/confirm_pin1.dart';
 export 'package:wallet_apps/src/screen/home/menu/set_pin/pin1.dart';
 export 'package:wallet_apps/src/screen/home/menu/private_key/private_key_body.dart';
 
+// Referral Program
+
+export 'package:wallet_apps/src/screen/home/menu/referral_program/referral_program.dart';
+export 'package:wallet_apps/src/screen/home/menu/referral_program/referral_program_body.dart';
+
 // Reward From Invoice
 export 'package:wallet_apps/src/screen/home/invoice/invoice_info/invoice_info_body.dart';
 export 'package:wallet_apps/src/screen/home/invoice/invoice_summary/invoice_summary.dart';

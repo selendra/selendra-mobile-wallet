@@ -128,7 +128,11 @@ class MenuBody extends StatelessWidget{
           index: 3,
           subIndex: 0,
           onTap: () async{
-            snackBar(globalKey, "Invite friend feature under construction");
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => ReferralProgram()) 
+            // );
+            snackBar(globalKey, "Invite friend feature under implement");
           },
         ),
         

@@ -43,191 +43,208 @@ class  PortfolioBody extends StatelessWidget{
           },
         ),
 
-        Container(
-          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
-          width: double.infinity,
-          height: 200,
-          decoration: BoxDecoration(
-            color: hexaCodeToColor(AppColors.cardColor),
-            borderRadius: BorderRadius.circular(8)
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
+        if (listData == null) Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SvgPicture.asset('assets/no_data.svg', height: 200),
 
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: 150,
-                    height: 150,
-                    child: PieChart(
-                      ringStrokeWidth: 15,
-                      dataMap: dataMap,
-                      chartType: ChartType.ring,
-                      colorList: pieColorList,
-                      centerText: "10%",
-                      legendOptions: LegendOptions(
-                        showLegends: false,
-                      ),
-                      chartValuesOptions: ChartValuesOptions(
-                        showChartValues: false,
-                        // showChartValuesInPercentage: true,
-                        showChartValueBackground: false,
-                        chartValueStyle: TextStyle(color: hexaCodeToColor("#FFFFFF"), fontSize: 16)
-                      ),
-                    ),
-                  ),
-                )
-              ),
-
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    MyPieChartRow(
-                      color: pieColorList[0],
-                      centerText: "SEL",
-                      endText: "25%",
-                    ),
-
-                    MyPieChartRow(
-                      color: pieColorList[1],
-                      centerText: "XML",
-                      endText: "50%",
-                    ),
-
-                    MyPieChartRow(
-                      color: pieColorList[2],
-                      centerText: "POK",
-                      endText: "25%",
-                    ),
-
-                    MyPieChartRow(
-                      color: pieColorList[3],
-                      centerText: "Emp",
-                      endText: "0%",
-                    ),
-                  ],
-                )
+              MyText(
+                text: "There are no portfolio found"
               )
             ],
           )
-        ),
-        
-        Container(
-          height: 150,
-          margin: EdgeInsets.only(bottom: 16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    
-                    MyText(
-                      bottom: 16,
-                      text: "Wallet"
-                    ),
+        )
 
-                    MyPercentText(
-                      value: "+10.5",
-                    ),
-
-                    LinearPercentIndicator(
-                      alignment: MainAxisAlignment.center,
-                      width: 100.0,
-                      lineHeight: 5.0,
-                      percent: 0.5,
-                      backgroundColor: hexaCodeToColor(AppColors.cardColor),
-                      progressColor: hexaCodeToColor(AppColors.secondary_text),
-                      animation: true,
-                    )
-                  ],
-                ),
-              ),
-
-              VerticalDivider(
-                thickness: 2,
+        else Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
+              width: double.infinity,
+              height: 200,
+              decoration: BoxDecoration(
                 color: hexaCodeToColor(AppColors.cardColor),
+                borderRadius: BorderRadius.circular(8)
               ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
 
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    MyText(
-                      bottom: 16,
-                      text: "Market"
-                    ),
-
-                    MyPercentText(
-                      value: "0.0",
-                    ),
-
-                    LinearPercentIndicator(
-                      alignment: MainAxisAlignment.center,
-                      width: 100.0,
-                      lineHeight: 5.0,
-                      percent: 0.5,
-                      backgroundColor: hexaCodeToColor(AppColors.cardColor),
-                      progressColor: hexaCodeToColor("#00FFF0"),
-                      animation: true,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: PieChart(
+                          ringStrokeWidth: 15,
+                          dataMap: dataMap,
+                          chartType: ChartType.ring,
+                          colorList: pieColorList,
+                          centerText: "10%",
+                          legendOptions: LegendOptions(
+                            showLegends: false,
+                          ),
+                          chartValuesOptions: ChartValuesOptions(
+                            showChartValues: false,
+                            // showChartValuesInPercentage: true,
+                            showChartValueBackground: false,
+                            chartValueStyle: TextStyle(color: hexaCodeToColor("#FFFFFF"), fontSize: 16)
+                          ),
+                        ),
+                      ),
                     )
-                  ],
-                ),
+                  ),
+
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        MyPieChartRow(
+                          color: pieColorList[0],
+                          centerText: "SEL",
+                          endText: "25%",
+                        ),
+
+                        MyPieChartRow(
+                          color: pieColorList[1],
+                          centerText: "XML",
+                          endText: "50%",
+                        ),
+
+                        MyPieChartRow(
+                          color: pieColorList[2],
+                          centerText: "POK",
+                          endText: "25%",
+                        ),
+
+                        MyPieChartRow(
+                          color: pieColorList[3],
+                          centerText: "Emp",
+                          endText: "0%",
+                        ),
+                      ],
+                    )
+                  )
+                ],
               )
-            ],
-          ),
-        ),
+            ),
+            
+            Container(
+              height: 150,
+              margin: EdgeInsets.only(bottom: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        
+                        MyText(
+                          bottom: 16,
+                          text: "Wallet"
+                        ),
 
-        // Container(
-        //   height: 250,
-        //   margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-        //   padding: EdgeInsets.all(16),
-        //   decoration: BoxDecoration(
-        //     color: hexaCodeToColor(AppColors.cardColor),
-        //     borderRadius: BorderRadius.circular(8)
-        //   ),
-        //   child: GroupedBarChart.withSampleData(),
-        // ),
+                        MyPercentText(
+                          value: "+10.5",
+                        ),
 
-        // Container(
-        //   margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-        //   height: 50,
-        //   child: ListView.builder(
-        //     itemCount: months.length,
-        //     shrinkWrap: true,
-        //     scrollDirection: Axis.horizontal,
-        //     itemBuilder: (BuildContext context, int i){
-        //       return Align(
-        //         alignment: Alignment.center,
-        //         child: GestureDetector(
-        //           child: MyText(
-        //             width: 60,
-        //             text: "${months[i]}"
-        //           ),
-        //         )
-        //       );
-        //     }
-        //   )
-        // ),
+                        LinearPercentIndicator(
+                          alignment: MainAxisAlignment.center,
+                          width: 100.0,
+                          lineHeight: 5.0,
+                          percent: 0.5,
+                          backgroundColor: hexaCodeToColor(AppColors.cardColor),
+                          progressColor: hexaCodeToColor(AppColors.secondary_text),
+                          animation: true,
+                        )
+                      ],
+                    ),
+                  ),
 
-        MyRowHeader(),
+                  VerticalDivider(
+                    thickness: 2,
+                    color: hexaCodeToColor(AppColors.cardColor),
+                  ),
 
-        Container(
-          constraints: BoxConstraints(
-            minHeight: 70,
-            maxHeight: 500
-          ),
-          child: MyColumnBuilder(
-            data: listData
-          ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        MyText(
+                          bottom: 16,
+                          text: "Market"
+                        ),
+
+                        MyPercentText(
+                          value: "0.0",
+                        ),
+
+                        LinearPercentIndicator(
+                          alignment: MainAxisAlignment.center,
+                          width: 100.0,
+                          lineHeight: 5.0,
+                          percent: 0.5,
+                          backgroundColor: hexaCodeToColor(AppColors.cardColor),
+                          progressColor: hexaCodeToColor("#00FFF0"),
+                          animation: true,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+
+            // Container(
+            //   height: 250,
+            //   margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
+            //   padding: EdgeInsets.all(16),
+            //   decoration: BoxDecoration(
+            //     color: hexaCodeToColor(AppColors.cardColor),
+            //     borderRadius: BorderRadius.circular(8)
+            //   ),
+            //   child: GroupedBarChart.withSampleData(),
+            // ),
+
+            // Container(
+            //   margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            //   height: 50,
+            //   child: ListView.builder(
+            //     itemCount: months.length,
+            //     shrinkWrap: true,
+            //     scrollDirection: Axis.horizontal,
+            //     itemBuilder: (BuildContext context, int i){
+            //       return Align(
+            //         alignment: Alignment.center,
+            //         child: GestureDetector(
+            //           child: MyText(
+            //             width: 60,
+            //             text: "${months[i]}"
+            //           ),
+            //         )
+            //       );
+            //     }
+            //   )
+            // ),
+
+            MyRowHeader(),
+
+            Container(
+              constraints: BoxConstraints(
+                minHeight: 70,
+                maxHeight: 500
+              ),
+              child: MyColumnBuilder(
+                data: listData
+              ),
+            )
+          ],
         )
       ],
     );

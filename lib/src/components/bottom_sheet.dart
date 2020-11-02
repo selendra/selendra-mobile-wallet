@@ -100,9 +100,16 @@ class MyBottomSheet{
             ),
 
             Expanded(
-              child: Center(
-                child: SvgPicture.asset('assets/no_data.svg', width: 285, height: 278)
-              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/no_data.svg', height: 200),
+
+                  MyText(
+                    text: "There are no notification found"
+                  )
+                ],
+              )
             )
           ],
         ),

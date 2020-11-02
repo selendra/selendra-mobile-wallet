@@ -19,6 +19,7 @@ class PortfolioState extends State<Portfolio>{
 
   @override
   void initState(){
+    print(widget.listData);
     setChartData();
     super.initState();
   }
@@ -32,6 +33,7 @@ class PortfolioState extends State<Portfolio>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
         child: PortfolioBody(
           listData: widget.listData,
           portfolioM: _portfolioM,

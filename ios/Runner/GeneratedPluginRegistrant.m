@@ -40,6 +40,18 @@
 @import flutter_image_compress;
 #endif
 
+#if __has_include(<flutter_sms/FlutterSmsPlugin.h>)
+#import <flutter_sms/FlutterSmsPlugin.h>
+#else
+@import flutter_sms;
+#endif
+
+#if __has_include(<flutter_user_agent/FlutterUserAgentPlugin.h>)
+#import <flutter_user_agent/FlutterUserAgentPlugin.h>
+#else
+@import flutter_user_agent;
+#endif
+
 #if __has_include(<fluttercontactpicker/FlutterContactPickerPlugin.h>)
 #import <fluttercontactpicker/FlutterContactPickerPlugin.h>
 #else
@@ -118,6 +130,12 @@
 @import store_redirect;
 #endif
 
+#if __has_include(<url_launcher/FLTURLLauncherPlugin.h>)
+#import <url_launcher/FLTURLLauncherPlugin.h>
+#else
+@import url_launcher;
+#endif
+
 #if __has_include(<vibration/VibrationPlugin.h>)
 #import <vibration/VibrationPlugin.h>
 #else
@@ -133,6 +151,8 @@
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FirebaseRemoteConfigPlugin registerWithRegistrar:[registry registrarForPlugin:@"FirebaseRemoteConfigPlugin"]];
   [FlutterImageCompressPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterImageCompressPlugin"]];
+  [FlutterSmsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterSmsPlugin"]];
+  [FlutterUserAgentPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterUserAgentPlugin"]];
   [FlutterContactPickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterContactPickerPlugin"]];
   [FLTImageCropperPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImageCropperPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
@@ -146,6 +166,7 @@
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SmsAutoFillPlugin registerWithRegistrar:[registry registrarForPlugin:@"SmsAutoFillPlugin"]];
   [StoreRedirectPlugin registerWithRegistrar:[registry registrarForPlugin:@"StoreRedirectPlugin"]];
+  [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
   [VibrationPlugin registerWithRegistrar:[registry registrarForPlugin:@"VibrationPlugin"]];
 }
 

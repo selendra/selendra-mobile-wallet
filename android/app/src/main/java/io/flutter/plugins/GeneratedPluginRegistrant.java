@@ -22,6 +22,8 @@ public final class GeneratedPluginRegistrant {
     flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.firebaseremoteconfig.FirebaseRemoteConfigPlugin());
     flutterEngine.getPlugins().add(new com.example.flutterimagecompress.FlutterImageCompressPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.flutter_plugin_android_lifecycle.FlutterAndroidLifecyclePlugin());
+      com.example.flutter_sms.FlutterSmsPlugin.registerWith(shimPluginRegistry.registrarFor("com.example.flutter_sms.FlutterSmsPlugin"));
+      io.jojodev.flutter.flutteruseragent.FlutterUserAgentPlugin.registerWith(shimPluginRegistry.registrarFor("io.jojodev.flutter.flutteruseragent.FlutterUserAgentPlugin"));
     flutterEngine.getPlugins().add(new me.schlaubi.fluttercontactpicker.FlutterContactPickerPlugin());
     flutterEngine.getPlugins().add(new vn.hunghd.flutter.plugins.imagecropper.ImageCropperPlugin());
     flutterEngine.getPlugins().add(new io.flutter.plugins.imagepicker.ImagePickerPlugin());
@@ -35,6 +37,7 @@ public final class GeneratedPluginRegistrant {
     flutterEngine.getPlugins().add(new io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin());
       com.jaumard.smsautofill.SmsAutoFillPlugin.registerWith(shimPluginRegistry.registrarFor("com.jaumard.smsautofill.SmsAutoFillPlugin"));
       com.danieldallos.storeredirect.StoreRedirectPlugin.registerWith(shimPluginRegistry.registrarFor("com.danieldallos.storeredirect.StoreRedirectPlugin"));
+    flutterEngine.getPlugins().add(new io.flutter.plugins.urllauncher.UrlLauncherPlugin());
     flutterEngine.getPlugins().add(new com.benjaminabel.vibration.VibrationPlugin());
   }
 }

@@ -161,6 +161,8 @@ class MyCircularImage extends StatelessWidget{
   final String imagePath;
   final double width;
   final double height;
+  final double imageWidth;
+  final double imageHeight;
   final bool enableShadow;
   final BoxDecoration decoration;
   final Color colorImage;
@@ -172,6 +174,8 @@ class MyCircularImage extends StatelessWidget{
     this.imagePath,
     this.width,
     this.height,
+    this.imageWidth,
+    this.imageHeight,
     this.enableShadow,
     this.decoration,
     this.colorImage
@@ -184,7 +188,7 @@ class MyCircularImage extends StatelessWidget{
       height: height,
       padding: padding,
       decoration: decoration,
-      child: SvgPicture.asset(imagePath, color: colorImage,)
+      child: SvgPicture.asset(imagePath, color: colorImage, width: imageWidth, height: imageHeight)
     );
   }
 }
