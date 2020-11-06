@@ -27,6 +27,8 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   @override
   void initState() {
+
+    _scanPayM.asset = "SEL";
     AppServices.noInternetConnection(_scanPayM.globalKey);
     _scanPayM.controlReceiverAddress.text = widget._walletKey;
     _scanPayM.portfolio = widget._listPortfolio;
@@ -123,6 +125,7 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   Future enableAnimation(var _response) async {
     setState(() {
+      _scanPayM.isPay = true;
       disable = true;
     });
     flareController.play('Checkmark');
@@ -135,13 +138,6 @@ class SubmitTrxState extends State<SubmitTrx> {
       // });
       Navigator.pop(context, _response);
     });
-  }
-
-  void payProgres() { /* Loading For User Pay */
-    setState(() {
-      _scanPayM.isPay = true;
-    });
-    processingSubmit();
   }
 
   void processingSubmit() async { /* Loading Processing Animation */
@@ -163,7 +159,7 @@ class SubmitTrxState extends State<SubmitTrx> {
   }
 
   void popScreen() { /* Close Current Screen */
-    Navigator.pop(context, {});
+    Navigator.pop(context, null);
   }
 
   void resetAssetsDropDown(String data) { /* Reset Asset */
@@ -177,11 +173,19 @@ class SubmitTrxState extends State<SubmitTrx> {
     // Navigator.push(context, MaterialPageRoute(builder: (contxt) => FillPin()));
     await Future.delayed(Duration(milliseconds: 100), (){ // Unfocus All Field Input
       unFocusAllField();
-    }); 
+    });
+    
     _scanPayM.pin = await dialogBox();
-    payProgres();
+
+    dialogLoading(context);
+
     try {
+
       var _response = await _postRequest.sendPayment(_scanPayM);
+      
+      // Close Loading
+      Navigator.pop(context);
+      
       if (_response["status_code"] == 200) {
         if (!_response.containsKey('error')) {
           await enableAnimation(_response);
@@ -241,7 +245,6 @@ class SubmitTrxState extends State<SubmitTrx> {
               validateMemo: validateMemo,
               onChanged: onChanged,
               onSubmit: onSubmit,
-              payProgress: payProgres,
               validateInput: validateInput,
               clickSend: clickSend,
               resetAssetsDropDown: resetAssetsDropDown,

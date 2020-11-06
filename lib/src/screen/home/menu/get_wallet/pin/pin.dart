@@ -57,8 +57,9 @@ class PinState extends State<Pin>{
           getWalletM.pinNode.requestFocus();
         });
       } 
+      
       // Pin And ConfirmPin Do Match And Navigate To PrivateKey Screen
-      else if (response['response'] == true) {
+      else if (response['message'].length == 3 ) {
         response = await Navigator.push(context, MaterialPageRoute(builder: (context) => PrivateKey(data: response,)));
         // Succcessfully copy
         if (response != null){
@@ -66,6 +67,9 @@ class PinState extends State<Pin>{
         } else {
           Navigator.pop(context);
         }
+      } else {
+        await dialog(context, Text(response['message']), Text("Message"));
+        Navigator.pop(context);
       }
     }
   }

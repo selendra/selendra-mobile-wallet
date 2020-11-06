@@ -102,12 +102,14 @@ class MyText extends StatelessWidget{
   final double top; final double right; final double bottom; final double left;
   final double pTop; final double pRight; final double pBottom; final double pLeft;
   final double width; final double height; final TextAlign textAlign;
+  final TextOverflow overflow;
 
   MyText({
     this.text, this.color = AppColors.textColor, this.fontSize = 18, this.fontWeight = FontWeight.normal,
     this.top = 0, this.right = 0, this.bottom = 0, this.left = 0,
     this.pLeft = 0, this.pRight = 0, this.pTop = 0, this.pBottom = 0,
-    this.width, this.height, this.textAlign = TextAlign.center
+    this.width, this.height, this.textAlign = TextAlign.center,
+    this.overflow,
   });
   
   Widget build(BuildContext context){
@@ -124,7 +126,8 @@ class MyText extends StatelessWidget{
             color: Color(AppUtils.convertHexaColor(this.color)),
             fontSize: this.fontSize
           ),
-          textAlign: this.textAlign
+          textAlign: this.textAlign,
+          overflow: overflow
         )
       ),
     );

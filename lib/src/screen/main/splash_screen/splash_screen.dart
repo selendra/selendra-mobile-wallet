@@ -74,8 +74,13 @@ class MySplashScreenState extends State<MySplashScreen>{
     // Assign Timer Number Counter To myNumCount Variable
     AppServices.myNumCount = timer.tick;
 
+    print("Count ${timer.tick} ${_backend.response}");
+
     // Cancel Timer When Rest Api Successfully
-    if (_backend.response != null) timer.cancel();
+    if (_backend.response != null) {
+      print("hello");
+      timer.cancel();
+    }
 
     // Display TimeOut With SnackBar When Over 10 Second
     if (AppServices.myNumCount == 10) {
@@ -95,15 +100,21 @@ class MySplashScreenState extends State<MySplashScreen>{
 
     await _getRequest.checkExpiredToken().then((value) async {
 
+      print(value);
+
       // Execute Statement If Rest Api Under 10 Second
       if (AppServices.myNumCount < 10){
 
         // Assign Promise Data To Vairable
         _backend.response = value;
 
+        print("My response ${_backend.response}");
+
         // Convert String To Object
         if (_backend.response != null){
-          
+
+          print("not working");
+
           _backend.mapData = json.decode(_backend.response.body);
 
           // Check Expired Token
@@ -127,9 +138,16 @@ class MySplashScreenState extends State<MySplashScreen>{
               MaterialPageRoute(builder: (context) => Login())
             );
           }
+        } else {
+          Navigator.pushReplacement(
+            context, 
+            MaterialPageRoute(builder: (context) => SlideBuilder())
+          );   
         }
       // No Previous Login Or Token Expired
       } else {
+
+          print("working");
         await dialog(context, Text("Something wrong with connection"), Text("Message"));
 
         Navigator.pushReplacement(

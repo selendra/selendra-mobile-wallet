@@ -25,7 +25,7 @@ class HomeModel {
 
   /* Chart */
 
-  GlobalKey<AnimatedCircularChartState> chartKey =  new GlobalKey<AnimatedCircularChartState>();
+  GlobalKey<AnimatedCircularChartState> chartKey;
 
   GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
   

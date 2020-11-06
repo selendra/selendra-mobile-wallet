@@ -224,7 +224,7 @@ Widget buildRowList(List<dynamic> portfolioData){
   return ListView.builder(
     padding: EdgeInsets.all(0),
     shrinkWrap: true,
-    itemCount: 10,//portfolioData.length,
+    itemCount: portfolioData.length,
     physics: BouncingScrollPhysics(),
     itemBuilder: (BuildContext context, int index) {
       return portFolioItemRow(portfolioData, index);
@@ -237,8 +237,6 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
     child: Row(
       children: <Widget>[
 
-        /* Stellar Icons */
-        ! portfolioData[index].containsKey("asset_code") ? 
         MyCircularImage(
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: 16),
@@ -246,22 +244,7 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
             color: hexaCodeToColor(AppColors.secondary),
             borderRadius: BorderRadius.circular(40)
           ),
-          imagePath: 'assets/stellar.svg',
-          width: 40,
-          height: 40,
-          colorImage: Colors.white,
-        )
-
-        // Another Crypto Images
-        : MyCircularImage(
-          padding: EdgeInsets.all(6),
-          margin: EdgeInsets.only(right: 16),
-          boxColor: AppColors.secondary,
-          decoration: BoxDecoration(
-            color: hexaCodeToColor(AppColors.secondary),
-            borderRadius: BorderRadius.circular(40)
-          ),
-          imagePath: 'assets/stellar.svg',
+          imagePath: 'assets/sld_logo.svg',
           width: 40,
           height: 40,
           colorImage: Colors.white,
@@ -271,9 +254,9 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
           child: Align(
             alignment: Alignment.centerLeft,
             child: MyText(
-              text: portfolioData[index].containsKey("asset_code")
-              ? portfolioData[index]["asset_code"]
-              : "XLM",
+              text: "SEL",//portfolioData[index].containsKey("asset_code")
+              //? portfolioData[index]["asset_code"]
+              //: "XLM",
               color: "#EFF0F2",
               fontSize: 16,
             )
@@ -297,11 +280,15 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index){
         /* Asset Code */
         // Expanded(child: Container()),
 
-        MyText(
-          text: "100",//portfolioData[0]["balance"], 
-          color: "#FFFFFF", 
-          fontSize: 16,
-        ) /* Balance */
+        SizedBox(
+          width: 80,
+          child: MyText(
+            text: portfolioData[0]["data"]['balance'], 
+            color: "#FFFFFF", 
+            fontSize: 16,
+            overflow: TextOverflow.ellipsis
+          ) /* Balance */
+        )
       ],
     )
   );
@@ -504,11 +491,11 @@ LineChartData mainData() {
       },
     ),
     titlesData: FlTitlesData(
-      // show: true,
+      show: true,
       bottomTitles: SideTitles(
-        // showTitles: true,
+        showTitles: true,
         reservedSize: 6,
-        // getTextStyles: (value) => TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
+        getTextStyles: (value) => TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         getTitles: (value) {
           switch (value.toInt()) {
             case 0: 
@@ -524,7 +511,7 @@ LineChartData mainData() {
             case 5:
               return '10h';
           }
-          return '12h';
+          return '';
         },
         margin: 0,
       ),

@@ -9,8 +9,7 @@ class SubmitTrxBody extends StatelessWidget{
   final Function validateAmount; 
   final Function validateMemo;
   final Function onChanged; 
-  final Function onSubmit;
-  final Function payProgress; 
+  final Function onSubmit; 
   final Function validateInput; 
   final Function clickSend; 
   final Function resetAssetsDropDown;
@@ -25,7 +24,6 @@ class SubmitTrxBody extends StatelessWidget{
     this.validateMemo,
     this.onChanged,
     this.onSubmit,
-    this.payProgress,
     this.validateInput,
     this.clickSend,
     this.resetAssetsDropDown,
@@ -35,6 +33,7 @@ class SubmitTrxBody extends StatelessWidget{
   Widget build(BuildContext context) {
 
     List<MyInputField> listInput = [
+      
       MyInputField(
         pBottom: 16,
         labelText: "Receiver addres",
@@ -121,7 +120,7 @@ class SubmitTrxBody extends StatelessWidget{
                   fontSize: size18,
                   edgeMargin: EdgeInsets.only(top: 40, left: 66, right: 66),
                   hasShadow: true,
-                  action: scanPayM.enable == false ? null : clickSend
+                  action: clickSend//scanPayM.enable == false ? null : clickSend
                 ),
               ],
             ),

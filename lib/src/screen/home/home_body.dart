@@ -7,6 +7,7 @@ class HomeBody extends StatelessWidget{
   final GlobalKey<AnimatedCircularChartState> chartKey;
   final List<dynamic> portfolioData;
   final HomeModel homeModel;
+  final PortfolioM portfolioM;
   final Function getWallet;
 
   HomeBody({
@@ -14,6 +15,7 @@ class HomeBody extends StatelessWidget{
     this.chartKey,
     this.portfolioData,
     this.homeModel,
+    this.portfolioM,
     this.getWallet
   });
   
@@ -32,7 +34,7 @@ class HomeBody extends StatelessWidget{
           child: Stack(
             children: [
 
-              if (portfolioData == null) Container(
+              if (portfolioM.list.length == null) Container(
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -50,18 +52,6 @@ class HomeBody extends StatelessWidget{
                             textButton: "Get wallet",
                             action: getWallet,
                           )
-                    
-                          // GestureDetector(
-                          //   onTap: (){
-                          //     getWallet();
-                          //   },
-                          //   child: MyText(
-                          //     text: "Get wallet",
-                          //     fontSize: 25,
-                          //     color: AppColors.secondary_text,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // )
                         ],
                       ),
                     )
@@ -69,15 +59,15 @@ class HomeBody extends StatelessWidget{
                 ),
               )
 
-              else if (portfolioData.length == 0) loading()
+              else if (portfolioM.list.length == 0) loading()
 
               else SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
 
                     MyCircularChart(
-                      amount: "12",//"\$ ${homeModel.total}",
-                      chartKey: chartKey, 
+                      amount: "${homeModel.total}",
+                      // chartKey: chartKey, 
                       listChart: homeModel.circularChart,
                     ),
 
@@ -119,11 +109,11 @@ class HomeBody extends StatelessWidget{
                           Navigator.push(
                             context, 
                             MaterialPageRoute(
-                              builder: (context) => Portfolio(listData: homeModel.portfolioList, listChart: homeModel.circularChart),
+                              builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeModel.circularChart),
                             )
                           );
                         },
-                        child: buildRowList(portfolioData)
+                        child: buildRowList(portfolioM.list)
                       ),
                     )
                   ],

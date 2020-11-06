@@ -157,7 +157,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
       }
       // Post Register By Phone Number
       else { 
-        await registerByPhoneNumber();
+        await resendOtpCode();//registerByPhoneNumber();
       }
     } on SocketException catch (e) {
       await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
@@ -212,21 +212,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
           ) 
         );
 
-        await resendOtpCode().then((value) {
-          _backend.mapData = json.decode(value.body);
-          if(value.statusCode == 200){
-            // Close Loading
-            Navigator.pop(context); 
-            Future.delayed(Duration(milliseconds: 100), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SmsCodeVerify(_signUpM.controlPhoneNums.text, _signUpM.controlConfirmPassword.text, _backend.mapData)
-                )
-              );
-            });
-          }
-        });
+        await resendOtpCode();
       } else {
         await dialog(
           context,
@@ -241,8 +227,28 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   }
 
   // Send Message After Register
-  Future<http.Response> resendOtpCode() async {
-    return await _postRequest.resendCode(_signUpM.controlPhoneNums.text);
+  Future resendOtpCode() async {
+    try {
+      await _postRequest.resendCode(AppServices.removeZero(_signUpM.controlPhoneNums.text)).then((value) {
+        _backend.mapData = json.decode(value.body);
+        if(value.statusCode == 200){
+          // Close Loading
+          Navigator.pop(context); 
+          Future.delayed(Duration(milliseconds: 100), () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SmsCodeVerify(_signUpM.controlPhoneNums.text, _signUpM.controlConfirmPassword.text, _backend.mapData)
+              )
+            );
+          });
+        }
+      });
+    } on SocketException catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+    } catch (e) {
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+    }
   }
 
   Future<void> clearFocusInput() async {

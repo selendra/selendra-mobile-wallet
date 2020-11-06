@@ -21,10 +21,21 @@ class FillPinState extends State<FillPin> {
     );
   }
 
+  BoxConstraints get boxConstraint {
+    return  BoxConstraints(minWidth: 60, minHeight: 80);
+  }
+
   @override
   initState(){
+    _pinPutController.clear();
     _pinNode.requestFocus();
     super.initState();
+  }
+
+  @override
+  void dispose(){
+    _pinPutController.clear();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -40,13 +51,33 @@ class FillPinState extends State<FillPin> {
             focusNode: _pinNode,
             controller: _pinPutController,
             fieldsCount: 4,
-            selectedFieldDecoration: _pinPutDecoration,
-            submittedFieldDecoration: _pinPutDecoration.copyWith(
-              color: Colors.grey.withOpacity(0.5)
+
+            selectedFieldDecoration: _pinPutDecoration.copyWith(
+              color: Colors.grey.withOpacity(0.2)
             ),
+
+            submittedFieldDecoration: _pinPutDecoration,
             followingFieldDecoration: _pinPutDecoration,
-            onSubmit: (String value){
-              Navigator.pop(context, _pinPutController.text);
+
+            // submittedFieldDecoration: .error 
+            // ? .pinPutDecoration.copyWith(
+            //   border: Border.all(width: 1, color: Colors.red)
+            // ) 
+            // : .pinPutDecoration,
+
+            // followingFieldDecoration: .error 
+            // ? .pinPutDecoration.copyWith(
+            //   border: Border.all(width: 1, color: Colors.red)
+            // )
+            // : .pinPutDecoration,
+
+            eachFieldConstraints: boxConstraint,
+            textStyle: TextStyle(
+              fontSize: 18,
+              color: Colors.white
+            ),
+            onSubmit: (value){
+              Navigator.pop(context, value);
             },
           ),
           

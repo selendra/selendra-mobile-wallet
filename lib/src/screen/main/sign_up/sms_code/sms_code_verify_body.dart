@@ -7,7 +7,8 @@ class SmsBody extends StatelessWidget{
   final Map<String, dynamic> message;
   final Function onChanged;
   final Function onSubmit;
-  final Function runTimer; 
+  final Function runTimer;
+  final Function resetInput; 
   final Function resetTimer;
 
   SmsBody({
@@ -17,6 +18,7 @@ class SmsBody extends StatelessWidget{
     @required this.onChanged,
     @required this.onSubmit,
     @required this.runTimer, 
+    this.resetInput,
     @required this.resetTimer
   });
 
@@ -60,6 +62,18 @@ class SmsBody extends StatelessWidget{
               ],
             )
           )
+        ),
+
+        MyFlatButton(
+          width: 150,
+          height: 58,
+          edgeMargin: EdgeInsets.only(bottom: 26),
+          textButton: "Clear",
+          buttonColor: AppColors.secondary,
+          fontWeight: FontWeight.bold,
+          fontSize: size18,
+          hasShadow: true,
+          action: resetInput
         ),
 
         Row(

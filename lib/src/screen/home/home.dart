@@ -1,5 +1,6 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class Home extends StatefulWidget {
   State<StatefulWidget> createState() {
@@ -8,6 +9,8 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
+
+  GlobalKey<AnimatedCircularChartState> chartKey = new GlobalKey<AnimatedCircularChartState>();
   
   MenuModel menuModel = MenuModel();
 
@@ -21,7 +24,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   PackageInfo _packageInfo;
 
-  PortfolioM _portfolio = PortfolioM();
+  PortfolioM _portfolioM = PortfolioM();
 
   // FlareControls _flareControls = FlareControls();
 
@@ -30,18 +33,20 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   initState() { /* Initialize State */
     _homeM.portfolioList = null;
+    _portfolioM.list = [];
     if(mounted) {
       _homeM.result = {};
       _homeM.globalKey = GlobalKey<ScaffoldState>();
       _homeM.total = 0;
       _homeM.circularChart = [
+        // CircularSegmentEntry(40, hexaCodeToColor(AppColors.secondary)),
         CircularSegmentEntry(_homeM.emptyChartData, hexaCodeToColor(AppColors.cardColor))
       ];
-      AppServices.noInternetConnection(_homeM.globalKey);
+      // AppServices.noInternetConnection(_homeM.globalKey);
       _homeM.userData = {};
       /* User Profile */
       // getUserData();
-      // fetchPortfolio();
+      fetchPortfolio();
       triggerDeviceInfo();
       if (Platform.isAndroid) appPermission();
       // fabsAnimation();
@@ -57,15 +62,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void login() async {
-    _backend.response = await _postRequest.loginByPhone("15894139", "123456");
-
-    _backend.mapData = json.decode(_backend.response.body);
-
-    await StorageServices.setData(_backend.mapData, 'user_token');
-
-    setState(() {
-      
-    });
+    await _postRequest.loginByPhone('15894139', '123456').then((value) {
+      _backend.mapData = json.decode(value.body);
+      StorageServices.setData(_backend.mapData, 'user_token');
+    }); 
   }
 
   // Initialize Fabs Animation
@@ -124,34 +124,51 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   /* Fetch Portofolio */
   Future<void> fetchPortfolio() async { 
-
-    _portfolio.list = [];
     
     await Future.delayed(Duration(milliseconds: 10),(){
       setState(() {
         _homeM.portfolioList = [];
+        _portfolioM.list = [];
       });
     });
 
+    await Future.delayed(Duration(seconds: 2), (){});
+
     try {
       /* Get Response Data */
+      // _backend.response = await _getRequest.getPortfolio();
+      
       _backend.response = await _getRequest.getPortfolio();
 
-      /* Covert String To Objects */
-      await _portfolio.extractData(_backend.response);
-      print(_backend.response.runtimeType);
+      _backend.mapData = json.decode(_backend.response.body);
+
+      print(_backend.response);
       
-      // Error Handling
-      if (_portfolio.list[0].containsKey('error')){
-        throw AssertionError(_portfolio.list[0]['error']['message']);
+      if (_backend.response != null) {
+        _backend.mapData = json.decode(_backend.response.body);
+
+        setState(() {
+          _portfolioM.list.add(_backend.mapData);
+        });
+
+        StorageServices.setData(_portfolioM.list, 'portfolio'); /* Set Portfolio To Local Storage */
+        await resetDataPieChart(_portfolioM.list); 
       }
 
-      setState(() {
-        _homeM.portfolioList = _portfolio.list;
-      });
-      StorageServices.setData(_homeM.portfolioList, 'portfolio'); /* Set Portfolio To Local Storage */
-      resetDataPieChart(_homeM.portfolioList); 
+    //   /* Covert String To Objects */
+    //   await _portfolioM.extractData(_backend.response);
+    //   print(_backend.response.runtimeType);
+      
+    //   // Error Handling
+    //   if (_portfolioM.list[0].containsKey('error')){
+    //     throw AssertionError(_portfolioM.list[0]['error']['message']);
+    //   }
+
+      // setState(() {
+      //   _homeM.portfolioList = _portfolioM.list;
+      // });
     } catch (e){
+      print(e);
       await dialog(
         context, 
         Column(
@@ -159,36 +176,36 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 10.0),
-              child: textAlignCenter(text: "${e.message}")
+              child: textAlignCenter(text: "{e.message}")
             ),
           ],
         ), 
         warningTitleDialog()
       );
-      print("Null");
       setState(() {
-        _homeM.portfolioList = null; /* Set Portfolio Equal Null To Close Loading Process */
+        _portfolioM.list = null; /* Set Portfolio Equal Null To Close Loading Process */
       });
     }
   }
 
   /* ------------------------Method------------------------ */
 
-  void resetDataPieChart(List<dynamic> portfolio){
+  Future<void> resetDataPieChart(List<dynamic> portfolio){
     
-    if (_homeM.portfolioList.length != 0){
+    if (portfolio.length != 0){
       
       _homeM.total = 0.0;
 
       _homeM.circularChart.clear(); // Clear Pie Data
 
-      for (int i = 0; i < _homeM.portfolioList.length; i++){
-        // Add Total
-        _homeM.total += json.decode(_homeM.portfolioList[i]['balance']);
+      for (int i = 0; i < portfolio.length; i++){
+        print(portfolio[i]['data']['balance']);
+        // Add Totalportfolio
+        _homeM.total += json.decode(portfolio[i]['data']['balance']);
         
         _homeM.circularChart.add( //Add More Data Follow Portfolio
           CircularSegmentEntry(
-            json.decode(_homeM.portfolioList[i]['balance']),
+            json.decode(portfolio[i]['data']['balance']),
             hexaCodeToColor(AppColors.secondary)
           )
         );
@@ -201,9 +218,12 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         )
       );
 
-      _homeM.chartKey.currentState.updateData([
-        CircularStackEntry(_homeM.circularChart)
-      ]);
+      // Await Around 500 Millisecond 
+      Timer(Duration(seconds: 1), (){
+        chartKey.currentState.updateData([
+          CircularStackEntry(_homeM.circularChart)
+        ]);
+      });
 
       _homeM.emptyChartData = 100.0; // Reset Remain Pie Data
     }
@@ -212,6 +232,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   void menuCallBack(Map<String, dynamic> result) async {
 
     if (result != null){
+      
       _backend.mapData = await StorageServices.fetchData("getWallet");
 
       if (result.isNotEmpty){
@@ -241,9 +262,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   
   // Refech Data User And Portfolio
   _pullUpRefresh() async { 
-    setState(() {
-      _homeM.portfolioList = [];
-    });
+    _portfolioM.list = [];
     fetchPortfolio();
     getUserData();
     _homeM.refreshController.refreshCompleted();
@@ -342,20 +361,132 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         ),
         child: Menu(_homeM.userData, _packageInfo, menuCallBack),
       ),
-
       body: SmartRefresher(
         physics: BouncingScrollPhysics(),
         controller: _homeM.refreshController,
         child: BodyScaffold(
           height: MediaQuery.of(context).size.height,
-          child: HomeBody(
-            bloc: bloc,
-            chartKey: _homeM.chartKey,
-            portfolioData: _homeM.portfolioList,
-            getWallet: createPin,
-            homeModel: _homeM,
-            // getWallet: createPin,
-          )
+          child: 
+          Column(
+      children: [
+
+        MyHomeAppBar(
+          title: "SELENDRA", 
+          action: () {
+            MyBottomSheet().notification(context: context);
+          },
+        ),
+
+        Expanded(
+          child: Stack(
+            children: [
+
+              if (_portfolioM.list == null) Container(
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/no_data.svg', width: 200, height: 200),
+                          
+                          MyFlatButton(
+                            edgeMargin: EdgeInsets.only(top: 50),
+                            width: 200,
+                            textButton: "Get wallet",
+                            action: createPin,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              
+
+              // else 
+
+              // Container(child: Text("Helo world", style: TextStyle(color: Colors.red))), 
+              Opacity(
+                opacity: _portfolioM.list != null && _portfolioM.list.length != 0 ? 1 : 0,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      MyCircularChart(
+                        amount: "${_homeM.total}",
+                        chartKey: chartKey, 
+                        listChart: _homeM.circularChart,
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+                        padding: EdgeInsets.all(16.0),
+                        width: double.infinity,
+                        height: 222,
+                        decoration: BoxDecoration(
+                          color: hexaCodeToColor(AppColors.cardColor),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: LineChart(
+                          mainData(),
+                          swapAnimationDuration: Duration(seconds: 1),
+                        ),
+                      ),
+
+                      Container( /* Portfolio Title */
+                        alignment: Alignment.centerLeft,
+                        child: MyText(
+                          bottom: 26,
+                          left: 16,
+                          text: "Portfolioes",
+                          fontSize: 20,
+                          color: "#FFFFFF",
+                        )
+                      ),
+
+                      MyRowHeader(),
+
+                      Container(
+                        constraints: BoxConstraints(
+                          minHeight: 70,
+                          maxHeight: 300
+                        ),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) => Portfolio(listData: _portfolioM.list, listChart: _homeM.circularChart),
+                              )
+                            );
+                          },
+                          child: buildRowList(_portfolioM.list)
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+              if (_portfolioM.list != null) 
+                if (_portfolioM.list.length == 0) loading(),
+            ],
+          ),
+        )
+      ],
+    ),
+    //       HomeBody(
+    //         bloc: bloc,
+    //         chartKey: chartKey,
+    //         portfolioData: _homeM.portfolioList,
+    //         _portfolioM: _portfolioM,
+    //         getWallet: createPin,
+    //         _homeM: _homeM,
+    //         // getWallet: createPin,
+    //       )
         ),
         onRefresh: _pullUpRefresh,
       ),

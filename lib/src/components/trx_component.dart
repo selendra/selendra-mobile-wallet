@@ -14,50 +14,54 @@ class TrxComponent {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: trx.length,
+      itemCount: 10, // trx.length,
       itemBuilder: (context, index){
         // print(length);
-        return index != 0 ? GestureDetector(
+        return 
+        // index != 0 ? 
+        GestureDetector(
           onTap: () {
-            Navigator.push(context, transitionRoute(TrxHistoryDetails(trx[index], tab)));
+            // Navigator.push(context, transitionRoute(TrxHistoryDetails(trx[index], tab)));
           },
           child: rowDecorationStyle(
             child: Row(
               children: <Widget>[
 
                 // Stellar Icons
-                !trx[index].containsKey("asset_code") 
-                ? MyCircularImage(
+                // !trx[index].containsKey("asset_code") 
+                // ? MyCircularImage(
+                //   padding: EdgeInsets.all(6),
+                //   margin: EdgeInsets.only(right: 16),
+                //   decoration: BoxDecoration(
+                //     color: hexaCodeToColor(AppColors.secondary),
+                //     borderRadius: BorderRadius.circular(40)
+                //   ),
+                //   imagePath: 'assets/stellar.svg',
+                //   width: 40,
+                //   height: 40,
+                //   colorImage: Colors.white,
+                // )
+
+                // Another Crypto Images
+                // : 
+                MyCircularImage(
                   padding: EdgeInsets.all(6),
                   margin: EdgeInsets.only(right: 16),
                   decoration: BoxDecoration(
                     color: hexaCodeToColor(AppColors.secondary),
                     borderRadius: BorderRadius.circular(40)
                   ),
-                  imagePath: 'assets/stellar.svg',
-                  width: 40,
-                  height: 40,
-                  colorImage: Colors.white,
-                )
-
-                // Another Crypto Images
-                : MyCircularImage(
-                  padding: EdgeInsets.all(6),
-                  boxColor: AppColors.secondary,
-                  decoration: BoxDecoration(
-                    color: hexaCodeToColor(AppColors.secondary),
-                    borderRadius: BorderRadius.circular(40)
-                  ),
-                  imagePath: 'assets/stellar.svg',
+                  imagePath: 'assets/sld_logo.svg',
                   width: 40,
                   height: 40,
                   colorImage: Colors.white,
                 ),
 
                 MyText(
-                  text: trx[index].containsKey("asset_code")
-                  ? trx[index]["asset_code"]
-                  : "XLM",
+                  text: "SEL",
+                  // text: trx[index].containsKey("asset_code")
+                  // ? trx[index]["asset_code"]
+                  // : "SEL",
                   color: "#EFF0F2",
                   fontSize: 16,
                 ),
@@ -65,17 +69,19 @@ class TrxComponent {
                 /* Asset Code */
                 Expanded(child: Container()),
 
-                trx[index].containsKey('amount') 
-                ? MyText(
-                  text: trx[index]["balance"], 
+                // trx[index].containsKey('amount') 
+                // ? 
+                MyText(
+                  text: "${20 * index+1}", //trx[index]["balance"], 
                   color: "#00FFE8",
                   fontSize: 16,
                 ) /* Balance */
-                : Container()
+                // : Container()
               ],
             )
           ),
-        ) : Container();
+        );
+        // ) : Container();
       }
     );
   }
@@ -90,6 +96,17 @@ class TrxComponent {
         TrxComponent.trxTitle(trx),
         TrxComponent.trxList(trx, tab: tab),
       ],
-    ) : Container();
+    ) : Container(
+      child: Column( // Prevent The Month Have Have No Trx
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+            child: Divider(color: hexaCodeToColor(AppColors.textColor), height: 1.0),
+          ),
+          TrxComponent.trxTitle(trx),
+          TrxComponent.trxList(trx, tab: tab),
+        ],
+      ),
+    );
   }
 }

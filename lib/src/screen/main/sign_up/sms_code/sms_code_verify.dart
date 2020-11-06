@@ -85,7 +85,7 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
         FocusScope.of(context).unfocus();
       });
 
-      submitOtpCode();
+      await submitOtpCode();
     }
   }
 
@@ -120,7 +120,7 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
     if (_smsCodeM.enable) submitOtpCode();
   }
   
-  void submitOtpCode() async {
+  Future submitOtpCode() async {
 
     // Display Loading
     dialogLoading(context);
@@ -131,7 +131,6 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
       for(int i = 0; i < _smsCodeM.code.length; i++){
         _smsCodeM.verifyCode += _smsCodeM.code[i];
       }
-
       // Request API
       await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeM).then((value) async {
         _backend.response = value;
@@ -196,6 +195,8 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
     _smsCodeM.controller6.text = "";
     _smsCodeM.code = [];
     _smsCodeM.verifyCode = "";
+
+    _smsCodeM.node1.requestFocus();
   }
 
   Widget build(BuildContext context){
@@ -210,6 +211,7 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
           onChanged: onChanged, 
           onSubmit: onSubmit, 
           runTimer: runTimer, 
+          resetInput: resetAllField,
           resetTimer: resetTimer
         )
       )

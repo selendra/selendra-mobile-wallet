@@ -16,6 +16,10 @@ class ConfirmPin extends StatefulWidget {
 
 class ConfirmPinState extends State<ConfirmPin>{
 
+  Backend _backend = Backend();
+
+  PostRequest _postRequest = PostRequest();
+
   @override
   void initState() {
     widget.getWalletM.confirmPinController = TextEditingController();
@@ -43,17 +47,26 @@ class ConfirmPinState extends State<ConfirmPin>{
     });
   }
 
-  void submit () async {
+  void submit() async {
+
     widget.getWalletM.confirmPinNode.unfocus();
-    Timer(Duration(milliseconds: 300), () async{ 
-      if (widget.getWalletM.pinController.text != widget.getWalletM.confirmPinController.text){
-        Navigator.pop(context, {"response": false});
-      } else {
-        await Future.delayed(Duration(seconds: 1), (){
-          Navigator.pop(context, {"response": true, "message": {"seed": "Hello world"}});
-        });
-      }
-    });
+
+    dialogLoading(context);
+
+    if (widget.getWalletM.pinController.text != widget.getWalletM.confirmPinController.text){
+      Navigator.pop(context, {"response": false});
+    } else {
+      _backend.response = await _postRequest.retreiveWallet(widget.getWalletM.confirmPinController.text);
+
+      // Close Loading
+      Navigator.pop(context);
+
+      _backend.mapData = json.decode(_backend.response.body);
+      _backend.mapData.addAll({"response": true});
+      Navigator.pop(context, _backend.mapData);
+      //   Navigator.pop(context, {"response": true, "message": {"seed": "Hello world"}});
+      // });
+    }
   }
 
   Widget build(BuildContext context) {

@@ -22,6 +22,7 @@ class UserInfoState extends State<UserInfo> {
 
   @override
   void initState() {
+    getToken();
     AppServices.noInternetConnection(_userInfoM.globalKey);
     /* If Registering Account */
     // if (widget.passwords != null) getToken();
@@ -44,14 +45,21 @@ class UserInfoState extends State<UserInfo> {
 
   /* Get Token To Make Authentication With Add User Info */
   void getToken() async {
-    if(widget.registerBy == "email"){
-      _backend.response = await _postRequest.loginByEmail(widget.userAccount, widget.passwords);
-    } else {
-      _backend.response = await _postRequest.loginByPhone(widget.userAccount, widget.passwords);
-    }
-    _backend.mapData = json.decode(_backend.response.body);
-    if (_backend.mapData.containsKey('token')) {
-      await StorageServices.setData(_backend.mapData, "user_token");
+    try{
+      if(widget.registerBy == "email"){
+        _backend.response = await _postRequest.loginByEmail(widget.userAccount, widget.passwords);
+      } else {
+        _backend.response = await _postRequest.loginByPhone(widget.userAccount, widget.passwords);
+      }
+      _backend.mapData = json.decode(_backend.response.body);
+      if (_backend.mapData.containsKey('token')) {
+        await StorageServices.setData(_backend.mapData, "user_token");
+      }
+    } on SocketException catch (e){
+      await Future.delayed(Duration(milliseconds: 300), () { });
+      AppServices.openSnackBar(_userInfoM.globalKey, e.message);
+    } catch (e){
+      await dialog(context, Text("${e.message}"), Text("Message"));
     }
   }
 
@@ -172,7 +180,7 @@ class UserInfoState extends State<UserInfo> {
 
         }
       });
-    }  on SocketException catch (e){
+    } on SocketException catch (e){
       await Future.delayed(Duration(milliseconds: 300), () { });
       AppServices.openSnackBar(_userInfoM.globalKey, e.message);
     } catch (e){

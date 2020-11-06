@@ -57,12 +57,13 @@ class TrxHistoryBody extends StatelessWidget{
               : trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
               : sendBody(trxSend, walletKey, instanceTrxSendOrder),
               
-              trxHistory == null ? Container(
-                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
-                alignment: Alignment.center,
-              ) /* Retreive Porfolio Null => Have No List */ 
-              : trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-              : allTrxBody(trxHistory, instanceTrxAllOrder),
+              // trxHistory == null ? Container(
+              //   child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
+              //   alignment: Alignment.center,
+              // ) /* Retreive Porfolio Null => Have No List */ 
+              // : trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
+              // : 
+              allTrxBody(trxHistory, instanceTrxAllOrder),
 
               trxHistory == null ? Container(
                 child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
