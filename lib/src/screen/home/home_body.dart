@@ -6,7 +6,7 @@ class HomeBody extends StatelessWidget{
   final Bloc bloc;
   final GlobalKey<AnimatedCircularChartState> chartKey;
   final List<dynamic> portfolioData;
-  final HomeModel homeModel;
+  final HomeModel homeM;
   final PortfolioM portfolioM;
   final Function getWallet;
 
@@ -14,7 +14,7 @@ class HomeBody extends StatelessWidget{
     this.bloc,
     this.chartKey,
     this.portfolioData,
-    this.homeModel,
+    this.homeM,
     this.portfolioM,
     this.getWallet
   });
@@ -34,7 +34,9 @@ class HomeBody extends StatelessWidget{
           child: Stack(
             children: [
 
-              if (portfolioM.list.length == null) Container(
+              if (portfolioM.list.isEmpty) loading()
+
+              else if (portfolioM.list.isNotEmpty && portfolioM.list[0].containsKey('error')) Container(
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -59,16 +61,13 @@ class HomeBody extends StatelessWidget{
                 ),
               )
 
-              else if (portfolioM.list.length == 0) loading()
-
-              else SingleChildScrollView(
+              else if (!portfolioM.list[0].containsKey('error')) SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-
                     MyCircularChart(
-                      amount: "${homeModel.total}",
-                      // chartKey: chartKey, 
-                      listChart: homeModel.circularChart,
+                      amount: "${homeM.total}",
+                      chartKey: chartKey, 
+                      listChart: homeM.circularChart,
                     ),
 
                     Container(
@@ -109,7 +108,7 @@ class HomeBody extends StatelessWidget{
                           Navigator.push(
                             context, 
                             MaterialPageRoute(
-                              builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeModel.circularChart),
+                              builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeM.circularChart),
                             )
                           );
                         },

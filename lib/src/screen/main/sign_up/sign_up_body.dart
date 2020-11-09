@@ -196,7 +196,7 @@ class SignUpBody extends StatelessWidget{
           fontSize: size18,
           edgeMargin: EdgeInsets.only(top: 29, left: 66, right: 66),
           hasShadow: true,
-          action: submit// modelSignUp.enable == false ? null : submit 
+          action: modelSignUp.enable == false ? null : submit 
         ),
 
         Container(

@@ -74,7 +74,6 @@ class ForgetPasswordState extends State<ForgetPassword> {
   }
 
   void timeCounter(Timer timer) async {
-    print(timer.tick);
     // Assign Timer Number Counter To myNumCount Variable
     AppServices.myNumCount = timer.tick;
     // Cancel Timer When Rest Api Successfully

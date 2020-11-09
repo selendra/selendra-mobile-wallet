@@ -19,7 +19,6 @@ class PortfolioState extends State<Portfolio>{
 
   @override
   void initState(){
-    print(widget.listData);
     setChartData();
     super.initState();
   }

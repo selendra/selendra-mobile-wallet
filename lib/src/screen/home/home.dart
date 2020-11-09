@@ -39,13 +39,12 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       _homeM.globalKey = GlobalKey<ScaffoldState>();
       _homeM.total = 0;
       _homeM.circularChart = [
-        // CircularSegmentEntry(40, hexaCodeToColor(AppColors.secondary)),
         CircularSegmentEntry(_homeM.emptyChartData, hexaCodeToColor(AppColors.cardColor))
       ];
       // AppServices.noInternetConnection(_homeM.globalKey);
       _homeM.userData = {};
       /* User Profile */
-      // getUserData();
+      getUserData();
       fetchPortfolio();
       triggerDeviceInfo();
       if (Platform.isAndroid) appPermission();
@@ -132,28 +131,29 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       });
     });
 
-    await Future.delayed(Duration(seconds: 2), (){});
-
     try {
       /* Get Response Data */
-      // _backend.response = await _getRequest.getPortfolio();
       
       _backend.response = await _getRequest.getPortfolio();
 
       _backend.mapData = json.decode(_backend.response.body);
 
-      print(_backend.response);
+      setState(() {
+        _portfolioM.list.add(_backend.mapData);
+      });
+
+      print(_backend.mapData);
       
-      if (_backend.response != null) {
-        _backend.mapData = json.decode(_backend.response.body);
-
-        setState(() {
-          _portfolioM.list.add(_backend.mapData);
-        });
-
+      if (!_backend.mapData.containsKey('error')) {
         StorageServices.setData(_portfolioM.list, 'portfolio'); /* Set Portfolio To Local Storage */
-        await resetDataPieChart(_portfolioM.list); 
+        resetDataPieChart(_portfolioM.list);
       }
+      // Not Yet Have Wallet And Show Illustration 
+      // else {
+      //   setState((){
+          
+      //   })
+      // }
 
     //   /* Covert String To Objects */
     //   await _portfolioM.extractData(_backend.response);
@@ -168,7 +168,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       //   _homeM.portfolioList = _portfolioM.list;
       // });
     } catch (e){
-      print(e);
+      print("My error $e");
       await dialog(
         context, 
         Column(
@@ -182,15 +182,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         ), 
         warningTitleDialog()
       );
-      setState(() {
-        _portfolioM.list = null; /* Set Portfolio Equal Null To Close Loading Process */
-      });
+      // setState(() {
+      //   _portfolioM.list = null; /* Set Portfolio Equal Null To Close Loading Process */
+      // });
     }
   }
 
   /* ------------------------Method------------------------ */
 
-  Future<void> resetDataPieChart(List<dynamic> portfolio){
+  void resetDataPieChart(List<dynamic> portfolio){
     
     if (portfolio.length != 0){
       
@@ -198,14 +198,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
       _homeM.circularChart.clear(); // Clear Pie Data
 
+      print(json.decode(portfolio[0]['data']['balance']).toDouble().runtimeType);
+
       for (int i = 0; i < portfolio.length; i++){
-        print(portfolio[i]['data']['balance']);
         // Add Totalportfolio
-        _homeM.total += json.decode(portfolio[i]['data']['balance']);
+        _homeM.total += (json.decode(portfolio[i]['data']['balance'])).toDouble();
         
         _homeM.circularChart.add( //Add More Data Follow Portfolio
           CircularSegmentEntry(
-            json.decode(portfolio[i]['data']['balance']),
+            (json.decode(portfolio[i]['data']['balance'])).toDouble(),
             hexaCodeToColor(AppColors.secondary)
           )
         );
@@ -217,13 +218,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           hexaCodeToColor(AppColors.cardColor)
         )
       );
-
-      // Await Around 500 Millisecond 
-      Timer(Duration(seconds: 1), (){
-        chartKey.currentState.updateData([
-          CircularStackEntry(_homeM.circularChart)
-        ]);
-      });
 
       _homeM.emptyChartData = 100.0; // Reset Remain Pie Data
     }
@@ -322,6 +316,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     );
 
     if (_homeM.result != null){
+      await fetchPortfolio();
+      await getUserData();
       snackBar(_homeM.globalKey, "Successfully copy!Please keep your private key to safe place");
     }
   }
@@ -366,127 +362,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         controller: _homeM.refreshController,
         child: BodyScaffold(
           height: MediaQuery.of(context).size.height,
-          child: 
-          Column(
-      children: [
-
-        MyHomeAppBar(
-          title: "SELENDRA", 
-          action: () {
-            MyBottomSheet().notification(context: context);
-          },
-        ),
-
-        Expanded(
-          child: Stack(
-            children: [
-
-              if (_portfolioM.list == null) Container(
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/no_data.svg', width: 200, height: 200),
-                          
-                          MyFlatButton(
-                            edgeMargin: EdgeInsets.only(top: 50),
-                            width: 200,
-                            textButton: "Get wallet",
-                            action: createPin,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              
-
-              // else 
-
-              // Container(child: Text("Helo world", style: TextStyle(color: Colors.red))), 
-              Opacity(
-                opacity: _portfolioM.list != null && _portfolioM.list.length != 0 ? 1 : 0,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      MyCircularChart(
-                        amount: "${_homeM.total}",
-                        chartKey: chartKey, 
-                        listChart: _homeM.circularChart,
-                      ),
-
-                      Container(
-                        margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-                        padding: EdgeInsets.all(16.0),
-                        width: double.infinity,
-                        height: 222,
-                        decoration: BoxDecoration(
-                          color: hexaCodeToColor(AppColors.cardColor),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: LineChart(
-                          mainData(),
-                          swapAnimationDuration: Duration(seconds: 1),
-                        ),
-                      ),
-
-                      Container( /* Portfolio Title */
-                        alignment: Alignment.centerLeft,
-                        child: MyText(
-                          bottom: 26,
-                          left: 16,
-                          text: "Portfolioes",
-                          fontSize: 20,
-                          color: "#FFFFFF",
-                        )
-                      ),
-
-                      MyRowHeader(),
-
-                      Container(
-                        constraints: BoxConstraints(
-                          minHeight: 70,
-                          maxHeight: 300
-                        ),
-                        child: GestureDetector(
-                          onTap: (){
-                            Navigator.push(
-                              context, 
-                              MaterialPageRoute(
-                                builder: (context) => Portfolio(listData: _portfolioM.list, listChart: _homeM.circularChart),
-                              )
-                            );
-                          },
-                          child: buildRowList(_portfolioM.list)
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-
-              if (_portfolioM.list != null) 
-                if (_portfolioM.list.length == 0) loading(),
-            ],
-          ),
-        )
-      ],
-    ),
-    //       HomeBody(
-    //         bloc: bloc,
-    //         chartKey: chartKey,
-    //         portfolioData: _homeM.portfolioList,
-    //         _portfolioM: _portfolioM,
-    //         getWallet: createPin,
-    //         _homeM: _homeM,
-    //         // getWallet: createPin,
-    //       )
+          child: HomeBody(
+            bloc: bloc,
+            chartKey: chartKey,
+            portfolioData: _homeM.portfolioList,
+            portfolioM: _portfolioM,
+            getWallet: createPin,
+            homeM: _homeM,
+            // getWallet: createPin,
+          )
         ),
         onRefresh: _pullUpRefresh,
       ),
@@ -505,7 +389,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       bottomNavigationBar: MyBottomAppBar( /* Bottom Navigation Bar */
-        model: _homeM,
+        homeM: _homeM,
+        portfolioM: _portfolioM,
         postRequest: _postRequest,
         scanReceipt: null, // Bottom Center Button
         resetDbdState: resetState,

@@ -2,7 +2,6 @@ import 'package:wallet_apps/index.dart';
 
 import 'package:pie_chart/pie_chart.dart';
 import 'package:wallet_apps/src/components/portfolio_c.dart';
-import 'package:wallet_apps/src/screen/home/portfolio/chart/bar_chart.dart';
 
 class  PortfolioBody extends StatelessWidget{
 
@@ -237,7 +236,7 @@ class  PortfolioBody extends StatelessWidget{
 
             Container(
               constraints: BoxConstraints(
-                minHeight: 70,
+                minHeight: 100,
                 maxHeight: 500
               ),
               child: MyColumnBuilder(

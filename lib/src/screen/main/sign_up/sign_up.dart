@@ -150,6 +150,9 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     // Display Dialog Loading
     dialogLoading(context);
 
+    // Remove All Focus Field After Click Button
+    clearFocusInput();
+
     try{
       // Post Register By Email
       if (_signUpM.label == "email") { 
@@ -170,7 +173,8 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
   Future<void> registerByEmail() async {
 
     await _postRequest.registerByEmail(_signUpM.controlEmails.text,  _signUpM.controlConfirmPassword.text).then((value) async {
-
+      
+      _backend.response = value;
       if (_backend.response != null) {
         // Navigator.pop(context);
         _backend.mapData = json.decode(_backend.response.body);
@@ -202,6 +206,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
     Navigator.pop(context);
 
     if (_backend.response.statusCode == 200){
+      // Only user register by phone number
       if (_backend.mapData['message'] == "Successfully registered!"){
         await dialog(
           context,
@@ -221,9 +226,6 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
         );
       }
     }
-
-    // Remove All Focus Field After Click Button
-    clearFocusInput();
   }
 
   // Send Message After Register

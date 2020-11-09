@@ -83,7 +83,7 @@ class ReferralProgramBody extends StatelessWidget {
                 GestureDetector(
                   onTap: () async {
                     String _result = await sendSMS(message: 'https://selendra.com/', recipients: ["+85515894139"]);
-                    print(_result);
+                    // print(_result);
                   },
                   child: MyCircularImage(
                     colorImage: Colors.white,

@@ -39,6 +39,7 @@ class _PrivateKeyState extends State<PrivateKey> {
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: PrivateKeyBody(
+          data: widget.data,
           copy: copy,
           check: check,
           copyPress: copyPress,

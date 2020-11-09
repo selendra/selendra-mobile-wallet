@@ -101,10 +101,6 @@ class _FingerPrintState extends State<FingerPrint> {
 
   // Time Out Handler Method
   void timeCounter(Timer timer) async {
-
-    print(timer.tick);
-
-    print(_backend.response); 
     
     // Assign Timer Number Counter To myNumCount Variable
     AppServices.myNumCount = timer.tick;
@@ -129,9 +125,6 @@ class _FingerPrintState extends State<FingerPrint> {
     AppServices.timerOutHandler(_backend.response, timeCounter);
 
     await _getRequest.checkExpiredToken().then((value) async {
-
-      print(value);
-
       // Execute Statement If Rest Api Under 10 Second
       if (AppServices.myNumCount < 10){
 

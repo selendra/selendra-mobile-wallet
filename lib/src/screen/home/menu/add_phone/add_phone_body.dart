@@ -2,7 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 class AddPhoneBody extends StatelessWidget{
 
-  final AddPhoneModel phoneModel;
+  final AddPhoneModel phoneM;
   final Function validatePhone;
   final Function onChanged;
   final Function onSubmit;
@@ -10,7 +10,7 @@ class AddPhoneBody extends StatelessWidget{
   final Function popScreen;
 
   AddPhoneBody({
-    this.phoneModel,
+    this.phoneM,
     this.validatePhone,
     this.onChanged,
     this.onSubmit,
@@ -42,20 +42,23 @@ class AddPhoneBody extends StatelessWidget{
               Expanded(
                 child: Column(
                   children: [
-                    MyInputField(
-                      pBottom: 29,
-                      labelText: "Phone ",
-                      prefixText: "${phoneModel.countryCode}",
-                      textInputFormatter: [
-                        LengthLimitingTextInputFormatter(TextField.noMaxLength)
-                      ],
-                      inputType: TextInputType.text,
-                      inputAction: TextInputAction.done,
-                      controller: phoneModel.phone,
-                      focusNode: phoneModel.nodePhone,
-                      validateField: validatePhone,
-                      onChanged: onChanged,
-                      onSubmit: onSubmit,
+                    Form(
+                      key: phoneM.formKey,
+                      child: MyInputField(
+                        pBottom: 29,
+                        labelText: "Phone",
+                        prefixText: "${phoneM.countryCode} ",
+                        textInputFormatter: [
+                          LengthLimitingTextInputFormatter(9)
+                        ],
+                        inputType: TextInputType.phone,
+                        inputAction: TextInputAction.done,
+                        controller: phoneM.phone,
+                        focusNode: phoneM.nodePhone,
+                        validateField: validatePhone,
+                        onChanged: onChanged,
+                        onSubmit: onSubmit,
+                      ),
                     ),
 
                     MyFlatButton(
@@ -65,7 +68,7 @@ class AddPhoneBody extends StatelessWidget{
                       fontSize: size18,
                       edgeMargin: EdgeInsets.only(left: 66, right: 66),
                       hasShadow: true,
-                      action: phoneModel.enable ? submitAddPhone : null 
+                      action: phoneM.enable ? submitAddPhone : null 
                     )
                   ],
                 ),

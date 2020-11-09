@@ -332,8 +332,8 @@ class MyCircularChart extends StatelessWidget{
         // startAngle: 125.0,
         size: Size(width, height),
         percentageValues: true,
-        holeLabel: amount,
-        labelStyle:TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+        // holeLabel: amount,
+        // labelStyle:TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, ),
         edgeStyle: SegmentEdgeStyle.flat,
         initialChartData: <CircularStackEntry>[
           CircularStackEntry(
@@ -360,7 +360,7 @@ class MyColumnBuilder extends StatelessWidget{
       child: ListView.builder(
         padding: EdgeInsets.all(0),
         shrinkWrap: true,
-        itemCount: 10,//data.length,
+        itemCount: data.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return portFolioItemRow(data, index);

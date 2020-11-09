@@ -200,7 +200,8 @@ class PostRequest {
   }
 
   // Confirm User Account By Phone Number
-  Future<_http.Response> confirmAccount(String phone, SmsCodeModel _smsCodeModel) async {
+  Future<_http.Response> confirmAccount
+  (String phone, SmsCodeModel _smsCodeModel) async {
     _backend.bodyEncode = json.encode({
       "phone": "${_smsCodeModel.countryCode}$phone",
       "verification_code": _smsCodeModel.verifyCode

@@ -1,4 +1,5 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/home/menu/add_phone/verify_code/verify_code.dart';
 
 class AddPhone extends StatefulWidget{
   @override
@@ -32,6 +33,7 @@ class _AddPhoneState extends State<AddPhone>{
   }
 
   void enableButton(bool enable){
+    print(_phoneM.enable);
     setState(() {
       _phoneM.enable = enable;
     });
@@ -46,10 +48,18 @@ class _AddPhoneState extends State<AddPhone>{
   }
 
   void submitAddPhone() async {
+
+    dialogLoading(context);
+
     try{
-      // Post Add Phone
-      _backend.response = await _postRequest.addPhone(_phoneM.phone.text);
+      _backend.response = await _postRequest.addPhone(AppServices.removeZero(_phoneM.phone.text ));
+
+      // Close Dialog
+      Navigator.pop(context);
+
       _backend.mapData = json.decode(_backend.response.body);
+
+      print(_backend.mapData);
       // Convert String To Obj From Add Phone
       if(_backend.response.statusCode == 200 && !_backend.mapData.containsKey('error')){
         await Future.delayed(Duration(milliseconds: 100), () async {
@@ -57,7 +67,7 @@ class _AddPhoneState extends State<AddPhone>{
           _backend.mapData = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SmsCodeVerify(_phoneM.phone.text, null, _backend.mapData)
+              builder: (context) => VerifyCode(_phoneM.phone.text, _backend.mapData)
             )
           );
           Navigator.pop(context, _backend.mapData);
@@ -65,6 +75,7 @@ class _AddPhoneState extends State<AddPhone>{
       } 
       // Add Phone Number Error
       else {
+        // Something went wrong on our end
         await dialog(context, Text(_backend.mapData['error']['message']), Text("Message"));
       }
     } on SocketException catch (e) {
@@ -81,7 +92,7 @@ class _AddPhoneState extends State<AddPhone>{
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: AddPhoneBody(
-          phoneModel: _phoneM, 
+          phoneM: _phoneM, 
           validatePhone: validatePhone,
           onChanged: onChanged,
           onSubmit: onSubmit,

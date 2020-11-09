@@ -12,72 +12,103 @@ class PinState extends State<Pin>{
 
   final GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
-  GetWalletModel getWalletM = GetWalletModel();
+  GetWalletModel _getWalletM = GetWalletModel();
+
+  PostRequest _postRequest = PostRequest();
+
+  Backend _backend = Backend();
 
   var response;
 
   @override
   void initState() {
-    getWalletM.pinController = TextEditingController();
-    getWalletM.pinNode.requestFocus();
+    _getWalletM.pinController = TextEditingController();
+    _getWalletM.pinNode.requestFocus();
     super.initState();
   }
 
   void onSubmit(String value){
     setState(() {
-      getWalletM.disableButton1 = false;
+      _getWalletM.disableButton1 = false;
     });
   }
 
   void onChanged(String value){
-    print("Onchanged $value");
-    if (getWalletM.error && getWalletM.pinController.text.isEmpty) setState((){
-      getWalletM.error = false;
-      getWalletM.disableButton1 = true;
+    if (_getWalletM.error && _getWalletM.pinController.text.isEmpty) setState((){
+      _getWalletM.error = false;
+      _getWalletM.disableButton1 = true;
     });
   }
 
   void submit () async {
-    // Map<String, dynamic> popData = {
-    //   "dialog_name": "Pin",
-    //   "pin": getWalletM.pinController.text
-    // };
-    getWalletM.pinNode.unfocus();
-    response = await Navigator.push(
-      context,
-      transitionRoute(ConfirmPin(getWalletM: getWalletM,))
-    );
-    print(response);
+    await Navigator.push(context, MaterialPageRoute(builder: (context) => PrivateKey(data: {"Hello": "world"}))); 
+    // _getWalletM.pinNode.unfocus();
+    // Map response = await Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => (ConfirmPin(getWalletM: _getWalletM,)))
+    // );
 
-    // Pin And ConfirmPin Do not Match
-    if (response != null){
-      if (response['response'] == false){
-        setState((){
-          getWalletM.error = true;
-          getWalletM.pinNode.requestFocus();
-        });
-      } 
-      
-      // Pin And ConfirmPin Do Match And Navigate To PrivateKey Screen
-      else if (response['message'].length == 3 ) {
-        response = await Navigator.push(context, MaterialPageRoute(builder: (context) => PrivateKey(data: response,)));
-        // Succcessfully copy
-        if (response != null){
-          Navigator.pop(context, response);
-        } else {
-          Navigator.pop(context);
-        }
-      } else {
-        await dialog(context, Text(response['message']), Text("Message"));
-        Navigator.pop(context);
-      }
-    }
+    // if (response != null){
+
+    //   // Pin And ConfirmPin Do not Match
+    //   if (response['match'] == false){
+    //     setState((){
+    //       _getWalletM.error = true;
+    //       _getWalletM.pinNode.requestFocus();
+    //     });
+    //   } 
+    //   // Code 001 When User Register With Email & Need To Add Phone Number
+    //   else 
+    //   if (response['code'] == '001'){
+    //     await dialog(
+    //       context, 
+    //       Text(response['message'], textAlign: TextAlign.center),
+    //       Text("Message"),
+    //       action: FlatButton(
+    //         child: Text("Add phone"),
+    //         onPressed: () async {
+    //           // Push Replace Dialog Add Phone With Add Phone Screen 
+    //           response = await Navigator.push(context, MaterialPageRoute(builder: (context) => AddPhone()));
+    //           //Close Dialog
+    //           Navigator.pop(context);
+
+    //           if (response == null) {
+    //             Navigator.pop(context);
+    //           } else {
+    //             dialogLoading(context);
+
+    //             // Get Wallet
+    //             _backend.response = await _postRequest.retreiveWallet(_getWalletM.confirmPinController.text);
+
+    //             // Close Dialog
+    //             Navigator.pop(context);
+    //             _backend.mapData = json.decode(_backend.response.body);
+                
+    //             response = await Navigator.push(context, MaterialPageRoute(builder: (context) => PrivateKey(data: _backend.mapData))); 
+    //             Navigator.pop(context, response);
+    //           }
+    //         }
+    //       )
+    //     );
+        
+    //   } 
+    //   // Pin And ConfirmPin Do Match And Navigate To PrivateKey Screen
+    //   else {
+    //     response = await Navigator.push(context, MaterialPageRoute(builder: (context) => PrivateKey(data: response,)));
+    //     // Succcessfully copy
+    //     if (response != null){
+    //       Navigator.pop(context, response);
+    //     } else {
+    //       Navigator.pop(context);
+    //     }
+    //   }
+    // }
   }
 
   void clearField(){
     setState((){
-      getWalletM.pinController.text = '';
-      if (getWalletM.error) setState((){getWalletM.error = false;});
+      _getWalletM.pinController.text = '';
+      if (_getWalletM.error) setState((){_getWalletM.error = false;});
     });
   }
 
@@ -86,7 +117,7 @@ class PinState extends State<Pin>{
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: PinBody(
-          getWalletM: getWalletM,
+          getWalletM: _getWalletM,
           onChanged: onChanged,
           onSubmit: onSubmit,
           submit: submit,

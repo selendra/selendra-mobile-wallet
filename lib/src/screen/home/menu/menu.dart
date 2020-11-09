@@ -75,6 +75,7 @@ class MenuState extends State<Menu> {
 
     if (_result != null){
       snackBar(_menuModel.globalKey, "Successfully copy!Please keep your private key to safe place");
+      widget.callBack(_result);
     }
 
     // _result = await showDialog(
@@ -220,7 +221,6 @@ class MenuState extends State<Menu> {
         useErrorDialogs: true,
         stickyAuth: true
       );
-      print(_menuModel.authenticated);
     } on PlatformException catch (e){ }
     return _menuModel.authenticated;
   }
@@ -233,7 +233,7 @@ class MenuState extends State<Menu> {
       backgroundColor: Colors.transparent,
       body: GestureDetector(
         onTap: (){
-          print("Tap");
+          // print("Tap");
         },
         child: Drawer(
           child: SafeArea(

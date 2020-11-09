@@ -317,7 +317,8 @@ Widget rowDecorationStyle({Widget child, double mTop: 0, double mBottom = 16}){
 
 class MyBottomAppBar extends StatelessWidget{
 
-  final HomeModel model;
+  final HomeModel homeM;
+  final PortfolioM portfolioM;
   final PostRequest postRequest;
   final Function scanReceipt;
   final Function resetDbdState;
@@ -328,8 +329,15 @@ class MyBottomAppBar extends StatelessWidget{
   final Function openDrawer;
   
   MyBottomAppBar({
-    this.model, this.postRequest, this.scanReceipt, this.resetDbdState,
-    this.toReceiveToken, this.opacityController, this.fillAddress, this.contactPiker,
+    this.homeM, 
+    this.portfolioM,
+    this.postRequest, 
+    this.scanReceipt, 
+    this.resetDbdState,
+    this.toReceiveToken, 
+    this.opacityController, 
+    this.fillAddress, 
+    this.contactPiker,
     this.openDrawer
   });
   
@@ -348,7 +356,7 @@ class MyBottomAppBar extends StatelessWidget{
                 child: MyIconButton(
                   icon: 'telegram.svg',
                   onPressed: () async {
-                    MyBottomSheet().trxOptions(context: context, portfolioList: model.portfolioList, resetHomeData: resetDbdState);
+                    MyBottomSheet().trxOptions(context: context, portfolioList: homeM.portfolioList, resetHomeData: resetDbdState);
                   },
                 )
               ),
@@ -370,7 +378,7 @@ class MyBottomAppBar extends StatelessWidget{
                   onPressed: () async {
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (context) => Portfolio(listData: model.portfolioList, listChart: model.circularChart,))
+                      MaterialPageRoute(builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeM.circularChart,))
                     );
                   },
                 )

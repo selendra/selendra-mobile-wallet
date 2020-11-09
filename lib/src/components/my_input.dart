@@ -40,7 +40,7 @@ class MyInputField extends StatelessWidget{
     return Container(
       padding: EdgeInsets.fromLTRB(pLeft, pTop, pRight, pBottom),
       child: TextFormField(
-        key: key,
+        key: this.key,
         enabled: enableInput,
         focusNode: focusNode,
         keyboardType: inputType,

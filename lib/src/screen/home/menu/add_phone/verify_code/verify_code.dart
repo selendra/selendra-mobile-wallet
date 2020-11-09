@@ -1,20 +1,21 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/home/menu/add_phone/verify_code/verify_code_body.dart';
+import 'package:wallet_apps/src/screen/home/menu/add_phone/add_info/add_info.dart';
 
-class SmsCodeVerify extends StatefulWidget{
+class VerifyCode extends StatefulWidget{
   
   final String phoneNumber;
-  final String password;
   final Map<String, dynamic> message;
 
-  SmsCodeVerify(this.phoneNumber, this.password, this.message);
+  VerifyCode(this.phoneNumber, this.message);
 
   @override
   State<StatefulWidget> createState() {
-    return SmsCodeVerifyState();
+    return VerifyCodeState();
   }
 }
 
-class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserver {
+class VerifyCodeState extends State<VerifyCode> with WidgetsBindingObserver {
 
   PostRequest _postRequest = PostRequest();
 
@@ -134,28 +135,28 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
       await _postRequest.confirmAccount(widget.phoneNumber, _smsCodeM).then((value) async {
         _backend.response = value;
         if (_backend.response != null) {
-          // Navigator.pop(context);
+
+          // Close Loading
+          Navigator.pop(context);
           _backend.mapData = json.decode(_backend.response.body);
+
           if (_backend.response.statusCode == 200){
             // Set Timer
             setState(() {
               time = 0;
             });
+
             if(_backend.mapData.containsKey('error')){
               // Close Loading
               Navigator.pop(context);
               await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
             } else {
-              // Fetch Pin From Data Storage
-              await StorageServices.fetchData('pin').then((value) {
-                // Post Request Wallet After Verify Phone Number
-                if (value != null) requestWallet(value['pin']);
-                // Go To User Information Screen
-                else Navigator.pushReplacement(
-                  context, 
-                  MaterialPageRoute(builder: (context) => UserInfo("phone", widget.phoneNumber, widget.password))
-                );
-              });
+              await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center), Text("Message"));
+              _backend.mapData = await Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => AddInfo())
+              );
+              Navigator.pop(context, _backend.mapData);
             }
           }
           resetAllField();
@@ -203,7 +204,7 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
-          child: SmsBody(
+          child: VerifyBody(
             time: time, 
             smsCodeModel: _smsCodeM,
             message: widget.message, 

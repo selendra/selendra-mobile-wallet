@@ -2,6 +2,7 @@ import 'package:wallet_apps/index.dart';
 
 class PrivateKeyBody extends StatelessWidget {
 
+  final Map<String, dynamic> data;
   final bool copy;
   final bool check;
   final Function copyPress;
@@ -10,6 +11,7 @@ class PrivateKeyBody extends StatelessWidget {
   // final Map data;
 
   PrivateKeyBody({
+    this.data,
     this.copy,
     this.check,
     this.copyPress,
@@ -37,6 +39,13 @@ class PrivateKeyBody extends StatelessWidget {
               bottom: 30.0,
               width: 350.0,
               text: """Please keep your key secure. This secret key will only be showed to you once.\nSelendra will not be able to help you recover it if lost.""",
+            ),
+
+            MyText(
+              bottom: 30.0,
+              width: 350.0,
+              text: "Mnemonic: ${data['message']['seed']}",
+              color: AppColors.secondary,
             ),
 
             Container(
