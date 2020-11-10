@@ -3,7 +3,7 @@ import 'package:wallet_apps/index.dart';
 class AppRouting{
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => MySplashScreen(),
+    '/': (context) => PrivateKey(data: {"message": {"seed": "Hello world"}}),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Home(),

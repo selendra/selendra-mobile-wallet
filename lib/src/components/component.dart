@@ -127,7 +127,7 @@ class MyText extends StatelessWidget{
             fontSize: this.fontSize
           ),
           textAlign: this.textAlign,
-          overflow: overflow
+          overflow: overflow,
         )
       ),
     );

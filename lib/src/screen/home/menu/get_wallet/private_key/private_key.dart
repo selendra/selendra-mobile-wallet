@@ -26,6 +26,7 @@ class _PrivateKeyState extends State<PrivateKey> {
   void copyPress(){
     setState(() {
       copy = true;
+      saveData();
     });
   }
 

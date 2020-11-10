@@ -41,7 +41,7 @@ class PinState extends State<Pin>{
   }
 
   void submit () async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => PrivateKey(data: {"Hello": "world"}))); 
+    await Navigator.push(context, MaterialPageRoute(builder: (context) => PrivateKey(data: {"message": {"seed": "Hello world"}}))); 
     // _getWalletM.pinNode.unfocus();
     // Map response = await Navigator.push(
     //   context,
@@ -52,7 +52,7 @@ class PinState extends State<Pin>{
 
     //   // Pin And ConfirmPin Do not Match
     //   if (response['match'] == false){
-    //     setState((){
+    //     setState((){f
     //       _getWalletM.error = true;
     //       _getWalletM.pinNode.requestFocus();
     //     });

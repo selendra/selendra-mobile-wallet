@@ -1,3 +1,4 @@
+import 'package:circular_check_box/circular_check_box.dart';
 import 'package:wallet_apps/index.dart';
 
 class PrivateKeyBody extends StatelessWidget {
@@ -21,6 +22,10 @@ class PrivateKeyBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final double left = 25;
+    final double right = 25;
+
     return Column(
       children: [
         MyAppBar(
@@ -37,15 +42,39 @@ class PrivateKeyBody extends StatelessWidget {
             // Display when pin and confirm does not match
             MyText(
               bottom: 30.0,
-              width: 350.0,
+              left: left, right: right,
               text: """Please keep your key secure. This secret key will only be showed to you once.\nSelendra will not be able to help you recover it if lost.""",
+              textAlign: TextAlign.left,
             ),
 
-            MyText(
-              bottom: 30.0,
-              width: 350.0,
-              text: "Mnemonic: ${data['message']['seed']}",
-              color: AppColors.secondary,
+            Card(
+              margin: EdgeInsets.only(left: left, right: right, bottom: 30),
+              color: hexaCodeToColor(AppColors.cardColor),
+              child:Container(
+                margin: EdgeInsets.all(left), 
+                child: Row(
+                  children: [
+
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: MyText(
+                        text: "Mnemonic:",
+                        textAlign: TextAlign.start,
+                      )
+                    ),
+                    
+                    Expanded(
+                      child: MyText(
+                        left: 6,
+                        text: "${data['message']['seed']}",
+                        color: AppColors.secondary_text,
+                        textAlign: TextAlign.left,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
+              ),
             ),
 
             Container(
@@ -55,14 +84,11 @@ class PrivateKeyBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Checkbox(
-                    checkColor: Colors.red,
-                    value: check,
-                    onChanged: copy ? onChanged : null,
-                    // isCopy == false ? null : (data) {
-                    //   userCheckBox();
-                    // }
-                  ),
+                  CircularCheckBox(
+                    disabledColor: Colors.white,
+                    inactiveColor: Colors.white,
+                    activeColor: hexaCodeToColor(AppColors.secondary),
+                    value: check, onChanged: copy ? onChanged : null),
                   MyText(text: "Accept copied", color: "#FFFFFF",)
                 ],
               ),
