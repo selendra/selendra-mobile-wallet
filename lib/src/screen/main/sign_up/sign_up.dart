@@ -160,7 +160,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
       }
       // Post Register By Phone Number
       else { 
-        await resendOtpCode();//registerByPhoneNumber();
+        await registerByPhoneNumber();
       }
     } on SocketException catch (e) {
       await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
@@ -193,6 +193,7 @@ class SignUpState extends State<SignUp> with SingleTickerProviderStateMixin{
       if (_backend.response != null) {
         // Navigator.pop(context);
         _backend.mapData = json.decode(_backend.response.body);
+        print("Register phone ${_backend.mapData}");
       }
       // Navigator Route
       await navigator();

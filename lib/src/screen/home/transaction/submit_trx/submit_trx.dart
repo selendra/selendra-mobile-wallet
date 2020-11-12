@@ -23,6 +23,8 @@ class SubmitTrxState extends State<SubmitTrx> {
 
   PostRequest _postRequest = PostRequest();
 
+  Backend _backend = Backend();
+
   bool disable = false;
 
   @override
@@ -123,20 +125,14 @@ class SubmitTrxState extends State<SubmitTrx> {
       setState(() => _scanPayM.enable = false);
   }
 
-  Future enableAnimation(var _response) async {
+  Future enableAnimation() async {
     setState(() {
       _scanPayM.isPay = true;
       disable = true;
     });
     flareController.play('Checkmark');
-    Timer(Duration(seconds: 2), (){
-      // setState(() {
-      //   disable = false;
-      // });
-      // setState(() {
-      //   _scanPayM.isPay = false;
-      // });
-      Navigator.pop(context, _response);
+    Timer(Duration(milliseconds: 2500), (){
+      Navigator.pop(context, _backend.mapData);
     });
   }
 
@@ -181,17 +177,22 @@ class SubmitTrxState extends State<SubmitTrx> {
 
     try {
 
-      var _response = await _postRequest.sendPayment(_scanPayM);
+      _backend.response = await _postRequest.sendPayment(_scanPayM);
       
       // Close Loading
       Navigator.pop(context);
       
-      if (_response["status_code"] == 200) {
-        if (!_response.containsKey('error')) {
-          await enableAnimation(_response);
+      if (_backend.response.statusCode == 200) {
+
+        _backend.mapData = json.decode(_backend.response.body);
+
+        print(_backend.mapData);
+
+        if (!_backend.mapData.containsKey('error')) {
+          await enableAnimation();
           // await dialog(context, textAlignCenter(text: _response["message"]), Icon(Icons.done_outline, color: getHexaColor(AppColors.blueColor)));
         } else {
-          await dialog(context, textAlignCenter(text: _response["error"]['message']), warningTitleDialog());
+          await dialog(context, textAlignCenter(text: _backend.mapData["error"]['message']), warningTitleDialog());
         }
       } else {
         await dialog(context, textAlignCenter(text: 'Something goes wrong'), warningTitleDialog());

@@ -220,74 +220,92 @@ class AddAssetRowButton extends StatelessWidget{
 
 
 /* Build Portfolio If Have List Of Portfolio */
-Widget buildRowList(List<dynamic> portfolioData){
+Widget buildRowList(List<dynamic> portfolioData, int rate){
   return ListView.builder(
     padding: EdgeInsets.all(0),
     shrinkWrap: true,
     itemCount: portfolioData.length,
     physics: BouncingScrollPhysics(),
     itemBuilder: (BuildContext context, int index) {
-      return portFolioItemRow(portfolioData, index);
+      return portFolioItemRow(portfolioData, index, rate);
     },
   );
 }
 
-Widget portFolioItemRow(List<dynamic> portfolioData, int index){
+Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate){
   return rowDecorationStyle(
     child: Row(
       children: <Widget>[
 
         MyCircularImage(
           padding: EdgeInsets.all(6),
-          margin: EdgeInsets.only(right: 16),
+          margin: EdgeInsets.only(right: 20),
           decoration: BoxDecoration(
             color: hexaCodeToColor(AppColors.secondary),
             borderRadius: BorderRadius.circular(40)
           ),
           imagePath: 'assets/sld_logo.svg',
-          width: 40,
-          height: 40,
+          width: 50,
+          height: 50,
           colorImage: Colors.white,
         ),
 
-        Flexible(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: MyText(
-              text: "SEL",//portfolioData[index].containsKey("asset_code")
-              //? portfolioData[index]["asset_code"]
-              //: "XLM",
-              color: "#EFF0F2",
-              fontSize: 16,
-            )
-          )
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.only(right: 16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyText(
+                  text: "SEL",
+                  color: "#FFFFFF",
+                  fontSize: 18,
+                ),
+                MyText(text: "Selendra", fontSize: 15),
+              ],
+            ),
+          ),
+        ),
+
+        Container(
+          width: 80,
+          margin: EdgeInsets.only(right: 20),
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 25,
+            child: LineChart(
+              portfolioChart
+            ),
+          ),
         ),
 
         Expanded(
-          flex: 1, 
           child: Container(
             margin: EdgeInsets.only(right: 16),
-            alignment: Alignment.center,
-            child: SizedBox(
-              height: 25,
-              child: LineChart(
-                portfolioChart
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyText(
+                  width: double.infinity,
+                  text: portfolioData[0]["data"]['balance'], 
+                  color: "#FFFFFF", 
+                  fontSize: 18,
+                  textAlign: TextAlign.right,
+                  overflow: TextOverflow.ellipsis
+                ),
+                MyText(
+                  width: double.infinity,
+                  text: "${rate.isEven ? '+' : ''}$rate", 
+                  textAlign: TextAlign.right,
+                  color: rate.isEven ? AppColors.secondary_text : "#ff1900", 
+                  fontSize: 15
+                ),
+              ],
             ),
           )
-        ),
-
-        /* Asset Code */
-        // Expanded(child: Container()),
-
-        SizedBox(
-          width: 80,
-          child: MyText(
-            text: portfolioData[0]["data"]['balance'], 
-            color: "#FFFFFF", 
-            fontSize: 16,
-            overflow: TextOverflow.ellipsis
-          ) /* Balance */
+          
         )
       ],
     )
@@ -299,7 +317,7 @@ Widget rowDecorationStyle({Widget child, double mTop: 0, double mBottom = 16}){
   return Container(
     margin: EdgeInsets.only(top: mTop, left: 16, right: 16, bottom: 16),
     padding: EdgeInsets.fromLTRB(15, 9, 15, 9 ),
-    height: 70,
+    height: 90,
     decoration: BoxDecoration(
       boxShadow: [
         BoxShadow(

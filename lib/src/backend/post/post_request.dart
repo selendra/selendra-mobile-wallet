@@ -111,7 +111,7 @@ class PostRequest {
     return null;
   }
 
-  Future<Map<String, dynamic>> sendPayment(ModelScanPay _model) async { /* QR Code Send Request */
+  Future<_http.Response> sendPayment(ModelScanPay _model) async { /* QR Code Send Request */
     _backend.token = await Provider.fetchToken();
     _backend.bodyEncode = json.encode({
       "pin": _model.pin,
@@ -126,9 +126,7 @@ class PostRequest {
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token["token"]}"),
         body: _backend.bodyEncode
       );
-      Map<String, dynamic> _decode = json.decode(_backend.response.body);
-      _decode.addAll({"status_code": _backend.response.statusCode});
-      return _decode;
+      return _backend.response;
     }
     return null;
   }
@@ -200,8 +198,7 @@ class PostRequest {
   }
 
   // Confirm User Account By Phone Number
-  Future<_http.Response> confirmAccount
-  (String phone, SmsCodeModel _smsCodeModel) async {
+  Future<_http.Response> confirmAccount(String phone, SmsCodeModel _smsCodeModel) async {
     _backend.bodyEncode = json.encode({
       "phone": "${_smsCodeModel.countryCode}$phone",
       "verification_code": _smsCodeModel.verifyCode

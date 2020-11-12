@@ -118,9 +118,7 @@ class TrxOptionMethod {
     
     var _response = await Navigator.push(context, transitionRoute(QrScanner(portList: portfolioList)));
     if (_response != null){
-      if (_response['status_code'] == 200) {
-        resetDbdState(null, "portfolio");
-      }
+      resetDbdState(null, "portfolio");
     }
   }
   

@@ -231,6 +231,7 @@ export 'package:wallet_apps/src/models/sms_code_model.dart';
 
 /* Home Screen */
 export 'package:wallet_apps/src/models/portfolio_m.dart';
+export 'package:wallet_apps/src/models/portfolio_rate_m.dart';
 
 // Dashboard
 export 'package:wallet_apps/src/models/model_login.dart';

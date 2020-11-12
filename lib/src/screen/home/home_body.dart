@@ -8,6 +8,7 @@ class HomeBody extends StatelessWidget{
   final List<dynamic> portfolioData;
   final HomeModel homeM;
   final PortfolioM portfolioM;
+  final PortfolioRateModel portfolioRateM;
   final Function getWallet;
 
   HomeBody({
@@ -16,6 +17,7 @@ class HomeBody extends StatelessWidget{
     this.portfolioData,
     this.homeM,
     this.portfolioM,
+    this.portfolioRateM,
     this.getWallet
   });
   
@@ -112,7 +114,50 @@ class HomeBody extends StatelessWidget{
                             )
                           );
                         },
-                        child: buildRowList(portfolioM.list)
+                        child: buildRowList(portfolioM.list, portfolioRateM.totalRate)
+                      ),
+                    ),
+                    
+                    // Add Asset
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(
+                            builder: (context) => AddAsset(),
+                          )
+                        );
+                      },
+                      child: rowDecorationStyle(
+                        child: Row(
+                          children: <Widget>[
+
+                            MyCircularImage(
+                              padding: EdgeInsets.all(6),
+                              margin: EdgeInsets.only(right: 20
+                              ),
+                              decoration: BoxDecoration(
+                                color: hexaCodeToColor(AppColors.secondary),
+                                borderRadius: BorderRadius.circular(40)
+                              ),
+                              imagePath: 'assets/icons/plus_math.svg',
+                              width: 50,
+                              height: 50,
+                              colorImage: Colors.white,
+                            ),
+
+                            Flexible(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: MyText(
+                                  text: "Add asset",
+                                  color: "#EFF0F2",
+                                  fontSize: 16,
+                                )
+                              )
+                            ),
+                          ],
+                        )
                       ),
                     )
                   ],

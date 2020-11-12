@@ -15,13 +15,16 @@ class QrScanner extends StatefulWidget{
 class QrScannerState extends State<QrScanner>{
   
   final GlobalKey qrKey = GlobalKey();
+  
+  Backend _backend = Backend();
 
   void _onQrViewCreated(QRViewController controller){
     controller.scannedDataStream.listen((scanData) async {
-    //   qrData = scanData;
       controller.pauseCamera();
-      await Future.delayed(Duration(seconds: 2), (){
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SubmitTrx(scanData, false, widget.portList)));
+      await Future.delayed(Duration(seconds: 2), () async {
+        _backend.mapData = await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(scanData, false, widget.portList)));
+
+        Navigator.pop(context, _backend.mapData);
       });
     });
   }

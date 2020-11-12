@@ -40,45 +40,42 @@ class FillPinState extends State<FillPin> {
 
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       title: MyText(
-        text: "Fill pin ",
+        top: 16,
+        bottom: 16,
+        text: "Fill your pin ",
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          PinPut(
-            focusNode: _pinNode,
-            controller: _pinPutController,
-            fieldsCount: 4,
+          Container(
+            padding: EdgeInsets.only(right: 16, bottom: 20),
+            child: PinPut(
+              obscureText: '⚪',
+              focusNode: _pinNode,
+              controller: _pinPutController,
+              fieldsCount: 4,
+              eachFieldMargin: EdgeInsets.only(left: 16),
 
-            selectedFieldDecoration: _pinPutDecoration.copyWith(
-              color: Colors.grey.withOpacity(0.2)
+              selectedFieldDecoration: _pinPutDecoration.copyWith(
+                color: Colors.grey.withOpacity(0.5),
+                border: Border.all(color: Colors.grey, width: 1)
+              ),
+
+              submittedFieldDecoration: _pinPutDecoration,
+              followingFieldDecoration: _pinPutDecoration,
+
+              eachFieldConstraints: boxConstraint,
+              textStyle: TextStyle(
+                fontSize: 18,
+                color: Colors.white
+              ),
+              onSubmit: (value){
+                Navigator.pop(context, value);
+              },
             ),
-
-            submittedFieldDecoration: _pinPutDecoration,
-            followingFieldDecoration: _pinPutDecoration,
-
-            // submittedFieldDecoration: .error 
-            // ? .pinPutDecoration.copyWith(
-            //   border: Border.all(width: 1, color: Colors.red)
-            // ) 
-            // : .pinPutDecoration,
-
-            // followingFieldDecoration: .error 
-            // ? .pinPutDecoration.copyWith(
-            //   border: Border.all(width: 1, color: Colors.red)
-            // )
-            // : .pinPutDecoration,
-
-            eachFieldConstraints: boxConstraint,
-            textStyle: TextStyle(
-              fontSize: 18,
-              color: Colors.white
-            ),
-            onSubmit: (value){
-              Navigator.pop(context, value);
-            },
           ),
           
           Align(

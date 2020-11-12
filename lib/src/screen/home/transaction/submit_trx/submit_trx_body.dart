@@ -48,6 +48,7 @@ class SubmitTrxBody extends StatelessWidget{
         onChanged: onChanged,
         onSubmit: onSubmit
       ),
+      
       MyInputField(
         pBottom: 16,
         labelText: "Amount",

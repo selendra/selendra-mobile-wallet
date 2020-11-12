@@ -13,6 +13,7 @@ class AppServices {
       
       _connectivity.onConnectivityChanged.listen((ConnectivityResult result) {
         if (result == ConnectivityResult.none) {
+          print("Open Red snackbar");
           openSnackBar(globalKey, AppText.contentConnection);
         } else {
           globalKey.currentState.removeCurrentSnackBar();

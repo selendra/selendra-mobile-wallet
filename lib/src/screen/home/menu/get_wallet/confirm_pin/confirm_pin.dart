@@ -58,12 +58,14 @@ class ConfirmPinState extends State<ConfirmPin>{
     } else {
       try {
         _backend.response = await _postRequest.retreiveWallet(widget.getWalletM.confirmPinController.text);
-
         // Close Loading
         Navigator.pop(context);
 
         _backend.mapData = json.decode(_backend.response.body);
         _backend.mapData.addAll({"match": true});
+        if ( (_backend.mapData['message'].runtimeType).toString() == 'String') {
+          await dialog(context, Text(_backend.mapData['message']), Text("Message"));
+        }
         Navigator.pop(context, _backend.mapData);
       } on SocketException catch (e) {
         await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");

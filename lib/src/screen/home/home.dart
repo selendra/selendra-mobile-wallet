@@ -26,6 +26,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   PortfolioM _portfolioM = PortfolioM();
 
+  PortfolioRateModel _portfolioRate = PortfolioRateModel();
+
   // FlareControls _flareControls = FlareControls();
 
   String action = "no_action";
@@ -69,24 +71,25 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   // Initialize Fabs Animation
   void fabsAnimation(){ 
-    _homeM.animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
-    _homeM.degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_homeM.animationController);
-    setState((){});
-    _homeM.animationController.addListener(() {
-      setState(() {
-        
+    if (mounted){
+      _homeM.animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 250));
+      _homeM.degOneTranslationAnimation = Tween(begin: 0.0, end: 1.0).animate(_homeM.animationController);
+      setState((){});
+      _homeM.animationController.addListener(() {
       });
-    });
+    }
   }
 
   void opacityController(bool visible){
-    setState(() {
-      if (visible){ 
-        _homeM.visible = false;
-      } else  if (visible == false) {
-        _homeM.visible = true;
-      }
-    });
+    if (mounted){
+        setState(() {
+        if (visible){ 
+          _homeM.visible = false;
+        } else  if (visible == false) {
+          _homeM.visible = true;
+        }
+      });
+    }
   }
 
   Future<void> appPermission() async { 
@@ -106,85 +109,98 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   /* ---------------------------Rest Api--------------------------- */
   Future<void> getUserData() async { /* Fetch User Data From Memory */
-    await _getRequest.getUserProfile().then((data) {
-      setState(() {
-        if (data == null)
-          _homeM.userData = {};
-        else
-          _homeM.userData = data;
+    if (mounted){
+      await _getRequest.getUserProfile().then((data) {
+        setState(() {
+          if (data == null)
+            _homeM.userData = {};
+          else
+            _homeM.userData = data;
+        });
       });
-    });
+    }
   }
 
   void triggerDeviceInfo() async {
-    _packageInfo = await PackageInfo.fromPlatform();
-    setState(() {});
+    if (mounted){
+      _packageInfo = await PackageInfo.fromPlatform();
+      setState(() {});
+    }
   }
 
   /* Fetch Portofolio */
   Future<void> fetchPortfolio() async { 
     
-    await Future.delayed(Duration(milliseconds: 10),(){
-      setState(() {
-        _homeM.portfolioList = [];
-        _portfolioM.list = [];
-      });
-    });
-
-    try {
-      /* Get Response Data */
-      
-      _backend.response = await _getRequest.getPortfolio();
-
-      _backend.mapData = json.decode(_backend.response.body);
-
-      setState(() {
-        _portfolioM.list.add(_backend.mapData);
+    if (mounted){
+      await Future.delayed(Duration(milliseconds: 10),(){
+        setState(() {
+          _homeM.portfolioList = [];
+          _portfolioM.list = [];
+        });
       });
 
-      print(_backend.mapData);
-      
-      if (!_backend.mapData.containsKey('error')) {
-        StorageServices.setData(_portfolioM.list, 'portfolio'); /* Set Portfolio To Local Storage */
-        resetDataPieChart(_portfolioM.list);
+      try {
+        /* Get Response Data */
+        
+        _backend.response = await _getRequest.getPortfolio();
+
+        _backend.mapData = json.decode(_backend.response.body);
+
+        setState(() {
+          _portfolioM.list.add(_backend.mapData);
+        });
+
+        _portfolioRate.currentData = await _portfolioRate.getCurrentData();
+
+        _portfolioRate.totalRate = await _portfolioRate.valueRate(_backend.mapData['data'], _portfolioRate.currentData);
+
+        print(await _portfolioRate.valueRate(_backend.mapData['data'], _portfolioRate.currentData));
+
+        // print(_portfolioRate.valueRate(_backend.mapData['data'], current))
+        print("My fetch ${_backend.mapData}");
+        
+        if (!_backend.mapData.containsKey('error')) {
+          StorageServices.setData(_portfolioM.list, 'portfolio'); /* Set Portfolio To Local Storage */
+          resetDataPieChart(_portfolioM.list);
+        }
+        // Not Yet Have Wallet And Show Illustration 
+        // else {
+        //   setState((){
+            
+        //   })
+        // }
+
+      //   /* Covert String To Objects */
+      //   await _portfolioM.extractData(_backend.response);
+      //   print(_backend.response.runtimeType);
+        
+      //   // Error Handling
+      //   if (_portfolioM.list[0].containsKey('error')){
+      //     throw AssertionError(_portfolioM.list[0]['error']['message']);
+      //   }
+
+        // setState(() {
+        //   _homeM.portfolioList = _portfolioM.list;
+        // });
+      } catch (e){
+        print("My error $e");
+        await dialog(
+          context, 
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(bottom: 10.0),
+                child: textAlignCenter(text: "{e.message}")
+              ),
+            ],
+          ), 
+          warningTitleDialog()
+        );
+        // setState(() {
+        //   _portfolioM.list = null; /* Set Portfolio Equal Null To Close Loading Process */
+        // });
       }
-      // Not Yet Have Wallet And Show Illustration 
-      // else {
-      //   setState((){
-          
-      //   })
-      // }
-
-    //   /* Covert String To Objects */
-    //   await _portfolioM.extractData(_backend.response);
-    //   print(_backend.response.runtimeType);
-      
-    //   // Error Handling
-    //   if (_portfolioM.list[0].containsKey('error')){
-    //     throw AssertionError(_portfolioM.list[0]['error']['message']);
-    //   }
-
-      // setState(() {
-      //   _homeM.portfolioList = _portfolioM.list;
-      // });
-    } catch (e){
-      print("My error $e");
-      await dialog(
-        context, 
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(bottom: 10.0),
-              child: textAlignCenter(text: "{e.message}")
-            ),
-          ],
-        ), 
-        warningTitleDialog()
-      );
-      // setState(() {
-      //   _portfolioM.list = null; /* Set Portfolio Equal Null To Close Loading Process */
-      // });
     }
   }
 
@@ -322,12 +338,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     }
   }
 
-  void resetState(String barcodeValue, String executeName) { /* Request Portfolio After Trx QR Success */
-    setState(() {
-      _homeM.portfolioList = [];
-    });
-    fetchPortfolio();
-    getUserData();
+  void resetState(String barcodeValue, String executeName) async { /* Request Portfolio After Trx QR Success */
+    await fetchPortfolio();
   }
 
   void toReceiveToken() async { /* Navigate Receive Token */
@@ -367,6 +379,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             chartKey: chartKey,
             portfolioData: _homeM.portfolioList,
             portfolioM: _portfolioM,
+            portfolioRateM: _portfolioRate,
             getWallet: createPin,
             homeM: _homeM,
             // getWallet: createPin,

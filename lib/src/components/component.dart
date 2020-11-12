@@ -351,8 +351,9 @@ class MyColumnBuilder extends StatelessWidget{
 
   final List<dynamic> data;
   final EdgeInsetsGeometry margin;
+  final int rate;
 
-  MyColumnBuilder({@required this.data, this.margin});
+  MyColumnBuilder({@required this.data, this.margin, this.rate});
   
   Widget build(BuildContext context){
     return Container(
@@ -363,7 +364,7 @@ class MyColumnBuilder extends StatelessWidget{
         itemCount: data.length,
         physics: BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
-          return portFolioItemRow(data, index);
+          return portFolioItemRow(data, index, rate);
         },
       )
     );
@@ -462,6 +463,7 @@ void snackBar(GlobalKey<ScaffoldState> globalKey, String contents) {
 
 class MyPinput extends StatelessWidget {
 
+  final String obscureText;
   final GetWalletModel getWalletM;
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -469,6 +471,7 @@ class MyPinput extends StatelessWidget {
   final Function onSubmit;
 
   MyPinput({
+    this.obscureText = '⚪',
     this.getWalletM,
     this.controller,
     this.focusNode,
@@ -481,12 +484,14 @@ class MyPinput extends StatelessWidget {
       width: MediaQuery.of(context).size.width - 100,
       margin: EdgeInsets.only(bottom: 30),
       child: PinPut(
+        obscureText: obscureText,
         focusNode: focusNode,
         controller: controller,
         fieldsCount: 4,
 
         selectedFieldDecoration: getWalletM.pinPutDecoration.copyWith(
-          color: Colors.grey.withOpacity(0.2)
+          color: Colors.grey.withOpacity(0.5),
+          border: Border.all(color: Colors.grey, width: 1)
         ),
 
         submittedFieldDecoration: getWalletM.error 

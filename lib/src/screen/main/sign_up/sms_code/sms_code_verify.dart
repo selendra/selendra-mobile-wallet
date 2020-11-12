@@ -136,6 +136,8 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
         if (_backend.response != null) {
           // Navigator.pop(context);
           _backend.mapData = json.decode(_backend.response.body);
+
+          print("Sms ${_backend.mapData}");
           if (_backend.response.statusCode == 200){
             // Set Timer
             setState(() {
@@ -162,9 +164,9 @@ class SmsCodeVerifyState extends State<SmsCodeVerify> with WidgetsBindingObserve
         }
       });
     } on SocketException catch (e) {
-      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), Text("Message"));
     } catch (e) {
-      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), Text("Message"));
     }
   }
 

@@ -24,6 +24,11 @@ class MySplashScreenState extends State<MySplashScreen>{
     super.initState();
   }
 
+  @override
+  void dispose(){
+    super.dispose();
+  }
+
   void checkBiometric() async {
 
     // Connectivity _connectivity = new Connectivity();
@@ -83,7 +88,7 @@ class MySplashScreenState extends State<MySplashScreen>{
 
     // Display TimeOut With SnackBar When Over 10 Second
     if (AppServices.myNumCount == 10) {
-      Navigator.pop(context);
+      // Navigator.pop(context);
       await dialog(context, Text("Connection timeout", textAlign: TextAlign.center), Text("Mesage"));
       Navigator.pushReplacement(
         context, 

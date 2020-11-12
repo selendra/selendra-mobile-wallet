@@ -19,8 +19,8 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    // AppServices.noInternetConnection(globalKey);
     globalKey = GlobalKey<ScaffoldState>();
+    AppServices.noInternetConnection(globalKey);
     _modelLogin.label = 'phone';
     
     super.initState();

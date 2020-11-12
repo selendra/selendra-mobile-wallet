@@ -20,7 +20,9 @@ public class MainActivity extends FlutterFragmentActivity {
 
   @Override
   public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
+
   GeneratedPluginRegistrant.registerWith(flutterEngine);
+  
   new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL).setMethodCallHandler(
       (call, result) -> {
         Object defaultMode = getBrightnessMode();
