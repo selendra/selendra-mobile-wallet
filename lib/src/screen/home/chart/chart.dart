@@ -78,7 +78,7 @@ class SelendraChartState extends State<SelendraChart> {
 
   void getUserData() async {
     /* Fetch User Data From Memory */
-    widget._modelDashboard.userData = await _getRequest.getUserProfile();
+    // widget._modelDashboard.userData = await _getRequest.getUserProfile();
   }
 
   _pullUpRefresh() async {

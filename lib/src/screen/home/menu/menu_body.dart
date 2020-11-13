@@ -42,7 +42,7 @@ class MenuBody extends StatelessWidget{
           onTap: () {
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => TrxHistory("hello"))
+              MaterialPageRoute(builder: (context) => TrxHistory(userInfo['wallet']))
             );
           },
         ),

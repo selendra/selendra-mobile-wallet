@@ -97,9 +97,10 @@ class TrxHistoryState extends State<TrxHistory>{
 
   void collectByTrxType(List _trxHistoryData){ // Collect Transaction By Type "Send", And Received
     _trxHistoryData.forEach((element) {
-      if (element.containsKey('from') && widget._walletKey == element['from']){
+      if (widget._walletKey == element['sender']){
+        print("$element\n");
         _trxSend.add(element);
-      } else if (widget._walletKey != element['from'] && element['type'] != "manage_offer") { /* Send Trx If Source Account Address Not Equal Wallet Adddress */ 
+      } else if (widget._walletKey != element['sender']) { /* Send Trx If Source Account Address Not Equal Wallet Adddress */ 
         _trxReceived.add(element);
       }
     });

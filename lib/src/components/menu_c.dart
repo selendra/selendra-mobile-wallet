@@ -36,7 +36,9 @@ class MenuHeader extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 MyText(
-                  text: "${userInfo['first_name'] ?? "User"} ${userInfo['mid_name'] ?? ""} ${userInfo['last_name'] ?? "name"}",
+                  text: userInfo['first_name'] == '' && userInfo['mid_name'] == '' && userInfo['last_name'] == ''
+                  ? 'User name'
+                  : "${userInfo['first_name']} ${userInfo['mid_name']} ${userInfo['last_name']}",
                   color: "#FFFFFF",
                   fontSize: 16,
                 ),

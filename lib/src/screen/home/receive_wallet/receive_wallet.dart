@@ -28,6 +28,7 @@ class ReceiveWalletState extends State<ReceiveWallet>{
 
   @override
   void initState() {
+    print(widget.homeM.userData);
     _globalKey = GlobalKey<ScaffoldState>();
     AppServices.noInternetConnection(_globalKey);
     _method.platformChecker(context);

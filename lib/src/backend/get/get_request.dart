@@ -7,14 +7,14 @@ class GetRequest{
 
   Backend _backend = Backend();
 
-  Future<Map<String, dynamic>> getUserProfile() async {
+  Future<_http.Response> getUserProfile() async {
     /* Get User Profile */
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
       _backend.response = await _http.get("${_sldApi.api}/userprofile",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}")
       );
-      return _backend.token;
+      return _backend.response;
     }
     return null;
   }

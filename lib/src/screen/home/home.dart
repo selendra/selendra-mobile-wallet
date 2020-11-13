@@ -103,11 +103,13 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   Future<void> getUserData() async { /* Fetch User Data From Memory */
     if (mounted){
       await _getRequest.getUserProfile().then((data) {
+
+        print("User data ${data.body}");
         setState(() {
           if (data == null)
             _homeM.userData = {};
           else
-            _homeM.userData = data;
+            _homeM.userData = json.decode(data.body);
         });
       });
     }

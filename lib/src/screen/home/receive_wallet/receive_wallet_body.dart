@@ -60,10 +60,19 @@ class ReceiveWalletBody extends StatelessWidget{
                         qrCodeGenerator(homeM, AppConfig.logoQrEmbedded, keyQrShare),
 
                         MyText(
-                          text: "${homeM.userData['first_name']} ${homeM.userData['mid_name']} ${homeM.userData['last_name']}",
+                          text: homeM.userData['first_name'] == '' && homeM.userData['mid_name'] == '' && homeM.userData['last_name'] == ''
+                          ? 'User name'
+                          : "${homeM.userData['first_name']} ${homeM.userData['mid_name']} ${homeM.userData['last_name']}",
                           bottom: 16,
                           top: 16,
                           color: "#FFFFFF",
+                        ),
+
+                        MyText(
+                          width: 100,
+                          text: "${homeM.userData['wallet']}",
+                          color: AppColors.secondary_text,
+                          fontSize: 16,
                         ),
 
                         MyText(

@@ -16,8 +16,7 @@ class TrxComponent {
       shrinkWrap: true,
       itemCount: trx.length,
       itemBuilder: (context, index){
-        return  
-        GestureDetector(
+        return GestureDetector(
           onTap: () {
             Navigator.push(context, transitionRoute(TrxHistoryDetails(trx[index], tab)));
           },
