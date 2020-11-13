@@ -1,6 +1,5 @@
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class Home extends StatefulWidget {
   State<StatefulWidget> createState() {
@@ -60,13 +59,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     });
 
     super.initState();
-  }
-
-  void login() async {
-    await _postRequest.loginByPhone('15894139', '123456').then((value) {
-      _backend.mapData = json.decode(value.body);
-      StorageServices.setData(_backend.mapData, 'user_token');
-    }); 
   }
 
   // Initialize Fabs Animation
@@ -149,17 +141,13 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         setState(() {
           _portfolioM.list.add(_backend.mapData);
         });
-
-        _portfolioRate.currentData = await _portfolioRate.getCurrentData();
-
-        _portfolioRate.totalRate = await _portfolioRate.valueRate(_backend.mapData['data'], _portfolioRate.currentData);
-
-        print(await _portfolioRate.valueRate(_backend.mapData['data'], _portfolioRate.currentData));
-
-        // print(_portfolioRate.valueRate(_backend.mapData['data'], current))
-        print("My fetch ${_backend.mapData}");
         
         if (!_backend.mapData.containsKey('error')) {
+          
+          _portfolioRate.currentData = await _portfolioRate.getCurrentData();
+
+          _portfolioRate.totalRate = await _portfolioRate.valueRate(_backend.mapData['data'], _portfolioRate.currentData);
+
           StorageServices.setData(_portfolioM.list, 'portfolio'); /* Set Portfolio To Local Storage */
           resetDataPieChart(_portfolioM.list);
         }
@@ -191,7 +179,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.only(bottom: 10.0),
-                child: textAlignCenter(text: "{e.message}")
+                child: textAlignCenter(text: "${e.message}")
               ),
             ],
           ), 

@@ -50,27 +50,41 @@ class TrxHistoryBody extends StatelessWidget{
           child: TabBarView(
             children: <Widget>[
               
-              trxHistory == null ? Container(
-                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
-                alignment: Alignment.center,
-              ) /* Retreive Porfolio Null => Have No List */ 
-              : trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-              : sendBody(trxSend, walletKey, instanceTrxSendOrder),
-              
-              // trxHistory == null ? Container(
-              //   child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
-              //   alignment: Alignment.center,
-              // ) /* Retreive Porfolio Null => Have No List */ 
-              // : trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-              // : 
-              allTrxBody(trxHistory, instanceTrxAllOrder),
+              if (trxHistory == null) loading()
+              else trxHistory.isNotEmpty ? sendBody(trxSend, walletKey, instanceTrxSendOrder) : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/no_data.svg', height: 200),
 
-              trxHistory == null ? Container(
-                child: Text("No transaction", style: TextStyle(fontSize: 18.0)), 
-                alignment: Alignment.center,
-              ) /* Retreive Porfolio Null => Have No List */ 
-              : trxHistory.length == 0 ? Padding( padding: EdgeInsets.all(10.0), child: loading()) /* Show Loading Process At Portfolio List When Requesting Data */
-              : receivedTrxBody(trxReceived, walletKey, instanceTrxReceivedOrder),
+                  MyText(
+                    text: "There are no history found"
+                  )
+                ],
+              ),
+
+              if (trxHistory == null) loading()
+              else trxHistory.isNotEmpty ? allTrxBody(trxHistory, instanceTrxAllOrder) : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/no_data.svg', height: 200),
+
+                  MyText(
+                    text: "There are no history found"
+                  )
+                ],
+              ),
+
+              if (trxHistory == null) loading()
+              else trxHistory.isNotEmpty ? receivedTrxBody(trxReceived, walletKey, instanceTrxReceivedOrder) : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset('assets/no_data.svg', height: 200),
+
+                  MyText(
+                    text: "There are no history found"
+                  )
+                ],
+              ),
 
             ],
           )

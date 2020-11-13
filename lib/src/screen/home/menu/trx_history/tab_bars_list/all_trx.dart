@@ -14,7 +14,7 @@ Widget allTrxBody(List<dynamic> _trxHistory, InstanceTrxOrder _instanceTrxOrder)
                 child: Divider(color: hexaCodeToColor(AppColors.textColor), height: 1.0),
               ),
               // TrxComponent.trxTitle(_trxHistory),
-              TrxComponent.trxList(_trxHistory, tab: ''),
+              TrxComponent.trxList(_trxHistory, tab: 'All'),
             ],
           ),
         )

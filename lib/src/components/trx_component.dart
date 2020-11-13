@@ -14,80 +14,63 @@ class TrxComponent {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10, // trx.length,
+      itemCount: trx.length,
       itemBuilder: (context, index){
-        // print(length);
-        return 
-        // index != 0 ? 
+        return  
         GestureDetector(
           onTap: () {
-            // Navigator.push(context, transitionRoute(TrxHistoryDetails(trx[index], tab)));
+            Navigator.push(context, transitionRoute(TrxHistoryDetails(trx[index], tab)));
           },
           child: rowDecorationStyle(
             child: Row(
               children: <Widget>[
 
-                // Stellar Icons
-                // !trx[index].containsKey("asset_code") 
-                // ? MyCircularImage(
-                //   padding: EdgeInsets.all(6),
-                //   margin: EdgeInsets.only(right: 16),
-                //   decoration: BoxDecoration(
-                //     color: hexaCodeToColor(AppColors.secondary),
-                //     borderRadius: BorderRadius.circular(40)
-                //   ),
-                //   imagePath: 'assets/stellar.svg',
-                //   width: 40,
-                //   height: 40,
-                //   colorImage: Colors.white,
-                // )
-
-                // Another Crypto Images
-                // : 
                 MyCircularImage(
                   padding: EdgeInsets.all(6),
-                  margin: EdgeInsets.only(right: 16),
+                  margin: EdgeInsets.only(right: 20),
                   decoration: BoxDecoration(
                     color: hexaCodeToColor(AppColors.secondary),
                     borderRadius: BorderRadius.circular(40)
                   ),
                   imagePath: 'assets/sld_logo.svg',
-                  width: 40,
-                  height: 40,
+                  width: 50,
+                  height: 50,
                   colorImage: Colors.white,
                 ),
 
-                MyText(
-                  text: "SEL",
-                  // text: trx[index].containsKey("asset_code")
-                  // ? trx[index]["asset_code"]
-                  // : "SEL",
-                  color: "#EFF0F2",
-                  fontSize: 16,
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(right: 16),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MyText(
+                          text: "SEL",
+                          color: "#FFFFFF",
+                          fontSize: 18,
+                        ),
+                        MyText(text: "Selendra", fontSize: 15),
+                      ],
+                    ),
+                  ),
                 ),
 
-                /* Asset Code */
-                Expanded(child: Container()),
-
-                // trx[index].containsKey('amount') 
-                // ? 
                 MyText(
-                  text: "${20 * index+1}", //trx[index]["balance"], 
-                  color: "#00FFE8",
-                  fontSize: 16,
-                ) /* Balance */
-                // : Container()
+                  text: trx[index]["amount"].toString(), 
+                  color: "#FFFFFF",
+                  fontSize: 18,
+                )
               ],
             )
           ),
         );
-        // ) : Container();
       }
     );
   }
 
   static Widget trxListByMonth(List trx, {String tab}){
-    return trx.length != 0 ? Column( // Prevent The Month Have Have No Trx
+    return trx.length != 0 ? Column( // Prevent The Month Have No Trx
       children: <Widget>[
         Container(
           margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -97,16 +80,16 @@ class TrxComponent {
         TrxComponent.trxList(trx, tab: tab),
       ],
     ) : Container(
-      child: Column( // Prevent The Month Have Have No Trx
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
-            child: Divider(color: hexaCodeToColor(AppColors.textColor), height: 1.0),
-          ),
-          TrxComponent.trxTitle(trx),
-          TrxComponent.trxList(trx, tab: tab),
-        ],
-      ),
+      // child: Column( // Prevent The Month Have No Trx
+      //   children: <Widget>[
+      //     Container(
+      //       margin: EdgeInsets.fromLTRB(16, 0, 16, 0),
+      //       child: Divider(color: hexaCodeToColor(AppColors.textColor), height: 1.0),
+      //     ),
+      //     TrxComponent.trxTitle(trx),
+      //     TrxComponent.trxList(trx, tab: tab),
+      //   ],
+      // ),
     );
   }
 }

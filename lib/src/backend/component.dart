@@ -10,6 +10,8 @@ class Backend{
 
   Map<String, dynamic> mapData;
 
+  List<dynamic> listData;
+
   dynamic data;
 
   Map<String, String> conceteHeader(String _key, String _value) { /* Concete More Content Of Header */

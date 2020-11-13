@@ -14,7 +14,7 @@ class GetRequest{
       _backend.response = await _http.get("${_sldApi.api}/userprofile",
         headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}")
       );
-      return json.decode(_backend.response.body);
+      return _backend.token;
     }
     return null;
   }
@@ -28,13 +28,12 @@ class GetRequest{
     return null;
   }
 
-  Future trxUserHistory() async {
-    /* User History */
+  /* User History */
+  Future<_http.Response> trxHistory() async {
     _backend.token = await Provider.fetchToken();
     if (_backend.token != null) {
-      _backend.response = await _http.get("${_sldApi.api}/trx-history",
-          headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
-      return json.decode(_backend.response.body);
+      _backend.response = await _http.get("${_sldApi.api}/trx-history", headers: _backend.conceteHeader("authorization", "Bearer ${_backend.token['token']}"));
+      return _backend.response;
     }
     return null;
   }

@@ -7,16 +7,22 @@ class PortfolioRateModel {
   int totalRate = 0;
 
   Future<int> valueRate(Map<String, dynamic> data, double current) async{
-    // print("Portolio $data");
     comingData = double.parse(data['balance']);
-    print("Current $current");
-    print("Coming $comingData");
+    print("Current data $current");
+    print("Coming Data $comingData");
+    print(current != comingData);
+    // Current Token Different Up Coming Token
     if (current != comingData){
-      totalRate = (comingData.round()-current.round());
+      if (current != 0) {
+        totalRate = (comingData.round()-current.round());
+        await StorageServices.setData(totalRate, 'total_rate');
+      }
       await StorageServices.setData(comingData, 'current_amount');
-      await StorageServices.setData(totalRate, 'total_rate');
-    } else {
+    }
+    // No Transaction That Make Value Change And Display Previous Rate
+    else {
       totalRate = await getCurrentTotalRate();
+      print("Get current total rate $totalRate");
     }
     return totalRate;
   }
@@ -30,6 +36,7 @@ class PortfolioRateModel {
   
   Future<int> getCurrentTotalRate() async {
     await StorageServices.fetchData('total_rate').then((value) {
+      print("My value $value");
       totalRate = value;
     });
     return totalRate == null ? 0 : totalRate;

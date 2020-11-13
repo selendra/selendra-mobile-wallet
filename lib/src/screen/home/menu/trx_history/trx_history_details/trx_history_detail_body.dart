@@ -38,18 +38,11 @@ class TrxHistoryDetailsBody extends StatelessWidget{
           ),
           child: Column(
             children: <Widget>[
-              // rowInformation("Receipt no: ", trxInfo['receipt_no']),
-              trxInfo['type'] == 'create_account' 
-              ? rowInformation("Amount: ", trxInfo['starting_balance'])
-              : rowInformation("Amount: ", trxInfo['amount'] ?? "0.00"),
-              // rowInformation("Location: ", trxInfo['location']),
-              trxInfo['type'] == "create_account" 
-              ? rowInformation("Type:", trxInfo['type']) /* If Trx Type As Create Account */
-              : rowInformation("Type: ", trxInfo['type'] == "payment" ? "Payment" : "Fee"),
-              rowInformation("From: ", trxInfo['type'] == "payment" ? trxInfo['from'] : ""),
-              rowInformation("To: ", trxInfo['type'] == "payment" ? trxInfo['to'] : ""),
+              rowInformation("Amount: ", trxInfo['amount']),
+              rowInformation("Fee: ", trxInfo['fee']),
+              rowInformation("From: ", trxInfo['sender']),
+              rowInformation("To: ", trxInfo['destination']),
               rowInformation("Date: ", AppUtils.timeStampToDateTime(trxInfo['created_at'])),
-              // Divider(height: 1, color: Colors.white.withOpacity(0.1), thickness: 1.0,),
             ],
           ),
         )

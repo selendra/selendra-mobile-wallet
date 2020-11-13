@@ -21,7 +21,7 @@ class TrxHistoryState extends State<TrxHistory>{
 
   bool isProgress = true; bool isLogout = false;
 
-  List<dynamic> _trxHistory = [];
+  List<dynamic> _trxHistoryData;
   List<dynamic> _trxSend = [];
   List<dynamic> _trxReceived = [];
 
@@ -36,12 +36,11 @@ class TrxHistoryState extends State<TrxHistory>{
 
   @override
   void initState() {
-    login();
     _instanceTrxAllOrder = InstanceTrxOrder();
     _instanceTrxSendOrder = InstanceTrxOrder();
     _instanceTrxReceivedOrder = InstanceTrxOrder();
     AppServices.noInternetConnection(_globalKey);
-    fetchHistoryUser();
+    fetchHistory();
     super.initState();
   }
   
@@ -53,36 +52,51 @@ class TrxHistoryState extends State<TrxHistory>{
     await StorageServices.setData(_backend.mapData, 'user_token');
   }
 
-  void fetchHistoryUser() async { /* Request Transaction History */
-    try {
-      await _getRequest.trxUserHistory().then((_response) async { /* Get Response Data */
-        if ( (_response.runtimeType.toString()) != "List<dynamic>" && (_response.runtimeType.toString()) != "_GrowableList<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
-          if (_response.containsKey("error")){
-            if (this.mounted){ /* Prevent Future SetState */
-              setState(() {
-                _trxHistory = null; /* Set Portfolio Equal Null To Close Loading Process */
-              });
-            }
-          }
-        } else {
-          if (this.mounted) { /* Prevent Future SetState */
-            collectByTrxType(_response);
-            setState(() {
-              _trxHistory = _response;
-            });
-          }
-        } 
-      });
-    } on SocketException catch (e) {
-      await dialog(context, Text("${e.message}"), Text("Message")); 
-      snackBar(_globalKey, e.message.toString());
-    } catch (e) {
-      await dialog(context, Text(e.message.toString()), Text("Message")); 
+  void fetchHistory() async { /* Request Transaction History */
+    if (mounted){
+      try {
+        _backend.response = await _getRequest.trxHistory();
+
+        _backend.listData = json.decode(_backend.response.body);
+  
+        setState(() {
+          _trxHistoryData = _backend.listData;
+          collectByTrxType(_trxHistoryData);
+        });
+
+        // if (_backend.listData.isNotEmpty){
+        // } else {
+        //   print("Empty boy");
+        // }
+
+        // .then((_response) async {
+          
+          // if ( (_response.runtimeType.toString()) != "List<dynamic>" && (_response.runtimeType.toString()) != "_GrowableList<dynamic>" ){ /* If Response DataType Not List<dynamic> */ 
+          //   if (_response.containsKey("error")){
+          //     if (this.mounted){ /* Prevent Future SetState */
+          //       setState(() {
+          //         _trxHistoryData = null; /* Set Portfolio Equal Null To Close Loading Process */
+          //       });
+          //     }
+          //   }
+          // } else {
+          //   if (this.mounted) { /* Prevent Future SetState */
+          //     collectByTrxType(_response);
+          //   }
+          // } 
+        // });
+      } on SocketException catch (e) {
+        await dialog(context, Text("${e.message}"), Text("Message")); 
+        snackBar(_globalKey, e.message.toString());
+      } catch (e) {
+        print("Error $e");
+        await dialog(context, Text(e.message.toString()), Text("Message")); 
+      }
     }
   }
 
-  void collectByTrxType(List _trxHistory){ // Collect Transaction By Type "Send", And Received
-    _trxHistory.forEach((element) {
+  void collectByTrxType(List _trxHistoryData){ // Collect Transaction By Type "Send", And Received
+    _trxHistoryData.forEach((element) {
       if (element.containsKey('from') && widget._walletKey == element['from']){
         _trxSend.add(element);
       } else if (widget._walletKey != element['from'] && element['type'] != "manage_offer") { /* Send Trx If Source Account Address Not Equal Wallet Adddress */ 
@@ -90,17 +104,17 @@ class TrxHistoryState extends State<TrxHistory>{
       }
     });
     sortByDate(_trxSend, "Send");
-    sortByDate(_trxHistory, "All");
+    sortByDate(_trxHistoryData, "All");
     sortByDate(_trxReceived, "Received");
   }
 
-  void sortByDate(List _trxHistory, String tab){
+  void sortByDate(List _trxHistoryData, String tab){
     if (tab == "Send") {
-      _instanceTrxSendOrder = AppUtils.trxMonthOrder(_trxHistory);
+      _instanceTrxSendOrder = AppUtils.trxMonthOrder(_trxHistoryData);
     } else if (tab == "All") {
-      _instanceTrxAllOrder = AppUtils.trxMonthOrder(_trxHistory);
+      _instanceTrxAllOrder = AppUtils.trxMonthOrder(_trxHistoryData);
     } else if ( tab == "Received") {
-      _instanceTrxReceivedOrder = AppUtils.trxMonthOrder(_trxHistory);
+      _instanceTrxReceivedOrder = AppUtils.trxMonthOrder(_trxHistoryData);
     }
   }
 
@@ -109,7 +123,7 @@ class TrxHistoryState extends State<TrxHistory>{
     setState(() {
       isProgress = true;
     });
-    fetchHistoryUser();
+    fetchHistory();
     _refreshController.refreshCompleted();
   }
 
@@ -127,7 +141,7 @@ class TrxHistoryState extends State<TrxHistory>{
           height: MediaQuery.of(context).size.height,
           child: TrxHistoryBody(
             trxSend: _trxSend,
-            trxHistory: _trxHistory,
+            trxHistory: _trxHistoryData,
             trxReceived: _trxReceived,
             instanceTrxSendOrder: _instanceTrxSendOrder,
             instanceTrxAllOrder: _instanceTrxAllOrder,

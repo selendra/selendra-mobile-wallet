@@ -233,6 +233,7 @@ Widget buildRowList(List<dynamic> portfolioData, int rate){
 }
 
 Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate){
+  print(rate.isEven);
   return rowDecorationStyle(
     child: Row(
       children: <Widget>[
@@ -297,9 +298,9 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate){
                 ),
                 MyText(
                   width: double.infinity,
-                  text: "${rate.isEven ? '+' : ''}$rate", 
+                  text: "${!rate.isNegative ? '+' : ''}$rate", 
                   textAlign: TextAlign.right,
-                  color: rate.isEven ? AppColors.secondary_text : "#ff1900", 
+                  color: !rate.isNegative ? AppColors.secondary_text : "#ff1900", 
                   fontSize: 15
                 ),
               ],
