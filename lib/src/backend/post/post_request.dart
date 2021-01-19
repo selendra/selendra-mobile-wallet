@@ -334,7 +334,7 @@ class PostRequest {
       'file',
       compressImage,
       filename: 'image_picker.jpg',
-      contentType: MediaType .parse('image/jpeg'),
+      contentType: MediaType.parse('image/jpeg'),
     );
     /* Concate Token With Header */
     request.headers.addAll(_backend.conceteHeader("Authorization", "Bearer ${_backend.token['TOKEN']}"));

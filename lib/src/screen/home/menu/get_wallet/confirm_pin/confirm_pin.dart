@@ -62,7 +62,9 @@ class ConfirmPinState extends State<ConfirmPin>{
         Navigator.pop(context);
 
         _backend.mapData = json.decode(_backend.response.body);
+
         _backend.mapData.addAll({"match": true});
+        
         if ( (_backend.mapData['message'].runtimeType).toString() == 'String') {
           await dialog(context, Text(_backend.mapData['message']), Text("Message"));
         }

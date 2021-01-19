@@ -36,7 +36,6 @@ class MyBottomSheetItem extends StatelessWidget {
   }
 }
 
-
 /* -------------------------Transaction Method--------------------------- */
 
 class TrxOptionMethod {
