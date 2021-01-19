@@ -69,10 +69,11 @@ class ReceiveWalletBody extends StatelessWidget{
                         ),
 
                         MyText(
-                          width: 100,
+                          width: 300,
                           text: "${homeM.userData['wallet']}",
                           color: AppColors.secondary_text,
                           fontSize: 16,
+                          bottom: 16,
                         ),
 
                         MyText(

@@ -26,7 +26,7 @@ export 'package:image_cropper/image_cropper.dart';
 export 'package:autocomplete_textfield/autocomplete_textfield.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:qr_flutter/qr_flutter.dart';
-export 'package:firebase_remote_config/firebase_remote_config.dart';
+// export 'package:firebase_remote_config/firebase_remote_config.dart';
 export 'package:share/share.dart';
 export 'package:flare_flutter/flare_actor.dart';
 export 'package:flare_flutter/flare_controller.dart';

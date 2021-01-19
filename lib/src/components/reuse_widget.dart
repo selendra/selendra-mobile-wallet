@@ -394,10 +394,14 @@ Widget qrCodeGenerator(HomeModel homeM, String logoName, GlobalKey _keyQrShare){
       ),
       
       Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 2, color: hexaCodeToColor(AppColors.secondary_text)),
+          borderRadius: BorderRadius.circular(6)
+        ),
         width: 200.0,
         height: 200.0,
         child: QrImage(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.white.withOpacity(0.8),
           foregroundColor: Colors.black,
           embeddedImage: AssetImage('${AppConfig.logoQrEmbedded}'),
           embeddedImageStyle: QrEmbeddedImageStyle(

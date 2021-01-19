@@ -153,25 +153,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           StorageServices.setData(_portfolioM.list, 'portfolio'); /* Set Portfolio To Local Storage */
           resetDataPieChart(_portfolioM.list);
         }
-        // Not Yet Have Wallet And Show Illustration 
-        // else {
-        //   setState((){
-            
-        //   })
-        // }
-
-      //   /* Covert String To Objects */
-      //   await _portfolioM.extractData(_backend.response);
-      //   print(_backend.response.runtimeType);
-        
-      //   // Error Handling
-      //   if (_portfolioM.list[0].containsKey('error')){
-      //     throw AssertionError(_portfolioM.list[0]['error']['message']);
-      //   }
-
-        // setState(() {
-        //   _homeM.portfolioList = _portfolioM.list;
-        // });
       } catch (e){
         print("My error $e");
         await dialog(

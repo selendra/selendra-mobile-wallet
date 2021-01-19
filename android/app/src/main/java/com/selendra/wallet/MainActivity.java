@@ -1,4 +1,4 @@
-package com.selendra.wallet;
+package com.selendra.secure_wallet;
 
 import android.os.Build;
 import android.content.Intent;

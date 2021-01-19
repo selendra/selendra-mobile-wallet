@@ -45,7 +45,7 @@ class AppState extends State<App> {
             return Provider(
               child: MaterialApp(
                 initialRoute: '/',
-                title: 'SELENDRA',
+                title: 'SELENDRA Secure Wallet',
                 theme: AppStyle.myTheme(),
                 routes: AppRouting.routes,
                 builder: (context, widget) => ResponsiveWrapper.builder(

@@ -54,7 +54,14 @@ class MySplashScreenState extends State<MySplashScreen>{
             }
           } else {
       // _backend.response = await _getRequest.checkExpiredToken();
-            navigator();
+            // navigator();
+            Navigator.pushAndRemoveUntil(
+              context, 
+              MaterialPageRoute(
+                builder: (context) => Welcome()
+              ), 
+              ModalRoute.withName('/')
+            );
           }
         });
         
