@@ -84,7 +84,7 @@ export 'package:wallet_apps/src/service/storage.dart';
 
 // Main Screeen
 export 'package:wallet_apps/src/screen/main/welcome/welcome.dart';
-export  'package:wallet_apps/src/screen/main/welcome/welcome_body.dart';
+export 'package:wallet_apps/src/screen/main/welcome/welcome_body.dart';
 
 // Finger Print
 
@@ -248,4 +248,3 @@ export 'package:wallet_apps/src/models/sms_code_model.dart';
 
 /* ---------------------Util------------------------ */
 export 'package:wallet_apps/src/utils/instance_trx_order.dart';
-

@@ -89,7 +89,7 @@ dependencies:
   package_info: 
 
   #Authenticatioin & Verification
-  local_auth: ^0.6.2+3
+  local_auth: ^0.6.3+4
   sms_autofill:
   
   #animation
