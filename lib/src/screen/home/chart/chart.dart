@@ -1,4 +1,4 @@
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
 class SelendraChart extends StatefulWidget {
@@ -14,7 +14,7 @@ class SelendraChart extends StatefulWidget {
 
 class SelendraChartState extends State<SelendraChart> {
 
-  RefreshController _refreshController = RefreshController();
+  // RefreshController _refreshController = RefreshController();
 
   GetRequest _getRequest = GetRequest();
 
@@ -88,7 +88,7 @@ class SelendraChartState extends State<SelendraChart> {
     });
     fetchPortfolio();
     getUserData();
-    _refreshController.refreshCompleted();
+    // _refreshController.refreshCompleted();
   }
 
   Widget build(BuildContext context) {
@@ -102,17 +102,17 @@ class SelendraChartState extends State<SelendraChart> {
                 MyAppBar(
                   title: "Selendra chart"
                 ),
-                Expanded(
-                  child: SmartRefresher(
-                    controller: _refreshController,
-                    onRefresh: _pullUpRefresh,
-                    child: zeeChartBody(
-                      context,
-                      widget._modelDashboard.portfolioList,
-                      widget._modelDashboard
-                    ),
-                  ),
-                )
+                // Expanded(
+                //   child: SmartRefresher(
+                //     controller: _refreshController,
+                //     onRefresh: _pullUpRefresh,
+                //     child: zeeChartBody(
+                //       context,
+                //       widget._modelDashboard.portfolioList,
+                //       widget._modelDashboard
+                //     ),
+                //   ),
+                // )
               ],
             )
           ],

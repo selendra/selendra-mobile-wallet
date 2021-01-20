@@ -1,4 +1,4 @@
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
 class Home extends StatefulWidget {
@@ -246,7 +246,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     _portfolioM.list = [];
     fetchPortfolio();
     getUserData();
-    _homeM.refreshController.refreshCompleted();
+    // _homeM.refreshController.refreshCompleted();
   }
 
   Future<dynamic> cropImageCamera(BuildContext context) async {
@@ -340,24 +340,25 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         ),
         child: Menu(_homeM.userData, _packageInfo, menuCallBack),
       ),
-      body: SmartRefresher(
-        physics: BouncingScrollPhysics(),
-        controller: _homeM.refreshController,
-        child: BodyScaffold(
-          height: MediaQuery.of(context).size.height,
-          child: HomeBody(
-            bloc: bloc,
-            chartKey: chartKey,
-            portfolioData: _homeM.portfolioList,
-            portfolioM: _portfolioM,
-            portfolioRateM: _portfolioRate,
-            getWallet: createPin,
-            homeM: _homeM,
-            // getWallet: createPin,
-          )
-        ),
-        onRefresh: _pullUpRefresh,
+      body: BodyScaffold(
+        height: MediaQuery.of(context).size.height,
+        child: HomeBody(
+          bloc: bloc,
+          chartKey: chartKey,
+          portfolioData: _homeM.portfolioList,
+          portfolioM: _portfolioM,
+          portfolioRateM: _portfolioRate,
+          getWallet: createPin,
+          homeM: _homeM,
+          // getWallet: createPin,
+        )
       ),
+      // SmartRefresher(
+      //   physics: BouncingScrollPhysics(),
+      //   controller: _homeM.refreshController,
+      //   child: ,
+      //   onRefresh: _pullUpRefresh,
+      // ),
 
       floatingActionButton: SizedBox(
         width: 64, height: 64,

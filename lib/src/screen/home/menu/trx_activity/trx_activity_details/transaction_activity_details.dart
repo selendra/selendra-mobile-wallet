@@ -1,4 +1,4 @@
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
 class TransactionActivityDetails extends StatefulWidget {
@@ -14,7 +14,7 @@ class TransactionActivityDetails extends StatefulWidget {
 
 class MyActivityDetailsState extends State<TransactionActivityDetails> {
 
-  final RefreshController _refreshController = RefreshController();
+  // final RefreshController _refreshController = RefreshController();
   
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
@@ -32,7 +32,7 @@ class MyActivityDetailsState extends State<TransactionActivityDetails> {
     setState(() {
       isProgress = true;
     });
-    _refreshController.refreshCompleted();
+    // _refreshController.refreshCompleted();
   }
 
   void popScreen() => Navigator.pop(context);

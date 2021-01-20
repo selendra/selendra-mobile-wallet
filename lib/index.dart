@@ -42,7 +42,6 @@ export 'package:async/async.dart';
 // export 'package:line_icons/line_icons.dart';
 // export 'package:line_awesome_icons/line_awesome_icons.dart';
 export 'package:line_awesome_flutter/line_awesome_flutter.dart';
-export 'package:qr_code_scanner/qr_code_scanner.dart';
 export 'package:percent_indicator/percent_indicator.dart';
 export 'package:pinput/pin_put/pin_put.dart';
 

@@ -127,6 +127,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  contact_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: contact_picker_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.0"
+  contact_picker_web:
+    dependency: transitive
+    description:
+      name: contact_picker_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.1"
   contacts_service:
     dependency: "direct main"
     description:
@@ -307,7 +321,7 @@ packages:
       name: fluttercontactpicker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.1"
+    version: "4.2.1"
   font_awesome_flutter:
     dependency: transitive
     description:
@@ -371,6 +385,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
+  js:
+    dependency: transitive
+    description:
+      name: js
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.2"
   json_annotation:
     dependency: transitive
     description:
@@ -552,7 +573,7 @@ packages:
       name: pinput
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.6"
+    version: "1.0.0"
   platform:
     dependency: transitive
     description:
@@ -588,13 +609,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.3.3"
-  pull_to_refresh:
-    dependency: "direct main"
-    description:
-      name: pull_to_refresh
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.3"
   qr:
     dependency: transitive
     description:
@@ -608,7 +622,7 @@ packages:
       name: qr_code_scanner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.14"
+    version: "0.3.0"
   qr_flutter:
     dependency: "direct main"
     description:
@@ -643,7 +657,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.24.1"
+    version: "0.25.0"
   share:
     dependency: "direct main"
     description:
@@ -760,14 +774,14 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "18.4.34"
+    version: "18.4.35"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "18.4.34"
+    version: "18.4.35"
   term_glyph:
     dependency: transitive
     description:

@@ -1,4 +1,5 @@
 import 'package:wallet_apps/index.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrScanner extends StatefulWidget{
 
@@ -22,7 +23,7 @@ class QrScannerState extends State<QrScanner>{
     controller.scannedDataStream.listen((scanData) async {
       controller.pauseCamera();
       await Future.delayed(Duration(seconds: 2), () async {
-        _backend.mapData = await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(scanData, false, widget.portList)));
+        _backend.mapData = await Navigator.push(context, MaterialPageRoute(builder: (context) => SubmitTrx(scanData.code, false, widget.portList)));
 
         Navigator.pop(context, _backend.mapData);
       });

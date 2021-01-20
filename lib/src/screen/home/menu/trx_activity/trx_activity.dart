@@ -1,4 +1,4 @@
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+// import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wallet_apps/index.dart';
 
 class TrxActivity extends StatefulWidget {
@@ -10,7 +10,7 @@ class TrxActivity extends StatefulWidget {
 
 class TrxActivityState extends State<TrxActivity> {
 
-  final RefreshController _refreshController = RefreshController();
+  // final RefreshController _refreshController = RefreshController();
 
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
@@ -68,7 +68,7 @@ class TrxActivityState extends State<TrxActivity> {
       isProgress = true;
     });
     fetchHistoryUser();
-    _refreshController.refreshCompleted();
+    // _refreshController.refreshCompleted();
   }
 
   void popScreen() => Navigator.pop(context);
