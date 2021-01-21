@@ -202,14 +202,16 @@ class MyAppBar extends StatelessWidget{
   final EdgeInsetsGeometry margin;
   final String title;
   final Function onPressed;
+  final Color color;
 
   MyAppBar({
     this.pLeft = 0,
     this.pTop = 0,
     this.pRight = 0,
     this.pBottom = 0,
-    this.margin = const EdgeInsets.fromLTRB(0, 15, 0, 0),
+    this.margin = const EdgeInsets.fromLTRB(0, 16, 0, 0),
     @required this.title,
+    this.color,
     this.onPressed
   });
   
@@ -218,6 +220,7 @@ class MyAppBar extends StatelessWidget{
       height: 65.0, 
       width: MediaQuery.of(context).size.width, 
       margin: margin,
+      color: hexaCodeToColor(AppColors.cardColor),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

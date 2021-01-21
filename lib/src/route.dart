@@ -1,9 +1,13 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/main/confirm_mnemonic.dart';
+import 'package:wallet_apps/src/screen/main/contents_backup.dart';
+import 'package:wallet_apps/src/screen/main/create_mnemoic.dart';
+import 'package:wallet_apps/src/screen/main/user_info/user_infor.dart';
 
 class AppRouting{
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => MySplashScreen(),
+    '/': (context) => Home(),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Home(),

@@ -1,15 +1,16 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/main/import_account/import_acc_body.dart';
 
-class Welcome extends StatefulWidget {
+class ImportAcc extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return WelcomeState();
+    return ImportAccState();
   }
   
 }
 
-class WelcomeState extends State<Welcome> {
+class ImportAccState extends State<ImportAcc> {
 
   GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
@@ -114,7 +115,7 @@ class WelcomeState extends State<Welcome> {
       key: globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
-        child: WelcomeBody(),
+        child: ImportAccBody(),
       )//welcomeBody(context, navigatePage),
     );
   }

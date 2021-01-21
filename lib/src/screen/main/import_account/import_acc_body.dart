@@ -1,7 +1,7 @@
 import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/screen/main/contents_backup.dart';
 
-class WelcomeBody extends StatelessWidget{
+class ImportAccBody extends StatelessWidget{
   
   Widget build(BuildContext context){
     return Stack(

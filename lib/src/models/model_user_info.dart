@@ -8,6 +8,8 @@ class ModelUserInfo {
 
   Map<String, dynamic> userData, res;
 
+  bool switchBio;
+
   String genderLabel = "Gender", gender;
   String responseFirstname, responseMidname, responseLastname;
 

@@ -224,7 +224,7 @@ Widget buildRowList(List<dynamic> portfolioData, int rate){
   return ListView.builder(
     padding: EdgeInsets.all(0),
     shrinkWrap: true,
-    itemCount: portfolioData.length,
+    itemCount: 10,
     physics: BouncingScrollPhysics(),
     itemBuilder: (BuildContext context, int index) {
       return portFolioItemRow(portfolioData, index, rate);
@@ -269,17 +269,17 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate){
           ),
         ),
 
-        Container(
-          width: 80,
-          margin: EdgeInsets.only(right: 20),
-          alignment: Alignment.center,
-          child: SizedBox(
-            height: 25,
-            child: LineChart(
-              portfolioChart
-            ),
-          ),
-        ),
+        // Container(
+        //   width: 80,
+        //   margin: EdgeInsets.only(right: 20),
+        //   alignment: Alignment.center,
+        //   child: SizedBox(
+        //     height: 25,
+        //     child: LineChart(
+        //       portfolioChart
+        //     ),
+        //   ),
+        // ),
 
         Expanded(
           child: Container(
@@ -290,19 +290,19 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate){
               children: [
                 MyText(
                   width: double.infinity,
-                  text: portfolioData[0]["data"]['balance'], 
+                  text: "0",//portfolioData[0]["data"]['balance'], 
                   color: "#FFFFFF", 
                   fontSize: 18,
                   textAlign: TextAlign.right,
                   overflow: TextOverflow.ellipsis
                 ),
-                MyText(
-                  width: double.infinity,
-                  text: "${!rate.isNegative ? '+' : ''}$rate", 
-                  textAlign: TextAlign.right,
-                  color: !rate.isNegative ? AppColors.secondary_text : "#ff1900", 
-                  fontSize: 15
-                ),
+                // MyText(
+                //   width: double.infinity,
+                //   text: "+",//"${!rate.isNegative ? '+' : ''}$rate", 
+                //   textAlign: TextAlign.right,
+                //   color: AppColors.secondary_text,//!rate.isNegative ? AppColors.secondary_text : "#ff1900", 
+                //   fontSize: 15
+                // ),
               ],
             ),
           )

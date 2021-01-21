@@ -5,6 +5,7 @@ class MyInputField extends StatelessWidget{
   final Key key;
   final String labelText;
   final String prefixText;
+  final String textColor;
   final double pLeft, pTop, pRight, pBottom;
   final bool obcureText;
   final bool enableInput;
@@ -31,6 +32,7 @@ class MyInputField extends StatelessWidget{
     @required this.controller,
     @required this.focusNode,
     this.icon,
+    this.textColor = "#FFFFFF",
     @required this.validateField,
     @required this.onChanged,
     @required this.onSubmit
@@ -47,7 +49,7 @@ class MyInputField extends StatelessWidget{
         obscureText: obcureText,
         controller: controller,
         textInputAction: inputAction,
-        style: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontSize: 18.0),
+        style: TextStyle(color: hexaCodeToColor(textColor), fontSize: 18.0),
         validator: validateField,
         decoration: InputDecoration(
           labelText: labelText,
