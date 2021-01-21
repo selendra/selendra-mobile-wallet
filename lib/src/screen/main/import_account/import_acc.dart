@@ -1,4 +1,5 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/models/m_import_acc.dart';
 import 'package:wallet_apps/src/screen/main/import_account/import_acc_body.dart';
 
 class ImportAcc extends StatefulWidget {
@@ -13,6 +14,8 @@ class ImportAcc extends StatefulWidget {
 class ImportAccState extends State<ImportAcc> {
 
   GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+
+  ImportAccModel _importAccModel = ImportAccModel();
 
   PackageInfo _packageInfo;
 
@@ -110,12 +113,24 @@ class ImportAccState extends State<ImportAcc> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }
 
+  String onChanged(String value){
+
+  }
+
+  void onSubmit(){
+    
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       key: globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
-        child: ImportAccBody(),
+        child: ImportAccBody(
+          importAccModel: _importAccModel,
+          onChanged: onChanged,
+          onSubmit: onSubmit
+        ),
       )//welcomeBody(context, navigatePage),
     );
   }

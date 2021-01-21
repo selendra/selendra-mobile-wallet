@@ -26,7 +26,8 @@ class HomeBody extends StatelessWidget{
       children: [
 
         MyHomeAppBar(
-          title: "SELENDRA Secure Wallet", 
+          title: "SELENDRA", 
+          subTitle: 'Secure Wallet',
           action: () {
             MyBottomSheet().notification(context: context);
           },
@@ -81,19 +82,32 @@ class HomeBody extends StatelessWidget{
 
                         Expanded(child: Container()),
 
-                        MyText(
-                          text: '0',
-                          fontSize: 30,
-                          color: AppColors.secondary_text,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        Column(
+                          children: [
+                            MyText(
+                              text: '0',
+                              fontSize: 30,
+                              color: AppColors.secondary_text,
+                              fontWeight: FontWeight.bold,
+                            ),
+
+                            MyText(
+                              text: 'Balancec',
+                              color: "#FFFFFF",
+                              fontSize: 20,
+                              textAlign: TextAlign.start,
+                              fontWeight: FontWeight.bold,
+                            )
+                          ],
+                        )
                       ],
                     ),
 
                     MyText(
-                      top: 16,
-                      width: 200,
+                      top: 25,
+                      width: 300,
                       text: "e02e0cee0378be204a51d4cffb72fbf565bcf215", 
+                      color: AppColors.secondary_text,
                       overflow: TextOverflow.ellipsis,
                     )
                   ],
@@ -151,22 +165,19 @@ class HomeBody extends StatelessWidget{
         ),
 
 
-        Container(
-          constraints: BoxConstraints(
-            minHeight: 70,
-            maxHeight: 300
-          ),
-          child: GestureDetector(
-            onTap: (){
-              Navigator.push(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeM.circularChart),
-                )
-              );
-            },
-            child: buildRowList(portfolioM.list, portfolioRateM.totalRate)
-          ),
+        Expanded(
+          child: 
+          GestureDetector(
+              onTap: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(
+                    builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeM.circularChart),
+                  )
+                );
+              },
+              child: buildRowList(portfolioM.list, portfolioRateM.totalRate)
+            )
         ),
 
         // GestureDetector(

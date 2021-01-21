@@ -42,11 +42,6 @@ class MenuHeader extends StatelessWidget{
                   color: "#FFFFFF",
                   fontSize: 16,
                 ),
-
-                MyText(
-                  text: "username@gmail.com",
-                  fontSize: 16,
-                ),
               ],
             )
           ],

@@ -365,6 +365,7 @@ class MyBottomAppBar extends StatelessWidget{
       color: Colors.transparent,
       child: BottomAppBar(
         shape: CircularNotchedRectangle(),
+        notchMargin: 8.0,
         child: Container(
           height: 60,
           child: Row(
@@ -440,6 +441,7 @@ class MyHomeAppBar extends StatelessWidget{
   final double pLeft; final double pTop; final double pRight; final double pBottom;
   final EdgeInsetsGeometry margin;
   final String title; 
+  final String subTitle;
   final Function action;
 
   MyHomeAppBar({
@@ -449,6 +451,7 @@ class MyHomeAppBar extends StatelessWidget{
     this.pBottom = 0,
     this.margin = const EdgeInsets.fromLTRB(0, 12, 0, 0),
     @required this.title,
+    @required this.subTitle,
     this.action
   });
   
@@ -462,15 +465,28 @@ class MyHomeAppBar extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           MyLogo(
-            width: 30, height: 30,
+            width: 50, height: 50,
             logoPath: "assets/sld_logo.svg",
           ),
 
-          MyText(
-            color: "#FFFFFF",
-            text: title,
-            left: 15,
-            fontSize: 20,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MyText(
+                color: "#FFFFFF",
+                text: title,
+                left: 15,
+                fontSize: 18,
+              ),
+
+              MyText(
+                color: "#FFFFFF",
+                text: subTitle,
+                left: 15,
+                fontSize: 18,
+              )
+            ],
           ),
           
           Expanded(

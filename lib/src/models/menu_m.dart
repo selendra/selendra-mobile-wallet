@@ -36,8 +36,6 @@ class MenuModel {
       'title': "Account",
       'sub': [
         {'icon': "assets/icons/add_people.svg", 'subTitle': 'Invite friend'},
-        {'icon': "assets/icons/edit_user.svg", 'subTitle': 'Profile'},
-        {'icon': "assets/icons/logout.svg", 'subTitle': 'Log out'},
       ]
     },
   ];

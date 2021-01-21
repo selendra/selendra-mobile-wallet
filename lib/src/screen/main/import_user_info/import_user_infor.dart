@@ -1,15 +1,16 @@
 import 'package:wallet_apps/index.dart';
-import 'package:wallet_apps/src/screen/main/user_info/user_info_body.dart';
+import 'package:wallet_apps/src/screen/main/create_user_info/user_info_body.dart';
+import 'package:wallet_apps/src/screen/main/import_user_info/import_user_info_body.dart';
 
-class MyUserInfo extends StatefulWidget {
+class ImportUserInfo extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return MyUserInfoState();
+    return ImportUserInfoState();
   }
 }
 
-class MyUserInfoState extends State<MyUserInfo> {
+class ImportUserInfoState extends State<ImportUserInfo> {
   
   ModelUserInfo _userInfoM = ModelUserInfo();
 
@@ -237,7 +238,7 @@ class MyUserInfoState extends State<MyUserInfo> {
       key: _userInfoM.globalKey,
       body: BodyScaffold(
         height: MediaQuery.of(context).size.height,
-        child: MyUserInfoBody(
+        child: ImportUserInfoBody(
           modelUserInfo: _userInfoM,
           onSubmit: onSubmit,
           onChanged: onChanged,

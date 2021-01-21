@@ -1,4 +1,5 @@
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/screen/main/create_user_info/user_infor.dart';
 
 class ConfirmMnemonic extends StatelessWidget{
 
@@ -137,12 +138,12 @@ class ConfirmMnemonic extends StatelessWidget{
               textButton: 'Next',
               action: () async {
                 await dialog(context, Text('We are not allow you to screen shot mnemonic'), Text("Message"));
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => Confi()
-                //   )
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyUserInfo()
+                  )
+                );
               },
             )
             

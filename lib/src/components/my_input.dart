@@ -6,6 +6,7 @@ class MyInputField extends StatelessWidget{
   final String labelText;
   final String prefixText;
   final String textColor;
+  final int maxLine;
   final double pLeft, pTop, pRight, pBottom;
   final bool obcureText;
   final bool enableInput;
@@ -29,11 +30,12 @@ class MyInputField extends StatelessWidget{
     this.textInputFormatter,
     this.inputType = TextInputType.text,
     this.inputAction = TextInputAction.next,
+    this.maxLine = 1,
     @required this.controller,
     @required this.focusNode,
     this.icon,
     this.textColor = "#FFFFFF",
-    @required this.validateField,
+    this.validateField,
     @required this.onChanged,
     @required this.onSubmit
   });
@@ -51,6 +53,7 @@ class MyInputField extends StatelessWidget{
         textInputAction: inputAction,
         style: TextStyle(color: hexaCodeToColor(textColor), fontSize: 18.0),
         validator: validateField,
+        maxLines: maxLine,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(
