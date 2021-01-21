@@ -31,7 +31,7 @@ class ImportAccBody extends StatelessWidget{
             ),
             
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
                   Align(

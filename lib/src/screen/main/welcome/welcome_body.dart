@@ -1,5 +1,6 @@
 import 'package:wallet_apps/index.dart';
 import 'package:wallet_apps/src/screen/main/contents_backup.dart';
+import 'package:wallet_apps/src/screen/main/import_account/import_acc.dart';
 
 class WelcomeBody extends StatelessWidget{
   
@@ -33,7 +34,12 @@ class WelcomeBody extends StatelessWidget{
               MyFlatButton(
                 edgeMargin: EdgeInsets.only(left: 66, right: 66, bottom: 16),
                 textButton: 'Import Account',
-                action: (){},
+                action: (){
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => ImportAcc())
+                  );
+                },
               )
             ],
           ),

@@ -14,6 +14,9 @@ import android.provider.Settings;
  import io.flutter.plugin.common.MethodChannel;
  import io.flutter.plugins.GeneratedPluginRegistrant;
 
+ import android.view.WindowManager; 
+ import android.view.WindowManager.LayoutParams;
+
 public class MainActivity extends FlutterFragmentActivity {
 
   private  static final String CHANNEL = "daveat/brightness";
@@ -22,6 +25,8 @@ public class MainActivity extends FlutterFragmentActivity {
   public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
 
   GeneratedPluginRegistrant.registerWith(flutterEngine);
+
+  getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
   
   new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), CHANNEL).setMethodCallHandler(
       (call, result) -> {

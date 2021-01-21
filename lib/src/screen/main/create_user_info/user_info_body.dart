@@ -40,7 +40,7 @@ class MyUserInfoBody extends StatelessWidget{
         ),
 
         Container(
-          margin: EdgeInsets.only(top: 16),
+          margin: EdgeInsets.only(top: 20),
           child: Form(
             key: modelUserInfo.formStateAddUserInfo,
             child: Column(

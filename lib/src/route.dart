@@ -8,7 +8,7 @@ import 'package:wallet_apps/src/screen/main/create_user_info/user_infor.dart';
 class AppRouting{
 
   static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
-    '/': (context) => ImportAcc(),
+    '/': (context) => Welcome(),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
     '/dashboardScreen': (context) => Home(),
