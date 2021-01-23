@@ -4,6 +4,7 @@ import 'package:polkawallet_sdk/polkawallet_sdk.dart';
 import 'package:polkawallet_sdk/storage/keyring.dart';
 import 'package:polkawallet_sdk/storage/types/keyPairData.dart';
 import 'package:wallet_apps/index.dart';
+import 'package:wallet_apps/src/components/route_animation.dart';
 
 class Home extends StatefulWidget {
   final WalletSDK sdk;
@@ -48,6 +49,19 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
   String _msgChannel;
 
   BalanceData _balance;
+
+  List<Color> pieColorList = [
+    hexaCodeToColor("#08B952"),
+    hexaCodeToColor("#40FF90"),
+    hexaCodeToColor("#00FFF0"),
+    hexaCodeToColor(AppColors.bgdColor)
+  ];
+  Map<String, double> dataMap = {
+    "FLutter": 5,
+    "React": 3,
+    "Xamain": 2,
+    "Ionic": 2,
+  };
 
   Future<void> getCurrentAccount() async {
     final List<KeyPairData> ls = widget.keyring.keyPairs;
@@ -369,8 +383,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
 
   void toReceiveToken() async {
     /* Navigate Receive Token */
-    await Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => ReceiveWallet(homeM: _homeM)));
+    await Navigator.of(context)
+        .push(RouteAnimation(enterPage: ReceiveWallet(homeM: _homeM)));
     if (Platform.isAndroid)
       await AndroidPlatform.resetBrightness();
     else
@@ -394,20 +408,22 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         body: BodyScaffold(
             height: MediaQuery.of(context).size.height,
             child: HomeBody(
-                bloc: bloc,
-                chartKey: chartKey,
-                portfolioData: _homeM.portfolioList,
-                portfolioM: _portfolioM,
-                portfolioRateM: _portfolioRate,
-                getWallet: createPin,
-                homeM: _homeM,
-                accName: accName,
-                accAddress: accAddress,
-                accBalance: widget.mBalance ?? mBalance,
-                apiStatus: widget.apiConnected
+              bloc: bloc,
+              chartKey: chartKey,
+              portfolioData: _homeM.portfolioList,
+              portfolioM: _portfolioM,
+              portfolioRateM: _portfolioRate,
+              getWallet: createPin,
+              homeM: _homeM,
+              accName: accName,
+              accAddress: accAddress,
+              accBalance: widget.mBalance ?? mBalance,
+              apiStatus: widget.apiConnected,
+              pieColorList: pieColorList,
+              dataMap: dataMap,
 
-                // getWallet: createPin,
-                )),
+              // getWallet: createPin,
+            )),
         // SmartRefresher(
         //   physics: BouncingScrollPhysics(),
         //   controller: _homeM.refreshController,

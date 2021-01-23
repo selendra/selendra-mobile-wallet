@@ -2,6 +2,7 @@ import 'package:polkawallet_sdk/polkawallet_sdk.dart';
 import 'package:polkawallet_sdk/storage/keyring.dart';
 import 'package:wallet_apps/index.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:wallet_apps/src/components/route_animation.dart';
 
 final fontSizePort = 17.0;
 final fontColorPort = Colors.white;
@@ -221,7 +222,7 @@ Widget buildRowList(List<dynamic> portfolioData, int rate) {
   return ListView.builder(
     padding: EdgeInsets.all(0),
     shrinkWrap: true,
-    itemCount: 10,
+    itemCount: 1,
     physics: BouncingScrollPhysics(),
     itemBuilder: (BuildContext context, int index) {
       return portFolioItemRow(portfolioData, index, rate);
@@ -248,17 +249,17 @@ Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate) {
 
       Expanded(
         child: Container(
-          margin: EdgeInsets.only(right: 16),
+          margin: const EdgeInsets.only(right: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MyText(
-                text: "SEL",
+                text: "KPI",
                 color: "#FFFFFF",
                 fontSize: 18,
               ),
-              MyText(text: "Selendra", fontSize: 15),
+              MyText(text: "Koompi", fontSize: 15),
             ],
           ),
         ),
@@ -388,11 +389,11 @@ class MyBottomAppBar extends StatelessWidget {
                 onPressed: () async {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => Portfolio(
-                                listData: portfolioM.list,
-                                listChart: homeM.circularChart,
-                              )));
+                      RouteAnimation(
+                          enterPage: Portfolio(
+                        listData: portfolioM.list,
+                        listChart: homeM.circularChart,
+                      )));
                 },
               )),
               Expanded(

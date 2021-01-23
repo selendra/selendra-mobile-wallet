@@ -95,6 +95,7 @@ dependencies:
 
   #for secure wallet function
   polkawallet_sdk: ^0.0.8
+  animations: ^1.1.2
 
   #Contact
   contacts_service: ^0.4.6 

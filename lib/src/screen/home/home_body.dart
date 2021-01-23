@@ -1,5 +1,8 @@
 import 'package:wallet_apps/index.dart';
-import 'package:fl_chart/fl_chart.dart';
+
+import 'package:wallet_apps/src/components/portfolio_c.dart';
+import 'package:wallet_apps/src/components/route_animation.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class HomeBody extends StatelessWidget {
   final Bloc bloc;
@@ -13,6 +16,8 @@ class HomeBody extends StatelessWidget {
   final String accAddress;
   final String accBalance;
   final bool apiStatus;
+  final List<Color> pieColorList;
+  final Map<String, double> dataMap;
 
   HomeBody({
     this.bloc,
@@ -26,6 +31,8 @@ class HomeBody extends StatelessWidget {
     this.accAddress,
     this.accBalance,
     this.apiStatus,
+    this.pieColorList,
+    this.dataMap,
   });
 
   Widget build(BuildContext context) {
@@ -154,10 +161,7 @@ class HomeBody extends StatelessWidget {
                           ),
                           onTap: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddAsset(),
-                                ));
+                                context, RouteAnimation(enterPage: AddAsset()));
                           },
                         )
                       ],
@@ -165,19 +169,108 @@ class HomeBody extends StatelessWidget {
               ],
             )),
 
-        Expanded(
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Portfolio(
-                            listData: portfolioM.list,
-                            listChart: homeM.circularChart),
-                      ));
-                },
-                child:
-                    buildRowList(portfolioM.list, portfolioRateM.totalRate))),
+        GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Portfolio(
+                      listData: portfolioM.list,
+                      listChart: homeM.circularChart),
+                ),
+              );
+            },
+            child: buildRowList(portfolioM.list, portfolioRateM.totalRate)),
+
+        Container(
+          margin: EdgeInsets.only(top: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 16),
+                width: 5,
+                height: 40,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: hexaCodeToColor(AppColors.secondary)),
+              ),
+              MyText(
+                text: 'Portfolio',
+                fontSize: 27,
+                color: "#FFFFFF",
+                left: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+          padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
+          width: double.infinity,
+          height: 200,
+          decoration: BoxDecoration(
+              color: hexaCodeToColor(AppColors.cardColor),
+              borderRadius: BorderRadius.circular(8)),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: 150,
+                    height: 150,
+                    child: PieChart(
+                      ringStrokeWidth: 15,
+                      dataMap: dataMap,
+                      chartType: ChartType.ring,
+                      colorList: pieColorList,
+                      centerText: "10%",
+                      legendOptions: LegendOptions(
+                        showLegends: false,
+                      ),
+                      chartValuesOptions: ChartValuesOptions(
+                          showChartValues: false,
+                          // showChartValuesInPercentage: true,
+                          showChartValueBackground: false,
+                          chartValueStyle: TextStyle(
+                              color: hexaCodeToColor("#FFFFFF"), fontSize: 16)),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MyPieChartRow(
+                    color: pieColorList[0],
+                    centerText: "SEL",
+                    endText: "25%",
+                  ),
+                  MyPieChartRow(
+                    color: pieColorList[1],
+                    centerText: "XML",
+                    endText: "50%",
+                  ),
+                  MyPieChartRow(
+                    color: pieColorList[2],
+                    centerText: "POK",
+                    endText: "25%",
+                  ),
+                  MyPieChartRow(
+                    color: pieColorList[3],
+                    centerText: "Emp",
+                    endText: "0%",
+                  ),
+                ],
+              ))
+            ],
+          ),
+        ),
 
         // GestureDetector(
         //   onTap: (){

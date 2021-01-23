@@ -5,6 +5,7 @@ import 'package:polkawallet_sdk/storage/keyring.dart';
 import 'package:polkawallet_sdk/storage/types/keyPairData.dart';
 import 'package:wallet_apps/index.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:wallet_apps/src/screen/home/menu/account.dart';
 import 'package:wallet_apps/src/screen/main/import_account/import_acc.dart';
 
 void main() async {
@@ -65,12 +66,6 @@ class AppState extends State<App> {
     }
   }
 
-  Future<List<KeyPairData>> checkUser() async {
-    List<KeyPairData> ls = keyring.keyPairs;
-
-    return ls;
-  }
-
   Future<void> connectNode() async {
     final node = NetworkParams();
 
@@ -124,6 +119,7 @@ class AppState extends State<App> {
               Home.route: (_) =>
                   Home(sdk, keyring, _apiConnected, mBalance, _msgChannel),
               ImportAcc.route: (_) => ImportAcc(sdk, keyring),
+              Account.route: (_) => Account(sdk, keyring),
             },
             builder: (context, widget) => ResponsiveWrapper.builder(
                 BouncingScrollWrapper.builder(context, widget),

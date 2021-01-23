@@ -199,7 +199,7 @@ class SubmitTrxState extends State<SubmitTrx> {
             setState(() {
               _loading = false;
             });
-            await dialog(context, Text('Your payment was successful'),
+            await dialog(context, Text('Your transaction was successful'),
                 Text('Transaction Success'),
                 action: FlatButton(
                     onPressed: () {

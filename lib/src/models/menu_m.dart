@@ -1,7 +1,6 @@
 import 'package:wallet_apps/index.dart';
 
 class MenuModel {
-
   bool switchBio = false;
   bool authenticated;
 
@@ -35,7 +34,7 @@ class MenuModel {
     {
       'title': "Account",
       'sub': [
-        {'icon': "assets/icons/add_people.svg", 'subTitle': 'Invite friend'},
+        {'icon': "assets/icons/edit_user.svg", 'subTitle': 'Account'},
       ]
     },
   ];

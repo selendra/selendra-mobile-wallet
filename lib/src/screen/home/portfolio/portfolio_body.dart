@@ -61,19 +61,19 @@ class PortfolioBody extends StatelessWidget {
           Column(
             children: [
               Container(
-                  margin:
-                      EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-                  padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
-                  width: double.infinity,
-                  height: 200,
-                  decoration: BoxDecoration(
-                      color: hexaCodeToColor(AppColors.cardColor),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                          child: Align(
+                margin:
+                    EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
+                width: double.infinity,
+                height: 200,
+                decoration: BoxDecoration(
+                    color: hexaCodeToColor(AppColors.cardColor),
+                    borderRadius: BorderRadius.circular(8)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: Align(
                         alignment: Alignment.center,
                         child: SizedBox(
                           width: 150,
@@ -96,36 +96,38 @@ class PortfolioBody extends StatelessWidget {
                                     fontSize: 16)),
                           ),
                         ),
-                      )),
-                      Expanded(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MyPieChartRow(
-                            color: pieColorList[0],
-                            centerText: "SEL",
-                            endText: "25%",
-                          ),
-                          MyPieChartRow(
-                            color: pieColorList[1],
-                            centerText: "XML",
-                            endText: "50%",
-                          ),
-                          MyPieChartRow(
-                            color: pieColorList[2],
-                            centerText: "POK",
-                            endText: "25%",
-                          ),
-                          MyPieChartRow(
-                            color: pieColorList[3],
-                            centerText: "Emp",
-                            endText: "0%",
-                          ),
-                        ],
-                      ))
-                    ],
-                  )),
+                      ),
+                    ),
+                    Expanded(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MyPieChartRow(
+                          color: pieColorList[0],
+                          centerText: "SEL",
+                          endText: "25%",
+                        ),
+                        MyPieChartRow(
+                          color: pieColorList[1],
+                          centerText: "XML",
+                          endText: "50%",
+                        ),
+                        MyPieChartRow(
+                          color: pieColorList[2],
+                          centerText: "POK",
+                          endText: "25%",
+                        ),
+                        MyPieChartRow(
+                          color: pieColorList[3],
+                          centerText: "Emp",
+                          endText: "0%",
+                        ),
+                      ],
+                    ))
+                  ],
+                ),
+              ),
 
               Container(
                 height: 150,
