@@ -438,6 +438,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           toReceiveToken: toReceiveToken,
           opacityController: opacityController,
           openDrawer: openMyDrawer,
+          sdk: widget.sdk,
+          keyring: widget.keyring,
         ));
   }
 }

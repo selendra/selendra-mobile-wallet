@@ -1,3 +1,5 @@
+import 'package:polkawallet_sdk/polkawallet_sdk.dart';
+import 'package:polkawallet_sdk/storage/keyring.dart';
 import 'package:wallet_apps/index.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -330,18 +332,23 @@ class MyBottomAppBar extends StatelessWidget {
   final Function fillAddress;
   final Function contactPiker;
   final Function openDrawer;
+  final WalletSDK sdk;
+  final Keyring keyring;
 
-  MyBottomAppBar(
-      {this.homeM,
-      this.portfolioM,
-      this.postRequest,
-      this.scanReceipt,
-      this.resetDbdState,
-      this.toReceiveToken,
-      this.opacityController,
-      this.fillAddress,
-      this.contactPiker,
-      this.openDrawer});
+  MyBottomAppBar({
+    this.homeM,
+    this.portfolioM,
+    this.postRequest,
+    this.scanReceipt,
+    this.resetDbdState,
+    this.toReceiveToken,
+    this.opacityController,
+    this.fillAddress,
+    this.contactPiker,
+    this.openDrawer,
+    this.sdk,
+    this.keyring,
+  });
 
   Widget build(BuildContext context) {
     return Container(
@@ -359,9 +366,12 @@ class MyBottomAppBar extends StatelessWidget {
                 icon: 'telegram.svg',
                 onPressed: () async {
                   MyBottomSheet().trxOptions(
-                      context: context,
-                      portfolioList: homeM.portfolioList,
-                      resetHomeData: resetDbdState);
+                    context: context,
+                    portfolioList: homeM.portfolioList,
+                    resetHomeData: resetDbdState,
+                    sdk: sdk,
+                    keyring: keyring,
+                  );
                 },
               )),
               Expanded(

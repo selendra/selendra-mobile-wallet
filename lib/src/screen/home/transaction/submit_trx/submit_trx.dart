@@ -31,6 +31,7 @@ class SubmitTrxState extends State<SubmitTrx> {
   Backend _backend = Backend();
 
   bool disable = false;
+  bool _loading = false;
 
   @override
   void initState() {
@@ -194,11 +195,18 @@ class SubmitTrxState extends State<SubmitTrx> {
         onStatusChange: (status) async {
           print(status);
           if (status == 'Broadcast') {
-            print('Broadcast');
           } else if (status == 'Ready') {
             setState(() {
-              _scanPayM.isPay = true;
+              _loading = false;
             });
+            await dialog(context, Text('Your payment was successful'),
+                Text('Transaction Success'),
+                action: FlatButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, Home.route, ModalRoute.withName('/'));
+                    },
+                    child: Text('Okay')));
           }
         },
       );
@@ -210,13 +218,19 @@ class SubmitTrxState extends State<SubmitTrx> {
       });
     } catch (e) {
       print(e.toString());
-      await dialog(context, Text("{e.toString()}"), Text("Opps"));
+      setState(() {
+        _loading = false;
+      });
+      await dialog(context, Text("${e.toString()}"), Text("Opps"));
       // if (e != null) {
       //   // setState(() {
       //   //   _loading = false;
       //   // });
       // }
     }
+    setState(() {
+      _loading = false;
+    });
     return mhash;
   }
 
@@ -234,11 +248,16 @@ class SubmitTrxState extends State<SubmitTrx> {
       if (pin != null &&
           _scanPayM.controlAmount.text != null &&
           _scanPayM.controlReceiverAddress.text != null) {
+        setState(() {
+          _loading = true;
+        });
         //print(pin);
         int amount = int.parse(_scanPayM.controlAmount.text) * pow(10, 18);
 
         if (amount != null) {
           sendTx(_scanPayM.controlReceiverAddress.text, amount.toString(), pin);
+        } else {
+          print('amount is null');
         }
 
         // print(_scanPayM.controlAmount.text);
@@ -309,43 +328,47 @@ class SubmitTrxState extends State<SubmitTrx> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scanPayM.globalKey,
-        body: BodyScaffold(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: <Widget>[
-              SubmitTrxBody(
-                  enableInput: widget.enableInput,
-                  dialog: dialogBox,
-                  scanPayM: _scanPayM,
-                  validateWallet: validateWallet,
-                  validateAmount: validateAmount,
-                  validateMemo: validateMemo,
-                  onChanged: onChanged,
-                  onSubmit: onSubmit,
-                  validateInput: validateInput,
-                  clickSend: clickSend,
-                  resetAssetsDropDown: resetAssetsDropDown,
-                  item: item),
-              _scanPayM.isPay == false
-                  ? Container()
-                  : BackdropFilter(
-                      // Fill Blur Background
-                      filter: ImageFilter.blur(
-                        sigmaX: 5.0,
-                        sigmaY: 5.0,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                              child: CustomAnimation.flareAnimation(
-                                  flareController,
-                                  "assets/animation/check.flr",
-                                  "Checkmark"))
-                        ],
-                      )),
-            ],
-          ),
-        ));
+        body: _loading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : BodyScaffold(
+                height: MediaQuery.of(context).size.height,
+                child: Stack(
+                  children: <Widget>[
+                    SubmitTrxBody(
+                        enableInput: widget.enableInput,
+                        dialog: dialogBox,
+                        scanPayM: _scanPayM,
+                        validateWallet: validateWallet,
+                        validateAmount: validateAmount,
+                        validateMemo: validateMemo,
+                        onChanged: onChanged,
+                        onSubmit: onSubmit,
+                        validateInput: validateInput,
+                        clickSend: clickSend,
+                        resetAssetsDropDown: resetAssetsDropDown,
+                        item: item),
+                    // _scanPayM.isPay == false
+                    //     ? Container()
+                    //     :  BackdropFilter(
+                    // Fill Blur Background
+                    // filter: ImageFilter.blur(
+                    //   sigmaX: 5.0,
+                    //   sigmaY: 5.0,
+                    // ),
+                    // child: Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: <Widget>[
+                    //     Expanded(
+                    //         child: CustomAnimation.flareAnimation(
+                    //             flareController,
+                    //             "assets/animation/check.flr",
+                    //             "Checkmark"))
+                    //   ],
+                    // )),
+                  ],
+                ),
+              ));
   }
 }
