@@ -62,8 +62,9 @@ class HomeBody extends StatelessWidget {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: SvgPicture.asset('assets/male_avatar.svg'),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,20 +84,18 @@ class HomeBody extends StatelessWidget {
                             ],
                           ),
                           Expanded(child: Container()),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 150,
-                                child: MyText(
-                                  text: accBalance,
-                                  fontSize: 30,
-                                  color: AppColors.secondary_text,
-                                  fontWeight: FontWeight.bold,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Container(
+                              width: 150,
+                              child: MyText(
+                                text: accBalance,
+                                fontSize: 30,
+                                color: AppColors.secondary_text,
+                                fontWeight: FontWeight.bold,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ],
+                            ),
                           )
                         ],
                       ),

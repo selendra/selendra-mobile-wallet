@@ -423,8 +423,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
               child:
                   SvgPicture.asset('assets/sld_qr.svg', width: 30, height: 30),
               onPressed: () async {
-                await TrxOptionMethod.scanQR(
-                    context, _homeM.portfolioList, resetState);
+                await TrxOptionMethod.scanQR(context, _homeM.portfolioList,
+                    resetState, widget.sdk, widget.keyring);
               },
             )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
