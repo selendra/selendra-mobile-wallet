@@ -8,9 +8,8 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> with WidgetsBindingObserver {
-
   GlobalKey<ScaffoldState> globalKey;
-  
+
   ModelLogin _modelLogin = ModelLogin();
 
   PostRequest _postRequest = PostRequest();
@@ -22,25 +21,26 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     globalKey = GlobalKey<ScaffoldState>();
     AppServices.noInternetConnection(globalKey);
     _modelLogin.label = 'phone';
-    
+
     super.initState();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state){
-
-  }
+  void didChangeAppLifecycleState(AppLifecycleState state) {}
 
   void onChanged(String valueChanged) {
-    _modelLogin.formState.currentState.validate(); /* Trigger Global Key To Call Function Validate */
+    _modelLogin.formState.currentState
+        .validate(); /* Trigger Global Key To Call Function Validate */
   }
 
-  String validateInput(String value) { /* Initial Validate */
+  String validateInput(String value) {
+    /* Initial Validate */
     if (_modelLogin.label == "email") {
       if (_modelLogin.nodeEmails.hasFocus) {
         /* If Email Field Has Focus */
         _modelLogin.responseEmailPhone = instanceValidate.validateEmails(value);
-        if (_modelLogin.responseEmailPhone == null && _modelLogin.responsePassword == null)
+        if (_modelLogin.responseEmailPhone == null &&
+            _modelLogin.responsePassword == null)
           enableButton();
         else if (_modelLogin.enable == true)
           setState(() => _modelLogin.enable = false);
@@ -49,7 +49,8 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
       if (_modelLogin.nodePhoneNums.hasFocus) {
         /* If Phone Number Field Has Focus */
         _modelLogin.responseEmailPhone = instanceValidate.validatePhone(value);
-        if (_modelLogin.responseEmailPhone == null && _modelLogin.responsePassword == null)
+        if (_modelLogin.responseEmailPhone == null &&
+            _modelLogin.responsePassword == null)
           enableButton();
         else if (_modelLogin.enable == true)
           setState(() => _modelLogin.enable = false);
@@ -58,19 +59,21 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     return _modelLogin.responseEmailPhone;
   }
 
-  String validatePassword(String value) { /* Validate User Password Input */
+  String validatePassword(String value) {
+    /* Validate User Password Input */
     if (_modelLogin.nodePasswords.hasFocus) {
       _modelLogin.responsePassword = instanceValidate.validatePassword(value);
-      if (
-        _modelLogin.responseEmailPhone == null &&
-        _modelLogin.responsePassword == null
-      ) enableButton();
-      else if (_modelLogin.enable == true) setState(() => _modelLogin.enable = false);
+      if (_modelLogin.responseEmailPhone == null &&
+          _modelLogin.responsePassword == null)
+        enableButton();
+      else if (_modelLogin.enable == true)
+        setState(() => _modelLogin.enable = false);
     }
     return _modelLogin.responsePassword;
   }
 
-  void enableButton() { /* Validate Button */
+  void enableButton() {
+    /* Validate Button */
     if (_modelLogin.label == 'email') {
       if (_modelLogin.controlEmails.text != '' &&
           _modelLogin.controlPasswords.text != '')
@@ -82,15 +85,19 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     }
   }
 
-  void showPassword(){
+  void showPassword() {
     setState(() {
-      if (_modelLogin.hidePassword == false) _modelLogin.hidePassword = true;
-      else _modelLogin.hidePassword = false;
+      if (_modelLogin.hidePassword == false)
+        _modelLogin.hidePassword = true;
+      else
+        _modelLogin.hidePassword = false;
     });
   }
 
-  void tabBarSelectChanged(int index) { /* Tab Bar Select Change Label */
-    if (index == 1) { /* Tab On Email */
+  void tabBarSelectChanged(int index) {
+    /* Tab Bar Select Change Label */
+    if (index == 1) {
+      /* Tab On Email */
       _modelLogin.controlPhoneNums.clear(); /* Make Emtpy Field */
       _modelLogin.nodePhoneNums.unfocus();
 
@@ -116,7 +123,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
     setState(() {});
   }
 
-  void onSubmit(){
+  void onSubmit() {
     if (_modelLogin.nodeEmails.hasFocus || _modelLogin.nodePhoneNums.hasFocus) {
       FocusScope.of(context).requestFocus(_modelLogin.nodePasswords);
     } else if (_modelLogin.enable) {
@@ -127,8 +134,7 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   /* -----------------------Login Method-------------------- */
 
   // Check Internet Before Validate And Finish Validate
-  void submitLogin() async { 
-
+  void submitLogin() async {
     // Display Dialog Loading
     dialogLoading(context);
 
@@ -144,10 +150,11 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         await loginByPhone();
       }
     } on SocketException catch (e) {
-      await Future.delayed(Duration(milliseconds: 300), () { });
+      await Future.delayed(Duration(milliseconds: 300), () {});
       AppServices.openSnackBar(globalKey, e.message);
     } catch (e) {
-      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center),
+          "Message");
     }
   }
 
@@ -165,9 +172,11 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   }
 
   Future<void> loginByPhone() async {
-    
     // Rest Api
-    await _postRequest.loginByPhone(_modelLogin.controlPhoneNums.text, _modelLogin.controlPasswords.text).then((value) async {
+    await _postRequest
+        .loginByPhone(_modelLogin.controlPhoneNums.text,
+            _modelLogin.controlPasswords.text)
+        .then((value) async {
       // Do Below Statement When Rest Api Successfully Under 10 seconds
       if (AppServices.myNumCount < 10) {
         _backend.response = value;
@@ -178,13 +187,14 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         await navigator();
       }
     });
-
   }
 
   Future<void> loginByEmail() async {
-
     // Rest Api
-    await _postRequest.loginByEmail(_modelLogin.controlEmails.text, _modelLogin.controlPasswords.text).then((value) async {
+    await _postRequest
+        .loginByEmail(
+            _modelLogin.controlEmails.text, _modelLogin.controlPasswords.text)
+        .then((value) async {
       // Do Below Statement When Rest Api Successfully Under 10 seconds
       if (AppServices.myNumCount < 10) {
         _backend.response = value;
@@ -198,36 +208,41 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
   }
 
   Future<void> navigator() async {
-
     // Close Loading
     Navigator.pop(context);
 
-    await StorageServices.fetchData('total_rate').then((value) => print("Login total rate $value"));
+    await StorageServices.fetchData('total_rate')
+        .then((value) => print("Login total rate $value"));
 
     if (_backend.response.statusCode != 502) {
       if (_backend.mapData.containsKey("error")) {
-        await dialog( context, textAlignCenter(text: _backend.mapData['error']["message"]), textMessage());
-      } else { 
+        await dialog(
+            context,
+            textAlignCenter(text: _backend.mapData['error']["message"]),
+            textMessage());
+      } else {
         // If Successfully
         if (_backend.mapData.containsKey("token")) {
-          _backend.mapData.addAll({
-            "isLoggedIn": true
-          });
+          _backend.mapData.addAll({"isLoggedIn": true});
           await StorageServices.setData(_backend.mapData, 'user_token');
-          
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => Home()),
-            ModalRoute.withName('/')
-          );
+
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => Home()),
+          //   ModalRoute.withName('/')
+          // );
         }
-        // If Incorrect Email 
-        else { 
-          await dialog( context, textAlignCenter(text: _backend.mapData["message"]), textMessage());
+        // If Incorrect Email
+        else {
+          await dialog(
+              context,
+              textAlignCenter(text: _backend.mapData["message"]),
+              textMessage());
         }
       }
     } else {
-      await dialog(context, textAlignCenter(text: "Something gone wrong !"), textMessage());
+      await dialog(context, textAlignCenter(text: "Something gone wrong !"),
+          textMessage());
     }
   }
 
@@ -238,20 +253,18 @@ class LoginState extends State<Login> with WidgetsBindingObserver {
         initialIndex: 0,
         length: 2,
         child: BodyScaffold(
-          height: MediaQuery.of(context).size.height,
-          child: LoginBody(
-            modelLogin: _modelLogin,
-            validateInput: validateInput,
-            validatePassword:validatePassword,
-            tabBarSelectChanged: tabBarSelectChanged,
-            showPassword: showPassword,
-            submitLogin: submitLogin,
-            onChanged: onChanged,
-            onSubmit: onSubmit,
-          )
-        ),
-      )
-      ,
+            height: MediaQuery.of(context).size.height,
+            child: LoginBody(
+              modelLogin: _modelLogin,
+              validateInput: validateInput,
+              validatePassword: validatePassword,
+              tabBarSelectChanged: tabBarSelectChanged,
+              showPassword: showPassword,
+              submitLogin: submitLogin,
+              onChanged: onChanged,
+              onSubmit: onSubmit,
+            )),
+      ),
     );
   }
 }

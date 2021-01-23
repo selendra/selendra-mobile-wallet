@@ -3,7 +3,6 @@ import 'package:wallet_apps/src/screen/main/create_user_info/user_info_body.dart
 import 'package:wallet_apps/src/screen/main/import_user_info/import_user_info_body.dart';
 
 class ImportUserInfo extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return ImportUserInfoState();
@@ -11,7 +10,6 @@ class ImportUserInfo extends StatefulWidget {
 }
 
 class ImportUserInfoState extends State<ImportUserInfo> {
-  
   ModelUserInfo _userInfoM = ModelUserInfo();
 
   PostRequest _postRequest = PostRequest();
@@ -28,7 +26,7 @@ class ImportUserInfoState extends State<ImportUserInfo> {
     // if (widget.passwords != null) getToken();
     super.initState();
   }
-  
+
   @override
   void dispose() {
     /* Clear Everything When Pop Screen */
@@ -42,30 +40,30 @@ class ImportUserInfoState extends State<ImportUserInfo> {
   void switchBiometric(bool value) async {
     _localAuth = LocalAuthentication();
     await _localAuth.canCheckBiometrics.then((value) async {
-      if (value == false){
+      if (value == false) {
         snackBar(_userInfoM.globalKey, "Your device doesn't have finger print");
       } else {
-      //   try {
-      //     if (value){
-      //       await authenticateBiometric(_localAuth).then((values) async {
-      //         if (_userInfoM.authenticated){
-      //           _userInfoM.switchBio = value;
-      //           await StorageServices.setData({'bio': values}, 'biometric');
-      //         }
-      //       });
-      //     } else {
-      //       await authenticateBiometric(_localAuth).then((values) async {
-      //         if(values) {
-      //           _menuModel.switchBio = value;
-      //           await StorageServices.removeKey('biometric');
-      //         }
-      //       });
-      //     }
-      //     // // Reset Switcher
-      //     setState(() { });
-      //   } catch (e) {
-          
-      //   }
+        //   try {
+        //     if (value){
+        //       await authenticateBiometric(_localAuth).then((values) async {
+        //         if (_userInfoM.authenticated){
+        //           _userInfoM.switchBio = value;
+        //           await StorageServices.setData({'bio': values}, 'biometric');
+        //         }
+        //       });
+        //     } else {
+        //       await authenticateBiometric(_localAuth).then((values) async {
+        //         if(values) {
+        //           _menuModel.switchBio = value;
+        //           await StorageServices.removeKey('biometric');
+        //         }
+        //       });
+        //     }
+        //     // // Reset Switcher
+        //     setState(() { });
+        //   } catch (e) {
+
+        //   }
       }
     });
   }
@@ -97,7 +95,7 @@ class ImportUserInfoState extends State<ImportUserInfo> {
   /* Change Select Gender */
   void changeGender(String gender) async {
     _userInfoM.genderLabel = gender;
-    setState((){
+    setState(() {
       if (gender == "Male")
         _userInfoM.gender = "M";
       else
@@ -133,8 +131,7 @@ class ImportUserInfoState extends State<ImportUserInfo> {
 
   String validateFirstName(String value) {
     if (_userInfoM.nodeFirstName.hasFocus) {
-      _userInfoM.responseFirstname =
-          instanceValidate.validateUserInfo(value);
+      _userInfoM.responseFirstname = instanceValidate.validateUserInfo(value);
       if (_userInfoM.responseFirstname == null)
         return null;
       else
@@ -156,8 +153,7 @@ class ImportUserInfoState extends State<ImportUserInfo> {
 
   String validateLastName(String value) {
     if (_userInfoM.nodeLastName.hasFocus) {
-      _userInfoM.responseLastname =
-          instanceValidate.validateUserInfo(value);
+      _userInfoM.responseLastname = instanceValidate.validateUserInfo(value);
       if (_userInfoM.responseLastname == null)
         return null;
       else
@@ -168,13 +164,12 @@ class ImportUserInfoState extends State<ImportUserInfo> {
 
   // Submit Profile User
   void submitProfile() async {
-
     // Show Loading Process
-    dialogLoading(context); 
+    dialogLoading(context);
 
-    await Future.delayed(Duration(seconds: 2), (){
-      Navigator.pushAndRemoveUntil(
-        context, MaterialPageRoute(builder: (context)=> Home()), ModalRoute.withName('/'));
+    await Future.delayed(Duration(seconds: 2), () {
+      Navigator.pushNamedAndRemoveUntil(
+          context, Home.route, ModalRoute.withName('/'));
     });
 
     // try{
@@ -192,7 +187,7 @@ class ImportUserInfoState extends State<ImportUserInfo> {
     //       Navigator.pop(context);
     //       if (_backend.response != null && _backend.mapData['token'] == null) {
     //         // Set Profile Success
-    //         await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: hexaCodeToColor(AppColors.greenColor)));        
+    //         await dialog(context, Text("${_backend.mapData['message']}", textAlign: TextAlign.center,), Icon(Icons.done_all, color: hexaCodeToColor(AppColors.greenColor)));
     //         // if (widget.passwords != null) {
     //         //   // Clear Storage
     //         //   AppServices.clearStorage();
@@ -221,7 +216,7 @@ class ImportUserInfoState extends State<ImportUserInfo> {
     //   AppServices.openSnackBar(_userInfoM.globalKey, e.message);
     // } catch (e){
     //   await dialog(context, Text("${e.message}"), Text("Message"));
-    // } 
+    // }
   }
 
   PopupMenuItem item(Map<String, dynamic> list) {
@@ -237,21 +232,19 @@ class ImportUserInfoState extends State<ImportUserInfo> {
     return Scaffold(
       key: _userInfoM.globalKey,
       body: BodyScaffold(
-        height: MediaQuery.of(context).size.height,
-        child: ImportUserInfoBody(
-          modelUserInfo: _userInfoM,
-          onSubmit: onSubmit,
-          onChanged: onChanged,
-          changeGender: changeGender,
-          validateFirstName: validateFirstName,
-          validateMidName: validateMidName,
-          validateLastName: validateLastName,
-          submitProfile: submitProfile,
-          popScreen: popScreen,
-          switchBio: switchBiometric,
-          item: item
-        )
-      ),
+          height: MediaQuery.of(context).size.height,
+          child: ImportUserInfoBody(
+              modelUserInfo: _userInfoM,
+              onSubmit: onSubmit,
+              onChanged: onChanged,
+              changeGender: changeGender,
+              validateFirstName: validateFirstName,
+              validateMidName: validateMidName,
+              validateLastName: validateLastName,
+              submitProfile: submitProfile,
+              popScreen: popScreen,
+              switchBio: switchBiometric,
+              item: item)),
     );
   }
 }

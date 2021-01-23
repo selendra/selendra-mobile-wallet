@@ -1,8 +1,7 @@
 import 'package:wallet_apps/index.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-class HomeBody extends StatelessWidget{
-
+class HomeBody extends StatelessWidget {
   final Bloc bloc;
   final GlobalKey<AnimatedCircularChartState> chartKey;
   final List<dynamic> portfolioData;
@@ -10,6 +9,10 @@ class HomeBody extends StatelessWidget{
   final PortfolioM portfolioM;
   final PortfolioRateModel portfolioRateM;
   final Function getWallet;
+  final String accName;
+  final String accAddress;
+  final String accBalance;
+  final bool apiStatus;
 
   HomeBody({
     this.bloc,
@@ -18,172 +21,169 @@ class HomeBody extends StatelessWidget{
     this.homeM,
     this.portfolioM,
     this.portfolioRateM,
-    this.getWallet
+    this.getWallet,
+    this.accName,
+    this.accAddress,
+    this.accBalance,
+    this.apiStatus,
   });
-  
+
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         MyHomeAppBar(
-          title: "SELENDRA", 
-          subTitle: 'Secure Wallet',
+          title: "KAABOP",
           action: () {
             MyBottomSheet().notification(context: context);
           },
         ),
 
         Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 25),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: hexaCodeToColor(AppColors.cardColor),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          margin: EdgeInsets.only(right: 16),
-                          width: 70, height: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.grey
-                          ),
-                          
-                        ),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            MyText(
-                              text: 'SELENDRA',
-                              color: "#FFFFFF",
-                              fontSize: 20,
-                            ),
-                            MyText(
-                              text: 'SEL',
-                              color: AppColors.secondary_text,
-                              fontSize: 30,
-                              textAlign: TextAlign.start,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ],
-                        ),
-
-                        Expanded(child: Container()),
-
-                        Column(
-                          children: [
-                            MyText(
-                              text: '0',
-                              fontSize: 30,
-                              color: AppColors.secondary_text,
-                              fontWeight: FontWeight.bold,
-                            ),
-
-                            MyText(
-                              text: 'Balancec',
-                              color: "#FFFFFF",
-                              fontSize: 20,
-                              textAlign: TextAlign.start,
-                              fontWeight: FontWeight.bold,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-
-                    MyText(
-                      top: 25,
-                      width: 300,
-                      text: "e02e0cee0378be204a51d4cffb72fbf565bcf215", 
-                      color: AppColors.secondary_text,
-                      overflow: TextOverflow.ellipsis,
-                    )
-                  ],
-                ),
-              ),
-
-              Container(
-                margin: EdgeInsets.only(top: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 5,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: hexaCodeToColor(AppColors.secondary)
-                      ),
-                    ),
-
-                    MyText(
-                      text: 'Assets',
-                      fontSize: 27,
-                      color: "#FFFFFF",
-                      left: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    
-                    Expanded(
-                      child: Container()
-                    ),
-
-                    GestureDetector(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding:
+                      EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 25),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: hexaCodeToColor(AppColors.cardColor),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(Icons.add, color: hexaCodeToColor(AppColors.secondary_text)),
-                          MyText(text: "Add", color: AppColors.secondary_text, left: 6),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.only(right: 16),
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.grey),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MyText(
+                                text: accName,
+                                color: "#FFFFFF",
+                                fontSize: 20,
+                              ),
+                              MyText(
+                                text: 'SEL',
+                                color: AppColors.secondary_text,
+                                fontSize: 30,
+                                textAlign: TextAlign.start,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
+                          ),
+                          Expanded(child: Container()),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 150,
+                                child: MyText(
+                                  text: accBalance,
+                                  fontSize: 30,
+                                  color: AppColors.secondary_text,
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                      onTap: (){
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(
-                            builder: (context) => AddAsset(),
-                          )
-                        );
-                      },
-                    )
-                  ],
-                )
-              )
-            ],
-          )
-        ),
-
+                      GestureDetector(
+                        onTap: () {
+                          Clipboard.setData(ClipboardData(text: accAddress))
+                              .then((value) => {
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                        content: Text('Copied to Clipboard')))
+                                  });
+                        },
+                        child: MyText(
+                          top: 16,
+                          width: 200,
+                          text: !apiStatus
+                              ? "Connecting to Remote Node"
+                              : accAddress ?? "address",
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                    margin: EdgeInsets.only(top: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 5,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: hexaCodeToColor(AppColors.secondary)),
+                        ),
+                        MyText(
+                          text: 'Assets',
+                          fontSize: 27,
+                          color: "#FFFFFF",
+                          left: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        Expanded(child: Container()),
+                        GestureDetector(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.add,
+                                  color: hexaCodeToColor(
+                                      AppColors.secondary_text)),
+                              MyText(
+                                  text: "Add",
+                                  color: AppColors.secondary_text,
+                                  left: 6),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AddAsset(),
+                                ));
+                          },
+                        )
+                      ],
+                    ))
+              ],
+            )),
 
         Expanded(
-          child: 
-          GestureDetector(
-              onTap: (){
-                Navigator.push(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeM.circularChart),
-                  )
-                );
-              },
-              child: buildRowList(portfolioM.list, portfolioRateM.totalRate)
-            )
-        ),
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Portfolio(
+                            listData: portfolioM.list,
+                            listChart: homeM.circularChart),
+                      ));
+                },
+                child:
+                    buildRowList(portfolioM.list, portfolioRateM.totalRate))),
 
         // GestureDetector(
         //   onTap: (){
         //     Navigator.push(
-        //       context, 
+        //       context,
         //       MaterialPageRoute(
         //         builder: (context) => AddAsset(),
         //       )
@@ -239,7 +239,7 @@ class HomeBody extends StatelessWidget{
         //                 mainAxisAlignment: MainAxisAlignment.center,
         //                 children: [
         //                   SvgPicture.asset('assets/no_data.svg', width: 200, height: 200),
-                          
+
         //                   MyFlatButton(
         //                     edgeMargin: EdgeInsets.only(top: 50),
         //                     width: 200,
@@ -258,7 +258,7 @@ class HomeBody extends StatelessWidget{
         //           children: <Widget>[
         //             MyCircularChart(
         //               amount: "${homeM.total}",
-        //               chartKey: chartKey, 
+        //               chartKey: chartKey,
         //               listChart: homeM.circularChart,
         //             ),
 
@@ -298,7 +298,7 @@ class HomeBody extends StatelessWidget{
         //               child: GestureDetector(
         //                 onTap: (){
         //                   Navigator.push(
-        //                     context, 
+        //                     context,
         //                     MaterialPageRoute(
         //                       builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeM.circularChart),
         //                     )
@@ -307,12 +307,12 @@ class HomeBody extends StatelessWidget{
         //                 child: buildRowList(portfolioM.list, portfolioRateM.totalRate)
         //               ),
         //             ),
-                    
+
         //             // Add Asset
         //             GestureDetector(
         //               onTap: (){
         //                 Navigator.push(
-        //                   context, 
+        //                   context,
         //                   MaterialPageRoute(
         //                     builder: (context) => AddAsset(),
         //                   )

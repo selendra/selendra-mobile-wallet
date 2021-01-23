@@ -5,13 +5,13 @@ import 'package:wallet_apps/src/screen/main/create_mnemoic.dart';
 import 'package:wallet_apps/src/screen/main/import_account/import_acc.dart';
 import 'package:wallet_apps/src/screen/main/create_user_info/user_infor.dart';
 
-class AppRouting{
-
-  static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{ /* Login Screen */
+class AppRouting {
+  static Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
+    /* Login Screen */
     '/': (context) => Welcome(),
     //Menu({}, _packageInfo, (){}),
     /* Home Screen */
-    '/dashboardScreen': (context) => Home(),
+    // '/dashboardScreen': (context) => Home(),
     // '/getWalletScreen': (context) => GetWalletWidget(),
     // '/settingScreen': (context) => SettingWidget(),
     /* Verify User Screen */

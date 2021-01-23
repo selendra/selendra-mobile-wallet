@@ -1,16 +1,13 @@
-
 import 'package:local_auth/local_auth.dart';
 import 'package:wallet_apps/index.dart';
 
 class FingerPrint extends StatefulWidget {
-  
   FingerPrint();
   @override
   _FingerPrintState createState() => _FingerPrintState();
 }
 
 class _FingerPrintState extends State<FingerPrint> {
-
   Widget screen = SlideBuilder();
 
   GetRequest _getRequest = GetRequest();
@@ -19,7 +16,8 @@ class _FingerPrintState extends State<FingerPrint> {
 
   final localAuth = LocalAuthentication();
 
-  bool _hasFingerPrint = false; bool enableText = false;
+  bool _hasFingerPrint = false;
+  bool enableText = false;
 
   String authorNot = 'Not Authenticate';
 
@@ -36,9 +34,9 @@ class _FingerPrintState extends State<FingerPrint> {
 
   Future<void> checkBioSupport() async {
     bool hasFingerPrint = false;
-    try{
+    try {
       hasFingerPrint = await localAuth.canCheckBiometrics;
-    } on  PlatformException catch (e){
+    } on PlatformException catch (e) {
       print(e);
     }
     if (!mounted) return;
@@ -49,9 +47,9 @@ class _FingerPrintState extends State<FingerPrint> {
 
   Future<void> getBioList() async {
     List<BiometricType> availableBio = List<BiometricType>();
-    try{
+    try {
       availableBio = await localAuth.getAvailableBiometrics();
-    } on  PlatformException catch (e){
+    } on PlatformException catch (e) {
       print(e);
     }
     if (!mounted) return;
@@ -61,19 +59,15 @@ class _FingerPrintState extends State<FingerPrint> {
   }
 
   Future<void> authenticate() async {
-    
     bool authenticate = false;
 
     try {
       authenticate = await localAuth.authenticateWithBiometrics(
-        localizedReason: '',
-        useErrorDialogs: true,
-        stickyAuth: true
-      );
-      
+          localizedReason: '', useErrorDialogs: true, stickyAuth: true);
+
       // Open Loading
       dialogLoading(context);
-      if (authenticate){
+      if (authenticate) {
         await tokenChecker();
       } else {
         // Close Loading
@@ -83,25 +77,24 @@ class _FingerPrintState extends State<FingerPrint> {
         });
       }
     } on SocketException catch (e) {
-      await Future.delayed(Duration(milliseconds: 300), () { });
+      await Future.delayed(Duration(milliseconds: 300), () {});
       AppServices.openSnackBar(globalkey, e.message);
     } catch (e) {
-      await dialog(context, Text("${e.message}", textAlign: TextAlign.center), "Message");
+      await dialog(context, Text("${e.message}", textAlign: TextAlign.center),
+          "Message");
     }
 
     // if (authenticate) {
     //   print("Hello navigation");
     //   Navigator.pushReplacement(
-    //     context, 
+    //     context,
     //     MaterialPageRoute(builder: (context) => screen)
     //   );
     // }
-
   }
 
   // Time Out Handler Method
   void timeCounter(Timer timer) async {
-    
     // Assign Timer Number Counter To myNumCount Variable
     AppServices.myNumCount = timer.tick;
 
@@ -111,97 +104,88 @@ class _FingerPrintState extends State<FingerPrint> {
     // Display TimeOut With SnackBar When Over 10 Second
     if (AppServices.myNumCount == 10) {
       Navigator.pop(context);
-      await dialog(context, Text("Connection timeout", textAlign: TextAlign.center), Text("Mesage"));
+      await dialog(
+          context,
+          Text("Connection timeout", textAlign: TextAlign.center),
+          Text("Mesage"));
       Navigator.pushReplacement(
-        context, 
-        MaterialPageRoute(builder: (context) => SlideBuilder())
-      );
+          context, MaterialPageRoute(builder: (context) => SlideBuilder()));
     }
   }
 
   Future<void> tokenChecker() async {
-
     // Processing Time Out Handler Method
     AppServices.timerOutHandler(_backend.response, timeCounter);
 
     await _getRequest.checkExpiredToken().then((value) async {
       // Execute Statement If Rest Api Under 10 Second
-      if (AppServices.myNumCount < 10){
-
+      if (AppServices.myNumCount < 10) {
         // Assign Promise Data To Vairable
         _backend.response = value;
 
         // Convert String To Object
-        if (_backend.response != null){
-          
+        if (_backend.response != null) {
           _backend.mapData = json.decode(_backend.response.body);
 
           // Check Expired Token
-          if (_backend.response.statusCode == 200) { 
-            await Future.delayed(Duration(seconds: 4), (){
-              Navigator.pushReplacement(
-                context, 
-                MaterialPageRoute(builder: (context) => Home())
-              );
+          if (_backend.response.statusCode == 200) {
+            await Future.delayed(Duration(seconds: 4), () {
+              Navigator.pushNamed(context, Home.route);
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => Home())
+              // );
             });
           }
 
-          // Reset isLoggedIn True -> False Cause Token Expired 
+          // Reset isLoggedIn True -> False Cause Token Expired
           else if (_backend.response.statusCode == 401) {
-            await dialog(context, Text("${_backend.mapData['error']['message']}", textAlign: TextAlign.center), Text("Message"));
+            await dialog(
+                context,
+                Text("${_backend.mapData['error']['message']}",
+                    textAlign: TextAlign.center),
+                Text("Message"));
             // Remove Key Token
             StorageServices.removeKey('user_token');
             // Navigate To Login
             Navigator.pushReplacement(
-              context, 
-              MaterialPageRoute(builder: (context) => Login())
-            );
+                context, MaterialPageRoute(builder: (context) => Login()));
           }
         }
-      // No Previous Login Or Token Expired
+        // No Previous Login Or Token Expired
       } else {
-        await dialog(context, Text("Something wrong with connection"), Text("Message"));
+        await dialog(
+            context, Text("Something wrong with connection"), Text("Message"));
 
         Navigator.pushReplacement(
-          context, 
-          MaterialPageRoute(builder: (context) => SlideBuilder())
-        );      
+            context, MaterialPageRoute(builder: (context) => SlideBuilder()));
       }
     });
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: globalkey,
-      body: GestureDetector(
-        onTap: (){
-          setState(() {
-            enableText = false;
-          });
-          authenticate();
-        },
-        child: BodyScaffold(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SvgPicture.asset("assets/finger_print.svg", width: 300, height: 300),
-              
-              MyText(
-                top: 50.0,
-                text: 'Authentication Required'
-              ),
-              
-              MyText(
-                top: 19.0,
-                text: 'Touch screen to trigger finger print'
-              )
-            ],
+        key: globalkey,
+        body: GestureDetector(
+          onTap: () {
+            setState(() {
+              enableText = false;
+            });
+            authenticate();
+          },
+          child: BodyScaffold(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset("assets/finger_print.svg",
+                    width: 300, height: 300),
+                MyText(top: 50.0, text: 'Authentication Required'),
+                MyText(top: 19.0, text: 'Touch screen to trigger finger print')
+              ],
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }

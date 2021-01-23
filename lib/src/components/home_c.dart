@@ -10,9 +10,7 @@ List<Color> gradientColors = [
 ];
 
 final portfolioChart = LineChartData(
-  borderData: FlBorderData(
-    show: false
-  ),
+  borderData: FlBorderData(show: false),
   gridData: FlGridData(
     show: false,
     drawVerticalLine: false,
@@ -29,7 +27,7 @@ final portfolioChart = LineChartData(
       );
     },
   ),
-  
+
   titlesData: FlTitlesData(
     show: true,
     bottomTitles: SideTitles(
@@ -38,7 +36,7 @@ final portfolioChart = LineChartData(
       // textStyle: TextStyle(color: hexaCodeToColor(AppColors.textColor), fontWeight: FontWeight.bold, fontSize: 16),
       getTitles: (value) {
         switch (value.toInt()) {
-          case 0: 
+          case 0:
             return '';
           case 1:
             return '2h';
@@ -87,7 +85,6 @@ final portfolioChart = LineChartData(
   lineBarsData: [
     LineChartBarData(
       spots: [
-
         FlSpot(0, 0),
         FlSpot(0.5, 0.5),
         FlSpot(1, 1),
@@ -117,7 +114,8 @@ final portfolioChart = LineChartData(
   ],
 );
 
-Widget cardToken( /* Card Token Display */
+Widget cardToken(
+  /* Card Token Display */
   String title,
   String tokenAmount,
   String rateColor,
@@ -128,9 +126,9 @@ Widget cardToken( /* Card Token Display */
 ) {
   return Container(
     decoration: BoxDecoration(
-      border: Border.all(width: size1, color: hexaCodeToColor(AppColors.borderColor)),
-      borderRadius: BorderRadius.circular(size5)
-    ),
+        border: Border.all(
+            width: size1, color: hexaCodeToColor(AppColors.borderColor)),
+        borderRadius: BorderRadius.circular(size5)),
     child: Padding(
       padding: EdgeInsets.all(19.0),
       child: Column(
@@ -147,17 +145,17 @@ Widget cardToken( /* Card Token Display */
                 Container(
                   height: 38.0,
                   alignment: Alignment.center,
-                  child: textDisplay( /* Token number */
-                    tokenAmount,
-                    TextStyle(
-                      color: hexaCodeToColor(AppColors.lightBlueSky),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28.0
-                    )
-                  ),
+                  child: textDisplay(
+                      /* Token number */
+                      tokenAmount,
+                      TextStyle(
+                          color: hexaCodeToColor(AppColors.lightBlueSky),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28.0)),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: paddingeBottom6, left: paddingeBottom6),
+                  margin: EdgeInsets.only(
+                      bottom: paddingeBottom6, left: paddingeBottom6),
                   child: Text(
                     "Token",
                     style: TextStyle(color: hexaCodeToColor(greenColor)),
@@ -185,42 +183,39 @@ Widget cardToken( /* Card Token Display */
   );
 }
 
-class AddAssetRowButton extends StatelessWidget{
-  Widget build(BuildContext context) { 
+class AddAssetRowButton extends StatelessWidget {
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => AddAsset())
-        );
-      },
-      child: rowDecorationStyle(
-        child: Row(
-          children: [
-            Container(
-              width: 40.0, height: 40.0,
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddAsset()));
+        },
+        child: rowDecorationStyle(
+            child: Row(children: [
+          Container(
+              width: 40.0,
+              height: 40.0,
               margin: EdgeInsets.only(right: 10.0),
               decoration: BoxDecoration(
-                color: hexaCodeToColor(AppColors.secondary),
-                border: Border.all(width: 1, color: Colors.transparent),
-                borderRadius: BorderRadius.circular(40.0)
-              ),
+                  color: hexaCodeToColor(AppColors.secondary),
+                  border: Border.all(width: 1, color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(40.0)),
               alignment: Alignment.center,
-              child: Icon(LineAwesomeIcons.plus, color: Colors.white,)
-            ),
-
-            Text("Add asset", style: TextStyle(color: fontColorPort, fontSize: fontSizePort,))
-          ]
-        )
-      )
-    );
+              child: Icon(
+                LineAwesomeIcons.plus,
+                color: Colors.white,
+              )),
+          Text("Add asset",
+              style: TextStyle(
+                color: fontColorPort,
+                fontSize: fontSizePort,
+              ))
+        ])));
   }
 }
 
-
-
 /* Build Portfolio If Have List Of Portfolio */
-Widget buildRowList(List<dynamic> portfolioData, int rate){
+Widget buildRowList(List<dynamic> portfolioData, int rate) {
   return ListView.builder(
     padding: EdgeInsets.all(0),
     shrinkWrap: true,
@@ -232,110 +227,99 @@ Widget buildRowList(List<dynamic> portfolioData, int rate){
   );
 }
 
-Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate){
+Widget portFolioItemRow(List<dynamic> portfolioData, int index, int rate) {
   print(rate.isEven);
   return rowDecorationStyle(
-    child: Row(
-      children: <Widget>[
-
-        MyCircularImage(
-          padding: EdgeInsets.all(6),
-          margin: EdgeInsets.only(right: 20),
-          decoration: BoxDecoration(
+      child: Row(
+    children: <Widget>[
+      MyCircularImage(
+        padding: EdgeInsets.all(6),
+        margin: EdgeInsets.only(right: 20),
+        decoration: BoxDecoration(
             color: hexaCodeToColor(AppColors.secondary),
-            borderRadius: BorderRadius.circular(40)
-          ),
-          imagePath: 'assets/sld_logo.svg',
-          width: 50,
-          height: 50,
-          colorImage: Colors.white,
-        ),
+            borderRadius: BorderRadius.circular(40)),
+        imagePath: 'assets/sld_logo.svg',
+        width: 50,
+        height: 50,
+        colorImage: Colors.white,
+      ),
 
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(right: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyText(
-                  text: "SEL",
-                  color: "#FFFFFF",
-                  fontSize: 18,
-                ),
-                MyText(text: "Selendra", fontSize: 15),
-              ],
-            ),
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.only(right: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              MyText(
+                text: "SEL",
+                color: "#FFFFFF",
+                fontSize: 18,
+              ),
+              MyText(text: "Selendra", fontSize: 15),
+            ],
           ),
         ),
+      ),
 
-        // Container(
-        //   width: 80,
-        //   margin: EdgeInsets.only(right: 20),
-        //   alignment: Alignment.center,
-        //   child: SizedBox(
-        //     height: 25,
-        //     child: LineChart(
-        //       portfolioChart
-        //     ),
-        //   ),
-        // ),
+      // Container(
+      //   width: 80,
+      //   margin: EdgeInsets.only(right: 20),
+      //   alignment: Alignment.center,
+      //   child: SizedBox(
+      //     height: 25,
+      //     child: LineChart(
+      //       portfolioChart
+      //     ),
+      //   ),
+      // ),
 
-        Expanded(
+      Expanded(
           child: Container(
-            margin: EdgeInsets.only(right: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyText(
-                  width: double.infinity,
-                  text: "0",//portfolioData[0]["data"]['balance'], 
-                  color: "#FFFFFF", 
-                  fontSize: 18,
-                  textAlign: TextAlign.right,
-                  overflow: TextOverflow.ellipsis
-                ),
-                // MyText(
-                //   width: double.infinity,
-                //   text: "+",//"${!rate.isNegative ? '+' : ''}$rate", 
-                //   textAlign: TextAlign.right,
-                //   color: AppColors.secondary_text,//!rate.isNegative ? AppColors.secondary_text : "#ff1900", 
-                //   fontSize: 15
-                // ),
-              ],
-            ),
-          )
-          
-        )
-      ],
-    )
-  );
+        margin: EdgeInsets.only(right: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MyText(
+                width: double.infinity,
+                text: "0", //portfolioData[0]["data"]['balance'],
+                color: "#FFFFFF",
+                fontSize: 18,
+                textAlign: TextAlign.right,
+                overflow: TextOverflow.ellipsis),
+            // MyText(
+            //   width: double.infinity,
+            //   text: "+",//"${!rate.isNegative ? '+' : ''}$rate",
+            //   textAlign: TextAlign.right,
+            //   color: AppColors.secondary_text,//!rate.isNegative ? AppColors.secondary_text : "#ff1900",
+            //   fontSize: 15
+            // ),
+          ],
+        ),
+      ))
+    ],
+  ));
 }
 
 // Portfolow Row Decoration
-Widget rowDecorationStyle({Widget child, double mTop: 0, double mBottom = 16}){
+Widget rowDecorationStyle({Widget child, double mTop: 0, double mBottom = 16}) {
   return Container(
-    margin: EdgeInsets.only(top: mTop, left: 16, right: 16, bottom: 16),
-    padding: EdgeInsets.fromLTRB(15, 9, 15, 9 ),
-    height: 90,
-    decoration: BoxDecoration(
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black12,
-          blurRadius: 2.0,
-          offset: Offset(1.0, 1.0)
-        )
-      ],
-      color: hexaCodeToColor(AppColors.cardColor),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: child
-  );
+      margin: EdgeInsets.only(top: mTop, left: 16, right: 16, bottom: 16),
+      padding: EdgeInsets.fromLTRB(15, 9, 15, 9),
+      height: 90,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black12, blurRadius: 2.0, offset: Offset(1.0, 1.0))
+        ],
+        color: hexaCodeToColor(AppColors.cardColor),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: child);
 }
 
-class MyBottomAppBar extends StatelessWidget{
-
+class MyBottomAppBar extends StatelessWidget {
   final HomeModel homeM;
   final PortfolioM portfolioM;
   final PostRequest postRequest;
@@ -346,21 +330,20 @@ class MyBottomAppBar extends StatelessWidget{
   final Function fillAddress;
   final Function contactPiker;
   final Function openDrawer;
-  
-  MyBottomAppBar({
-    this.homeM, 
-    this.portfolioM,
-    this.postRequest, 
-    this.scanReceipt, 
-    this.resetDbdState,
-    this.toReceiveToken, 
-    this.opacityController, 
-    this.fillAddress, 
-    this.contactPiker,
-    this.openDrawer
-  });
-  
-  Widget build(BuildContext context){
+
+  MyBottomAppBar(
+      {this.homeM,
+      this.portfolioM,
+      this.postRequest,
+      this.scanReceipt,
+      this.resetDbdState,
+      this.toReceiveToken,
+      this.opacityController,
+      this.fillAddress,
+      this.contactPiker,
+      this.openDrawer});
+
+  Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
       child: BottomAppBar(
@@ -371,39 +354,37 @@ class MyBottomAppBar extends StatelessWidget{
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-
               Expanded(
-                child: MyIconButton(
-                  icon: 'telegram.svg',
-                  onPressed: () async {
-                    MyBottomSheet().trxOptions(context: context, portfolioList: homeM.portfolioList, resetHomeData: resetDbdState);
-                  },
-                )
-              ),
-
+                  child: MyIconButton(
+                icon: 'telegram.svg',
+                onPressed: () async {
+                  MyBottomSheet().trxOptions(
+                      context: context,
+                      portfolioList: homeM.portfolioList,
+                      resetHomeData: resetDbdState);
+                },
+              )),
               Expanded(
-                child: MyIconButton(
-                  icon: 'qr_code.svg',
-                  onPressed: () async {
-                    toReceiveToken();
-                  },
-                )
-              ),
-
+                  child: MyIconButton(
+                icon: 'qr_code.svg',
+                onPressed: () async {
+                  toReceiveToken();
+                },
+              )),
               Expanded(child: Container()),
-
               Expanded(
-                child: MyIconButton(
-                  icon: 'combo_chart.svg',
-                  onPressed: () async {
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => Portfolio(listData: portfolioM.list, listChart: homeM.circularChart,))
-                    );
-                  },
-                )
-              ),
-
+                  child: MyIconButton(
+                icon: 'combo_chart.svg',
+                onPressed: () async {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Portfolio(
+                                listData: portfolioM.list,
+                                listChart: homeM.circularChart,
+                              )));
+                },
+              )),
               Expanded(
                 child: MyIconButton(
                   icon: 'menu.svg',
@@ -418,16 +399,20 @@ class MyBottomAppBar extends StatelessWidget{
   }
 }
 
-
-Widget fabsButton({
-  Animation degOneTranslationAnimation,
-  IconData icon, Duration duration, bool visible, double radien, double distance, Function onPressed
-}){
+Widget fabsButton(
+    {Animation degOneTranslationAnimation,
+    IconData icon,
+    Duration duration,
+    bool visible,
+    double radien,
+    double distance,
+    Function onPressed}) {
   return AnimatedOpacity(
     duration: duration,
     opacity: visible ? 1.0 : 0.0,
     child: Transform.translate(
-      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien), degOneTranslationAnimation.value * distance),
+      offset: Offset.fromDirection(AppServices.getRadienFromDegree(radien),
+          degOneTranslationAnimation.value * distance),
       child: IconButton(
         icon: Icon(icon, color: Colors.white),
         onPressed: onPressed,
@@ -436,86 +421,66 @@ Widget fabsButton({
   );
 }
 
-class MyHomeAppBar extends StatelessWidget{
-
-  final double pLeft; final double pTop; final double pRight; final double pBottom;
+class MyHomeAppBar extends StatelessWidget {
+  final double pLeft;
+  final double pTop;
+  final double pRight;
+  final double pBottom;
   final EdgeInsetsGeometry margin;
-  final String title; 
-  final String subTitle;
+  final String title;
+
   final Function action;
 
-  MyHomeAppBar({
-    this.pLeft = 0,
-    this.pTop = 0,
-    this.pRight = 0,
-    this.pBottom = 0,
-    this.margin = const EdgeInsets.fromLTRB(0, 12, 0, 0),
-    @required this.title,
-    @required this.subTitle,
-    this.action
-  });
-  
+  MyHomeAppBar(
+      {this.pLeft = 0,
+      this.pTop = 0,
+      this.pRight = 0,
+      this.pBottom = 0,
+      this.margin = const EdgeInsets.fromLTRB(0, 12, 0, 0),
+      @required this.title,
+      this.action});
+
   Widget build(BuildContext context) {
     return Container(
-      height: 65.0, 
-      width: MediaQuery.of(context).size.width, 
-      margin: margin,
-      padding: EdgeInsets.only(left: 24, right: 24),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          MyLogo(
-            width: 50, height: 50,
-            logoPath: "assets/sld_logo.svg",
-          ),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MyText(
-                color: "#FFFFFF",
-                text: title,
-                left: 15,
-                fontSize: 18,
-              ),
-
-              MyText(
-                color: "#FFFFFF",
-                text: subTitle,
-                left: 15,
-                fontSize: 18,
-              )
-            ],
-          ),
-          
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: (){
-                  action();
-                },
-                child: Icon(
-                  LineAwesomeIcons.bell,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              )
-            )
-          )
-        ],
-      )
-    );
+        height: 65.0,
+        width: MediaQuery.of(context).size.width,
+        margin: margin,
+        padding: EdgeInsets.only(left: 24, right: 24),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MyLogo(
+              width: 50,
+              height: 50,
+              logoPath: "assets/sld_logo.svg",
+            ),
+            MyText(
+              color: "#FFFFFF",
+              text: title,
+              left: 15,
+              fontSize: 18,
+            ),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        action();
+                      },
+                      child: Icon(
+                        LineAwesomeIcons.bell,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                    )))
+          ],
+        ));
   }
 }
 
 LineChartData mainData() {
-
   return LineChartData(
-    borderData: FlBorderData(
-      show: false
-    ),
+    borderData: FlBorderData(show: false),
     gridData: FlGridData(
       show: true,
       drawVerticalLine: true,
@@ -538,10 +503,11 @@ LineChartData mainData() {
       bottomTitles: SideTitles(
         showTitles: true,
         reservedSize: 6,
-        getTextStyles: (value) => TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+        getTextStyles: (value) => TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         getTitles: (value) {
           switch (value.toInt()) {
-            case 0: 
+            case 0:
               return '';
             case 1:
               return '2h';
@@ -590,7 +556,6 @@ LineChartData mainData() {
     lineBarsData: [
       LineChartBarData(
         spots: [
-
           FlSpot(0, 3),
           FlSpot(0.5, 2.5),
           FlSpot(1, 1),
@@ -614,7 +579,8 @@ LineChartData mainData() {
         ),
         belowBarData: BarAreaData(
           show: true,
-          colors: gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+          colors:
+              gradientColors.map((color) => color.withOpacity(0.3)).toList(),
         ),
       ),
     ],
