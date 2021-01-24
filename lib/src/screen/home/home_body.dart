@@ -4,6 +4,8 @@ import 'package:wallet_apps/src/components/portfolio_c.dart';
 import 'package:wallet_apps/src/components/route_animation.dart';
 import 'package:pie_chart/pie_chart.dart';
 
+import 'asset_info/asset_info.dart';
+
 class HomeBody extends StatelessWidget {
   final Bloc bloc;
   final GlobalKey<AnimatedCircularChartState> chartKey;
@@ -172,13 +174,20 @@ class HomeBody extends StatelessWidget {
         GestureDetector(
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Portfolio(
-                      listData: portfolioM.list,
-                      listChart: homeM.circularChart),
-                ),
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AssetInfo(
+                      accBalance: accBalance,
+                    ),
+                  )
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => Portfolio(
+                  //         listData: portfolioM.list,
+                  //         listChart: homeM.circularChart),
+                  //   ),
+                  );
             },
             child: buildRowList(portfolioM.list, portfolioRateM.totalRate)),
 
@@ -205,70 +214,86 @@ class HomeBody extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-          padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
-          width: double.infinity,
-          height: 200,
-          decoration: BoxDecoration(
-              color: hexaCodeToColor(AppColors.cardColor),
-              borderRadius: BorderRadius.circular(8)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: 150,
-                    height: 150,
-                    child: PieChart(
-                      ringStrokeWidth: 15,
-                      dataMap: dataMap,
-                      chartType: ChartType.ring,
-                      colorList: pieColorList,
-                      centerText: "10%",
-                      legendOptions: LegendOptions(
-                        showLegends: false,
-                      ),
-                      chartValuesOptions: ChartValuesOptions(
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              RouteAnimation(
+                enterPage: Portfolio(
+                  listData: portfolioM.list,
+                  listChart: homeM.circularChart,
+                ),
+              ),
+            );
+          },
+          child: Container(
+            margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+            padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
+            width: double.infinity,
+            height: 200,
+            decoration: BoxDecoration(
+                color: hexaCodeToColor(AppColors.cardColor),
+                borderRadius: BorderRadius.circular(8)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: SizedBox(
+                      width: 150,
+                      height: 150,
+                      child: PieChart(
+                        ringStrokeWidth: 15,
+                        dataMap: dataMap,
+                        chartType: ChartType.ring,
+                        colorList: pieColorList,
+                        centerText: "10%",
+                        legendOptions: LegendOptions(
+                          showLegends: false,
+                        ),
+                        chartValuesOptions: ChartValuesOptions(
                           showChartValues: false,
-                          // showChartValuesInPercentage: true,
                           showChartValueBackground: false,
                           chartValueStyle: TextStyle(
-                              color: hexaCodeToColor("#FFFFFF"), fontSize: 16)),
+                            color: hexaCodeToColor("#FFFFFF"),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
+                Expanded(
                   child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MyPieChartRow(
-                    color: pieColorList[0],
-                    centerText: "SEL",
-                    endText: "25%",
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyPieChartRow(
+                        color: pieColorList[0],
+                        centerText: "KPI",
+                        endText: "25%",
+                      ),
+                      MyPieChartRow(
+                        color: pieColorList[1],
+                        centerText: "SEL",
+                        endText: "50%",
+                      ),
+                      MyPieChartRow(
+                        color: pieColorList[2],
+                        centerText: "POK",
+                        endText: "25%",
+                      ),
+                      MyPieChartRow(
+                        color: pieColorList[3],
+                        centerText: "Emp",
+                        endText: "0%",
+                      ),
+                    ],
                   ),
-                  MyPieChartRow(
-                    color: pieColorList[1],
-                    centerText: "XML",
-                    endText: "50%",
-                  ),
-                  MyPieChartRow(
-                    color: pieColorList[2],
-                    centerText: "POK",
-                    endText: "25%",
-                  ),
-                  MyPieChartRow(
-                    color: pieColorList[3],
-                    centerText: "Emp",
-                    endText: "0%",
-                  ),
-                ],
-              ))
-            ],
+                ),
+              ],
+            ),
           ),
         ),
 

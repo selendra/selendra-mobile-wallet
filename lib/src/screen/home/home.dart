@@ -110,7 +110,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       ];
       // AppServices.noInternetConnection(_homeM.globalKey);
       _homeM.userData = {};
-
+      setChartData();
       getCurrentAccount();
       /* User Profile */
       // getUserData();
@@ -131,6 +131,12 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
       widget.sdk.api.unsubscribeMessage(widget.msgChannel);
     }
     super.dispose();
+  }
+
+  void setChartData() {
+    setState(() {
+      _portfolioM.circularChart = _homeM.circularChart;
+    });
   }
 
   // Initialize Fabs Animation

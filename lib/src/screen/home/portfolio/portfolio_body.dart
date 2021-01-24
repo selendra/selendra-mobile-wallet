@@ -60,72 +60,75 @@ class PortfolioBody extends StatelessWidget {
         else
           Column(
             children: [
-              Container(
-                margin:
-                    EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
-                padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
-                width: double.infinity,
-                height: 200,
-                decoration: BoxDecoration(
-                    color: hexaCodeToColor(AppColors.cardColor),
-                    borderRadius: BorderRadius.circular(8)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: 150,
-                          height: 150,
-                          child: PieChart(
-                            ringStrokeWidth: 15,
-                            dataMap: dataMap,
-                            chartType: ChartType.ring,
-                            colorList: pieColorList,
-                            centerText: "10%",
-                            legendOptions: LegendOptions(
-                              showLegends: false,
+              Hero(
+                tag: 'chart',
+                child: Container(
+                  margin:
+                      EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+                  padding: EdgeInsets.only(left: 25, top: 25, bottom: 25),
+                  width: double.infinity,
+                  height: 200,
+                  decoration: BoxDecoration(
+                      color: hexaCodeToColor(AppColors.cardColor),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            width: 150,
+                            height: 150,
+                            child: PieChart(
+                              ringStrokeWidth: 15,
+                              dataMap: dataMap,
+                              chartType: ChartType.ring,
+                              colorList: pieColorList,
+                              centerText: "10%",
+                              legendOptions: LegendOptions(
+                                showLegends: false,
+                              ),
+                              chartValuesOptions: ChartValuesOptions(
+                                  showChartValues: false,
+                                  // showChartValuesInPercentage: true,
+                                  showChartValueBackground: false,
+                                  chartValueStyle: TextStyle(
+                                      color: hexaCodeToColor("#FFFFFF"),
+                                      fontSize: 16)),
                             ),
-                            chartValuesOptions: ChartValuesOptions(
-                                showChartValues: false,
-                                // showChartValuesInPercentage: true,
-                                showChartValueBackground: false,
-                                chartValueStyle: TextStyle(
-                                    color: hexaCodeToColor("#FFFFFF"),
-                                    fontSize: 16)),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MyPieChartRow(
-                          color: pieColorList[0],
-                          centerText: "SEL",
-                          endText: "25%",
-                        ),
-                        MyPieChartRow(
-                          color: pieColorList[1],
-                          centerText: "XML",
-                          endText: "50%",
-                        ),
-                        MyPieChartRow(
-                          color: pieColorList[2],
-                          centerText: "POK",
-                          endText: "25%",
-                        ),
-                        MyPieChartRow(
-                          color: pieColorList[3],
-                          centerText: "Emp",
-                          endText: "0%",
-                        ),
-                      ],
-                    ))
-                  ],
+                      Expanded(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MyPieChartRow(
+                            color: pieColorList[0],
+                            centerText: "SEL",
+                            endText: "25%",
+                          ),
+                          MyPieChartRow(
+                            color: pieColorList[1],
+                            centerText: "XML",
+                            endText: "50%",
+                          ),
+                          MyPieChartRow(
+                            color: pieColorList[2],
+                            centerText: "POK",
+                            endText: "25%",
+                          ),
+                          MyPieChartRow(
+                            color: pieColorList[3],
+                            centerText: "Emp",
+                            endText: "0%",
+                          ),
+                        ],
+                      ))
+                    ],
+                  ),
                 ),
               ),
 
